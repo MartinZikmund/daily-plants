@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "DailyDozen",
+  "display": "standalone",
+  "name": "DailyDozen",
+  "short_name": "DailyDozen",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
