@@ -12,28 +12,51 @@
                        Style="{StaticResource TitleTextBlockStyle}" />
 
             <!-- Checklists Section -->
-            <StackPanel Spacing="8">
+            <StackPanel Spacing="12">
                 <TextBlock Text="Active Checklists"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock Text="Choose which checklists to track daily"
                            Style="{StaticResource CaptionTextBlockStyle}"
                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
 
-                <ToggleSwitch Header="Daily Dozen"
-                              IsOn="{Binding DailyDozenEnabled, Mode=TwoWay}"
-                              OnContent="Enabled"
-                              OffContent="Disabled"
-                              Margin="0,8,0,0" />
+                <!-- Daily Dozen -->
+                <StackPanel Spacing="4" Margin="0,4,0,0">
+                    <ToggleSwitch Header="Daily Dozen"
+                                  IsOn="{Binding DailyDozenEnabled, Mode=TwoWay}"
+                                  OnContent="Enabled"
+                                  OffContent="Disabled" />
+                    <TextBlock Text="From &quot;How Not to Die&quot; - 12 food groups to eat every day for optimal health"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextWrapping="Wrap"
+                               Margin="0,-4,0,0" />
+                </StackPanel>
 
-                <ToggleSwitch Header="Twenty-One Tweaks"
-                              IsOn="{Binding TwentyOneTweaksEnabled, Mode=TwoWay}"
-                              OnContent="Enabled"
-                              OffContent="Disabled" />
+                <!-- Twenty-One Tweaks -->
+                <StackPanel Spacing="4">
+                    <ToggleSwitch Header="Twenty-One Tweaks"
+                                  IsOn="{Binding TwentyOneTweaksEnabled, Mode=TwoWay}"
+                                  OnContent="Enabled"
+                                  OffContent="Disabled" />
+                    <TextBlock Text="From &quot;How Not to Diet&quot; - 21 weight-loss accelerating habits"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextWrapping="Wrap"
+                               Margin="0,-4,0,0" />
+                </StackPanel>
 
-                <ToggleSwitch Header="Anti-Aging Eight"
-                              IsOn="{Binding AntiAgingEightEnabled, Mode=TwoWay}"
-                              OnContent="Enabled"
-                              OffContent="Disabled" />
+                <!-- Anti-Aging Eight -->
+                <StackPanel Spacing="4">
+                    <ToggleSwitch Header="Anti-Aging Eight"
+                                  IsOn="{Binding AntiAgingEightEnabled, Mode=TwoWay}"
+                                  OnContent="Enabled"
+                                  OffContent="Disabled" />
+                    <TextBlock Text="From &quot;How Not to Age&quot; - 8 key factors for healthy aging"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextWrapping="Wrap"
+                               Margin="0,-4,0,0" />
+                </StackPanel>
             </StackPanel>
 
             <Border Height="1"

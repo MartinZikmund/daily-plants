@@ -64,7 +64,7 @@
         </Grid>
 
         <!-- Progress Bar -->
-        <Grid Grid.Row="1" Padding="16,8">
+        <Grid Grid.Row="1" Padding="16,12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -73,13 +73,14 @@
             <ProgressBar Grid.Column="0"
                          Value="{Binding OverallProgress}"
                          Maximum="1"
-                         Height="8"
-                         CornerRadius="4"
-                         Margin="0,0,12,0" />
+                         Height="12"
+                         CornerRadius="6"
+                         Margin="0,0,16,0" />
 
             <TextBlock Grid.Column="1"
                        Text="{Binding ProgressText}"
-                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                        VerticalAlignment="Center" />
         </Grid>
 
@@ -116,45 +117,60 @@
                             <!-- Serving Controls -->
                             <StackPanel Grid.Column="1"
                                         Orientation="Horizontal"
-                                        Spacing="8"
+                                        Spacing="6"
                                         VerticalAlignment="Center">
+
+                                <!-- Minus Button -->
+                                <Button Command="{Binding DecrementServingCommand}"
+                                        Width="32" Height="32"
+                                        CornerRadius="16"
+                                        Padding="0"
+                                        ToolTipService.ToolTip="Decrease serving"
+                                        Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}">
+                                    <FontIcon Glyph="&#xE738;" FontSize="12" />
+                                </Button>
 
                                 <!-- Serving Count -->
                                 <Border Background="{ThemeResource AccentFillColorDefaultBrush}"
                                         CornerRadius="12"
                                         Padding="12,4"
+                                        MinWidth="48"
                                         Visibility="{Binding IsComplete}">
                                     <TextBlock Text="{Binding ServingsDisplayText}"
                                                Foreground="White"
                                                FontWeight="SemiBold"
-                                               FontSize="14" />
+                                               FontSize="14"
+                                               HorizontalAlignment="Center" />
                                 </Border>
 
                                 <Border Background="{ThemeResource ControlFillColorDefaultBrush}"
                                         CornerRadius="12"
                                         Padding="12,4"
+                                        MinWidth="48"
                                         Visibility="{Binding IsComplete, Converter={StaticResource BoolNegationConverter}}">
                                     <TextBlock Text="{Binding ServingsDisplayText}"
                                                FontWeight="SemiBold"
-                                               FontSize="14" />
+                                               FontSize="14"
+                                               HorizontalAlignment="Center" />
                                 </Border>
 
                                 <!-- Plus Button -->
                                 <Button Command="{Binding IncrementServingCommand}"
-                                        Width="36" Height="36"
-                                        CornerRadius="18"
+                                        Width="32" Height="32"
+                                        CornerRadius="16"
                                         Padding="0"
+                                        ToolTipService.ToolTip="Increase serving"
                                         Style="{StaticResource AccentButtonStyle}">
-                                    <FontIcon Glyph="&#xE710;" FontSize="14" />
+                                    <FontIcon Glyph="&#xE710;" FontSize="12" />
                                 </Button>
 
                                 <!-- Info Button -->
                                 <Button Command="{Binding ShowItemDetailCommand}"
-                                        Width="36" Height="36"
-                                        CornerRadius="18"
+                                        Width="32" Height="32"
+                                        CornerRadius="16"
                                         Padding="0"
                                         ToolTipService.ToolTip="More info">
-                                    <FontIcon Glyph="&#xE946;" FontSize="14" />
+                                    <FontIcon Glyph="&#xE946;" FontSize="12" />
                                 </Button>
                             </StackPanel>
                         </Grid>

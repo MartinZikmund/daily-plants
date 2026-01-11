@@ -17,6 +17,7 @@
       <converters:EmptyToVisibleConverter x:Key="EmptyToVisibleConverter" />
       <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
       <converters:GreaterThanZeroToVisibleConverter x:Key="GreaterThanZeroToVisibleConverter" />
+      <converters:GreaterThanZeroToOpacityConverter x:Key="GreaterThanZeroToOpacityConverter" />
       <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
 
       <!-- Green Theme Colors -->

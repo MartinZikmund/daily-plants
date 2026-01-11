@@ -162,26 +162,26 @@
                     <ItemsRepeater ItemsSource="{Binding WeeklyProgress}">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout Orientation="Horizontal"
-                                               MinItemWidth="80"
-                                               MinItemHeight="120"
+                                               MinItemWidth="70"
+                                               MinItemHeight="130"
                                                ItemsStretch="Fill" />
                         </ItemsRepeater.Layout>
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate x:DataType="vm:DayProgressViewModel">
                                 <StackPanel HorizontalAlignment="Center"
                                             VerticalAlignment="Bottom"
-                                            Spacing="4">
+                                            Spacing="6">
                                     <!-- Progress Bar (vertical) -->
-                                    <Grid Height="60" Width="24">
+                                    <Grid Height="70" Width="28">
                                         <Border Background="{ThemeResource ControlFillColorDefaultBrush}"
-                                                CornerRadius="4" />
+                                                CornerRadius="6" />
                                         <Border Background="{ThemeResource AccentFillColorDefaultBrush}"
-                                                CornerRadius="4"
+                                                CornerRadius="6"
                                                 VerticalAlignment="Bottom">
                                             <Border.Height>
                                                 <Binding Path="Progress">
                                                     <Binding.Converter>
-                                                        <local:ProgressToHeightConverter MaxHeight="60" />
+                                                        <local:ProgressToHeightConverter MaxHeight="70" />
                                                     </Binding.Converter>
                                                 </Binding>
                                             </Border.Height>
@@ -190,6 +190,7 @@
                                     <!-- Percentage -->
                                     <TextBlock Text="{Binding ProgressText}"
                                                Style="{StaticResource CaptionTextBlockStyle}"
+                                               FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <!-- Day Name -->
                                     <TextBlock Text="{Binding DayName}"
