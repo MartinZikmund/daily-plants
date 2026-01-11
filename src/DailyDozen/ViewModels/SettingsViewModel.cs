@@ -32,7 +32,16 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty]
     private int _selectedThemeIndex;
 
+    [ObservableProperty]
+    private string _goalWeightText = "";
+
+    [ObservableProperty]
+    private string _heightText = "";
+
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
+
+    public string WeightUnit => UseMetricUnits ? "kg" : "lb";
+    public string HeightUnit => UseMetricUnits ? "cm" : "in";
 
     public SettingsViewModel(IDataService dataService)
     {
@@ -52,6 +61,12 @@ public partial class SettingsViewModel : ObservableObject
             WeightTrackingEnabled = _settings.WeightTrackingEnabled;
             UseMetricUnits = _settings.UseMetricUnits;
             SelectedThemeIndex = _settings.ThemePreference;
+
+            // Load weight-related settings
+            GoalWeightText = _settings.GoalWeight?.ToString("F1") ?? "";
+            HeightText = _settings.HeightCm?.ToString("F0") ?? "";
+            OnPropertyChanged(nameof(WeightUnit));
+            OnPropertyChanged(nameof(HeightUnit));
         }
         finally
         {
@@ -86,6 +101,34 @@ public partial class SettingsViewModel : ObservableObject
     partial void OnUseMetricUnitsChanged(bool value)
     {
         _settings.UseMetricUnits = value;
+        _ = SaveSettingsAsync();
+        OnPropertyChanged(nameof(WeightUnit));
+        OnPropertyChanged(nameof(HeightUnit));
+    }
+
+    partial void OnGoalWeightTextChanged(string value)
+    {
+        if (double.TryParse(value, out var weight) && weight > 0)
+        {
+            _settings.GoalWeight = weight;
+        }
+        else
+        {
+            _settings.GoalWeight = null;
+        }
+        _ = SaveSettingsAsync();
+    }
+
+    partial void OnHeightTextChanged(string value)
+    {
+        if (double.TryParse(value, out var height) && height > 0)
+        {
+            _settings.HeightCm = height;
+        }
+        else
+        {
+            _settings.HeightCm = null;
+        }
         _ = SaveSettingsAsync();
     }
 

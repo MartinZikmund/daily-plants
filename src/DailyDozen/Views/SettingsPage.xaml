@@ -52,6 +52,36 @@
                               OnContent="Enabled"
                               OffContent="Disabled"
                               Margin="0,8,0,0" />
+
+                <!-- Goal Weight and Height (visible when weight tracking is enabled) -->
+                <StackPanel Spacing="12"
+                            Visibility="{Binding WeightTrackingEnabled}"
+                            Margin="0,8,0,0">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox Header="Goal Weight"
+                                 Text="{Binding GoalWeightText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 PlaceholderText="Optional"
+                                 Width="120"
+                                 InputScope="Number" />
+                        <TextBlock Text="{Binding WeightUnit}"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0,0,0,10"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox Header="Height (for BMI)"
+                                 Text="{Binding HeightText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 PlaceholderText="Optional"
+                                 Width="120"
+                                 InputScope="Number" />
+                        <TextBlock Text="{Binding HeightUnit}"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0,0,0,10"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
 
             <Border Height="1"

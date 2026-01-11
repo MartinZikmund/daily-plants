@@ -51,6 +51,41 @@ public partial class StatisticsViewModel : ObservableObject
     // Weekly Chart Data
     public ObservableCollection<DayProgressViewModel> WeeklyProgress { get; } = [];
 
+    // Weight Tracking
+    [ObservableProperty]
+    private bool _weightTrackingEnabled;
+
+    [ObservableProperty]
+    private bool _useMetricUnits;
+
+    [ObservableProperty]
+    private string _weightInputText = "";
+
+    [ObservableProperty]
+    private double? _todayWeight;
+
+    [ObservableProperty]
+    private string _todayWeightText = "No entry";
+
+    [ObservableProperty]
+    private double? _goalWeight;
+
+    [ObservableProperty]
+    private string _goalWeightText = "Not set";
+
+    [ObservableProperty]
+    private string _weightChangeText = "";
+
+    [ObservableProperty]
+    private string _bmiText = "";
+
+    [ObservableProperty]
+    private double? _heightCm;
+
+    public string WeightUnit => UseMetricUnits ? "kg" : "lb";
+
+    public ObservableCollection<WeightDataPoint> WeightHistory { get; } = [];
+
     public StatisticsViewModel(IDataService dataService)
     {
         _dataService = dataService;
@@ -65,31 +100,47 @@ public partial class StatisticsViewModel : ObservableObject
             var settings = await _dataService.GetSettingsAsync();
             var enabledItems = GetEnabledItems(settings);
 
-            if (enabledItems.Count == 0)
+            // Load weight settings
+            WeightTrackingEnabled = settings.WeightTrackingEnabled;
+            UseMetricUnits = settings.UseMetricUnits;
+            GoalWeight = settings.GoalWeight;
+            HeightCm = settings.HeightCm;
+            OnPropertyChanged(nameof(WeightUnit));
+
+            if (enabledItems.Count == 0 && !WeightTrackingEnabled)
             {
-                // No checklists enabled
+                // Nothing to show
                 return;
             }
 
             var today = DateOnly.FromDateTime(DateTime.Today);
 
-            // Calculate today's progress
-            await CalculateTodayProgressAsync(today, enabledItems);
+            if (enabledItems.Count > 0)
+            {
+                // Calculate today's progress
+                await CalculateTodayProgressAsync(today, enabledItems);
 
-            // Calculate week progress
-            await CalculateWeekProgressAsync(today, enabledItems);
+                // Calculate week progress
+                await CalculateWeekProgressAsync(today, enabledItems);
 
-            // Calculate month progress
-            await CalculateMonthProgressAsync(today, enabledItems);
+                // Calculate month progress
+                await CalculateMonthProgressAsync(today, enabledItems);
 
-            // Calculate streaks
-            await CalculateStreaksAsync();
+                // Calculate streaks
+                await CalculateStreaksAsync();
 
-            // Calculate per-item stats
-            await CalculateItemStatsAsync(today, enabledItems);
+                // Calculate per-item stats
+                await CalculateItemStatsAsync(today, enabledItems);
 
-            // Calculate weekly chart data
-            await CalculateWeeklyChartAsync(today, enabledItems);
+                // Calculate weekly chart data
+                await CalculateWeeklyChartAsync(today, enabledItems);
+            }
+
+            // Load weight data if enabled
+            if (WeightTrackingEnabled)
+            {
+                await LoadWeightDataAsync(today);
+            }
         }
         finally
         {
@@ -254,6 +305,150 @@ public partial class StatisticsViewModel : ObservableObject
         // Remove duplicates (smart merge)
         return items.GroupBy(i => i.Id).Select(g => g.First()).ToList();
     }
+
+    // ===== Weight Tracking Methods =====
+
+    private async Task LoadWeightDataAsync(DateOnly today)
+    {
+        // Load today's weight
+        var todayEntry = await _dataService.GetWeightEntryAsync(today);
+        if (todayEntry != null)
+        {
+            TodayWeight = todayEntry.Weight;
+            WeightInputText = todayEntry.Weight.ToString("F1");
+            TodayWeightText = FormatWeight(todayEntry.Weight);
+        }
+        else
+        {
+            TodayWeight = null;
+            WeightInputText = "";
+            TodayWeightText = "No entry";
+        }
+
+        // Format goal weight
+        if (GoalWeight.HasValue)
+        {
+            GoalWeightText = FormatWeight(GoalWeight.Value);
+        }
+        else
+        {
+            GoalWeightText = "Not set";
+        }
+
+        // Load weight history (last 30 days)
+        var startDate = today.AddDays(-29);
+        var entries = await _dataService.GetWeightEntriesInRangeAsync(startDate, today);
+
+        WeightHistory.Clear();
+        foreach (var entry in entries)
+        {
+            WeightHistory.Add(new WeightDataPoint
+            {
+                Date = entry.Date,
+                Weight = entry.Weight,
+                DateText = entry.Date.ToString("M/d"),
+                WeightText = FormatWeight(entry.Weight)
+            });
+        }
+
+        // Calculate weight change
+        CalculateWeightChange(entries);
+
+        // Calculate BMI if height is set
+        CalculateBmi();
+    }
+
+    private void CalculateWeightChange(IReadOnlyList<WeightEntry> entries)
+    {
+        if (entries.Count < 2)
+        {
+            WeightChangeText = "";
+            return;
+        }
+
+        var oldest = entries.First();
+        var newest = entries.Last();
+        var change = newest.Weight - oldest.Weight;
+        var unit = WeightUnit;
+
+        if (Math.Abs(change) < 0.1)
+        {
+            WeightChangeText = "No change";
+        }
+        else if (change > 0)
+        {
+            WeightChangeText = $"+{change:F1} {unit}";
+        }
+        else
+        {
+            WeightChangeText = $"{change:F1} {unit}";
+        }
+    }
+
+    private void CalculateBmi()
+    {
+        if (!TodayWeight.HasValue || !HeightCm.HasValue || HeightCm.Value <= 0)
+        {
+            BmiText = "";
+            return;
+        }
+
+        // Convert weight to kg if in imperial
+        var weightKg = UseMetricUnits ? TodayWeight.Value : TodayWeight.Value * 0.453592;
+        var heightM = HeightCm.Value / 100.0;
+        var bmi = weightKg / (heightM * heightM);
+
+        var category = bmi switch
+        {
+            < 18.5 => "Underweight",
+            < 25 => "Normal",
+            < 30 => "Overweight",
+            _ => "Obese"
+        };
+
+        BmiText = $"BMI: {bmi:F1} ({category})";
+    }
+
+    private string FormatWeight(double weight)
+    {
+        return $"{weight:F1} {WeightUnit}";
+    }
+
+    [RelayCommand]
+    private async Task SaveTodayWeightAsync()
+    {
+        if (string.IsNullOrWhiteSpace(WeightInputText))
+        {
+            return;
+        }
+
+        if (!double.TryParse(WeightInputText, out var weight) || weight <= 0)
+        {
+            return;
+        }
+
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        var entry = new WeightEntry
+        {
+            Date = today,
+            Weight = weight
+        };
+
+        await _dataService.SaveWeightEntryAsync(entry);
+
+        // Reload weight data
+        await LoadWeightDataAsync(today);
+    }
+
+    [RelayCommand]
+    private async Task DeleteTodayWeightAsync()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        await _dataService.DeleteWeightEntryAsync(today);
+
+        // Reload weight data
+        await LoadWeightDataAsync(today);
+    }
 }
 
 /// <summary>
@@ -278,4 +473,15 @@ public class DayProgressViewModel
     public double Progress { get; set; }
     public string ProgressText { get; set; } = "0%";
     public bool IsToday { get; set; }
+}
+
+/// <summary>
+/// Data point for weight chart.
+/// </summary>
+public class WeightDataPoint
+{
+    public DateOnly Date { get; set; }
+    public double Weight { get; set; }
+    public string DateText { get; set; } = string.Empty;
+    public string WeightText { get; set; } = string.Empty;
 }
