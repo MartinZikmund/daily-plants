@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(dir:*)",
+      "Bash(tree:*)",
+      "WebSearch",
+      "WebFetch(domain:nutritionfacts.org)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet restore:*)",
+      "mcp__uno__uno_platform_agent_rules_init",
+      "Bash($env:DOTNET_MODIFIABLE_ASSEMBLIES = \"debug\")",
+      "Bash(Start-Job { dotnet run -f net9.0-desktop --project \"D:\\\\Personal\\\\daily-dozen\\\\src\\\\DailyDozen\\\\DailyDozen.csproj\" 2)",
+      "Bash(1 })",
+      "Bash(tasklist:*)",
+      "mcp__uno-app__uno_app_start",
+      "mcp__uno-app__uno_app_get_screenshot",
+      "mcp__uno-app__uno_app_pointer_click",
+      "mcp__uno-app__uno_app_key_press",
+      "mcp__uno-app__uno_app_close",
+      "Bash(git add:*)"
+    ]
+  }
+}

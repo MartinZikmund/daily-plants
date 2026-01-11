@@ -36,7 +36,12 @@
       Hosting;
       Mvvm;
       SkiaRenderer;
+      Toolkit;
     </UnoFeatures>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" />
+  </ItemGroup>
 
 </Project>

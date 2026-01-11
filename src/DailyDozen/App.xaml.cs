@@ -1,6 +1,9 @@
+using DailyDozen.Services;
+using DailyDozen.Views;
 using Uno.Resizetizer;
 
 namespace DailyDozen;
+
 public partial class App : Application
 {
     /// <summary>
@@ -15,7 +18,17 @@ public partial class App : Application
     protected Window? MainWindow { get; private set; }
     protected IHost? Host { get; private set; }
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    /// <summary>
+    /// Gets the current App instance.
+    /// </summary>
+    public static new App Current => (App)Application.Current;
+
+    /// <summary>
+    /// Gets the service provider for dependency injection.
+    /// </summary>
+    public IServiceProvider? Services => Host?.Services;
+
+    protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
         var builder = this.CreateBuilder(args)
             .Configure(host => host
@@ -25,8 +38,8 @@ public partial class App : Application
 #endif
                 .ConfigureServices((context, services) =>
                 {
-                    // TODO: Register your services
-                    //services.AddSingleton<IMyService, MyService>();
+                    // Register services
+                    services.AddSingleton<IDataService, SqliteDataService>();
                 })
             );
         MainWindow = builder.Window;
@@ -37,6 +50,10 @@ public partial class App : Application
         MainWindow.SetWindowIcon();
 
         Host = builder.Build();
+
+        // Initialize the database
+        var dataService = Host.Services.GetRequiredService<IDataService>();
+        await dataService.InitializeAsync();
 
         // Do not repeat app initialization when the Window already has content,
         // just ensure that the window is active
@@ -51,10 +68,8 @@ public partial class App : Application
 
         if (rootFrame.Content == null)
         {
-            // When the navigation stack isn't restored navigate to the first page,
-            // configuring the new page by passing required information as a navigation
-            // parameter
-            rootFrame.Navigate(typeof(MainPage), args.Arguments);
+            // Navigate to the shell page
+            rootFrame.Navigate(typeof(ShellPage), args.Arguments);
         }
         // Ensure the current window is active
         MainWindow.Activate();

@@ -1,0 +1,102 @@
+<Page x:Class="DailyDozen.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:DailyDozen.Views"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="16" Spacing="24" MaxWidth="600">
+
+            <!-- Header -->
+            <TextBlock Text="Settings"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+
+            <!-- Checklists Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Active Checklists"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="Choose which checklists to track daily"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ToggleSwitch Header="Daily Dozen"
+                              IsOn="{Binding DailyDozenEnabled, Mode=TwoWay}"
+                              OnContent="Enabled"
+                              OffContent="Disabled"
+                              Margin="0,8,0,0" />
+
+                <ToggleSwitch Header="Twenty-One Tweaks"
+                              IsOn="{Binding TwentyOneTweaksEnabled, Mode=TwoWay}"
+                              OnContent="Enabled"
+                              OffContent="Disabled" />
+
+                <ToggleSwitch Header="Anti-Aging Eight"
+                              IsOn="{Binding AntiAgingEightEnabled, Mode=TwoWay}"
+                              OnContent="Enabled"
+                              OffContent="Disabled" />
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Weight Tracking Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Weight Tracking"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="Track your weight over time"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ToggleSwitch Header="Enable Weight Tracking"
+                              IsOn="{Binding WeightTrackingEnabled, Mode=TwoWay}"
+                              OnContent="Enabled"
+                              OffContent="Disabled"
+                              Margin="0,8,0,0" />
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Units Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Units"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="Choose your preferred measurement units"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ToggleSwitch Header="Use Metric Units"
+                              IsOn="{Binding UseMetricUnits, Mode=TwoWay}"
+                              OnContent="Metric (kg, cm)"
+                              OffContent="Imperial (lb, in)"
+                              Margin="0,8,0,0" />
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Data Management Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Data Management"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="Export or import your tracking data"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+                    <Button Content="Export Data"
+                            Style="{StaticResource AccentButtonStyle}"
+                            IsEnabled="False" />
+                    <Button Content="Import Data"
+                            IsEnabled="False" />
+                </StackPanel>
+                <TextBlock Text="Export/Import coming soon"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                           FontStyle="Italic" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>

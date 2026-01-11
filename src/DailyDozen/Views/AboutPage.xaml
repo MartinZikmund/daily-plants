@@ -1,0 +1,59 @@
+<Page x:Class="DailyDozen.Views.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:DailyDozen.Views"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer Padding="16">
+        <StackPanel Spacing="16"
+                    MaxWidth="600"
+                    HorizontalAlignment="Center">
+
+            <!-- App Logo/Title -->
+            <StackPanel Spacing="8" HorizontalAlignment="Center">
+                <FontIcon Glyph="&#xE8BA;"
+                          FontSize="64"
+                          Foreground="{ThemeResource AccentFillColorDefaultBrush}" />
+                <TextBlock Text="Daily Dozen"
+                           Style="{StaticResource TitleLargeTextBlockStyle}"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="Version 1.0"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Description -->
+            <TextBlock TextWrapping="Wrap"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       TextAlignment="Center">
+                Track your daily nutrition based on Dr. Michael Greger's recommendations
+                from his books How Not to Die, How Not to Diet, and How Not to Age.
+            </TextBlock>
+
+            <!-- Links -->
+            <StackPanel Spacing="8">
+                <HyperlinkButton Content="NutritionFacts.org"
+                                 NavigateUri="https://nutritionfacts.org"
+                                 HorizontalAlignment="Center" />
+                <HyperlinkButton Content="Daily Dozen on NutritionFacts.org"
+                                 NavigateUri="https://nutritionfacts.org/daily-dozen/"
+                                 HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Credits -->
+            <StackPanel Spacing="4" Margin="0,16,0,0">
+                <TextBlock Text="Built with Uno Platform"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="Based on Dr. Michael Greger's research"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>
