@@ -147,6 +147,15 @@
                                         Style="{StaticResource AccentButtonStyle}">
                                     <FontIcon Glyph="&#xE710;" FontSize="14" />
                                 </Button>
+
+                                <!-- Info Button -->
+                                <Button Command="{Binding ShowItemDetailCommand}"
+                                        Width="36" Height="36"
+                                        CornerRadius="18"
+                                        Padding="0"
+                                        ToolTipService.ToolTip="More info">
+                                    <FontIcon Glyph="&#xE946;" FontSize="14" />
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

@@ -40,6 +40,7 @@ public partial class App : Application
                 {
                     // Register services
                     services.AddSingleton<IDataService, SqliteDataService>();
+                    services.AddTransient<IExportService, ExportService>();
                 })
             );
         MainWindow = builder.Window;

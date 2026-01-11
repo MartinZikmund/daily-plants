@@ -10,7 +10,8 @@ public sealed partial class SettingsPage : Page
     public SettingsPage()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
-        ViewModel = new SettingsViewModel(dataService);
+        var exportService = App.Current.Services!.GetRequiredService<IExportService>();
+        ViewModel = new SettingsViewModel(dataService, exportService);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;

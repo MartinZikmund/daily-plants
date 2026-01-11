@@ -30,6 +30,8 @@ public partial class TodayViewModel : ObservableObject
 
     public DateOnly CurrentDate => _currentDate;
 
+    public event EventHandler<ChecklistItem>? ItemDetailRequested;
+
     public TodayViewModel(IDataService dataService)
     {
         _dataService = dataService;
@@ -76,6 +78,7 @@ public partial class TodayViewModel : ObservableObject
                 var entry = entries.FirstOrDefault(e => e.ItemId == item.Id);
                 var itemVm = new ChecklistItemViewModel(item, _currentDate, entry?.ServingsCompleted ?? 0);
                 itemVm.ServingsChanged += OnItemServingsChanged;
+                itemVm.ItemDetailRequested += OnItemDetailRequested;
                 Items.Add(itemVm);
             }
 
@@ -152,6 +155,11 @@ public partial class TodayViewModel : ObservableObject
         }
     }
 
+    private void OnItemDetailRequested(object? sender, ChecklistItem item)
+    {
+        ItemDetailRequested?.Invoke(this, item);
+    }
+
     private void UpdateProgress()
     {
         if (Items.Count == 0)
@@ -182,6 +190,7 @@ public partial class ChecklistItemViewModel : ObservableObject
     private int _servingsCompleted;
 
     public event EventHandler<int>? ServingsChanged;
+    public event EventHandler<ChecklistItem>? ItemDetailRequested;
 
     public ChecklistItemViewModel(ChecklistItem item, DateOnly date, int servingsCompleted)
     {
@@ -242,5 +251,11 @@ public partial class ChecklistItemViewModel : ObservableObject
         OnPropertyChanged(nameof(Progress));
         OnPropertyChanged(nameof(IsComplete));
         ServingsChanged?.Invoke(this, ServingsCompleted);
+    }
+
+    [RelayCommand]
+    private void ShowItemDetail()
+    {
+        ItemDetailRequested?.Invoke(this, Item);
     }
 }
