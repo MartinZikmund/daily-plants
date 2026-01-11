@@ -15,7 +15,7 @@ public partial class App : Application
         this.InitializeComponent();
     }
 
-    protected Window? MainWindow { get; private set; }
+    public Window? MainWindow { get; private set; }
     protected IHost? Host { get; private set; }
 
     /// <summary>
@@ -73,5 +73,22 @@ public partial class App : Application
         }
         // Ensure the current window is active
         MainWindow.Activate();
+
+        // Apply saved theme preference
+        await ApplyThemeAsync(dataService);
+    }
+
+    private async Task ApplyThemeAsync(IDataService dataService)
+    {
+        var settings = await dataService.GetSettingsAsync();
+        if (MainWindow?.Content is FrameworkElement rootElement)
+        {
+            rootElement.RequestedTheme = settings.ThemePreference switch
+            {
+                1 => ElementTheme.Light,
+                2 => ElementTheme.Dark,
+                _ => ElementTheme.Default
+            };
+        }
     }
 }

@@ -75,6 +75,24 @@
             <Border Height="1"
                     Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
+            <!-- Appearance Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Appearance"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="Customize how the app looks"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ComboBox Header="Theme"
+                          ItemsSource="{Binding ThemeOptions}"
+                          SelectedIndex="{Binding SelectedThemeIndex, Mode=TwoWay}"
+                          Margin="0,8,0,0"
+                          MinWidth="200" />
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
             <!-- Data Management Section -->
             <StackPanel Spacing="8">
                 <TextBlock Text="Data Management"
