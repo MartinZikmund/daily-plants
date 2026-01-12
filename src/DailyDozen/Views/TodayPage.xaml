@@ -4,6 +4,7 @@
       xmlns:local="using:DailyDozen.Views"
       xmlns:vm="using:DailyDozen.ViewModels"
       xmlns:utu="using:Uno.Toolkit.UI"
+      xmlns:helpers="using:DailyDozen.Helpers"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -28,7 +29,7 @@
                     Width="40" Height="40"
                     CornerRadius="20"
                     Padding="0"
-                    ToolTipService.ToolTip="Previous day">
+                    ToolTipService.ToolTip="{helpers:Localize Key=Today_PreviousDay}">
                 <FontIcon Glyph="&#xE76B;" FontSize="16" />
             </Button>
 
@@ -38,7 +39,7 @@
                 <TextBlock Text="{Binding DateDisplayText}"
                            HorizontalAlignment="Center"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
-                <Button Content="Go to Today"
+                <Button Content="{helpers:Localize Key=Today_GoToToday}"
                         HorizontalAlignment="Center"
                         Margin="0,4,0,0"
                         Padding="12,4"
@@ -58,7 +59,7 @@
                     Width="40" Height="40"
                     CornerRadius="20"
                     Padding="0"
-                    ToolTipService.ToolTip="Next day">
+                    ToolTipService.ToolTip="{helpers:Localize Key=Today_NextDay}">
                 <FontIcon Glyph="&#xE76C;" FontSize="16" />
             </Button>
         </Grid>
@@ -125,7 +126,6 @@
                                         Width="32" Height="32"
                                         CornerRadius="16"
                                         Padding="0"
-                                        ToolTipService.ToolTip="Decrease serving"
                                         Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}">
                                     <FontIcon Glyph="&#xE738;" FontSize="12" />
                                 </Button>
@@ -159,7 +159,6 @@
                                         Width="32" Height="32"
                                         CornerRadius="16"
                                         Padding="0"
-                                        ToolTipService.ToolTip="Increase serving"
                                         Style="{StaticResource AccentButtonStyle}">
                                     <FontIcon Glyph="&#xE710;" FontSize="12" />
                                 </Button>
@@ -168,8 +167,7 @@
                                 <Button Command="{Binding ShowItemDetailCommand}"
                                         Width="32" Height="32"
                                         CornerRadius="16"
-                                        Padding="0"
-                                        ToolTipService.ToolTip="More info">
+                                        Padding="0">
                                     <FontIcon Glyph="&#xE946;" FontSize="12" />
                                 </Button>
                             </StackPanel>
@@ -192,11 +190,11 @@
                     VerticalAlignment="Center"
                     Visibility="{Binding Items.Count, Converter={StaticResource EmptyToVisibleConverter}}">
             <FontIcon Glyph="&#xE71E;" FontSize="48" Opacity="0.5" />
-            <TextBlock Text="No checklists enabled"
+            <TextBlock Text="{helpers:Localize Key=Today_NoChecklists}"
                        Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,12,0,4"
                        Opacity="0.7" />
-            <TextBlock Text="Enable a checklist in Settings to get started"
+            <TextBlock Text="{helpers:Localize Key=Today_EnableChecklist}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
         </StackPanel>

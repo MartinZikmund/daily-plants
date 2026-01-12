@@ -3,18 +3,19 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyDozen.Views"
       xmlns:vm="using:DailyDozen.ViewModels"
+      xmlns:helpers="using:DailyDozen.Helpers"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <ScrollViewer>
         <StackPanel Padding="16" Spacing="24" MaxWidth="800">
 
             <!-- Header -->
-            <TextBlock Text="Statistics"
+            <TextBlock Text="{helpers:Localize Key=Stats_Title}"
                        Style="{StaticResource TitleTextBlockStyle}" />
 
             <!-- Overview Cards -->
             <StackPanel Spacing="8">
-                <TextBlock Text="Overview"
+                <TextBlock Text="{helpers:Localize Key=Stats_Overview}"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
 
                 <Grid ColumnSpacing="12" RowSpacing="12">
@@ -30,7 +31,7 @@
                             CornerRadius="8"
                             Padding="16">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="Today"
+                            <TextBlock Text="{helpers:Localize Key=Stats_TodayProgress}"
                                        Style="{StaticResource CaptionTextBlockStyle}"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
@@ -52,7 +53,7 @@
                             CornerRadius="8"
                             Padding="16">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="This Week"
+                            <TextBlock Text="{helpers:Localize Key=Stats_WeekAverage}"
                                        Style="{StaticResource CaptionTextBlockStyle}"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
@@ -74,7 +75,7 @@
                             CornerRadius="8"
                             Padding="16">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="This Month"
+                            <TextBlock Text="{helpers:Localize Key=Stats_MonthAverage}"
                                        Style="{StaticResource CaptionTextBlockStyle}"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
@@ -94,7 +95,7 @@
 
             <!-- Streaks Section -->
             <StackPanel Spacing="8">
-                <TextBlock Text="Streaks"
+                <TextBlock Text="{helpers:Localize Key=Stats_Streaks}"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
 
                 <Grid ColumnSpacing="12">
@@ -113,16 +114,13 @@
                                 <FontIcon Glyph="&#xE945;"
                                           Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                           FontSize="24" />
-                                <TextBlock Text="Current Streak"
+                                <TextBlock Text="{helpers:Localize Key=Stats_CurrentStreak}"
                                            Style="{StaticResource BodyStrongTextBlockStyle}"
                                            VerticalAlignment="Center" />
                             </StackPanel>
                             <TextBlock Text="{Binding CurrentStreakText}"
                                        Style="{StaticResource TitleLargeTextBlockStyle}"
                                        Margin="0,8,0,0" />
-                            <TextBlock Text="consecutive days at 100%"
-                                       Style="{StaticResource CaptionTextBlockStyle}"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                         </StackPanel>
                     </Border>
 
@@ -136,16 +134,13 @@
                                 <FontIcon Glyph="&#xE735;"
                                           Foreground="Gold"
                                           FontSize="24" />
-                                <TextBlock Text="Longest Streak"
+                                <TextBlock Text="{helpers:Localize Key=Stats_LongestStreak}"
                                            Style="{StaticResource BodyStrongTextBlockStyle}"
                                            VerticalAlignment="Center" />
                             </StackPanel>
                             <TextBlock Text="{Binding LongestStreakText}"
                                        Style="{StaticResource TitleLargeTextBlockStyle}"
                                        Margin="0,8,0,0" />
-                            <TextBlock Text="personal best"
-                                       Style="{StaticResource CaptionTextBlockStyle}"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -153,7 +148,7 @@
 
             <!-- Weekly Progress Chart -->
             <StackPanel Spacing="8">
-                <TextBlock Text="Last 7 Days"
+                <TextBlock Text="{helpers:Localize Key=Stats_Last7Days}"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
 
                 <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -206,7 +201,7 @@
 
             <!-- Top Items Performance -->
             <StackPanel Spacing="8">
-                <TextBlock Text="Item Performance (Last 30 Days)"
+                <TextBlock Text="{helpers:Localize Key=Stats_PerItemBreakdown}"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
 
                 <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -251,7 +246,7 @@
             <!-- Weight Tracking Section -->
             <StackPanel Spacing="8"
                         Visibility="{Binding WeightTrackingEnabled}">
-                <TextBlock Text="Weight Tracking"
+                <TextBlock Text="{helpers:Localize Key=Stats_WeightTrend}"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
 
                 <!-- Today's Weight Entry -->
@@ -273,7 +268,7 @@
                             <FontIcon Glyph="&#xE8F1;"
                                       Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                       FontSize="24" />
-                            <TextBlock Text="Today's Weight"
+                            <TextBlock Text="{helpers:Localize Key=Stats_AddWeight}"
                                        Style="{StaticResource BodyStrongTextBlockStyle}"
                                        VerticalAlignment="Center" />
                         </StackPanel>
@@ -289,19 +284,15 @@
                         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
                                     Orientation="Horizontal" Spacing="8">
                             <TextBox Text="{Binding WeightInputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     PlaceholderText="Enter weight"
                                      Width="120"
                                      InputScope="Number" />
                             <TextBlock Text="{Binding WeightUnit}"
                                        VerticalAlignment="Center"
                                        Style="{StaticResource BodyTextBlockStyle}"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                            <Button Content="Save"
+                            <Button Content="{helpers:Localize Key=Common_Save}"
                                     Command="{Binding SaveTodayWeightCommand}"
                                     Style="{StaticResource AccentButtonStyle}" />
-                            <Button Content="Delete"
-                                    Command="{Binding DeleteTodayWeightCommand}"
-                                    Visibility="{Binding TodayWeight, Converter={StaticResource NullToCollapsedConverter}}" />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -320,7 +311,7 @@
                             CornerRadius="8"
                             Padding="16">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="Goal"
+                            <TextBlock Text="{helpers:Localize Key=Stats_GoalWeight}"
                                        Style="{StaticResource CaptionTextBlockStyle}"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
@@ -337,7 +328,7 @@
                             CornerRadius="8"
                             Padding="16">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="30-Day Change"
+                            <TextBlock Text="30-Day"
                                        Style="{StaticResource CaptionTextBlockStyle}"
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" />
@@ -415,12 +406,12 @@
                         Visibility="{Binding ItemStats.Count, Converter={StaticResource EmptyToVisibleConverter}}"
                         Margin="0,32">
                 <FontIcon Glyph="&#xE9D9;" FontSize="48" Opacity="0.5" />
-                <TextBlock Text="No data yet"
+                <TextBlock Text="{helpers:Localize Key=Stats_NoWeightData}"
                            Style="{StaticResource SubtitleTextBlockStyle}"
                            Margin="0,12,0,4"
                            Opacity="0.7"
                            HorizontalAlignment="Center" />
-                <TextBlock Text="Start tracking on the Today page to see your statistics"
+                <TextBlock Text="{helpers:Localize Key=Stats_AddFirstWeight}"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                            HorizontalAlignment="Center" />

@@ -11,7 +11,8 @@ public sealed partial class TodayPage : Page
     public TodayPage()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
-        ViewModel = new TodayViewModel(dataService);
+        var achievementService = App.Current.Services!.GetService<IAchievementService>();
+        ViewModel = new TodayViewModel(dataService, achievementService);
         ViewModel.ItemDetailRequested += ViewModel_ItemDetailRequested;
 
         this.InitializeComponent();

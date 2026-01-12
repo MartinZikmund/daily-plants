@@ -94,4 +94,46 @@ public interface IDataService
     /// Gets dates that have any entries (for calendar highlighting).
     /// </summary>
     Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync();
+
+    // ===== Achievements =====
+
+    /// <summary>
+    /// Gets all earned achievements.
+    /// </summary>
+    Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync();
+
+    /// <summary>
+    /// Saves a newly earned achievement.
+    /// </summary>
+    Task SaveEarnedAchievementAsync(EarnedAchievement achievement);
+
+    /// <summary>
+    /// Checks if an achievement has been earned.
+    /// </summary>
+    Task<bool> IsAchievementEarnedAsync(string achievementId);
+
+    /// <summary>
+    /// Gets the count of unseen achievements.
+    /// </summary>
+    Task<int> GetUnseenAchievementCountAsync();
+
+    /// <summary>
+    /// Marks all achievements as seen.
+    /// </summary>
+    Task MarkAllAchievementsAsSeenAsync();
+
+    /// <summary>
+    /// Gets the total count of perfect days (100% completion).
+    /// </summary>
+    Task<int> GetPerfectDaysCountAsync();
+
+    /// <summary>
+    /// Gets the total count of days where a specific item was completed.
+    /// </summary>
+    Task<int> GetItemCompletionCountAsync(string itemId);
+
+    /// <summary>
+    /// Gets the total number of days with any entries.
+    /// </summary>
+    Task<int> GetTotalDaysTrackedAsync();
 }

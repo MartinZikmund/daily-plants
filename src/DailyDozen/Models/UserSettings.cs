@@ -44,4 +44,9 @@ public class UserSettings
     /// Theme preference: 0 = System, 1 = Light, 2 = Dark.
     /// </summary>
     public int ThemePreference { get; set; } = 0;
+
+    /// <summary>
+    /// Language code (e.g., "en", "cs"). Null means system default.
+    /// </summary>
+    public string? Language { get; set; }
 }

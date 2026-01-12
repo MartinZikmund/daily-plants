@@ -40,6 +40,8 @@ public partial class App : Application
                 {
                     // Register services
                     services.AddSingleton<IDataService, SqliteDataService>();
+                    services.AddSingleton<ILocalizationService, LocalizationService>();
+                    services.AddSingleton<IAchievementService, AchievementService>();
                     services.AddTransient<IExportService, ExportService>();
                 })
             );
@@ -55,6 +57,14 @@ public partial class App : Application
         // Initialize the database
         var dataService = Host.Services.GetRequiredService<IDataService>();
         await dataService.InitializeAsync();
+
+        // Initialize localization (must be done before UI is created)
+        var localizationService = Host.Services.GetRequiredService<ILocalizationService>();
+        await localizationService.InitializeAsync();
+
+        // Initialize achievement service
+        var achievementService = Host.Services.GetRequiredService<IAchievementService>();
+        await achievementService.InitializeAsync();
 
         // Do not repeat app initialization when the Window already has content,
         // just ensure that the window is active

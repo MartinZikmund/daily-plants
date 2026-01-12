@@ -58,6 +58,13 @@ public class SqliteDataService : IDataService
 
             CREATE INDEX IF NOT EXISTS idx_daily_entries_date ON DailyEntries(Date);
             CREATE INDEX IF NOT EXISTS idx_weight_entries_date ON WeightEntries(Date);
+
+            CREATE TABLE IF NOT EXISTS EarnedAchievements (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                AchievementId TEXT NOT NULL UNIQUE,
+                EarnedAt TEXT NOT NULL,
+                HasBeenSeen INTEGER NOT NULL DEFAULT 0
+            );
             """;
 
         await command.ExecuteNonQueryAsync();
@@ -482,5 +489,150 @@ public class SqliteDataService : IDataService
         }
 
         return true;
+    }
+
+    // ===== Achievements =====
+
+    public async Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync()
+    {
+        await EnsureInitializedAsync();
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT Id, AchievementId, EarnedAt, HasBeenSeen FROM EarnedAchievements ORDER BY EarnedAt DESC";
+
+        var achievements = new List<EarnedAchievement>();
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            achievements.Add(new EarnedAchievement
+            {
+                Id = reader.GetInt32(0),
+                AchievementId = reader.GetString(1),
+                EarnedAt = DateTime.Parse(reader.GetString(2)),
+                HasBeenSeen = reader.GetInt32(3) == 1
+            });
+        }
+
+        return achievements;
+    }
+
+    public async Task SaveEarnedAchievementAsync(EarnedAchievement achievement)
+    {
+        await EnsureInitializedAsync();
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = """
+            INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen)
+            VALUES (@achievementId, @earnedAt, @hasBeenSeen)
+            """;
+        command.Parameters.AddWithValue("@achievementId", achievement.AchievementId);
+        command.Parameters.AddWithValue("@earnedAt", achievement.EarnedAt.ToString("O"));
+        command.Parameters.AddWithValue("@hasBeenSeen", achievement.HasBeenSeen ? 1 : 0);
+
+        await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task<bool> IsAchievementEarnedAsync(string achievementId)
+    {
+        await EnsureInitializedAsync();
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT COUNT(*) FROM EarnedAchievements WHERE AchievementId = @achievementId";
+        command.Parameters.AddWithValue("@achievementId", achievementId);
+
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result) > 0;
+    }
+
+    public async Task<int> GetUnseenAchievementCountAsync()
+    {
+        await EnsureInitializedAsync();
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT COUNT(*) FROM EarnedAchievements WHERE HasBeenSeen = 0";
+
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result);
+    }
+
+    public async Task MarkAllAchievementsAsSeenAsync()
+    {
+        await EnsureInitializedAsync();
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0";
+
+        await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task<int> GetPerfectDaysCountAsync()
+    {
+        await EnsureInitializedAsync();
+
+        var settings = await GetSettingsAsync();
+        var enabledItems = GetEnabledItemIds(settings);
+        if (enabledItems.Count == 0) return 0;
+
+        var datesWithEntries = await GetDatesWithEntriesAsync();
+        var perfectDays = 0;
+
+        foreach (var date in datesWithEntries)
+        {
+            var entries = await GetEntriesForDateAsync(date);
+            if (IsDateComplete(entries, enabledItems))
+            {
+                perfectDays++;
+            }
+        }
+
+        return perfectDays;
+    }
+
+    public async Task<int> GetItemCompletionCountAsync(string itemId)
+    {
+        await EnsureInitializedAsync();
+
+        var item = ChecklistDefinitions.GetItemById(itemId);
+        if (item == null) return 0;
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT COUNT(*) FROM DailyEntries WHERE ItemId = @itemId AND ServingsCompleted >= @target";
+        command.Parameters.AddWithValue("@itemId", itemId);
+        command.Parameters.AddWithValue("@target", item.RecommendedServings);
+
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result);
+    }
+
+    public async Task<int> GetTotalDaysTrackedAsync()
+    {
+        await EnsureInitializedAsync();
+
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT COUNT(DISTINCT Date) FROM DailyEntries";
+
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result);
     }
 }

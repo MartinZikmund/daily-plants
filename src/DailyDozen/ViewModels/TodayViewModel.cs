@@ -9,6 +9,7 @@ namespace DailyDozen.ViewModels;
 public partial class TodayViewModel : ObservableObject
 {
     private readonly IDataService _dataService;
+    private readonly IAchievementService? _achievementService;
     private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
 
     [ObservableProperty]
@@ -32,9 +33,10 @@ public partial class TodayViewModel : ObservableObject
 
     public event EventHandler<ChecklistItem>? ItemDetailRequested;
 
-    public TodayViewModel(IDataService dataService)
+    public TodayViewModel(IDataService dataService, IAchievementService? achievementService = null)
     {
         _dataService = dataService;
+        _achievementService = achievementService;
         UpdateDateDisplay();
     }
 
@@ -152,6 +154,12 @@ public partial class TodayViewModel : ObservableObject
 
             await _dataService.SaveEntryAsync(entry);
             UpdateProgress();
+
+            // Check for new achievements
+            if (_achievementService != null)
+            {
+                await _achievementService.CheckAndAwardAchievementsAsync();
+            }
         }
     }
 

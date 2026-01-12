@@ -10,7 +10,9 @@ public partial class SettingsViewModel : ObservableObject
 {
     private readonly IDataService _dataService;
     private readonly IExportService _exportService;
+    private readonly ILocalizationService _localizationService;
     private UserSettings _settings = new();
+    private string _initialLanguage = "";
 
     [ObservableProperty]
     private bool _isLoading;
@@ -34,20 +36,28 @@ public partial class SettingsViewModel : ObservableObject
     private int _selectedThemeIndex;
 
     [ObservableProperty]
+    private int _selectedLanguageIndex;
+
+    [ObservableProperty]
+    private bool _showRestartMessage;
+
+    [ObservableProperty]
     private string _goalWeightText = "";
 
     [ObservableProperty]
     private string _heightText = "";
 
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
+    public List<string> LanguageOptions { get; } = ["English", "Cestina"];
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
 
-    public SettingsViewModel(IDataService dataService, IExportService exportService)
+    public SettingsViewModel(IDataService dataService, IExportService exportService, ILocalizationService localizationService)
     {
         _dataService = dataService;
         _exportService = exportService;
+        _localizationService = localizationService;
     }
 
     public async Task LoadSettingsAsync()
@@ -69,6 +79,11 @@ public partial class SettingsViewModel : ObservableObject
             HeightText = _settings.HeightCm?.ToString("F0") ?? "";
             OnPropertyChanged(nameof(WeightUnit));
             OnPropertyChanged(nameof(HeightUnit));
+
+            // Load language setting
+            _initialLanguage = _localizationService.CurrentLanguage;
+            SelectedLanguageIndex = _initialLanguage == "cs" ? 1 : 0;
+            ShowRestartMessage = false;
         }
         finally
         {
@@ -139,6 +154,17 @@ public partial class SettingsViewModel : ObservableObject
         _settings.ThemePreference = value;
         _ = SaveSettingsAsync();
         ApplyTheme(value);
+    }
+
+    partial void OnSelectedLanguageIndexChanged(int value)
+    {
+        if (IsLoading) return;
+
+        var languageCode = value == 1 ? "cs" : "en";
+        _ = _localizationService.SetLanguageAsync(languageCode);
+
+        // Show restart message if language changed
+        ShowRestartMessage = languageCode != _initialLanguage;
     }
 
     private async Task SaveSettingsAsync()

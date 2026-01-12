@@ -11,7 +11,8 @@ public sealed partial class SettingsPage : Page
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
         var exportService = App.Current.Services!.GetRequiredService<IExportService>();
-        ViewModel = new SettingsViewModel(dataService, exportService);
+        var localizationService = App.Current.Services!.GetRequiredService<ILocalizationService>();
+        ViewModel = new SettingsViewModel(dataService, exportService, localizationService);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;

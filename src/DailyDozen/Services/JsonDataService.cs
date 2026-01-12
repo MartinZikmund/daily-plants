@@ -13,6 +13,7 @@ public class JsonDataService : IDataService
     private readonly string _entriesFilePath;
     private readonly string _weightFilePath;
     private readonly string _settingsFilePath;
+    private readonly string _achievementsFilePath;
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
@@ -30,6 +31,7 @@ public class JsonDataService : IDataService
         _entriesFilePath = Path.Combine(_dataFolderPath, "daily_entries.json");
         _weightFilePath = Path.Combine(_dataFolderPath, "weight_entries.json");
         _settingsFilePath = Path.Combine(_dataFolderPath, "settings.json");
+        _achievementsFilePath = Path.Combine(_dataFolderPath, "achievements.json");
     }
 
     public async Task InitializeAsync()
@@ -322,6 +324,30 @@ public class JsonDataService : IDataService
             }
         }
 
+        // Load achievements
+        if (File.Exists(_achievementsFilePath))
+        {
+            try
+            {
+                var json = await File.ReadAllTextAsync(_achievementsFilePath);
+                var achievements = JsonSerializer.Deserialize<List<EarnedAchievementDto>>(json, _jsonOptions);
+                if (achievements != null)
+                {
+                    dataStore.EarnedAchievements = achievements.Select(dto => new EarnedAchievement
+                    {
+                        Id = dto.Id,
+                        AchievementId = dto.AchievementId,
+                        EarnedAt = DateTime.Parse(dto.EarnedAt),
+                        HasBeenSeen = dto.HasBeenSeen
+                    }).ToList();
+                }
+            }
+            catch
+            {
+                // If file is corrupted, start fresh
+            }
+        }
+
         return dataStore;
     }
 
@@ -398,12 +424,113 @@ public class JsonDataService : IDataService
         return true;
     }
 
+    // ===== Achievement Methods =====
+
+    public async Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync()
+    {
+        await EnsureInitializedAsync();
+        return _dataStore!.EarnedAchievements.ToList();
+    }
+
+    public async Task SaveEarnedAchievementAsync(EarnedAchievement achievement)
+    {
+        await EnsureInitializedAsync();
+
+        var existing = _dataStore!.EarnedAchievements.FirstOrDefault(a => a.AchievementId == achievement.AchievementId);
+        if (existing == null)
+        {
+            achievement.Id = _dataStore.EarnedAchievements.Any() ? _dataStore.EarnedAchievements.Max(a => a.Id) + 1 : 1;
+            _dataStore.EarnedAchievements.Add(achievement);
+            await SaveAchievementsAsync();
+        }
+    }
+
+    public async Task<bool> IsAchievementEarnedAsync(string achievementId)
+    {
+        await EnsureInitializedAsync();
+        return _dataStore!.EarnedAchievements.Any(a => a.AchievementId == achievementId);
+    }
+
+    public async Task<int> GetUnseenAchievementCountAsync()
+    {
+        await EnsureInitializedAsync();
+        return _dataStore!.EarnedAchievements.Count(a => !a.HasBeenSeen);
+    }
+
+    public async Task MarkAllAchievementsAsSeenAsync()
+    {
+        await EnsureInitializedAsync();
+        foreach (var achievement in _dataStore!.EarnedAchievements)
+        {
+            achievement.HasBeenSeen = true;
+        }
+        await SaveAchievementsAsync();
+    }
+
+    public async Task<int> GetPerfectDaysCountAsync()
+    {
+        await EnsureInitializedAsync();
+
+        var settings = _dataStore!.Settings;
+        var enabledItems = GetEnabledItemIds(settings);
+        if (enabledItems.Count == 0) return 0;
+
+        var datesWithEntries = _dataStore.DailyEntries.Select(e => e.Date).Distinct().ToList();
+        var perfectDays = 0;
+
+        foreach (var date in datesWithEntries)
+        {
+            var entries = _dataStore.DailyEntries.Where(e => e.Date == date).ToList();
+            if (IsDateComplete(entries, enabledItems))
+            {
+                perfectDays++;
+            }
+        }
+
+        return perfectDays;
+    }
+
+    public async Task<int> GetItemCompletionCountAsync(string itemId)
+    {
+        await EnsureInitializedAsync();
+
+        var item = ChecklistDefinitions.GetItemById(itemId);
+        if (item == null) return 0;
+
+        return _dataStore!.DailyEntries
+            .Where(e => e.ItemId == itemId && e.ServingsCompleted >= item.RecommendedServings)
+            .Select(e => e.Date)
+            .Distinct()
+            .Count();
+    }
+
+    public async Task<int> GetTotalDaysTrackedAsync()
+    {
+        await EnsureInitializedAsync();
+        return _dataStore!.DailyEntries.Select(e => e.Date).Distinct().Count();
+    }
+
+    private async Task SaveAchievementsAsync()
+    {
+        var dtos = _dataStore!.EarnedAchievements.Select(a => new EarnedAchievementDto
+        {
+            Id = a.Id,
+            AchievementId = a.AchievementId,
+            EarnedAt = a.EarnedAt.ToString("yyyy-MM-ddTHH:mm:ss"),
+            HasBeenSeen = a.HasBeenSeen
+        }).ToList();
+
+        var json = JsonSerializer.Serialize(dtos, _jsonOptions);
+        await File.WriteAllTextAsync(_achievementsFilePath, json);
+    }
+
     // ===== DTOs for JSON serialization (DateOnly doesn't serialize well by default) =====
 
     private class DataStore
     {
         public List<DailyEntry> DailyEntries { get; set; } = [];
         public List<WeightEntry> WeightEntries { get; set; } = [];
+        public List<EarnedAchievement> EarnedAchievements { get; set; } = [];
         public UserSettings Settings { get; set; } = new();
     }
 
@@ -421,5 +548,13 @@ public class JsonDataService : IDataService
         public string Date { get; set; } = string.Empty;
         public double Weight { get; set; }
         public string? Notes { get; set; }
+    }
+
+    private class EarnedAchievementDto
+    {
+        public int Id { get; set; }
+        public string AchievementId { get; set; } = string.Empty;
+        public string EarnedAt { get; set; } = string.Empty;
+        public bool HasBeenSeen { get; set; }
     }
 }
