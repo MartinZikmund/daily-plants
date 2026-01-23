@@ -146,12 +146,13 @@
                                         Spacing="6"
                                         VerticalAlignment="Center">
 
-                                <!-- Minus Button -->
+                                <!-- Minus Button (uses opacity, not disabled, to prevent click bubbling to parent) -->
                                 <Button Command="{Binding DecrementServingCommand}"
                                         Width="32" Height="32"
                                         CornerRadius="16"
                                         Padding="0"
-                                        Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}">
+                                        Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
+                                        ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
                                     <FontIcon Glyph="&#xE738;" FontSize="12" />
                                 </Button>
 
@@ -172,7 +173,8 @@
                                         Width="32" Height="32"
                                         CornerRadius="16"
                                         Padding="0"
-                                        Style="{StaticResource AccentButtonStyle}">
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
                                     <FontIcon Glyph="&#xE710;" FontSize="12" Foreground="Black" />
                                 </Button>
 
@@ -180,7 +182,8 @@
                                 <Button Command="{Binding ShowItemDetailCommand}"
                                         Width="32" Height="32"
                                         CornerRadius="16"
-                                        Padding="0">
+                                        Padding="0"
+                                        ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
                                     <FontIcon Glyph="&#xE946;" FontSize="12" />
                                 </Button>
                             </StackPanel>
