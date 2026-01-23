@@ -103,6 +103,12 @@
   <data name="Today_EnableChecklist" xml:space="preserve">
     <value>Enable a checklist in Settings to get started</value>
   </data>
+  <data name="Today_PickDate" xml:space="preserve">
+    <value>Pick a date</value>
+  </data>
+  <data name="Today_SelectDate" xml:space="preserve">
+    <value>Select date</value>
+  </data>
 
   <!-- Statistics Page -->
   <data name="Stats_Title" xml:space="preserve">

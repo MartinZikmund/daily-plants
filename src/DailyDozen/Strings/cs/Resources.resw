@@ -103,6 +103,12 @@
   <data name="Today_EnableChecklist" xml:space="preserve">
     <value>Povolte checklist v Nastavení pro začátek</value>
   </data>
+  <data name="Today_PickDate" xml:space="preserve">
+    <value>Vybrat datum</value>
+  </data>
+  <data name="Today_SelectDate" xml:space="preserve">
+    <value>Vyberte datum</value>
+  </data>
 
   <!-- Statistics Page -->
   <data name="Stats_Title" xml:space="preserve">

@@ -36,9 +36,24 @@
             <StackPanel Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <TextBlock Text="{Binding DateDisplayText}"
-                           HorizontalAlignment="Center"
-                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <!-- Date text with calendar flyout -->
+                <Button x:Name="DatePickerButton"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="8,4"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Today_PickDate}">
+                    <TextBlock Text="{Binding DateDisplayText}"
+                               Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <Button.Flyout>
+                        <Flyout x:Name="DatePickerFlyout" Placement="Bottom">
+                            <CalendarView x:Name="CalendarView"
+                                          SelectedDatesChanged="CalendarView_SelectedDatesChanged"
+                                          MaxDate="{x:Bind ViewModel.MaxSelectableDate, Mode=OneWay}"
+                                          SelectionMode="Single" />
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
                 <Button Content="{helpers:Localize Key=Today_GoToToday}"
                         HorizontalAlignment="Center"
                         Margin="0,4,0,0"
