@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-  <application android:allowBackup="true" android:supportsRtl="true"></application>
+
+	<!-- Permissions -->
+	<!-- No special permissions required - all data stored locally -->
+
+	<application
+		android:allowBackup="true"
+		android:supportsRtl="true"
+		android:label="@string/app_name"
+		android:icon="@mipmap/icon"
+		android:roundIcon="@mipmap/icon_round"
+		android:theme="@style/AppTheme">
+
+		<!-- Main activity is defined by Uno Platform -->
+
+		<!-- File provider for export functionality -->
+		<provider
+			android:name="androidx.core.content.FileProvider"
+			android:authorities="${applicationId}.fileprovider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/file_paths" />
+		</provider>
+
+	</application>
+
+	<!-- Queries for share/export intents -->
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.SEND" />
+			<data android:mimeType="*/*" />
+		</intent>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="https" />
+		</intent>
+	</queries>
+
 </manifest>

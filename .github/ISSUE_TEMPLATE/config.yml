@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/user/daily-dozen/discussions
+    about: Use GitHub Discussions for questions, ideas, or general conversation
+  - name: Security Vulnerability
+    url: https://github.com/user/daily-dozen/security/advisories/new
+    about: Report security vulnerabilities privately through Security Advisories
