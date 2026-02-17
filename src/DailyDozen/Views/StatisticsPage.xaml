@@ -1,0 +1,423 @@
+<Page x:Class="DailyDozen.Views.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:DailyDozen.Views"
+      xmlns:vm="using:DailyDozen.ViewModels"
+      xmlns:helpers="using:DailyDozen.Helpers"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="16" Spacing="24" MaxWidth="800">
+
+            <!-- Header -->
+            <TextBlock Text="{helpers:Localize Key=Stats_Title}"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+
+            <!-- Overview Cards -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Stats_Overview}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                <Grid ColumnSpacing="12" RowSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Today Card -->
+                    <Border Grid.Column="0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{helpers:Localize Key=Stats_TodayProgress}"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding TodayProgressText}"
+                                       Style="{StaticResource TitleLargeTextBlockStyle}"
+                                       Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,4,0,8" />
+                            <ProgressBar Value="{Binding TodayProgress}"
+                                         Maximum="1"
+                                         Height="6"
+                                         CornerRadius="3" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- This Week Card -->
+                    <Border Grid.Column="1"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{helpers:Localize Key=Stats_WeekAverage}"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding WeekProgressText}"
+                                       Style="{StaticResource TitleLargeTextBlockStyle}"
+                                       Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,4,0,8" />
+                            <ProgressBar Value="{Binding WeekProgress}"
+                                         Maximum="1"
+                                         Height="6"
+                                         CornerRadius="3" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- This Month Card -->
+                    <Border Grid.Column="2"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{helpers:Localize Key=Stats_MonthAverage}"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding MonthProgressText}"
+                                       Style="{StaticResource TitleLargeTextBlockStyle}"
+                                       Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,4,0,8" />
+                            <ProgressBar Value="{Binding MonthProgress}"
+                                         Maximum="1"
+                                         Height="6"
+                                         CornerRadius="3" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+
+            <!-- Streaks Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Stats_Streaks}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Current Streak -->
+                    <Border Grid.Column="0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE945;"
+                                          Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                          FontSize="24" />
+                                <TextBlock Text="{helpers:Localize Key=Stats_CurrentStreak}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding CurrentStreakText}"
+                                       Style="{StaticResource TitleLargeTextBlockStyle}"
+                                       Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Longest Streak -->
+                    <Border Grid.Column="1"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE735;"
+                                          Foreground="Gold"
+                                          FontSize="24" />
+                                <TextBlock Text="{helpers:Localize Key=Stats_LongestStreak}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding LongestStreakText}"
+                                       Style="{StaticResource TitleLargeTextBlockStyle}"
+                                       Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+
+            <!-- Weekly Progress Chart -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Stats_Last7Days}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        CornerRadius="8"
+                        Padding="16">
+                    <ItemsRepeater ItemsSource="{Binding WeeklyProgress}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout Orientation="Horizontal"
+                                               MinItemWidth="70"
+                                               MinItemHeight="130"
+                                               ItemsStretch="Fill" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="vm:DayProgressViewModel">
+                                <StackPanel HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Spacing="6">
+                                    <!-- Progress Bar (vertical) -->
+                                    <Grid Height="70" Width="28">
+                                        <Border Background="{ThemeResource ControlFillColorDefaultBrush}"
+                                                CornerRadius="6" />
+                                        <Border Background="{ThemeResource AccentFillColorDefaultBrush}"
+                                                CornerRadius="6"
+                                                VerticalAlignment="Bottom">
+                                            <Border.Height>
+                                                <Binding Path="Progress">
+                                                    <Binding.Converter>
+                                                        <local:ProgressToHeightConverter MaxHeight="70" />
+                                                    </Binding.Converter>
+                                                </Binding>
+                                            </Border.Height>
+                                        </Border>
+                                    </Grid>
+                                    <!-- Percentage -->
+                                    <TextBlock Text="{Binding ProgressText}"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center" />
+                                    <!-- Day Name -->
+                                    <TextBlock Text="{Binding DayName}"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </Border>
+            </StackPanel>
+
+            <!-- Top Items Performance -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Stats_PerItemBreakdown}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        CornerRadius="8"
+                        Padding="16">
+                    <ItemsRepeater ItemsSource="{Binding ItemStats}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Spacing="12" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ItemStatViewModel">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0"
+                                               Text="{Binding ItemName}"
+                                               Style="{StaticResource BodyTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Grid.Row="0"
+                                               Text="{Binding CompletionText}"
+                                               Style="{StaticResource BodyStrongTextBlockStyle}"
+                                               Foreground="{ThemeResource AccentFillColorDefaultBrush}" />
+                                    <ProgressBar Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                                                 Value="{Binding CompletionRate}"
+                                                 Maximum="1"
+                                                 Height="4"
+                                                 CornerRadius="2"
+                                                 Margin="0,4,0,0" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </Border>
+            </StackPanel>
+
+            <!-- Weight Tracking Section -->
+            <StackPanel Spacing="8"
+                        Visibility="{Binding WeightTrackingEnabled}">
+                <TextBlock Text="{helpers:Localize Key=Stats_WeightTrend}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                <!-- Today's Weight Entry -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        CornerRadius="8"
+                        Padding="16">
+                    <Grid ColumnSpacing="16" RowSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Header -->
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8F1;"
+                                      Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                      FontSize="24" />
+                            <TextBlock Text="{helpers:Localize Key=Stats_AddWeight}"
+                                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <!-- Current Value -->
+                        <TextBlock Grid.Column="1" Grid.Row="0"
+                                   Text="{Binding TodayWeightText}"
+                                   Style="{StaticResource TitleLargeTextBlockStyle}"
+                                   Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                   VerticalAlignment="Center" />
+
+                        <!-- Input -->
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                                    Orientation="Horizontal" Spacing="8">
+                            <TextBox Text="{Binding WeightInputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="120"
+                                     InputScope="Number" />
+                            <TextBlock Text="{Binding WeightUnit}"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <Button Content="{helpers:Localize Key=Common_Save}"
+                                    Command="{Binding SaveTodayWeightCommand}"
+                                    Style="{StaticResource AccentButtonStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Weight Stats Cards -->
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Goal Weight -->
+                    <Border Grid.Column="0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{helpers:Localize Key=Stats_GoalWeight}"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding GoalWeightText}"
+                                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Change -->
+                    <Border Grid.Column="1"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="30-Day"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding WeightChangeText}"
+                                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- BMI -->
+                    <Border Grid.Column="2"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="16">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="BMI"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding BmiText}"
+                                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Weight History Chart -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        CornerRadius="8"
+                        Padding="16"
+                        Visibility="{Binding WeightHistory.Count, Converter={StaticResource GreaterThanZeroToVisibleConverter}}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Weight History (Last 30 Days)"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}" />
+                        <ItemsRepeater ItemsSource="{Binding WeightHistory}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout Orientation="Horizontal"
+                                                   MinItemWidth="50"
+                                                   MinItemHeight="100"
+                                                   ItemsStretch="Fill" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="vm:WeightDataPoint">
+                                    <StackPanel HorizontalAlignment="Center"
+                                                VerticalAlignment="Bottom"
+                                                Spacing="4">
+                                        <!-- Weight value -->
+                                        <TextBlock Text="{Binding WeightText}"
+                                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="10" />
+                                        <!-- Data point marker -->
+                                        <Ellipse Width="8" Height="8"
+                                                 Fill="{ThemeResource AccentFillColorDefaultBrush}"
+                                                 HorizontalAlignment="Center" />
+                                        <!-- Date -->
+                                        <TextBlock Text="{Binding DateText}"
+                                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="10" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Empty State -->
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding ItemStats.Count, Converter={StaticResource EmptyToVisibleConverter}}"
+                        Margin="0,32">
+                <FontIcon Glyph="&#xE9D9;" FontSize="48" Opacity="0.5" />
+                <TextBlock Text="{helpers:Localize Key=Stats_NoWeightData}"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           Margin="0,12,0,4"
+                           Opacity="0.7"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="{helpers:Localize Key=Stats_AddFirstWeight}"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>

@@ -1,0 +1,74 @@
+<UserControl x:Class="DailyDozen.Controls.ChecklistItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:DailyDozen.Controls"
+             xmlns:vm="using:DailyDozen.ViewModels">
+
+    <Grid Padding="12,8"
+          Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+          CornerRadius="8"
+          Margin="0,4">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Item Info -->
+        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Item.Name}"
+                       Style="{StaticResource BodyStrongTextBlockStyle}" />
+            <TextBlock Text="{Binding Item.ServingSizeExample}"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       TextTrimming="CharacterEllipsis"
+                       MaxLines="1" />
+        </StackPanel>
+
+        <!-- Serving Controls -->
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    VerticalAlignment="Center">
+
+            <!-- Serving Indicators (dots) -->
+            <ItemsRepeater x:Name="ServingIndicators"
+                           ItemsSource="{Binding ServingIndicators}">
+                <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Horizontal" Spacing="4" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="12" Height="12"
+                                 Fill="{Binding Fill}"
+                                 Stroke="{ThemeResource AccentFillColorDefaultBrush}"
+                                 StrokeThickness="2" />
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+
+            <!-- Serving Count Text -->
+            <TextBlock Text="{Binding ServingsDisplayText}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       VerticalAlignment="Center"
+                       MinWidth="36"
+                       TextAlignment="Center" />
+
+            <!-- Increment/Decrement Buttons -->
+            <Button Command="{Binding DecrementServingCommand}"
+                    Padding="8"
+                    CornerRadius="4"
+                    IsEnabled="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroConverter}}">
+                <FontIcon Glyph="&#xE738;" FontSize="12" />
+            </Button>
+
+            <Button Command="{Binding IncrementServingCommand}"
+                    Padding="8"
+                    CornerRadius="4"
+                    Style="{StaticResource AccentButtonStyle}">
+                <FontIcon Glyph="&#xE710;" FontSize="12" />
+            </Button>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

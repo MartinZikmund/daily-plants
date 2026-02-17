@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(dir:*)",
+      "Bash(tree:*)",
+      "WebSearch",
+      "WebFetch(domain:nutritionfacts.org)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet restore:*)",
+      "mcp__uno__uno_platform_agent_rules_init",
+      "Bash($env:DOTNET_MODIFIABLE_ASSEMBLIES = \"debug\")",
+      "Bash(Start-Job { dotnet run -f net9.0-desktop --project \"D:\\\\Personal\\\\daily-dozen\\\\src\\\\DailyDozen\\\\DailyDozen.csproj\" 2)",
+      "Bash(1 })",
+      "Bash(tasklist:*)",
+      "mcp__uno-app__uno_app_start",
+      "mcp__uno-app__uno_app_get_screenshot",
+      "mcp__uno-app__uno_app_pointer_click",
+      "mcp__uno-app__uno_app_key_press",
+      "mcp__uno-app__uno_app_close",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "mcp__uno-app__uno_app_get_runtime_info",
+      "Bash(Select-String -Pattern \"error|Error|Build FAILED|Build succeeded\")",
+      "Bash(Select-Object -Last 20)",
+      "mcp__uno-app__uno_app_visualtree_snapshot",
+      "mcp__uno-app__uno_app_element_peer_default_action",
+      "Bash(git -C \"D:\\\\Personal\\\\daily-dozen\\\\src\" status)",
+      "Bash(git -C \"D:\\\\Personal\\\\daily-dozen\\\\src\" diff)",
+      "Bash(git -C \"D:\\\\Personal\\\\daily-dozen\\\\src\" log --oneline -3)",
+      "Bash(git -C \"D:\\\\Personal\\\\daily-dozen\\\\src\" add DailyDozen/App.xaml.cs DailyDozen/ViewModels/SettingsViewModel.cs DailyDozen/Views/SettingsPage.xaml)",
+      "Bash(git -C \"D:\\\\Personal\\\\daily-dozen\\\\src\" commit -m \"$\\(cat <<''EOF''\nfeat: Add light/dark/system theme setting\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "mcp__uno-app__uno_app_type_text"
+    ]
+  }
+}

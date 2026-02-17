@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- App Name -->
+  <data name="AppName" xml:space="preserve">
+    <value>Daily Dozen</value>
+  </data>
+
+  <!-- Navigation -->
+  <data name="Nav_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Nav_Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+
+  <!-- Today Page -->
+  <data name="Today_GoToToday" xml:space="preserve">
+    <value>Go to Today</value>
+  </data>
+  <data name="Today_PreviousDay" xml:space="preserve">
+    <value>Previous day</value>
+  </data>
+  <data name="Today_NextDay" xml:space="preserve">
+    <value>Next day</value>
+  </data>
+  <data name="Today_DecreaseServing" xml:space="preserve">
+    <value>Decrease serving</value>
+  </data>
+  <data name="Today_IncreaseServing" xml:space="preserve">
+    <value>Increase serving</value>
+  </data>
+  <data name="Today_MoreInfo" xml:space="preserve">
+    <value>More info</value>
+  </data>
+  <data name="Today_NoChecklists" xml:space="preserve">
+    <value>No checklists enabled</value>
+  </data>
+  <data name="Today_EnableChecklist" xml:space="preserve">
+    <value>Enable a checklist in Settings to get started</value>
+  </data>
+
+  <!-- Statistics Page -->
+  <data name="Stats_Title" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Stats_Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Stats_TodayProgress" xml:space="preserve">
+    <value>Today's Progress</value>
+  </data>
+  <data name="Stats_WeekAverage" xml:space="preserve">
+    <value>This Week</value>
+  </data>
+  <data name="Stats_MonthAverage" xml:space="preserve">
+    <value>This Month</value>
+  </data>
+  <data name="Stats_Streaks" xml:space="preserve">
+    <value>Streaks</value>
+  </data>
+  <data name="Stats_CurrentStreak" xml:space="preserve">
+    <value>Current Streak</value>
+  </data>
+  <data name="Stats_LongestStreak" xml:space="preserve">
+    <value>Longest Streak</value>
+  </data>
+  <data name="Stats_Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="Stats_Day" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="Stats_Last7Days" xml:space="preserve">
+    <value>Last 7 Days</value>
+  </data>
+  <data name="Stats_PerItemBreakdown" xml:space="preserve">
+    <value>Per-Item Breakdown</value>
+  </data>
+  <data name="Stats_WeightTrend" xml:space="preserve">
+    <value>Weight Trend</value>
+  </data>
+  <data name="Stats_AddWeight" xml:space="preserve">
+    <value>Add Weight</value>
+  </data>
+  <data name="Stats_NoWeightData" xml:space="preserve">
+    <value>No weight data yet</value>
+  </data>
+  <data name="Stats_AddFirstWeight" xml:space="preserve">
+    <value>Add your first weight entry to start tracking</value>
+  </data>
+  <data name="Stats_GoalWeight" xml:space="preserve">
+    <value>Goal</value>
+  </data>
+
+  <!-- Settings Page -->
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_ActiveChecklists" xml:space="preserve">
+    <value>Active Checklists</value>
+  </data>
+  <data name="Settings_ActiveChecklistsDesc" xml:space="preserve">
+    <value>Choose which checklists to track daily</value>
+  </data>
+  <data name="Settings_DailyDozen" xml:space="preserve">
+    <value>Daily Dozen</value>
+  </data>
+  <data name="Settings_DailyDozenDesc" xml:space="preserve">
+    <value>From "How Not to Die" - 12 food groups to eat every day for optimal health</value>
+  </data>
+  <data name="Settings_TwentyOneTweaks" xml:space="preserve">
+    <value>Twenty-One Tweaks</value>
+  </data>
+  <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
+    <value>From "How Not to Diet" - 21 weight-loss accelerating habits</value>
+  </data>
+  <data name="Settings_AntiAgingEight" xml:space="preserve">
+    <value>Anti-Aging Eight</value>
+  </data>
+  <data name="Settings_AntiAgingEightDesc" xml:space="preserve">
+    <value>From "How Not to Age" - 8 key factors for healthy aging</value>
+  </data>
+  <data name="Settings_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Settings_Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Settings_WeightTracking" xml:space="preserve">
+    <value>Weight Tracking</value>
+  </data>
+  <data name="Settings_WeightTrackingDesc" xml:space="preserve">
+    <value>Track your weight over time</value>
+  </data>
+  <data name="Settings_EnableWeightTracking" xml:space="preserve">
+    <value>Enable Weight Tracking</value>
+  </data>
+  <data name="Settings_GoalWeight" xml:space="preserve">
+    <value>Goal Weight</value>
+  </data>
+  <data name="Settings_Height" xml:space="preserve">
+    <value>Height (for BMI)</value>
+  </data>
+  <data name="Settings_Optional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="Settings_Units" xml:space="preserve">
+    <value>Units</value>
+  </data>
+  <data name="Settings_UnitsDesc" xml:space="preserve">
+    <value>Choose your preferred measurement units</value>
+  </data>
+  <data name="Settings_UseMetric" xml:space="preserve">
+    <value>Use Metric Units</value>
+  </data>
+  <data name="Settings_Metric" xml:space="preserve">
+    <value>Metric (kg, cm)</value>
+  </data>
+  <data name="Settings_Imperial" xml:space="preserve">
+    <value>Imperial (lb, in)</value>
+  </data>
+  <data name="Settings_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Settings_AppearanceDesc" xml:space="preserve">
+    <value>Customize how the app looks</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_LanguageDesc" xml:space="preserve">
+    <value>Choose your preferred language</value>
+  </data>
+  <data name="Settings_DataManagement" xml:space="preserve">
+    <value>Data Management</value>
+  </data>
+  <data name="Settings_DataManagementDesc" xml:space="preserve">
+    <value>Export or import your tracking data</value>
+  </data>
+  <data name="Settings_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Settings_ExportToJson" xml:space="preserve">
+    <value>Export to JSON</value>
+  </data>
+  <data name="Settings_ExportToCsv" xml:space="preserve">
+    <value>Export to CSV</value>
+  </data>
+  <data name="Settings_ExportDesc" xml:space="preserve">
+    <value>JSON exports all data including settings. CSV exports daily entries only.</value>
+  </data>
+  <data name="Settings_Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Settings_ImportFromJson" xml:space="preserve">
+    <value>Import from JSON</value>
+  </data>
+  <data name="Settings_ImportFromCsv" xml:space="preserve">
+    <value>Import from CSV</value>
+  </data>
+  <data name="Settings_ImportDesc" xml:space="preserve">
+    <value>Import will merge with existing data. Duplicate entries will be overwritten.</value>
+  </data>
+  <data name="Settings_RestartRequired" xml:space="preserve">
+    <value>Restart the app for the language change to take effect.</value>
+  </data>
+
+  <!-- About Page -->
+  <data name="About_Title" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>Track your daily nutrition based on Dr. Michael Greger's recommendations from his books "How Not to Die", "How Not to Diet", and "How Not to Age".</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="About_LearnMore" xml:space="preserve">
+    <value>Learn More</value>
+  </data>
+  <data name="About_NutritionFacts" xml:space="preserve">
+    <value>Visit NutritionFacts.org</value>
+  </data>
+  <data name="About_NutritionFactsDesc" xml:space="preserve">
+    <value>Free science-based nutrition information</value>
+  </data>
+  <data name="About_Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="About_CreditsDesc" xml:space="preserve">
+    <value>Based on the work of Dr. Michael Greger and NutritionFacts.org</value>
+  </data>
+  <data name="About_BuiltWith" xml:space="preserve">
+    <value>Built with Uno Platform</value>
+  </data>
+
+  <!-- Common -->
+  <data name="Common_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Common_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+
+  <!-- Languages -->
+  <data name="Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language_Czech" xml:space="preserve">
+    <value>Czech</value>
+  </data>
+
+  <!-- Themes -->
+  <data name="Theme_System" xml:space="preserve">
+    <value>System Default</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+
+  <!-- Daily Dozen Items -->
+  <data name="DD_Beans" xml:space="preserve">
+    <value>Beans</value>
+  </data>
+  <data name="DD_Beans_Serving" xml:space="preserve">
+    <value>1/2 cup cooked or 1/4 cup hummus</value>
+  </data>
+  <data name="DD_Berries" xml:space="preserve">
+    <value>Berries</value>
+  </data>
+  <data name="DD_Berries_Serving" xml:space="preserve">
+    <value>1/2 cup fresh/frozen or 1/4 cup dried</value>
+  </data>
+  <data name="DD_OtherFruits" xml:space="preserve">
+    <value>Other Fruits</value>
+  </data>
+  <data name="DD_OtherFruits_Serving" xml:space="preserve">
+    <value>1 medium fruit or 1/4 cup dried</value>
+  </data>
+  <data name="DD_Greens" xml:space="preserve">
+    <value>Greens</value>
+  </data>
+  <data name="DD_Greens_Serving" xml:space="preserve">
+    <value>1 cup raw or 1/2 cup cooked</value>
+  </data>
+  <data name="DD_Cruciferous" xml:space="preserve">
+    <value>Cruciferous Vegetables</value>
+  </data>
+  <data name="DD_Cruciferous_Serving" xml:space="preserve">
+    <value>1/2 cup chopped or 1 tbsp horseradish</value>
+  </data>
+  <data name="DD_OtherVegetables" xml:space="preserve">
+    <value>Other Vegetables</value>
+  </data>
+  <data name="DD_OtherVegetables_Serving" xml:space="preserve">
+    <value>1/2 cup non-leafy vegetables</value>
+  </data>
+  <data name="DD_Flaxseed" xml:space="preserve">
+    <value>Flaxseed</value>
+  </data>
+  <data name="DD_Flaxseed_Serving" xml:space="preserve">
+    <value>1 tbsp ground</value>
+  </data>
+  <data name="DD_Nuts" xml:space="preserve">
+    <value>Nuts and Seeds</value>
+  </data>
+  <data name="DD_Nuts_Serving" xml:space="preserve">
+    <value>1/4 cup nuts or 2 tbsp nut butter</value>
+  </data>
+  <data name="DD_Herbs" xml:space="preserve">
+    <value>Herbs and Spices</value>
+  </data>
+  <data name="DD_Herbs_Serving" xml:space="preserve">
+    <value>1/4 tsp turmeric</value>
+  </data>
+  <data name="DD_WholeGrains" xml:space="preserve">
+    <value>Whole Grains</value>
+  </data>
+  <data name="DD_WholeGrains_Serving" xml:space="preserve">
+    <value>1/2 cup hot cereal or 1 slice bread</value>
+  </data>
+  <data name="DD_Beverages" xml:space="preserve">
+    <value>Beverages</value>
+  </data>
+  <data name="DD_Beverages_Serving" xml:space="preserve">
+    <value>12 oz water, tea, or other</value>
+  </data>
+  <data name="DD_Exercise" xml:space="preserve">
+    <value>Exercise</value>
+  </data>
+  <data name="DD_Exercise_Serving" xml:space="preserve">
+    <value>90 min moderate or 40 min vigorous</value>
+  </data>
+  <data name="DD_VitaminB12" xml:space="preserve">
+    <value>Vitamin B12</value>
+  </data>
+  <data name="DD_VitaminB12_Serving" xml:space="preserve">
+    <value>2000 mcg weekly or 50 mcg daily</value>
+  </data>
+
+  <!-- Twenty-One Tweaks Items -->
+  <data name="TT_PreloadWater" xml:space="preserve">
+    <value>Preload Water</value>
+  </data>
+  <data name="TT_PreloadWater_Desc" xml:space="preserve">
+    <value>2 cups before each meal</value>
+  </data>
+  <data name="TT_NegativeCalorie" xml:space="preserve">
+    <value>Negative Calorie Preload</value>
+  </data>
+  <data name="TT_NegativeCalorie_Desc" xml:space="preserve">
+    <value>Start with apple, salad, or soup</value>
+  </data>
+  <data name="TT_Vinegar" xml:space="preserve">
+    <value>Incorporate Vinegar</value>
+  </data>
+  <data name="TT_Vinegar_Desc" xml:space="preserve">
+    <value>2 tsp with meals</value>
+  </data>
+  <data name="TT_Undistracted" xml:space="preserve">
+    <value>Undistracted Meals</value>
+  </data>
+  <data name="TT_Undistracted_Desc" xml:space="preserve">
+    <value>Enjoy meals without distractions</value>
+  </data>
+  <data name="TT_TwentyMinute" xml:space="preserve">
+    <value>Twenty-Minute Rule</value>
+  </data>
+  <data name="TT_TwentyMinute_Desc" xml:space="preserve">
+    <value>Slow eating</value>
+  </data>
+  <data name="TT_FatFree" xml:space="preserve">
+    <value>Fat-Free Dressings</value>
+  </data>
+  <data name="TT_FatFree_Desc" xml:space="preserve">
+    <value>Flavor with fat-free dressings</value>
+  </data>
+  <data name="TT_FrontLoad" xml:space="preserve">
+    <value>Front-Load Calories</value>
+  </data>
+  <data name="TT_FrontLoad_Desc" xml:space="preserve">
+    <value>Bigger breakfast</value>
+  </data>
+  <data name="TT_TimeRestricted" xml:space="preserve">
+    <value>Time-Restricted Eating</value>
+  </data>
+  <data name="TT_TimeRestricted_Desc" xml:space="preserve">
+    <value>Limit eating window</value>
+  </data>
+  <data name="TT_Legumes" xml:space="preserve">
+    <value>Eat More Legumes</value>
+  </data>
+  <data name="TT_Legumes_Desc" xml:space="preserve">
+    <value>Beans, lentils, chickpeas</value>
+  </data>
+  <data name="TT_Greens" xml:space="preserve">
+    <value>Eat More Greens</value>
+  </data>
+  <data name="TT_Greens_Desc" xml:space="preserve">
+    <value>Leafy green vegetables</value>
+  </data>
+  <data name="TT_Berries" xml:space="preserve">
+    <value>Eat More Berries</value>
+  </data>
+  <data name="TT_Berries_Desc" xml:space="preserve">
+    <value>Any berries</value>
+  </data>
+  <data name="TT_Deflour" xml:space="preserve">
+    <value>Deflour Your Diet</value>
+  </data>
+  <data name="TT_Deflour_Desc" xml:space="preserve">
+    <value>Intact grains instead of flour</value>
+  </data>
+  <data name="TT_BlackCumin" xml:space="preserve">
+    <value>Black Cumin</value>
+  </data>
+  <data name="TT_BlackCumin_Desc" xml:space="preserve">
+    <value>1/4 tsp daily</value>
+  </data>
+  <data name="TT_Garlic" xml:space="preserve">
+    <value>Garlic Powder</value>
+  </data>
+  <data name="TT_Garlic_Desc" xml:space="preserve">
+    <value>1/4 tsp daily</value>
+  </data>
+  <data name="TT_Ginger" xml:space="preserve">
+    <value>Ground Ginger</value>
+  </data>
+  <data name="TT_Ginger_Desc" xml:space="preserve">
+    <value>1 tsp daily</value>
+  </data>
+  <data name="TT_NutritionalYeast" xml:space="preserve">
+    <value>Nutritional Yeast</value>
+  </data>
+  <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
+    <value>2 tsp daily</value>
+  </data>
+  <data name="TT_Cumin" xml:space="preserve">
+    <value>Cumin</value>
+  </data>
+  <data name="TT_Cumin_Desc" xml:space="preserve">
+    <value>1/2 tsp with lunch and dinner</value>
+  </data>
+  <data name="TT_GreenTea" xml:space="preserve">
+    <value>Green Tea</value>
+  </data>
+  <data name="TT_GreenTea_Desc" xml:space="preserve">
+    <value>3 cups daily</value>
+  </data>
+  <data name="TT_Hydrated" xml:space="preserve">
+    <value>Stay Hydrated</value>
+  </data>
+  <data name="TT_Hydrated_Desc" xml:space="preserve">
+    <value>Drink enough water</value>
+  </data>
+  <data name="TT_ExerciseTiming" xml:space="preserve">
+    <value>Exercise Timing</value>
+  </data>
+  <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
+    <value>Fasted or afternoon</value>
+  </data>
+  <data name="TT_Sleep" xml:space="preserve">
+    <value>Get Enough Sleep</value>
+  </data>
+  <data name="TT_Sleep_Desc" xml:space="preserve">
+    <value>7+ hours</value>
+  </data>
+
+  <!-- Anti-Aging Eight Items -->
+  <data name="AA_Legumes" xml:space="preserve">
+    <value>Legumes</value>
+  </data>
+  <data name="AA_Legumes_Serving" xml:space="preserve">
+    <value>Beans, lentils, chickpeas</value>
+  </data>
+  <data name="AA_Nuts" xml:space="preserve">
+    <value>Nuts</value>
+  </data>
+  <data name="AA_Nuts_Serving" xml:space="preserve">
+    <value>Preferably walnuts</value>
+  </data>
+  <data name="AA_Greens" xml:space="preserve">
+    <value>Dark Leafy Greens</value>
+  </data>
+  <data name="AA_Greens_Serving" xml:space="preserve">
+    <value>Kale, spinach, etc.</value>
+  </data>
+  <data name="AA_Cruciferous" xml:space="preserve">
+    <value>Cruciferous Vegetables</value>
+  </data>
+  <data name="AA_Cruciferous_Serving" xml:space="preserve">
+    <value>Broccoli, cauliflower</value>
+  </data>
+  <data name="AA_Berries" xml:space="preserve">
+    <value>Berries</value>
+  </data>
+  <data name="AA_Berries_Serving" xml:space="preserve">
+    <value>Any berries</value>
+  </data>
+  <data name="AA_Exercise" xml:space="preserve">
+    <value>Exercise</value>
+  </data>
+  <data name="AA_Exercise_Serving" xml:space="preserve">
+    <value>Boosts NAD+ levels</value>
+  </data>
+  <data name="AA_SunProtection" xml:space="preserve">
+    <value>Sun Protection</value>
+  </data>
+  <data name="AA_SunProtection_Serving" xml:space="preserve">
+    <value>Daily sunscreen/protection</value>
+  </data>
+  <data name="AA_Sleep" xml:space="preserve">
+    <value>Sleep</value>
+  </data>
+  <data name="AA_Sleep_Serving" xml:space="preserve">
+    <value>Quality sleep habits</value>
+  </data>
+
+  <!-- Achievements - Navigation -->
+  <data name="Nav_Achievements" xml:space="preserve">
+    <value>Achievements</value>
+  </data>
+
+  <!-- Achievements - Page -->
+  <data name="Achievements_Title" xml:space="preserve">
+    <value>Achievements</value>
+  </data>
+  <data name="Achievements_Empty" xml:space="preserve">
+    <value>No achievements yet</value>
+  </data>
+  <data name="Achievement_Unlocked" xml:space="preserve">
+    <value>Achievement Unlocked!</value>
+  </data>
+
+  <!-- Achievement Types -->
+  <data name="Achievement_Type_Milestone" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
+  <data name="Achievement_Type_Streak" xml:space="preserve">
+    <value>Streaks</value>
+  </data>
+  <data name="Achievement_Type_Completion" xml:space="preserve">
+    <value>Perfect Days</value>
+  </data>
+  <data name="Achievement_Type_ItemSpecific" xml:space="preserve">
+    <value>Food Champions</value>
+  </data>
+
+  <!-- Streak Achievements -->
+  <data name="Achievement_Streak7_Name" xml:space="preserve">
+    <value>Week Warrior</value>
+  </data>
+  <data name="Achievement_Streak7_Desc" xml:space="preserve">
+    <value>Complete a 7-day streak</value>
+  </data>
+  <data name="Achievement_Streak14_Name" xml:space="preserve">
+    <value>Two Week Champion</value>
+  </data>
+  <data name="Achievement_Streak14_Desc" xml:space="preserve">
+    <value>Complete a 14-day streak</value>
+  </data>
+  <data name="Achievement_Streak30_Name" xml:space="preserve">
+    <value>Monthly Master</value>
+  </data>
+  <data name="Achievement_Streak30_Desc" xml:space="preserve">
+    <value>Complete a 30-day streak</value>
+  </data>
+  <data name="Achievement_Streak60_Name" xml:space="preserve">
+    <value>Two Month Hero</value>
+  </data>
+  <data name="Achievement_Streak60_Desc" xml:space="preserve">
+    <value>Complete a 60-day streak</value>
+  </data>
+  <data name="Achievement_Streak100_Name" xml:space="preserve">
+    <value>Century Centurion</value>
+  </data>
+  <data name="Achievement_Streak100_Desc" xml:space="preserve">
+    <value>Complete a 100-day streak</value>
+  </data>
+  <data name="Achievement_Streak365_Name" xml:space="preserve">
+    <value>Year of Health</value>
+  </data>
+  <data name="Achievement_Streak365_Desc" xml:space="preserve">
+    <value>Complete a 365-day streak</value>
+  </data>
+
+  <!-- Milestone Achievements -->
+  <data name="Achievement_FirstDay_Name" xml:space="preserve">
+    <value>First Step</value>
+  </data>
+  <data name="Achievement_FirstDay_Desc" xml:space="preserve">
+    <value>Log your first day of tracking</value>
+  </data>
+  <data name="Achievement_FirstPerfect_Name" xml:space="preserve">
+    <value>Perfect Day</value>
+  </data>
+  <data name="Achievement_FirstPerfect_Desc" xml:space="preserve">
+    <value>Complete 100% of your daily goals</value>
+  </data>
+  <data name="Achievement_FirstWeek_Name" xml:space="preserve">
+    <value>One Week In</value>
+  </data>
+  <data name="Achievement_FirstWeek_Desc" xml:space="preserve">
+    <value>Track for 7 days</value>
+  </data>
+  <data name="Achievement_FirstMonth_Name" xml:space="preserve">
+    <value>Month of Progress</value>
+  </data>
+  <data name="Achievement_FirstMonth_Desc" xml:space="preserve">
+    <value>Track for 30 days</value>
+  </data>
+
+  <!-- Completion Achievements -->
+  <data name="Achievement_Completion10_Name" xml:space="preserve">
+    <value>Getting Started</value>
+  </data>
+  <data name="Achievement_Completion10_Desc" xml:space="preserve">
+    <value>Complete 10 perfect days</value>
+  </data>
+  <data name="Achievement_Completion25_Name" xml:space="preserve">
+    <value>Building Habits</value>
+  </data>
+  <data name="Achievement_Completion25_Desc" xml:space="preserve">
+    <value>Complete 25 perfect days</value>
+  </data>
+  <data name="Achievement_Completion50_Name" xml:space="preserve">
+    <value>Halfway Hero</value>
+  </data>
+  <data name="Achievement_Completion50_Desc" xml:space="preserve">
+    <value>Complete 50 perfect days</value>
+  </data>
+  <data name="Achievement_Completion100_Name" xml:space="preserve">
+    <value>Century of Health</value>
+  </data>
+  <data name="Achievement_Completion100_Desc" xml:space="preserve">
+    <value>Complete 100 perfect days</value>
+  </data>
+  <data name="Achievement_Completion365_Name" xml:space="preserve">
+    <value>Perfect Year</value>
+  </data>
+  <data name="Achievement_Completion365_Desc" xml:space="preserve">
+    <value>Complete 365 perfect days</value>
+  </data>
+
+  <!-- Item-Specific Achievements -->
+  <data name="Achievement_Beans50_Name" xml:space="preserve">
+    <value>Bean Counter</value>
+  </data>
+  <data name="Achievement_Beans50_Desc" xml:space="preserve">
+    <value>Complete beans 50 times</value>
+  </data>
+  <data name="Achievement_Beans100_Name" xml:space="preserve">
+    <value>Bean Master</value>
+  </data>
+  <data name="Achievement_Beans100_Desc" xml:space="preserve">
+    <value>Complete beans 100 times</value>
+  </data>
+  <data name="Achievement_Berries50_Name" xml:space="preserve">
+    <value>Berry Picker</value>
+  </data>
+  <data name="Achievement_Berries50_Desc" xml:space="preserve">
+    <value>Complete berries 50 times</value>
+  </data>
+  <data name="Achievement_Berries100_Name" xml:space="preserve">
+    <value>Berry Champion</value>
+  </data>
+  <data name="Achievement_Berries100_Desc" xml:space="preserve">
+    <value>Complete berries 100 times</value>
+  </data>
+  <data name="Achievement_Greens50_Name" xml:space="preserve">
+    <value>Green Thumb</value>
+  </data>
+  <data name="Achievement_Greens50_Desc" xml:space="preserve">
+    <value>Complete greens 50 times</value>
+  </data>
+  <data name="Achievement_Greens100_Name" xml:space="preserve">
+    <value>Greens Guru</value>
+  </data>
+  <data name="Achievement_Greens100_Desc" xml:space="preserve">
+    <value>Complete greens 100 times</value>
+  </data>
+  <data name="Achievement_Cruciferous50_Name" xml:space="preserve">
+    <value>Cruciferous Fan</value>
+  </data>
+  <data name="Achievement_Cruciferous50_Desc" xml:space="preserve">
+    <value>Complete cruciferous 50 times</value>
+  </data>
+  <data name="Achievement_Cruciferous100_Name" xml:space="preserve">
+    <value>Cruciferous Champion</value>
+  </data>
+  <data name="Achievement_Cruciferous100_Desc" xml:space="preserve">
+    <value>Complete cruciferous 100 times</value>
+  </data>
+  <data name="Achievement_WholeGrains50_Name" xml:space="preserve">
+    <value>Grain Gatherer</value>
+  </data>
+  <data name="Achievement_WholeGrains50_Desc" xml:space="preserve">
+    <value>Complete whole grains 50 times</value>
+  </data>
+  <data name="Achievement_WholeGrains100_Name" xml:space="preserve">
+    <value>Grain Master</value>
+  </data>
+  <data name="Achievement_WholeGrains100_Desc" xml:space="preserve">
+    <value>Complete whole grains 100 times</value>
+  </data>
+  <data name="Achievement_Exercise50_Name" xml:space="preserve">
+    <value>Active Lifestyle</value>
+  </data>
+  <data name="Achievement_Exercise50_Desc" xml:space="preserve">
+    <value>Complete exercise 50 times</value>
+  </data>
+  <data name="Achievement_Exercise100_Name" xml:space="preserve">
+    <value>Fitness Fanatic</value>
+  </data>
+  <data name="Achievement_Exercise100_Desc" xml:space="preserve">
+    <value>Complete exercise 100 times</value>
+  </data>
+  <data name="Achievement_Flaxseed50_Name" xml:space="preserve">
+    <value>Flax Fan</value>
+  </data>
+  <data name="Achievement_Flaxseed50_Desc" xml:space="preserve">
+    <value>Complete flaxseed 50 times</value>
+  </data>
+  <data name="Achievement_Flaxseed100_Name" xml:space="preserve">
+    <value>Flax Master</value>
+  </data>
+  <data name="Achievement_Flaxseed100_Desc" xml:space="preserve">
+    <value>Complete flaxseed 100 times</value>
+  </data>
+  <data name="Achievement_Nuts50_Name" xml:space="preserve">
+    <value>Nutty for Nuts</value>
+  </data>
+  <data name="Achievement_Nuts50_Desc" xml:space="preserve">
+    <value>Complete nuts 50 times</value>
+  </data>
+  <data name="Achievement_Nuts100_Name" xml:space="preserve">
+    <value>Nut Expert</value>
+  </data>
+  <data name="Achievement_Nuts100_Desc" xml:space="preserve">
+    <value>Complete nuts 100 times</value>
+  </data>
+
+</root>
