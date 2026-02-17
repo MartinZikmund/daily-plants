@@ -1,15 +1,16 @@
 using System.Text.Json;
 using DailyDozen.Models;
-using Microsoft.Data.Sqlite;
+using DailyDozen.Services.Entities;
+using SQLite;
 
 namespace DailyDozen.Services;
 
 /// <summary>
-/// SQLite implementation of IDataService.
+/// SQLite implementation of IDataService using sqlite-net ORM.
 /// </summary>
 public class SqliteDataService : IDataService
 {
-    private readonly string _connectionString;
+    private readonly SQLiteConnection _connection;
     private bool _initialized;
 
     public SqliteDataService()
@@ -24,333 +25,183 @@ public class SqliteDataService : IDataService
             Directory.CreateDirectory(directory);
         }
 
-        _connectionString = $"Data Source={dbPath}";
+        _connection = new SQLiteConnection(dbPath);
     }
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
-        if (_initialized) return;
+        if (_initialized) return Task.CompletedTask;
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        _connection.CreateTable<DailyEntryEntity>();
+        _connection.CreateTable<WeightEntryEntity>();
+        _connection.CreateTable<UserSettingsEntity>();
+        _connection.CreateTable<EarnedAchievementEntity>();
 
-        var command = connection.CreateCommand();
-        command.CommandText = """
-            CREATE TABLE IF NOT EXISTS DailyEntries (
-                Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Date TEXT NOT NULL,
-                ItemId TEXT NOT NULL,
-                ServingsCompleted INTEGER NOT NULL DEFAULT 0,
-                UNIQUE(Date, ItemId)
-            );
+        _connection.CreateIndex("idx_daily_entries_date_item", "DailyEntries", ["Date", "ItemId"], unique: true);
 
-            CREATE TABLE IF NOT EXISTS WeightEntries (
-                Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Date TEXT NOT NULL UNIQUE,
-                Weight REAL NOT NULL,
-                Notes TEXT
-            );
-
-            CREATE TABLE IF NOT EXISTS UserSettings (
-                Id INTEGER PRIMARY KEY CHECK (Id = 1),
-                SettingsJson TEXT NOT NULL
-            );
-
-            CREATE INDEX IF NOT EXISTS idx_daily_entries_date ON DailyEntries(Date);
-            CREATE INDEX IF NOT EXISTS idx_weight_entries_date ON WeightEntries(Date);
-
-            CREATE TABLE IF NOT EXISTS EarnedAchievements (
-                Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                AchievementId TEXT NOT NULL UNIQUE,
-                EarnedAt TEXT NOT NULL,
-                HasBeenSeen INTEGER NOT NULL DEFAULT 0
-            );
-            """;
-
-        await command.ExecuteNonQueryAsync();
         _initialized = true;
+        return Task.CompletedTask;
     }
 
     // ===== Daily Entries =====
 
-    public async Task<DailyEntry?> GetEntryAsync(DateOnly date, string itemId)
+    public Task<DailyEntry?> GetEntryAsync(DateOnly date, string itemId)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = date.ToString("yyyy-MM-dd");
+        var entity = _connection.Table<DailyEntryEntity>()
+            .Where(e => e.Date == dateStr && e.ItemId == itemId)
+            .FirstOrDefault();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Date, ItemId, ServingsCompleted FROM DailyEntries WHERE Date = @date AND ItemId = @itemId";
-        command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("@itemId", itemId);
-
-        await using var reader = await command.ExecuteReaderAsync();
-        if (await reader.ReadAsync())
-        {
-            return new DailyEntry
-            {
-                Id = reader.GetInt32(0),
-                Date = DateOnly.Parse(reader.GetString(1)),
-                ItemId = reader.GetString(2),
-                ServingsCompleted = reader.GetInt32(3)
-            };
-        }
-
-        return null;
+        return Task.FromResult(entity is null ? null : ToModel(entity));
     }
 
-    public async Task<IReadOnlyList<DailyEntry>> GetEntriesForDateAsync(DateOnly date)
+    public Task<IReadOnlyList<DailyEntry>> GetEntriesForDateAsync(DateOnly date)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = date.ToString("yyyy-MM-dd");
+        var entities = _connection.Table<DailyEntryEntity>()
+            .Where(e => e.Date == dateStr)
+            .ToList();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Date, ItemId, ServingsCompleted FROM DailyEntries WHERE Date = @date";
-        command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-
-        var entries = new List<DailyEntry>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            entries.Add(new DailyEntry
-            {
-                Id = reader.GetInt32(0),
-                Date = DateOnly.Parse(reader.GetString(1)),
-                ItemId = reader.GetString(2),
-                ServingsCompleted = reader.GetInt32(3)
-            });
-        }
-
-        return entries;
+        IReadOnlyList<DailyEntry> result = entities.Select(ToModel).ToList();
+        return Task.FromResult(result);
     }
 
-    public async Task<IReadOnlyList<DailyEntry>> GetEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
+    public Task<IReadOnlyList<DailyEntry>> GetEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var startStr = startDate.ToString("yyyy-MM-dd");
+        var endStr = endDate.ToString("yyyy-MM-dd");
+        var entities = _connection.Table<DailyEntryEntity>()
+            .Where(e => e.Date.CompareTo(startStr) >= 0 && e.Date.CompareTo(endStr) <= 0)
+            .OrderBy(e => e.Date)
+            .ToList();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Date, ItemId, ServingsCompleted FROM DailyEntries WHERE Date >= @startDate AND Date <= @endDate ORDER BY Date";
-        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
-
-        var entries = new List<DailyEntry>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            entries.Add(new DailyEntry
-            {
-                Id = reader.GetInt32(0),
-                Date = DateOnly.Parse(reader.GetString(1)),
-                ItemId = reader.GetString(2),
-                ServingsCompleted = reader.GetInt32(3)
-            });
-        }
-
-        return entries;
+        IReadOnlyList<DailyEntry> result = entities.Select(ToModel).ToList();
+        return Task.FromResult(result);
     }
 
-    public async Task SaveEntryAsync(DailyEntry entry)
+    public Task SaveEntryAsync(DailyEntry entry)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = entry.Date.ToString("yyyy-MM-dd");
+        _connection.Execute(
+            "INSERT INTO DailyEntries (Date, ItemId, ServingsCompleted) VALUES (?, ?, ?) ON CONFLICT(Date, ItemId) DO UPDATE SET ServingsCompleted = ?",
+            dateStr, entry.ItemId, entry.ServingsCompleted, entry.ServingsCompleted);
 
-        var command = connection.CreateCommand();
-        command.CommandText = """
-            INSERT INTO DailyEntries (Date, ItemId, ServingsCompleted)
-            VALUES (@date, @itemId, @servings)
-            ON CONFLICT(Date, ItemId) DO UPDATE SET ServingsCompleted = @servings
-            """;
-        command.Parameters.AddWithValue("@date", entry.Date.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("@itemId", entry.ItemId);
-        command.Parameters.AddWithValue("@servings", entry.ServingsCompleted);
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
-    public async Task DeleteEntriesForDateAsync(DateOnly date)
+    public Task DeleteEntriesForDateAsync(DateOnly date)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = date.ToString("yyyy-MM-dd");
+        _connection.Execute("DELETE FROM DailyEntries WHERE Date = ?", dateStr);
 
-        var command = connection.CreateCommand();
-        command.CommandText = "DELETE FROM DailyEntries WHERE Date = @date";
-        command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
     // ===== Weight Entries =====
 
-    public async Task<IReadOnlyList<WeightEntry>> GetAllWeightEntriesAsync()
+    public Task<IReadOnlyList<WeightEntry>> GetAllWeightEntriesAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var entities = _connection.Table<WeightEntryEntity>()
+            .OrderBy(e => e.Date)
+            .ToList();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Date, Weight, Notes FROM WeightEntries ORDER BY Date";
-
-        var entries = new List<WeightEntry>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            entries.Add(new WeightEntry
-            {
-                Id = reader.GetInt32(0),
-                Date = DateOnly.Parse(reader.GetString(1)),
-                Weight = reader.GetDouble(2),
-                Notes = reader.IsDBNull(3) ? null : reader.GetString(3)
-            });
-        }
-
-        return entries;
+        IReadOnlyList<WeightEntry> result = entities.Select(ToModel).ToList();
+        return Task.FromResult(result);
     }
 
-    public async Task<IReadOnlyList<WeightEntry>> GetWeightEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
+    public Task<IReadOnlyList<WeightEntry>> GetWeightEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var startStr = startDate.ToString("yyyy-MM-dd");
+        var endStr = endDate.ToString("yyyy-MM-dd");
+        var entities = _connection.Table<WeightEntryEntity>()
+            .Where(e => e.Date.CompareTo(startStr) >= 0 && e.Date.CompareTo(endStr) <= 0)
+            .OrderBy(e => e.Date)
+            .ToList();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Date, Weight, Notes FROM WeightEntries WHERE Date >= @startDate AND Date <= @endDate ORDER BY Date";
-        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
-
-        var entries = new List<WeightEntry>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            entries.Add(new WeightEntry
-            {
-                Id = reader.GetInt32(0),
-                Date = DateOnly.Parse(reader.GetString(1)),
-                Weight = reader.GetDouble(2),
-                Notes = reader.IsDBNull(3) ? null : reader.GetString(3)
-            });
-        }
-
-        return entries;
+        IReadOnlyList<WeightEntry> result = entities.Select(ToModel).ToList();
+        return Task.FromResult(result);
     }
 
-    public async Task<WeightEntry?> GetWeightEntryAsync(DateOnly date)
+    public Task<WeightEntry?> GetWeightEntryAsync(DateOnly date)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = date.ToString("yyyy-MM-dd");
+        var entity = _connection.Table<WeightEntryEntity>()
+            .Where(e => e.Date == dateStr)
+            .FirstOrDefault();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Date, Weight, Notes FROM WeightEntries WHERE Date = @date";
-        command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-
-        await using var reader = await command.ExecuteReaderAsync();
-        if (await reader.ReadAsync())
-        {
-            return new WeightEntry
-            {
-                Id = reader.GetInt32(0),
-                Date = DateOnly.Parse(reader.GetString(1)),
-                Weight = reader.GetDouble(2),
-                Notes = reader.IsDBNull(3) ? null : reader.GetString(3)
-            };
-        }
-
-        return null;
+        return Task.FromResult(entity is null ? null : ToModel(entity));
     }
 
-    public async Task SaveWeightEntryAsync(WeightEntry entry)
+    public Task SaveWeightEntryAsync(WeightEntry entry)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = entry.Date.ToString("yyyy-MM-dd");
+        _connection.Execute(
+            "INSERT INTO WeightEntries (Date, Weight, Notes) VALUES (?, ?, ?) ON CONFLICT(Date) DO UPDATE SET Weight = ?, Notes = ?",
+            dateStr, entry.Weight, entry.Notes, entry.Weight, entry.Notes);
 
-        var command = connection.CreateCommand();
-        command.CommandText = """
-            INSERT INTO WeightEntries (Date, Weight, Notes)
-            VALUES (@date, @weight, @notes)
-            ON CONFLICT(Date) DO UPDATE SET Weight = @weight, Notes = @notes
-            """;
-        command.Parameters.AddWithValue("@date", entry.Date.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("@weight", entry.Weight);
-        command.Parameters.AddWithValue("@notes", entry.Notes ?? (object)DBNull.Value);
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
-    public async Task DeleteWeightEntryAsync(DateOnly date)
+    public Task DeleteWeightEntryAsync(DateOnly date)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var dateStr = date.ToString("yyyy-MM-dd");
+        _connection.Execute("DELETE FROM WeightEntries WHERE Date = ?", dateStr);
 
-        var command = connection.CreateCommand();
-        command.CommandText = "DELETE FROM WeightEntries WHERE Date = @date";
-        command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
     // ===== User Settings =====
 
-    public async Task<UserSettings> GetSettingsAsync()
+    public Task<UserSettings> GetSettingsAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
-
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT SettingsJson FROM UserSettings WHERE Id = 1";
-
-        var result = await command.ExecuteScalarAsync();
-        if (result is string json)
+        var entity = _connection.Find<UserSettingsEntity>(1);
+        if (entity is not null)
         {
-            return JsonSerializer.Deserialize<UserSettings>(json) ?? new UserSettings();
+            return Task.FromResult(JsonSerializer.Deserialize<UserSettings>(entity.SettingsJson) ?? new UserSettings());
         }
 
-        return new UserSettings();
+        return Task.FromResult(new UserSettings());
     }
 
-    public async Task SaveSettingsAsync(UserSettings settings)
+    public Task SaveSettingsAsync(UserSettings settings)
     {
-        await EnsureInitializedAsync();
-
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        EnsureInitialized();
 
         var json = JsonSerializer.Serialize(settings);
+        _connection.Execute(
+            "INSERT INTO UserSettings (Id, SettingsJson) VALUES (1, ?) ON CONFLICT(Id) DO UPDATE SET SettingsJson = ?",
+            json, json);
 
-        var command = connection.CreateCommand();
-        command.CommandText = """
-            INSERT INTO UserSettings (Id, SettingsJson)
-            VALUES (1, @json)
-            ON CONFLICT(Id) DO UPDATE SET SettingsJson = @json
-            """;
-        command.Parameters.AddWithValue("@json", json);
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
     // ===== Statistics =====
 
     public async Task<int> GetCurrentStreakAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
         var settings = await GetSettingsAsync();
         var enabledItems = GetEnabledItemIds(settings);
@@ -384,7 +235,7 @@ public class SqliteDataService : IDataService
 
     public async Task<int> GetLongestStreakAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
         var settings = await GetSettingsAsync();
         var enabledItems = GetEnabledItemIds(settings);
@@ -424,31 +275,20 @@ public class SqliteDataService : IDataService
         return longestStreak;
     }
 
-    public async Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync()
+    public Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
-
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT DISTINCT Date FROM DailyEntries ORDER BY Date";
-
-        var dates = new List<DateOnly>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            dates.Add(DateOnly.Parse(reader.GetString(0)));
-        }
-
-        return dates;
+        var dates = _connection.QueryScalars<string>("SELECT DISTINCT Date FROM DailyEntries ORDER BY Date");
+        IReadOnlyList<DateOnly> result = dates.Select(d => DateOnly.Parse(d)).ToList();
+        return Task.FromResult(result);
     }
 
-    private async Task EnsureInitializedAsync()
+    private void EnsureInitialized()
     {
         if (!_initialized)
         {
-            await InitializeAsync();
+            InitializeAsync();
         }
     }
 
@@ -493,96 +333,61 @@ public class SqliteDataService : IDataService
 
     // ===== Achievements =====
 
-    public async Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync()
+    public Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var entities = _connection.Table<EarnedAchievementEntity>()
+            .OrderByDescending(e => e.EarnedAt)
+            .ToList();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, AchievementId, EarnedAt, HasBeenSeen FROM EarnedAchievements ORDER BY EarnedAt DESC";
-
-        var achievements = new List<EarnedAchievement>();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            achievements.Add(new EarnedAchievement
-            {
-                Id = reader.GetInt32(0),
-                AchievementId = reader.GetString(1),
-                EarnedAt = DateTime.Parse(reader.GetString(2)),
-                HasBeenSeen = reader.GetInt32(3) == 1
-            });
-        }
-
-        return achievements;
+        IReadOnlyList<EarnedAchievement> result = entities.Select(ToModel).ToList();
+        return Task.FromResult(result);
     }
 
-    public async Task SaveEarnedAchievementAsync(EarnedAchievement achievement)
+    public Task SaveEarnedAchievementAsync(EarnedAchievement achievement)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        _connection.Execute(
+            "INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen) VALUES (?, ?, ?)",
+            achievement.AchievementId, achievement.EarnedAt.ToString("O"), achievement.HasBeenSeen ? 1 : 0);
 
-        var command = connection.CreateCommand();
-        command.CommandText = """
-            INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen)
-            VALUES (@achievementId, @earnedAt, @hasBeenSeen)
-            """;
-        command.Parameters.AddWithValue("@achievementId", achievement.AchievementId);
-        command.Parameters.AddWithValue("@earnedAt", achievement.EarnedAt.ToString("O"));
-        command.Parameters.AddWithValue("@hasBeenSeen", achievement.HasBeenSeen ? 1 : 0);
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
-    public async Task<bool> IsAchievementEarnedAsync(string achievementId)
+    public Task<bool> IsAchievementEarnedAsync(string achievementId)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var count = _connection.ExecuteScalar<int>(
+            "SELECT COUNT(*) FROM EarnedAchievements WHERE AchievementId = ?", achievementId);
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT COUNT(*) FROM EarnedAchievements WHERE AchievementId = @achievementId";
-        command.Parameters.AddWithValue("@achievementId", achievementId);
-
-        var result = await command.ExecuteScalarAsync();
-        return Convert.ToInt32(result) > 0;
+        return Task.FromResult(count > 0);
     }
 
-    public async Task<int> GetUnseenAchievementCountAsync()
+    public Task<int> GetUnseenAchievementCountAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var count = _connection.ExecuteScalar<int>(
+            "SELECT COUNT(*) FROM EarnedAchievements WHERE HasBeenSeen = 0");
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT COUNT(*) FROM EarnedAchievements WHERE HasBeenSeen = 0";
-
-        var result = await command.ExecuteScalarAsync();
-        return Convert.ToInt32(result);
+        return Task.FromResult(count);
     }
 
-    public async Task MarkAllAchievementsAsSeenAsync()
+    public Task MarkAllAchievementsAsSeenAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        _connection.Execute("UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0");
 
-        var command = connection.CreateCommand();
-        command.CommandText = "UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0";
-
-        await command.ExecuteNonQueryAsync();
+        return Task.CompletedTask;
     }
 
     public async Task<int> GetPerfectDaysCountAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
         var settings = await GetSettingsAsync();
         var enabledItems = GetEnabledItemIds(settings);
@@ -603,36 +408,52 @@ public class SqliteDataService : IDataService
         return perfectDays;
     }
 
-    public async Task<int> GetItemCompletionCountAsync(string itemId)
+    public Task<int> GetItemCompletionCountAsync(string itemId)
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
         var item = ChecklistDefinitions.GetItemById(itemId);
-        if (item == null) return 0;
+        if (item == null) return Task.FromResult(0);
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var count = _connection.ExecuteScalar<int>(
+            "SELECT COUNT(*) FROM DailyEntries WHERE ItemId = ? AND ServingsCompleted >= ?",
+            itemId, item.RecommendedServings);
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT COUNT(*) FROM DailyEntries WHERE ItemId = @itemId AND ServingsCompleted >= @target";
-        command.Parameters.AddWithValue("@itemId", itemId);
-        command.Parameters.AddWithValue("@target", item.RecommendedServings);
-
-        var result = await command.ExecuteScalarAsync();
-        return Convert.ToInt32(result);
+        return Task.FromResult(count);
     }
 
-    public async Task<int> GetTotalDaysTrackedAsync()
+    public Task<int> GetTotalDaysTrackedAsync()
     {
-        await EnsureInitializedAsync();
+        EnsureInitialized();
 
-        await using var connection = new SqliteConnection(_connectionString);
-        await connection.OpenAsync();
+        var count = _connection.ExecuteScalar<int>("SELECT COUNT(DISTINCT Date) FROM DailyEntries");
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT COUNT(DISTINCT Date) FROM DailyEntries";
-
-        var result = await command.ExecuteScalarAsync();
-        return Convert.ToInt32(result);
+        return Task.FromResult(count);
     }
+
+    // ===== Mapping helpers =====
+
+    private static DailyEntry ToModel(DailyEntryEntity entity) => new()
+    {
+        Id = entity.Id,
+        Date = DateOnly.Parse(entity.Date),
+        ItemId = entity.ItemId,
+        ServingsCompleted = entity.ServingsCompleted
+    };
+
+    private static WeightEntry ToModel(WeightEntryEntity entity) => new()
+    {
+        Id = entity.Id,
+        Date = DateOnly.Parse(entity.Date),
+        Weight = entity.Weight,
+        Notes = entity.Notes
+    };
+
+    private static EarnedAchievement ToModel(EarnedAchievementEntity entity) => new()
+    {
+        Id = entity.Id,
+        AchievementId = entity.AchievementId,
+        EarnedAt = DateTime.Parse(entity.EarnedAt),
+        HasBeenSeen = entity.HasBeenSeen == 1
+    };
 }

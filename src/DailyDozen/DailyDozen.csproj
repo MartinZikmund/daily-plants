@@ -41,7 +41,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" />
+    <PackageReference Include="sqlite-net-e" />
+    <PackageReference Include="SourceGear.sqlite3" />
   </ItemGroup>
 
 </Project>
