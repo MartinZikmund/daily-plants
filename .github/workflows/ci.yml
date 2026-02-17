@@ -33,4 +33,4 @@ jobs:
 
       - name: Build DailyDozen (Debug)
         shell: pwsh
-        run: msbuild @DailyDozen.slnx /r
+        run: msbuild DailyDozen.slnx /r
