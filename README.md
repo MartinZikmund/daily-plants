@@ -54,7 +54,7 @@ All data is stored locally on your device. No account required, no tracking, no 
 
 ### Prerequisites
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) or later
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) (17.8+) with:
   - .NET Multi-platform App UI development workload
   - Or: [Uno Platform extension](https://marketplace.visualstudio.com/items?itemName=unoplatform.uno-platform-addin-2022)
@@ -75,40 +75,40 @@ cd daily-dozen
 
 ```bash
 cd src/DailyDozen
-dotnet build -f net9.0-windows10.0.26100
-dotnet run -f net9.0-windows10.0.26100
+dotnet build -f net10.0-windows10.0.26100
+dotnet run -f net10.0-windows10.0.26100
 ```
 
 #### Android
 
 ```bash
 cd src/DailyDozen
-dotnet build -f net9.0-android
+dotnet build -f net10.0-android
 # Deploy to connected device or emulator
-dotnet build -f net9.0-android -t:Install
+dotnet build -f net10.0-android -t:Install
 ```
 
 #### iOS (macOS required)
 
 ```bash
 cd src/DailyDozen
-dotnet build -f net9.0-ios
+dotnet build -f net10.0-ios
 ```
 
 #### WebAssembly
 
 ```bash
 cd src/DailyDozen
-dotnet build -f net9.0-browserwasm
-dotnet run -f net9.0-browserwasm
+dotnet build -f net10.0-browserwasm
+dotnet run -f net10.0-browserwasm
 ```
 
 #### Desktop (Skia/GTK)
 
 ```bash
 cd src/DailyDozen
-dotnet build -f net9.0-desktop
-dotnet run -f net9.0-desktop
+dotnet build -f net10.0-desktop
+dotnet run -f net10.0-desktop
 ```
 
 ### Using Visual Studio
