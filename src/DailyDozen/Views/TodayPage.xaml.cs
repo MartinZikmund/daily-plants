@@ -34,6 +34,16 @@ public sealed partial class TodayPage : Page
         }
     }
 
+    private async void CalendarView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
+    {
+        if (args.AddedDates.Count > 0)
+        {
+            var selectedDate = DateOnly.FromDateTime(args.AddedDates[0].DateTime);
+            await ViewModel.GoToDateAsync(selectedDate);
+            DatePickerFlyout.Hide();
+        }
+    }
+
     private async void ViewModel_ItemDetailRequested(object? sender, ChecklistItem item)
     {
         await ShowItemDetailDialogAsync(item);

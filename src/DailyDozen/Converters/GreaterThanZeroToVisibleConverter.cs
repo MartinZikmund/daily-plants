@@ -3,25 +3,21 @@ using Microsoft.UI.Xaml.Data;
 namespace DailyDozen.Converters;
 
 /// <summary>
-/// Converts a boolean value to its opposite.
+/// Converts a count greater than zero to Visible, Collapsed otherwise.
 /// </summary>
-public class BoolNegationConverter : IValueConverter
+public class GreaterThanZeroToVisibleConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        if (value is bool boolValue)
+        if (value is int count)
         {
-            return !boolValue;
+            return count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
-        return value;
+        return Visibility.Collapsed;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        if (value is bool boolValue)
-        {
-            return !boolValue;
-        }
-        return value;
+        throw new NotImplementedException();
     }
 }

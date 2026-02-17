@@ -36,9 +36,24 @@
             <StackPanel Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <TextBlock Text="{Binding DateDisplayText}"
-                           HorizontalAlignment="Center"
-                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <!-- Date text with calendar flyout -->
+                <Button x:Name="DatePickerButton"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="8,4"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Today_PickDate}">
+                    <TextBlock Text="{Binding DateDisplayText}"
+                               Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <Button.Flyout>
+                        <Flyout x:Name="DatePickerFlyout" Placement="Bottom">
+                            <CalendarView x:Name="CalendarView"
+                                          SelectedDatesChanged="CalendarView_SelectedDatesChanged"
+                                          MaxDate="{x:Bind ViewModel.MaxSelectableDate, Mode=OneWay}"
+                                          SelectionMode="Single" />
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
                 <Button Content="{helpers:Localize Key=Today_GoToToday}"
                         HorizontalAlignment="Center"
                         Margin="0,4,0,0"
@@ -99,12 +114,22 @@
                               PointerPressed="ItemCard_PointerPressed">
 
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
+                            <!-- Completion Checkmark (visible when 100% complete) / Placeholder for alignment -->
+                            <FontIcon Grid.Column="0"
+                                       Glyph="&#xE73E;"
+                                       FontSize="20"
+                                       Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                       Margin="0,0,12,0"
+                                       VerticalAlignment="Center"
+                                       Opacity="{Binding IsComplete, Converter={StaticResource BoolToOpacityConverter}}" />
+
                             <!-- Item Info -->
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Item.Name}"
                                            Style="{StaticResource BodyStrongTextBlockStyle}" />
                                 <TextBlock Text="{Binding Item.ServingSizeExample}"
@@ -116,39 +141,28 @@
                             </StackPanel>
 
                             <!-- Serving Controls -->
-                            <StackPanel Grid.Column="1"
+                            <StackPanel Grid.Column="2"
                                         Orientation="Horizontal"
                                         Spacing="6"
                                         VerticalAlignment="Center">
 
-                                <!-- Minus Button -->
+                                <!-- Minus Button (uses opacity, not disabled, to prevent click bubbling to parent) -->
                                 <Button Command="{Binding DecrementServingCommand}"
                                         Width="32" Height="32"
                                         CornerRadius="16"
                                         Padding="0"
-                                        Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}">
+                                        Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
+                                        ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
                                     <FontIcon Glyph="&#xE738;" FontSize="12" />
                                 </Button>
 
-                                <!-- Serving Count -->
-                                <Border Background="{ThemeResource AccentFillColorDefaultBrush}"
+                                <!-- Serving Count Badge - Progressive color based on completion -->
+                                <Border Background="{Binding Progress, Converter={StaticResource ProgressToColorConverter}}"
                                         CornerRadius="12"
                                         Padding="12,4"
-                                        MinWidth="48"
-                                        Visibility="{Binding IsComplete}">
+                                        MinWidth="48">
                                     <TextBlock Text="{Binding ServingsDisplayText}"
-                                               Foreground="White"
-                                               FontWeight="SemiBold"
-                                               FontSize="14"
-                                               HorizontalAlignment="Center" />
-                                </Border>
-
-                                <Border Background="{ThemeResource ControlFillColorDefaultBrush}"
-                                        CornerRadius="12"
-                                        Padding="12,4"
-                                        MinWidth="48"
-                                        Visibility="{Binding IsComplete, Converter={StaticResource BoolNegationConverter}}">
-                                    <TextBlock Text="{Binding ServingsDisplayText}"
+                                               Foreground="{Binding Progress, Converter={StaticResource ProgressToTextColorConverter}}"
                                                FontWeight="SemiBold"
                                                FontSize="14"
                                                HorizontalAlignment="Center" />
@@ -159,15 +173,17 @@
                                         Width="32" Height="32"
                                         CornerRadius="16"
                                         Padding="0"
-                                        Style="{StaticResource AccentButtonStyle}">
-                                    <FontIcon Glyph="&#xE710;" FontSize="12" />
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
+                                    <FontIcon Glyph="&#xE710;" FontSize="12" Foreground="Black" />
                                 </Button>
 
                                 <!-- Info Button -->
                                 <Button Command="{Binding ShowItemDetailCommand}"
                                         Width="32" Height="32"
                                         CornerRadius="16"
-                                        Padding="0">
+                                        Padding="0"
+                                        ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
                                     <FontIcon Glyph="&#xE946;" FontSize="12" />
                                 </Button>
                             </StackPanel>

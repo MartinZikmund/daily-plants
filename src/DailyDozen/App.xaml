@@ -19,6 +19,9 @@
       <converters:GreaterThanZeroToVisibleConverter x:Key="GreaterThanZeroToVisibleConverter" />
       <converters:GreaterThanZeroToOpacityConverter x:Key="GreaterThanZeroToOpacityConverter" />
       <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
+      <converters:ProgressToColorConverter x:Key="ProgressToColorConverter" />
+      <converters:ProgressToTextColorConverter x:Key="ProgressToTextColorConverter" />
+      <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
 
       <!-- Green Theme Colors -->
       <ResourceDictionary.ThemeDictionaries>

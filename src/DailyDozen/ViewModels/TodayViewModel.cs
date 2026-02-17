@@ -31,6 +31,11 @@ public partial class TodayViewModel : ObservableObject
 
     public DateOnly CurrentDate => _currentDate;
 
+    /// <summary>
+    /// Maximum selectable date for the calendar picker (today).
+    /// </summary>
+    public DateTimeOffset MaxSelectableDate => DateTimeOffset.Now;
+
     public event EventHandler<ChecklistItem>? ItemDetailRequested;
 
     public TodayViewModel(IDataService dataService, IAchievementService? achievementService = null)
@@ -116,6 +121,23 @@ public partial class TodayViewModel : ObservableObject
     private async Task GoToTodayAsync()
     {
         _currentDate = DateOnly.FromDateTime(DateTime.Today);
+        UpdateDateDisplay();
+        await LoadDataAsync();
+    }
+
+    /// <summary>
+    /// Navigate to a specific date (called from calendar picker).
+    /// </summary>
+    public async Task GoToDateAsync(DateOnly date)
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        // Don't allow future dates
+        if (date > today)
+        {
+            date = today;
+        }
+
+        _currentDate = date;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
@@ -244,21 +266,16 @@ public partial class ChecklistItemViewModel : ObservableObject
     [RelayCommand]
     private void ToggleServing()
     {
-        // For single-serving items, toggle between 0 and 1
-        // For multi-serving items, increment (wrapping to 0 after max)
-        if (Item.RecommendedServings == 1)
+        // Increment up to max value only (no wrapping)
+        // To decrease, user must use the minus button
+        if (ServingsCompleted < Item.RecommendedServings)
         {
-            ServingsCompleted = ServingsCompleted == 0 ? 1 : 0;
+            ServingsCompleted++;
+            OnPropertyChanged(nameof(ServingsDisplayText));
+            OnPropertyChanged(nameof(Progress));
+            OnPropertyChanged(nameof(IsComplete));
+            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
-        else
-        {
-            ServingsCompleted = (ServingsCompleted + 1) % (Item.RecommendedServings + 1);
-        }
-
-        OnPropertyChanged(nameof(ServingsDisplayText));
-        OnPropertyChanged(nameof(Progress));
-        OnPropertyChanged(nameof(IsComplete));
-        ServingsChanged?.Invoke(this, ServingsCompleted);
     }
 
     [RelayCommand]
