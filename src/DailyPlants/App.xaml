@@ -22,6 +22,7 @@
       <converters:ProgressToColorConverter x:Key="ProgressToColorConverter" />
       <converters:ProgressToTextColorConverter x:Key="ProgressToTextColorConverter" />
       <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+      <converters:StringToUriConverter x:Key="StringToUriConverter" />
 
       <!-- Green Theme Colors -->
       <ResourceDictionary.ThemeDictionaries>

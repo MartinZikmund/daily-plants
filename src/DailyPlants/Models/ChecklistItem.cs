@@ -42,9 +42,9 @@ public partial record ChecklistItem
     public string? MoreInfoUrl { get; init; }
 
     /// <summary>
-    /// Icon glyph for the item (Segoe Fluent Icons).
+    /// Path to the icon asset for this item.
     /// </summary>
-    public string? IconGlyph { get; init; }
+    public string? IconPath { get; init; }
 
     /// <summary>
     /// Which checklists this item belongs to.

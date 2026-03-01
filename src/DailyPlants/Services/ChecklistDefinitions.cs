@@ -37,7 +37,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/2 cup cooked beans, lentils, tofu, or tempeh; 1/4 cup hummus",
             HealthBenefits = "Excellent source of protein, fiber, and complex carbohydrates. Associated with longest lifespan gains according to Global Burden of Disease Study.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/beans/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/beans.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
         },
 
@@ -51,7 +51,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/2 cup fresh or frozen; 1/4 cup dried",
             HealthBenefits = "Highest antioxidant content of all fruits. Associated with longer lifespan and cognitive benefits.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/berries/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/berries.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
         },
 
@@ -65,7 +65,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1 medium fruit; 1/4 cup dried; 1/4 cup fruit juice",
             HealthBenefits = "Rich in vitamins, minerals, and fiber. Essential for overall health.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/fruit/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/other_fruits.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -79,7 +79,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1 cup raw; 1/2 cup cooked",
             HealthBenefits = "Most associated with longer lifespan among vegetables. Rich in nitrates that improve muscle and artery function.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/greens/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/greens.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
         },
 
@@ -93,7 +93,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/2 cup chopped; 1/4 cup Brussels or broccoli sprouts; 1 tbsp horseradish",
             HealthBenefits = "Contains sulforaphane which boosts immune function and liver detox enzymes.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/cruciferous-vegetables/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/cruciferous.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
         },
 
@@ -107,7 +107,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/2 cup raw or cooked non-leafy vegetables; 1/4 cup dried mushrooms",
             HealthBenefits = "Diverse nutrients and fiber. Essential for a balanced diet.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/vegetables/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/other_vegetables.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -121,7 +121,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1 tablespoon ground",
             HealthBenefits = "Richest source of lignans and omega-3 ALA. Benefits heart health and hormone balance.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/flax-seeds/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/flaxseed.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -135,7 +135,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/4 cup nuts or seeds; 2 tbsp nut or seed butter",
             HealthBenefits = "Associated with lowest risk of premature death of any food group. Walnuts are especially beneficial.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/nuts/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/nuts.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
         },
 
@@ -149,7 +149,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/4 tsp turmeric with other spices",
             HealthBenefits = "Powerful anti-inflammatory and antioxidant properties.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/spices/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/herbs_spices.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -163,7 +163,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/2 cup hot cereal or cooked grains; 1 slice bread; 1/2 bagel",
             HealthBenefits = "High fiber content supports gut health and stable blood sugar.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/whole-grains/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/whole_grains.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -177,7 +177,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "12 oz glass (5 glasses = 60 oz daily)",
             HealthBenefits = "Proper hydration is essential for all body functions.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/beverages/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/beverages.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -191,7 +191,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "90 min moderate activity or 40 min vigorous activity",
             HealthBenefits = "Boosts NAD+ levels by 127%. Essential for longevity and overall health.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/exercise/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/exercise.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
         },
 
@@ -205,7 +205,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "2000 mcg weekly or 50 mcg daily",
             HealthBenefits = "Essential for nerve function and red blood cell formation. Required on plant-based diet.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/vitamin-b12/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/vitamin_b12.png",
             Checklists = [ChecklistType.DailyDozen]
         },
 
@@ -220,7 +220,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "2 cups (16 oz) cold water before each meal",
             HealthBenefits = "Boosts metabolism and helps feel full, reducing calorie intake.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/water/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/preload_water.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -233,7 +233,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "Apple, light soup, or salad before meals",
             HealthBenefits = "Reduces overall calorie consumption while adding nutrition.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/appetite/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/negative_calorie_preload.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -246,7 +246,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "2 tsp vinegar with each meal",
             HealthBenefits = "May help with blood sugar control and weight management.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/vinegar/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/vinegar.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -259,7 +259,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "At least one meal without TV, phone, or reading",
             HealthBenefits = "Mindful eating leads to better portion control and satisfaction.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/mindful-eating/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/undistracted_meals.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -272,7 +272,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "Slow down eating, chew thoroughly",
             HealthBenefits = "Allows satiety signals to register, preventing overeating.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/eating-rate/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/twenty_minute_rule.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -284,7 +284,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Season with herbs, spices, vinegar instead of oil",
             HealthBenefits = "Reduces calorie density while maintaining flavor.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/fat_free_dressings.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -296,7 +296,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Make breakfast the largest meal of the day",
             HealthBenefits = "Aligns eating with circadian rhythm for better metabolism.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/front_load_calories.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -309,7 +309,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "Eat within a consistent daily window",
             HealthBenefits = "May improve metabolic health and weight management.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/intermittent-fasting/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/time_restricted_eating.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -321,7 +321,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Include legumes in multiple meals",
             HealthBenefits = "High protein and fiber promote satiety and gut health.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/more_legumes.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -333,7 +333,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Add greens to every meal",
             HealthBenefits = "Low calorie, high nutrient density supports weight loss.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/more_greens.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -345,7 +345,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Include berries daily",
             HealthBenefits = "Antioxidants and fiber support metabolic health.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/more_berries.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -357,7 +357,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Steel-cut oats instead of bread, intact barley instead of pasta",
             HealthBenefits = "Intact grains have lower glycemic impact and better satiety.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/deflour_diet.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -370,7 +370,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/4 tsp black cumin (nigella seeds)",
             HealthBenefits = "May help with weight loss and blood sugar control.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/black-cumin/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/black_cumin.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -383,7 +383,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/4 tsp garlic powder",
             HealthBenefits = "Studies show it can reduce body fat.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/garlic/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/garlic_powder.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -396,7 +396,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1 tsp ground ginger or equivalent fresh",
             HealthBenefits = "May boost metabolism and reduce inflammation.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/ginger/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/ground_ginger.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -409,7 +409,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "2 tsp nutritional yeast",
             HealthBenefits = "Beta-glucan fiber can facilitate weight loss.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/nutritional-yeast/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/nutritional_yeast.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -422,7 +422,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "1/2 tsp cumin with lunch and dinner",
             HealthBenefits = "May help with weight loss and improve cholesterol.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/cumin/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/cumin.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -435,7 +435,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "3 cups green tea",
             HealthBenefits = "Contains catechins that may boost metabolism.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/green-tea/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/green_tea.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -447,7 +447,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "8+ cups of water throughout the day",
             HealthBenefits = "Proper hydration supports metabolism and reduces hunger.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/stay_hydrated.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -459,7 +459,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Exercise fasted in morning or in afternoon",
             HealthBenefits = "May enhance fat burning and metabolic benefits.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/exercise_timing.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -472,7 +472,7 @@ public static class ChecklistDefinitions
             ServingSizeExample = "7+ hours of quality sleep",
             HealthBenefits = "Poor sleep disrupts hunger hormones and metabolism.",
             MoreInfoUrl = "https://nutritionfacts.org/topics/sleep/",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/enough_sleep.png",
             Checklists = [ChecklistType.TwentyOneTweaks, ChecklistType.AntiAgingEight]
         },
 
@@ -486,7 +486,7 @@ public static class ChecklistDefinitions
             RecommendedServings = 1,
             ServingSizeExample = "Sunscreen, hat, or protective clothing when outdoors",
             HealthBenefits = "Sun exposure accounts for 90% of visible skin aging.",
-            IconGlyph = "\uE700",
+            IconPath = "ms-appx:///Assets/Icons/Items/sun_protection.png",
             Checklists = [ChecklistType.AntiAgingEight]
         }
     ];
