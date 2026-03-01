@@ -1,6 +1,6 @@
-# Contributing to Daily Dozen
+# Contributing to Daily Plants
 
-Thank you for your interest in contributing to Daily Dozen! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to Daily Plants! This document provides guidelines and information for contributors.
 
 ## Table of Contents
 
@@ -64,7 +64,7 @@ We welcome the following types of contributions:
 ### Building the Project
 
 ```bash
-cd src/DailyDozen
+cd src/DailyPlants
 dotnet restore
 dotnet build
 ```
@@ -72,7 +72,7 @@ dotnet build
 ### Running Tests
 
 ```bash
-cd src/DailyDozen.Tests
+cd src/DailyPlants.Tests
 dotnet test
 ```
 
@@ -113,7 +113,7 @@ dotnet run -f net9.0-browserwasm
 ### Project Structure
 
 ```
-src/DailyDozen/
+src/DailyPlants/
 ├── Models/        # Data models and entities
 ├── ViewModels/    # MVVM ViewModels
 ├── Views/         # XAML pages and user controls
@@ -205,7 +205,7 @@ For feature requests, please include:
 
 We welcome translations! To add a new language:
 
-1. Create a new folder under `src/DailyDozen/Strings/` with the language code (e.g., `de` for German)
+1. Create a new folder under `src/DailyPlants/Strings/` with the language code (e.g., `de` for German)
 2. Copy `en/Resources.resw` to your new folder
 3. Translate all strings in the file
 4. Test the app with your language
@@ -219,4 +219,4 @@ If you have questions about contributing, feel free to:
 - Ask in an existing issue if related
 - Reach out to the maintainers
 
-Thank you for contributing to Daily Dozen!
+Thank you for contributing to Daily Plants!

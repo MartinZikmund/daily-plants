@@ -5,11 +5,11 @@ on:
 
 env:
   # App Configuration
-  APP_NAME: DailyDozen
+  APP_NAME: DailyPlants
   DOTNET_VERSION: 10.0.x
-  SOLUTION_FILE: DailyDozen.slnx
-  PROJECT_PATH: src/DailyDozen
-  PROJECT_FILE: src/DailyDozen/DailyDozen.csproj
+  SOLUTION_FILE: DailyPlants.slnx
+  PROJECT_PATH: src/DailyPlants
+  PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
   ANDROID_TARGET_FRAMEWORK: net10.0-android
   GOOGLE_PLAY_TRACK_STATUS: draft  # Options: completed, draft, halted, inProgress
 
@@ -85,7 +85,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: dev.mzikmund.dailydozen
+          packageName: dev.mzikmund.dailyplants
           releaseFiles: ${{ env.PROJECT_PATH }}/bin/Release/${{ env.ANDROID_TARGET_FRAMEWORK }}/publish/*-Signed.aab
           track: internal
           status: ${{ env.GOOGLE_PLAY_TRACK_STATUS }}

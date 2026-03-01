@@ -11,11 +11,11 @@ on:
 
 env:
   # App Configuration
-  APP_NAME: DailyDozen
+  APP_NAME: DailyPlants
   DOTNET_VERSION: 10.0.x
-  SOLUTION_FILE: DailyDozen.slnx
-  PROJECT_PATH: src/DailyDozen
-  PROJECT_FILE: src/DailyDozen/DailyDozen.csproj
+  SOLUTION_FILE: DailyPlants.slnx
+  PROJECT_PATH: src/DailyPlants
+  PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
   
   STEP_TIMEOUT_MINUTES: 60
 

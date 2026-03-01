@@ -260,7 +260,7 @@ Bottom Navigation (Mobile) / NavigationView (Desktop)
 ### Project Structure
 
 ```
-DailyDozen/
+DailyPlants/
 ├── Models/
 │   ├── ChecklistItem.cs
 │   ├── DailyEntry.cs

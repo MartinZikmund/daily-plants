@@ -1,0 +1,203 @@
+<Page x:Class="DailyPlants.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:DailyPlants.Views"
+      xmlns:helpers="using:DailyPlants.Helpers"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="16" Spacing="24" MaxWidth="600">
+
+            <!-- Header -->
+            <TextBlock Text="{helpers:Localize Key=Settings_Title}"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+
+            <!-- Checklists Section -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="{helpers:Localize Key=Settings_ActiveChecklists}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="{helpers:Localize Key=Settings_ActiveChecklistsDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <!-- Daily Dozen -->
+                <StackPanel Spacing="4" Margin="0,4,0,0">
+                    <ToggleSwitch Header="{helpers:Localize Key=Settings_DailyDozen}"
+                                  IsOn="{Binding DailyDozenEnabled, Mode=TwoWay}"
+                                  OnContent="{helpers:Localize Key=Settings_Enabled}"
+                                  OffContent="{helpers:Localize Key=Settings_Disabled}" />
+                    <TextBlock Text="{helpers:Localize Key=Settings_DailyDozenDesc}"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextWrapping="Wrap"
+                               Margin="0,-4,0,0" />
+                </StackPanel>
+
+                <!-- Twenty-One Tweaks -->
+                <StackPanel Spacing="4">
+                    <ToggleSwitch Header="{helpers:Localize Key=Settings_TwentyOneTweaks}"
+                                  IsOn="{Binding TwentyOneTweaksEnabled, Mode=TwoWay}"
+                                  OnContent="{helpers:Localize Key=Settings_Enabled}"
+                                  OffContent="{helpers:Localize Key=Settings_Disabled}" />
+                    <TextBlock Text="{helpers:Localize Key=Settings_TwentyOneTweaksDesc}"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextWrapping="Wrap"
+                               Margin="0,-4,0,0" />
+                </StackPanel>
+
+                <!-- Anti-Aging Eight -->
+                <StackPanel Spacing="4">
+                    <ToggleSwitch Header="{helpers:Localize Key=Settings_AntiAgingEight}"
+                                  IsOn="{Binding AntiAgingEightEnabled, Mode=TwoWay}"
+                                  OnContent="{helpers:Localize Key=Settings_Enabled}"
+                                  OffContent="{helpers:Localize Key=Settings_Disabled}" />
+                    <TextBlock Text="{helpers:Localize Key=Settings_AntiAgingEightDesc}"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextWrapping="Wrap"
+                               Margin="0,-4,0,0" />
+                </StackPanel>
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Weight Tracking Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Settings_WeightTracking}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="{helpers:Localize Key=Settings_WeightTrackingDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ToggleSwitch Header="{helpers:Localize Key=Settings_EnableWeightTracking}"
+                              IsOn="{Binding WeightTrackingEnabled, Mode=TwoWay}"
+                              OnContent="{helpers:Localize Key=Settings_Enabled}"
+                              OffContent="{helpers:Localize Key=Settings_Disabled}"
+                              Margin="0,8,0,0" />
+
+                <!-- Goal Weight and Height (visible when weight tracking is enabled) -->
+                <StackPanel Spacing="12"
+                            Visibility="{Binding WeightTrackingEnabled}"
+                            Margin="0,8,0,0">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox Header="{helpers:Localize Key=Settings_GoalWeight}"
+                                 Text="{Binding GoalWeightText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 PlaceholderText="{helpers:Localize Key=Settings_Optional}"
+                                 Width="120"
+                                 InputScope="Number" />
+                        <TextBlock Text="{Binding WeightUnit}"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0,0,0,10"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox Header="{helpers:Localize Key=Settings_Height}"
+                                 Text="{Binding HeightText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 PlaceholderText="{helpers:Localize Key=Settings_Optional}"
+                                 Width="120"
+                                 InputScope="Number" />
+                        <TextBlock Text="{Binding HeightUnit}"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0,0,0,10"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Units Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Settings_Units}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="{helpers:Localize Key=Settings_UnitsDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ToggleSwitch Header="{helpers:Localize Key=Settings_UseMetric}"
+                              IsOn="{Binding UseMetricUnits, Mode=TwoWay}"
+                              OnContent="{helpers:Localize Key=Settings_Metric}"
+                              OffContent="{helpers:Localize Key=Settings_Imperial}"
+                              Margin="0,8,0,0" />
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Appearance Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Settings_Appearance}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="{helpers:Localize Key=Settings_AppearanceDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <ComboBox Header="{helpers:Localize Key=Settings_Theme}"
+                          ItemsSource="{Binding ThemeOptions}"
+                          SelectedIndex="{Binding SelectedThemeIndex, Mode=TwoWay}"
+                          Margin="0,8,0,0"
+                          MinWidth="200" />
+
+                <ComboBox Header="{helpers:Localize Key=Settings_Language}"
+                          ItemsSource="{Binding LanguageOptions}"
+                          SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}"
+                          Margin="0,8,0,0"
+                          MinWidth="200" />
+                <TextBlock Text="{helpers:Localize Key=Settings_RestartRequired}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                           Visibility="{Binding ShowRestartMessage}" />
+            </StackPanel>
+
+            <Border Height="1"
+                    Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <!-- Data Management Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="{helpers:Localize Key=Settings_DataManagement}"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock Text="{helpers:Localize Key=Settings_DataManagementDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                <!-- Export -->
+                <TextBlock Text="{helpers:Localize Key=Settings_Export}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           Margin="0,8,0,0" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="{helpers:Localize Key=Settings_ExportToJson}"
+                            Command="{Binding ExportToJsonCommand}"
+                            Style="{StaticResource AccentButtonStyle}" />
+                    <Button Content="{helpers:Localize Key=Settings_ExportToCsv}"
+                            Command="{Binding ExportToCsvCommand}" />
+                </StackPanel>
+                <TextBlock Text="{helpers:Localize Key=Settings_ExportDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                           TextWrapping="Wrap" />
+
+                <!-- Import -->
+                <TextBlock Text="{helpers:Localize Key=Settings_Import}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           Margin="0,12,0,0" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="{helpers:Localize Key=Settings_ImportFromJson}"
+                            Command="{Binding ImportFromJsonCommand}" />
+                    <Button Content="{helpers:Localize Key=Settings_ImportFromCsv}"
+                            Command="{Binding ImportFromCsvCommand}" />
+                </StackPanel>
+                <TextBlock Text="{helpers:Localize Key=Settings_ImportDesc}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>
