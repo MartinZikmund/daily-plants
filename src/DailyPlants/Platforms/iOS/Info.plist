@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<!-- App identification -->
+		<key>CFBundleDisplayName</key>
+		<string>Daily Plants</string>
+		<key>CFBundleName</key>
+		<string>DailyPlants</string>
+		<key>CFBundleShortVersionString</key>
+		<string>1.0.0</string>
+		<key>CFBundleVersion</key>
+		<string>1</string>
+
+		<!-- Device requirements -->
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>UIDeviceFamily</key>
+		<array>
+			<integer>1</integer>
+			<integer>2</integer>
+		</array>
+		<key>UIRequiredDeviceCapabilities</key>
+		<array>
+			<string>armv7</string>
+			<string>arm64</string>
+		</array>
+		<key>MinimumOSVersion</key>
+		<string>15.0</string>
+
+		<!-- Interface orientations -->
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>UISupportedInterfaceOrientations~ipad</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+
+		<!-- Status bar -->
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+
+		<!-- App icons -->
+		<key>XSAppIconAssets</key>
+		<string>Assets.xcassets/icon.appiconset</string>
+
+		<!-- Input -->
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+
+		<!-- Export compliance - no encryption -->
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
+
+		<!-- Background modes (none required) -->
+		<key>UIBackgroundModes</key>
+		<array>
+		</array>
+
+		<!-- Launch storyboard -->
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+
+		<!-- App Transport Security -->
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<false/>
+		</dict>
+
+		<!-- User tracking (none) -->
+		<key>NSUserTrackingUsageDescription</key>
+		<string>This app does not track you.</string>
+	</dict>
+</plist>

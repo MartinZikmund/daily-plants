@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest a new feature or improvement for Daily Dozen
+about: Suggest a new feature or improvement for Daily Plants
 title: '[Feature] '
 labels: enhancement
 assignees: ''

@@ -123,7 +123,7 @@ This document tracks all tasks needed before open-sourcing and publishing to app
 
 ### Testing
 
-- [ ] Create test project (DailyDozen.Tests)
+- [ ] Create test project (DailyPlants.Tests)
 - [ ] Unit tests for Services
   - [ ] SqliteDataService tests
   - [ ] ExportService tests

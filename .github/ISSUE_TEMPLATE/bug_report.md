@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug to help us improve Daily Dozen
+about: Report a bug to help us improve Daily Plants
 title: '[Bug] '
 labels: bug
 assignees: ''

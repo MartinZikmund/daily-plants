@@ -1,4 +1,4 @@
-# Daily Dozen
+# Daily Plants
 
 A cross-platform nutrition tracking app based on Dr. Michael Greger's evidence-based nutrition recommendations from his books *How Not to Die*, *How Not to Diet*, and *How Not to Age*.
 
@@ -6,14 +6,14 @@ A cross-platform nutrition tracking app based on Dr. Michael Greger's evidence-b
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!--
-[![Google Play](https://img.shields.io/badge/Google_Play-Download-green?logo=google-play)](https://play.google.com/store/apps/details?id=dev.mzikmund.dailydozen)
-[![App Store](https://img.shields.io/badge/App_Store-Download-blue?logo=apple)](https://apps.apple.com/app/daily-dozen)
-[![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Download-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/daily-dozen)
+[![Google Play](https://img.shields.io/badge/Google_Play-Download-green?logo=google-play)](https://play.google.com/store/apps/details?id=dev.mzikmund.dailyplants)
+[![App Store](https://img.shields.io/badge/App_Store-Download-blue?logo=apple)](https://apps.apple.com/app/daily-plants)
+[![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Download-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/daily-plants)
 -->
 
 ## About
 
-Daily Dozen helps you track your daily nutrition goals with three evidence-based checklists:
+Daily Plants helps you track your daily nutrition goals with three evidence-based checklists:
 
 - **Daily Dozen** - 12 food groups to include every day from *How Not to Die*
 - **Twenty-One Tweaks** - Weight-loss accelerators from *How Not to Diet*
@@ -74,7 +74,7 @@ cd daily-dozen
 #### Windows
 
 ```bash
-cd src/DailyDozen
+cd src/DailyPlants
 dotnet build -f net10.0-windows10.0.26100
 dotnet run -f net10.0-windows10.0.26100
 ```
@@ -82,7 +82,7 @@ dotnet run -f net10.0-windows10.0.26100
 #### Android
 
 ```bash
-cd src/DailyDozen
+cd src/DailyPlants
 dotnet build -f net10.0-android
 # Deploy to connected device or emulator
 dotnet build -f net10.0-android -t:Install
@@ -91,14 +91,14 @@ dotnet build -f net10.0-android -t:Install
 #### iOS (macOS required)
 
 ```bash
-cd src/DailyDozen
+cd src/DailyPlants
 dotnet build -f net10.0-ios
 ```
 
 #### WebAssembly
 
 ```bash
-cd src/DailyDozen
+cd src/DailyPlants
 dotnet build -f net10.0-browserwasm
 dotnet run -f net10.0-browserwasm
 ```
@@ -106,14 +106,14 @@ dotnet run -f net10.0-browserwasm
 #### Desktop (Skia/GTK)
 
 ```bash
-cd src/DailyDozen
+cd src/DailyPlants
 dotnet build -f net10.0-desktop
 dotnet run -f net10.0-desktop
 ```
 
 ### Using Visual Studio
 
-1. Open `src/DailyDozen/DailyDozen.sln`
+1. Open `DailyPlants.slnx`
 2. Select your target framework from the dropdown
 3. Press F5 to build and run
 
@@ -122,7 +122,7 @@ dotnet run -f net10.0-desktop
 The app is built with [Uno Platform](https://platform.uno/) using modern .NET patterns:
 
 ```
-src/DailyDozen/
+src/DailyPlants/
 ├── Models/           # Data models (ChecklistItem, DailyEntry, etc.)
 ├── ViewModels/       # MVVM ViewModels using CommunityToolkit.Mvvm
 ├── Views/            # XAML pages and controls
@@ -146,10 +146,10 @@ src/DailyDozen/
 
 All data is stored locally using SQLite:
 
-- **Windows**: `%LOCALAPPDATA%\DailyDozen\dailydozen.db`
+- **Windows**: `%LOCALAPPDATA%\DailyPlants\dailyplants.db`
 - **Android**: App's private storage
 - **iOS**: App's Documents directory
-- **macOS/Linux**: `~/.local/share/DailyDozen/dailydozen.db`
+- **macOS/Linux**: `~/.local/share/DailyPlants/dailyplants.db`
 
 ## Contributing
 

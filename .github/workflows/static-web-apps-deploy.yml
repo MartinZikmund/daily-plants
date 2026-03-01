@@ -11,9 +11,9 @@ on:
 
 env:
   # App Configuration
-  APP_NAME: DailyDozen
+  APP_NAME: DailyPlants
   DOTNET_VERSION: 10.x
-  PROJECT_PATH: src/DailyDozen
+  PROJECT_PATH: src/DailyPlants
   WASM_TARGET_FRAMEWORK: net10.0-browserwasm
 
 concurrency:

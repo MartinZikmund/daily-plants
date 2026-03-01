@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "Daily Plants",
+  "display": "standalone",
+  "name": "Daily Plants",
+  "short_name": "Daily Plants",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
