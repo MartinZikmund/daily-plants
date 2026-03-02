@@ -9,9 +9,6 @@
     <ApplicationTitle>Daily Plants</ApplicationTitle>
     <!-- App Identifier -->
     <ApplicationId>dev.mzikmund.dailyplants</ApplicationId>
-    <!-- Versions -->
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-    <ApplicationVersion>1</ApplicationVersion>
     <!-- Package Publisher -->
     <ApplicationPublisher>Martin Zikmund</ApplicationPublisher>
     <!-- Package Description -->
