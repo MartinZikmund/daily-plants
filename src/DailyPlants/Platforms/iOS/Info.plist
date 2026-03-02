@@ -25,9 +25,6 @@
 			<string>armv7</string>
 			<string>arm64</string>
 		</array>
-		<key>MinimumOSVersion</key>
-		<string>15.0</string>
-
 		<!-- Interface orientations -->
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
