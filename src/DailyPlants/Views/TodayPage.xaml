@@ -111,7 +111,7 @@
                         <Grid Padding="16,12"
                               Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                               CornerRadius="8"
-                              PointerPressed="ItemCard_PointerPressed">
+                              Tapped="ItemCard_Tapped">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />

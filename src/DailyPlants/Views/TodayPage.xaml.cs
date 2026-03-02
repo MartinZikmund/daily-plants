@@ -25,7 +25,7 @@ public sealed partial class TodayPage : Page
         await ViewModel.LoadDataAsync();
     }
 
-    private void ItemCard_PointerPressed(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    private void ItemCard_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
     {
         // Handle tap on item card to increment serving
         if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
