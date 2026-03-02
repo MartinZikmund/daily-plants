@@ -4,9 +4,10 @@
       xmlns:local="using:DailyPlants.Views"
       xmlns:controls="using:DailyPlants.Controls"
       xmlns:helpers="using:DailyPlants.Helpers"
+      xmlns:toolkit="using:Uno.UI.Toolkit"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
         <NavigationView x:Name="NavView"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
