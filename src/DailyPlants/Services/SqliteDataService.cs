@@ -76,10 +76,9 @@ public class SqliteDataService : IDataService
 
         var startStr = startDate.ToString("yyyy-MM-dd");
         var endStr = endDate.ToString("yyyy-MM-dd");
-        var entities = _connection.Table<DailyEntryEntity>()
-            .Where(e => e.Date.CompareTo(startStr) >= 0 && e.Date.CompareTo(endStr) <= 0)
-            .OrderBy(e => e.Date)
-            .ToList();
+        var entities = _connection.Query<DailyEntryEntity>(
+            "SELECT * FROM DailyEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
+            startStr, endStr);
 
         IReadOnlyList<DailyEntry> result = entities.Select(ToModel).ToList();
         return Task.FromResult(result);
@@ -127,10 +126,9 @@ public class SqliteDataService : IDataService
 
         var startStr = startDate.ToString("yyyy-MM-dd");
         var endStr = endDate.ToString("yyyy-MM-dd");
-        var entities = _connection.Table<WeightEntryEntity>()
-            .Where(e => e.Date.CompareTo(startStr) >= 0 && e.Date.CompareTo(endStr) <= 0)
-            .OrderBy(e => e.Date)
-            .ToList();
+        var entities = _connection.Query<WeightEntryEntity>(
+            "SELECT * FROM WeightEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
+            startStr, endStr);
 
         IReadOnlyList<WeightEntry> result = entities.Select(ToModel).ToList();
         return Task.FromResult(result);
