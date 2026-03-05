@@ -1,4 +1,5 @@
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using Microsoft.UI.Xaml.Data;
 
@@ -11,7 +12,8 @@ public sealed partial class StatisticsPage : Page
     public StatisticsPage()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
-        ViewModel = new StatisticsViewModel(dataService);
+        var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
+        ViewModel = new StatisticsViewModel(dataService, appPreferences);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;

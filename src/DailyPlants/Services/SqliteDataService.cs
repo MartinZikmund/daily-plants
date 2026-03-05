@@ -176,7 +176,7 @@ public class SqliteDataService : IDataService
         EnsureInitialized();
 
         var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return 0;
+        if (enabledItems.Count == 0) return Task.FromResult(0);
 
         var today = DateOnly.FromDateTime(DateTime.Today);
         var streak = 0;
