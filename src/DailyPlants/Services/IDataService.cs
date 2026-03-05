@@ -66,18 +66,6 @@ public interface IDataService
     /// </summary>
     Task DeleteWeightEntryAsync(DateOnly date);
 
-    // ===== User Settings =====
-
-    /// <summary>
-    /// Gets the user settings.
-    /// </summary>
-    Task<UserSettings> GetSettingsAsync();
-
-    /// <summary>
-    /// Saves the user settings.
-    /// </summary>
-    Task SaveSettingsAsync(UserSettings settings);
-
     // ===== Statistics =====
 
     /// <summary>

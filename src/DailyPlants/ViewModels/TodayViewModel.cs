@@ -1,5 +1,6 @@
 using DailyPlants.Models;
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.ViewModels;
 
@@ -9,6 +10,7 @@ namespace DailyPlants.ViewModels;
 public partial class TodayViewModel : ObservableObject
 {
     private readonly IDataService _dataService;
+    private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
     private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
 
@@ -38,9 +40,10 @@ public partial class TodayViewModel : ObservableObject
 
     public event EventHandler<ChecklistItem>? ItemDetailRequested;
 
-    public TodayViewModel(IDataService dataService, IAchievementService? achievementService = null)
+    public TodayViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
     {
         _dataService = dataService;
+        _appPreferences = appPreferences;
         _achievementService = achievementService;
         UpdateDateDisplay();
     }
@@ -51,23 +54,22 @@ public partial class TodayViewModel : ObservableObject
 
         try
         {
-            var settings = await _dataService.GetSettingsAsync();
             var entries = await _dataService.GetEntriesForDateAsync(_currentDate);
 
             // Get all enabled checklist items
             var enabledItems = new List<ChecklistItem>();
 
-            if (settings.DailyDozenEnabled)
+            if (_appPreferences.DailyDozenEnabled)
             {
                 enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
             }
 
-            if (settings.TwentyOneTweaksEnabled)
+            if (_appPreferences.TwentyOneTweaksEnabled)
             {
                 enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
             }
 
-            if (settings.AntiAgingEightEnabled)
+            if (_appPreferences.AntiAgingEightEnabled)
             {
                 enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
             }

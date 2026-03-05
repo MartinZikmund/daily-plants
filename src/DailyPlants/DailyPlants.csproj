@@ -38,6 +38,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MZikmund.Toolkit.WinUI" />
     <PackageReference Include="sqlite-net-e" />
     <PackageReference Include="SourceGear.sqlite3" />
   </ItemGroup>
