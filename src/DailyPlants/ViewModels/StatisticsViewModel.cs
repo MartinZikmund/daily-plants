@@ -1,5 +1,6 @@
 using DailyPlants.Models;
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.ViewModels;
 
@@ -9,6 +10,7 @@ namespace DailyPlants.ViewModels;
 public partial class StatisticsViewModel : ObservableObject
 {
     private readonly IDataService _dataService;
+    private readonly IAppPreferences _appPreferences;
 
     [ObservableProperty]
     private bool _isLoading;
@@ -86,9 +88,10 @@ public partial class StatisticsViewModel : ObservableObject
 
     public ObservableCollection<WeightDataPoint> WeightHistory { get; } = [];
 
-    public StatisticsViewModel(IDataService dataService)
+    public StatisticsViewModel(IDataService dataService, IAppPreferences appPreferences)
     {
         _dataService = dataService;
+        _appPreferences = appPreferences;
     }
 
     public async Task LoadStatisticsAsync()
@@ -97,14 +100,13 @@ public partial class StatisticsViewModel : ObservableObject
 
         try
         {
-            var settings = await _dataService.GetSettingsAsync();
-            var enabledItems = GetEnabledItems(settings);
+            var enabledItems = GetEnabledItems(_appPreferences);
 
             // Load weight settings
-            WeightTrackingEnabled = settings.WeightTrackingEnabled;
-            UseMetricUnits = settings.UseMetricUnits;
-            GoalWeight = settings.GoalWeight;
-            HeightCm = settings.HeightCm;
+            WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
+            UseMetricUnits = _appPreferences.UseMetricUnits;
+            GoalWeight = _appPreferences.GoalWeight;
+            HeightCm = _appPreferences.HeightCm;
             OnPropertyChanged(nameof(WeightUnit));
 
             if (enabledItems.Count == 0 && !WeightTrackingEnabled)
@@ -283,21 +285,21 @@ public partial class StatisticsViewModel : ObservableObject
         return (completedServings, totalServings);
     }
 
-    private static List<ChecklistItem> GetEnabledItems(UserSettings settings)
+    private static List<ChecklistItem> GetEnabledItems(IAppPreferences prefs)
     {
         var items = new List<ChecklistItem>();
 
-        if (settings.DailyDozenEnabled)
+        if (prefs.DailyDozenEnabled)
         {
             items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
         }
 
-        if (settings.TwentyOneTweaksEnabled)
+        if (prefs.TwentyOneTweaksEnabled)
         {
             items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
         }
 
-        if (settings.AntiAgingEightEnabled)
+        if (prefs.AntiAgingEightEnabled)
         {
             items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
         }

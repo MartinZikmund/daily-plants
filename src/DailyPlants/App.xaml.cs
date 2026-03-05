@@ -1,5 +1,7 @@
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 using DailyPlants.Views;
+using MZikmund.Toolkit.WinUI.Services;
 using Uno.Resizetizer;
 
 namespace DailyPlants;
@@ -39,6 +41,8 @@ public partial class App : Application
                 .ConfigureServices((context, services) =>
                 {
                     // Register services
+                    services.AddSingleton<IPreferences, Preferences>();
+                    services.AddSingleton<IAppPreferences, AppPreferences>();
                     services.AddSingleton<IDataService, SqliteDataService>();
                     services.AddSingleton<ILocalizationService, LocalizationService>();
                     services.AddSingleton<IAchievementService, AchievementService>();
@@ -86,15 +90,15 @@ public partial class App : Application
         MainWindow.Activate();
 
         // Apply saved theme preference
-        await ApplyThemeAsync(dataService);
+        var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
+        ApplyTheme(appPreferences);
     }
 
-    private async Task ApplyThemeAsync(IDataService dataService)
+    private static void ApplyTheme(IAppPreferences appPreferences)
     {
-        var settings = await dataService.GetSettingsAsync();
-        if (MainWindow?.Content is FrameworkElement rootElement)
+        if (Current.MainWindow?.Content is FrameworkElement rootElement)
         {
-            rootElement.RequestedTheme = settings.ThemePreference switch
+            rootElement.RequestedTheme = appPreferences.ThemePreference switch
             {
                 1 => ElementTheme.Light,
                 2 => ElementTheme.Dark,

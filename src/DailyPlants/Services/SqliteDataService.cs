@@ -1,6 +1,6 @@
-using System.Text.Json;
 using DailyPlants.Models;
 using DailyPlants.Services.Entities;
+using DailyPlants.Services.Settings;
 using SQLite;
 
 namespace DailyPlants.Services;
@@ -11,10 +11,12 @@ namespace DailyPlants.Services;
 public class SqliteDataService : IDataService
 {
     private readonly SQLiteConnection _connection;
+    private readonly IAppPreferences _appPreferences;
     private bool _initialized;
 
-    public SqliteDataService()
+    public SqliteDataService(IAppPreferences appPreferences)
     {
+        _appPreferences = appPreferences;
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         var dbPath = Path.Combine(appDataPath, "DailyPlants", "dailyplants.db");
 
@@ -34,7 +36,6 @@ public class SqliteDataService : IDataService
 
         _connection.CreateTable<DailyEntryEntity>();
         _connection.CreateTable<WeightEntryEntity>();
-        _connection.CreateTable<UserSettingsEntity>();
         _connection.CreateTable<EarnedAchievementEntity>();
 
         _connection.CreateIndex("idx_daily_entries_date_item", "DailyEntries", ["Date", "ItemId"], unique: true);
@@ -168,42 +169,14 @@ public class SqliteDataService : IDataService
         return Task.CompletedTask;
     }
 
-    // ===== User Settings =====
-
-    public Task<UserSettings> GetSettingsAsync()
-    {
-        EnsureInitialized();
-
-        var entity = _connection.Find<UserSettingsEntity>(1);
-        if (entity is not null)
-        {
-            return Task.FromResult(JsonSerializer.Deserialize<UserSettings>(entity.SettingsJson) ?? new UserSettings());
-        }
-
-        return Task.FromResult(new UserSettings());
-    }
-
-    public Task SaveSettingsAsync(UserSettings settings)
-    {
-        EnsureInitialized();
-
-        var json = JsonSerializer.Serialize(settings);
-        _connection.Execute(
-            "INSERT INTO UserSettings (Id, SettingsJson) VALUES (1, ?) ON CONFLICT(Id) DO UPDATE SET SettingsJson = ?",
-            json, json);
-
-        return Task.CompletedTask;
-    }
-
     // ===== Statistics =====
 
-    public async Task<int> GetCurrentStreakAsync()
+    public Task<int> GetCurrentStreakAsync()
     {
         EnsureInitialized();
 
-        var settings = await GetSettingsAsync();
-        var enabledItems = GetEnabledItemIds(settings);
-        if (enabledItems.Count == 0) return 0;
+        var enabledItems = GetEnabledItemIds();
+        if (enabledItems.Count == 0) return Task.FromResult(0);
 
         var today = DateOnly.FromDateTime(DateTime.Today);
         var streak = 0;
@@ -211,7 +184,7 @@ public class SqliteDataService : IDataService
 
         while (true)
         {
-            var entries = await GetEntriesForDateAsync(currentDate);
+            var entries = GetEntriesForDateAsync(currentDate).Result;
             if (IsDateComplete(entries, enabledItems))
             {
                 streak++;
@@ -228,19 +201,18 @@ public class SqliteDataService : IDataService
             }
         }
 
-        return streak;
+        return Task.FromResult(streak);
     }
 
-    public async Task<int> GetLongestStreakAsync()
+    public Task<int> GetLongestStreakAsync()
     {
         EnsureInitialized();
 
-        var settings = await GetSettingsAsync();
-        var enabledItems = GetEnabledItemIds(settings);
-        if (enabledItems.Count == 0) return 0;
+        var enabledItems = GetEnabledItemIds();
+        if (enabledItems.Count == 0) return Task.FromResult(0);
 
-        var datesWithEntries = await GetDatesWithEntriesAsync();
-        if (datesWithEntries.Count == 0) return 0;
+        var datesWithEntries = GetDatesWithEntriesAsync().Result;
+        if (datesWithEntries.Count == 0) return Task.FromResult(0);
 
         var longestStreak = 0;
         var currentStreak = 0;
@@ -248,7 +220,7 @@ public class SqliteDataService : IDataService
 
         foreach (var date in datesWithEntries.OrderBy(d => d))
         {
-            var entries = await GetEntriesForDateAsync(date);
+            var entries = GetEntriesForDateAsync(date).Result;
             if (IsDateComplete(entries, enabledItems))
             {
                 if (previousDate.HasValue && date.DayNumber - previousDate.Value.DayNumber == 1)
@@ -270,7 +242,7 @@ public class SqliteDataService : IDataService
             }
         }
 
-        return longestStreak;
+        return Task.FromResult(longestStreak);
     }
 
     public Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync()
@@ -290,21 +262,21 @@ public class SqliteDataService : IDataService
         }
     }
 
-    private static List<string> GetEnabledItemIds(UserSettings settings)
+    private List<string> GetEnabledItemIds()
     {
         var itemIds = new List<string>();
 
-        if (settings.DailyDozenEnabled)
+        if (_appPreferences.DailyDozenEnabled)
         {
             itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen).Select(i => i.Id));
         }
 
-        if (settings.TwentyOneTweaksEnabled)
+        if (_appPreferences.TwentyOneTweaksEnabled)
         {
             itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks).Select(i => i.Id));
         }
 
-        if (settings.AntiAgingEightEnabled)
+        if (_appPreferences.AntiAgingEightEnabled)
         {
             itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight).Select(i => i.Id));
         }
@@ -383,27 +355,26 @@ public class SqliteDataService : IDataService
         return Task.CompletedTask;
     }
 
-    public async Task<int> GetPerfectDaysCountAsync()
+    public Task<int> GetPerfectDaysCountAsync()
     {
         EnsureInitialized();
 
-        var settings = await GetSettingsAsync();
-        var enabledItems = GetEnabledItemIds(settings);
-        if (enabledItems.Count == 0) return 0;
+        var enabledItems = GetEnabledItemIds();
+        if (enabledItems.Count == 0) return Task.FromResult(0);
 
-        var datesWithEntries = await GetDatesWithEntriesAsync();
+        var datesWithEntries = GetDatesWithEntriesAsync().Result;
         var perfectDays = 0;
 
         foreach (var date in datesWithEntries)
         {
-            var entries = await GetEntriesForDateAsync(date);
+            var entries = GetEntriesForDateAsync(date).Result;
             if (IsDateComplete(entries, enabledItems))
             {
                 perfectDays++;
             }
         }
 
-        return perfectDays;
+        return Task.FromResult(perfectDays);
     }
 
     public Task<int> GetItemCompletionCountAsync(string itemId)

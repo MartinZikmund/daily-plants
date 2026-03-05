@@ -1,5 +1,6 @@
 using System.Globalization;
 using DailyPlants.Helpers;
+using DailyPlants.Services.Settings;
 using Windows.Globalization;
 
 namespace DailyPlants.Services;
@@ -46,7 +47,7 @@ public class LanguageOption
 /// </summary>
 public class LocalizationService : ILocalizationService
 {
-    private readonly IDataService _dataService;
+    private readonly IAppPreferences _appPreferences;
     private string _currentLanguage = "en";
 
     private static readonly List<LanguageOption> _supportedLanguages =
@@ -55,22 +56,22 @@ public class LocalizationService : ILocalizationService
         new LanguageOption { Code = "cs", DisplayName = "Czech", NativeName = "Cestina" }
     ];
 
-    public LocalizationService(IDataService dataService)
+    public LocalizationService(IAppPreferences appPreferences)
     {
-        _dataService = dataService;
+        _appPreferences = appPreferences;
     }
 
     public IReadOnlyList<LanguageOption> SupportedLanguages => _supportedLanguages;
 
     public string CurrentLanguage => _currentLanguage;
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
-        var settings = await _dataService.GetSettingsAsync();
+        var language = _appPreferences.Language;
 
-        if (!string.IsNullOrEmpty(settings.Language))
+        if (!string.IsNullOrEmpty(language))
         {
-            _currentLanguage = settings.Language;
+            _currentLanguage = language;
         }
         else
         {
@@ -82,27 +83,28 @@ public class LocalizationService : ILocalizationService
         }
 
         ApplyLanguage(_currentLanguage);
+        return Task.CompletedTask;
     }
 
-    public async Task SetLanguageAsync(string languageCode)
+    public Task SetLanguageAsync(string languageCode)
     {
         if (!_supportedLanguages.Any(l => l.Code == languageCode))
         {
-            return;
+            return Task.CompletedTask;
         }
 
         _currentLanguage = languageCode;
 
-        // Save to settings
-        var settings = await _dataService.GetSettingsAsync();
-        settings.Language = languageCode;
-        await _dataService.SaveSettingsAsync(settings);
+        // Save to preferences
+        _appPreferences.Language = languageCode;
 
         // Apply the language
         ApplyLanguage(languageCode);
 
         // Reset the resource loader to pick up new resources
         Localizer.Reset();
+
+        return Task.CompletedTask;
     }
 
     private static void ApplyLanguage(string languageCode)

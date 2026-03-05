@@ -1,5 +1,6 @@
 using System.Text.Json;
 using DailyPlants.Models;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.Services;
 
@@ -12,8 +13,8 @@ public class JsonDataService : IDataService
     private readonly string _dataFolderPath;
     private readonly string _entriesFilePath;
     private readonly string _weightFilePath;
-    private readonly string _settingsFilePath;
     private readonly string _achievementsFilePath;
+    private readonly IAppPreferences _appPreferences;
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
@@ -24,13 +25,13 @@ public class JsonDataService : IDataService
     private DataStore? _dataStore;
     private bool _initialized;
 
-    public JsonDataService()
+    public JsonDataService(IAppPreferences appPreferences)
     {
+        _appPreferences = appPreferences;
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         _dataFolderPath = Path.Combine(appDataPath, "DailyPlants");
         _entriesFilePath = Path.Combine(_dataFolderPath, "daily_entries.json");
         _weightFilePath = Path.Combine(_dataFolderPath, "weight_entries.json");
-        _settingsFilePath = Path.Combine(_dataFolderPath, "settings.json");
         _achievementsFilePath = Path.Combine(_dataFolderPath, "achievements.json");
     }
 
@@ -145,29 +146,13 @@ public class JsonDataService : IDataService
         await SaveWeightEntriesAsync();
     }
 
-    // ===== User Settings =====
-
-    public async Task<UserSettings> GetSettingsAsync()
-    {
-        await EnsureInitializedAsync();
-        return _dataStore!.Settings;
-    }
-
-    public async Task SaveSettingsAsync(UserSettings settings)
-    {
-        await EnsureInitializedAsync();
-        _dataStore!.Settings = settings;
-        await SaveSettingsAsync();
-    }
-
     // ===== Statistics =====
 
     public async Task<int> GetCurrentStreakAsync()
     {
         await EnsureInitializedAsync();
 
-        var settings = _dataStore!.Settings;
-        var enabledItems = GetEnabledItemIds(settings);
+        var enabledItems = GetEnabledItemIds();
         if (enabledItems.Count == 0) return 0;
 
         var today = DateOnly.FromDateTime(DateTime.Today);
@@ -200,8 +185,7 @@ public class JsonDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var settings = _dataStore!.Settings;
-        var enabledItems = GetEnabledItemIds(settings);
+        var enabledItems = GetEnabledItemIds();
         if (enabledItems.Count == 0) return 0;
 
         var datesWithEntries = _dataStore.DailyEntries.Select(e => e.Date).Distinct().OrderBy(d => d).ToList();
@@ -306,24 +290,6 @@ public class JsonDataService : IDataService
             }
         }
 
-        // Load settings
-        if (File.Exists(_settingsFilePath))
-        {
-            try
-            {
-                var json = await File.ReadAllTextAsync(_settingsFilePath);
-                var settings = JsonSerializer.Deserialize<UserSettings>(json, _jsonOptions);
-                if (settings != null)
-                {
-                    dataStore.Settings = settings;
-                }
-            }
-            catch
-            {
-                // If file is corrupted, use defaults
-            }
-        }
-
         // Load achievements
         if (File.Exists(_achievementsFilePath))
         {
@@ -379,27 +345,21 @@ public class JsonDataService : IDataService
         await File.WriteAllTextAsync(_weightFilePath, json);
     }
 
-    private async Task SaveSettingsAsync()
-    {
-        var json = JsonSerializer.Serialize(_dataStore!.Settings, _jsonOptions);
-        await File.WriteAllTextAsync(_settingsFilePath, json);
-    }
-
-    private static List<string> GetEnabledItemIds(UserSettings settings)
+    private List<string> GetEnabledItemIds()
     {
         var itemIds = new List<string>();
 
-        if (settings.DailyDozenEnabled)
+        if (_appPreferences.DailyDozenEnabled)
         {
             itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen).Select(i => i.Id));
         }
 
-        if (settings.TwentyOneTweaksEnabled)
+        if (_appPreferences.TwentyOneTweaksEnabled)
         {
             itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks).Select(i => i.Id));
         }
 
-        if (settings.AntiAgingEightEnabled)
+        if (_appPreferences.AntiAgingEightEnabled)
         {
             itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight).Select(i => i.Id));
         }
@@ -471,8 +431,7 @@ public class JsonDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var settings = _dataStore!.Settings;
-        var enabledItems = GetEnabledItemIds(settings);
+        var enabledItems = GetEnabledItemIds();
         if (enabledItems.Count == 0) return 0;
 
         var datesWithEntries = _dataStore.DailyEntries.Select(e => e.Date).Distinct().ToList();
@@ -531,7 +490,6 @@ public class JsonDataService : IDataService
         public List<DailyEntry> DailyEntries { get; set; } = [];
         public List<WeightEntry> WeightEntries { get; set; } = [];
         public List<EarnedAchievement> EarnedAchievements { get; set; } = [];
-        public UserSettings Settings { get; set; } = new();
     }
 
     private class DailyEntryDto

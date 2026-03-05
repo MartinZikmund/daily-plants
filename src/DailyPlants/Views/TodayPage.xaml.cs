@@ -1,5 +1,6 @@
 using DailyPlants.Models;
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 
 namespace DailyPlants.Views;
@@ -11,8 +12,9 @@ public sealed partial class TodayPage : Page
     public TodayPage()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
+        var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
         var achievementService = App.Current.Services!.GetService<IAchievementService>();
-        ViewModel = new TodayViewModel(dataService, achievementService);
+        ViewModel = new TodayViewModel(dataService, appPreferences, achievementService);
         ViewModel.ItemDetailRequested += ViewModel_ItemDetailRequested;
 
         this.InitializeComponent();

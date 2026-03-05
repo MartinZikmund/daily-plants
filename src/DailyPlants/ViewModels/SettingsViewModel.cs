@@ -1,5 +1,5 @@
-using DailyPlants.Models;
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.ViewModels;
 
@@ -8,10 +8,9 @@ namespace DailyPlants.ViewModels;
 /// </summary>
 public partial class SettingsViewModel : ObservableObject
 {
-    private readonly IDataService _dataService;
+    private readonly IAppPreferences _appPreferences;
     private readonly IExportService _exportService;
     private readonly ILocalizationService _localizationService;
-    private UserSettings _settings = new();
     private string _initialLanguage = "";
 
     [ObservableProperty]
@@ -53,34 +52,31 @@ public partial class SettingsViewModel : ObservableObject
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
 
-    public SettingsViewModel(IDataService dataService, IExportService exportService, ILocalizationService localizationService)
+    public SettingsViewModel(IAppPreferences appPreferences, IExportService exportService, ILocalizationService localizationService)
     {
-        _dataService = dataService;
+        _appPreferences = appPreferences;
         _exportService = exportService;
         _localizationService = localizationService;
     }
 
-    public async Task LoadSettingsAsync()
+    public Task LoadSettingsAsync()
     {
         IsLoading = true;
 
         try
         {
-            _settings = await _dataService.GetSettingsAsync();
-            DailyDozenEnabled = _settings.DailyDozenEnabled;
-            TwentyOneTweaksEnabled = _settings.TwentyOneTweaksEnabled;
-            AntiAgingEightEnabled = _settings.AntiAgingEightEnabled;
-            WeightTrackingEnabled = _settings.WeightTrackingEnabled;
-            UseMetricUnits = _settings.UseMetricUnits;
-            SelectedThemeIndex = _settings.ThemePreference;
+            DailyDozenEnabled = _appPreferences.DailyDozenEnabled;
+            TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled;
+            AntiAgingEightEnabled = _appPreferences.AntiAgingEightEnabled;
+            WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
+            UseMetricUnits = _appPreferences.UseMetricUnits;
+            SelectedThemeIndex = _appPreferences.ThemePreference;
 
-            // Load weight-related settings
-            GoalWeightText = _settings.GoalWeight?.ToString("F1") ?? "";
-            HeightText = _settings.HeightCm?.ToString("F0") ?? "";
+            GoalWeightText = _appPreferences.GoalWeight?.ToString("F1") ?? "";
+            HeightText = _appPreferences.HeightCm?.ToString("F0") ?? "";
             OnPropertyChanged(nameof(WeightUnit));
             OnPropertyChanged(nameof(HeightUnit));
 
-            // Load language setting
             _initialLanguage = _localizationService.CurrentLanguage;
             SelectedLanguageIndex = _initialLanguage == "cs" ? 1 : 0;
             ShowRestartMessage = false;
@@ -89,36 +85,33 @@ public partial class SettingsViewModel : ObservableObject
         {
             IsLoading = false;
         }
+
+        return Task.CompletedTask;
     }
 
     partial void OnDailyDozenEnabledChanged(bool value)
     {
-        _settings.DailyDozenEnabled = value;
-        _ = SaveSettingsAsync();
+        _appPreferences.DailyDozenEnabled = value;
     }
 
     partial void OnTwentyOneTweaksEnabledChanged(bool value)
     {
-        _settings.TwentyOneTweaksEnabled = value;
-        _ = SaveSettingsAsync();
+        _appPreferences.TwentyOneTweaksEnabled = value;
     }
 
     partial void OnAntiAgingEightEnabledChanged(bool value)
     {
-        _settings.AntiAgingEightEnabled = value;
-        _ = SaveSettingsAsync();
+        _appPreferences.AntiAgingEightEnabled = value;
     }
 
     partial void OnWeightTrackingEnabledChanged(bool value)
     {
-        _settings.WeightTrackingEnabled = value;
-        _ = SaveSettingsAsync();
+        _appPreferences.WeightTrackingEnabled = value;
     }
 
     partial void OnUseMetricUnitsChanged(bool value)
     {
-        _settings.UseMetricUnits = value;
-        _ = SaveSettingsAsync();
+        _appPreferences.UseMetricUnits = value;
         OnPropertyChanged(nameof(WeightUnit));
         OnPropertyChanged(nameof(HeightUnit));
     }
@@ -127,32 +120,29 @@ public partial class SettingsViewModel : ObservableObject
     {
         if (double.TryParse(value, out var weight) && weight > 0)
         {
-            _settings.GoalWeight = weight;
+            _appPreferences.GoalWeight = weight;
         }
         else
         {
-            _settings.GoalWeight = null;
+            _appPreferences.GoalWeight = null;
         }
-        _ = SaveSettingsAsync();
     }
 
     partial void OnHeightTextChanged(string value)
     {
         if (double.TryParse(value, out var height) && height > 0)
         {
-            _settings.HeightCm = height;
+            _appPreferences.HeightCm = height;
         }
         else
         {
-            _settings.HeightCm = null;
+            _appPreferences.HeightCm = null;
         }
-        _ = SaveSettingsAsync();
     }
 
     partial void OnSelectedThemeIndexChanged(int value)
     {
-        _settings.ThemePreference = value;
-        _ = SaveSettingsAsync();
+        _appPreferences.ThemePreference = value;
         ApplyTheme(value);
     }
 
@@ -163,13 +153,7 @@ public partial class SettingsViewModel : ObservableObject
         var languageCode = value == 1 ? "cs" : "en";
         _ = _localizationService.SetLanguageAsync(languageCode);
 
-        // Show restart message if language changed
         ShowRestartMessage = languageCode != _initialLanguage;
-    }
-
-    private async Task SaveSettingsAsync()
-    {
-        await _dataService.SaveSettingsAsync(_settings);
     }
 
     public static void ApplyTheme(int themeIndex)
@@ -225,7 +209,7 @@ public partial class SettingsViewModel : ObservableObject
             if (result.Success)
             {
                 await ShowSuccessAsync($"Imported {result.EntriesImported} entries and {result.WeightEntriesImported} weight records.");
-                await LoadSettingsAsync(); // Refresh settings in case they were imported
+                await LoadSettingsAsync();
             }
             else
             {

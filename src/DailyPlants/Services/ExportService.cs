@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using DailyPlants.Models;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.Services;
 
@@ -10,15 +11,17 @@ namespace DailyPlants.Services;
 public class ExportService : IExportService
 {
     private readonly IDataService _dataService;
+    private readonly IAppPreferences _appPreferences;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    public ExportService(IDataService dataService)
+    public ExportService(IDataService dataService, IAppPreferences appPreferences)
     {
         _dataService = dataService;
+        _appPreferences = appPreferences;
     }
 
     public async Task<string> ExportToJsonAsync()
@@ -60,17 +63,16 @@ public class ExportService : IExportService
         }
 
         // Export settings
-        var settings = await _dataService.GetSettingsAsync();
         exportData.Settings = new UserSettingsExport
         {
-            DailyDozenEnabled = settings.DailyDozenEnabled,
-            TwentyOneTweaksEnabled = settings.TwentyOneTweaksEnabled,
-            AntiAgingEightEnabled = settings.AntiAgingEightEnabled,
-            WeightTrackingEnabled = settings.WeightTrackingEnabled,
-            UseMetricUnits = settings.UseMetricUnits,
-            HeightCm = settings.HeightCm,
-            GoalWeight = settings.GoalWeight,
-            ThemePreference = settings.ThemePreference
+            DailyDozenEnabled = _appPreferences.DailyDozenEnabled,
+            TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled,
+            AntiAgingEightEnabled = _appPreferences.AntiAgingEightEnabled,
+            WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled,
+            UseMetricUnits = _appPreferences.UseMetricUnits,
+            HeightCm = _appPreferences.HeightCm,
+            GoalWeight = _appPreferences.GoalWeight,
+            ThemePreference = _appPreferences.ThemePreference
         };
 
         return JsonSerializer.Serialize(exportData, JsonOptions);
@@ -152,18 +154,14 @@ public class ExportService : IExportService
             // Import settings (optional - don't overwrite if not provided)
             if (importData.Settings != null)
             {
-                var settings = new UserSettings
-                {
-                    DailyDozenEnabled = importData.Settings.DailyDozenEnabled,
-                    TwentyOneTweaksEnabled = importData.Settings.TwentyOneTweaksEnabled,
-                    AntiAgingEightEnabled = importData.Settings.AntiAgingEightEnabled,
-                    WeightTrackingEnabled = importData.Settings.WeightTrackingEnabled,
-                    UseMetricUnits = importData.Settings.UseMetricUnits,
-                    HeightCm = importData.Settings.HeightCm,
-                    GoalWeight = importData.Settings.GoalWeight,
-                    ThemePreference = importData.Settings.ThemePreference
-                };
-                await _dataService.SaveSettingsAsync(settings);
+                _appPreferences.DailyDozenEnabled = importData.Settings.DailyDozenEnabled;
+                _appPreferences.TwentyOneTweaksEnabled = importData.Settings.TwentyOneTweaksEnabled;
+                _appPreferences.AntiAgingEightEnabled = importData.Settings.AntiAgingEightEnabled;
+                _appPreferences.WeightTrackingEnabled = importData.Settings.WeightTrackingEnabled;
+                _appPreferences.UseMetricUnits = importData.Settings.UseMetricUnits;
+                _appPreferences.HeightCm = importData.Settings.HeightCm;
+                _appPreferences.GoalWeight = importData.Settings.GoalWeight;
+                _appPreferences.ThemePreference = importData.Settings.ThemePreference;
             }
 
             return new ImportResult
