@@ -8,10 +8,11 @@ namespace DailyPlants.Services;
 /// <summary>
 /// SQLite implementation of IDataService using sqlite-net ORM.
 /// </summary>
-public class SqliteDataService : IDataService
+public class SqliteDataService : IDataService, IDisposable
 {
     private readonly SQLiteConnection _connection;
     private bool _initialized;
+    private bool _disposed;
 
     public SqliteDataService()
     {
@@ -284,33 +285,29 @@ public class SqliteDataService : IDataService
 
     private void EnsureInitialized()
     {
-        if (!_initialized)
-        {
-            InitializeAsync();
-        }
+        if (_initialized) return;
+
+        _connection.CreateTable<DailyEntryEntity>();
+        _connection.CreateTable<WeightEntryEntity>();
+        _connection.CreateTable<UserSettingsEntity>();
+        _connection.CreateTable<EarnedAchievementEntity>();
+
+        _connection.CreateIndex("idx_daily_entries_date_item", "DailyEntries", ["Date", "ItemId"], unique: true);
+
+        _initialized = true;
     }
 
-    private static List<string> GetEnabledItemIds(UserSettings settings)
+    public void Dispose()
     {
-        var itemIds = new List<string>();
-
-        if (settings.DailyDozenEnabled)
+        if (!_disposed)
         {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen).Select(i => i.Id));
+            _connection.Dispose();
+            _disposed = true;
         }
-
-        if (settings.TwentyOneTweaksEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks).Select(i => i.Id));
-        }
-
-        if (settings.AntiAgingEightEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight).Select(i => i.Id));
-        }
-
-        return itemIds.Distinct().ToList();
     }
+
+    private static List<string> GetEnabledItemIds(UserSettings settings) =>
+        ChecklistDefinitions.GetEnabledItemIds(settings);
 
     private static bool IsDateComplete(IReadOnlyList<DailyEntry> entries, List<string> enabledItems)
     {

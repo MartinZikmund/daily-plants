@@ -276,9 +276,9 @@ public class JsonDataService : IDataService
                     }).ToList();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // If file is corrupted, start fresh
+                System.Diagnostics.Debug.WriteLine($"Failed to load daily entries: {ex}");
             }
         }
 
@@ -300,9 +300,9 @@ public class JsonDataService : IDataService
                     }).ToList();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // If file is corrupted, start fresh
+                System.Diagnostics.Debug.WriteLine($"Failed to load weight entries: {ex}");
             }
         }
 
@@ -318,9 +318,9 @@ public class JsonDataService : IDataService
                     dataStore.Settings = settings;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // If file is corrupted, use defaults
+                System.Diagnostics.Debug.WriteLine($"Failed to load settings: {ex}");
             }
         }
 
@@ -342,9 +342,9 @@ public class JsonDataService : IDataService
                     }).ToList();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // If file is corrupted, start fresh
+                System.Diagnostics.Debug.WriteLine($"Failed to load achievements: {ex}");
             }
         }
 
@@ -385,27 +385,8 @@ public class JsonDataService : IDataService
         await File.WriteAllTextAsync(_settingsFilePath, json);
     }
 
-    private static List<string> GetEnabledItemIds(UserSettings settings)
-    {
-        var itemIds = new List<string>();
-
-        if (settings.DailyDozenEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen).Select(i => i.Id));
-        }
-
-        if (settings.TwentyOneTweaksEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks).Select(i => i.Id));
-        }
-
-        if (settings.AntiAgingEightEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight).Select(i => i.Id));
-        }
-
-        return itemIds.Distinct().ToList();
-    }
+    private static List<string> GetEnabledItemIds(UserSettings settings) =>
+        ChecklistDefinitions.GetEnabledItemIds(settings);
 
     private static bool IsDateComplete(IReadOnlyList<DailyEntry> entries, List<string> enabledItems)
     {

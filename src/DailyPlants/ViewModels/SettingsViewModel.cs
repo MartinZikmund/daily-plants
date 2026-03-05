@@ -169,7 +169,14 @@ public partial class SettingsViewModel : ObservableObject
 
     private async Task SaveSettingsAsync()
     {
-        await _dataService.SaveSettingsAsync(_settings);
+        try
+        {
+            await _dataService.SaveSettingsAsync(_settings);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to save settings: {ex}");
+        }
     }
 
     public static void ApplyTheme(int themeIndex)

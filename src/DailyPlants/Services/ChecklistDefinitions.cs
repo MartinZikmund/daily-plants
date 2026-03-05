@@ -25,6 +25,37 @@ public static class ChecklistDefinitions
     public static ChecklistItem? GetItemById(string id) =>
         AllItems.FirstOrDefault(item => item.Id == id);
 
+    /// <summary>
+    /// Gets all enabled checklist items based on user settings, with duplicates removed.
+    /// </summary>
+    public static List<ChecklistItem> GetEnabledItems(UserSettings settings)
+    {
+        var items = new List<ChecklistItem>();
+
+        if (settings.DailyDozenEnabled)
+        {
+            items.AddRange(GetItemsForChecklist(ChecklistType.DailyDozen));
+        }
+
+        if (settings.TwentyOneTweaksEnabled)
+        {
+            items.AddRange(GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
+        }
+
+        if (settings.AntiAgingEightEnabled)
+        {
+            items.AddRange(GetItemsForChecklist(ChecklistType.AntiAgingEight));
+        }
+
+        return items.GroupBy(i => i.Id).Select(g => g.First()).ToList();
+    }
+
+    /// <summary>
+    /// Gets all enabled checklist item IDs based on user settings, with duplicates removed.
+    /// </summary>
+    public static List<string> GetEnabledItemIds(UserSettings settings) =>
+        GetEnabledItems(settings).Select(i => i.Id).ToList();
+
     private static List<ChecklistItem> CreateAllItems() =>
     [
         // ===== BEANS / LEGUMES =====

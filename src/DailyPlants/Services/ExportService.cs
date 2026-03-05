@@ -218,7 +218,8 @@ public class ExportService : IExportService
                     var servingsStr = parts[3].Trim();
 
                     if (DateOnly.TryParse(dateStr, out var date) &&
-                        int.TryParse(servingsStr, out var servings))
+                        int.TryParse(servingsStr, out var servings) &&
+                        ChecklistDefinitions.GetItemById(itemId) != null)
                     {
                         await _dataService.SaveEntryAsync(new DailyEntry
                         {

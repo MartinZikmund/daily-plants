@@ -283,28 +283,8 @@ public partial class StatisticsViewModel : ObservableObject
         return (completedServings, totalServings);
     }
 
-    private static List<ChecklistItem> GetEnabledItems(UserSettings settings)
-    {
-        var items = new List<ChecklistItem>();
-
-        if (settings.DailyDozenEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
-        }
-
-        if (settings.TwentyOneTweaksEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
-        }
-
-        if (settings.AntiAgingEightEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
-        }
-
-        // Remove duplicates (smart merge)
-        return items.GroupBy(i => i.Id).Select(g => g.First()).ToList();
-    }
+    private static List<ChecklistItem> GetEnabledItems(UserSettings settings) =>
+        ChecklistDefinitions.GetEnabledItems(settings);
 
     // ===== Weight Tracking Methods =====
 

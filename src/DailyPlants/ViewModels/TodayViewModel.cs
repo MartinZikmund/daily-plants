@@ -55,28 +55,14 @@ public partial class TodayViewModel : ObservableObject
             var entries = await _dataService.GetEntriesForDateAsync(_currentDate);
 
             // Get all enabled checklist items
-            var enabledItems = new List<ChecklistItem>();
+            var enabledItems = ChecklistDefinitions.GetEnabledItems(settings);
 
-            if (settings.DailyDozenEnabled)
+            // Unsubscribe events from old items to prevent memory leaks
+            foreach (var item in Items)
             {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
+                item.ServingsChanged -= OnItemServingsChanged;
+                item.ItemDetailRequested -= OnItemDetailRequested;
             }
-
-            if (settings.TwentyOneTweaksEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
-            }
-
-            if (settings.AntiAgingEightEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
-            }
-
-            // Remove duplicates (smart merge) - keep first occurrence
-            enabledItems = enabledItems
-                .GroupBy(i => i.Id)
-                .Select(g => g.First())
-                .ToList();
 
             // Create view models for each item
             Items.Clear();
@@ -164,24 +150,31 @@ public partial class TodayViewModel : ObservableObject
 
     private async void OnItemServingsChanged(object? sender, int newServings)
     {
-        if (sender is ChecklistItemViewModel itemVm)
+        try
         {
-            // Save to database
-            var entry = new DailyEntry
+            if (sender is ChecklistItemViewModel itemVm)
             {
-                Date = _currentDate,
-                ItemId = itemVm.Item.Id,
-                ServingsCompleted = newServings
-            };
+                // Save to database
+                var entry = new DailyEntry
+                {
+                    Date = _currentDate,
+                    ItemId = itemVm.Item.Id,
+                    ServingsCompleted = newServings
+                };
 
-            await _dataService.SaveEntryAsync(entry);
-            UpdateProgress();
+                await _dataService.SaveEntryAsync(entry);
+                UpdateProgress();
 
-            // Check for new achievements
-            if (_achievementService != null)
-            {
-                await _achievementService.CheckAndAwardAchievementsAsync();
+                // Check for new achievements
+                if (_achievementService != null)
+                {
+                    await _achievementService.CheckAndAwardAchievementsAsync();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to save servings: {ex}");
         }
     }
 
