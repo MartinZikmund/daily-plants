@@ -38,7 +38,7 @@ public partial class TodayViewModel : ObservableObject
     /// </summary>
     public DateTimeOffset MaxSelectableDate => DateTimeOffset.Now;
 
-    public event EventHandler<ChecklistItem>? ItemDetailRequested;
+    public event EventHandler<ChecklistItemViewModel>? ItemDetailRequested;
 
     public TodayViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
     {
@@ -189,7 +189,10 @@ public partial class TodayViewModel : ObservableObject
 
     private void OnItemDetailRequested(object? sender, ChecklistItem item)
     {
-        ItemDetailRequested?.Invoke(this, item);
+        if (sender is ChecklistItemViewModel itemVm)
+        {
+            ItemDetailRequested?.Invoke(this, itemVm);
+        }
     }
 
     private void UpdateProgress()
