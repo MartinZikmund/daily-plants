@@ -1,54 +1,39 @@
 <Project Sdk="Uno.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-windows10.0.26100;net10.0-browserwasm;net10.0-desktop</TargetFrameworks>
+    <PropertyGroup>
+        <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-windows10.0.26100;net10.0-browserwasm;net10.0-desktop</TargetFrameworks>
 
-    <OutputType>Exe</OutputType>
-    <UnoSingleProject>true</UnoSingleProject>
+        <OutputType>Exe</OutputType>
+        <UnoSingleProject>true</UnoSingleProject>
 
-    <!-- Display name -->
-    <ApplicationTitle>Daily Plants</ApplicationTitle>
-    <!-- App Identifier -->
-    <ApplicationId>dev.mzikmund.dailyplants</ApplicationId>
-    <!-- Package Publisher -->
-    <ApplicationPublisher>Martin Zikmund</ApplicationPublisher>
-    <!-- Package Description -->
-    <Description>Daily Plants powered by Uno Platform.</Description>
-    <!--
-      If you encounter this error message:
+        <!-- Display name -->
+        <ApplicationTitle>Daily Plants</ApplicationTitle>
+        <!-- App Identifier -->
+        <ApplicationId>dev.mzikmund.dailyplants</ApplicationId>
+        <!-- Package Publisher -->
+        <ApplicationPublisher>Martin Zikmund</ApplicationPublisher>
+        <!-- Package Description -->
+        <Description>Daily Plants powered by Uno Platform.</Description>
+        
+        <UnoFeatures>
+            Hosting;
+            Mvvm;
+            SkiaRenderer;
+            Toolkit;
+        </UnoFeatures>
 
-        error NETSDK1148: A referenced assembly was compiled using a newer version of Microsoft.Windows.SDK.NET.dll.
-        Please update to a newer .NET SDK in order to reference this assembly.
+        <UnoIconBackgroundFile>Assets/Icons/icon_transparent.svg</UnoIconBackgroundFile>
+        <UnoIconBackgroundFile Condition="'$(IsIOS)' == 'true' or '$(IsAndroid)' == 'true'">Assets/Icons/icon.svg</UnoIconBackgroundFile>
 
-      This means that the two packages below must be aligned with the "build" version number of
-      the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
-      must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
-    -->
-    <!-- <WindowsSdkPackageVersion>10.0.22621.28</WindowsSdkPackageVersion> -->
+        <UnoIconForegroundScale>1</UnoIconForegroundScale>
+        <UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.85</UnoIconForegroundScale>
 
-    <!--
-      UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
-      https://aka.platform.uno/singleproject-features
-    -->
-    <UnoFeatures>
-      Hosting;
-      Mvvm;
-      SkiaRenderer;
-      Toolkit;
-    </UnoFeatures>
+        <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
+    </PropertyGroup>
 
-    <UnoIconBackgroundFile>Assets/Icons/icon_transparent.svg</UnoIconBackgroundFile>
-		<UnoIconBackgroundFile Condition="'$(IsIOS)' == 'true' or '$(IsAndroid)' == 'true'">Assets/Icons/icon.svg</UnoIconBackgroundFile>
-
-		<UnoIconForegroundScale>1</UnoIconForegroundScale>
-		<UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.85</UnoIconForegroundScale>
-
-    <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MZikmund.Toolkit.WinUI" />
-    <PackageReference Include="sqlite-net-e" />
-    <PackageReference Include="SourceGear.sqlite3" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MZikmund.Toolkit.WinUI" />
+        <PackageReference Include="sqlite-net-e" />
+        <PackageReference Include="SourceGear.sqlite3" />
+    </ItemGroup>
 
 </Project>

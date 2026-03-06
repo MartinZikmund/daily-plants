@@ -27,32 +27,6 @@ public sealed partial class TodayPage : Page
         await ViewModel.LoadDataAsync();
     }
 
-    private void ItemCard_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
-    {
-        // Don't handle taps that originated from buttons - they have their own commands
-        if (e.OriginalSource is DependencyObject source && FindParent<Button>(source) is not null)
-        {
-            return;
-        }
-
-        if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
-        {
-            itemVm.ToggleServingCommand.Execute(null);
-        }
-    }
-
-    private static T? FindParent<T>(DependencyObject child) where T : DependencyObject
-    {
-        var current = child;
-        while (current != null)
-        {
-            if (current is T found)
-                return found;
-            current = VisualTreeHelper.GetParent(current);
-        }
-        return null;
-    }
-
     private async void CalendarView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
     {
         if (args.AddedDates.Count > 0)
@@ -63,13 +37,14 @@ public sealed partial class TodayPage : Page
         }
     }
 
-    private async void ViewModel_ItemDetailRequested(object? sender, ChecklistItem item)
+    private async void ViewModel_ItemDetailRequested(object? sender, ChecklistItemViewModel itemVm)
     {
-        await ShowItemDetailDialogAsync(item);
+        await ShowItemDetailDialogAsync(itemVm);
     }
 
-    private async Task ShowItemDetailDialogAsync(ChecklistItem item)
+    private async Task ShowItemDetailDialogAsync(ChecklistItemViewModel itemVm)
     {
+        var item = itemVm.Item;
         var content = new StackPanel { Spacing = 16 };
 
         // Description
@@ -99,6 +74,56 @@ public sealed partial class TodayPage : Page
             TextWrapping = TextWrapping.Wrap
         });
         content.Children.Add(servingSection);
+
+        // Serving controls
+        var servingCountText = new TextBlock
+        {
+            Text = itemVm.ServingsDisplayText,
+            Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"],
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        var minusButton = new Button
+        {
+            Width = 36,
+            Height = 36,
+            Padding = new Thickness(0),
+            CornerRadius = new CornerRadius(18),
+            Content = new FontIcon { FontSize = 14, Glyph = "\uE738" }
+        };
+
+        var plusButton = new Button
+        {
+            Width = 36,
+            Height = 36,
+            Padding = new Thickness(0),
+            CornerRadius = new CornerRadius(18),
+            Style = (Style)Application.Current.Resources["AccentButtonStyle"],
+            Content = new FontIcon { FontSize = 14, Glyph = "\uE710", Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Black) }
+        };
+
+        minusButton.Click += (s, e) =>
+        {
+            itemVm.DecrementServingCommand.Execute(null);
+            servingCountText.Text = itemVm.ServingsDisplayText;
+        };
+
+        plusButton.Click += (s, e) =>
+        {
+            itemVm.IncrementServingCommand.Execute(null);
+            servingCountText.Text = itemVm.ServingsDisplayText;
+        };
+
+        var servingControls = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Spacing = 12
+        };
+        servingControls.Children.Add(minusButton);
+        servingControls.Children.Add(servingCountText);
+        servingControls.Children.Add(plusButton);
+        content.Children.Add(servingControls);
 
         // Health benefits section (if available)
         if (!string.IsNullOrEmpty(item.HealthBenefits))
@@ -170,5 +195,13 @@ public sealed partial class TodayPage : Page
         };
 
         await dialog.ShowAsync();
+    }
+
+    private void Grid_PointerReleased(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
+        {
+            itemVm.ShowItemDetailCommand.Execute(null);
+        }
     }
 }
