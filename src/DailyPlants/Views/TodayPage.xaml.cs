@@ -29,11 +29,28 @@ public sealed partial class TodayPage : Page
 
     private void ItemCard_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
     {
-        // Handle tap on item card to increment serving
+        // Don't handle taps that originated from buttons - they have their own commands
+        if (e.OriginalSource is DependencyObject source && FindParent<Button>(source) is not null)
+        {
+            return;
+        }
+
         if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
         {
             itemVm.ToggleServingCommand.Execute(null);
         }
+    }
+
+    private static T? FindParent<T>(DependencyObject child) where T : DependencyObject
+    {
+        var current = child;
+        while (current != null)
+        {
+            if (current is T found)
+                return found;
+            current = VisualTreeHelper.GetParent(current);
+        }
+        return null;
     }
 
     private async void CalendarView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
