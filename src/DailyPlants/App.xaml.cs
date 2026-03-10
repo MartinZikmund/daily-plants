@@ -1,5 +1,6 @@
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
 using Uno.Resizetizer;
@@ -99,19 +100,6 @@ public partial class App : Application
 
         // Apply saved theme preference
         var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
-        ApplyTheme(appPreferences);
-    }
-
-    private static void ApplyTheme(IAppPreferences appPreferences)
-    {
-        if (Current.MainWindow?.Content is FrameworkElement rootElement)
-        {
-            rootElement.RequestedTheme = appPreferences.ThemePreference switch
-            {
-                1 => ElementTheme.Light,
-                2 => ElementTheme.Dark,
-                _ => ElementTheme.Default
-            };
-        }
+        SettingsViewModel.ApplyTheme(appPreferences.ThemePreference);
     }
 }

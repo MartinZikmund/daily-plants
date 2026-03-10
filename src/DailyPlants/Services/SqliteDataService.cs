@@ -184,20 +184,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return 0;
-
-        // Build the required servings map for enabled items
-        var requiredServings = new Dictionary<string, int>();
-        foreach (var itemId in enabledItems)
-        {
-            var item = ChecklistDefinitions.GetItemById(itemId);
-            if (item != null)
-            {
-                requiredServings[itemId] = item.RecommendedServings;
-            }
-        }
-
+        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
         if (requiredServings.Count == 0) return 0;
 
         // Load all entries from recent history (enough for reasonable streak)
@@ -237,19 +224,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return 0;
-
-        var requiredServings = new Dictionary<string, int>();
-        foreach (var itemId in enabledItems)
-        {
-            var item = ChecklistDefinitions.GetItemById(itemId);
-            if (item != null)
-            {
-                requiredServings[itemId] = item.RecommendedServings;
-            }
-        }
-
+        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
         if (requiredServings.Count == 0) return 0;
 
         // Load ALL entries in a single query
@@ -310,28 +285,6 @@ public class SqliteDataService : IDataService
         {
             await InitializeAsync();
         }
-    }
-
-    private List<string> GetEnabledItemIds()
-    {
-        var itemIds = new List<string>();
-
-        if (_appPreferences.DailyDozenEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen).Select(i => i.Id));
-        }
-
-        if (_appPreferences.TwentyOneTweaksEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks).Select(i => i.Id));
-        }
-
-        if (_appPreferences.AntiAgingEightEnabled)
-        {
-            itemIds.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight).Select(i => i.Id));
-        }
-
-        return itemIds.Distinct().ToList();
     }
 
     private static bool IsDateComplete(IReadOnlyList<DailyEntry>? entries, Dictionary<string, int> requiredServings)
@@ -401,19 +354,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return 0;
-
-        var requiredServings = new Dictionary<string, int>();
-        foreach (var itemId in enabledItems)
-        {
-            var item = ChecklistDefinitions.GetItemById(itemId);
-            if (item != null)
-            {
-                requiredServings[itemId] = item.RecommendedServings;
-            }
-        }
-
+        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
         if (requiredServings.Count == 0) return 0;
 
         // Load ALL entries in a single query

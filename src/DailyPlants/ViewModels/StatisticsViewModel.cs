@@ -101,7 +101,7 @@ public partial class StatisticsViewModel : ObservableObject
 
         try
         {
-            var enabledItems = GetEnabledItems(_appPreferences);
+            var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
 
             // Load weight settings
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
@@ -289,29 +289,6 @@ public partial class StatisticsViewModel : ObservableObject
         }
 
         return (completedServings, totalServings);
-    }
-
-    private static List<ChecklistItem> GetEnabledItems(IAppPreferences prefs)
-    {
-        var items = new List<ChecklistItem>();
-
-        if (prefs.DailyDozenEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
-        }
-
-        if (prefs.TwentyOneTweaksEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
-        }
-
-        if (prefs.AntiAgingEightEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
-        }
-
-        // Remove duplicates (smart merge)
-        return items.GroupBy(i => i.Id).Select(g => g.First()).ToList();
     }
 
     // ===== Weight Tracking Methods =====

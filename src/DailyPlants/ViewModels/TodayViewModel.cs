@@ -61,28 +61,7 @@ public partial class TodayViewModel : ObservableObject
             var entries = await _dataService.GetEntriesForDateAsync(_currentDate);
 
             // Get all enabled checklist items
-            var enabledItems = new List<ChecklistItem>();
-
-            if (_appPreferences.DailyDozenEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
-            }
-
-            if (_appPreferences.TwentyOneTweaksEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
-            }
-
-            if (_appPreferences.AntiAgingEightEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
-            }
-
-            // Remove duplicates (smart merge) - keep first occurrence
-            enabledItems = enabledItems
-                .GroupBy(i => i.Id)
-                .Select(g => g.First())
-                .ToList();
+            var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
 
             // Unsubscribe handlers from old items before clearing to prevent memory leaks
             foreach (var old in Items)
@@ -273,16 +252,20 @@ public partial class ChecklistItemViewModel : ObservableObject
         ? Math.Min(1.0, (double)ServingsCompleted / Item.RecommendedServings)
         : 0;
 
+    partial void OnServingsCompletedChanged(int value)
+    {
+        OnPropertyChanged(nameof(ServingsDisplayText));
+        OnPropertyChanged(nameof(Progress));
+        OnPropertyChanged(nameof(IsComplete));
+        ServingsChanged?.Invoke(this, value);
+    }
+
     [RelayCommand]
     private void IncrementServing()
     {
         if (ServingsCompleted < Item.RecommendedServings)
         {
             ServingsCompleted++;
-            OnPropertyChanged(nameof(ServingsDisplayText));
-            OnPropertyChanged(nameof(Progress));
-            OnPropertyChanged(nameof(IsComplete));
-            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
     }
 
@@ -292,10 +275,6 @@ public partial class ChecklistItemViewModel : ObservableObject
         if (ServingsCompleted > 0)
         {
             ServingsCompleted--;
-            OnPropertyChanged(nameof(ServingsDisplayText));
-            OnPropertyChanged(nameof(Progress));
-            OnPropertyChanged(nameof(IsComplete));
-            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
     }
 
@@ -307,10 +286,6 @@ public partial class ChecklistItemViewModel : ObservableObject
         if (ServingsCompleted < Item.RecommendedServings)
         {
             ServingsCompleted++;
-            OnPropertyChanged(nameof(ServingsDisplayText));
-            OnPropertyChanged(nameof(Progress));
-            OnPropertyChanged(nameof(IsComplete));
-            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
     }
 
