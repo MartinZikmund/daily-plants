@@ -12,6 +12,7 @@ public partial class TodayViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+    private CancellationTokenSource? _achievementDebounce;
     private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
 
     [ObservableProperty]
@@ -21,6 +22,7 @@ public partial class TodayViewModel : ObservableObject
     private bool _canGoToNextDay;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
     private bool _isLoading;
 
     [ObservableProperty]
@@ -30,6 +32,8 @@ public partial class TodayViewModel : ObservableObject
     private string _progressText = string.Empty;
 
     public ObservableCollection<ChecklistItemViewModel> Items { get; } = [];
+
+    public bool ShowEmptyState => !IsLoading && Items.Count == 0;
 
     public DateOnly CurrentDate => _currentDate;
 
@@ -80,6 +84,13 @@ public partial class TodayViewModel : ObservableObject
                 .Select(g => g.First())
                 .ToList();
 
+            // Unsubscribe handlers from old items before clearing to prevent memory leaks
+            foreach (var old in Items)
+            {
+                old.ServingsChanged -= OnItemServingsChanged;
+                old.ItemDetailRequested -= OnItemDetailRequested;
+            }
+
             // Create view models for each item
             Items.Clear();
             foreach (var item in enabledItems)
@@ -96,6 +107,7 @@ public partial class TodayViewModel : ObservableObject
         finally
         {
             IsLoading = false;
+            OnPropertyChanged(nameof(ShowEmptyState));
         }
     }
 
@@ -179,11 +191,8 @@ public partial class TodayViewModel : ObservableObject
             await _dataService.SaveEntryAsync(entry);
             UpdateProgress();
 
-            // Check for new achievements
-            if (_achievementService != null)
-            {
-                await _achievementService.CheckAndAwardAchievementsAsync();
-            }
+            // Debounce achievement check to avoid running on every tap
+            ScheduleAchievementCheck();
         }
     }
 
@@ -192,6 +201,28 @@ public partial class TodayViewModel : ObservableObject
         if (sender is ChecklistItemViewModel itemVm)
         {
             ItemDetailRequested?.Invoke(this, itemVm);
+        }
+    }
+
+    private async void ScheduleAchievementCheck()
+    {
+        if (_achievementService == null) return;
+
+        _achievementDebounce?.Cancel();
+        _achievementDebounce = new CancellationTokenSource();
+        var token = _achievementDebounce.Token;
+
+        try
+        {
+            await Task.Delay(2000, token);
+            if (!token.IsCancellationRequested)
+            {
+                await _achievementService.CheckAndAwardAchievementsAsync();
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            // Debounce cancelled — expected
         }
     }
 

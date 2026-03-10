@@ -6,11 +6,13 @@ using SQLite;
 namespace DailyPlants.Services;
 
 /// <summary>
-/// SQLite implementation of IDataService using sqlite-net ORM.
+/// SQLite implementation of IDataService using sqlite-net ORM with async connection.
 /// </summary>
 public class SqliteDataService : IDataService
 {
-    private readonly SQLiteConnection _connection;
+    private const int CurrentSchemaVersion = 1;
+
+    private readonly SQLiteAsyncConnection _connection;
     private readonly IAppPreferences _appPreferences;
     private bool _initialized;
 
@@ -27,165 +29,192 @@ public class SqliteDataService : IDataService
             Directory.CreateDirectory(directory);
         }
 
-        _connection = new SQLiteConnection(dbPath);
+        _connection = new SQLiteAsyncConnection(dbPath);
     }
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        if (_initialized) return Task.CompletedTask;
+        if (_initialized) return;
 
-        _connection.CreateTable<DailyEntryEntity>();
-        _connection.CreateTable<WeightEntryEntity>();
-        _connection.CreateTable<EarnedAchievementEntity>();
+        await _connection.CreateTableAsync<DailyEntryEntity>();
+        await _connection.CreateTableAsync<WeightEntryEntity>();
+        await _connection.CreateTableAsync<EarnedAchievementEntity>();
 
-        _connection.CreateIndex("idx_daily_entries_date_item", "DailyEntries", ["Date", "ItemId"], unique: true);
+        await _connection.ExecuteAsync(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_daily_entries_date_item ON DailyEntries (Date, ItemId)");
+
+        await RunMigrationsAsync();
 
         _initialized = true;
-        return Task.CompletedTask;
+    }
+
+    private async Task RunMigrationsAsync()
+    {
+        var version = await _connection.ExecuteScalarAsync<int>("PRAGMA user_version");
+
+        // Run migrations sequentially from current version to latest
+        if (version < 1)
+        {
+            // v1: Initial schema - tables already created above via CreateTableAsync
+            await _connection.ExecuteAsync("PRAGMA user_version = 1");
+        }
+
+        // Future migrations go here:
+        // if (version < 2) { /* migration to v2 */ await _connection.ExecuteAsync("PRAGMA user_version = 2"); }
     }
 
     // ===== Daily Entries =====
 
-    public Task<DailyEntry?> GetEntryAsync(DateOnly date, string itemId)
+    public async Task<DailyEntry?> GetEntryAsync(DateOnly date, string itemId)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = date.ToString("yyyy-MM-dd");
-        var entity = _connection.Table<DailyEntryEntity>()
+        var entities = await _connection.Table<DailyEntryEntity>()
             .Where(e => e.Date == dateStr && e.ItemId == itemId)
-            .FirstOrDefault();
+            .ToListAsync();
 
-        return Task.FromResult(entity is null ? null : ToModel(entity));
+        var entity = entities.FirstOrDefault();
+        return entity is null ? null : ToModel(entity);
     }
 
-    public Task<IReadOnlyList<DailyEntry>> GetEntriesForDateAsync(DateOnly date)
+    public async Task<IReadOnlyList<DailyEntry>> GetEntriesForDateAsync(DateOnly date)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = date.ToString("yyyy-MM-dd");
-        var entities = _connection.Table<DailyEntryEntity>()
+        var entities = await _connection.Table<DailyEntryEntity>()
             .Where(e => e.Date == dateStr)
-            .ToList();
+            .ToListAsync();
 
-        IReadOnlyList<DailyEntry> result = entities.Select(ToModel).ToList();
-        return Task.FromResult(result);
+        return entities.Select(ToModel).ToList();
     }
 
-    public Task<IReadOnlyList<DailyEntry>> GetEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
+    public async Task<IReadOnlyList<DailyEntry>> GetEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var startStr = startDate.ToString("yyyy-MM-dd");
         var endStr = endDate.ToString("yyyy-MM-dd");
-        var entities = _connection.Query<DailyEntryEntity>(
+        var entities = await _connection.QueryAsync<DailyEntryEntity>(
             "SELECT * FROM DailyEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
             startStr, endStr);
 
-        IReadOnlyList<DailyEntry> result = entities.Select(ToModel).ToList();
-        return Task.FromResult(result);
+        return entities.Select(ToModel).ToList();
     }
 
-    public Task SaveEntryAsync(DailyEntry entry)
+    public async Task SaveEntryAsync(DailyEntry entry)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = entry.Date.ToString("yyyy-MM-dd");
-        _connection.Execute(
+        await _connection.ExecuteAsync(
             "INSERT INTO DailyEntries (Date, ItemId, ServingsCompleted) VALUES (?, ?, ?) ON CONFLICT(Date, ItemId) DO UPDATE SET ServingsCompleted = ?",
             dateStr, entry.ItemId, entry.ServingsCompleted, entry.ServingsCompleted);
-
-        return Task.CompletedTask;
     }
 
-    public Task DeleteEntriesForDateAsync(DateOnly date)
+    public async Task DeleteEntriesForDateAsync(DateOnly date)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = date.ToString("yyyy-MM-dd");
-        _connection.Execute("DELETE FROM DailyEntries WHERE Date = ?", dateStr);
-
-        return Task.CompletedTask;
+        await _connection.ExecuteAsync("DELETE FROM DailyEntries WHERE Date = ?", dateStr);
     }
 
     // ===== Weight Entries =====
 
-    public Task<IReadOnlyList<WeightEntry>> GetAllWeightEntriesAsync()
+    public async Task<IReadOnlyList<WeightEntry>> GetAllWeightEntriesAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        var entities = _connection.Table<WeightEntryEntity>()
+        var entities = await _connection.Table<WeightEntryEntity>()
             .OrderBy(e => e.Date)
-            .ToList();
+            .ToListAsync();
 
-        IReadOnlyList<WeightEntry> result = entities.Select(ToModel).ToList();
-        return Task.FromResult(result);
+        return entities.Select(ToModel).ToList();
     }
 
-    public Task<IReadOnlyList<WeightEntry>> GetWeightEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
+    public async Task<IReadOnlyList<WeightEntry>> GetWeightEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var startStr = startDate.ToString("yyyy-MM-dd");
         var endStr = endDate.ToString("yyyy-MM-dd");
-        var entities = _connection.Query<WeightEntryEntity>(
+        var entities = await _connection.QueryAsync<WeightEntryEntity>(
             "SELECT * FROM WeightEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
             startStr, endStr);
 
-        IReadOnlyList<WeightEntry> result = entities.Select(ToModel).ToList();
-        return Task.FromResult(result);
+        return entities.Select(ToModel).ToList();
     }
 
-    public Task<WeightEntry?> GetWeightEntryAsync(DateOnly date)
+    public async Task<WeightEntry?> GetWeightEntryAsync(DateOnly date)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = date.ToString("yyyy-MM-dd");
-        var entity = _connection.Table<WeightEntryEntity>()
+        var entities = await _connection.Table<WeightEntryEntity>()
             .Where(e => e.Date == dateStr)
-            .FirstOrDefault();
+            .ToListAsync();
 
-        return Task.FromResult(entity is null ? null : ToModel(entity));
+        var entity = entities.FirstOrDefault();
+        return entity is null ? null : ToModel(entity);
     }
 
-    public Task SaveWeightEntryAsync(WeightEntry entry)
+    public async Task SaveWeightEntryAsync(WeightEntry entry)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = entry.Date.ToString("yyyy-MM-dd");
-        _connection.Execute(
+        await _connection.ExecuteAsync(
             "INSERT INTO WeightEntries (Date, Weight, Notes) VALUES (?, ?, ?) ON CONFLICT(Date) DO UPDATE SET Weight = ?, Notes = ?",
             dateStr, entry.Weight, entry.Notes, entry.Weight, entry.Notes);
-
-        return Task.CompletedTask;
     }
 
-    public Task DeleteWeightEntryAsync(DateOnly date)
+    public async Task DeleteWeightEntryAsync(DateOnly date)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var dateStr = date.ToString("yyyy-MM-dd");
-        _connection.Execute("DELETE FROM WeightEntries WHERE Date = ?", dateStr);
-
-        return Task.CompletedTask;
+        await _connection.ExecuteAsync("DELETE FROM WeightEntries WHERE Date = ?", dateStr);
     }
 
     // ===== Statistics =====
 
-    public Task<int> GetCurrentStreakAsync()
+    public async Task<int> GetCurrentStreakAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return Task.FromResult(0);
+        if (enabledItems.Count == 0) return 0;
 
+        // Build the required servings map for enabled items
+        var requiredServings = new Dictionary<string, int>();
+        foreach (var itemId in enabledItems)
+        {
+            var item = ChecklistDefinitions.GetItemById(itemId);
+            if (item != null)
+            {
+                requiredServings[itemId] = item.RecommendedServings;
+            }
+        }
+
+        if (requiredServings.Count == 0) return 0;
+
+        // Load all entries from recent history (enough for reasonable streak)
         var today = DateOnly.FromDateTime(DateTime.Today);
+        var lookbackStart = today.AddDays(-365);
+        var allEntries = await GetEntriesInRangeAsync(lookbackStart, today);
+
+        // Group entries by date
+        var entriesByDate = allEntries.GroupBy(e => e.Date)
+            .ToDictionary(g => g.Key, g => g.ToList());
+
         var streak = 0;
         var currentDate = today;
 
         while (true)
         {
-            var entries = GetEntriesForDateAsync(currentDate).Result;
-            if (IsDateComplete(entries, enabledItems))
+            if (IsDateComplete(entriesByDate.GetValueOrDefault(currentDate), requiredServings))
             {
                 streak++;
                 currentDate = currentDate.AddDays(-1);
@@ -201,27 +230,48 @@ public class SqliteDataService : IDataService
             }
         }
 
-        return Task.FromResult(streak);
+        return streak;
     }
 
-    public Task<int> GetLongestStreakAsync()
+    public async Task<int> GetLongestStreakAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return Task.FromResult(0);
+        if (enabledItems.Count == 0) return 0;
 
-        var datesWithEntries = GetDatesWithEntriesAsync().Result;
-        if (datesWithEntries.Count == 0) return Task.FromResult(0);
+        var requiredServings = new Dictionary<string, int>();
+        foreach (var itemId in enabledItems)
+        {
+            var item = ChecklistDefinitions.GetItemById(itemId);
+            if (item != null)
+            {
+                requiredServings[itemId] = item.RecommendedServings;
+            }
+        }
+
+        if (requiredServings.Count == 0) return 0;
+
+        // Load ALL entries in a single query
+        var allEntries = await _connection.QueryAsync<DailyEntryEntity>(
+            "SELECT * FROM DailyEntries ORDER BY Date");
+
+        if (allEntries.Count == 0) return 0;
+
+        // Group by date
+        var entriesByDate = allEntries.Select(ToModel)
+            .GroupBy(e => e.Date)
+            .ToDictionary(g => g.Key, g => g.ToList());
+
+        var dates = entriesByDate.Keys.OrderBy(d => d).ToList();
 
         var longestStreak = 0;
         var currentStreak = 0;
         DateOnly? previousDate = null;
 
-        foreach (var date in datesWithEntries.OrderBy(d => d))
+        foreach (var date in dates)
         {
-            var entries = GetEntriesForDateAsync(date).Result;
-            if (IsDateComplete(entries, enabledItems))
+            if (IsDateComplete(entriesByDate[date], requiredServings))
             {
                 if (previousDate.HasValue && date.DayNumber - previousDate.Value.DayNumber == 1)
                 {
@@ -242,23 +292,23 @@ public class SqliteDataService : IDataService
             }
         }
 
-        return Task.FromResult(longestStreak);
+        return longestStreak;
     }
 
-    public Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync()
+    public async Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        var dates = _connection.QueryScalars<string>("SELECT DISTINCT Date FROM DailyEntries ORDER BY Date");
-        IReadOnlyList<DateOnly> result = dates.Select(d => DateOnly.Parse(d)).ToList();
-        return Task.FromResult(result);
+        var dates = await _connection.QueryScalarsAsync<string>(
+            "SELECT DISTINCT Date FROM DailyEntries ORDER BY Date");
+        return dates.Select(d => DateOnly.Parse(d)).ToList();
     }
 
-    private void EnsureInitialized()
+    private async Task EnsureInitializedAsync()
     {
         if (!_initialized)
         {
-            InitializeAsync();
+            await InitializeAsync();
         }
     }
 
@@ -284,15 +334,14 @@ public class SqliteDataService : IDataService
         return itemIds.Distinct().ToList();
     }
 
-    private static bool IsDateComplete(IReadOnlyList<DailyEntry> entries, List<string> enabledItems)
+    private static bool IsDateComplete(IReadOnlyList<DailyEntry>? entries, Dictionary<string, int> requiredServings)
     {
-        foreach (var itemId in enabledItems)
-        {
-            var item = ChecklistDefinitions.GetItemById(itemId);
-            if (item == null) continue;
+        if (entries == null || entries.Count == 0) return false;
 
+        foreach (var (itemId, required) in requiredServings)
+        {
             var entry = entries.FirstOrDefault(e => e.ItemId == itemId);
-            if (entry == null || entry.ServingsCompleted < item.RecommendedServings)
+            if (entry == null || entry.ServingsCompleted < required)
             {
                 return false;
             }
@@ -303,101 +352,111 @@ public class SqliteDataService : IDataService
 
     // ===== Achievements =====
 
-    public Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync()
+    public async Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        var entities = _connection.Table<EarnedAchievementEntity>()
+        var entities = await _connection.Table<EarnedAchievementEntity>()
             .OrderByDescending(e => e.EarnedAt)
-            .ToList();
+            .ToListAsync();
 
-        IReadOnlyList<EarnedAchievement> result = entities.Select(ToModel).ToList();
-        return Task.FromResult(result);
+        return entities.Select(ToModel).ToList();
     }
 
-    public Task SaveEarnedAchievementAsync(EarnedAchievement achievement)
+    public async Task SaveEarnedAchievementAsync(EarnedAchievement achievement)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        _connection.Execute(
+        await _connection.ExecuteAsync(
             "INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen) VALUES (?, ?, ?)",
             achievement.AchievementId, achievement.EarnedAt.ToString("O"), achievement.HasBeenSeen ? 1 : 0);
-
-        return Task.CompletedTask;
     }
 
-    public Task<bool> IsAchievementEarnedAsync(string achievementId)
+    public async Task<bool> IsAchievementEarnedAsync(string achievementId)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        var count = _connection.ExecuteScalar<int>(
+        var count = await _connection.ExecuteScalarAsync<int>(
             "SELECT COUNT(*) FROM EarnedAchievements WHERE AchievementId = ?", achievementId);
 
-        return Task.FromResult(count > 0);
+        return count > 0;
     }
 
-    public Task<int> GetUnseenAchievementCountAsync()
+    public async Task<int> GetUnseenAchievementCountAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        var count = _connection.ExecuteScalar<int>(
+        return await _connection.ExecuteScalarAsync<int>(
             "SELECT COUNT(*) FROM EarnedAchievements WHERE HasBeenSeen = 0");
-
-        return Task.FromResult(count);
     }
 
-    public Task MarkAllAchievementsAsSeenAsync()
+    public async Task MarkAllAchievementsAsSeenAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        _connection.Execute("UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0");
-
-        return Task.CompletedTask;
+        await _connection.ExecuteAsync("UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0");
     }
 
-    public Task<int> GetPerfectDaysCountAsync()
+    public async Task<int> GetPerfectDaysCountAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var enabledItems = GetEnabledItemIds();
-        if (enabledItems.Count == 0) return Task.FromResult(0);
+        if (enabledItems.Count == 0) return 0;
 
-        var datesWithEntries = GetDatesWithEntriesAsync().Result;
-        var perfectDays = 0;
-
-        foreach (var date in datesWithEntries)
+        var requiredServings = new Dictionary<string, int>();
+        foreach (var itemId in enabledItems)
         {
-            var entries = GetEntriesForDateAsync(date).Result;
-            if (IsDateComplete(entries, enabledItems))
+            var item = ChecklistDefinitions.GetItemById(itemId);
+            if (item != null)
+            {
+                requiredServings[itemId] = item.RecommendedServings;
+            }
+        }
+
+        if (requiredServings.Count == 0) return 0;
+
+        // Load ALL entries in a single query
+        var allEntries = await _connection.QueryAsync<DailyEntryEntity>(
+            "SELECT * FROM DailyEntries ORDER BY Date");
+
+        if (allEntries.Count == 0) return 0;
+
+        // Group by date and count perfect days in memory
+        var entriesByDate = allEntries.Select(ToModel)
+            .GroupBy(e => e.Date)
+            .ToDictionary(g => g.Key, g => (IReadOnlyList<DailyEntry>)g.ToList());
+
+        var perfectDays = 0;
+        foreach (var (_, entries) in entriesByDate)
+        {
+            if (IsDateComplete(entries, requiredServings))
             {
                 perfectDays++;
             }
         }
 
-        return Task.FromResult(perfectDays);
+        return perfectDays;
     }
 
-    public Task<int> GetItemCompletionCountAsync(string itemId)
+    public async Task<int> GetItemCompletionCountAsync(string itemId)
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
         var item = ChecklistDefinitions.GetItemById(itemId);
-        if (item == null) return Task.FromResult(0);
+        if (item == null) return 0;
 
-        var count = _connection.ExecuteScalar<int>(
+        return await _connection.ExecuteScalarAsync<int>(
             "SELECT COUNT(*) FROM DailyEntries WHERE ItemId = ? AND ServingsCompleted >= ?",
             itemId, item.RecommendedServings);
-
-        return Task.FromResult(count);
     }
 
-    public Task<int> GetTotalDaysTrackedAsync()
+    public async Task<int> GetTotalDaysTrackedAsync()
     {
-        EnsureInitialized();
+        await EnsureInitializedAsync();
 
-        var count = _connection.ExecuteScalar<int>("SELECT COUNT(DISTINCT Date) FROM DailyEntries");
-
-        return Task.FromResult(count);
+        return await _connection.ExecuteScalarAsync<int>(
+            "SELECT COUNT(DISTINCT Date) FROM DailyEntries");
     }
 
     // ===== Mapping helpers =====

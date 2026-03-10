@@ -47,7 +47,7 @@ public partial class SettingsViewModel : ObservableObject
     private string _heightText = "";
 
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
-    public List<string> LanguageOptions { get; } = ["English", "Cestina"];
+    public List<string> LanguageOptions { get; } = ["English", "Čeština"];
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
@@ -175,7 +175,7 @@ public partial class SettingsViewModel : ObservableObject
         try
         {
             var json = await _exportService.ExportToJsonAsync();
-            await SaveFileAsync("daily-dozen-export.json", json, ".json", "JSON files");
+            await SaveFileAsync("daily-plants-export.json", json, ".json", "JSON files");
         }
         catch (Exception ex)
         {
@@ -189,7 +189,7 @@ public partial class SettingsViewModel : ObservableObject
         try
         {
             var csv = await _exportService.ExportToCsvAsync();
-            await SaveFileAsync("daily-dozen-export.csv", csv, ".csv", "CSV files");
+            await SaveFileAsync("daily-plants-export.csv", csv, ".csv", "CSV files");
         }
         catch (Exception ex)
         {
@@ -255,10 +255,8 @@ public partial class SettingsViewModel : ObservableObject
         };
         fileSavePicker.FileTypeChoices.Add(fileTypeDescription, [extension]);
 
-#if WINDOWS
         var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Current.MainWindow);
         WinRT.Interop.InitializeWithWindow.Initialize(fileSavePicker, hwnd);
-#endif
 
         var file = await fileSavePicker.PickSaveFileAsync();
         if (file != null)
@@ -275,10 +273,8 @@ public partial class SettingsViewModel : ObservableObject
         };
         fileOpenPicker.FileTypeFilter.Add(extension);
 
-#if WINDOWS
         var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Current.MainWindow);
         WinRT.Interop.InitializeWithWindow.Initialize(fileOpenPicker, hwnd);
-#endif
 
         var file = await fileOpenPicker.PickSingleFileAsync();
         if (file != null)

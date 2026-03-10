@@ -197,7 +197,7 @@ public sealed partial class TodayPage : Page
         await dialog.ShowAsync();
     }
 
-    private void Grid_PointerReleased(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    private void Grid_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
     {
         if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
         {

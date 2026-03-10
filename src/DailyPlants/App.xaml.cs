@@ -59,16 +59,24 @@ public partial class App : Application
         Host = builder.Build();
 
         // Initialize the database
-        var dataService = Host.Services.GetRequiredService<IDataService>();
-        await dataService.InitializeAsync();
+        try
+        {
+            var dataService = Host.Services.GetRequiredService<IDataService>();
+            await dataService.InitializeAsync();
+
+            // Initialize achievement service
+            var achievementService = Host.Services.GetRequiredService<IAchievementService>();
+            await achievementService.InitializeAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Database initialization failed: {ex}");
+            // Continue app startup - features depending on DB will handle errors gracefully
+        }
 
         // Initialize localization (must be done before UI is created)
         var localizationService = Host.Services.GetRequiredService<ILocalizationService>();
         await localizationService.InitializeAsync();
-
-        // Initialize achievement service
-        var achievementService = Host.Services.GetRequiredService<IAchievementService>();
-        await achievementService.InitializeAsync();
 
         // Do not repeat app initialization when the Window already has content,
         // just ensure that the window is active
