@@ -275,19 +275,33 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <Button
-                    Margin="0,4,0,0"
-                    Padding="12,4"
-                    HorizontalAlignment="Center"
-                    Command="{Binding GoToTodayCommand}"
-                    Content="{helpers:Localize Key=Today_GoToToday}"
-                    Visibility="{Binding CanGoToNextDay}">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
-                            <Setter Property="FontSize" Value="12" />
-                        </Style>
-                    </Button.Style>
-                </Button>
+                <!--  Fixed-height row for relative day label or go-to-today button  -->
+                <Grid Margin="0,2,0,0" Height="32">
+                    <!--  Relative day label (Today/Yesterday)  -->
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding RelativeDayText}"
+                        TextAlignment="Center"
+                        Visibility="{Binding ShowRelativeDay}" />
+                    <!--  Go to today button (shown on other days)  -->
+                    <Button
+                        Margin="0"
+                        Padding="12,4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Command="{Binding GoToTodayCommand}"
+                        Content="{helpers:Localize Key=Today_GoToToday}"
+                        Visibility="{Binding ShowGoToToday}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
             </StackPanel>
 
             <Button

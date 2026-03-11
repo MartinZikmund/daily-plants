@@ -19,6 +19,15 @@ public partial class TodayViewModel : ObservableObject
     private string _dateDisplayText = string.Empty;
 
     [ObservableProperty]
+    private string _relativeDayText = string.Empty;
+
+    [ObservableProperty]
+    private bool _showRelativeDay;
+
+    [ObservableProperty]
+    private bool _showGoToToday;
+
+    [ObservableProperty]
     private bool _canGoToNextDay;
 
     [ObservableProperty]
@@ -139,17 +148,25 @@ public partial class TodayViewModel : ObservableObject
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
 
+        DateDisplayText = _currentDate.ToString("MMMM d, yyyy");
+
         if (_currentDate == today)
         {
-            DateDisplayText = $"{_currentDate:MMMM d, yyyy} (Today)";
+            RelativeDayText = "Today";
+            ShowRelativeDay = true;
+            ShowGoToToday = false;
         }
         else if (_currentDate == today.AddDays(-1))
         {
-            DateDisplayText = $"{_currentDate:MMMM d, yyyy} (Yesterday)";
+            RelativeDayText = "Yesterday";
+            ShowRelativeDay = true;
+            ShowGoToToday = false;
         }
         else
         {
-            DateDisplayText = _currentDate.ToString("MMMM d, yyyy");
+            RelativeDayText = string.Empty;
+            ShowRelativeDay = false;
+            ShowGoToToday = true;
         }
 
         CanGoToNextDay = _currentDate < today;
