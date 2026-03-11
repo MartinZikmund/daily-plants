@@ -191,6 +191,17 @@
                                 Glyph="&#xE710;" />
                         </Button>
 
+                        <!--  Info Button  -->
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Command="{Binding ShowItemDetailCommand}"
+                            CornerRadius="16"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
+                            <FontIcon FontSize="12" Glyph="&#xE946;" />
+                        </Button>
+
                     </StackPanel>
 
                 </StackPanel>

@@ -199,6 +199,21 @@ public sealed partial class TodayPage : Page
 
     private void Grid_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
     {
+        // Ignore taps that originated from a Button to prevent opening the detail dialog
+        // when the user taps +/- or other buttons within the card
+        if (e.OriginalSource is DependencyObject source)
+        {
+            var current = source;
+            while (current != null && current != sender)
+            {
+                if (current is Button)
+                {
+                    return;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+        }
+
         if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
         {
             itemVm.ShowItemDetailCommand.Execute(null);

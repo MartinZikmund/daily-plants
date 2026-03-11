@@ -32,7 +32,7 @@
                                     Content="{helpers:Localize Key=Nav_Achievements}"
                                     Tag="Achievements">
                     <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE735;" />
+                        <FontIcon Glyph="&#xE734;" />
                     </NavigationViewItem.Icon>
                     <NavigationViewItem.InfoBadge>
                         <InfoBadge x:Name="AchievementsBadge"
