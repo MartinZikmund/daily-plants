@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using DailyPlants.Models;
 
 namespace DailyPlants.Services;
@@ -8,7 +9,7 @@ namespace DailyPlants.Services;
 public class AchievementService : IAchievementService
 {
     private readonly IDataService _dataService;
-    private HashSet<string> _earnedAchievementIds = new();
+    private ConcurrentDictionary<string, byte> _earnedAchievementIds = new();
     private bool _initialized;
 
     public event EventHandler<Achievement>? AchievementEarned;
@@ -23,7 +24,8 @@ public class AchievementService : IAchievementService
         if (_initialized) return;
 
         var earned = await _dataService.GetEarnedAchievementsAsync();
-        _earnedAchievementIds = earned.Select(e => e.AchievementId).ToHashSet();
+        _earnedAchievementIds = new ConcurrentDictionary<string, byte>(
+            earned.Select(e => new KeyValuePair<string, byte>(e.AchievementId, 0)));
         _initialized = true;
     }
 
@@ -38,7 +40,7 @@ public class AchievementService : IAchievementService
     public async Task<bool> IsAchievementEarnedAsync(string achievementId)
     {
         await EnsureInitializedAsync();
-        return _earnedAchievementIds.Contains(achievementId);
+        return _earnedAchievementIds.ContainsKey(achievementId);
     }
 
     public async Task<int> GetUnseenCountAsync()
@@ -66,7 +68,7 @@ public class AchievementService : IAchievementService
 
         foreach (var achievement in AchievementDefinitions.GetByType(AchievementType.Streak))
         {
-            if (!_earnedAchievementIds.Contains(achievement.Id) && bestStreak >= achievement.TargetValue)
+            if (!_earnedAchievementIds.ContainsKey(achievement.Id) && bestStreak >= achievement.TargetValue)
             {
                 await AwardAchievementAsync(achievement);
                 newlyEarned.Add(achievement);
@@ -79,7 +81,7 @@ public class AchievementService : IAchievementService
 
         foreach (var achievement in AchievementDefinitions.GetByType(AchievementType.Milestone))
         {
-            if (_earnedAchievementIds.Contains(achievement.Id)) continue;
+            if (_earnedAchievementIds.ContainsKey(achievement.Id)) continue;
 
             var shouldAward = achievement.Id switch
             {
@@ -100,7 +102,7 @@ public class AchievementService : IAchievementService
         // Check completion achievements
         foreach (var achievement in AchievementDefinitions.GetByType(AchievementType.Completion))
         {
-            if (!_earnedAchievementIds.Contains(achievement.Id) && perfectDays >= achievement.TargetValue)
+            if (!_earnedAchievementIds.ContainsKey(achievement.Id) && perfectDays >= achievement.TargetValue)
             {
                 await AwardAchievementAsync(achievement);
                 newlyEarned.Add(achievement);
@@ -110,7 +112,7 @@ public class AchievementService : IAchievementService
         // Check item-specific achievements
         foreach (var achievement in AchievementDefinitions.GetByType(AchievementType.ItemSpecific))
         {
-            if (_earnedAchievementIds.Contains(achievement.Id) || string.IsNullOrEmpty(achievement.ItemId))
+            if (_earnedAchievementIds.ContainsKey(achievement.Id) || string.IsNullOrEmpty(achievement.ItemId))
                 continue;
 
             var completionCount = await _dataService.GetItemCompletionCountAsync(achievement.ItemId);
@@ -135,7 +137,7 @@ public class AchievementService : IAchievementService
         var achievement = AchievementDefinitions.GetById(achievementId);
         if (achievement == null || achievement.TargetValue == 0) return 0;
 
-        if (_earnedAchievementIds.Contains(achievementId)) return 1.0;
+        if (_earnedAchievementIds.ContainsKey(achievementId)) return 1.0;
 
         var currentValue = await GetCurrentValueAsync(achievementId);
         return Math.Min(1.0, (double)currentValue / achievement.TargetValue);
@@ -177,7 +179,7 @@ public class AchievementService : IAchievementService
         };
 
         await _dataService.SaveEarnedAchievementAsync(earned);
-        _earnedAchievementIds.Add(achievement.Id);
+        _earnedAchievementIds.TryAdd(achievement.Id, 0);
     }
 
     private async Task EnsureInitializedAsync()

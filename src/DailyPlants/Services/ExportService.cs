@@ -32,22 +32,16 @@ public class ExportService : IExportService
             ExportDate = DateTime.UtcNow
         };
 
-        // Get all dates with entries
-        var datesWithEntries = await _dataService.GetDatesWithEntriesAsync();
-
-        // Export daily entries
-        foreach (var date in datesWithEntries)
+        // Export all daily entries in a single range query
+        var allEntries = await _dataService.GetEntriesInRangeAsync(DateOnly.MinValue, DateOnly.MaxValue);
+        foreach (var entry in allEntries)
         {
-            var entries = await _dataService.GetEntriesForDateAsync(date);
-            foreach (var entry in entries)
+            exportData.DailyEntries.Add(new DailyEntryExport
             {
-                exportData.DailyEntries.Add(new DailyEntryExport
-                {
-                    Date = entry.Date.ToString("yyyy-MM-dd"),
-                    ItemId = entry.ItemId,
-                    ServingsCompleted = entry.ServingsCompleted
-                });
-            }
+                Date = entry.Date.ToString("yyyy-MM-dd"),
+                ItemId = entry.ItemId,
+                ServingsCompleted = entry.ServingsCompleted
+            });
         }
 
         // Export weight entries
@@ -85,20 +79,15 @@ public class ExportService : IExportService
         // Header
         sb.AppendLine("Date,ItemId,ItemName,ServingsCompleted,RecommendedServings");
 
-        // Get all dates with entries
-        var datesWithEntries = await _dataService.GetDatesWithEntriesAsync();
-
-        foreach (var date in datesWithEntries.OrderBy(d => d))
+        // Export all entries in a single range query
+        var allEntries = await _dataService.GetEntriesInRangeAsync(DateOnly.MinValue, DateOnly.MaxValue);
+        foreach (var entry in allEntries)
         {
-            var entries = await _dataService.GetEntriesForDateAsync(date);
-            foreach (var entry in entries)
-            {
-                var item = ChecklistDefinitions.GetItemById(entry.ItemId);
-                var itemName = item?.Name ?? entry.ItemId;
-                var recommended = item?.RecommendedServings ?? 0;
+            var item = ChecklistDefinitions.GetItemById(entry.ItemId);
+            var itemName = item?.Name ?? entry.ItemId;
+            var recommended = item?.RecommendedServings ?? 0;
 
-                sb.AppendLine($"{date:yyyy-MM-dd},{entry.ItemId},{EscapeCsv(itemName)},{entry.ServingsCompleted},{recommended}");
-            }
+            sb.AppendLine($"{entry.Date:yyyy-MM-dd},{entry.ItemId},{EscapeCsv(itemName)},{entry.ServingsCompleted},{recommended}");
         }
 
         return sb.ToString();

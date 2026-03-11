@@ -1,5 +1,6 @@
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
 using Uno.Resizetizer;
@@ -59,16 +60,24 @@ public partial class App : Application
         Host = builder.Build();
 
         // Initialize the database
-        var dataService = Host.Services.GetRequiredService<IDataService>();
-        await dataService.InitializeAsync();
+        try
+        {
+            var dataService = Host.Services.GetRequiredService<IDataService>();
+            await dataService.InitializeAsync();
+
+            // Initialize achievement service
+            var achievementService = Host.Services.GetRequiredService<IAchievementService>();
+            await achievementService.InitializeAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Database initialization failed: {ex}");
+            // Continue app startup - features depending on DB will handle errors gracefully
+        }
 
         // Initialize localization (must be done before UI is created)
         var localizationService = Host.Services.GetRequiredService<ILocalizationService>();
         await localizationService.InitializeAsync();
-
-        // Initialize achievement service
-        var achievementService = Host.Services.GetRequiredService<IAchievementService>();
-        await achievementService.InitializeAsync();
 
         // Do not repeat app initialization when the Window already has content,
         // just ensure that the window is active
@@ -91,19 +100,6 @@ public partial class App : Application
 
         // Apply saved theme preference
         var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
-        ApplyTheme(appPreferences);
-    }
-
-    private static void ApplyTheme(IAppPreferences appPreferences)
-    {
-        if (Current.MainWindow?.Content is FrameworkElement rootElement)
-        {
-            rootElement.RequestedTheme = appPreferences.ThemePreference switch
-            {
-                1 => ElementTheme.Light,
-                2 => ElementTheme.Dark,
-                _ => ElementTheme.Default
-            };
-        }
+        SettingsViewModel.ApplyTheme(appPreferences.ThemePreference);
     }
 }

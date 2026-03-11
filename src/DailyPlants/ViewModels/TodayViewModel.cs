@@ -12,6 +12,7 @@ public partial class TodayViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+    private CancellationTokenSource? _achievementDebounce;
     private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
 
     [ObservableProperty]
@@ -21,6 +22,7 @@ public partial class TodayViewModel : ObservableObject
     private bool _canGoToNextDay;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
     private bool _isLoading;
 
     [ObservableProperty]
@@ -30,6 +32,8 @@ public partial class TodayViewModel : ObservableObject
     private string _progressText = string.Empty;
 
     public ObservableCollection<ChecklistItemViewModel> Items { get; } = [];
+
+    public bool ShowEmptyState => !IsLoading && Items.Count == 0;
 
     public DateOnly CurrentDate => _currentDate;
 
@@ -57,28 +61,14 @@ public partial class TodayViewModel : ObservableObject
             var entries = await _dataService.GetEntriesForDateAsync(_currentDate);
 
             // Get all enabled checklist items
-            var enabledItems = new List<ChecklistItem>();
+            var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
 
-            if (_appPreferences.DailyDozenEnabled)
+            // Unsubscribe handlers from old items before clearing to prevent memory leaks
+            foreach (var old in Items)
             {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
+                old.ServingsChanged -= OnItemServingsChanged;
+                old.ItemDetailRequested -= OnItemDetailRequested;
             }
-
-            if (_appPreferences.TwentyOneTweaksEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
-            }
-
-            if (_appPreferences.AntiAgingEightEnabled)
-            {
-                enabledItems.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
-            }
-
-            // Remove duplicates (smart merge) - keep first occurrence
-            enabledItems = enabledItems
-                .GroupBy(i => i.Id)
-                .Select(g => g.First())
-                .ToList();
 
             // Create view models for each item
             Items.Clear();
@@ -96,6 +86,7 @@ public partial class TodayViewModel : ObservableObject
         finally
         {
             IsLoading = false;
+            OnPropertyChanged(nameof(ShowEmptyState));
         }
     }
 
@@ -179,11 +170,8 @@ public partial class TodayViewModel : ObservableObject
             await _dataService.SaveEntryAsync(entry);
             UpdateProgress();
 
-            // Check for new achievements
-            if (_achievementService != null)
-            {
-                await _achievementService.CheckAndAwardAchievementsAsync();
-            }
+            // Debounce achievement check to avoid running on every tap
+            ScheduleAchievementCheck();
         }
     }
 
@@ -192,6 +180,28 @@ public partial class TodayViewModel : ObservableObject
         if (sender is ChecklistItemViewModel itemVm)
         {
             ItemDetailRequested?.Invoke(this, itemVm);
+        }
+    }
+
+    private async void ScheduleAchievementCheck()
+    {
+        if (_achievementService == null) return;
+
+        _achievementDebounce?.Cancel();
+        _achievementDebounce = new CancellationTokenSource();
+        var token = _achievementDebounce.Token;
+
+        try
+        {
+            await Task.Delay(2000, token);
+            if (!token.IsCancellationRequested)
+            {
+                await _achievementService.CheckAndAwardAchievementsAsync();
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            // Debounce cancelled — expected
         }
     }
 
@@ -242,16 +252,20 @@ public partial class ChecklistItemViewModel : ObservableObject
         ? Math.Min(1.0, (double)ServingsCompleted / Item.RecommendedServings)
         : 0;
 
+    partial void OnServingsCompletedChanged(int value)
+    {
+        OnPropertyChanged(nameof(ServingsDisplayText));
+        OnPropertyChanged(nameof(Progress));
+        OnPropertyChanged(nameof(IsComplete));
+        ServingsChanged?.Invoke(this, value);
+    }
+
     [RelayCommand]
     private void IncrementServing()
     {
         if (ServingsCompleted < Item.RecommendedServings)
         {
             ServingsCompleted++;
-            OnPropertyChanged(nameof(ServingsDisplayText));
-            OnPropertyChanged(nameof(Progress));
-            OnPropertyChanged(nameof(IsComplete));
-            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
     }
 
@@ -261,10 +275,6 @@ public partial class ChecklistItemViewModel : ObservableObject
         if (ServingsCompleted > 0)
         {
             ServingsCompleted--;
-            OnPropertyChanged(nameof(ServingsDisplayText));
-            OnPropertyChanged(nameof(Progress));
-            OnPropertyChanged(nameof(IsComplete));
-            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
     }
 
@@ -276,10 +286,6 @@ public partial class ChecklistItemViewModel : ObservableObject
         if (ServingsCompleted < Item.RecommendedServings)
         {
             ServingsCompleted++;
-            OnPropertyChanged(nameof(ServingsDisplayText));
-            OnPropertyChanged(nameof(Progress));
-            OnPropertyChanged(nameof(IsComplete));
-            ServingsChanged?.Invoke(this, ServingsCompleted);
         }
     }
 

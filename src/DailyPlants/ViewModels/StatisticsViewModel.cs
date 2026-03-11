@@ -1,3 +1,4 @@
+using System.Globalization;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -100,7 +101,7 @@ public partial class StatisticsViewModel : ObservableObject
 
         try
         {
-            var enabledItems = GetEnabledItems(_appPreferences);
+            var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
 
             // Load weight settings
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
@@ -161,7 +162,9 @@ public partial class StatisticsViewModel : ObservableObject
 
     private async Task CalculateWeekProgressAsync(DateOnly today, List<ChecklistItem> enabledItems)
     {
-        var weekStart = today.AddDays(-(int)today.DayOfWeek);
+        var firstDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+        var diff = ((int)today.DayOfWeek - (int)firstDayOfWeek + 7) % 7;
+        var weekStart = today.AddDays(-diff);
         var entries = await _dataService.GetEntriesInRangeAsync(weekStart, today);
 
         var totalCompleted = 0;
@@ -249,12 +252,15 @@ public partial class StatisticsViewModel : ObservableObject
     {
         WeeklyProgress.Clear();
 
-        // Get last 7 days
+        // Single range query for all 7 days
+        var weekStart = today.AddDays(-6);
+        var entries = await _dataService.GetEntriesInRangeAsync(weekStart, today);
+
         for (int i = 6; i >= 0; i--)
         {
             var date = today.AddDays(-i);
-            var entries = await _dataService.GetEntriesForDateAsync(date);
-            var (completed, total) = CalculateProgress(entries, enabledItems);
+            var dayEntries = entries.Where(e => e.Date == date).ToList();
+            var (completed, total) = CalculateProgress(dayEntries, enabledItems);
             var progress = total > 0 ? (double)completed / total : 0;
 
             WeeklyProgress.Add(new DayProgressViewModel
@@ -283,29 +289,6 @@ public partial class StatisticsViewModel : ObservableObject
         }
 
         return (completedServings, totalServings);
-    }
-
-    private static List<ChecklistItem> GetEnabledItems(IAppPreferences prefs)
-    {
-        var items = new List<ChecklistItem>();
-
-        if (prefs.DailyDozenEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen));
-        }
-
-        if (prefs.TwentyOneTweaksEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
-        }
-
-        if (prefs.AntiAgingEightEnabled)
-        {
-            items.AddRange(ChecklistDefinitions.GetItemsForChecklist(ChecklistType.AntiAgingEight));
-        }
-
-        // Remove duplicates (smart merge)
-        return items.GroupBy(i => i.Id).Select(g => g.First()).ToList();
     }
 
     // ===== Weight Tracking Methods =====

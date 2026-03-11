@@ -121,7 +121,7 @@
                     <DataTemplate x:DataType="vm:ChecklistItemViewModel">
                         <Grid
                             Padding="16,12"
-                            PointerReleased="Grid_PointerReleased"
+                            Tapped="Grid_Tapped"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="8">
 
@@ -232,7 +232,7 @@
             Grid.Row="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Visibility="{Binding Items.Count, Converter={StaticResource EmptyToVisibleConverter}}">
+            Visibility="{Binding ShowEmptyState}">
             <FontIcon
                 FontSize="48"
                 Glyph="&#xE71E;"

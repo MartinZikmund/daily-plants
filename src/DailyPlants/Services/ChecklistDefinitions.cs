@@ -1,4 +1,5 @@
 using DailyPlants.Models;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.Services;
 
@@ -24,6 +25,43 @@ public static class ChecklistDefinitions
     /// </summary>
     public static ChecklistItem? GetItemById(string id) =>
         AllItems.FirstOrDefault(item => item.Id == id);
+
+    /// <summary>
+    /// Gets the deduplicated list of enabled checklist items based on user preferences.
+    /// </summary>
+    public static List<ChecklistItem> GetEnabledItems(IAppPreferences preferences)
+    {
+        var items = new List<ChecklistItem>();
+
+        if (preferences.DailyDozenEnabled)
+        {
+            items.AddRange(GetItemsForChecklist(ChecklistType.DailyDozen));
+        }
+
+        if (preferences.TwentyOneTweaksEnabled)
+        {
+            items.AddRange(GetItemsForChecklist(ChecklistType.TwentyOneTweaks));
+        }
+
+        if (preferences.AntiAgingEightEnabled)
+        {
+            items.AddRange(GetItemsForChecklist(ChecklistType.AntiAgingEight));
+        }
+
+        return items.GroupBy(i => i.Id).Select(g => g.First()).ToList();
+    }
+
+    /// <summary>
+    /// Gets the deduplicated list of enabled checklist item IDs.
+    /// </summary>
+    public static List<string> GetEnabledItemIds(IAppPreferences preferences) =>
+        GetEnabledItems(preferences).Select(i => i.Id).ToList();
+
+    /// <summary>
+    /// Gets a map of enabled item IDs to their required servings.
+    /// </summary>
+    public static Dictionary<string, int> GetRequiredServingsMap(IAppPreferences preferences) =>
+        GetEnabledItems(preferences).ToDictionary(i => i.Id, i => i.RecommendedServings);
 
     private static List<ChecklistItem> CreateAllItems() =>
     [
