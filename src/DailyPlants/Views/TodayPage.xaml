@@ -8,12 +8,234 @@
     xmlns:vm="using:DailyPlants.ViewModels"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <!--  Wide template: single-row 3-column layout  -->
+        <DataTemplate x:Key="WideItemTemplate" x:DataType="vm:ChecklistItemViewModel">
+            <Grid
+                Padding="16,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                CornerRadius="8"
+                Tapped="Grid_Tapped">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Item Icon  -->
+                <BitmapIcon
+                    Grid.Column="0"
+                    Width="32"
+                    Height="32"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
+                    ShowAsMonochrome="False"
+                    UriSource="{Binding Item.IconPath, Converter={StaticResource StringToUriConverter}}" />
+
+                <!--  Item Info  -->
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Item.Name}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        MaxLines="1"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding Item.ServingSizeExample}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+
+                <!--  Serving Controls  -->
+                <StackPanel
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="6">
+
+                    <!--  Minus Button (uses opacity, not disabled, to prevent click bubbling to parent)  -->
+                    <Button
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        Command="{Binding DecrementServingCommand}"
+                        CornerRadius="16"
+                        Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
+                        <FontIcon FontSize="12" Glyph="&#xE738;" />
+                    </Button>
+
+                    <!--  Serving Count Badge - Progressive color based on completion  -->
+                    <Border
+                        MinWidth="48"
+                        Padding="12,4"
+                        Background="{Binding Progress, Converter={StaticResource ProgressToColorConverter}}"
+                        CornerRadius="12">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="{Binding Progress, Converter={StaticResource ProgressToTextColorConverter}}"
+                            Text="{Binding ServingsDisplayText}" />
+                    </Border>
+
+                    <!--  Plus Button  -->
+                    <Button
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        Command="{Binding IncrementServingCommand}"
+                        CornerRadius="16"
+                        Style="{StaticResource AccentButtonStyle}"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
+                        <FontIcon
+                            FontSize="12"
+                            Foreground="Black"
+                            Glyph="&#xE710;" />
+                    </Button>
+
+                    <!--  Info Button  -->
+                    <Button
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        Command="{Binding ShowItemDetailCommand}"
+                        CornerRadius="16"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
+                        <FontIcon FontSize="12" Glyph="&#xE946;" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <!--  Narrow template: 3-row layout, icon spans all rows  -->
+        <DataTemplate x:Key="NarrowItemTemplate" x:DataType="vm:ChecklistItemViewModel">
+            <Grid
+                Padding="16,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                CornerRadius="8"
+                Tapped="Grid_Tapped">
+                <StackPanel>
+
+                    <!--  Icon + Name  -->
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <BitmapIcon
+                            Width="24"
+                            Height="24"
+                            VerticalAlignment="Center"
+                            ShowAsMonochrome="False"
+                            UriSource="{Binding Item.IconPath, Converter={StaticResource StringToUriConverter}}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding Item.Name}" />
+                    </StackPanel>
+
+                    <!--  Serving size description  -->
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding Item.ServingSizeExample}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+
+                    <!--  Serving Controls  -->
+                    <StackPanel
+                        Margin="0,6,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="6">
+
+                        <!--  Minus Button (uses opacity, not disabled, to prevent click bubbling to parent)  -->
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Command="{Binding DecrementServingCommand}"
+                            CornerRadius="16"
+                            Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
+                            <FontIcon FontSize="12" Glyph="&#xE738;" />
+                        </Button>
+
+                        <!--  Serving Count Badge - Progressive color based on completion  -->
+                        <Border
+                            MinWidth="48"
+                            Padding="12,4"
+                            Background="{Binding Progress, Converter={StaticResource ProgressToColorConverter}}"
+                            CornerRadius="12">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Foreground="{Binding Progress, Converter={StaticResource ProgressToTextColorConverter}}"
+                                Text="{Binding ServingsDisplayText}" />
+                        </Border>
+
+                        <!--  Plus Button  -->
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Command="{Binding IncrementServingCommand}"
+                            CornerRadius="16"
+                            Style="{StaticResource AccentButtonStyle}"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
+                            <FontIcon
+                                FontSize="12"
+                                Foreground="Black"
+                                Glyph="&#xE710;" />
+                        </Button>
+
+                        <!--  Info Button  -->
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Command="{Binding ShowItemDetailCommand}"
+                            CornerRadius="16"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
+                            <FontIcon FontSize="12" Glyph="&#xE946;" />
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ChecklistRepeater.ItemTemplate" Value="{StaticResource NarrowItemTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ChecklistRepeater.ItemTemplate" Value="{StaticResource WideItemTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <!--  Date Navigation Header  -->
         <Grid
@@ -49,7 +271,11 @@
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTipService.ToolTip="{helpers:Localize Key=Today_PickDate}">
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding DateDisplayText}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{Binding DateDisplayText}"
+                        TextAlignment="Center" />
                     <Button.Flyout>
                         <Flyout x:Name="DatePickerFlyout" Placement="Bottom">
                             <CalendarView
@@ -60,19 +286,33 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <Button
-                    Margin="0,4,0,0"
-                    Padding="12,4"
-                    HorizontalAlignment="Center"
-                    Command="{Binding GoToTodayCommand}"
-                    Content="{helpers:Localize Key=Today_GoToToday}"
-                    Visibility="{Binding CanGoToNextDay}">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
-                            <Setter Property="FontSize" Value="12" />
-                        </Style>
-                    </Button.Style>
-                </Button>
+                <!--  Fixed-height row for relative day label or go-to-today button  -->
+                <Grid Margin="0,2,0,0" Height="32">
+                    <!--  Relative day label (Today/Yesterday)  -->
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding RelativeDayText}"
+                        TextAlignment="Center"
+                        Visibility="{Binding ShowRelativeDay}" />
+                    <!--  Go to today button (shown on other days)  -->
+                    <Button
+                        Margin="0"
+                        Padding="12,4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Command="{Binding GoToTodayCommand}"
+                        Content="{helpers:Localize Key=Today_GoToToday}"
+                        Visibility="{Binding ShowGoToToday}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
             </StackPanel>
 
             <Button
@@ -113,108 +353,13 @@
 
         <!--  Checklist Items  -->
         <ScrollViewer Grid.Row="2" Padding="16,0,16,16">
-            <ItemsRepeater ItemsSource="{Binding Items}">
+            <ItemsRepeater
+                x:Name="ChecklistRepeater"
+                ItemTemplate="{StaticResource NarrowItemTemplate}"
+                ItemsSource="{Binding Items}">
                 <ItemsRepeater.Layout>
                     <StackLayout Spacing="8" />
                 </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="vm:ChecklistItemViewModel">
-                        <Grid
-                            Padding="16,12"
-                            Tapped="Grid_Tapped"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="8">
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <!--  Item Icon  -->
-                            <BitmapIcon
-                                Grid.Column="0"
-                                Width="32"
-                                Height="32"
-                                Margin="0,0,12,0"
-                                VerticalAlignment="Center"
-                                ShowAsMonochrome="False"
-                                UriSource="{Binding Item.IconPath, Converter={StaticResource StringToUriConverter}}" />
-
-                            <!--  Item Info  -->
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Item.Name}" />
-                                <TextBlock
-                                    Margin="0,2,0,0"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    MaxLines="1"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding Item.ServingSizeExample}"
-                                    TextTrimming="CharacterEllipsis" />
-                            </StackPanel>
-
-                            <!--  Serving Controls  -->
-                            <StackPanel
-                                Grid.Column="2"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal"
-                                Spacing="6">
-
-                                <!--  Minus Button (uses opacity, not disabled, to prevent click bubbling to parent)  -->
-                                <Button
-                                    Width="32"
-                                    Height="32"
-                                    Padding="0"
-                                    Command="{Binding DecrementServingCommand}"
-                                    CornerRadius="16"
-                                    Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
-                                    ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
-                                    <FontIcon FontSize="12" Glyph="&#xE738;" />
-                                </Button>
-
-                                <!--  Serving Count Badge - Progressive color based on completion  -->
-                                <Border
-                                    MinWidth="48"
-                                    Padding="12,4"
-                                    Background="{Binding Progress, Converter={StaticResource ProgressToColorConverter}}"
-                                    CornerRadius="12">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        FontSize="14"
-                                        FontWeight="SemiBold"
-                                        Foreground="{Binding Progress, Converter={StaticResource ProgressToTextColorConverter}}"
-                                        Text="{Binding ServingsDisplayText}" />
-                                </Border>
-
-                                <!--  Plus Button  -->
-                                <Button
-                                    Width="32"
-                                    Height="32"
-                                    Padding="0"
-                                    Command="{Binding IncrementServingCommand}"
-                                    CornerRadius="16"
-                                    Style="{StaticResource AccentButtonStyle}"
-                                    ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
-                                    <FontIcon
-                                        FontSize="12"
-                                        Foreground="Black"
-                                        Glyph="&#xE710;" />
-                                </Button>
-
-                                <!--  Info Button  -->
-                                <Button
-                                    Width="32"
-                                    Height="32"
-                                    Padding="0"
-                                    Command="{Binding ShowItemDetailCommand}"
-                                    CornerRadius="16"
-                                    ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
-                                    <FontIcon FontSize="12" Glyph="&#xE946;" />
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
         </ScrollViewer>
 
