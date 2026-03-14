@@ -223,7 +223,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ChecklistRepeater.ItemTemplate" Value="{StaticResource NarrowItemTemplate}" />
+                        <Setter Target="ChecklistList.ItemTemplate" Value="{StaticResource NarrowItemTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
@@ -231,7 +231,7 @@
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ChecklistRepeater.ItemTemplate" Value="{StaticResource WideItemTemplate}" />
+                        <Setter Target="ChecklistList.ItemTemplate" Value="{StaticResource WideItemTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -352,16 +352,20 @@
         </Grid>
 
         <!--  Checklist Items  -->
-        <ScrollViewer Grid.Row="2" Padding="16,0,16,16">
-            <ItemsRepeater
-                x:Name="ChecklistRepeater"
-                ItemTemplate="{StaticResource NarrowItemTemplate}"
-                ItemsSource="{Binding Items}">
-                <ItemsRepeater.Layout>
-                    <StackLayout Spacing="8" />
-                </ItemsRepeater.Layout>
-            </ItemsRepeater>
-        </ScrollViewer>
+        <ListView
+            x:Name="ChecklistList"
+            Grid.Row="2"
+            Padding="4,0,4,4"
+            ItemTemplate="{StaticResource NarrowItemTemplate}"
+            ItemsSource="{Binding Items}"
+            SelectionMode="None">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="0,0,0,8" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
 
         <!--  Loading Indicator  -->
         <ProgressRing

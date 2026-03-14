@@ -25,7 +25,7 @@
         <UnoIconBackgroundFile Condition="'$(IsIOS)' == 'true' or '$(IsAndroid)' == 'true'">Assets/Icons/icon.svg</UnoIconBackgroundFile>
 
         <UnoIconForegroundScale>1</UnoIconForegroundScale>
-        <UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.85</UnoIconForegroundScale>
+        <UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.6</UnoIconForegroundScale>
 
         <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
     </PropertyGroup>
