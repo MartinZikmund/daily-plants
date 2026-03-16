@@ -5,9 +5,9 @@ using DailyPlants.Services.Settings;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// ViewModel for the Today page, managing date navigation and checklist items.
+/// ViewModel for the Diary page, managing date navigation and checklist items.
 /// </summary>
-public partial class TodayViewModel : ObservableObject
+public partial class DiaryViewModel : ObservableObject
 {
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
@@ -53,7 +53,7 @@ public partial class TodayViewModel : ObservableObject
 
     public event EventHandler<ChecklistItemViewModel>? ItemDetailRequested;
 
-    public TodayViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
+    public DiaryViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
     {
         _dataService = dataService;
         _appPreferences = appPreferences;

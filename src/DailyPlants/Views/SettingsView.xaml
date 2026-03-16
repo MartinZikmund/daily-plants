@@ -5,8 +5,8 @@
       xmlns:helpers="using:DailyPlants.Helpers"
       NavigationCacheMode="Required">
 
-    <ScrollViewer>
-        <StackPanel Padding="16" Spacing="24" MaxWidth="600">
+    <ScrollViewer HorizontalAlignment="Left" HorizontalContentAlignment="Stretch">
+        <StackPanel Padding="16" Spacing="24" MaxWidth="800">
 
             <!-- Checklists Section -->
             <StackPanel Spacing="12">

@@ -5,24 +5,24 @@ using DailyPlants.ViewModels;
 
 namespace DailyPlants.Views;
 
-public sealed partial class TodayView : Page
+public sealed partial class DiaryView : Page
 {
-    public TodayViewModel ViewModel { get; }
+    public DiaryViewModel ViewModel { get; }
 
-    public TodayView()
+    public DiaryView()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
         var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
         var achievementService = App.Current.Services!.GetService<IAchievementService>();
-        ViewModel = new TodayViewModel(dataService, appPreferences, achievementService);
+        ViewModel = new DiaryViewModel(dataService, appPreferences, achievementService);
         ViewModel.ItemDetailRequested += ViewModel_ItemDetailRequested;
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
-        this.Loaded += TodayView_Loaded;
+        this.Loaded += DiaryView_Loaded;
     }
 
-    private async void TodayView_Loaded(object sender, RoutedEventArgs e)
+    private async void DiaryView_Loaded(object sender, RoutedEventArgs e)
     {
         await ViewModel.LoadDataAsync();
     }

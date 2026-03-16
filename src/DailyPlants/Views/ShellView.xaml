@@ -16,7 +16,7 @@
                         SelectionChanged="NavView_SelectionChanged">
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="{helpers:Localize Key=Nav_Today}" Tag="Today">
+                <NavigationViewItem Content="{helpers:Localize Key=Nav_Diary}" Tag="Diary">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE80F;" />
                     </NavigationViewItem.Icon>

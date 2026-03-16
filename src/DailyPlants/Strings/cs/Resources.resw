@@ -65,8 +65,8 @@
   </data>
 
   <!-- Navigation -->
-  <data name="Nav_Today" xml:space="preserve">
-    <value>Dnes</value>
+  <data name="Nav_Diary" xml:space="preserve">
+    <value>Deník</value>
   </data>
   <data name="Nav_Statistics" xml:space="preserve">
     <value>Statistiky</value>
@@ -78,35 +78,35 @@
     <value>O aplikaci</value>
   </data>
 
-  <!-- Today Page -->
-  <data name="Today_GoToToday" xml:space="preserve">
+  <!-- Diary Page -->
+  <data name="Diary_GoToToday" xml:space="preserve">
     <value>Přejít na dnes</value>
   </data>
-  <data name="Today_PreviousDay" xml:space="preserve">
+  <data name="Diary_PreviousDay" xml:space="preserve">
     <value>Předchozí den</value>
   </data>
-  <data name="Today_NextDay" xml:space="preserve">
+  <data name="Diary_NextDay" xml:space="preserve">
     <value>Další den</value>
   </data>
-  <data name="Today_DecreaseServing" xml:space="preserve">
+  <data name="Diary_DecreaseServing" xml:space="preserve">
     <value>Snížit porci</value>
   </data>
-  <data name="Today_IncreaseServing" xml:space="preserve">
+  <data name="Diary_IncreaseServing" xml:space="preserve">
     <value>Zvýšit porci</value>
   </data>
-  <data name="Today_MoreInfo" xml:space="preserve">
+  <data name="Diary_MoreInfo" xml:space="preserve">
     <value>Více informací</value>
   </data>
-  <data name="Today_NoChecklists" xml:space="preserve">
+  <data name="Diary_NoChecklists" xml:space="preserve">
     <value>Žádné checklisty nejsou povoleny</value>
   </data>
-  <data name="Today_EnableChecklist" xml:space="preserve">
+  <data name="Diary_EnableChecklist" xml:space="preserve">
     <value>Povolte checklist v Nastavení pro začátek</value>
   </data>
-  <data name="Today_PickDate" xml:space="preserve">
+  <data name="Diary_PickDate" xml:space="preserve">
     <value>Vybrat datum</value>
   </data>
-  <data name="Today_SelectDate" xml:space="preserve">
+  <data name="Diary_SelectDate" xml:space="preserve">
     <value>Vyberte datum</value>
   </data>
 

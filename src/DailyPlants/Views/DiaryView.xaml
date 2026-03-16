@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="DailyPlants.Views.TodayView"
+    x:Class="DailyPlants.Views.DiaryView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:helpers="using:DailyPlants.Helpers"
@@ -59,7 +59,7 @@
                         Command="{Binding DecrementServingCommand}"
                         CornerRadius="16"
                         Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
-                        ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
+                        ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}">
                         <FontIcon FontSize="12" Glyph="&#xE738;" />
                     </Button>
 
@@ -85,7 +85,7 @@
                         Command="{Binding IncrementServingCommand}"
                         CornerRadius="16"
                         Style="{StaticResource AccentButtonStyle}"
-                        ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
+                        ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
                         <FontIcon
                             FontSize="12"
                             Foreground="Black"
@@ -99,7 +99,7 @@
                         Padding="0"
                         Command="{Binding ShowItemDetailCommand}"
                         CornerRadius="16"
-                        ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
+                        ToolTipService.ToolTip="{helpers:Localize Key=Diary_MoreInfo}">
                         <FontIcon FontSize="12" Glyph="&#xE946;" />
                     </Button>
                 </StackPanel>
@@ -157,7 +157,7 @@
                             Command="{Binding DecrementServingCommand}"
                             CornerRadius="16"
                             Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
-                            ToolTipService.ToolTip="{helpers:Localize Key=Today_DecreaseServing}">
+                            ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}">
                             <FontIcon FontSize="12" Glyph="&#xE738;" />
                         </Button>
 
@@ -183,7 +183,7 @@
                             Command="{Binding IncrementServingCommand}"
                             CornerRadius="16"
                             Style="{StaticResource AccentButtonStyle}"
-                            ToolTipService.ToolTip="{helpers:Localize Key=Today_IncreaseServing}">
+                            ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
                             <FontIcon
                                 FontSize="12"
                                 Foreground="Black"
@@ -197,7 +197,7 @@
                             Padding="0"
                             Command="{Binding ShowItemDetailCommand}"
                             CornerRadius="16"
-                            ToolTipService.ToolTip="{helpers:Localize Key=Today_MoreInfo}">
+                            ToolTipService.ToolTip="{helpers:Localize Key=Diary_MoreInfo}">
                             <FontIcon FontSize="12" Glyph="&#xE946;" />
                         </Button>
 
@@ -255,7 +255,7 @@
                 Padding="0"
                 Command="{Binding GoToPreviousDayCommand}"
                 CornerRadius="20"
-                ToolTipService.ToolTip="{helpers:Localize Key=Today_PreviousDay}">
+                ToolTipService.ToolTip="{helpers:Localize Key=Diary_PreviousDay}">
                 <FontIcon FontSize="16" Glyph="&#xE76B;" />
             </Button>
 
@@ -270,7 +270,7 @@
                     HorizontalAlignment="Center"
                     Background="Transparent"
                     BorderThickness="0"
-                    ToolTipService.ToolTip="{helpers:Localize Key=Today_PickDate}">
+                    ToolTipService.ToolTip="{helpers:Localize Key=Diary_PickDate}">
                     <TextBlock
                         HorizontalAlignment="Center"
                         Style="{StaticResource SubtitleTextBlockStyle}"
@@ -304,7 +304,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Command="{Binding GoToTodayCommand}"
-                        Content="{helpers:Localize Key=Today_GoToToday}"
+                        Content="{helpers:Localize Key=Diary_GoToToday}"
                         Visibility="{Binding ShowGoToToday}">
                         <Button.Style>
                             <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
@@ -323,7 +323,7 @@
                 Command="{Binding GoToNextDayCommand}"
                 CornerRadius="20"
                 IsEnabled="{Binding CanGoToNextDay}"
-                ToolTipService.ToolTip="{helpers:Localize Key=Today_NextDay}">
+                ToolTipService.ToolTip="{helpers:Localize Key=Diary_NextDay}">
                 <FontIcon FontSize="16" Glyph="&#xE76C;" />
             </Button>
         </Grid>
@@ -391,11 +391,11 @@
                 Margin="0,12,0,4"
                 Opacity="0.7"
                 Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="{helpers:Localize Key=Today_NoChecklists}" />
+                Text="{helpers:Localize Key=Diary_NoChecklists}" />
             <TextBlock
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="{helpers:Localize Key=Today_EnableChecklist}" />
+                Text="{helpers:Localize Key=Diary_EnableChecklist}" />
         </StackPanel>
     </Grid>
 

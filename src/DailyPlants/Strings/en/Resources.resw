@@ -65,8 +65,8 @@
   </data>
 
   <!-- Navigation -->
-  <data name="Nav_Today" xml:space="preserve">
-    <value>Today</value>
+  <data name="Nav_Diary" xml:space="preserve">
+    <value>Diary</value>
   </data>
   <data name="Nav_Statistics" xml:space="preserve">
     <value>Statistics</value>
@@ -78,35 +78,35 @@
     <value>About</value>
   </data>
 
-  <!-- Today Page -->
-  <data name="Today_GoToToday" xml:space="preserve">
+  <!-- Diary Page -->
+  <data name="Diary_GoToToday" xml:space="preserve">
     <value>Go to Today</value>
   </data>
-  <data name="Today_PreviousDay" xml:space="preserve">
+  <data name="Diary_PreviousDay" xml:space="preserve">
     <value>Previous day</value>
   </data>
-  <data name="Today_NextDay" xml:space="preserve">
+  <data name="Diary_NextDay" xml:space="preserve">
     <value>Next day</value>
   </data>
-  <data name="Today_DecreaseServing" xml:space="preserve">
+  <data name="Diary_DecreaseServing" xml:space="preserve">
     <value>Decrease serving</value>
   </data>
-  <data name="Today_IncreaseServing" xml:space="preserve">
+  <data name="Diary_IncreaseServing" xml:space="preserve">
     <value>Increase serving</value>
   </data>
-  <data name="Today_MoreInfo" xml:space="preserve">
+  <data name="Diary_MoreInfo" xml:space="preserve">
     <value>More info</value>
   </data>
-  <data name="Today_NoChecklists" xml:space="preserve">
+  <data name="Diary_NoChecklists" xml:space="preserve">
     <value>No checklists enabled</value>
   </data>
-  <data name="Today_EnableChecklist" xml:space="preserve">
+  <data name="Diary_EnableChecklist" xml:space="preserve">
     <value>Enable a checklist in Settings to get started</value>
   </data>
-  <data name="Today_PickDate" xml:space="preserve">
+  <data name="Diary_PickDate" xml:space="preserve">
     <value>Pick a date</value>
   </data>
-  <data name="Today_SelectDate" xml:space="preserve">
+  <data name="Diary_SelectDate" xml:space="preserve">
     <value>Select date</value>
   </data>
 

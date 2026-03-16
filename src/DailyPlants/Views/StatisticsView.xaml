@@ -6,8 +6,8 @@
       NavigationCacheMode="Required"
       xmlns:helpers="using:DailyPlants.Helpers">
 
-    <ScrollViewer>
-        <StackPanel Padding="16" Spacing="24" MaxWidth="800">
+    <ScrollViewer MaxWidth="800" HorizontalAlignment="Left">
+        <StackPanel Spacing="24">
 
             <!-- Overview Cards -->
             <StackPanel Spacing="8">

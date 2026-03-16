@@ -40,7 +40,7 @@ public sealed partial class ShellView : Page
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
     {
-        // Select the first item (Today) by default
+        // Select the first item (Diary) by default
         NavView.SelectedItem = NavView.MenuItems[0];
 
         // Initialize achievement service and subscribe to events
@@ -102,7 +102,7 @@ public sealed partial class ShellView : Page
     {
         Type? pageType = tag switch
         {
-            "Today" => typeof(TodayView),
+            "Diary" => typeof(DiaryView),
             "Statistics" => typeof(StatisticsView),
             "Achievements" => typeof(AchievementsView),
             "Settings" => typeof(SettingsView),
