@@ -239,13 +239,13 @@
 
         <TextBlock Text="{helpers:Localize Key=Nav_Diary}"
                    Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="12,0,12,0" />
+                   Margin="16,0,16,0" />
 
         <!--  Date Navigation Header  -->
         <Grid
             Grid.Row="1"
-            Margin="12,0"
-            Padding="16,16,16,8"
+            Margin="16,0"
+            Padding="8"
             CornerRadius="8"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
             <Grid.ColumnDefinitions>
@@ -253,6 +253,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
             <Button
                 Grid.Column="0"
@@ -332,37 +336,37 @@
                 ToolTipService.ToolTip="{helpers:Localize Key=Diary_NextDay}">
                 <FontIcon FontSize="16" Glyph="&#xE76C;" />
             </Button>
-        </Grid>
 
-        <!--  Progress Bar  -->
-        <Grid Grid.Row="2" Padding="12,12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <!--  Progress Bar  -->
+            <Grid Grid.ColumnSpan="3" Grid.Row="1" Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <ProgressBar
-                Grid.Column="0"
-                Height="12"
-                Margin="0,0,16,0"
-                CornerRadius="6"
-                Maximum="1"
-                Value="{Binding OverallProgress}" />
+                <ProgressBar
+                    Grid.Column="0"
+                    Height="12"
+                    Margin="0,0,16,0"
+                    CornerRadius="6"
+                    Maximum="1"
+                    Value="{Binding OverallProgress}" />
 
-            <TextBlock
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding ProgressText}" />
-        </Grid>
+                            <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding ProgressText}" />
+            </Grid>
+        </Grid>      
 
         <!--  Checklist Items  -->
         <ListView
             x:Name="ChecklistList"
             Grid.Row="3"
             Margin="0"
-            Padding="0"
+            Padding="4,0"
             ItemTemplate="{StaticResource NarrowItemTemplate}"
             ItemsSource="{Binding Items}"
             SelectionMode="None">

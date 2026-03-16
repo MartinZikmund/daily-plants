@@ -6,7 +6,7 @@
       NavigationCacheMode="Required"
       xmlns:helpers="using:DailyPlants.Helpers">
 
-    <ScrollViewer  HorizontalAlignment="Stretch">
+    <ScrollViewer  HorizontalAlignment="Stretch" Padding="16,0">
         <StackPanel Spacing="24">
 
             <TextBlock Text="{helpers:Localize Key=Nav_Statistics}"
