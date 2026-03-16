@@ -1,4 +1,4 @@
-<Page x:Class="DailyPlants.Views.SettingsPage"
+﻿<Page x:Class="DailyPlants.Views.SettingsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyPlants.Views"
@@ -141,13 +141,11 @@
                 <ComboBox Header="{helpers:Localize Key=Settings_Theme}"
                           ItemsSource="{Binding ThemeOptions}"
                           SelectedIndex="{Binding SelectedThemeIndex, Mode=TwoWay}"
-                          Margin="0,8,0,0"
                           MinWidth="200" />
 
                 <ComboBox Header="{helpers:Localize Key=Settings_Language}"
                           ItemsSource="{Binding LanguageOptions}"
                           SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}"
-                          Margin="0,8,0,0"
                           MinWidth="200" />
                 <TextBlock Text="{helpers:Localize Key=Settings_RestartRequired}"
                            Style="{StaticResource CaptionTextBlockStyle}"

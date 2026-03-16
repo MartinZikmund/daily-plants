@@ -5,11 +5,11 @@ using DailyPlants.ViewModels;
 
 namespace DailyPlants.Views;
 
-public sealed partial class TodayPage : Page
+public sealed partial class TodayView : Page
 {
     public TodayViewModel ViewModel { get; }
 
-    public TodayPage()
+    public TodayView()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
         var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
@@ -19,10 +19,10 @@ public sealed partial class TodayPage : Page
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
-        this.Loaded += TodayPage_Loaded;
+        this.Loaded += TodayView_Loaded;
     }
 
-    private async void TodayPage_Loaded(object sender, RoutedEventArgs e)
+    private async void TodayView_Loaded(object sender, RoutedEventArgs e)
     {
         await ViewModel.LoadDataAsync();
     }

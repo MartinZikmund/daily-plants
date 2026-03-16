@@ -4,17 +4,17 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace DailyPlants.Views;
 
-public sealed partial class ShellPage : Page
+public sealed partial class ShellView : Page
 {
     private IAchievementService? _achievementService;
 
-    public ShellPage()
+    public ShellView()
     {
         this.InitializeComponent();
-        this.Loaded += ShellPage_Loaded;
+        this.Loaded += ShellView_Loaded;
     }
 
-    private async void ShellPage_Loaded(object sender, RoutedEventArgs e)
+    private async void ShellView_Loaded(object sender, RoutedEventArgs e)
     {
         // Select the first item (Today) by default
         NavView.SelectedItem = NavView.MenuItems[0];
@@ -77,11 +77,11 @@ public sealed partial class ShellPage : Page
     {
         Type? pageType = tag switch
         {
-            "Today" => typeof(TodayPage),
-            "Statistics" => typeof(StatisticsPage),
-            "Achievements" => typeof(AchievementsPage),
-            "Settings" => typeof(SettingsPage),
-            "About" => typeof(AboutPage),
+            "Today" => typeof(TodayView),
+            "Statistics" => typeof(StatisticsView),
+            "Achievements" => typeof(AchievementsView),
+            "Settings" => typeof(SettingsView),
+            "About" => typeof(AboutView),
             _ => null
         };
 

@@ -36,4 +36,14 @@
         <PackageReference Include="SourceGear.sqlite3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UnoImage Update="Assets\AppLogo.svg" Link="Assets\Svg\applogo.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="Assets\Svg\applogo.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

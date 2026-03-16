@@ -1,4 +1,4 @@
-<Page x:Class="DailyPlants.Views.AboutPage"
+﻿<Page x:Class="DailyPlants.Views.AboutView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyPlants.Views"
@@ -12,9 +12,7 @@
 
             <!-- App Logo/Title -->
             <StackPanel Spacing="8" HorizontalAlignment="Center">
-                <FontIcon Glyph="&#xE8BA;"
-                          FontSize="64"
-                          Foreground="{ThemeResource AccentFillColorDefaultBrush}" />
+                <Image Source="ms-appx:///Assets/Svg/applogo.svg" Width="100" />
                 <TextBlock Text="{helpers:Localize Key=AppName}"
                            Style="{StaticResource TitleLargeTextBlockStyle}"
                            HorizontalAlignment="Center" />
@@ -22,7 +20,7 @@
                     <TextBlock Text="{helpers:Localize Key=About_Version}"
                                Style="{StaticResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                    <TextBlock Text="1.0"
+                    <TextBlock x:Name="VersionText"
                                Style="{StaticResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                 </StackPanel>

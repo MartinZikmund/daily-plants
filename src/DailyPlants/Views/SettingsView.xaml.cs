@@ -4,11 +4,11 @@ using DailyPlants.ViewModels;
 
 namespace DailyPlants.Views;
 
-public sealed partial class SettingsPage : Page
+public sealed partial class SettingsView : Page
 {
     public SettingsViewModel ViewModel { get; }
 
-    public SettingsPage()
+    public SettingsView()
     {
         var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
         var exportService = App.Current.Services!.GetRequiredService<IExportService>();
@@ -17,10 +17,10 @@ public sealed partial class SettingsPage : Page
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
-        this.Loaded += SettingsPage_Loaded;
+        this.Loaded += SettingsView_Loaded;
     }
 
-    private async void SettingsPage_Loaded(object sender, RoutedEventArgs e)
+    private async void SettingsView_Loaded(object sender, RoutedEventArgs e)
     {
         await ViewModel.LoadSettingsAsync();
     }

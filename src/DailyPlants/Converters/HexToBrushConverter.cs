@@ -1,30 +1,7 @@
-using DailyPlants.Services;
-using DailyPlants.ViewModels;
 using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 
-namespace DailyPlants.Views;
-
-public sealed partial class AchievementsPage : Page
-{
-    public AchievementsViewModel ViewModel { get; }
-
-    public AchievementsPage()
-    {
-        var achievementService = App.Current.Services!.GetRequiredService<IAchievementService>();
-        ViewModel = new AchievementsViewModel(achievementService);
-
-        this.InitializeComponent();
-        this.DataContext = ViewModel;
-        this.Loaded += AchievementsPage_Loaded;
-    }
-
-    private async void AchievementsPage_Loaded(object sender, RoutedEventArgs e)
-    {
-        await ViewModel.LoadAchievementsAsync();
-    }
-}
+namespace DailyPlants.Converters;
 
 /// <summary>
 /// Converts a hex color string to a SolidColorBrush.

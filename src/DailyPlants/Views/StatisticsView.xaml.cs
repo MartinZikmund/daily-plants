@@ -5,11 +5,11 @@ using Microsoft.UI.Xaml.Data;
 
 namespace DailyPlants.Views;
 
-public sealed partial class StatisticsPage : Page
+public sealed partial class StatisticsView : Page
 {
     public StatisticsViewModel ViewModel { get; }
 
-    public StatisticsPage()
+    public StatisticsView()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
         var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
@@ -17,10 +17,10 @@ public sealed partial class StatisticsPage : Page
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
-        this.Loaded += StatisticsPage_Loaded;
+        this.Loaded += StatisticsView_Loaded;
     }
 
-    private async void StatisticsPage_Loaded(object sender, RoutedEventArgs e)
+    private async void StatisticsView_Loaded(object sender, RoutedEventArgs e)
     {
         await ViewModel.LoadStatisticsAsync();
     }

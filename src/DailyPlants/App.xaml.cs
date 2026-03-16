@@ -19,6 +19,7 @@ public partial class App : Application
     }
 
     public Window? MainWindow { get; private set; }
+
     protected IHost? Host { get; private set; }
 
     /// <summary>
@@ -93,13 +94,14 @@ public partial class App : Application
         if (rootFrame.Content == null)
         {
             // Navigate to the shell page
-            rootFrame.Navigate(typeof(ShellPage), args.Arguments);
+            rootFrame.Navigate(typeof(ShellView), args.Arguments);
         }
-        // Ensure the current window is active
-        MainWindow.Activate();
 
         // Apply saved theme preference
         var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
         SettingsViewModel.ApplyTheme(appPreferences.ThemePreference);
+
+        // Ensure the current window is active
+        MainWindow.Activate();
     }
 }
