@@ -2,8 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyPlants.Views"
-      xmlns:helpers="using:DailyPlants.Helpers"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      xmlns:helpers="using:DailyPlants.Helpers">
 
     <ScrollViewer Padding="16">
         <StackPanel Spacing="16"

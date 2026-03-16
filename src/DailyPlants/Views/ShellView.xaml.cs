@@ -1,17 +1,41 @@
 using DailyPlants.Models;
 using DailyPlants.Services;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
+using Windows.Foundation.Metadata;
 
 namespace DailyPlants.Views;
 
 public sealed partial class ShellView : Page
 {
     private IAchievementService? _achievementService;
+    private readonly Window _associatedWindow;
 
-    public ShellView()
+    public ShellView(Window associatedWindow)
     {
         this.InitializeComponent();
+        _associatedWindow = associatedWindow;
         this.Loaded += ShellView_Loaded;
+		CustomizeWindow();
+    }
+    
+    public bool HasCustomTitleBar { get; private set; }
+
+    private void CustomizeWindow()
+    {
+        if (AppWindowTitleBar.IsCustomizationSupported())
+        {
+            _associatedWindow.ExtendsContentIntoTitleBar = true;
+            _associatedWindow.AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+            //// TODO: The title bar grid will need to be resized along with TabBar
+            //_associatedWindow.SetTitleBar(TitleBarGrid);
+            HasCustomTitleBar = true;
+        }
+        if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "SystemBackdrop"))
+        {
+            _associatedWindow.SystemBackdrop = new MicaBackdrop();
+            Background = null;
+        }
     }
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)

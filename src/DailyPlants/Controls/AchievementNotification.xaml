@@ -1,12 +1,8 @@
-<UserControl x:Class="DailyPlants.Controls.AchievementNotification"
+﻿<UserControl x:Class="DailyPlants.Controls.AchievementNotification"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:DailyPlants.Controls"
+             xmlns:converters="using:DailyPlants.Converters"
              xmlns:helpers="using:DailyPlants.Helpers">
-
-    <UserControl.Resources>
-        <local:HexToColorConverter x:Key="HexToColorConverter" />
-    </UserControl.Resources>
 
     <Grid x:Name="RootGrid"
           Visibility="Collapsed"

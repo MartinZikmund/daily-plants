@@ -82,19 +82,13 @@ public partial class App : Application
 
         // Do not repeat app initialization when the Window already has content,
         // just ensure that the window is active
-        if (MainWindow.Content is not Frame rootFrame)
+        if (MainWindow.Content is not ShellView windowShell)
         {
             // Create a Frame to act as the navigation context and navigate to the first page
-            rootFrame = new Frame();
+            windowShell = new ShellView(MainWindow);
 
             // Place the frame in the current Window
-            MainWindow.Content = rootFrame;
-        }
-
-        if (rootFrame.Content == null)
-        {
-            // Navigate to the shell page
-            rootFrame.Navigate(typeof(ShellView), args.Arguments);
+            MainWindow.Content = windowShell;
         }
 
         // Apply saved theme preference

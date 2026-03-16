@@ -1,4 +1,4 @@
-<Page x:Class="DailyPlants.Views.ShellView"
+﻿<Page x:Class="DailyPlants.Views.ShellView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyPlants.Views"
@@ -9,10 +9,11 @@
 
     <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
         <NavigationView x:Name="NavView"
+                        Header="Daily Plants"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
                         PaneDisplayMode="Auto"
-                        CompactModeThresholdWidth="0"
+                        CompactModeThresholdWidth="500"
                         SelectionChanged="NavView_SelectionChanged">
 
             <NavigationView.MenuItems>
@@ -62,6 +63,27 @@
 
         <!-- Achievement Notification Popup -->
         <controls:AchievementNotification x:Name="AchievementNotification" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentFrame.Margin" Value="0,48,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentFrame.Margin" Value="0,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 
 </Page>

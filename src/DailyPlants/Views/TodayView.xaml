@@ -5,8 +5,7 @@
     xmlns:helpers="using:DailyPlants.Helpers"
     xmlns:local="using:DailyPlants.Views"
     xmlns:utu="using:Uno.Toolkit.UI"
-    xmlns:vm="using:DailyPlants.ViewModels"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:DailyPlants.ViewModels">
 
     <Page.Resources>
         <!--  Wide template: single-row 3-column layout  -->

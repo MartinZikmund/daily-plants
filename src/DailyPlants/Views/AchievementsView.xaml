@@ -4,8 +4,7 @@
       xmlns:converters="using:DailyPlants.Converters"
       xmlns:vm="using:DailyPlants.ViewModels"
       NavigationCacheMode="Required"
-      xmlns:helpers="using:DailyPlants.Helpers"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      xmlns:helpers="using:DailyPlants.Helpers">
 
     <Page.Resources>
         <converters:HexToBrushConverter x:Key="HexToBrushConverter" />
