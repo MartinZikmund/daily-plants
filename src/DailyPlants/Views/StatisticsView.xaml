@@ -9,10 +9,6 @@
     <ScrollViewer>
         <StackPanel Padding="16" Spacing="24" MaxWidth="800">
 
-            <!-- Header -->
-            <TextBlock Text="{helpers:Localize Key=Stats_Title}"
-                       Style="{StaticResource TitleTextBlockStyle}" />
-
             <!-- Overview Cards -->
             <StackPanel Spacing="8">
                 <TextBlock Text="{helpers:Localize Key=Stats_Overview}"

@@ -8,10 +8,6 @@
     <ScrollViewer>
         <StackPanel Padding="16" Spacing="24" MaxWidth="600">
 
-            <!-- Header -->
-            <TextBlock Text="{helpers:Localize Key=Settings_Title}"
-                       Style="{StaticResource TitleTextBlockStyle}" />
-
             <!-- Checklists Section -->
             <StackPanel Spacing="12">
                 <TextBlock Text="{helpers:Localize Key=Settings_ActiveChecklists}"

@@ -26,12 +26,9 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                <TextBlock Text="{helpers:Localize Key=Achievements_Title}"
-                           Style="{StaticResource TitleTextBlockStyle}" />
                 <TextBlock Text="{Binding ProgressText}"
                            Style="{StaticResource CaptionTextBlockStyle}"
-                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           Margin="0,4,0,0" />
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
             </StackPanel>
 
             <Border Grid.Column="1"

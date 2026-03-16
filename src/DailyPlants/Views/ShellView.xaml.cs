@@ -86,6 +86,7 @@ public sealed partial class ShellView : Page
     {
         if (args.SelectedItem is NavigationViewItem item)
         {
+            NavView.Header = item.Content;
             var tag = item.Tag?.ToString();
             NavigateToPage(tag);
 

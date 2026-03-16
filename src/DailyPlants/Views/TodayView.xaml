@@ -240,6 +240,7 @@
         <Grid
             Grid.Row="0"
             Padding="16,16,16,8"
+            CornerRadius="8"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -328,7 +329,7 @@
         </Grid>
 
         <!--  Progress Bar  -->
-        <Grid Grid.Row="1" Padding="16,12">
+        <Grid Grid.Row="1" Padding="8,12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -354,7 +355,8 @@
         <ListView
             x:Name="ChecklistList"
             Grid.Row="2"
-            Padding="4,0,4,4"
+            Margin="0"
+            Padding="0"
             ItemTemplate="{StaticResource NarrowItemTemplate}"
             ItemsSource="{Binding Items}"
             SelectionMode="None">
