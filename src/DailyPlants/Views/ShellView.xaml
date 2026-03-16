@@ -11,6 +11,7 @@
         <NavigationView x:Name="NavView"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
+                        AlwaysShowHeader="False"
                         PaneDisplayMode="Auto"
                         CompactModeThresholdWidth="500"
                         SelectionChanged="NavView_SelectionChanged">
@@ -56,7 +57,7 @@
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
 
-            <Frame x:Name="ContentFrame" />
+            <Frame x:Name="ContentFrame" MaxWidth="1024" />
 
         </NavigationView>
 
@@ -70,7 +71,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentFrame.Margin" Value="0,0,0,0" />
+                        <Setter Target="ContentFrame.Margin" Value="0,44,0,0" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
@@ -78,7 +79,7 @@
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentFrame.Margin" Value="56,0,56,0" />
+                        <Setter Target="ContentFrame.Margin" Value="56,44,56,0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

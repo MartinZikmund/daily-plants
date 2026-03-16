@@ -6,7 +6,6 @@
 
     <ScrollViewer Padding="16">
         <StackPanel Spacing="16"
-                    MaxWidth="600"
                     HorizontalAlignment="Center">
 
             <!-- App Logo/Title -->

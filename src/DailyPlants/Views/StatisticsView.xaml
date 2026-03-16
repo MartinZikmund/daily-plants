@@ -9,6 +9,9 @@
     <ScrollViewer  HorizontalAlignment="Stretch">
         <StackPanel Spacing="24">
 
+            <TextBlock Text="{helpers:Localize Key=Nav_Statistics}"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+
             <!-- Overview Cards -->
             <StackPanel Spacing="8">
                 <TextBlock Text="{helpers:Localize Key=Stats_Overview}"
