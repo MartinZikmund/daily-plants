@@ -10,5 +10,6 @@
     <PackageVersion Include="sqlite-net-e" Version="1.11.0" />
     <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
     <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
+    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
   </ItemGroup>
 </Project>

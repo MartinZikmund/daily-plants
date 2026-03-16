@@ -6,7 +6,7 @@
       NavigationCacheMode="Required"
       xmlns:helpers="using:DailyPlants.Helpers">
 
-    <ScrollViewer MaxWidth="800" HorizontalAlignment="Left">
+    <ScrollViewer  HorizontalAlignment="Stretch">
         <StackPanel Spacing="24">
 
             <!-- Overview Cards -->
