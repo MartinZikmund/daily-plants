@@ -1,8 +1,9 @@
 name: Build Windows Packages
 
 on:
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
 env:
   # App Configuration
   APP_NAME: DailyPlants
