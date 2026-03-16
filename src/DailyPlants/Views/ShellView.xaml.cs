@@ -46,10 +46,12 @@ public sealed partial class ShellView : Page
             overlappedPresenter.PreferredMinimumHeight = (int)(400 * XamlRoot.RasterizationScale);
         }
 
+#if !HAS_UNO
         if (_associatedWindow.ExtendsContentIntoTitleBar)
         {
             DraggableTitleBar.Margin = new Thickness(DraggableTitleBar.Margin.Left, 0, _associatedWindow.AppWindow.TitleBar.RightInset / XamlRoot.RasterizationScale, 0);
         }
+#endif
     }
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
