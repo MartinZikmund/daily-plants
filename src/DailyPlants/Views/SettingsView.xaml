@@ -12,7 +12,7 @@
 
                 <TextBlock Text="{helpers:Localize Key=Nav_Settings}"
                            Style="{StaticResource TitleTextBlockStyle}"
-                           Margin="0,0,0,8" />
+                           Margin="0,0,0,16" />
 
                 <!-- Checklists Section -->
                 <TextBlock Text="{helpers:Localize Key=Settings_ActiveChecklists}"

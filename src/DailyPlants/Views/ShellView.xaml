@@ -57,7 +57,30 @@
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
 
-            <Frame x:Name="ContentFrame" MaxWidth="1024" />
+            <Grid>
+                <Frame x:Name="ContentFrame" MaxWidth="1024" />
+
+                <Grid
+                    Height="46"
+                    x:Name="TitleBarOuter"
+                    Padding="0,0"
+                    Background="#00000000"
+                    VerticalAlignment="Top"
+                    ColumnSpacing="16"
+                    Visibility="{x:Bind HasCustomTitleBar}">
+
+                    <Grid Margin="0,0,0,0" x:Name="DraggableTitleBar">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                            <Image Source="ms-appx:///Assets/Svg/applogo.svg" Width="16" />
+                            <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Style="{ThemeResource CaptionTextBlockStyle}"
+                            Text="Daily Plants" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
 
         </NavigationView>
 
@@ -71,7 +94,8 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentFrame.Margin" Value="0,44,0,0" />
+                        <Setter Target="TitleBarOuter.Padding" Value="48,0,0,0" />
+                        <Setter Target="ContentFrame.Margin" Value="0,48,0,0" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
@@ -79,6 +103,7 @@
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="TitleBarOuter.Padding" Value="0,0,0,0" />
                         <Setter Target="ContentFrame.Margin" Value="56,44,56,0" />
                     </VisualState.Setters>
                 </VisualState>

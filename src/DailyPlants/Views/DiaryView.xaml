@@ -208,7 +208,7 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid>
+    <Grid RowSpacing="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -239,11 +239,12 @@
 
         <TextBlock Text="{helpers:Localize Key=Nav_Diary}"
                    Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="0,0,0,8" />
+                   Margin="12,0,12,0" />
 
         <!--  Date Navigation Header  -->
         <Grid
             Grid.Row="1"
+            Margin="12,0"
             Padding="16,16,16,8"
             CornerRadius="8"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
@@ -334,7 +335,7 @@
         </Grid>
 
         <!--  Progress Bar  -->
-        <Grid Grid.Row="2" Padding="8,12">
+        <Grid Grid.Row="2" Padding="12,12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

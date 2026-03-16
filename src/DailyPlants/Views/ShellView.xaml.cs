@@ -23,12 +23,12 @@ public sealed partial class ShellView : Page
 
     private void CustomizeWindow()
     {
+        SetMinWindowSizing();
         if (AppWindowTitleBar.IsCustomizationSupported())
         {
             _associatedWindow.ExtendsContentIntoTitleBar = true;
             _associatedWindow.AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
-            //// TODO: The title bar grid will need to be resized along with TabBar
-            //_associatedWindow.SetTitleBar(TitleBarGrid);
+            _associatedWindow.SetTitleBar(DraggableTitleBar);
             HasCustomTitleBar = true;
         }
         if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "SystemBackdrop"))
@@ -38,8 +38,25 @@ public sealed partial class ShellView : Page
         }
     }
 
+    private void SetMinWindowSizing()
+    {
+        if (_associatedWindow.AppWindow.Presenter is OverlappedPresenter overlappedPresenter && XamlRoot is not null)
+        {
+            overlappedPresenter.PreferredMinimumWidth = (int)(500 * XamlRoot.RasterizationScale);
+            overlappedPresenter.PreferredMinimumHeight = (int)(400 * XamlRoot.RasterizationScale);
+        }
+
+        if (_associatedWindow.ExtendsContentIntoTitleBar)
+        {
+            DraggableTitleBar.Margin = new Thickness(DraggableTitleBar.Margin.Left, 0, _associatedWindow.AppWindow.TitleBar.RightInset / XamlRoot.RasterizationScale, 0);
+        }
+    }
+
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
     {
+        XamlRoot.Changed += XamlRoot_Changed;
+        SetMinWindowSizing();
+
         // Select the first item (Diary) by default
         NavView.SelectedItem = NavView.MenuItems[0];
 
@@ -50,6 +67,11 @@ public sealed partial class ShellView : Page
             _achievementService.AchievementEarned += OnAchievementEarned;
             await UpdateAchievementBadgeAsync();
         }
+    }
+
+    private void XamlRoot_Changed(XamlRoot sender, XamlRootChangedEventArgs args)
+    {
+        SetMinWindowSizing();
     }
 
     private void OnAchievementEarned(object? sender, Achievement achievement)

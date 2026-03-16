@@ -10,7 +10,7 @@
         <converters:HexToBrushConverter x:Key="HexToBrushConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid RowSpacing="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
