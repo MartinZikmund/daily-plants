@@ -6,11 +6,19 @@
       NavigationCacheMode="Required"
       xmlns:helpers="using:DailyPlants.Helpers">
 
-    <ScrollViewer  HorizontalAlignment="Stretch" Padding="16,0">
-        <StackPanel Spacing="24">
+    <Grid RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="{helpers:Localize Key=Nav_Statistics}"
-                       Style="{StaticResource TitleTextBlockStyle}" />
+        <TextBlock Grid.Row="0"
+                   Text="{helpers:Localize Key=Nav_Statistics}"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Padding="16,16,16,0" />
+
+        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" Padding="16,0,16,16">
+            <StackPanel Spacing="24">
 
             <!-- Overview Cards -->
             <StackPanel Spacing="8">
@@ -416,7 +424,8 @@
                            HorizontalAlignment="Center" />
             </StackPanel>
 
-        </StackPanel>
-    </ScrollViewer>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 
 </Page>

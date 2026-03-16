@@ -6,13 +6,19 @@
       xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       NavigationCacheMode="Required">
 
-    <ScrollViewer>
-        <Grid>
-            <StackPanel Spacing="4" Padding="16" HorizontalAlignment="Stretch">
+    <Grid RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-                <TextBlock Text="{helpers:Localize Key=Nav_Settings}"
-                           Style="{StaticResource TitleTextBlockStyle}"
-                           Margin="0,0,0,16" />
+        <TextBlock Grid.Row="0"
+                   Text="{helpers:Localize Key=Nav_Settings}"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Padding="16,16,16,0" />
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Spacing="4" Padding="16" HorizontalAlignment="Stretch">
 
                 <!-- Checklists Section -->
                 <TextBlock Text="{helpers:Localize Key=Settings_ActiveChecklists}"
@@ -232,7 +238,7 @@
                 </controls:SettingsExpander>
 
             </StackPanel>
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 
 </Page>

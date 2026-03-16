@@ -35,7 +35,7 @@
         </Border>
 
         <!-- Achievement List -->
-        <ScrollViewer Grid.Row="2" Padding="16">
+        <ScrollViewer x:Name="AchievementsScroller" Grid.Row="1" Grid.RowSpan="2" Padding="16,0,16,16">
             <ItemsRepeater ItemsSource="{Binding AchievementGroups}">
                 <ItemsRepeater.Layout>
                     <StackLayout Spacing="24" />
@@ -164,6 +164,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="AchievementsScroller.(Grid.Row)" Value="2" />
                         <Setter Target="AchievementsBadge.(Grid.Row)" Value="1" />
                         <Setter Target="AchievementsBadge.HorizontalAlignment" Value="Stretch" />
                         <Setter Target="AchievementsBadge.Margin" Value="16,8,0,8" />
@@ -174,6 +175,7 @@
                         <AdaptiveTrigger MinWindowWidth="600" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="AchievementsScroller.(Grid.Row)" Value="1" />
                         <Setter Target="AchievementsBadge.(Grid.Row)" Value="0" />
                         <Setter Target="AchievementsBadge.HorizontalAlignment" Value="Right" />
                         <Setter Target="AchievementsBadge.Margin" Value="0,0,16,0" />

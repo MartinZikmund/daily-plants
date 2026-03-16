@@ -245,7 +245,8 @@
         <Grid
             Grid.Row="1"
             Margin="16,0"
-            Padding="8"
+            Padding="16"
+            RowSpacing="8"
             CornerRadius="8"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
             <Grid.ColumnDefinitions>
