@@ -18,6 +18,7 @@
             Hosting;
             Mvvm;
             SkiaRenderer;
+            Svg;
             Toolkit;
         </UnoFeatures>
 

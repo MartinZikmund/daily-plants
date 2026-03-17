@@ -10,7 +10,7 @@
 
             <!-- App Logo/Title -->
             <StackPanel Spacing="8" HorizontalAlignment="Center">
-                <Image Source="ms-appx:///Assets/Svg/applogo.svg" Width="100" />
+                <Image Source="ms-appx:///Assets/Svg/applogo.svg" Width="100" Height="100" />
                 <TextBlock Text="{helpers:Localize Key=AppName}"
                            Style="{StaticResource TitleLargeTextBlockStyle}"
                            HorizontalAlignment="Center" />
