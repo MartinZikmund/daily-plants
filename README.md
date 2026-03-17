@@ -2,7 +2,7 @@
 
 A cross-platform nutrition tracking app based on Dr. Michael Greger's evidence-based nutrition recommendations from his books *How Not to Die*, *How Not to Diet*, and *How Not to Age*.
 
-[![CI](https://github.com/user/daily-dozen/actions/workflows/ci.yml/badge.svg)](https://github.com/user/daily-dozen/actions/workflows/ci.yml)
+[![CI](https://github.com/MartinZikmund/daily-plants/actions/workflows/ci.yml/badge.svg)](https://github.com/MartinZikmund/daily-plants/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!--
@@ -62,8 +62,8 @@ All data is stored locally on your device. No account required, no tracking, no 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/user/daily-dozen.git
-cd daily-dozen
+git clone https://github.com/MartinZikmund/daily-plants.git
+cd daily-plants
 ```
 
 ### Build and Run
