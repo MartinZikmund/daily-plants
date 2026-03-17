@@ -81,6 +81,7 @@ public partial class AchievementsViewModel : ObservableObject
                         Progress = progress,
                         ProgressText = $"{currentValue} / {achievement.TargetValue}",
                         IconGlyph = achievement.IconGlyph,
+                        IconUri = !string.IsNullOrEmpty(achievement.IconPath) ? new Uri(achievement.IconPath) : null,
                         BadgeColor = achievement.BadgeColor
                     });
                 }
@@ -147,8 +148,11 @@ public class AchievementViewModel
     public double Progress { get; set; }
     public string ProgressText { get; set; } = "0 / 0";
     public string IconGlyph { get; set; } = string.Empty;
+    public Uri? IconUri { get; set; }
     public string BadgeColor { get; set; } = "#888888";
+    public string BadgeBackground => IsEarned ? BadgeColor : "#9E9E9E";
 
+    public bool ShowAsMonochrome => !IsEarned;
     public double Opacity => IsEarned ? 1.0 : 0.5;
     public bool ShowProgress => !IsEarned;
 }

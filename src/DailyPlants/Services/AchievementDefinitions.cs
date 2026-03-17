@@ -60,6 +60,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Streak7_Desc",
                 Type = AchievementType.Streak,
                 IconGlyph = "\uE7C1", // Fire
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_fire.png",
                 BadgeColor = StreakColor,
                 TargetValue = 7
             },
@@ -70,6 +71,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Streak14_Desc",
                 Type = AchievementType.Streak,
                 IconGlyph = "\uE7C1",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_campfire.png",
                 BadgeColor = StreakColor,
                 TargetValue = 14
             },
@@ -80,6 +82,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Streak30_Desc",
                 Type = AchievementType.Streak,
                 IconGlyph = "\uE7C1",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_lightning_bolt.png",
                 BadgeColor = StreakColor,
                 TargetValue = 30
             },
@@ -90,6 +93,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Streak60_Desc",
                 Type = AchievementType.Streak,
                 IconGlyph = "\uE7C1",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_rocket.png",
                 BadgeColor = StreakColor,
                 TargetValue = 60
             },
@@ -100,6 +104,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Streak100_Desc",
                 Type = AchievementType.Streak,
                 IconGlyph = "\uE7C1",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_crown.png",
                 BadgeColor = StreakColor,
                 TargetValue = 100
             },
@@ -110,6 +115,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Streak365_Desc",
                 Type = AchievementType.Streak,
                 IconGlyph = "\uE7C1",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_jewel.png",
                 BadgeColor = StreakColor,
                 TargetValue = 365
             }
@@ -127,6 +133,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_FirstDay_Desc",
                 Type = AchievementType.Milestone,
                 IconGlyph = "\uE8E1", // Star
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_sprout.png",
                 BadgeColor = MilestoneColor,
                 TargetValue = 1
             },
@@ -137,6 +144,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_FirstPerfect_Desc",
                 Type = AchievementType.Milestone,
                 IconGlyph = "\uE735", // Trophy
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_star.png",
                 BadgeColor = MilestoneColor,
                 TargetValue = 1
             },
@@ -147,6 +155,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_FirstWeek_Desc",
                 Type = AchievementType.Milestone,
                 IconGlyph = "\uE787", // Calendar
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_calendar.png",
                 BadgeColor = MilestoneColor,
                 TargetValue = 7
             },
@@ -157,6 +166,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_FirstMonth_Desc",
                 Type = AchievementType.Milestone,
                 IconGlyph = "\uE787",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_medal.png",
                 BadgeColor = MilestoneColor,
                 TargetValue = 30
             }
@@ -174,6 +184,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Completion10_Desc",
                 Type = AchievementType.Completion,
                 IconGlyph = "\uE73E", // Checkmark
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_checkmark.png",
                 BadgeColor = CompletionColor,
                 TargetValue = 10
             },
@@ -184,6 +195,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Completion25_Desc",
                 Type = AchievementType.Completion,
                 IconGlyph = "\uE73E",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_prize.png",
                 BadgeColor = CompletionColor,
                 TargetValue = 25
             },
@@ -194,6 +206,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Completion50_Desc",
                 Type = AchievementType.Completion,
                 IconGlyph = "\uE73E",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_trophy.png",
                 BadgeColor = CompletionColor,
                 TargetValue = 50
             },
@@ -204,6 +217,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Completion100_Desc",
                 Type = AchievementType.Completion,
                 IconGlyph = "\uE73E",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_hundred.png",
                 BadgeColor = CompletionColor,
                 TargetValue = 100
             },
@@ -214,6 +228,7 @@ public static class AchievementDefinitions
                 DescriptionKey = "Achievement_Completion365_Desc",
                 Type = AchievementType.Completion,
                 IconGlyph = "\uE73E",
+                IconPath = "ms-appx:///Assets/Icons/Achievements/achievement_heart.png",
                 BadgeColor = CompletionColor,
                 TargetValue = 365
             }
@@ -223,21 +238,22 @@ public static class AchievementDefinitions
     private static IEnumerable<Achievement> CreateItemAchievements()
     {
         // Create achievements for key Daily Dozen items
+        // (itemId, glyph, nameBase, iconPath)
         var itemsWithAchievements = new[]
         {
-            ("beans", "\uE707", "Beans"),           // Leaf icon
-            ("berries", "\uE707", "Berries"),
-            ("greens", "\uE707", "Greens"),
-            ("cruciferous", "\uE707", "Cruciferous"),
-            ("whole_grains", "\uE707", "WholeGrains"),
-            ("exercise", "\uE823", "Exercise"),     // Running icon
-            ("flaxseed", "\uE707", "Flaxseed"),
-            ("nuts", "\uE707", "Nuts"),
+            ("beans", "\uE707", "Beans", "ms-appx:///Assets/Icons/Achievements/achievement_beans.png"),
+            ("berries", "\uE707", "Berries", "ms-appx:///Assets/Icons/Achievements/achievement_raspberry.png"),
+            ("greens", "\uE707", "Greens", "ms-appx:///Assets/Icons/Achievements/achievement_salad.png"),
+            ("cruciferous", "\uE707", "Cruciferous", "ms-appx:///Assets/Icons/Achievements/achievement_broccoli.png"),
+            ("whole_grains", "\uE707", "WholeGrains", "ms-appx:///Assets/Icons/Achievements/achievement_wheat.png"),
+            ("exercise", "\uE823", "Exercise", "ms-appx:///Assets/Icons/Achievements/achievement_running.png"),
+            ("flaxseed", "\uE707", "Flaxseed", "ms-appx:///Assets/Icons/Achievements/achievement_chaff.png"),
+            ("nuts", "\uE707", "Nuts", "ms-appx:///Assets/Icons/Achievements/achievement_nut.png"),
         };
 
         var achievements = new List<Achievement>();
 
-        foreach (var (itemId, glyph, nameBase) in itemsWithAchievements)
+        foreach (var (itemId, glyph, nameBase, iconPath) in itemsWithAchievements)
         {
             // 50 times achievement
             achievements.Add(new Achievement
@@ -247,6 +263,7 @@ public static class AchievementDefinitions
                 DescriptionKey = $"Achievement_{nameBase}50_Desc",
                 Type = AchievementType.ItemSpecific,
                 IconGlyph = glyph,
+                IconPath = iconPath,
                 BadgeColor = ItemColor,
                 TargetValue = 50,
                 ItemId = itemId
@@ -260,6 +277,7 @@ public static class AchievementDefinitions
                 DescriptionKey = $"Achievement_{nameBase}100_Desc",
                 Type = AchievementType.ItemSpecific,
                 IconGlyph = glyph,
+                IconPath = iconPath,
                 BadgeColor = ItemColor,
                 TargetValue = 100,
                 ItemId = itemId

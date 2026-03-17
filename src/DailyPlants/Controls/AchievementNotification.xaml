@@ -36,11 +36,11 @@
                         Width="56" Height="56"
                         CornerRadius="28"
                         Margin="0,0,16,0">
-                    <FontIcon x:Name="AchievementIcon"
-                              FontSize="28"
-                              Foreground="White"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center" />
+                    <BitmapIcon x:Name="AchievementIcon"
+                               ShowAsMonochrome="False"
+                               Width="32" Height="32"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
                 </Border>
 
                 <!-- Achievement Info -->

@@ -102,10 +102,11 @@
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <TextBox Text="{Binding GoalWeightText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          PlaceholderText="{helpers:Localize Key=Settings_Optional}"
-                                         Width="120"
+                                         MinWidth="120"
                                          InputScope="Number" />
                                 <TextBlock Text="{Binding WeightUnit}"
                                            VerticalAlignment="Center"
+                                           MinWidth="30"
                                            Style="{StaticResource BodyTextBlockStyle}"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                             </StackPanel>
@@ -118,10 +119,11 @@
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <TextBox Text="{Binding HeightText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          PlaceholderText="{helpers:Localize Key=Settings_Optional}"
-                                         Width="120"
+                                         MinWidth="120"
                                          InputScope="Number" />
                                 <TextBlock Text="{Binding HeightUnit}"
                                            VerticalAlignment="Center"
+                                           MinWidth="30"
                                            Style="{StaticResource BodyTextBlockStyle}"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                             </StackPanel>

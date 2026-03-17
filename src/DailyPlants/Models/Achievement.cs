@@ -31,6 +31,11 @@ public partial record Achievement
     public required string IconGlyph { get; init; }
 
     /// <summary>
+    /// Path to the SVG icon for the achievement.
+    /// </summary>
+    public string IconPath { get; init; } = string.Empty;
+
+    /// <summary>
     /// Color for the achievement badge (hex color code).
     /// </summary>
     public required string BadgeColor { get; init; }

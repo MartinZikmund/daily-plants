@@ -42,7 +42,7 @@ public sealed partial class AchievementNotification : UserControl
         // Update UI
         AchievementName.Text = Localizer.GetString(achievement.NameKey);
         AchievementDescription.Text = Localizer.GetString(achievement.DescriptionKey);
-        AchievementIcon.Glyph = achievement.IconGlyph;
+        AchievementIcon.UriSource = new Uri(achievement.IconPath);
 
         // Set badge color
         try
