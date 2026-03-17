@@ -11,6 +11,8 @@ A cross-platform nutrition tracking app based on Dr. Michael Greger's evidence-b
 [![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Download-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/daily-plants)
 -->
 
+![Daily Plants app showing nutrition checklist tracking](assets/screenshot.jpg)
+
 ## About
 
 Daily Plants helps you track your daily nutrition goals with three evidence-based checklists:
@@ -33,11 +35,6 @@ All data is stored locally on your device. No account required, no tracking, no 
 - Light, dark, and system theme support
 - Multi-language support (English, Czech)
 - Works offline - all data stored locally
-
-## Screenshots
-
-<!-- Add screenshots here -->
-*Screenshots coming soon*
 
 ## Supported Platforms
 
@@ -155,9 +152,9 @@ All data is stored locally using SQLite:
 
 Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
 
-## Code of Conduct
+## Changelog
 
-This project follows a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+See [CHANGELOG.md](CHANGELOG.md) for a history of notable changes to this project.
 
 ## Security
 
@@ -165,7 +162,7 @@ For security concerns, please see our [Security Policy](SECURITY.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. Third-party license notices are available in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## Acknowledgments
 
