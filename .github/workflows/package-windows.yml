@@ -116,7 +116,7 @@ jobs:
         shell: pwsh
         run: |
           dotnet tool install -g nbgv
-          $raw = nbgv get-version -v BuildVersionSimple
+          $raw = nbgv get-version -v SimpleVersion
           $version = "$raw.0"
           echo "version=$version" >> $env:GITHUB_OUTPUT
 
