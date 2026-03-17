@@ -1,4 +1,5 @@
 using System.Reflection;
+using MZikmund.Toolkit.WinUI.Extensions;
 
 namespace DailyPlants.Views;
 
@@ -8,10 +9,7 @@ public sealed partial class AboutView : Page
     {
         this.InitializeComponent();
 
-        var version = Assembly.GetExecutingAssembly()
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion ?? "unknown";
-
+        var version = Package.Current.Id.Version.ToVersionString();
         VersionText.Text = version;
     }
 }

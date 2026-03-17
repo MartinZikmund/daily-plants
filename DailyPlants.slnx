@@ -5,6 +5,7 @@
     <File Path="src/Directory.Build.props" />
     <File Path="src/Directory.Build.targets" />
     <File Path="src/Directory.Packages.props" />
+    <File Path="version.json" />
   </Folder>
   <Project Path="src/DailyPlants/DailyPlants.csproj">
     <Deploy />
