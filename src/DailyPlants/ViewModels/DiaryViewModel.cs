@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -152,13 +153,13 @@ public partial class DiaryViewModel : ObservableObject
 
         if (_currentDate == today)
         {
-            RelativeDayText = "Today";
+            RelativeDayText = Localizer.GetString("Diary_Today");
             ShowRelativeDay = true;
             ShowGoToToday = false;
         }
         else if (_currentDate == today.AddDays(-1))
         {
-            RelativeDayText = "Yesterday";
+            RelativeDayText = Localizer.GetString("Diary_Yesterday");
             ShowRelativeDay = true;
             ShowGoToToday = false;
         }
@@ -227,7 +228,7 @@ public partial class DiaryViewModel : ObservableObject
         if (Items.Count == 0)
         {
             OverallProgress = 0;
-            ProgressText = "No items enabled";
+            ProgressText = Localizer.GetString("Diary_NoItemsEnabled");
             return;
         }
 
@@ -236,7 +237,7 @@ public partial class DiaryViewModel : ObservableObject
 
         OverallProgress = totalServings > 0 ? (double)completedServings / totalServings : 0;
         var percentage = (int)(OverallProgress * 100);
-        ProgressText = $"{percentage}% complete";
+        ProgressText = string.Format(Localizer.GetString("Diary_PercentComplete"), percentage);
     }
 }
 

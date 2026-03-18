@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services.Settings;
 
@@ -8,11 +9,14 @@ namespace DailyPlants.Services;
 /// </summary>
 public static class ChecklistDefinitions
 {
+    private static IReadOnlyList<ChecklistItem>? _allItems;
+
     /// <summary>
     /// All checklist items with their definitions.
     /// Items that appear in multiple checklists are defined once with multiple ChecklistTypes.
+    /// Lazily initialized so resource strings are resolved after localization is set up.
     /// </summary>
-    public static IReadOnlyList<ChecklistItem> AllItems { get; } = CreateAllItems();
+    public static IReadOnlyList<ChecklistItem> AllItems => _allItems ??= CreateAllItems();
 
     /// <summary>
     /// Gets items for a specific checklist type.
@@ -69,11 +73,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "beans",
-            Name = "Beans",
-            Description = "Legumes including beans, lentils, chickpeas, and hummus",
+            Name = Localizer.GetString("DD_Beans"),
+            Description = Localizer.GetString("DD_Beans_Desc"),
             RecommendedServings = 3,
-            ServingSizeExample = "1/2 cup cooked beans, lentils, tofu, or tempeh; 1/4 cup hummus",
-            HealthBenefits = "Excellent source of protein, fiber, and complex carbohydrates. Associated with longest lifespan gains according to Global Burden of Disease Study.",
+            ServingSizeExample = Localizer.GetString("DD_Beans_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Beans_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/beans/",
             IconPath = "ms-appx:///Assets/Icons/Items/beans.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
@@ -83,11 +87,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "berries",
-            Name = "Berries",
-            Description = "All types of berries",
+            Name = Localizer.GetString("DD_Berries"),
+            Description = Localizer.GetString("DD_Berries_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1/2 cup fresh or frozen; 1/4 cup dried",
-            HealthBenefits = "Highest antioxidant content of all fruits. Associated with longer lifespan and cognitive benefits.",
+            ServingSizeExample = Localizer.GetString("DD_Berries_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Berries_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/berries/",
             IconPath = "ms-appx:///Assets/Icons/Items/berries.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
@@ -97,11 +101,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "other_fruits",
-            Name = "Other Fruits",
-            Description = "Fruits other than berries",
+            Name = Localizer.GetString("DD_OtherFruits"),
+            Description = Localizer.GetString("DD_OtherFruits_Desc"),
             RecommendedServings = 3,
-            ServingSizeExample = "1 medium fruit; 1/4 cup dried; 1/4 cup fruit juice",
-            HealthBenefits = "Rich in vitamins, minerals, and fiber. Essential for overall health.",
+            ServingSizeExample = Localizer.GetString("DD_OtherFruits_Serving"),
+            HealthBenefits = Localizer.GetString("DD_OtherFruits_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/fruit/",
             IconPath = "ms-appx:///Assets/Icons/Items/other_fruits.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -111,11 +115,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "greens",
-            Name = "Greens",
-            Description = "Dark leafy green vegetables",
+            Name = Localizer.GetString("DD_Greens"),
+            Description = Localizer.GetString("DD_Greens_Desc"),
             RecommendedServings = 2,
-            ServingSizeExample = "1 cup raw; 1/2 cup cooked",
-            HealthBenefits = "Most associated with longer lifespan among vegetables. Rich in nitrates that improve muscle and artery function.",
+            ServingSizeExample = Localizer.GetString("DD_Greens_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Greens_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/greens/",
             IconPath = "ms-appx:///Assets/Icons/Items/greens.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
@@ -125,11 +129,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "cruciferous",
-            Name = "Cruciferous Vegetables",
-            Description = "Broccoli, cauliflower, cabbage, kale, etc.",
+            Name = Localizer.GetString("DD_Cruciferous"),
+            Description = Localizer.GetString("DD_Cruciferous_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1/2 cup chopped; 1/4 cup Brussels or broccoli sprouts; 1 tbsp horseradish",
-            HealthBenefits = "Contains sulforaphane which boosts immune function and liver detox enzymes.",
+            ServingSizeExample = Localizer.GetString("DD_Cruciferous_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Cruciferous_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/cruciferous-vegetables/",
             IconPath = "ms-appx:///Assets/Icons/Items/cruciferous.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
@@ -139,11 +143,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "other_vegetables",
-            Name = "Other Vegetables",
-            Description = "Non-leafy, non-cruciferous vegetables",
+            Name = Localizer.GetString("DD_OtherVegetables"),
+            Description = Localizer.GetString("DD_OtherVegetables_Desc"),
             RecommendedServings = 2,
-            ServingSizeExample = "1/2 cup raw or cooked non-leafy vegetables; 1/4 cup dried mushrooms",
-            HealthBenefits = "Diverse nutrients and fiber. Essential for a balanced diet.",
+            ServingSizeExample = Localizer.GetString("DD_OtherVegetables_Serving"),
+            HealthBenefits = Localizer.GetString("DD_OtherVegetables_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vegetables/",
             IconPath = "ms-appx:///Assets/Icons/Items/other_vegetables.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -153,11 +157,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "flaxseed",
-            Name = "Flaxseed",
-            Description = "Ground flaxseed",
+            Name = Localizer.GetString("DD_Flaxseed"),
+            Description = Localizer.GetString("DD_Flaxseed_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1 tablespoon ground",
-            HealthBenefits = "Richest source of lignans and omega-3 ALA. Benefits heart health and hormone balance.",
+            ServingSizeExample = Localizer.GetString("DD_Flaxseed_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Flaxseed_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/flax-seeds/",
             IconPath = "ms-appx:///Assets/Icons/Items/flaxseed.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -167,11 +171,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "nuts",
-            Name = "Nuts and Seeds",
-            Description = "All nuts and seeds (preferably walnuts)",
+            Name = Localizer.GetString("DD_Nuts"),
+            Description = Localizer.GetString("DD_Nuts_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1/4 cup nuts or seeds; 2 tbsp nut or seed butter",
-            HealthBenefits = "Associated with lowest risk of premature death of any food group. Walnuts are especially beneficial.",
+            ServingSizeExample = Localizer.GetString("DD_Nuts_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Nuts_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/nuts/",
             IconPath = "ms-appx:///Assets/Icons/Items/nuts.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
@@ -181,11 +185,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "herbs_spices",
-            Name = "Herbs and Spices",
-            Description = "Especially turmeric",
+            Name = Localizer.GetString("DD_Herbs"),
+            Description = Localizer.GetString("DD_Herbs_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1/4 tsp turmeric with other spices",
-            HealthBenefits = "Powerful anti-inflammatory and antioxidant properties.",
+            ServingSizeExample = Localizer.GetString("DD_Herbs_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Herbs_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/spices/",
             IconPath = "ms-appx:///Assets/Icons/Items/herbs_spices.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -195,11 +199,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "whole_grains",
-            Name = "Whole Grains",
-            Description = "Intact whole grains preferred",
+            Name = Localizer.GetString("DD_WholeGrains"),
+            Description = Localizer.GetString("DD_WholeGrains_Desc"),
             RecommendedServings = 3,
-            ServingSizeExample = "1/2 cup hot cereal or cooked grains; 1 slice bread; 1/2 bagel",
-            HealthBenefits = "High fiber content supports gut health and stable blood sugar.",
+            ServingSizeExample = Localizer.GetString("DD_WholeGrains_Serving"),
+            HealthBenefits = Localizer.GetString("DD_WholeGrains_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/whole-grains/",
             IconPath = "ms-appx:///Assets/Icons/Items/whole_grains.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -209,11 +213,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "beverages",
-            Name = "Beverages",
-            Description = "Water, tea, and other healthy drinks",
+            Name = Localizer.GetString("DD_Beverages"),
+            Description = Localizer.GetString("DD_Beverages_Desc"),
             RecommendedServings = 5,
-            ServingSizeExample = "12 oz glass (5 glasses = 60 oz daily)",
-            HealthBenefits = "Proper hydration is essential for all body functions.",
+            ServingSizeExample = Localizer.GetString("DD_Beverages_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Beverages_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/beverages/",
             IconPath = "ms-appx:///Assets/Icons/Items/beverages.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -223,11 +227,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "exercise",
-            Name = "Exercise",
-            Description = "Daily physical activity",
+            Name = Localizer.GetString("DD_Exercise"),
+            Description = Localizer.GetString("DD_Exercise_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "90 min moderate activity or 40 min vigorous activity",
-            HealthBenefits = "Boosts NAD+ levels by 127%. Essential for longevity and overall health.",
+            ServingSizeExample = Localizer.GetString("DD_Exercise_Serving"),
+            HealthBenefits = Localizer.GetString("DD_Exercise_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/exercise/",
             IconPath = "ms-appx:///Assets/Icons/Items/exercise.png",
             Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
@@ -237,11 +241,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "vitamin_b12",
-            Name = "Vitamin B12",
-            Description = "B12 supplementation",
+            Name = Localizer.GetString("DD_VitaminB12"),
+            Description = Localizer.GetString("DD_VitaminB12_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "2000 mcg weekly or 50 mcg daily",
-            HealthBenefits = "Essential for nerve function and red blood cell formation. Required on plant-based diet.",
+            ServingSizeExample = Localizer.GetString("DD_VitaminB12_Serving"),
+            HealthBenefits = Localizer.GetString("DD_VitaminB12_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vitamin-b12/",
             IconPath = "ms-appx:///Assets/Icons/Items/vitamin_b12.png",
             Checklists = [ChecklistType.DailyDozen]
@@ -252,11 +256,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "preload_water",
-            Name = "Preload Water",
-            Description = "Drink 2 cups of water before each meal",
+            Name = Localizer.GetString("TT_PreloadWater"),
+            Description = Localizer.GetString("TT_PreloadWater_LongDesc"),
             RecommendedServings = 3,
-            ServingSizeExample = "2 cups (16 oz) cold water before each meal",
-            HealthBenefits = "Boosts metabolism and helps feel full, reducing calorie intake.",
+            ServingSizeExample = Localizer.GetString("TT_PreloadWater_Desc"),
+            HealthBenefits = Localizer.GetString("TT_PreloadWater_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/water/",
             IconPath = "ms-appx:///Assets/Icons/Items/preload_water.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -265,11 +269,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "negative_calorie_preload",
-            Name = "Negative Calorie Preload",
-            Description = "Start each meal with apple, salad, or soup",
+            Name = Localizer.GetString("TT_NegativeCalorie"),
+            Description = Localizer.GetString("TT_NegativeCalorie_LongDesc"),
             RecommendedServings = 3,
-            ServingSizeExample = "Apple, light soup, or salad before meals",
-            HealthBenefits = "Reduces overall calorie consumption while adding nutrition.",
+            ServingSizeExample = Localizer.GetString("TT_NegativeCalorie_Desc"),
+            HealthBenefits = Localizer.GetString("TT_NegativeCalorie_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/appetite/",
             IconPath = "ms-appx:///Assets/Icons/Items/negative_calorie_preload.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -278,11 +282,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "vinegar",
-            Name = "Incorporate Vinegar",
-            Description = "Add vinegar to meals",
+            Name = Localizer.GetString("TT_Vinegar"),
+            Description = Localizer.GetString("TT_Vinegar_LongDesc"),
             RecommendedServings = 2,
-            ServingSizeExample = "2 tsp vinegar with each meal",
-            HealthBenefits = "May help with blood sugar control and weight management.",
+            ServingSizeExample = Localizer.GetString("TT_Vinegar_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Vinegar_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vinegar/",
             IconPath = "ms-appx:///Assets/Icons/Items/vinegar.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -291,11 +295,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "undistracted_meals",
-            Name = "Undistracted Meals",
-            Description = "Eat without distractions",
+            Name = Localizer.GetString("TT_Undistracted"),
+            Description = Localizer.GetString("TT_Undistracted_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "At least one meal without TV, phone, or reading",
-            HealthBenefits = "Mindful eating leads to better portion control and satisfaction.",
+            ServingSizeExample = Localizer.GetString("TT_Undistracted_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Undistracted_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/mindful-eating/",
             IconPath = "ms-appx:///Assets/Icons/Items/undistracted_meals.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -304,11 +308,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "twenty_minute_rule",
-            Name = "20-Minute Rule",
-            Description = "Take at least 20 minutes to eat",
+            Name = Localizer.GetString("TT_TwentyMinute"),
+            Description = Localizer.GetString("TT_TwentyMinute_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Slow down eating, chew thoroughly",
-            HealthBenefits = "Allows satiety signals to register, preventing overeating.",
+            ServingSizeExample = Localizer.GetString("TT_TwentyMinute_Desc"),
+            HealthBenefits = Localizer.GetString("TT_TwentyMinute_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/eating-rate/",
             IconPath = "ms-appx:///Assets/Icons/Items/twenty_minute_rule.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -317,11 +321,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "fat_free_dressings",
-            Name = "Fat-Free Dressings",
-            Description = "Use fat-free seasonings",
+            Name = Localizer.GetString("TT_FatFree"),
+            Description = Localizer.GetString("TT_FatFree_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Season with herbs, spices, vinegar instead of oil",
-            HealthBenefits = "Reduces calorie density while maintaining flavor.",
+            ServingSizeExample = Localizer.GetString("TT_FatFree_Desc"),
+            HealthBenefits = Localizer.GetString("TT_FatFree_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/fat_free_dressings.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -329,11 +333,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "front_load_calories",
-            Name = "Front-Load Calories",
-            Description = "Eat bigger breakfast, smaller dinner",
+            Name = Localizer.GetString("TT_FrontLoad"),
+            Description = Localizer.GetString("TT_FrontLoad_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Make breakfast the largest meal of the day",
-            HealthBenefits = "Aligns eating with circadian rhythm for better metabolism.",
+            ServingSizeExample = Localizer.GetString("TT_FrontLoad_Desc"),
+            HealthBenefits = Localizer.GetString("TT_FrontLoad_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/front_load_calories.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -341,11 +345,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "time_restricted_eating",
-            Name = "Time-Restricted Eating",
-            Description = "Limit eating window",
+            Name = Localizer.GetString("TT_TimeRestricted"),
+            Description = Localizer.GetString("TT_TimeRestricted_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Eat within a consistent daily window",
-            HealthBenefits = "May improve metabolic health and weight management.",
+            ServingSizeExample = Localizer.GetString("TT_TimeRestricted_Desc"),
+            HealthBenefits = Localizer.GetString("TT_TimeRestricted_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/intermittent-fasting/",
             IconPath = "ms-appx:///Assets/Icons/Items/time_restricted_eating.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -354,11 +358,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "more_legumes",
-            Name = "Eat More Legumes",
-            Description = "Extra emphasis on beans and lentils",
+            Name = Localizer.GetString("TT_Legumes"),
+            Description = Localizer.GetString("TT_Legumes_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Include legumes in multiple meals",
-            HealthBenefits = "High protein and fiber promote satiety and gut health.",
+            ServingSizeExample = Localizer.GetString("TT_Legumes_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Legumes_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/more_legumes.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -366,11 +370,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "more_greens",
-            Name = "Eat More Greens",
-            Description = "Extra emphasis on leafy greens",
+            Name = Localizer.GetString("TT_Greens"),
+            Description = Localizer.GetString("TT_Greens_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Add greens to every meal",
-            HealthBenefits = "Low calorie, high nutrient density supports weight loss.",
+            ServingSizeExample = Localizer.GetString("TT_Greens_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Greens_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/more_greens.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -378,11 +382,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "more_berries",
-            Name = "Eat More Berries",
-            Description = "Extra emphasis on berries",
+            Name = Localizer.GetString("TT_Berries"),
+            Description = Localizer.GetString("TT_Berries_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Include berries daily",
-            HealthBenefits = "Antioxidants and fiber support metabolic health.",
+            ServingSizeExample = Localizer.GetString("TT_Berries_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Berries_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/more_berries.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -390,11 +394,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "deflour_diet",
-            Name = "Deflour Your Diet",
-            Description = "Choose intact grains over flour products",
+            Name = Localizer.GetString("TT_Deflour"),
+            Description = Localizer.GetString("TT_Deflour_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Steel-cut oats instead of bread, intact barley instead of pasta",
-            HealthBenefits = "Intact grains have lower glycemic impact and better satiety.",
+            ServingSizeExample = Localizer.GetString("TT_Deflour_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Deflour_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/deflour_diet.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -402,11 +406,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "black_cumin",
-            Name = "Black Cumin",
-            Description = "Also known as Nigella sativa",
+            Name = Localizer.GetString("TT_BlackCumin"),
+            Description = Localizer.GetString("TT_BlackCumin_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1/4 tsp black cumin (nigella seeds)",
-            HealthBenefits = "May help with weight loss and blood sugar control.",
+            ServingSizeExample = Localizer.GetString("TT_BlackCumin_Desc"),
+            HealthBenefits = Localizer.GetString("TT_BlackCumin_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/black-cumin/",
             IconPath = "ms-appx:///Assets/Icons/Items/black_cumin.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -415,11 +419,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "garlic_powder",
-            Name = "Garlic Powder",
-            Description = "Daily garlic supplementation",
+            Name = Localizer.GetString("TT_Garlic"),
+            Description = Localizer.GetString("TT_Garlic_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1/4 tsp garlic powder",
-            HealthBenefits = "Studies show it can reduce body fat.",
+            ServingSizeExample = Localizer.GetString("TT_Garlic_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Garlic_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/garlic/",
             IconPath = "ms-appx:///Assets/Icons/Items/garlic_powder.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -428,11 +432,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "ground_ginger",
-            Name = "Ground Ginger",
-            Description = "Daily ginger",
+            Name = Localizer.GetString("TT_Ginger"),
+            Description = Localizer.GetString("TT_Ginger_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "1 tsp ground ginger or equivalent fresh",
-            HealthBenefits = "May boost metabolism and reduce inflammation.",
+            ServingSizeExample = Localizer.GetString("TT_Ginger_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Ginger_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/ginger/",
             IconPath = "ms-appx:///Assets/Icons/Items/ground_ginger.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -441,11 +445,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "nutritional_yeast",
-            Name = "Nutritional Yeast",
-            Description = "Beta-glucan fiber source",
+            Name = Localizer.GetString("TT_NutritionalYeast"),
+            Description = Localizer.GetString("TT_NutritionalYeast_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "2 tsp nutritional yeast",
-            HealthBenefits = "Beta-glucan fiber can facilitate weight loss.",
+            ServingSizeExample = Localizer.GetString("TT_NutritionalYeast_Desc"),
+            HealthBenefits = Localizer.GetString("TT_NutritionalYeast_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/nutritional-yeast/",
             IconPath = "ms-appx:///Assets/Icons/Items/nutritional_yeast.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -454,11 +458,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "cumin",
-            Name = "Cumin",
-            Description = "Regular cumin spice",
+            Name = Localizer.GetString("TT_Cumin"),
+            Description = Localizer.GetString("TT_Cumin_LongDesc"),
             RecommendedServings = 2,
-            ServingSizeExample = "1/2 tsp cumin with lunch and dinner",
-            HealthBenefits = "May help with weight loss and improve cholesterol.",
+            ServingSizeExample = Localizer.GetString("TT_Cumin_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Cumin_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/cumin/",
             IconPath = "ms-appx:///Assets/Icons/Items/cumin.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -467,11 +471,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "green_tea",
-            Name = "Green Tea",
-            Description = "Daily green tea consumption",
+            Name = Localizer.GetString("TT_GreenTea"),
+            Description = Localizer.GetString("TT_GreenTea_LongDesc"),
             RecommendedServings = 3,
-            ServingSizeExample = "3 cups green tea",
-            HealthBenefits = "Contains catechins that may boost metabolism.",
+            ServingSizeExample = Localizer.GetString("TT_GreenTea_Desc"),
+            HealthBenefits = Localizer.GetString("TT_GreenTea_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/green-tea/",
             IconPath = "ms-appx:///Assets/Icons/Items/green_tea.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
@@ -480,11 +484,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "stay_hydrated",
-            Name = "Stay Hydrated",
-            Description = "Maintain proper hydration",
+            Name = Localizer.GetString("TT_Hydrated"),
+            Description = Localizer.GetString("TT_Hydrated_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "8+ cups of water throughout the day",
-            HealthBenefits = "Proper hydration supports metabolism and reduces hunger.",
+            ServingSizeExample = Localizer.GetString("TT_Hydrated_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Hydrated_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/stay_hydrated.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -492,11 +496,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "exercise_timing",
-            Name = "Exercise Timing",
-            Description = "Optimal timing for exercise",
+            Name = Localizer.GetString("TT_ExerciseTiming"),
+            Description = Localizer.GetString("TT_ExerciseTiming_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Exercise fasted in morning or in afternoon",
-            HealthBenefits = "May enhance fat burning and metabolic benefits.",
+            ServingSizeExample = Localizer.GetString("TT_ExerciseTiming_Desc"),
+            HealthBenefits = Localizer.GetString("TT_ExerciseTiming_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/exercise_timing.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -504,11 +508,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "enough_sleep",
-            Name = "Get Enough Sleep",
-            Description = "Quality sleep for weight management",
+            Name = Localizer.GetString("TT_Sleep"),
+            Description = Localizer.GetString("TT_Sleep_LongDesc"),
             RecommendedServings = 1,
-            ServingSizeExample = "7+ hours of quality sleep",
-            HealthBenefits = "Poor sleep disrupts hunger hormones and metabolism.",
+            ServingSizeExample = Localizer.GetString("TT_Sleep_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Sleep_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/sleep/",
             IconPath = "ms-appx:///Assets/Icons/Items/enough_sleep.png",
             Checklists = [ChecklistType.TwentyOneTweaks, ChecklistType.AntiAgingEight]
@@ -519,11 +523,11 @@ public static class ChecklistDefinitions
         new ChecklistItem
         {
             Id = "sun_protection",
-            Name = "Sun Protection",
-            Description = "Daily sun protection",
+            Name = Localizer.GetString("AA_SunProtection"),
+            Description = Localizer.GetString("AA_SunProtection_Desc"),
             RecommendedServings = 1,
-            ServingSizeExample = "Sunscreen, hat, or protective clothing when outdoors",
-            HealthBenefits = "Sun exposure accounts for 90% of visible skin aging.",
+            ServingSizeExample = Localizer.GetString("AA_SunProtection_Serving"),
+            HealthBenefits = Localizer.GetString("AA_SunProtection_Benefits"),
             IconPath = "ms-appx:///Assets/Icons/Items/sun_protection.png",
             Checklists = [ChecklistType.AntiAgingEight]
         }

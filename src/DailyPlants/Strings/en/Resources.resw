@@ -354,11 +354,23 @@
   <data name="DD_Beans_Serving" xml:space="preserve">
     <value>1/2 cup cooked or 1/4 cup hummus</value>
   </data>
+  <data name="DD_Beans_Desc" xml:space="preserve">
+    <value>Legumes including beans, lentils, chickpeas, and hummus</value>
+  </data>
+  <data name="DD_Beans_Benefits" xml:space="preserve">
+    <value>Excellent source of protein, fiber, and complex carbohydrates. Associated with longest lifespan gains according to Global Burden of Disease Study.</value>
+  </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Berries</value>
   </data>
   <data name="DD_Berries_Serving" xml:space="preserve">
     <value>1/2 cup fresh/frozen or 1/4 cup dried</value>
+  </data>
+  <data name="DD_Berries_Desc" xml:space="preserve">
+    <value>All types of berries</value>
+  </data>
+  <data name="DD_Berries_Benefits" xml:space="preserve">
+    <value>Highest antioxidant content of all fruits. Associated with longer lifespan and cognitive benefits.</value>
   </data>
   <data name="DD_OtherFruits" xml:space="preserve">
     <value>Other Fruits</value>
@@ -366,11 +378,23 @@
   <data name="DD_OtherFruits_Serving" xml:space="preserve">
     <value>1 medium fruit or 1/4 cup dried</value>
   </data>
+  <data name="DD_OtherFruits_Desc" xml:space="preserve">
+    <value>Fruits other than berries</value>
+  </data>
+  <data name="DD_OtherFruits_Benefits" xml:space="preserve">
+    <value>Rich in vitamins, minerals, and fiber. Essential for overall health.</value>
+  </data>
   <data name="DD_Greens" xml:space="preserve">
     <value>Greens</value>
   </data>
   <data name="DD_Greens_Serving" xml:space="preserve">
     <value>1 cup raw or 1/2 cup cooked</value>
+  </data>
+  <data name="DD_Greens_Desc" xml:space="preserve">
+    <value>Dark leafy green vegetables</value>
+  </data>
+  <data name="DD_Greens_Benefits" xml:space="preserve">
+    <value>Most associated with longer lifespan among vegetables. Rich in nitrates that improve muscle and artery function.</value>
   </data>
   <data name="DD_Cruciferous" xml:space="preserve">
     <value>Cruciferous Vegetables</value>
@@ -378,11 +402,23 @@
   <data name="DD_Cruciferous_Serving" xml:space="preserve">
     <value>1/2 cup chopped or 1 tbsp horseradish</value>
   </data>
+  <data name="DD_Cruciferous_Desc" xml:space="preserve">
+    <value>Broccoli, cauliflower, cabbage, kale, etc.</value>
+  </data>
+  <data name="DD_Cruciferous_Benefits" xml:space="preserve">
+    <value>Contains sulforaphane which boosts immune function and liver detox enzymes.</value>
+  </data>
   <data name="DD_OtherVegetables" xml:space="preserve">
     <value>Other Vegetables</value>
   </data>
   <data name="DD_OtherVegetables_Serving" xml:space="preserve">
     <value>1/2 cup non-leafy vegetables</value>
+  </data>
+  <data name="DD_OtherVegetables_Desc" xml:space="preserve">
+    <value>Non-leafy, non-cruciferous vegetables</value>
+  </data>
+  <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
+    <value>Diverse nutrients and fiber. Essential for a balanced diet.</value>
   </data>
   <data name="DD_Flaxseed" xml:space="preserve">
     <value>Flaxseed</value>
@@ -390,11 +426,23 @@
   <data name="DD_Flaxseed_Serving" xml:space="preserve">
     <value>1 tbsp ground</value>
   </data>
+  <data name="DD_Flaxseed_Desc" xml:space="preserve">
+    <value>Ground flaxseed</value>
+  </data>
+  <data name="DD_Flaxseed_Benefits" xml:space="preserve">
+    <value>Richest source of lignans and omega-3 ALA. Benefits heart health and hormone balance.</value>
+  </data>
   <data name="DD_Nuts" xml:space="preserve">
     <value>Nuts and Seeds</value>
   </data>
   <data name="DD_Nuts_Serving" xml:space="preserve">
     <value>1/4 cup nuts or 2 tbsp nut butter</value>
+  </data>
+  <data name="DD_Nuts_Desc" xml:space="preserve">
+    <value>All nuts and seeds (preferably walnuts)</value>
+  </data>
+  <data name="DD_Nuts_Benefits" xml:space="preserve">
+    <value>Associated with lowest risk of premature death of any food group. Walnuts are especially beneficial.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Herbs and Spices</value>
@@ -402,11 +450,23 @@
   <data name="DD_Herbs_Serving" xml:space="preserve">
     <value>1/4 tsp turmeric</value>
   </data>
+  <data name="DD_Herbs_Desc" xml:space="preserve">
+    <value>Especially turmeric</value>
+  </data>
+  <data name="DD_Herbs_Benefits" xml:space="preserve">
+    <value>Powerful anti-inflammatory and antioxidant properties.</value>
+  </data>
   <data name="DD_WholeGrains" xml:space="preserve">
     <value>Whole Grains</value>
   </data>
   <data name="DD_WholeGrains_Serving" xml:space="preserve">
     <value>1/2 cup hot cereal or 1 slice bread</value>
+  </data>
+  <data name="DD_WholeGrains_Desc" xml:space="preserve">
+    <value>Intact whole grains preferred</value>
+  </data>
+  <data name="DD_WholeGrains_Benefits" xml:space="preserve">
+    <value>High fiber content supports gut health and stable blood sugar.</value>
   </data>
   <data name="DD_Beverages" xml:space="preserve">
     <value>Beverages</value>
@@ -414,17 +474,35 @@
   <data name="DD_Beverages_Serving" xml:space="preserve">
     <value>12 oz water, tea, or other</value>
   </data>
+  <data name="DD_Beverages_Desc" xml:space="preserve">
+    <value>Water, tea, and other healthy drinks</value>
+  </data>
+  <data name="DD_Beverages_Benefits" xml:space="preserve">
+    <value>Proper hydration is essential for all body functions.</value>
+  </data>
   <data name="DD_Exercise" xml:space="preserve">
     <value>Exercise</value>
   </data>
   <data name="DD_Exercise_Serving" xml:space="preserve">
     <value>90 min moderate or 40 min vigorous</value>
   </data>
+  <data name="DD_Exercise_Desc" xml:space="preserve">
+    <value>Daily physical activity</value>
+  </data>
+  <data name="DD_Exercise_Benefits" xml:space="preserve">
+    <value>Boosts NAD+ levels by 127%. Essential for longevity and overall health.</value>
+  </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamin B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
     <value>2000 mcg weekly or 50 mcg daily</value>
+  </data>
+  <data name="DD_VitaminB12_Desc" xml:space="preserve">
+    <value>B12 supplementation</value>
+  </data>
+  <data name="DD_VitaminB12_Benefits" xml:space="preserve">
+    <value>Essential for nerve function and red blood cell formation. Required on plant-based diet.</value>
   </data>
 
   <!-- Twenty-One Tweaks Items -->
@@ -434,11 +512,23 @@
   <data name="TT_PreloadWater_Desc" xml:space="preserve">
     <value>2 cups before each meal</value>
   </data>
+  <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
+    <value>Drink 2 cups of water before each meal</value>
+  </data>
+  <data name="TT_PreloadWater_Benefits" xml:space="preserve">
+    <value>Boosts metabolism and helps feel full, reducing calorie intake.</value>
+  </data>
   <data name="TT_NegativeCalorie" xml:space="preserve">
     <value>Negative Calorie Preload</value>
   </data>
   <data name="TT_NegativeCalorie_Desc" xml:space="preserve">
     <value>Start with apple, salad, or soup</value>
+  </data>
+  <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
+    <value>Start each meal with apple, salad, or soup</value>
+  </data>
+  <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
+    <value>Reduces overall calorie consumption while adding nutrition.</value>
   </data>
   <data name="TT_Vinegar" xml:space="preserve">
     <value>Incorporate Vinegar</value>
@@ -446,11 +536,23 @@
   <data name="TT_Vinegar_Desc" xml:space="preserve">
     <value>2 tsp with meals</value>
   </data>
+  <data name="TT_Vinegar_LongDesc" xml:space="preserve">
+    <value>Add vinegar to meals</value>
+  </data>
+  <data name="TT_Vinegar_Benefits" xml:space="preserve">
+    <value>May help with blood sugar control and weight management.</value>
+  </data>
   <data name="TT_Undistracted" xml:space="preserve">
     <value>Undistracted Meals</value>
   </data>
   <data name="TT_Undistracted_Desc" xml:space="preserve">
     <value>Enjoy meals without distractions</value>
+  </data>
+  <data name="TT_Undistracted_LongDesc" xml:space="preserve">
+    <value>Eat without distractions</value>
+  </data>
+  <data name="TT_Undistracted_Benefits" xml:space="preserve">
+    <value>Mindful eating leads to better portion control and satisfaction.</value>
   </data>
   <data name="TT_TwentyMinute" xml:space="preserve">
     <value>Twenty-Minute Rule</value>
@@ -458,11 +560,23 @@
   <data name="TT_TwentyMinute_Desc" xml:space="preserve">
     <value>Slow eating</value>
   </data>
+  <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
+    <value>Take at least 20 minutes to eat</value>
+  </data>
+  <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
+    <value>Allows satiety signals to register, preventing overeating.</value>
+  </data>
   <data name="TT_FatFree" xml:space="preserve">
     <value>Fat-Free Dressings</value>
   </data>
   <data name="TT_FatFree_Desc" xml:space="preserve">
     <value>Flavor with fat-free dressings</value>
+  </data>
+  <data name="TT_FatFree_LongDesc" xml:space="preserve">
+    <value>Use fat-free seasonings</value>
+  </data>
+  <data name="TT_FatFree_Benefits" xml:space="preserve">
+    <value>Reduces calorie density while maintaining flavor.</value>
   </data>
   <data name="TT_FrontLoad" xml:space="preserve">
     <value>Front-Load Calories</value>
@@ -470,11 +584,23 @@
   <data name="TT_FrontLoad_Desc" xml:space="preserve">
     <value>Bigger breakfast</value>
   </data>
+  <data name="TT_FrontLoad_LongDesc" xml:space="preserve">
+    <value>Eat bigger breakfast, smaller dinner</value>
+  </data>
+  <data name="TT_FrontLoad_Benefits" xml:space="preserve">
+    <value>Aligns eating with circadian rhythm for better metabolism.</value>
+  </data>
   <data name="TT_TimeRestricted" xml:space="preserve">
     <value>Time-Restricted Eating</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
     <value>Limit eating window</value>
+  </data>
+  <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
+    <value>Limit eating window</value>
+  </data>
+  <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
+    <value>May improve metabolic health and weight management.</value>
   </data>
   <data name="TT_Legumes" xml:space="preserve">
     <value>Eat More Legumes</value>
@@ -482,11 +608,23 @@
   <data name="TT_Legumes_Desc" xml:space="preserve">
     <value>Beans, lentils, chickpeas</value>
   </data>
+  <data name="TT_Legumes_LongDesc" xml:space="preserve">
+    <value>Extra emphasis on beans and lentils</value>
+  </data>
+  <data name="TT_Legumes_Benefits" xml:space="preserve">
+    <value>High protein and fiber promote satiety and gut health.</value>
+  </data>
   <data name="TT_Greens" xml:space="preserve">
     <value>Eat More Greens</value>
   </data>
   <data name="TT_Greens_Desc" xml:space="preserve">
     <value>Leafy green vegetables</value>
+  </data>
+  <data name="TT_Greens_LongDesc" xml:space="preserve">
+    <value>Extra emphasis on leafy greens</value>
+  </data>
+  <data name="TT_Greens_Benefits" xml:space="preserve">
+    <value>Low calorie, high nutrient density supports weight loss.</value>
   </data>
   <data name="TT_Berries" xml:space="preserve">
     <value>Eat More Berries</value>
@@ -494,11 +632,23 @@
   <data name="TT_Berries_Desc" xml:space="preserve">
     <value>Any berries</value>
   </data>
+  <data name="TT_Berries_LongDesc" xml:space="preserve">
+    <value>Extra emphasis on berries</value>
+  </data>
+  <data name="TT_Berries_Benefits" xml:space="preserve">
+    <value>Antioxidants and fiber support metabolic health.</value>
+  </data>
   <data name="TT_Deflour" xml:space="preserve">
     <value>Deflour Your Diet</value>
   </data>
   <data name="TT_Deflour_Desc" xml:space="preserve">
     <value>Intact grains instead of flour</value>
+  </data>
+  <data name="TT_Deflour_LongDesc" xml:space="preserve">
+    <value>Choose intact grains over flour products</value>
+  </data>
+  <data name="TT_Deflour_Benefits" xml:space="preserve">
+    <value>Intact grains have lower glycemic impact and better satiety.</value>
   </data>
   <data name="TT_BlackCumin" xml:space="preserve">
     <value>Black Cumin</value>
@@ -506,11 +656,23 @@
   <data name="TT_BlackCumin_Desc" xml:space="preserve">
     <value>1/4 tsp daily</value>
   </data>
+  <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
+    <value>Also known as Nigella sativa</value>
+  </data>
+  <data name="TT_BlackCumin_Benefits" xml:space="preserve">
+    <value>May help with weight loss and blood sugar control.</value>
+  </data>
   <data name="TT_Garlic" xml:space="preserve">
     <value>Garlic Powder</value>
   </data>
   <data name="TT_Garlic_Desc" xml:space="preserve">
     <value>1/4 tsp daily</value>
+  </data>
+  <data name="TT_Garlic_LongDesc" xml:space="preserve">
+    <value>Daily garlic supplementation</value>
+  </data>
+  <data name="TT_Garlic_Benefits" xml:space="preserve">
+    <value>Studies show it can reduce body fat.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
     <value>Ground Ginger</value>
@@ -518,11 +680,23 @@
   <data name="TT_Ginger_Desc" xml:space="preserve">
     <value>1 tsp daily</value>
   </data>
+  <data name="TT_Ginger_LongDesc" xml:space="preserve">
+    <value>Daily ginger</value>
+  </data>
+  <data name="TT_Ginger_Benefits" xml:space="preserve">
+    <value>May boost metabolism and reduce inflammation.</value>
+  </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Nutritional Yeast</value>
   </data>
   <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
     <value>2 tsp daily</value>
+  </data>
+  <data name="TT_NutritionalYeast_LongDesc" xml:space="preserve">
+    <value>Beta-glucan fiber source</value>
+  </data>
+  <data name="TT_NutritionalYeast_Benefits" xml:space="preserve">
+    <value>Beta-glucan fiber can facilitate weight loss.</value>
   </data>
   <data name="TT_Cumin" xml:space="preserve">
     <value>Cumin</value>
@@ -530,11 +704,23 @@
   <data name="TT_Cumin_Desc" xml:space="preserve">
     <value>1/2 tsp with lunch and dinner</value>
   </data>
+  <data name="TT_Cumin_LongDesc" xml:space="preserve">
+    <value>Regular cumin spice</value>
+  </data>
+  <data name="TT_Cumin_Benefits" xml:space="preserve">
+    <value>May help with weight loss and improve cholesterol.</value>
+  </data>
   <data name="TT_GreenTea" xml:space="preserve">
     <value>Green Tea</value>
   </data>
   <data name="TT_GreenTea_Desc" xml:space="preserve">
     <value>3 cups daily</value>
+  </data>
+  <data name="TT_GreenTea_LongDesc" xml:space="preserve">
+    <value>Daily green tea consumption</value>
+  </data>
+  <data name="TT_GreenTea_Benefits" xml:space="preserve">
+    <value>Contains catechins that may boost metabolism.</value>
   </data>
   <data name="TT_Hydrated" xml:space="preserve">
     <value>Stay Hydrated</value>
@@ -542,17 +728,35 @@
   <data name="TT_Hydrated_Desc" xml:space="preserve">
     <value>Drink enough water</value>
   </data>
+  <data name="TT_Hydrated_LongDesc" xml:space="preserve">
+    <value>Maintain proper hydration</value>
+  </data>
+  <data name="TT_Hydrated_Benefits" xml:space="preserve">
+    <value>Proper hydration supports metabolism and reduces hunger.</value>
+  </data>
   <data name="TT_ExerciseTiming" xml:space="preserve">
     <value>Exercise Timing</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
     <value>Fasted or afternoon</value>
   </data>
+  <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
+    <value>Optimal timing for exercise</value>
+  </data>
+  <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
+    <value>May enhance fat burning and metabolic benefits.</value>
+  </data>
   <data name="TT_Sleep" xml:space="preserve">
     <value>Get Enough Sleep</value>
   </data>
   <data name="TT_Sleep_Desc" xml:space="preserve">
     <value>7+ hours</value>
+  </data>
+  <data name="TT_Sleep_LongDesc" xml:space="preserve">
+    <value>Quality sleep for weight management</value>
+  </data>
+  <data name="TT_Sleep_Benefits" xml:space="preserve">
+    <value>Poor sleep disrupts hunger hormones and metabolism.</value>
   </data>
 
   <!-- Anti-Aging Eight Items -->
@@ -598,11 +802,52 @@
   <data name="AA_SunProtection_Serving" xml:space="preserve">
     <value>Daily sunscreen/protection</value>
   </data>
+  <data name="AA_SunProtection_Desc" xml:space="preserve">
+    <value>Daily sun protection</value>
+  </data>
+  <data name="AA_SunProtection_Benefits" xml:space="preserve">
+    <value>Sun exposure accounts for 90% of visible skin aging.</value>
+  </data>
   <data name="AA_Sleep" xml:space="preserve">
     <value>Sleep</value>
   </data>
   <data name="AA_Sleep_Serving" xml:space="preserve">
     <value>Quality sleep habits</value>
+  </data>
+
+  <!-- Diary Detail Dialog -->
+  <data name="Diary_ServingSize" xml:space="preserve">
+    <value>Serving Size</value>
+  </data>
+  <data name="Diary_ServingPerDay" xml:space="preserve">
+    <value>1 serving per day</value>
+  </data>
+  <data name="Diary_ServingsPerDay" xml:space="preserve">
+    <value>{0} servings per day</value>
+  </data>
+  <data name="Diary_HealthBenefits" xml:space="preserve">
+    <value>Health Benefits</value>
+  </data>
+  <data name="Diary_LearnMore" xml:space="preserve">
+    <value>Learn More</value>
+  </data>
+  <data name="Diary_ViewOnNutritionFacts" xml:space="preserve">
+    <value>View on NutritionFacts.org</value>
+  </data>
+  <data name="Diary_FoundIn" xml:space="preserve">
+    <value>Found In</value>
+  </data>
+  <data name="Diary_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Diary_Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="Diary_NoItemsEnabled" xml:space="preserve">
+    <value>No items enabled</value>
+  </data>
+  <data name="Diary_PercentComplete" xml:space="preserve">
+    <value>{0}% complete</value>
   </data>
 
   <!-- Achievements - Navigation -->

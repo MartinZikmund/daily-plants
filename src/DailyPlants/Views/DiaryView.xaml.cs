@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -59,12 +60,14 @@ public sealed partial class DiaryView : Page
         var servingSection = new StackPanel { Spacing = 4 };
         servingSection.Children.Add(new TextBlock
         {
-            Text = "Serving Size",
+            Text = Localizer.GetString("Diary_ServingSize"),
             Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"]
         });
         servingSection.Children.Add(new TextBlock
         {
-            Text = $"{item.RecommendedServings} serving{(item.RecommendedServings > 1 ? "s" : "")} per day",
+            Text = item.RecommendedServings == 1
+                ? Localizer.GetString("Diary_ServingPerDay")
+                : string.Format(Localizer.GetString("Diary_ServingsPerDay"), item.RecommendedServings),
             Style = (Style)Application.Current.Resources["CaptionTextBlockStyle"]
         });
         servingSection.Children.Add(new TextBlock
@@ -131,7 +134,7 @@ public sealed partial class DiaryView : Page
             var benefitsSection = new StackPanel { Spacing = 4 };
             benefitsSection.Children.Add(new TextBlock
             {
-                Text = "Health Benefits",
+                Text = Localizer.GetString("Diary_HealthBenefits"),
                 Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"]
             });
             benefitsSection.Children.Add(new TextBlock
@@ -149,12 +152,12 @@ public sealed partial class DiaryView : Page
             var linkSection = new StackPanel { Spacing = 4 };
             linkSection.Children.Add(new TextBlock
             {
-                Text = "Learn More",
+                Text = Localizer.GetString("Diary_LearnMore"),
                 Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"]
             });
             var link = new HyperlinkButton
             {
-                Content = "View on NutritionFacts.org",
+                Content = Localizer.GetString("Diary_ViewOnNutritionFacts"),
                 NavigateUri = new Uri(item.MoreInfoUrl)
             };
             linkSection.Children.Add(link);
@@ -165,14 +168,14 @@ public sealed partial class DiaryView : Page
         var checklistsSection = new StackPanel { Spacing = 4 };
         checklistsSection.Children.Add(new TextBlock
         {
-            Text = "Found In",
+            Text = Localizer.GetString("Diary_FoundIn"),
             Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"]
         });
         var checklistNames = item.Checklists.Select(c => c switch
         {
-            ChecklistType.DailyDozen => "Daily Dozen",
-            ChecklistType.TwentyOneTweaks => "Twenty-One Tweaks",
-            ChecklistType.AntiAgingEight => "Anti-Aging Eight",
+            ChecklistType.DailyDozen => Localizer.GetString("Settings_DailyDozen"),
+            ChecklistType.TwentyOneTweaks => Localizer.GetString("Settings_TwentyOneTweaks"),
+            ChecklistType.AntiAgingEight => Localizer.GetString("Settings_AntiAgingEight"),
             _ => c.ToString()
         });
         checklistsSection.Children.Add(new TextBlock
@@ -190,7 +193,7 @@ public sealed partial class DiaryView : Page
                 Content = content,
                 MaxHeight = 400
             },
-            CloseButtonText = "Close",
+            CloseButtonText = Localizer.GetString("Common_Close"),
             XamlRoot = this.XamlRoot
         };
 
