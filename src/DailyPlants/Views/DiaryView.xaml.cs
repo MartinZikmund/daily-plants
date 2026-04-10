@@ -65,9 +65,9 @@ public sealed partial class DiaryView : Page
         });
         servingSection.Children.Add(new TextBlock
         {
-            Text = item.RecommendedServings == 1
+            Text = itemVm.TotalRecommendedServings == 1
                 ? Localizer.GetString("Diary_ServingPerDay")
-                : string.Format(Localizer.GetString("Diary_ServingsPerDay"), item.RecommendedServings),
+                : string.Format(Localizer.GetString("Diary_ServingsPerDay"), itemVm.TotalRecommendedServings),
             Style = (Style)Application.Current.Resources["CaptionTextBlockStyle"]
         });
         servingSection.Children.Add(new TextBlock
@@ -77,6 +77,29 @@ public sealed partial class DiaryView : Page
             TextWrapping = TextWrapping.Wrap
         });
         content.Children.Add(servingSection);
+
+        // Merged children info (when items from multiple checklists are combined)
+        if (itemVm.HasMergedChildren)
+        {
+            var mergeSection = new StackPanel { Spacing = 4 };
+            mergeSection.Children.Add(new TextBlock
+            {
+                Text = Localizer.GetString("Diary_AlsoIncludes"),
+                Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"]
+            });
+
+            foreach (var child in itemVm.MergedChildren)
+            {
+                mergeSection.Children.Add(new TextBlock
+                {
+                    Text = $"+{child.RecommendedServings} {child.Name} ({child.ServingSizeExample})",
+                    Style = (Style)Application.Current.Resources["CaptionTextBlockStyle"],
+                    TextWrapping = TextWrapping.Wrap
+                });
+            }
+
+            content.Children.Add(mergeSection);
+        }
 
         // Serving controls
         var servingCountText = new TextBlock

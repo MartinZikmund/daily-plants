@@ -47,6 +47,12 @@ public partial record ChecklistItem
     public string? IconPath { get; init; }
 
     /// <summary>
+    /// Sort order for display grouping. Related items share nearby values.
+    /// Groups use 100-increments, items within groups use 10-increments.
+    /// </summary>
+    public int SortOrder { get; init; }
+
+    /// <summary>
     /// Which checklists this item belongs to.
     /// </summary>
     public required ChecklistType[] Checklists { get; init; }

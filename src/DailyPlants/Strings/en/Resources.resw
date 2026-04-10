@@ -837,6 +837,9 @@
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Found In</value>
   </data>
+  <data name="Diary_AlsoIncludes" xml:space="preserve">
+    <value>Also Includes</value>
+  </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Today</value>
   </data>

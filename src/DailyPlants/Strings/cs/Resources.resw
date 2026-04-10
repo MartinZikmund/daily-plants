@@ -837,6 +837,9 @@
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Součást</value>
   </data>
+  <data name="Diary_AlsoIncludes" xml:space="preserve">
+    <value>Zahrnuje také</value>
+  </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Dnes</value>
   </data>
