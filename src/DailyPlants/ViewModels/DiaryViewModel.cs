@@ -109,7 +109,7 @@ public partial class DiaryViewModel : ObservableObject
                         entries.FirstOrDefault(e => e.ItemId == c.Id)?.ServingsCompleted ?? 0);
                 }
 
-                var itemVm = new ChecklistItemViewModel(item, _currentDate, parentServings, children);
+                var itemVm = new ChecklistItemViewModel(item, _currentDate, parentServings, _appPreferences.UseMetricUnits, children);
                 itemVm.ServingsChanged += OnItemServingsChanged;
                 itemVm.ItemDetailRequested += OnItemDetailRequested;
                 Items.Add(itemVm);
@@ -302,6 +302,8 @@ public partial class DiaryViewModel : ObservableObject
 /// </summary>
 public partial class ChecklistItemViewModel : ObservableObject
 {
+    private readonly bool _useMetricUnits;
+
     public ChecklistItem Item { get; }
     public DateOnly Date { get; }
 
@@ -323,14 +325,30 @@ public partial class ChecklistItemViewModel : ObservableObject
     public event EventHandler<int>? ServingsChanged;
     public event EventHandler<ChecklistItem>? ItemDetailRequested;
 
-    public ChecklistItemViewModel(ChecklistItem item, DateOnly date, int servingsCompleted, IReadOnlyList<ChecklistItem>? mergedChildren = null)
+    public ChecklistItemViewModel(ChecklistItem item, DateOnly date, int servingsCompleted, bool useMetricUnits, IReadOnlyList<ChecklistItem>? mergedChildren = null)
     {
+        _useMetricUnits = useMetricUnits;
         Item = item;
         Date = date;
         MergedChildren = mergedChildren ?? [];
         TotalRecommendedServings = item.RecommendedServings + MergedChildren.Sum(c => c.RecommendedServings);
         _servingsCompleted = servingsCompleted;
     }
+
+    /// <summary>
+    /// The serving size description appropriate for the current unit system.
+    /// </summary>
+    public string ServingSizeDisplay => _useMetricUnits
+        ? Item.ServingSizeMetric
+        : Item.ServingSizeImperial;
+
+    /// <summary>
+    /// Gets the serving size display text for a given item using the current unit system.
+    /// Used for merged children display.
+    /// </summary>
+    public string GetServingSizeDisplay(ChecklistItem item) => _useMetricUnits
+        ? item.ServingSizeMetric
+        : item.ServingSizeImperial;
 
     public bool IsComplete => ServingsCompleted >= TotalRecommendedServings;
 

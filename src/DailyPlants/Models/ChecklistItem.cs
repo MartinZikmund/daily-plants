@@ -27,9 +27,14 @@ public partial record ChecklistItem
     public required int RecommendedServings { get; init; }
 
     /// <summary>
-    /// Example of what counts as one serving.
+    /// Example of what counts as one serving (metric units).
     /// </summary>
-    public required string ServingSizeExample { get; init; }
+    public required string ServingSizeMetric { get; init; }
+
+    /// <summary>
+    /// Example of what counts as one serving (imperial units).
+    /// </summary>
+    public required string ServingSizeImperial { get; init; }
 
     /// <summary>
     /// Detailed health benefits information.

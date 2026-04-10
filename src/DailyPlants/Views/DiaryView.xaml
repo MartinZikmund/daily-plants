@@ -40,7 +40,7 @@
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         MaxLines="1"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Item.ServingSizeExample}"
+                        Text="{Binding ServingSizeDisplay}"
                         TextTrimming="CharacterEllipsis" />
                 </StackPanel>
 
@@ -138,7 +138,7 @@
                         HorizontalAlignment="Center"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Item.ServingSizeExample}"
+                        Text="{Binding ServingSizeDisplay}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
 

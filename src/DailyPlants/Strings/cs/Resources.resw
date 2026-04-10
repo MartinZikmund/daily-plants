@@ -219,10 +219,10 @@
     <value>Používat metrické jednotky</value>
   </data>
   <data name="Settings_Metric" xml:space="preserve">
-    <value>Metrické (kg, cm)</value>
+    <value>Metrické (kg, cm, ml)</value>
   </data>
   <data name="Settings_Imperial" xml:space="preserve">
-    <value>Imperiální (lb, in)</value>
+    <value>Imperiální (lb, in, oz)</value>
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
     <value>Vzhled</value>
@@ -351,8 +351,11 @@
   <data name="DD_Beans" xml:space="preserve">
     <value>Luštěniny</value>
   </data>
-  <data name="DD_Beans_Serving" xml:space="preserve">
+  <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku vařených nebo 1/4 šálku hummusu</value>
+  </data>
+  <data name="DD_Beans_Serving_Metric" xml:space="preserve">
+    <value>100 g vařených nebo 70 g hummusu</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
     <value>Luštěniny včetně fazolí, čočky, cizrny a hummusu</value>
@@ -363,8 +366,11 @@
   <data name="DD_Berries" xml:space="preserve">
     <value>Bobulové ovoce</value>
   </data>
-  <data name="DD_Berries_Serving" xml:space="preserve">
+  <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku čerstvého/mraženého nebo 1/4 šálku sušeného</value>
+  </data>
+  <data name="DD_Berries_Serving_Metric" xml:space="preserve">
+    <value>70 g čerstvého/mraženého nebo 40 g sušeného</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
     <value>Všechny druhy bobulového ovoce</value>
@@ -375,8 +381,11 @@
   <data name="DD_OtherFruits" xml:space="preserve">
     <value>Ostatní ovoce</value>
   </data>
-  <data name="DD_OtherFruits_Serving" xml:space="preserve">
+  <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
     <value>1 střední ovoce nebo 1/4 šálku sušeného</value>
+  </data>
+  <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
+    <value>1 střední ovoce nebo 40 g sušeného</value>
   </data>
   <data name="DD_OtherFruits_Desc" xml:space="preserve">
     <value>Ovoce jiné než bobulové</value>
@@ -387,8 +396,11 @@
   <data name="DD_Greens" xml:space="preserve">
     <value>Listová zelenina</value>
   </data>
-  <data name="DD_Greens_Serving" xml:space="preserve">
+  <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
     <value>1 šálek syrové nebo 1/2 šálku vařené</value>
+  </data>
+  <data name="DD_Greens_Serving_Metric" xml:space="preserve">
+    <value>60 g syrové nebo 90 g vařené</value>
   </data>
   <data name="DD_Greens_Desc" xml:space="preserve">
     <value>Tmavá listová zelenina</value>
@@ -399,8 +411,11 @@
   <data name="DD_Cruciferous" xml:space="preserve">
     <value>Křížová zelenina</value>
   </data>
-  <data name="DD_Cruciferous_Serving" xml:space="preserve">
+  <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku nakrájené nebo 1 lžíce křenu</value>
+  </data>
+  <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
+    <value>60 g nakrájené nebo 1 lžíce křenu</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Brokolice, květák, zelí, kadeřávek atd.</value>
@@ -411,8 +426,11 @@
   <data name="DD_OtherVegetables" xml:space="preserve">
     <value>Ostatní zelenina</value>
   </data>
-  <data name="DD_OtherVegetables_Serving" xml:space="preserve">
+  <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku nelistové zeleniny</value>
+  </data>
+  <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
+    <value>90 g nelistové zeleniny</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
     <value>Nelistová, nekřížová zelenina</value>
@@ -435,8 +453,11 @@
   <data name="DD_Nuts" xml:space="preserve">
     <value>Ořechy a semínka</value>
   </data>
-  <data name="DD_Nuts_Serving" xml:space="preserve">
+  <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
     <value>1/4 šálku ořechů nebo 2 lžíce ořechového másla</value>
+  </data>
+  <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
+    <value>30 g ořechů nebo 2 lžíce ořechového másla</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
     <value>Všechny ořechy a semínka (nejlépe vlašské ořechy)</value>
@@ -459,8 +480,11 @@
   <data name="DD_WholeGrains" xml:space="preserve">
     <value>Celozrnné obiloviny</value>
   </data>
-  <data name="DD_WholeGrains_Serving" xml:space="preserve">
+  <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku horké kaše nebo 1 plátek chleba</value>
+  </data>
+  <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
+    <value>100 g horké kaše nebo 1 plátek chleba</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
     <value>Preferována celá neporušená zrna</value>
@@ -471,7 +495,10 @@
   <data name="DD_Beverages" xml:space="preserve">
     <value>Nápoje</value>
   </data>
-  <data name="DD_Beverages_Serving" xml:space="preserve">
+  <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
+    <value>12 oz vody, čaje nebo jiného</value>
+  </data>
+  <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
     <value>350 ml vody, čaje nebo jiného</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
@@ -509,8 +536,11 @@
   <data name="TT_PreloadWater" xml:space="preserve">
     <value>Pít vodu před jídlem</value>
   </data>
-  <data name="TT_PreloadWater_Desc" xml:space="preserve">
+  <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
     <value>2 šálky před každým jídlem</value>
+  </data>
+  <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
+    <value>500 ml před každým jídlem</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
     <value>Vypít 2 šálky vody před každým jídlem</value>
@@ -665,8 +695,11 @@
   <data name="TT_GreenTea" xml:space="preserve">
     <value>Zelený čaj</value>
   </data>
-  <data name="TT_GreenTea_Desc" xml:space="preserve">
+  <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
     <value>3 šálky denně</value>
+  </data>
+  <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
+    <value>720 ml denně</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
     <value>Denní konzumace zeleného čaje</value>

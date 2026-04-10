@@ -219,10 +219,10 @@
     <value>Use Metric Units</value>
   </data>
   <data name="Settings_Metric" xml:space="preserve">
-    <value>Metric (kg, cm)</value>
+    <value>Metric (kg, cm, ml)</value>
   </data>
   <data name="Settings_Imperial" xml:space="preserve">
-    <value>Imperial (lb, in)</value>
+    <value>Imperial (lb, in, oz)</value>
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
     <value>Appearance</value>
@@ -351,8 +351,11 @@
   <data name="DD_Beans" xml:space="preserve">
     <value>Beans</value>
   </data>
-  <data name="DD_Beans_Serving" xml:space="preserve">
+  <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
     <value>1/2 cup cooked or 1/4 cup hummus</value>
+  </data>
+  <data name="DD_Beans_Serving_Metric" xml:space="preserve">
+    <value>100 g cooked or 70 g hummus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
     <value>Legumes including beans, lentils, chickpeas, and hummus</value>
@@ -363,8 +366,11 @@
   <data name="DD_Berries" xml:space="preserve">
     <value>Berries</value>
   </data>
-  <data name="DD_Berries_Serving" xml:space="preserve">
+  <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
     <value>1/2 cup fresh/frozen or 1/4 cup dried</value>
+  </data>
+  <data name="DD_Berries_Serving_Metric" xml:space="preserve">
+    <value>70 g fresh/frozen or 40 g dried</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
     <value>All types of berries</value>
@@ -375,8 +381,11 @@
   <data name="DD_OtherFruits" xml:space="preserve">
     <value>Other Fruits</value>
   </data>
-  <data name="DD_OtherFruits_Serving" xml:space="preserve">
+  <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
     <value>1 medium fruit or 1/4 cup dried</value>
+  </data>
+  <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
+    <value>1 medium fruit or 40 g dried</value>
   </data>
   <data name="DD_OtherFruits_Desc" xml:space="preserve">
     <value>Fruits other than berries</value>
@@ -387,8 +396,11 @@
   <data name="DD_Greens" xml:space="preserve">
     <value>Greens</value>
   </data>
-  <data name="DD_Greens_Serving" xml:space="preserve">
+  <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
     <value>1 cup raw or 1/2 cup cooked</value>
+  </data>
+  <data name="DD_Greens_Serving_Metric" xml:space="preserve">
+    <value>60 g raw or 90 g cooked</value>
   </data>
   <data name="DD_Greens_Desc" xml:space="preserve">
     <value>Dark leafy green vegetables</value>
@@ -399,8 +411,11 @@
   <data name="DD_Cruciferous" xml:space="preserve">
     <value>Cruciferous Vegetables</value>
   </data>
-  <data name="DD_Cruciferous_Serving" xml:space="preserve">
+  <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
     <value>1/2 cup chopped or 1 tbsp horseradish</value>
+  </data>
+  <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
+    <value>60 g chopped or 1 tbsp horseradish</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Broccoli, cauliflower, cabbage, kale, etc.</value>
@@ -411,8 +426,11 @@
   <data name="DD_OtherVegetables" xml:space="preserve">
     <value>Other Vegetables</value>
   </data>
-  <data name="DD_OtherVegetables_Serving" xml:space="preserve">
+  <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
     <value>1/2 cup non-leafy vegetables</value>
+  </data>
+  <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
+    <value>90 g non-leafy vegetables</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
     <value>Non-leafy, non-cruciferous vegetables</value>
@@ -435,8 +453,11 @@
   <data name="DD_Nuts" xml:space="preserve">
     <value>Nuts and Seeds</value>
   </data>
-  <data name="DD_Nuts_Serving" xml:space="preserve">
+  <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
     <value>1/4 cup nuts or 2 tbsp nut butter</value>
+  </data>
+  <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
+    <value>30 g nuts or 2 tbsp nut butter</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
     <value>All nuts and seeds (preferably walnuts)</value>
@@ -459,8 +480,11 @@
   <data name="DD_WholeGrains" xml:space="preserve">
     <value>Whole Grains</value>
   </data>
-  <data name="DD_WholeGrains_Serving" xml:space="preserve">
+  <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
     <value>1/2 cup hot cereal or 1 slice bread</value>
+  </data>
+  <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
+    <value>100 g hot cereal or 1 slice bread</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
     <value>Intact whole grains preferred</value>
@@ -471,8 +495,11 @@
   <data name="DD_Beverages" xml:space="preserve">
     <value>Beverages</value>
   </data>
-  <data name="DD_Beverages_Serving" xml:space="preserve">
+  <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
     <value>12 oz water, tea, or other</value>
+  </data>
+  <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
+    <value>350 ml water, tea, or other</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
     <value>Water, tea, and other healthy drinks</value>
@@ -509,8 +536,11 @@
   <data name="TT_PreloadWater" xml:space="preserve">
     <value>Preload Water</value>
   </data>
-  <data name="TT_PreloadWater_Desc" xml:space="preserve">
+  <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
     <value>2 cups before each meal</value>
+  </data>
+  <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
+    <value>500 ml before each meal</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
     <value>Drink 2 cups of water before each meal</value>
@@ -665,8 +695,11 @@
   <data name="TT_GreenTea" xml:space="preserve">
     <value>Green Tea</value>
   </data>
-  <data name="TT_GreenTea_Desc" xml:space="preserve">
+  <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
     <value>3 cups daily</value>
+  </data>
+  <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
+    <value>720 ml daily</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
     <value>Daily green tea consumption</value>

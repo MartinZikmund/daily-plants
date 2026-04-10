@@ -72,7 +72,7 @@ public sealed partial class DiaryView : Page
         });
         servingSection.Children.Add(new TextBlock
         {
-            Text = item.ServingSizeExample,
+            Text = itemVm.ServingSizeDisplay,
             Style = (Style)Application.Current.Resources["BodyTextBlockStyle"],
             TextWrapping = TextWrapping.Wrap
         });
@@ -92,7 +92,7 @@ public sealed partial class DiaryView : Page
             {
                 mergeSection.Children.Add(new TextBlock
                 {
-                    Text = $"+{child.RecommendedServings} {child.Name} ({child.ServingSizeExample})",
+                    Text = $"+{child.RecommendedServings} {child.Name} ({itemVm.GetServingSizeDisplay(child)})",
                     Style = (Style)Application.Current.Resources["CaptionTextBlockStyle"],
                     TextWrapping = TextWrapping.Wrap
                 });
