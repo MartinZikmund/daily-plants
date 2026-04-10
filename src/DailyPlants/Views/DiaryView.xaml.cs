@@ -198,7 +198,6 @@ public sealed partial class DiaryView : Page
         {
             ChecklistType.DailyDozen => Localizer.GetString("Settings_DailyDozen"),
             ChecklistType.TwentyOneTweaks => Localizer.GetString("Settings_TwentyOneTweaks"),
-            ChecklistType.AntiAgingEight => Localizer.GetString("Settings_AntiAgingEight"),
             _ => c.ToString()
         });
         checklistsSection.Children.Add(new TextBlock

@@ -127,57 +127,6 @@
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
 
-                <!-- Anti-Aging Eight -->
-                <controls:SettingsExpander IsExpanded="False">
-                    <controls:SettingsExpander.HeaderIcon>
-                        <FontIcon Glyph="&#xE762;" FontFamily="{ThemeResource SymbolThemeFontFamily}" />
-                    </controls:SettingsExpander.HeaderIcon>
-                    <controls:SettingsExpander.Header>
-                        <TextBlock Text="{helpers:Localize Key=Settings_AntiAgingEight}" />
-                    </controls:SettingsExpander.Header>
-                    <controls:SettingsExpander.Description>
-                        <TextBlock Text="{helpers:Localize Key=Settings_AntiAgingEightDesc}" />
-                    </controls:SettingsExpander.Description>
-                    <ToggleSwitch IsOn="{Binding AntiAgingEightEnabled, Mode=TwoWay}"
-                                  OnContent="{helpers:Localize Key=Settings_Enabled}"
-                                  OffContent="{helpers:Localize Key=Settings_Disabled}" />
-
-                    <controls:SettingsExpander.Items>
-                        <controls:SettingsCard>
-                            <controls:SettingsCard.Header>
-                                <TextBlock Text="{helpers:Localize Key=Settings_IndividualItems}" />
-                            </controls:SettingsCard.Header>
-                            <controls:SettingsCard.Description>
-                                <TextBlock Text="{helpers:Localize Key=Settings_IndividualItemsDesc}" TextWrapping="Wrap" />
-                            </controls:SettingsCard.Description>
-                        </controls:SettingsCard>
-                        <controls:SettingsCard ContentAlignment="Vertical" HorizontalContentAlignment="Stretch">
-                            <ItemsRepeater ItemsSource="{Binding AntiAgingEightItems}">
-                                <ItemsRepeater.Layout>
-                                    <StackLayout Spacing="0" />
-                                </ItemsRepeater.Layout>
-                                <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Padding="0,6" ColumnSpacing="12">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="24" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image Grid.Column="0" Source="{Binding IconPath}" Width="24" Height="24" />
-                                            <TextBlock Grid.Column="1" Text="{Binding ItemName}" VerticalAlignment="Center" />
-                                            <ToggleSwitch Grid.Column="2" IsOn="{Binding IsEnabled, Mode=TwoWay}"
-                                                          OnContent="{helpers:Localize Key=Settings_Enabled}"
-                                                          OffContent="{helpers:Localize Key=Settings_Disabled}"
-                                                          MinWidth="0" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
-                        </controls:SettingsCard>
-                    </controls:SettingsExpander.Items>
-                </controls:SettingsExpander>
-
                 <!-- Weight Tracking Section -->
                 <TextBlock Text="{helpers:Localize Key=Settings_WeightTracking}"
                            Style="{StaticResource BodyStrongTextBlockStyle}"

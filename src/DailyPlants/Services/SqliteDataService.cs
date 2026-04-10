@@ -59,8 +59,16 @@ public class SqliteDataService : IDataService
             await _connection.ExecuteAsync("PRAGMA user_version = 1");
         }
 
+        if (version < 2)
+        {
+            // v2: Removed Anti-Aging Eight checklist and corrected 21 Tweaks items.
+            // Orphaned DailyEntries for removed items (sun_protection, fat_free_dressings,
+            // more_legumes, more_greens, more_berries) are intentionally preserved.
+            await _connection.ExecuteAsync("PRAGMA user_version = 2");
+        }
+
         // Future migrations go here:
-        // if (version < 2) { /* migration to v2 */ await _connection.ExecuteAsync("PRAGMA user_version = 2"); }
+        // if (version < 3) { /* migration to v3 */ await _connection.ExecuteAsync("PRAGMA user_version = 3"); }
     }
 
     // ===== Daily Entries =====

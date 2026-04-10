@@ -185,12 +185,6 @@
   <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
     <value>From "How Not to Diet" - 21 weight-loss accelerating habits</value>
   </data>
-  <data name="Settings_AntiAgingEight" xml:space="preserve">
-    <value>Anti-Aging Eight</value>
-  </data>
-  <data name="Settings_AntiAgingEightDesc" xml:space="preserve">
-    <value>From "How Not to Age" - 8 key factors for healthy aging</value>
-  </data>
   <data name="Settings_Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
@@ -540,7 +534,7 @@
     <value>Incorporate Vinegar</value>
   </data>
   <data name="TT_Vinegar_Desc" xml:space="preserve">
-    <value>2 tsp with meals</value>
+    <value>2 tsp with each meal (3 times daily)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
     <value>Add vinegar to meals</value>
@@ -552,7 +546,7 @@
     <value>Undistracted Meals</value>
   </data>
   <data name="TT_Undistracted_Desc" xml:space="preserve">
-    <value>Enjoy meals without distractions</value>
+    <value>At each meal (3 times daily)</value>
   </data>
   <data name="TT_Undistracted_LongDesc" xml:space="preserve">
     <value>Eat without distractions</value>
@@ -564,25 +558,13 @@
     <value>Twenty-Minute Rule</value>
   </data>
   <data name="TT_TwentyMinute_Desc" xml:space="preserve">
-    <value>Slow eating</value>
+    <value>At each meal (3 times daily)</value>
   </data>
   <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
     <value>Take at least 20 minutes to eat</value>
   </data>
   <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
     <value>Allows satiety signals to register, preventing overeating.</value>
-  </data>
-  <data name="TT_FatFree" xml:space="preserve">
-    <value>Fat-Free Dressings</value>
-  </data>
-  <data name="TT_FatFree_Desc" xml:space="preserve">
-    <value>Flavor with fat-free dressings</value>
-  </data>
-  <data name="TT_FatFree_LongDesc" xml:space="preserve">
-    <value>Use fat-free seasonings</value>
-  </data>
-  <data name="TT_FatFree_Benefits" xml:space="preserve">
-    <value>Reduces calorie density while maintaining flavor.</value>
   </data>
   <data name="TT_FrontLoad" xml:space="preserve">
     <value>Front-Load Calories</value>
@@ -607,42 +589,6 @@
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>May improve metabolic health and weight management.</value>
-  </data>
-  <data name="TT_Legumes" xml:space="preserve">
-    <value>Eat More Legumes</value>
-  </data>
-  <data name="TT_Legumes_Desc" xml:space="preserve">
-    <value>Beans, lentils, chickpeas</value>
-  </data>
-  <data name="TT_Legumes_LongDesc" xml:space="preserve">
-    <value>Extra emphasis on beans and lentils</value>
-  </data>
-  <data name="TT_Legumes_Benefits" xml:space="preserve">
-    <value>High protein and fiber promote satiety and gut health.</value>
-  </data>
-  <data name="TT_Greens" xml:space="preserve">
-    <value>Eat More Greens</value>
-  </data>
-  <data name="TT_Greens_Desc" xml:space="preserve">
-    <value>Leafy green vegetables</value>
-  </data>
-  <data name="TT_Greens_LongDesc" xml:space="preserve">
-    <value>Extra emphasis on leafy greens</value>
-  </data>
-  <data name="TT_Greens_Benefits" xml:space="preserve">
-    <value>Low calorie, high nutrient density supports weight loss.</value>
-  </data>
-  <data name="TT_Berries" xml:space="preserve">
-    <value>Eat More Berries</value>
-  </data>
-  <data name="TT_Berries_Desc" xml:space="preserve">
-    <value>Any berries</value>
-  </data>
-  <data name="TT_Berries_LongDesc" xml:space="preserve">
-    <value>Extra emphasis on berries</value>
-  </data>
-  <data name="TT_Berries_Benefits" xml:space="preserve">
-    <value>Antioxidants and fiber support metabolic health.</value>
   </data>
   <data name="TT_Deflour" xml:space="preserve">
     <value>Deflour Your Diet</value>
@@ -764,61 +710,53 @@
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Poor sleep disrupts hunger hormones and metabolism.</value>
   </data>
-
-  <!-- Anti-Aging Eight Items -->
-  <data name="AA_Legumes" xml:space="preserve">
-    <value>Legumes</value>
+  <data name="TT_WeighTwice" xml:space="preserve">
+    <value>Weigh Yourself Twice</value>
   </data>
-  <data name="AA_Legumes_Serving" xml:space="preserve">
-    <value>Beans, lentils, chickpeas</value>
+  <data name="TT_WeighTwice_Desc" xml:space="preserve">
+    <value>Morning and evening</value>
   </data>
-  <data name="AA_Nuts" xml:space="preserve">
-    <value>Nuts</value>
+  <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
+    <value>Weigh yourself twice a day to track trends and stay accountable.</value>
   </data>
-  <data name="AA_Nuts_Serving" xml:space="preserve">
-    <value>Preferably walnuts</value>
+  <data name="TT_WeighTwice_Benefits" xml:space="preserve">
+    <value>Self-monitoring is one of the most effective weight management strategies.</value>
   </data>
-  <data name="AA_Greens" xml:space="preserve">
-    <value>Dark Leafy Greens</value>
+  <data name="TT_Intentions" xml:space="preserve">
+    <value>Implementation Intentions</value>
   </data>
-  <data name="AA_Greens_Serving" xml:space="preserve">
-    <value>Kale, spinach, etc.</value>
+  <data name="TT_Intentions_Desc" xml:space="preserve">
+    <value>Plan specific if-then strategies</value>
   </data>
-  <data name="AA_Cruciferous" xml:space="preserve">
-    <value>Cruciferous Vegetables</value>
+  <data name="TT_Intentions_LongDesc" xml:space="preserve">
+    <value>Complete your implementation intentions: plan specific if-then strategies for healthy eating and exercise.</value>
   </data>
-  <data name="AA_Cruciferous_Serving" xml:space="preserve">
-    <value>Broccoli, cauliflower</value>
+  <data name="TT_Intentions_Benefits" xml:space="preserve">
+    <value>Pre-committing to specific plans doubles the likelihood of following through.</value>
   </data>
-  <data name="AA_Berries" xml:space="preserve">
-    <value>Berries</value>
+  <data name="TT_NightlyFast" xml:space="preserve">
+    <value>Fast After 7:00 PM</value>
   </data>
-  <data name="AA_Berries_Serving" xml:space="preserve">
-    <value>Any berries</value>
+  <data name="TT_NightlyFast_Desc" xml:space="preserve">
+    <value>No food after 7 PM</value>
   </data>
-  <data name="AA_Exercise" xml:space="preserve">
-    <value>Exercise</value>
+  <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
+    <value>Stop eating after 7:00 PM to align with your circadian rhythm.</value>
   </data>
-  <data name="AA_Exercise_Serving" xml:space="preserve">
-    <value>Boosts NAD+ levels</value>
+  <data name="TT_NightlyFast_Benefits" xml:space="preserve">
+    <value>Evening fasting improves metabolic health and supports weight loss.</value>
   </data>
-  <data name="AA_SunProtection" xml:space="preserve">
-    <value>Sun Protection</value>
+  <data name="TT_Trendelenburg" xml:space="preserve">
+    <value>Mild Trendelenburg</value>
   </data>
-  <data name="AA_SunProtection_Serving" xml:space="preserve">
-    <value>Daily sunscreen/protection</value>
+  <data name="TT_Trendelenburg_Desc" xml:space="preserve">
+    <value>Sleep head-down 6 degrees</value>
   </data>
-  <data name="AA_SunProtection_Desc" xml:space="preserve">
-    <value>Daily sun protection</value>
+  <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
+    <value>Experiment with sleeping in mild Trendelenburg position (head-down 6 degrees). IMPORTANT: Do not try if you have heart, lung, acid reflux, brain, or eye issues. Consult your physician first. Get up slowly to avoid dizziness.</value>
   </data>
-  <data name="AA_SunProtection_Benefits" xml:space="preserve">
-    <value>Sun exposure accounts for 90% of visible skin aging.</value>
-  </data>
-  <data name="AA_Sleep" xml:space="preserve">
-    <value>Sleep</value>
-  </data>
-  <data name="AA_Sleep_Serving" xml:space="preserve">
-    <value>Quality sleep habits</value>
+  <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
+    <value>May help with weight management through overnight gravitational effects. Use with caution.</value>
   </data>
 
   <!-- Diary Detail Dialog -->

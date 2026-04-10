@@ -61,7 +61,6 @@ public class ExportService : IExportService
         {
             DailyDozenEnabled = _appPreferences.DailyDozenEnabled,
             TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled,
-            AntiAgingEightEnabled = _appPreferences.AntiAgingEightEnabled,
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled,
             UseMetricUnits = _appPreferences.UseMetricUnits,
             HeightCm = _appPreferences.HeightCm,
@@ -145,7 +144,6 @@ public class ExportService : IExportService
             {
                 _appPreferences.DailyDozenEnabled = importData.Settings.DailyDozenEnabled;
                 _appPreferences.TwentyOneTweaksEnabled = importData.Settings.TwentyOneTweaksEnabled;
-                _appPreferences.AntiAgingEightEnabled = importData.Settings.AntiAgingEightEnabled;
                 _appPreferences.WeightTrackingEnabled = importData.Settings.WeightTrackingEnabled;
                 _appPreferences.UseMetricUnits = importData.Settings.UseMetricUnits;
                 _appPreferences.HeightCm = importData.Settings.HeightCm;

@@ -24,9 +24,6 @@ public partial class SettingsViewModel : ObservableObject
     private bool _twentyOneTweaksEnabled;
 
     [ObservableProperty]
-    private bool _antiAgingEightEnabled;
-
-    [ObservableProperty]
     private bool _weightTrackingEnabled;
 
     [ObservableProperty]
@@ -49,7 +46,6 @@ public partial class SettingsViewModel : ObservableObject
 
     public ObservableCollection<ChecklistItemToggleViewModel> DailyDozenItems { get; } = [];
     public ObservableCollection<ChecklistItemToggleViewModel> TwentyOneTweaksItems { get; } = [];
-    public ObservableCollection<ChecklistItemToggleViewModel> AntiAgingEightItems { get; } = [];
 
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
     public List<string> LanguageOptions { get; } = ["English", "Čeština"];
@@ -72,7 +68,6 @@ public partial class SettingsViewModel : ObservableObject
         {
             DailyDozenEnabled = _appPreferences.DailyDozenEnabled;
             TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled;
-            AntiAgingEightEnabled = _appPreferences.AntiAgingEightEnabled;
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
             UseMetricUnits = _appPreferences.UseMetricUnits;
             SelectedThemeIndex = _appPreferences.ThemePreference;
@@ -104,11 +99,9 @@ public partial class SettingsViewModel : ObservableObject
 
         DailyDozenItems.Clear();
         TwentyOneTweaksItems.Clear();
-        AntiAgingEightItems.Clear();
 
         PopulateChecklistItems(ChecklistType.DailyDozen, DailyDozenItems, togglesByItemId);
         PopulateChecklistItems(ChecklistType.TwentyOneTweaks, TwentyOneTweaksItems, togglesByItemId);
-        PopulateChecklistItems(ChecklistType.AntiAgingEight, AntiAgingEightItems, togglesByItemId);
     }
 
     private void PopulateChecklistItems(
@@ -140,11 +133,6 @@ public partial class SettingsViewModel : ObservableObject
     partial void OnTwentyOneTweaksEnabledChanged(bool value)
     {
         _appPreferences.TwentyOneTweaksEnabled = value;
-    }
-
-    partial void OnAntiAgingEightEnabledChanged(bool value)
-    {
-        _appPreferences.AntiAgingEightEnabled = value;
     }
 
     partial void OnWeightTrackingEnabledChanged(bool value)

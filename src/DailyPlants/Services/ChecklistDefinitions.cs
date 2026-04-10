@@ -38,7 +38,6 @@ public static class ChecklistDefinitions
         var enabledChecklists = new HashSet<ChecklistType>();
         if (preferences.DailyDozenEnabled) enabledChecklists.Add(ChecklistType.DailyDozen);
         if (preferences.TwentyOneTweaksEnabled) enabledChecklists.Add(ChecklistType.TwentyOneTweaks);
-        if (preferences.AntiAgingEightEnabled) enabledChecklists.Add(ChecklistType.AntiAgingEight);
 
         var disabledItems = preferences.GetDisabledItemIdSet();
 
@@ -75,7 +74,7 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Beans_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/beans/",
             IconPath = "ms-appx:///Assets/Icons/Items/beans.png",
-            Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.DailyDozen]
         },
 
         // ===== BERRIES =====
@@ -90,7 +89,7 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Berries_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/berries/",
             IconPath = "ms-appx:///Assets/Icons/Items/berries.png",
-            Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.DailyDozen]
         },
 
         // ===== OTHER FRUITS =====
@@ -120,7 +119,7 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Greens_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/greens/",
             IconPath = "ms-appx:///Assets/Icons/Items/greens.png",
-            Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.DailyDozen]
         },
 
         // ===== CRUCIFEROUS VEGETABLES =====
@@ -135,7 +134,7 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Cruciferous_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/cruciferous-vegetables/",
             IconPath = "ms-appx:///Assets/Icons/Items/cruciferous.png",
-            Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.DailyDozen]
         },
 
         // ===== OTHER VEGETABLES =====
@@ -180,7 +179,7 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Nuts_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/nuts/",
             IconPath = "ms-appx:///Assets/Icons/Items/nuts.png",
-            Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.DailyDozen]
         },
 
         // ===== HERBS AND SPICES =====
@@ -240,7 +239,7 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Exercise_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/exercise/",
             IconPath = "ms-appx:///Assets/Icons/Items/exercise.png",
-            Checklists = [ChecklistType.DailyDozen, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.DailyDozen]
         },
 
         // ===== VITAMIN B12 =====
@@ -293,7 +292,7 @@ public static class ChecklistDefinitions
             Id = "vinegar",
             Name = Localizer.GetString("TT_Vinegar"),
             Description = Localizer.GetString("TT_Vinegar_LongDesc"),
-            RecommendedServings = 2,
+            RecommendedServings = 3,
             SortOrder = 1100,
             ServingSizeExample = Localizer.GetString("TT_Vinegar_Desc"),
             HealthBenefits = Localizer.GetString("TT_Vinegar_Benefits"),
@@ -307,7 +306,7 @@ public static class ChecklistDefinitions
             Id = "undistracted_meals",
             Name = Localizer.GetString("TT_Undistracted"),
             Description = Localizer.GetString("TT_Undistracted_LongDesc"),
-            RecommendedServings = 1,
+            RecommendedServings = 3,
             SortOrder = 1200,
             ServingSizeExample = Localizer.GetString("TT_Undistracted_Desc"),
             HealthBenefits = Localizer.GetString("TT_Undistracted_Benefits"),
@@ -321,25 +320,12 @@ public static class ChecklistDefinitions
             Id = "twenty_minute_rule",
             Name = Localizer.GetString("TT_TwentyMinute"),
             Description = Localizer.GetString("TT_TwentyMinute_LongDesc"),
-            RecommendedServings = 1,
+            RecommendedServings = 3,
             SortOrder = 1210,
             ServingSizeExample = Localizer.GetString("TT_TwentyMinute_Desc"),
             HealthBenefits = Localizer.GetString("TT_TwentyMinute_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/eating-rate/",
             IconPath = "ms-appx:///Assets/Icons/Items/twenty_minute_rule.png",
-            Checklists = [ChecklistType.TwentyOneTweaks]
-        },
-
-        new ChecklistItem
-        {
-            Id = "fat_free_dressings",
-            Name = Localizer.GetString("TT_FatFree"),
-            Description = Localizer.GetString("TT_FatFree_LongDesc"),
-            RecommendedServings = 1,
-            SortOrder = 1110,
-            ServingSizeExample = Localizer.GetString("TT_FatFree_Desc"),
-            HealthBenefits = Localizer.GetString("TT_FatFree_Benefits"),
-            IconPath = "ms-appx:///Assets/Icons/Items/fat_free_dressings.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -367,45 +353,6 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("TT_TimeRestricted_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/intermittent-fasting/",
             IconPath = "ms-appx:///Assets/Icons/Items/time_restricted_eating.png",
-            Checklists = [ChecklistType.TwentyOneTweaks]
-        },
-
-        new ChecklistItem
-        {
-            Id = "more_legumes",
-            Name = Localizer.GetString("TT_Legumes"),
-            Description = Localizer.GetString("TT_Legumes_LongDesc"),
-            RecommendedServings = 1,
-            SortOrder = 110,
-            ServingSizeExample = Localizer.GetString("TT_Legumes_Desc"),
-            HealthBenefits = Localizer.GetString("TT_Legumes_Benefits"),
-            IconPath = "ms-appx:///Assets/Icons/Items/more_legumes.png",
-            Checklists = [ChecklistType.TwentyOneTweaks]
-        },
-
-        new ChecklistItem
-        {
-            Id = "more_greens",
-            Name = Localizer.GetString("TT_Greens"),
-            Description = Localizer.GetString("TT_Greens_LongDesc"),
-            RecommendedServings = 1,
-            SortOrder = 410,
-            ServingSizeExample = Localizer.GetString("TT_Greens_Desc"),
-            HealthBenefits = Localizer.GetString("TT_Greens_Benefits"),
-            IconPath = "ms-appx:///Assets/Icons/Items/more_greens.png",
-            Checklists = [ChecklistType.TwentyOneTweaks]
-        },
-
-        new ChecklistItem
-        {
-            Id = "more_berries",
-            Name = Localizer.GetString("TT_Berries"),
-            Description = Localizer.GetString("TT_Berries_LongDesc"),
-            RecommendedServings = 1,
-            SortOrder = 210,
-            ServingSizeExample = Localizer.GetString("TT_Berries_Desc"),
-            HealthBenefits = Localizer.GetString("TT_Berries_Benefits"),
-            IconPath = "ms-appx:///Assets/Icons/Items/more_berries.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
 
@@ -543,22 +490,59 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("TT_Sleep_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/sleep/",
             IconPath = "ms-appx:///Assets/Icons/Items/enough_sleep.png",
-            Checklists = [ChecklistType.TwentyOneTweaks, ChecklistType.AntiAgingEight]
+            Checklists = [ChecklistType.TwentyOneTweaks]
         },
-
-        // ===== ANTI-AGING EIGHT - Additional items =====
 
         new ChecklistItem
         {
-            Id = "sun_protection",
-            Name = Localizer.GetString("AA_SunProtection"),
-            Description = Localizer.GetString("AA_SunProtection_Desc"),
+            Id = "weigh_twice",
+            Name = Localizer.GetString("TT_WeighTwice"),
+            Description = Localizer.GetString("TT_WeighTwice_LongDesc"),
+            RecommendedServings = 2,
+            SortOrder = 1410,
+            ServingSizeExample = Localizer.GetString("TT_WeighTwice_Desc"),
+            HealthBenefits = Localizer.GetString("TT_WeighTwice_Benefits"),
+            IconPath = "ms-appx:///Assets/Icons/Items/weigh_twice.png",
+            Checklists = [ChecklistType.TwentyOneTweaks]
+        },
+
+        new ChecklistItem
+        {
+            Id = "complete_intentions",
+            Name = Localizer.GetString("TT_Intentions"),
+            Description = Localizer.GetString("TT_Intentions_LongDesc"),
+            RecommendedServings = 3,
+            SortOrder = 1420,
+            ServingSizeExample = Localizer.GetString("TT_Intentions_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Intentions_Benefits"),
+            IconPath = "ms-appx:///Assets/Icons/Items/complete_intentions.png",
+            Checklists = [ChecklistType.TwentyOneTweaks]
+        },
+
+        new ChecklistItem
+        {
+            Id = "nightly_fast",
+            Name = Localizer.GetString("TT_NightlyFast"),
+            Description = Localizer.GetString("TT_NightlyFast_LongDesc"),
             RecommendedServings = 1,
-            SortOrder = 1600,
-            ServingSizeExample = Localizer.GetString("AA_SunProtection_Serving"),
-            HealthBenefits = Localizer.GetString("AA_SunProtection_Benefits"),
-            IconPath = "ms-appx:///Assets/Icons/Items/sun_protection.png",
-            Checklists = [ChecklistType.AntiAgingEight]
+            SortOrder = 1430,
+            ServingSizeExample = Localizer.GetString("TT_NightlyFast_Desc"),
+            HealthBenefits = Localizer.GetString("TT_NightlyFast_Benefits"),
+            IconPath = "ms-appx:///Assets/Icons/Items/nightly_fast.png",
+            Checklists = [ChecklistType.TwentyOneTweaks]
+        },
+
+        new ChecklistItem
+        {
+            Id = "nightly_trendelenburg",
+            Name = Localizer.GetString("TT_Trendelenburg"),
+            Description = Localizer.GetString("TT_Trendelenburg_LongDesc"),
+            RecommendedServings = 1,
+            SortOrder = 1610,
+            ServingSizeExample = Localizer.GetString("TT_Trendelenburg_Desc"),
+            HealthBenefits = Localizer.GetString("TT_Trendelenburg_Benefits"),
+            IconPath = "ms-appx:///Assets/Icons/Items/nightly_trendelenburg.png",
+            Checklists = [ChecklistType.TwentyOneTweaks]
         }
     ];
 }
