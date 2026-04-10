@@ -40,8 +40,11 @@ public static class ChecklistDefinitions
         if (preferences.TwentyOneTweaksEnabled) enabledChecklists.Add(ChecklistType.TwentyOneTweaks);
         if (preferences.AntiAgingEightEnabled) enabledChecklists.Add(ChecklistType.AntiAgingEight);
 
+        var disabledItems = preferences.GetDisabledItemIdSet();
+
         return AllItems
             .Where(item => item.Checklists.Any(c => enabledChecklists.Contains(c)))
+            .Where(item => !disabledItems.Contains(item.Id))
             .OrderBy(item => item.SortOrder)
             .ToList();
     }

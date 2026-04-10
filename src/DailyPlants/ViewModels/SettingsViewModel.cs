@@ -1,3 +1,4 @@
+using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 
@@ -46,6 +47,10 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty]
     private string _heightText = "";
 
+    public ObservableCollection<ChecklistItemToggleViewModel> DailyDozenItems { get; } = [];
+    public ObservableCollection<ChecklistItemToggleViewModel> TwentyOneTweaksItems { get; } = [];
+    public ObservableCollection<ChecklistItemToggleViewModel> AntiAgingEightItems { get; } = [];
+
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
     public List<string> LanguageOptions { get; } = ["English", "Čeština"];
 
@@ -80,6 +85,8 @@ public partial class SettingsViewModel : ObservableObject
             _initialLanguage = _localizationService.CurrentLanguage;
             SelectedLanguageIndex = _initialLanguage == "cs" ? 1 : 0;
             ShowRestartMessage = false;
+
+            PopulateItemToggles();
         }
         finally
         {
@@ -87,6 +94,42 @@ public partial class SettingsViewModel : ObservableObject
         }
 
         return Task.CompletedTask;
+    }
+
+    private void PopulateItemToggles()
+    {
+        // Build a dictionary of shared toggle instances keyed by item ID
+        // so that items appearing in multiple checklists stay synced.
+        var togglesByItemId = new Dictionary<string, ChecklistItemToggleViewModel>();
+
+        DailyDozenItems.Clear();
+        TwentyOneTweaksItems.Clear();
+        AntiAgingEightItems.Clear();
+
+        PopulateChecklistItems(ChecklistType.DailyDozen, DailyDozenItems, togglesByItemId);
+        PopulateChecklistItems(ChecklistType.TwentyOneTweaks, TwentyOneTweaksItems, togglesByItemId);
+        PopulateChecklistItems(ChecklistType.AntiAgingEight, AntiAgingEightItems, togglesByItemId);
+    }
+
+    private void PopulateChecklistItems(
+        ChecklistType checklist,
+        ObservableCollection<ChecklistItemToggleViewModel> collection,
+        Dictionary<string, ChecklistItemToggleViewModel> togglesByItemId)
+    {
+        foreach (var item in ChecklistDefinitions.GetItemsForChecklist(checklist).OrderBy(i => i.SortOrder))
+        {
+            if (togglesByItemId.TryGetValue(item.Id, out var existing))
+            {
+                // Reuse the same instance so toggling syncs across checklists
+                collection.Add(existing);
+            }
+            else
+            {
+                var toggle = new ChecklistItemToggleViewModel(_appPreferences, item);
+                togglesByItemId[item.Id] = toggle;
+                collection.Add(toggle);
+            }
+        }
     }
 
     partial void OnDailyDozenEnabledChanged(bool value)
@@ -306,5 +349,35 @@ public partial class SettingsViewModel : ObservableObject
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
         await dialog.ShowAsync();
+    }
+}
+
+/// <summary>
+/// ViewModel for a single checklist item toggle in settings.
+/// Shared instances are reused across checklists so toggling syncs automatically.
+/// </summary>
+public partial class ChecklistItemToggleViewModel : ObservableObject
+{
+    private readonly IAppPreferences _appPreferences;
+
+    public string ItemId { get; }
+    public string ItemName { get; }
+    public string? IconPath { get; }
+
+    [ObservableProperty]
+    private bool _isEnabled;
+
+    public ChecklistItemToggleViewModel(IAppPreferences appPreferences, ChecklistItem item)
+    {
+        _appPreferences = appPreferences;
+        ItemId = item.Id;
+        ItemName = item.Name;
+        IconPath = item.IconPath;
+        _isEnabled = !appPreferences.IsItemDisabled(item.Id);
+    }
+
+    partial void OnIsEnabledChanged(bool value)
+    {
+        _appPreferences.SetItemDisabled(ItemId, !value);
     }
 }

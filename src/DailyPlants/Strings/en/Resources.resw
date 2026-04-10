@@ -278,6 +278,12 @@
   <data name="Settings_RestartRequired" xml:space="preserve">
     <value>Restart the app for the language change to take effect.</value>
   </data>
+  <data name="Settings_IndividualItems" xml:space="preserve">
+    <value>Individual Items</value>
+  </data>
+  <data name="Settings_IndividualItemsDesc" xml:space="preserve">
+    <value>Disable individual items you don't want to track</value>
+  </data>
 
   <!-- About Page -->
   <data name="About_Title" xml:space="preserve">

@@ -13,6 +13,7 @@ public class AppPreferences : IAppPreferences
     private const string GoalWeightKey = "GoalWeight";
     private const string ThemePreferenceKey = "ThemePreference";
     private const string LanguageKey = "Language";
+    private const string DisabledItemIdsKey = "DisabledItemIds";
 
     private readonly IPreferences _preferences;
 
@@ -85,5 +86,11 @@ public class AppPreferences : IAppPreferences
             return string.IsNullOrEmpty(value) ? null : value;
         }
         set => _preferences.Set(LanguageKey, value ?? string.Empty);
+    }
+
+    public string DisabledItemIds
+    {
+        get => _preferences.Get(DisabledItemIdsKey, string.Empty);
+        set => _preferences.Set(DisabledItemIdsKey, value);
     }
 }

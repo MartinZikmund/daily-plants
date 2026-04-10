@@ -278,6 +278,12 @@
   <data name="Settings_RestartRequired" xml:space="preserve">
     <value>Restartujte aplikaci pro aplikování změny jazyka.</value>
   </data>
+  <data name="Settings_IndividualItems" xml:space="preserve">
+    <value>Jednotlivé položky</value>
+  </data>
+  <data name="Settings_IndividualItemsDesc" xml:space="preserve">
+    <value>Zakažte jednotlivé položky, které nechcete sledovat</value>
+  </data>
 
   <!-- About Page -->
   <data name="About_Title" xml:space="preserve">

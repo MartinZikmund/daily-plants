@@ -11,4 +11,5 @@ public interface IAppPreferences
     double? GoalWeight { get; set; }
     int ThemePreference { get; set; }
     string? Language { get; set; }
+    string DisabledItemIds { get; set; }
 }
