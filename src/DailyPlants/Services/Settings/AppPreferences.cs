@@ -6,7 +6,6 @@ public class AppPreferences : IAppPreferences
 {
     private const string DailyDozenEnabledKey = "DailyDozenEnabled";
     private const string TwentyOneTweaksEnabledKey = "TwentyOneTweaksEnabled";
-    private const string AntiAgingEightEnabledKey = "AntiAgingEightEnabled";
     private const string WeightTrackingEnabledKey = "WeightTrackingEnabled";
     private const string UseMetricUnitsKey = "UseMetricUnits";
     private const string HeightCmKey = "HeightCm";
@@ -32,12 +31,6 @@ public class AppPreferences : IAppPreferences
     {
         get => _preferences.Get(TwentyOneTweaksEnabledKey, false);
         set => _preferences.Set(TwentyOneTweaksEnabledKey, value);
-    }
-
-    public bool AntiAgingEightEnabled
-    {
-        get => _preferences.Get(AntiAgingEightEnabledKey, false);
-        set => _preferences.Set(AntiAgingEightEnabledKey, value);
     }
 
     public bool WeightTrackingEnabled
