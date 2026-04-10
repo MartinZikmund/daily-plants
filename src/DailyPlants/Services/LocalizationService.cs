@@ -53,7 +53,26 @@ public class LocalizationService : ILocalizationService
     private static readonly List<LanguageOption> _supportedLanguages =
     [
         new LanguageOption { Code = "en", DisplayName = "English", NativeName = "English" },
-        new LanguageOption { Code = "cs", DisplayName = "Czech", NativeName = "Cestina" }
+        new LanguageOption { Code = "bg", DisplayName = "Bulgarian", NativeName = "Български" },
+        new LanguageOption { Code = "ca", DisplayName = "Catalan", NativeName = "Català" },
+        new LanguageOption { Code = "cs", DisplayName = "Czech", NativeName = "Čeština" },
+        new LanguageOption { Code = "de", DisplayName = "German", NativeName = "Deutsch" },
+        new LanguageOption { Code = "el", DisplayName = "Greek", NativeName = "Ελληνικά" },
+        new LanguageOption { Code = "es", DisplayName = "Spanish", NativeName = "Español" },
+        new LanguageOption { Code = "fr", DisplayName = "French", NativeName = "Français" },
+        new LanguageOption { Code = "he", DisplayName = "Hebrew", NativeName = "עברית" },
+        new LanguageOption { Code = "hu", DisplayName = "Hungarian", NativeName = "Magyar" },
+        new LanguageOption { Code = "it", DisplayName = "Italian", NativeName = "Italiano" },
+        new LanguageOption { Code = "fa", DisplayName = "Persian", NativeName = "فارسی" },
+        new LanguageOption { Code = "pl", DisplayName = "Polish", NativeName = "Polski" },
+        new LanguageOption { Code = "pt-BR", DisplayName = "Portuguese (Brazil)", NativeName = "Português (Brasil)" },
+        new LanguageOption { Code = "pt-PT", DisplayName = "Portuguese (Portugal)", NativeName = "Português (Portugal)" },
+        new LanguageOption { Code = "ro", DisplayName = "Romanian", NativeName = "Română" },
+        new LanguageOption { Code = "ru", DisplayName = "Russian", NativeName = "Русский" },
+        new LanguageOption { Code = "sk", DisplayName = "Slovak", NativeName = "Slovenčina" },
+        new LanguageOption { Code = "uk", DisplayName = "Ukrainian", NativeName = "Українська" },
+        new LanguageOption { Code = "zh-Hans", DisplayName = "Chinese (Simplified)", NativeName = "简体中文" },
+        new LanguageOption { Code = "zh-Hant", DisplayName = "Chinese (Traditional)", NativeName = "繁體中文" }
     ];
 
     public LocalizationService(IAppPreferences appPreferences)

@@ -48,7 +48,7 @@ public partial class SettingsViewModel : ObservableObject
     public ObservableCollection<ChecklistItemToggleViewModel> TwentyOneTweaksItems { get; } = [];
 
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
-    public List<string> LanguageOptions { get; } = ["English", "Čeština"];
+    public List<string> LanguageOptions { get; private set; } = [];
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
@@ -77,8 +77,15 @@ public partial class SettingsViewModel : ObservableObject
             OnPropertyChanged(nameof(WeightUnit));
             OnPropertyChanged(nameof(HeightUnit));
 
+            LanguageOptions = _localizationService.SupportedLanguages
+                .Select(l => l.NativeName)
+                .ToList();
+            OnPropertyChanged(nameof(LanguageOptions));
+
             _initialLanguage = _localizationService.CurrentLanguage;
-            SelectedLanguageIndex = _initialLanguage == "cs" ? 1 : 0;
+            SelectedLanguageIndex = _localizationService.SupportedLanguages
+                .Select((l, i) => (l, i))
+                .FirstOrDefault(x => x.l.Code == _initialLanguage).i;
             ShowRestartMessage = false;
 
             PopulateItemToggles();
@@ -181,7 +188,10 @@ public partial class SettingsViewModel : ObservableObject
     {
         if (IsLoading) return;
 
-        var languageCode = value == 1 ? "cs" : "en";
+        var languages = _localizationService.SupportedLanguages;
+        if (value < 0 || value >= languages.Count) return;
+
+        var languageCode = languages[value].Code;
         _ = _localizationService.SetLanguageAsync(languageCode);
 
         ShowRestartMessage = languageCode != _initialLanguage;

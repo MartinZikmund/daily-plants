@@ -66,992 +66,992 @@
 
   <!-- Navigation -->
   <data name="Nav_Diary" xml:space="preserve">
-    <value>Deník</value>
+    <value>日记</value>
   </data>
   <data name="Nav_Statistics" xml:space="preserve">
-    <value>Statistiky</value>
+    <value>统计</value>
   </data>
   <data name="Nav_Settings" xml:space="preserve">
-    <value>Nastavení</value>
+    <value>设置</value>
   </data>
   <data name="Nav_About" xml:space="preserve">
-    <value>O aplikaci</value>
+    <value>关于</value>
   </data>
 
   <!-- Diary Page -->
   <data name="Diary_GoToToday" xml:space="preserve">
-    <value>Přejít na dnes</value>
+    <value>回到今天</value>
   </data>
   <data name="Diary_PreviousDay" xml:space="preserve">
-    <value>Předchozí den</value>
+    <value>前一天</value>
   </data>
   <data name="Diary_NextDay" xml:space="preserve">
-    <value>Další den</value>
+    <value>后一天</value>
   </data>
   <data name="Diary_DecreaseServing" xml:space="preserve">
-    <value>Snížit porci</value>
+    <value>减少份量</value>
   </data>
   <data name="Diary_IncreaseServing" xml:space="preserve">
-    <value>Zvýšit porci</value>
+    <value>增加份量</value>
   </data>
   <data name="Diary_MoreInfo" xml:space="preserve">
-    <value>Více informací</value>
+    <value>更多信息</value>
   </data>
   <data name="Diary_NoChecklists" xml:space="preserve">
-    <value>Žádné checklisty nejsou povoleny</value>
+    <value>没有启用的清单</value>
   </data>
   <data name="Diary_EnableChecklist" xml:space="preserve">
-    <value>Povolte checklist v Nastavení pro začátek</value>
+    <value>在设置中启用一个清单以开始使用</value>
   </data>
   <data name="Diary_PickDate" xml:space="preserve">
-    <value>Vybrat datum</value>
+    <value>选择日期</value>
   </data>
   <data name="Diary_SelectDate" xml:space="preserve">
-    <value>Vyberte datum</value>
+    <value>选择日期</value>
   </data>
 
   <!-- Statistics Page -->
   <data name="Stats_Title" xml:space="preserve">
-    <value>Statistiky</value>
+    <value>统计</value>
   </data>
   <data name="Stats_Overview" xml:space="preserve">
-    <value>Přehled</value>
+    <value>概览</value>
   </data>
   <data name="Stats_TodayProgress" xml:space="preserve">
-    <value>Dnešní pokrok</value>
+    <value>今日进度</value>
   </data>
   <data name="Stats_WeekAverage" xml:space="preserve">
-    <value>Tento týden</value>
+    <value>本周</value>
   </data>
   <data name="Stats_MonthAverage" xml:space="preserve">
-    <value>Tento měsíc</value>
+    <value>本月</value>
   </data>
   <data name="Stats_Streaks" xml:space="preserve">
-    <value>Série</value>
+    <value>连胜</value>
   </data>
   <data name="Stats_CurrentStreak" xml:space="preserve">
-    <value>Aktuální série</value>
+    <value>当前连胜</value>
   </data>
   <data name="Stats_LongestStreak" xml:space="preserve">
-    <value>Nejdelší série</value>
+    <value>最长连胜</value>
   </data>
   <data name="Stats_Days" xml:space="preserve">
-    <value>dní</value>
+    <value>天</value>
   </data>
   <data name="Stats_Day" xml:space="preserve">
-    <value>den</value>
+    <value>天</value>
   </data>
   <data name="Stats_Last7Days" xml:space="preserve">
-    <value>Posledních 7 dní</value>
+    <value>最近7天</value>
   </data>
   <data name="Stats_PerItemBreakdown" xml:space="preserve">
-    <value>Rozdělení podle položek</value>
+    <value>各项明细</value>
   </data>
   <data name="Stats_WeightTrend" xml:space="preserve">
-    <value>Trend váhy</value>
+    <value>体重趋势</value>
   </data>
   <data name="Stats_AddWeight" xml:space="preserve">
-    <value>Přidat váhu</value>
+    <value>添加体重</value>
   </data>
   <data name="Stats_NoWeightData" xml:space="preserve">
-    <value>Zatím žádná data o váze</value>
+    <value>暂无体重数据</value>
   </data>
   <data name="Stats_AddFirstWeight" xml:space="preserve">
-    <value>Přidejte první záznam váhy pro zahájení sledování</value>
+    <value>添加您的第一条体重记录以开始追踪</value>
   </data>
   <data name="Stats_GoalWeight" xml:space="preserve">
-    <value>Cíl</value>
+    <value>目标</value>
   </data>
 
   <!-- Settings Page -->
   <data name="Settings_Title" xml:space="preserve">
-    <value>Nastavení</value>
+    <value>设置</value>
   </data>
   <data name="Settings_ActiveChecklists" xml:space="preserve">
-    <value>Aktivní checklisty</value>
+    <value>启用的清单</value>
   </data>
   <data name="Settings_ActiveChecklistsDesc" xml:space="preserve">
-    <value>Vyberte, které checklisty chcete denně sledovat</value>
+    <value>选择每天要追踪的清单</value>
   </data>
   <data name="Settings_DailyDozen" xml:space="preserve">
-    <value>Daily Dozen</value>
+    <value>每日12清单</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Z knihy "How Not to Die" - 12 skupin potravin pro optimální zdraví</value>
+    <value>源自《救命》——每天应摄取的12类食物，以获得最佳健康</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
-    <value>Twenty-One Tweaks</value>
+    <value>21妙方</value>
   </data>
   <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
-    <value>Z knihy "How Not to Diet" - 21 návyků pro zrychlení hubnutí</value>
+    <value>源自《吃饱瘦身》——21个加速减重的习惯</value>
   </data>
   <data name="Settings_Enabled" xml:space="preserve">
-    <value>Povoleno</value>
+    <value>已启用</value>
   </data>
   <data name="Settings_Disabled" xml:space="preserve">
-    <value>Zakázáno</value>
+    <value>已禁用</value>
   </data>
   <data name="Settings_WeightTracking" xml:space="preserve">
-    <value>Sledování váhy</value>
+    <value>体重追踪</value>
   </data>
   <data name="Settings_WeightTrackingDesc" xml:space="preserve">
-    <value>Sledujte svou váhu v čase</value>
+    <value>追踪您的体重变化</value>
   </data>
   <data name="Settings_EnableWeightTracking" xml:space="preserve">
-    <value>Povolit sledování váhy</value>
+    <value>启用体重追踪</value>
   </data>
   <data name="Settings_GoalWeight" xml:space="preserve">
-    <value>Cílová váha</value>
+    <value>目标体重</value>
   </data>
   <data name="Settings_Height" xml:space="preserve">
-    <value>Výška (pro BMI)</value>
+    <value>身高（用于计算BMI）</value>
   </data>
   <data name="Settings_Optional" xml:space="preserve">
-    <value>Volitelné</value>
+    <value>可选</value>
   </data>
   <data name="Settings_Units" xml:space="preserve">
-    <value>Jednotky</value>
+    <value>单位</value>
   </data>
   <data name="Settings_UnitsDesc" xml:space="preserve">
-    <value>Vyberte preferované jednotky měření</value>
+    <value>选择您偏好的计量单位</value>
   </data>
   <data name="Settings_UseMetric" xml:space="preserve">
-    <value>Používat metrické jednotky</value>
+    <value>使用公制单位</value>
   </data>
   <data name="Settings_Metric" xml:space="preserve">
-    <value>Metrické (kg, cm, ml)</value>
+    <value>公制（千克、厘米、毫升）</value>
   </data>
   <data name="Settings_Imperial" xml:space="preserve">
-    <value>Imperiální (lb, in, oz)</value>
+    <value>英制（磅、英寸、盎司）</value>
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
-    <value>Vzhled</value>
+    <value>外观</value>
   </data>
   <data name="Settings_AppearanceDesc" xml:space="preserve">
-    <value>Přizpůsobte vzhled aplikace</value>
+    <value>自定义应用的外观</value>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
-    <value>Motiv</value>
+    <value>主题</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>Jazyk</value>
+    <value>语言</value>
   </data>
   <data name="Settings_LanguageDesc" xml:space="preserve">
-    <value>Vyberte preferovaný jazyk</value>
+    <value>选择您偏好的语言</value>
   </data>
   <data name="Settings_DataManagement" xml:space="preserve">
-    <value>Správa dat</value>
+    <value>数据管理</value>
   </data>
   <data name="Settings_DataManagementDesc" xml:space="preserve">
-    <value>Export nebo import vašich dat</value>
+    <value>导出或导入您的追踪数据</value>
   </data>
   <data name="Settings_Export" xml:space="preserve">
-    <value>Export</value>
+    <value>导出</value>
   </data>
   <data name="Settings_ExportToJson" xml:space="preserve">
-    <value>Exportovat do JSON</value>
+    <value>导出为 JSON</value>
   </data>
   <data name="Settings_ExportToCsv" xml:space="preserve">
-    <value>Exportovat do CSV</value>
+    <value>导出为 CSV</value>
   </data>
   <data name="Settings_ExportDesc" xml:space="preserve">
-    <value>JSON exportuje všechna data včetně nastavení. CSV exportuje pouze denní záznamy.</value>
+    <value>JSON 导出所有数据（包括设置）。CSV 仅导出每日记录。</value>
   </data>
   <data name="Settings_Import" xml:space="preserve">
-    <value>Import</value>
+    <value>导入</value>
   </data>
   <data name="Settings_ImportFromJson" xml:space="preserve">
-    <value>Importovat z JSON</value>
+    <value>从 JSON 导入</value>
   </data>
   <data name="Settings_ImportFromCsv" xml:space="preserve">
-    <value>Importovat z CSV</value>
+    <value>从 CSV 导入</value>
   </data>
   <data name="Settings_ImportDesc" xml:space="preserve">
-    <value>Import sloučí data s existujícími. Duplicitní záznamy budou přepsány.</value>
+    <value>导入将与现有数据合并。重复条目将被覆盖。</value>
   </data>
   <data name="Settings_RestartRequired" xml:space="preserve">
-    <value>Restartujte aplikaci pro aplikování změny jazyka.</value>
+    <value>请重启应用以使语言更改生效。</value>
   </data>
   <data name="Settings_IndividualItems" xml:space="preserve">
-    <value>Jednotlivé položky</value>
+    <value>单独项目</value>
   </data>
   <data name="Settings_IndividualItemsDesc" xml:space="preserve">
-    <value>Zakažte jednotlivé položky, které nechcete sledovat</value>
+    <value>禁用您不想追踪的单独项目</value>
   </data>
 
   <!-- About Page -->
   <data name="About_Title" xml:space="preserve">
-    <value>O aplikaci</value>
+    <value>关于</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Sledujte svou denní výživu podle doporučení Dr. Michaela Gregera z jeho knih "How Not to Die", "How Not to Diet" a "How Not to Age".</value>
+    <value>根据迈克尔·格雷格医生在《救命》、《吃饱瘦身》和《逆龄》中的建议，追踪您的每日营养。</value>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value>Verze</value>
+    <value>版本</value>
   </data>
   <data name="About_LearnMore" xml:space="preserve">
-    <value>Zjistit více</value>
+    <value>了解更多</value>
   </data>
   <data name="About_NutritionFacts" xml:space="preserve">
-    <value>Navštívit NutritionFacts.org</value>
+    <value>访问 NutritionFacts.org</value>
   </data>
   <data name="About_NutritionFactsDesc" xml:space="preserve">
-    <value>Bezplatné vědecky podložené informace o výživě</value>
+    <value>免费的循证营养信息</value>
   </data>
   <data name="About_Credits" xml:space="preserve">
-    <value>Poděkování</value>
+    <value>致谢</value>
   </data>
   <data name="About_CreditsDesc" xml:space="preserve">
-    <value>Založeno na práci Dr. Michaela Gregera a NutritionFacts.org</value>
+    <value>基于迈克尔·格雷格医生和 NutritionFacts.org 的研究</value>
   </data>
   <data name="About_BuiltWith" xml:space="preserve">
-    <value>Vytvořeno pomocí Uno Platform</value>
+    <value>使用 Uno Platform 构建</value>
   </data>
 
   <!-- Common -->
   <data name="Common_Close" xml:space="preserve">
-    <value>Zavřít</value>
+    <value>关闭</value>
   </data>
   <data name="Common_Save" xml:space="preserve">
-    <value>Uložit</value>
+    <value>保存</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
-    <value>Zrušit</value>
+    <value>取消</value>
   </data>
   <data name="Common_Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>确定</value>
   </data>
   <data name="Common_Error" xml:space="preserve">
-    <value>Chyba</value>
+    <value>错误</value>
   </data>
   <data name="Common_Success" xml:space="preserve">
-    <value>Úspěch</value>
+    <value>成功</value>
   </data>
 
   <!-- Languages -->
   <data name="Language_English" xml:space="preserve">
-    <value>Angličtina</value>
+    <value>English</value>
   </data>
   <data name="Language_Czech" xml:space="preserve">
-    <value>Čeština</value>
+    <value>Czech</value>
   </data>
 
   <!-- Themes -->
   <data name="Theme_System" xml:space="preserve">
-    <value>Podle systému</value>
+    <value>跟随系统</value>
   </data>
   <data name="Theme_Light" xml:space="preserve">
-    <value>Světlý</value>
+    <value>浅色</value>
   </data>
   <data name="Theme_Dark" xml:space="preserve">
-    <value>Tmavý</value>
+    <value>深色</value>
   </data>
 
   <!-- Daily Dozen Items -->
   <data name="DD_Beans" xml:space="preserve">
-    <value>Luštěniny</value>
+    <value>豆类</value>
   </data>
   <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
-    <value>1/2 šálku vařených nebo 1/4 šálku hummusu</value>
+    <value>½杯煮熟的豆子或¼杯鹰嘴豆泥</value>
   </data>
   <data name="DD_Beans_Serving_Metric" xml:space="preserve">
-    <value>100 g vařených nebo 70 g hummusu</value>
+    <value>100克煮熟的豆子或70克鹰嘴豆泥</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Luštěniny včetně fazolí, čočky, cizrny a hummusu</value>
+    <value>豆科植物，包括豆子、小扁豆、鹰嘴豆和鹰嘴豆泥</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Vynikající zdroj bílkovin, vlákniny a komplexních sacharidů. Spojeno s nejvyšším prodloužením délky života podle studie Global Burden of Disease.</value>
+    <value>优质蛋白质、膳食纤维和复合碳水化合物的来源。根据全球疾病负担研究，与最长的寿命增益相关。</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
-    <value>Bobulové ovoce</value>
+    <value>浆果类</value>
   </data>
   <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
-    <value>1/2 šálku čerstvého/mraženého nebo 1/4 šálku sušeného</value>
+    <value>½杯新鲜或冷冻浆果或¼杯浆果干</value>
   </data>
   <data name="DD_Berries_Serving_Metric" xml:space="preserve">
-    <value>70 g čerstvého/mraženého nebo 40 g sušeného</value>
+    <value>70克新鲜或冷冻浆果或40克浆果干</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Všechny druhy bobulového ovoce</value>
+    <value>各种浆果</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
-    <value>Nejvyšší obsah antioxidantů ze všech druhů ovoce. Spojeno s delším životem a kognitivními přínosy.</value>
+    <value>在所有水果中抗氧化物含量最高。与延长寿命和改善认知功能相关。</value>
   </data>
   <data name="DD_OtherFruits" xml:space="preserve">
-    <value>Ostatní ovoce</value>
+    <value>其他水果</value>
   </data>
   <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
-    <value>1 střední ovoce nebo 1/4 šálku sušeného</value>
+    <value>1颗中型水果或¼杯果干</value>
   </data>
   <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
-    <value>1 střední ovoce nebo 40 g sušeného</value>
+    <value>1颗中型水果或40克果干</value>
   </data>
   <data name="DD_OtherFruits_Desc" xml:space="preserve">
-    <value>Ovoce jiné než bobulové</value>
+    <value>浆果以外的水果</value>
   </data>
   <data name="DD_OtherFruits_Benefits" xml:space="preserve">
-    <value>Bohaté na vitamíny, minerály a vlákninu. Nezbytné pro celkové zdraví.</value>
+    <value>富含维生素、矿物质和膳食纤维。对整体健康至关重要。</value>
   </data>
   <data name="DD_Greens" xml:space="preserve">
-    <value>Listová zelenina</value>
+    <value>绿叶蔬菜</value>
   </data>
   <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
-    <value>1 šálek syrové nebo 1/2 šálku vařené</value>
+    <value>1杯生菜或½杯煮过的蔬菜</value>
   </data>
   <data name="DD_Greens_Serving_Metric" xml:space="preserve">
-    <value>60 g syrové nebo 90 g vařené</value>
+    <value>60克生菜或90克煮过的蔬菜</value>
   </data>
   <data name="DD_Greens_Desc" xml:space="preserve">
-    <value>Tmavá listová zelenina</value>
+    <value>深色绿叶蔬菜</value>
   </data>
   <data name="DD_Greens_Benefits" xml:space="preserve">
-    <value>Nejvíce spojená s delším životem mezi zeleninou. Bohatá na dusičnany zlepšující funkci svalů a tepen.</value>
+    <value>在蔬菜中与延长寿命的关联最大。富含硝酸盐，可改善肌肉和动脉功能。</value>
   </data>
   <data name="DD_Cruciferous" xml:space="preserve">
-    <value>Košťálová zelenina</value>
+    <value>十字花科蔬菜</value>
   </data>
   <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
-    <value>1/2 šálku nakrájené nebo 1 lžíce křenu</value>
+    <value>½杯切碎的蔬菜或1大匙辣根</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g nakrájené nebo 1 lžíce křenu</value>
+    <value>60克切碎的蔬菜或1大匙辣根</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
-    <value>Brokolice, květák, zelí, kadeřávek atd.</value>
+    <value>西蓝花、花椰菜、甘蓝、羽衣甘蓝等</value>
   </data>
   <data name="DD_Cruciferous_Benefits" xml:space="preserve">
-    <value>Obsahuje sulforafan, který posiluje imunitní funkce a jaterní detoxikační enzymy.</value>
+    <value>含有萝卜硫素，能增强免疫功能和肝脏解毒酶。</value>
   </data>
   <data name="DD_OtherVegetables" xml:space="preserve">
-    <value>Ostatní zelenina</value>
+    <value>其他蔬菜</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
-    <value>1/2 šálku nelistové zeleniny</value>
+    <value>½杯非绿叶蔬菜</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
-    <value>90 g nelistové zeleniny</value>
+    <value>90克非绿叶蔬菜</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Nelistová, nekřížová zelenina</value>
+    <value>非绿叶、非十字花科的蔬菜</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
-    <value>Rozmanité živiny a vláknina. Nezbytné pro vyváženou stravu.</value>
+    <value>多样的营养素和膳食纤维。对均衡饮食不可或缺。</value>
   </data>
   <data name="DD_Flaxseed" xml:space="preserve">
-    <value>Lněná semínka</value>
+    <value>亚麻籽</value>
   </data>
   <data name="DD_Flaxseed_Serving" xml:space="preserve">
-    <value>1 lžíce mletého</value>
+    <value>1大匙亚麻籽粉</value>
   </data>
   <data name="DD_Flaxseed_Desc" xml:space="preserve">
-    <value>Mletá lněná semínka</value>
+    <value>磨碎的亚麻籽</value>
   </data>
   <data name="DD_Flaxseed_Benefits" xml:space="preserve">
-    <value>Nejbohatší zdroj lignanů a omega-3 ALA. Prospívá srdečnímu zdraví a hormonální rovnováze.</value>
+    <value>最丰富的木脂素和Omega-3 ALA来源。有益于心脏健康和激素平衡。</value>
   </data>
   <data name="DD_Nuts" xml:space="preserve">
-    <value>Ořechy a semínka</value>
+    <value>坚果和种子</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 šálku ořechů nebo 2 lžíce ořechového másla</value>
+    <value>¼杯坚果或2大匙果仁酱</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g ořechů nebo 2 lžíce ořechového másla</value>
+    <value>30克坚果或2大匙果仁酱</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Všechny ořechy a semínka (nejlépe vlašské ořechy)</value>
+    <value>所有坚果和种子（优选核桃）</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Spojeno s nejnižším rizikem předčasného úmrtí ze všech skupin potravin. Vlašské ořechy jsou obzvláště přínosné.</value>
+    <value>在所有食物类别中与降低早逝风险的关联最大。核桃尤其有益。</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
-    <value>Bylinky a koření</value>
+    <value>香草和香料</value>
   </data>
   <data name="DD_Herbs_Serving" xml:space="preserve">
-    <value>1/4 lžičky kurkumy</value>
+    <value>¼茶匙姜黄</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Zejména kurkuma</value>
+    <value>尤其是姜黄</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
-    <value>Silné protizánětlivé a antioxidační vlastnosti.</value>
+    <value>强大的抗炎和抗氧化特性。</value>
   </data>
   <data name="DD_WholeGrains" xml:space="preserve">
-    <value>Celozrnné obiloviny</value>
+    <value>全谷物</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 šálku horké kaše nebo 1 plátek chleba</value>
+    <value>½杯热麦片或1片面包</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g horké kaše nebo 1 plátek chleba</value>
+    <value>100克热麦片或1片面包</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Preferována celá neporušená zrna</value>
+    <value>优选完整全谷物</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
-    <value>Vysoký obsah vlákniny podporuje zdraví střev a stabilní hladinu cukru v krvi.</value>
+    <value>高膳食纤维含量有助于肠道健康和血糖稳定。</value>
   </data>
   <data name="DD_Beverages" xml:space="preserve">
-    <value>Nápoje</value>
+    <value>饮料</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz vody, čaje nebo jiného</value>
+    <value>12盎司水、茶或其他饮料</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml vody, čaje nebo jiného</value>
+    <value>350毫升水、茶或其他饮料</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Voda, čaj a další zdravé nápoje</value>
+    <value>水、茶和其他健康饮品</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
-    <value>Správná hydratace je nezbytná pro všechny tělesné funkce.</value>
+    <value>充足的水分对所有身体机能都至关重要。</value>
   </data>
   <data name="DD_Exercise" xml:space="preserve">
-    <value>Cvičení</value>
+    <value>运动</value>
   </data>
   <data name="DD_Exercise_Serving" xml:space="preserve">
-    <value>90 min mírného nebo 40 min intenzivního</value>
+    <value>90分钟中等强度或40分钟剧烈运动</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Denní fyzická aktivita</value>
+    <value>每日体育锻炼</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Zvyšuje hladiny NAD+ o 127 %. Nezbytné pro dlouhověkost a celkové zdraví.</value>
+    <value>将NAD+水平提高127%。对长寿和整体健康至关重要。</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
-    <value>Vitamín B12</value>
+    <value>维生素B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg týdně nebo 50 mcg denně</value>
+    <value>每周2000微克或每天50微克</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Suplementace B12</value>
+    <value>B12补充剂</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
-    <value>Nezbytný pro nervové funkce a tvorbu červených krvinek. Nutný při rostlinné stravě.</value>
+    <value>对神经功能和红细胞生成至关重要。植物性饮食必需补充。</value>
   </data>
 
   <!-- Twenty-One Tweaks Items -->
   <data name="TT_PreloadWater" xml:space="preserve">
-    <value>Pít vodu před jídlem</value>
+    <value>预载水分</value>
   </data>
   <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
-    <value>2 šálky před každým jídlem</value>
+    <value>每餐前2杯</value>
   </data>
   <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
-    <value>500 ml před každým jídlem</value>
+    <value>每餐前500毫升</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Vypít 2 šálky vody před každým jídlem</value>
+    <value>每餐前喝2杯水</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
-    <value>Urychluje metabolismus a pomáhá cítit se sytý, snižuje příjem kalorií.</value>
+    <value>促进新陈代谢，增加饱腹感，减少热量摄入。</value>
   </data>
   <data name="TT_NegativeCalorie" xml:space="preserve">
-    <value>Negativně kalorický předkrm</value>
+    <value>预载负热量食物</value>
   </data>
   <data name="TT_NegativeCalorie_Desc" xml:space="preserve">
-    <value>Začít s jablkem, salátem nebo polévkou</value>
+    <value>以苹果、沙拉或汤开始</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Začít každé jídlo jablkem, salátem nebo polévkou</value>
+    <value>每餐以苹果、沙拉或汤开始</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
-    <value>Snižuje celkový příjem kalorií a přidává výživu.</value>
+    <value>在增加营养的同时减少总热量摄入。</value>
   </data>
   <data name="TT_Vinegar" xml:space="preserve">
-    <value>Přidat ocet</value>
+    <value>配醋一起吃</value>
   </data>
   <data name="TT_Vinegar_Desc" xml:space="preserve">
-    <value>2 lžičky ke každému jídlu (3x denně)</value>
+    <value>每餐2茶匙（每天3次）</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Přidat ocet k jídlům</value>
+    <value>在餐食中加入醋</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
-    <value>Může pomoci s kontrolou hladiny cukru v krvi a řízením hmotnosti.</value>
+    <value>可能有助于控制血糖和管理体重。</value>
   </data>
   <data name="TT_Undistracted" xml:space="preserve">
-    <value>Jídlo bez rozptylování</value>
+    <value>专心用餐</value>
   </data>
   <data name="TT_Undistracted_Desc" xml:space="preserve">
-    <value>Při každém jídle (3x denně)</value>
+    <value>每餐（每天3次）</value>
   </data>
   <data name="TT_Undistracted_LongDesc" xml:space="preserve">
-    <value>Jíst bez rozptylování</value>
+    <value>吃饭时不分心</value>
   </data>
   <data name="TT_Undistracted_Benefits" xml:space="preserve">
-    <value>Vědomé jedení vede k lepší kontrole porcí a spokojenosti.</value>
+    <value>专心进食有助于更好地控制份量和提高满足感。</value>
   </data>
   <data name="TT_TwentyMinute" xml:space="preserve">
-    <value>Pravidlo 20 minut</value>
+    <value>20分钟法则</value>
   </data>
   <data name="TT_TwentyMinute_Desc" xml:space="preserve">
-    <value>Při každém jídle (3x denně)</value>
+    <value>每餐（每天3次）</value>
   </data>
   <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
-    <value>Jíst alespoň 20 minut</value>
+    <value>每餐至少用20分钟进食</value>
   </data>
   <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
-    <value>Umožňuje signálům sytosti se zaregistrovat a předchází přejídání.</value>
+    <value>让饱腹信号有时间传递，防止过度进食。</value>
   </data>
   <data name="TT_FrontLoad" xml:space="preserve">
-    <value>Více kalorií ráno</value>
+    <value>提早载入热量</value>
   </data>
   <data name="TT_FrontLoad_Desc" xml:space="preserve">
-    <value>Větší snídaně</value>
+    <value>丰盛的早餐</value>
   </data>
   <data name="TT_FrontLoad_LongDesc" xml:space="preserve">
-    <value>Jíst větší snídani, menší večeři</value>
+    <value>早餐吃多，晚餐吃少</value>
   </data>
   <data name="TT_FrontLoad_Benefits" xml:space="preserve">
-    <value>Slaďuje stravování s cirkadiánním rytmem pro lepší metabolismus.</value>
+    <value>符合昼夜节律，促进更好的新陈代谢。</value>
   </data>
   <data name="TT_TimeRestricted" xml:space="preserve">
-    <value>Časově omezené jedení</value>
+    <value>限制进餐时间</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Omezit časové okno pro jídlo</value>
+    <value>限制进餐时间区间</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Omezit časové okno pro jídlo</value>
+    <value>限制进餐时间区间</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
-    <value>Může zlepšit metabolické zdraví a řízení hmotnosti.</value>
+    <value>可能改善代谢健康和体重管理。</value>
   </data>
   <data name="TT_Deflour" xml:space="preserve">
-    <value>Vyhnout se mouce</value>
+    <value>勿将食物磨成粉</value>
   </data>
   <data name="TT_Deflour_Desc" xml:space="preserve">
-    <value>Celé zrno místo mouky</value>
+    <value>选择完整谷物而非面粉</value>
   </data>
   <data name="TT_Deflour_LongDesc" xml:space="preserve">
-    <value>Volit celá zrna místo moučných výrobků</value>
+    <value>选择完整谷物而非面粉制品</value>
   </data>
   <data name="TT_Deflour_Benefits" xml:space="preserve">
-    <value>Celá zrna mají nižší glykemický dopad a lepší sytost.</value>
+    <value>完整谷物的升糖指数更低，饱腹感更强。</value>
   </data>
   <data name="TT_BlackCumin" xml:space="preserve">
-    <value>Černý kmín</value>
+    <value>黑孜然</value>
   </data>
   <data name="TT_BlackCumin_Desc" xml:space="preserve">
-    <value>1/4 lžičky denně</value>
+    <value>每天¼茶匙</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Také známý jako Nigella sativa</value>
+    <value>又名黑种草</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
-    <value>Může pomoci s hubnutím a kontrolou hladiny cukru v krvi.</value>
+    <value>可能有助于减重和控制血糖。</value>
   </data>
   <data name="TT_Garlic" xml:space="preserve">
-    <value>Česnekový prášek</value>
+    <value>大蒜粉</value>
   </data>
   <data name="TT_Garlic_Desc" xml:space="preserve">
-    <value>1/4 lžičky denně</value>
+    <value>每天¼茶匙</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Denní suplementace česnekem</value>
+    <value>每天补充大蒜</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
-    <value>Studie ukazují, že může snižovat tělesný tuk.</value>
+    <value>研究表明它可以减少体内脂肪。</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Mletý zázvor</value>
+    <value>生姜粉</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 lžička denně</value>
+    <value>每天1茶匙</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Denní zázvor</value>
+    <value>每天食用生姜</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Může urychlit metabolismus a snížit zánět.</value>
+    <value>可能促进新陈代谢并减少炎症。</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
-    <value>Lahůdkové droždí</value>
+    <value>营养酵母</value>
   </data>
   <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
-    <value>2 lžičky denně</value>
+    <value>每天2茶匙</value>
   </data>
   <data name="TT_NutritionalYeast_LongDesc" xml:space="preserve">
-    <value>Zdroj beta-glukanové vlákniny</value>
+    <value>葡聚糖纤维来源</value>
   </data>
   <data name="TT_NutritionalYeast_Benefits" xml:space="preserve">
-    <value>Beta-glukanová vláknina může usnadnit hubnutí.</value>
+    <value>葡聚糖纤维有助于减重。</value>
   </data>
   <data name="TT_Cumin" xml:space="preserve">
-    <value>Římský kmín</value>
+    <value>孜然</value>
   </data>
   <data name="TT_Cumin_Desc" xml:space="preserve">
-    <value>1/2 lžičky k obědu a večeři</value>
+    <value>午餐和晚餐各½茶匙</value>
   </data>
   <data name="TT_Cumin_LongDesc" xml:space="preserve">
-    <value>Koření římský kmín (Cuminum cyminum)</value>
+    <value>普通孜然香料</value>
   </data>
   <data name="TT_Cumin_Benefits" xml:space="preserve">
-    <value>Může pomoci s hubnutím a zlepšit cholesterol.</value>
+    <value>可能有助于减重和改善胆固醇。</value>
   </data>
   <data name="TT_GreenTea" xml:space="preserve">
-    <value>Zelený čaj</value>
+    <value>绿茶</value>
   </data>
   <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
-    <value>3 šálky denně</value>
+    <value>每天3杯</value>
   </data>
   <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
-    <value>720 ml denně</value>
+    <value>每天720毫升</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Denní konzumace zeleného čaje</value>
+    <value>每天饮用绿茶</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
-    <value>Obsahuje katechiny, které mohou urychlit metabolismus.</value>
+    <value>含有儿茶素，可能促进新陈代谢。</value>
   </data>
   <data name="TT_Hydrated" xml:space="preserve">
-    <value>Zůstat hydratovaný</value>
+    <value>保持水分充足</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Pít dostatek vody</value>
+    <value>饮用足够的水</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Udržovat správnou hydrataci</value>
+    <value>保持体内水分充足</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
-    <value>Správná hydratace podporuje metabolismus a snižuje hlad.</value>
+    <value>充足的水分有助于新陈代谢并减少饥饿感。</value>
   </data>
   <data name="TT_ExerciseTiming" xml:space="preserve">
-    <value>Časování cvičení</value>
+    <value>把握运动良机</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Nalačno nebo odpoledne</value>
+    <value>空腹或下午</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimální načasování cvičení</value>
+    <value>运动的最佳时机</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
-    <value>Může zvýšit spalování tuků a metabolické přínosy.</value>
+    <value>可能增强脂肪燃烧和代谢益处。</value>
   </data>
   <data name="TT_Sleep" xml:space="preserve">
-    <value>Dostatek spánku</value>
+    <value>睡眠充足</value>
   </data>
   <data name="TT_Sleep_Desc" xml:space="preserve">
-    <value>7+ hodin</value>
+    <value>7小时以上</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Kvalitní spánek pro řízení hmotnosti</value>
+    <value>高质量睡眠有助于体重管理</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
-    <value>Špatný spánek narušuje hormony hladu a metabolismus.</value>
+    <value>睡眠不足会扰乱饥饿激素和新陈代谢。</value>
   </data>
   <data name="TT_WeighTwice" xml:space="preserve">
-    <value>Vážit se dvakrát</value>
+    <value>每天量体重两次</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Ráno a večer</value>
+    <value>早上和晚上</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Vážit se dvakrát denně pro sledování trendů a udržení zodpovědnosti.</value>
+    <value>每天量体重两次以追踪趋势并保持自律。</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Vlastní sledování je jednou z nejúčinnějších strategií řízení hmotnosti.</value>
+    <value>自我监测是最有效的体重管理策略之一。</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
-    <value>Implementační záměry</value>
+    <value>实施意图</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Naplánovat konkrétní pokud-pak strategie</value>
+    <value>制定具体的如果-那么策略</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Splnit implementační záměry: naplánovat konkrétní pokud-pak strategie pro zdravé stravování a cvičení.</value>
+    <value>完成您的实施意图：为健康饮食和运动制定具体的如果-那么策略。</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Předem se zavázat ke konkrétním plánům zdvojnásobuje pravděpodobnost jejich dodržení.</value>
+    <value>预先制定具体计划可以使执行的可能性翻倍。</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
-    <value>Půst po 19:00</value>
+    <value>晚上7点后禁食</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Žádné jídlo po 19:00</value>
+    <value>晚上7点后不进食</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Přestat jíst po 19:00 pro sladění s cirkadiánním rytmem.</value>
+    <value>晚上7点后停止进食，以符合您的昼夜节律。</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Večerní půst zlepšuje metabolické zdraví a podporuje hubnutí.</value>
+    <value>晚间禁食可改善代谢健康并有助于减重。</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
-    <value>Mírný Trendelenburg</value>
+    <value>微微头低脚高睡姿</value>
   </data>
   <data name="TT_Trendelenburg_Desc" xml:space="preserve">
-    <value>Spánek hlavou dolů o 6 stupňů</value>
+    <value>头部向下倾斜6度入睡</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experimentovat se spánkem v mírné Trendelenburgově poloze (hlavou dolů o 6 stupňů). DŮLEŽITÉ: Nezkoušejte, pokud máte problémy se srdcem, plícemi, refluxem, mozkem nebo očima. Nejdříve konzultujte s lékařem. Vstávejte pomalu, abyste se vyhnuli závratím.</value>
+    <value>尝试以微微头低脚高的特伦德伦伯卧位姿势入睡（头部向下倾斜6度）。重要提示：如果您有心脏、肺部、胃酸逆流、脑部或眼部问题，请勿尝试。请先咨询您的医生。起床时请缓慢起身以避免头晕。</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Může pomoci s řízením hmotnosti díky nočním gravitačním účinkům. Používejte s opatrností.</value>
+    <value>可能通过夜间重力效应帮助管理体重。请谨慎使用。</value>
   </data>
 
   <!-- Diary Detail Dialog -->
   <data name="Diary_ServingSize" xml:space="preserve">
-    <value>Velikost porce</value>
+    <value>份量</value>
   </data>
   <data name="Diary_ServingPerDay" xml:space="preserve">
-    <value>1 porce denně</value>
+    <value>每天1份</value>
   </data>
   <data name="Diary_ServingsPerDay" xml:space="preserve">
-    <value>{0} porcí denně</value>
+    <value>每天{0}份</value>
   </data>
   <data name="Diary_HealthBenefits" xml:space="preserve">
-    <value>Zdravotní přínosy</value>
+    <value>健康益处</value>
   </data>
   <data name="Diary_LearnMore" xml:space="preserve">
-    <value>Zjistit více</value>
+    <value>了解更多</value>
   </data>
   <data name="Diary_ViewOnNutritionFacts" xml:space="preserve">
-    <value>Zobrazit na NutritionFacts.org</value>
+    <value>在 NutritionFacts.org 上查看</value>
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
-    <value>Součást</value>
+    <value>包含于</value>
   </data>
   <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Zahrnuje také</value>
+    <value>还包括</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
-    <value>Dnes</value>
+    <value>今天</value>
   </data>
   <data name="Diary_Yesterday" xml:space="preserve">
-    <value>Včera</value>
+    <value>昨天</value>
   </data>
   <data name="Diary_NoItemsEnabled" xml:space="preserve">
-    <value>Žádné položky nejsou povoleny</value>
+    <value>没有启用的项目</value>
   </data>
   <data name="Diary_PercentComplete" xml:space="preserve">
-    <value>{0} % splněno</value>
+    <value>已完成{0}%</value>
   </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">
-    <value>Úspěchy</value>
+    <value>成就</value>
   </data>
 
   <!-- Achievements - Page -->
   <data name="Achievements_Title" xml:space="preserve">
-    <value>Úspěchy</value>
+    <value>成就</value>
   </data>
   <data name="Achievements_Empty" xml:space="preserve">
-    <value>Zatím žádné úspěchy</value>
+    <value>暂无成就</value>
   </data>
   <data name="Achievement_Unlocked" xml:space="preserve">
-    <value>Úspěch odemčen!</value>
+    <value>成就解锁！</value>
   </data>
 
   <!-- Achievement Types -->
   <data name="Achievement_Type_Milestone" xml:space="preserve">
-    <value>Milníky</value>
+    <value>里程碑</value>
   </data>
   <data name="Achievement_Type_Streak" xml:space="preserve">
-    <value>Série</value>
+    <value>连胜</value>
   </data>
   <data name="Achievement_Type_Completion" xml:space="preserve">
-    <value>Perfektní dny</value>
+    <value>完美日</value>
   </data>
   <data name="Achievement_Type_ItemSpecific" xml:space="preserve">
-    <value>Šampioni jídla</value>
+    <value>食物冠军</value>
   </data>
 
   <!-- Streak Achievements -->
   <data name="Achievement_Streak7_Name" xml:space="preserve">
-    <value>Týdenní válečník</value>
+    <value>一周战士</value>
   </data>
   <data name="Achievement_Streak7_Desc" xml:space="preserve">
-    <value>Dosáhněte 7denní série</value>
+    <value>完成7天连胜</value>
   </data>
   <data name="Achievement_Streak14_Name" xml:space="preserve">
-    <value>Dvoutýdenní šampion</value>
+    <value>两周冠军</value>
   </data>
   <data name="Achievement_Streak14_Desc" xml:space="preserve">
-    <value>Dosáhněte 14denní série</value>
+    <value>完成14天连胜</value>
   </data>
   <data name="Achievement_Streak30_Name" xml:space="preserve">
-    <value>Měsíční mistr</value>
+    <value>月度达人</value>
   </data>
   <data name="Achievement_Streak30_Desc" xml:space="preserve">
-    <value>Dosáhněte 30denní série</value>
+    <value>完成30天连胜</value>
   </data>
   <data name="Achievement_Streak60_Name" xml:space="preserve">
-    <value>Dvouměsíční hrdina</value>
+    <value>双月英雄</value>
   </data>
   <data name="Achievement_Streak60_Desc" xml:space="preserve">
-    <value>Dosáhněte 60denní série</value>
+    <value>完成60天连胜</value>
   </data>
   <data name="Achievement_Streak100_Name" xml:space="preserve">
-    <value>Stovkový centurion</value>
+    <value>百日卫士</value>
   </data>
   <data name="Achievement_Streak100_Desc" xml:space="preserve">
-    <value>Dosáhněte 100denní série</value>
+    <value>完成100天连胜</value>
   </data>
   <data name="Achievement_Streak365_Name" xml:space="preserve">
-    <value>Rok zdraví</value>
+    <value>健康之年</value>
   </data>
   <data name="Achievement_Streak365_Desc" xml:space="preserve">
-    <value>Dosáhněte 365denní série</value>
+    <value>完成365天连胜</value>
   </data>
 
   <!-- Milestone Achievements -->
   <data name="Achievement_FirstDay_Name" xml:space="preserve">
-    <value>První krok</value>
+    <value>第一步</value>
   </data>
   <data name="Achievement_FirstDay_Desc" xml:space="preserve">
-    <value>Zaznamenejte svůj první den sledování</value>
+    <value>记录您的第一天追踪</value>
   </data>
   <data name="Achievement_FirstPerfect_Name" xml:space="preserve">
-    <value>Perfektní den</value>
+    <value>完美一天</value>
   </data>
   <data name="Achievement_FirstPerfect_Desc" xml:space="preserve">
-    <value>Splňte 100% denních cílů</value>
+    <value>完成100%的每日目标</value>
   </data>
   <data name="Achievement_FirstWeek_Name" xml:space="preserve">
-    <value>Jeden týden</value>
+    <value>一周达成</value>
   </data>
   <data name="Achievement_FirstWeek_Desc" xml:space="preserve">
-    <value>Sledujte po dobu 7 dní</value>
+    <value>追踪7天</value>
   </data>
   <data name="Achievement_FirstMonth_Name" xml:space="preserve">
-    <value>Měsíc pokroku</value>
+    <value>进步之月</value>
   </data>
   <data name="Achievement_FirstMonth_Desc" xml:space="preserve">
-    <value>Sledujte po dobu 30 dní</value>
+    <value>追踪30天</value>
   </data>
 
   <!-- Completion Achievements -->
   <data name="Achievement_Completion10_Name" xml:space="preserve">
-    <value>Začínáme</value>
+    <value>初露锋芒</value>
   </data>
   <data name="Achievement_Completion10_Desc" xml:space="preserve">
-    <value>Dosáhněte 10 perfektních dnů</value>
+    <value>完成10个完美日</value>
   </data>
   <data name="Achievement_Completion25_Name" xml:space="preserve">
-    <value>Budování návyků</value>
+    <value>养成习惯</value>
   </data>
   <data name="Achievement_Completion25_Desc" xml:space="preserve">
-    <value>Dosáhněte 25 perfektních dnů</value>
+    <value>完成25个完美日</value>
   </data>
   <data name="Achievement_Completion50_Name" xml:space="preserve">
-    <value>Hrdina na půli cesty</value>
+    <value>半程英雄</value>
   </data>
   <data name="Achievement_Completion50_Desc" xml:space="preserve">
-    <value>Dosáhněte 50 perfektních dnů</value>
+    <value>完成50个完美日</value>
   </data>
   <data name="Achievement_Completion100_Name" xml:space="preserve">
-    <value>Století zdraví</value>
+    <value>百日健康</value>
   </data>
   <data name="Achievement_Completion100_Desc" xml:space="preserve">
-    <value>Dosáhněte 100 perfektních dnů</value>
+    <value>完成100个完美日</value>
   </data>
   <data name="Achievement_Completion365_Name" xml:space="preserve">
-    <value>Perfektní rok</value>
+    <value>完美之年</value>
   </data>
   <data name="Achievement_Completion365_Desc" xml:space="preserve">
-    <value>Dosáhněte 365 perfektních dnů</value>
+    <value>完成365个完美日</value>
   </data>
 
   <!-- Item-Specific Achievements -->
   <data name="Achievement_Beans50_Name" xml:space="preserve">
-    <value>Sčítač fazolí</value>
+    <value>豆类达人</value>
   </data>
   <data name="Achievement_Beans50_Desc" xml:space="preserve">
-    <value>Splňte luštěniny 50krát</value>
+    <value>完成豆类50次</value>
   </data>
   <data name="Achievement_Beans100_Name" xml:space="preserve">
-    <value>Mistr luštěnin</value>
+    <value>豆类大师</value>
   </data>
   <data name="Achievement_Beans100_Desc" xml:space="preserve">
-    <value>Splňte luštěniny 100krát</value>
+    <value>完成豆类100次</value>
   </data>
   <data name="Achievement_Berries50_Name" xml:space="preserve">
-    <value>Sběrač bobulí</value>
+    <value>浆果采摘者</value>
   </data>
   <data name="Achievement_Berries50_Desc" xml:space="preserve">
-    <value>Splňte bobule 50krát</value>
+    <value>完成浆果50次</value>
   </data>
   <data name="Achievement_Berries100_Name" xml:space="preserve">
-    <value>Šampion bobulí</value>
+    <value>浆果冠军</value>
   </data>
   <data name="Achievement_Berries100_Desc" xml:space="preserve">
-    <value>Splňte bobule 100krát</value>
+    <value>完成浆果100次</value>
   </data>
   <data name="Achievement_Greens50_Name" xml:space="preserve">
-    <value>Zelený palec</value>
+    <value>绿叶能手</value>
   </data>
   <data name="Achievement_Greens50_Desc" xml:space="preserve">
-    <value>Splňte zeleninu 50krát</value>
+    <value>完成绿叶蔬菜50次</value>
   </data>
   <data name="Achievement_Greens100_Name" xml:space="preserve">
-    <value>Guru zeleniny</value>
+    <value>绿叶大师</value>
   </data>
   <data name="Achievement_Greens100_Desc" xml:space="preserve">
-    <value>Splňte zeleninu 100krát</value>
+    <value>完成绿叶蔬菜100次</value>
   </data>
   <data name="Achievement_Cruciferous50_Name" xml:space="preserve">
-    <value>Fanoušek křížové zeleniny</value>
+    <value>十字花科爱好者</value>
   </data>
   <data name="Achievement_Cruciferous50_Desc" xml:space="preserve">
-    <value>Splňte křížovou zeleninu 50krát</value>
+    <value>完成十字花科蔬菜50次</value>
   </data>
   <data name="Achievement_Cruciferous100_Name" xml:space="preserve">
-    <value>Šampion křížové zeleniny</value>
+    <value>十字花科冠军</value>
   </data>
   <data name="Achievement_Cruciferous100_Desc" xml:space="preserve">
-    <value>Splňte křížovou zeleninu 100krát</value>
+    <value>完成十字花科蔬菜100次</value>
   </data>
   <data name="Achievement_WholeGrains50_Name" xml:space="preserve">
-    <value>Sběrač obilovin</value>
+    <value>谷物收集者</value>
   </data>
   <data name="Achievement_WholeGrains50_Desc" xml:space="preserve">
-    <value>Splňte celozrnné obiloviny 50krát</value>
+    <value>完成全谷物50次</value>
   </data>
   <data name="Achievement_WholeGrains100_Name" xml:space="preserve">
-    <value>Mistr obilovin</value>
+    <value>谷物大师</value>
   </data>
   <data name="Achievement_WholeGrains100_Desc" xml:space="preserve">
-    <value>Splňte celozrnné obiloviny 100krát</value>
+    <value>完成全谷物100次</value>
   </data>
   <data name="Achievement_Exercise50_Name" xml:space="preserve">
-    <value>Aktivní životní styl</value>
+    <value>积极生活</value>
   </data>
   <data name="Achievement_Exercise50_Desc" xml:space="preserve">
-    <value>Splňte cvičení 50krát</value>
+    <value>完成运动50次</value>
   </data>
   <data name="Achievement_Exercise100_Name" xml:space="preserve">
-    <value>Fitness fanatik</value>
+    <value>健身狂人</value>
   </data>
   <data name="Achievement_Exercise100_Desc" xml:space="preserve">
-    <value>Splňte cvičení 100krát</value>
+    <value>完成运动100次</value>
   </data>
   <data name="Achievement_Flaxseed50_Name" xml:space="preserve">
-    <value>Fanoušek lněného semínka</value>
+    <value>亚麻籽爱好者</value>
   </data>
   <data name="Achievement_Flaxseed50_Desc" xml:space="preserve">
-    <value>Splňte lněné semínko 50krát</value>
+    <value>完成亚麻籽50次</value>
   </data>
   <data name="Achievement_Flaxseed100_Name" xml:space="preserve">
-    <value>Mistr lněného semínka</value>
+    <value>亚麻籽大师</value>
   </data>
   <data name="Achievement_Flaxseed100_Desc" xml:space="preserve">
-    <value>Splňte lněné semínko 100krát</value>
+    <value>完成亚麻籽100次</value>
   </data>
   <data name="Achievement_Nuts50_Name" xml:space="preserve">
-    <value>Milovník ořechů</value>
+    <value>坚果爱好者</value>
   </data>
   <data name="Achievement_Nuts50_Desc" xml:space="preserve">
-    <value>Splňte ořechy 50krát</value>
+    <value>完成坚果50次</value>
   </data>
   <data name="Achievement_Nuts100_Name" xml:space="preserve">
-    <value>Expert na ořechy</value>
+    <value>坚果专家</value>
   </data>
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
-    <value>Splňte ořechy 100krát</value>
+    <value>完成坚果100次</value>
   </data>
 
 </root>
