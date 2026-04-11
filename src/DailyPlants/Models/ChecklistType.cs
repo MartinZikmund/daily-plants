@@ -13,10 +13,5 @@ public enum ChecklistType
     /// <summary>
     /// Twenty-One Tweaks checklist from "How Not to Diet"
     /// </summary>
-    TwentyOneTweaks,
-
-    /// <summary>
-    /// Anti-Aging Eight checklist from "How Not to Age"
-    /// </summary>
-    AntiAgingEight
+    TwentyOneTweaks
 }

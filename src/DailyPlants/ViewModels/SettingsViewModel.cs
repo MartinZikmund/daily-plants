@@ -1,3 +1,4 @@
+using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 
@@ -23,9 +24,6 @@ public partial class SettingsViewModel : ObservableObject
     private bool _twentyOneTweaksEnabled;
 
     [ObservableProperty]
-    private bool _antiAgingEightEnabled;
-
-    [ObservableProperty]
     private bool _weightTrackingEnabled;
 
     [ObservableProperty]
@@ -46,8 +44,11 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty]
     private string _heightText = "";
 
+    public ObservableCollection<ChecklistItemToggleViewModel> DailyDozenItems { get; } = [];
+    public ObservableCollection<ChecklistItemToggleViewModel> TwentyOneTweaksItems { get; } = [];
+
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
-    public List<string> LanguageOptions { get; } = ["English", "Čeština"];
+    public List<string> LanguageOptions { get; private set; } = [];
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
@@ -67,7 +68,6 @@ public partial class SettingsViewModel : ObservableObject
         {
             DailyDozenEnabled = _appPreferences.DailyDozenEnabled;
             TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled;
-            AntiAgingEightEnabled = _appPreferences.AntiAgingEightEnabled;
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
             UseMetricUnits = _appPreferences.UseMetricUnits;
             SelectedThemeIndex = _appPreferences.ThemePreference;
@@ -77,9 +77,18 @@ public partial class SettingsViewModel : ObservableObject
             OnPropertyChanged(nameof(WeightUnit));
             OnPropertyChanged(nameof(HeightUnit));
 
+            LanguageOptions = _localizationService.SupportedLanguages
+                .Select(l => l.NativeName)
+                .ToList();
+            OnPropertyChanged(nameof(LanguageOptions));
+
             _initialLanguage = _localizationService.CurrentLanguage;
-            SelectedLanguageIndex = _initialLanguage == "cs" ? 1 : 0;
+            SelectedLanguageIndex = _localizationService.SupportedLanguages
+                .Select((l, i) => (l, i))
+                .FirstOrDefault(x => x.l.Code == _initialLanguage).i;
             ShowRestartMessage = false;
+
+            PopulateItemToggles();
         }
         finally
         {
@@ -87,6 +96,40 @@ public partial class SettingsViewModel : ObservableObject
         }
 
         return Task.CompletedTask;
+    }
+
+    private void PopulateItemToggles()
+    {
+        // Build a dictionary of shared toggle instances keyed by item ID
+        // so that items appearing in multiple checklists stay synced.
+        var togglesByItemId = new Dictionary<string, ChecklistItemToggleViewModel>();
+
+        DailyDozenItems.Clear();
+        TwentyOneTweaksItems.Clear();
+
+        PopulateChecklistItems(ChecklistType.DailyDozen, DailyDozenItems, togglesByItemId);
+        PopulateChecklistItems(ChecklistType.TwentyOneTweaks, TwentyOneTweaksItems, togglesByItemId);
+    }
+
+    private void PopulateChecklistItems(
+        ChecklistType checklist,
+        ObservableCollection<ChecklistItemToggleViewModel> collection,
+        Dictionary<string, ChecklistItemToggleViewModel> togglesByItemId)
+    {
+        foreach (var item in ChecklistDefinitions.GetItemsForChecklist(checklist).OrderBy(i => i.SortOrder))
+        {
+            if (togglesByItemId.TryGetValue(item.Id, out var existing))
+            {
+                // Reuse the same instance so toggling syncs across checklists
+                collection.Add(existing);
+            }
+            else
+            {
+                var toggle = new ChecklistItemToggleViewModel(_appPreferences, item);
+                togglesByItemId[item.Id] = toggle;
+                collection.Add(toggle);
+            }
+        }
     }
 
     partial void OnDailyDozenEnabledChanged(bool value)
@@ -97,11 +140,6 @@ public partial class SettingsViewModel : ObservableObject
     partial void OnTwentyOneTweaksEnabledChanged(bool value)
     {
         _appPreferences.TwentyOneTweaksEnabled = value;
-    }
-
-    partial void OnAntiAgingEightEnabledChanged(bool value)
-    {
-        _appPreferences.AntiAgingEightEnabled = value;
     }
 
     partial void OnWeightTrackingEnabledChanged(bool value)
@@ -150,7 +188,10 @@ public partial class SettingsViewModel : ObservableObject
     {
         if (IsLoading) return;
 
-        var languageCode = value == 1 ? "cs" : "en";
+        var languages = _localizationService.SupportedLanguages;
+        if (value < 0 || value >= languages.Count) return;
+
+        var languageCode = languages[value].Code;
         _ = _localizationService.SetLanguageAsync(languageCode);
 
         ShowRestartMessage = languageCode != _initialLanguage;
@@ -306,5 +347,35 @@ public partial class SettingsViewModel : ObservableObject
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
         await dialog.ShowAsync();
+    }
+}
+
+/// <summary>
+/// ViewModel for a single checklist item toggle in settings.
+/// Shared instances are reused across checklists so toggling syncs automatically.
+/// </summary>
+public partial class ChecklistItemToggleViewModel : ObservableObject
+{
+    private readonly IAppPreferences _appPreferences;
+
+    public string ItemId { get; }
+    public string ItemName { get; }
+    public string? IconPath { get; }
+
+    [ObservableProperty]
+    private bool _isEnabled;
+
+    public ChecklistItemToggleViewModel(IAppPreferences appPreferences, ChecklistItem item)
+    {
+        _appPreferences = appPreferences;
+        ItemId = item.Id;
+        ItemName = item.Name;
+        IconPath = item.IconPath;
+        _isEnabled = !appPreferences.IsItemDisabled(item.Id);
+    }
+
+    partial void OnIsEnabledChanged(bool value)
+    {
+        _appPreferences.SetItemDisabled(ItemId, !value);
     }
 }

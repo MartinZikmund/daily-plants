@@ -185,12 +185,6 @@
   <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
     <value>Z knihy "How Not to Diet" - 21 návyků pro zrychlení hubnutí</value>
   </data>
-  <data name="Settings_AntiAgingEight" xml:space="preserve">
-    <value>Anti-Aging Eight</value>
-  </data>
-  <data name="Settings_AntiAgingEightDesc" xml:space="preserve">
-    <value>Z knihy "How Not to Age" - 8 klíčových faktorů pro zdravé stárnutí</value>
-  </data>
   <data name="Settings_Enabled" xml:space="preserve">
     <value>Povoleno</value>
   </data>
@@ -225,10 +219,10 @@
     <value>Používat metrické jednotky</value>
   </data>
   <data name="Settings_Metric" xml:space="preserve">
-    <value>Metrické (kg, cm)</value>
+    <value>Metrické (kg, cm, ml)</value>
   </data>
   <data name="Settings_Imperial" xml:space="preserve">
-    <value>Imperiální (lb, in)</value>
+    <value>Imperiální (lb, in, oz)</value>
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
     <value>Vzhled</value>
@@ -277,6 +271,12 @@
   </data>
   <data name="Settings_RestartRequired" xml:space="preserve">
     <value>Restartujte aplikaci pro aplikování změny jazyka.</value>
+  </data>
+  <data name="Settings_IndividualItems" xml:space="preserve">
+    <value>Jednotlivé položky</value>
+  </data>
+  <data name="Settings_IndividualItemsDesc" xml:space="preserve">
+    <value>Zakažte jednotlivé položky, které nechcete sledovat</value>
   </data>
 
   <!-- About Page -->
@@ -351,8 +351,11 @@
   <data name="DD_Beans" xml:space="preserve">
     <value>Luštěniny</value>
   </data>
-  <data name="DD_Beans_Serving" xml:space="preserve">
+  <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku vařených nebo 1/4 šálku hummusu</value>
+  </data>
+  <data name="DD_Beans_Serving_Metric" xml:space="preserve">
+    <value>100 g vařených nebo 70 g hummusu</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
     <value>Luštěniny včetně fazolí, čočky, cizrny a hummusu</value>
@@ -363,8 +366,11 @@
   <data name="DD_Berries" xml:space="preserve">
     <value>Bobulové ovoce</value>
   </data>
-  <data name="DD_Berries_Serving" xml:space="preserve">
+  <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku čerstvého/mraženého nebo 1/4 šálku sušeného</value>
+  </data>
+  <data name="DD_Berries_Serving_Metric" xml:space="preserve">
+    <value>70 g čerstvého/mraženého nebo 40 g sušeného</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
     <value>Všechny druhy bobulového ovoce</value>
@@ -375,8 +381,11 @@
   <data name="DD_OtherFruits" xml:space="preserve">
     <value>Ostatní ovoce</value>
   </data>
-  <data name="DD_OtherFruits_Serving" xml:space="preserve">
+  <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
     <value>1 střední ovoce nebo 1/4 šálku sušeného</value>
+  </data>
+  <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
+    <value>1 střední ovoce nebo 40 g sušeného</value>
   </data>
   <data name="DD_OtherFruits_Desc" xml:space="preserve">
     <value>Ovoce jiné než bobulové</value>
@@ -387,8 +396,11 @@
   <data name="DD_Greens" xml:space="preserve">
     <value>Listová zelenina</value>
   </data>
-  <data name="DD_Greens_Serving" xml:space="preserve">
+  <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
     <value>1 šálek syrové nebo 1/2 šálku vařené</value>
+  </data>
+  <data name="DD_Greens_Serving_Metric" xml:space="preserve">
+    <value>60 g syrové nebo 90 g vařené</value>
   </data>
   <data name="DD_Greens_Desc" xml:space="preserve">
     <value>Tmavá listová zelenina</value>
@@ -397,10 +409,13 @@
     <value>Nejvíce spojená s delším životem mezi zeleninou. Bohatá na dusičnany zlepšující funkci svalů a tepen.</value>
   </data>
   <data name="DD_Cruciferous" xml:space="preserve">
-    <value>Křížová zelenina</value>
+    <value>Košťálová zelenina</value>
   </data>
-  <data name="DD_Cruciferous_Serving" xml:space="preserve">
+  <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku nakrájené nebo 1 lžíce křenu</value>
+  </data>
+  <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
+    <value>60 g nakrájené nebo 1 lžíce křenu</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Brokolice, květák, zelí, kadeřávek atd.</value>
@@ -411,8 +426,11 @@
   <data name="DD_OtherVegetables" xml:space="preserve">
     <value>Ostatní zelenina</value>
   </data>
-  <data name="DD_OtherVegetables_Serving" xml:space="preserve">
+  <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku nelistové zeleniny</value>
+  </data>
+  <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
+    <value>90 g nelistové zeleniny</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
     <value>Nelistová, nekřížová zelenina</value>
@@ -421,13 +439,13 @@
     <value>Rozmanité živiny a vláknina. Nezbytné pro vyváženou stravu.</value>
   </data>
   <data name="DD_Flaxseed" xml:space="preserve">
-    <value>Lněné semínko</value>
+    <value>Lněná semínka</value>
   </data>
   <data name="DD_Flaxseed_Serving" xml:space="preserve">
     <value>1 lžíce mletého</value>
   </data>
   <data name="DD_Flaxseed_Desc" xml:space="preserve">
-    <value>Mleté lněné semínko</value>
+    <value>Mletá lněná semínka</value>
   </data>
   <data name="DD_Flaxseed_Benefits" xml:space="preserve">
     <value>Nejbohatší zdroj lignanů a omega-3 ALA. Prospívá srdečnímu zdraví a hormonální rovnováze.</value>
@@ -435,8 +453,11 @@
   <data name="DD_Nuts" xml:space="preserve">
     <value>Ořechy a semínka</value>
   </data>
-  <data name="DD_Nuts_Serving" xml:space="preserve">
+  <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
     <value>1/4 šálku ořechů nebo 2 lžíce ořechového másla</value>
+  </data>
+  <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
+    <value>30 g ořechů nebo 2 lžíce ořechového másla</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
     <value>Všechny ořechy a semínka (nejlépe vlašské ořechy)</value>
@@ -459,8 +480,11 @@
   <data name="DD_WholeGrains" xml:space="preserve">
     <value>Celozrnné obiloviny</value>
   </data>
-  <data name="DD_WholeGrains_Serving" xml:space="preserve">
+  <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
     <value>1/2 šálku horké kaše nebo 1 plátek chleba</value>
+  </data>
+  <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
+    <value>100 g horké kaše nebo 1 plátek chleba</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
     <value>Preferována celá neporušená zrna</value>
@@ -471,7 +495,10 @@
   <data name="DD_Beverages" xml:space="preserve">
     <value>Nápoje</value>
   </data>
-  <data name="DD_Beverages_Serving" xml:space="preserve">
+  <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
+    <value>12 oz vody, čaje nebo jiného</value>
+  </data>
+  <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
     <value>350 ml vody, čaje nebo jiného</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
@@ -509,8 +536,11 @@
   <data name="TT_PreloadWater" xml:space="preserve">
     <value>Pít vodu před jídlem</value>
   </data>
-  <data name="TT_PreloadWater_Desc" xml:space="preserve">
+  <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
     <value>2 šálky před každým jídlem</value>
+  </data>
+  <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
+    <value>500 ml před každým jídlem</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
     <value>Vypít 2 šálky vody před každým jídlem</value>
@@ -534,7 +564,7 @@
     <value>Přidat ocet</value>
   </data>
   <data name="TT_Vinegar_Desc" xml:space="preserve">
-    <value>2 lžičky k jídlům</value>
+    <value>2 lžičky ke každému jídlu (3x denně)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
     <value>Přidat ocet k jídlům</value>
@@ -546,7 +576,7 @@
     <value>Jídlo bez rozptylování</value>
   </data>
   <data name="TT_Undistracted_Desc" xml:space="preserve">
-    <value>Užívejte si jídlo bez rozptylování</value>
+    <value>Při každém jídle (3x denně)</value>
   </data>
   <data name="TT_Undistracted_LongDesc" xml:space="preserve">
     <value>Jíst bez rozptylování</value>
@@ -558,25 +588,13 @@
     <value>Pravidlo 20 minut</value>
   </data>
   <data name="TT_TwentyMinute_Desc" xml:space="preserve">
-    <value>Pomalé jedení</value>
+    <value>Při každém jídle (3x denně)</value>
   </data>
   <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
     <value>Jíst alespoň 20 minut</value>
   </data>
   <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
     <value>Umožňuje signálům sytosti se zaregistrovat a předchází přejídání.</value>
-  </data>
-  <data name="TT_FatFree" xml:space="preserve">
-    <value>Beztučné dresinky</value>
-  </data>
-  <data name="TT_FatFree_Desc" xml:space="preserve">
-    <value>Dochucujte beztučnými dresinky</value>
-  </data>
-  <data name="TT_FatFree_LongDesc" xml:space="preserve">
-    <value>Používat beztučné dochucovadla</value>
-  </data>
-  <data name="TT_FatFree_Benefits" xml:space="preserve">
-    <value>Snižuje kalorickou hustotu při zachování chuti.</value>
   </data>
   <data name="TT_FrontLoad" xml:space="preserve">
     <value>Více kalorií ráno</value>
@@ -601,42 +619,6 @@
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Může zlepšit metabolické zdraví a řízení hmotnosti.</value>
-  </data>
-  <data name="TT_Legumes" xml:space="preserve">
-    <value>Více luštěninových jídel</value>
-  </data>
-  <data name="TT_Legumes_Desc" xml:space="preserve">
-    <value>Fazole, čočka, cizrna</value>
-  </data>
-  <data name="TT_Legumes_LongDesc" xml:space="preserve">
-    <value>Extra důraz na fazole a čočku</value>
-  </data>
-  <data name="TT_Legumes_Benefits" xml:space="preserve">
-    <value>Vysoký obsah bílkovin a vlákniny podporuje sytost a zdraví střev.</value>
-  </data>
-  <data name="TT_Greens" xml:space="preserve">
-    <value>Více listové zeleniny</value>
-  </data>
-  <data name="TT_Greens_Desc" xml:space="preserve">
-    <value>Listová zelená zelenina</value>
-  </data>
-  <data name="TT_Greens_LongDesc" xml:space="preserve">
-    <value>Extra důraz na listovou zeleninu</value>
-  </data>
-  <data name="TT_Greens_Benefits" xml:space="preserve">
-    <value>Nízký obsah kalorií a vysoká nutriční hustota podporuje hubnutí.</value>
-  </data>
-  <data name="TT_Berries" xml:space="preserve">
-    <value>Více bobulí</value>
-  </data>
-  <data name="TT_Berries_Desc" xml:space="preserve">
-    <value>Jakékoli bobulové ovoce</value>
-  </data>
-  <data name="TT_Berries_LongDesc" xml:space="preserve">
-    <value>Extra důraz na bobulové ovoce</value>
-  </data>
-  <data name="TT_Berries_Benefits" xml:space="preserve">
-    <value>Antioxidanty a vláknina podporují metabolické zdraví.</value>
   </data>
   <data name="TT_Deflour" xml:space="preserve">
     <value>Vyhnout se mouce</value>
@@ -687,7 +669,7 @@
     <value>Může urychlit metabolismus a snížit zánět.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
-    <value>Výživové droždí</value>
+    <value>Lahůdkové droždí</value>
   </data>
   <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
     <value>2 lžičky denně</value>
@@ -699,13 +681,13 @@
     <value>Beta-glukanová vláknina může usnadnit hubnutí.</value>
   </data>
   <data name="TT_Cumin" xml:space="preserve">
-    <value>Kmín</value>
+    <value>Římský kmín</value>
   </data>
   <data name="TT_Cumin_Desc" xml:space="preserve">
     <value>1/2 lžičky k obědu a večeři</value>
   </data>
   <data name="TT_Cumin_LongDesc" xml:space="preserve">
-    <value>Běžné koření kmín</value>
+    <value>Koření římský kmín (Cuminum cyminum)</value>
   </data>
   <data name="TT_Cumin_Benefits" xml:space="preserve">
     <value>Může pomoci s hubnutím a zlepšit cholesterol.</value>
@@ -713,8 +695,11 @@
   <data name="TT_GreenTea" xml:space="preserve">
     <value>Zelený čaj</value>
   </data>
-  <data name="TT_GreenTea_Desc" xml:space="preserve">
+  <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
     <value>3 šálky denně</value>
+  </data>
+  <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
+    <value>720 ml denně</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
     <value>Denní konzumace zeleného čaje</value>
@@ -758,61 +743,53 @@
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Špatný spánek narušuje hormony hladu a metabolismus.</value>
   </data>
-
-  <!-- Anti-Aging Eight Items -->
-  <data name="AA_Legumes" xml:space="preserve">
-    <value>Luštěniny</value>
+  <data name="TT_WeighTwice" xml:space="preserve">
+    <value>Vážit se dvakrát</value>
   </data>
-  <data name="AA_Legumes_Serving" xml:space="preserve">
-    <value>Fazole, čočka, cizrna</value>
+  <data name="TT_WeighTwice_Desc" xml:space="preserve">
+    <value>Ráno a večer</value>
   </data>
-  <data name="AA_Nuts" xml:space="preserve">
-    <value>Ořechy</value>
+  <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
+    <value>Vážit se dvakrát denně pro sledování trendů a udržení zodpovědnosti.</value>
   </data>
-  <data name="AA_Nuts_Serving" xml:space="preserve">
-    <value>Přednostně vlašské ořechy</value>
+  <data name="TT_WeighTwice_Benefits" xml:space="preserve">
+    <value>Vlastní sledování je jednou z nejúčinnějších strategií řízení hmotnosti.</value>
   </data>
-  <data name="AA_Greens" xml:space="preserve">
-    <value>Tmavá listová zelenina</value>
+  <data name="TT_Intentions" xml:space="preserve">
+    <value>Implementační záměry</value>
   </data>
-  <data name="AA_Greens_Serving" xml:space="preserve">
-    <value>Kadeřávek, špenát atd.</value>
+  <data name="TT_Intentions_Desc" xml:space="preserve">
+    <value>Naplánovat konkrétní pokud-pak strategie</value>
   </data>
-  <data name="AA_Cruciferous" xml:space="preserve">
-    <value>Křížová zelenina</value>
+  <data name="TT_Intentions_LongDesc" xml:space="preserve">
+    <value>Splnit implementační záměry: naplánovat konkrétní pokud-pak strategie pro zdravé stravování a cvičení.</value>
   </data>
-  <data name="AA_Cruciferous_Serving" xml:space="preserve">
-    <value>Brokolice, květák</value>
+  <data name="TT_Intentions_Benefits" xml:space="preserve">
+    <value>Předem se zavázat ke konkrétním plánům zdvojnásobuje pravděpodobnost jejich dodržení.</value>
   </data>
-  <data name="AA_Berries" xml:space="preserve">
-    <value>Bobulové ovoce</value>
+  <data name="TT_NightlyFast" xml:space="preserve">
+    <value>Půst po 19:00</value>
   </data>
-  <data name="AA_Berries_Serving" xml:space="preserve">
-    <value>Jakékoli bobulové ovoce</value>
+  <data name="TT_NightlyFast_Desc" xml:space="preserve">
+    <value>Žádné jídlo po 19:00</value>
   </data>
-  <data name="AA_Exercise" xml:space="preserve">
-    <value>Cvičení</value>
+  <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
+    <value>Přestat jíst po 19:00 pro sladění s cirkadiánním rytmem.</value>
   </data>
-  <data name="AA_Exercise_Serving" xml:space="preserve">
-    <value>Zvyšuje hladiny NAD+</value>
+  <data name="TT_NightlyFast_Benefits" xml:space="preserve">
+    <value>Večerní půst zlepšuje metabolické zdraví a podporuje hubnutí.</value>
   </data>
-  <data name="AA_SunProtection" xml:space="preserve">
-    <value>Ochrana před sluncem</value>
+  <data name="TT_Trendelenburg" xml:space="preserve">
+    <value>Mírný Trendelenburg</value>
   </data>
-  <data name="AA_SunProtection_Serving" xml:space="preserve">
-    <value>Denní ochrana/opalovací krém</value>
+  <data name="TT_Trendelenburg_Desc" xml:space="preserve">
+    <value>Spánek hlavou dolů o 6 stupňů</value>
   </data>
-  <data name="AA_SunProtection_Desc" xml:space="preserve">
-    <value>Denní ochrana před sluncem</value>
+  <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
+    <value>Experimentovat se spánkem v mírné Trendelenburgově poloze (hlavou dolů o 6 stupňů). DŮLEŽITÉ: Nezkoušejte, pokud máte problémy se srdcem, plícemi, refluxem, mozkem nebo očima. Nejdříve konzultujte s lékařem. Vstávejte pomalu, abyste se vyhnuli závratím.</value>
   </data>
-  <data name="AA_SunProtection_Benefits" xml:space="preserve">
-    <value>Sluneční záření způsobuje 90 % viditelného stárnutí kůže.</value>
-  </data>
-  <data name="AA_Sleep" xml:space="preserve">
-    <value>Spánek</value>
-  </data>
-  <data name="AA_Sleep_Serving" xml:space="preserve">
-    <value>Kvalitní spánkové návyky</value>
+  <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
+    <value>Může pomoci s řízením hmotnosti díky nočním gravitačním účinkům. Používejte s opatrností.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -836,6 +813,9 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Součást</value>
+  </data>
+  <data name="Diary_AlsoIncludes" xml:space="preserve">
+    <value>Zahrnuje také</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Dnes</value>

@@ -1,4 +1,5 @@
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
@@ -13,7 +14,8 @@ public sealed partial class AchievementsView : Page
     public AchievementsView()
     {
         var achievementService = App.Current.Services!.GetRequiredService<IAchievementService>();
-        ViewModel = new AchievementsViewModel(achievementService);
+        var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
+        ViewModel = new AchievementsViewModel(achievementService, appPreferences);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;

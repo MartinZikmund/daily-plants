@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- App Name -->
+  <data name="AppName" xml:space="preserve">
+    <value>Daily Plants</value>
+  </data>
+
+  <!-- Navigation -->
+  <data name="Nav_Diary" xml:space="preserve">
+    <value>Ημερολόγιο</value>
+  </data>
+  <data name="Nav_Statistics" xml:space="preserve">
+    <value>Στατιστικά</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>Σχετικά</value>
+  </data>
+
+  <!-- Diary Page -->
+  <data name="Diary_GoToToday" xml:space="preserve">
+    <value>Μετάβαση στο Σήμερα</value>
+  </data>
+  <data name="Diary_PreviousDay" xml:space="preserve">
+    <value>Προηγούμενη ημέρα</value>
+  </data>
+  <data name="Diary_NextDay" xml:space="preserve">
+    <value>Επόμενη ημέρα</value>
+  </data>
+  <data name="Diary_DecreaseServing" xml:space="preserve">
+    <value>Μείωση μερίδας</value>
+  </data>
+  <data name="Diary_IncreaseServing" xml:space="preserve">
+    <value>Αύξηση μερίδας</value>
+  </data>
+  <data name="Diary_MoreInfo" xml:space="preserve">
+    <value>Περισσότερες πληροφορίες</value>
+  </data>
+  <data name="Diary_NoChecklists" xml:space="preserve">
+    <value>Δεν υπάρχουν ενεργοποιημένες λίστες ελέγχου</value>
+  </data>
+  <data name="Diary_EnableChecklist" xml:space="preserve">
+    <value>Ενεργοποιήστε μια λίστα ελέγχου στις Ρυθμίσεις για να ξεκινήσετε</value>
+  </data>
+  <data name="Diary_PickDate" xml:space="preserve">
+    <value>Επιλέξτε ημερομηνία</value>
+  </data>
+  <data name="Diary_SelectDate" xml:space="preserve">
+    <value>Επιλογή ημερομηνίας</value>
+  </data>
+
+  <!-- Statistics Page -->
+  <data name="Stats_Title" xml:space="preserve">
+    <value>Στατιστικά</value>
+  </data>
+  <data name="Stats_Overview" xml:space="preserve">
+    <value>Επισκόπηση</value>
+  </data>
+  <data name="Stats_TodayProgress" xml:space="preserve">
+    <value>Πρόοδος Σήμερα</value>
+  </data>
+  <data name="Stats_WeekAverage" xml:space="preserve">
+    <value>Αυτή την Εβδομάδα</value>
+  </data>
+  <data name="Stats_MonthAverage" xml:space="preserve">
+    <value>Αυτόν τον Μήνα</value>
+  </data>
+  <data name="Stats_Streaks" xml:space="preserve">
+    <value>Σερί</value>
+  </data>
+  <data name="Stats_CurrentStreak" xml:space="preserve">
+    <value>Τρέχον Σερί</value>
+  </data>
+  <data name="Stats_LongestStreak" xml:space="preserve">
+    <value>Μεγαλύτερο Σερί</value>
+  </data>
+  <data name="Stats_Days" xml:space="preserve">
+    <value>ημέρες</value>
+  </data>
+  <data name="Stats_Day" xml:space="preserve">
+    <value>ημέρα</value>
+  </data>
+  <data name="Stats_Last7Days" xml:space="preserve">
+    <value>Τελευταίες 7 Ημέρες</value>
+  </data>
+  <data name="Stats_PerItemBreakdown" xml:space="preserve">
+    <value>Ανάλυση ανά Στοιχείο</value>
+  </data>
+  <data name="Stats_WeightTrend" xml:space="preserve">
+    <value>Τάση Βάρους</value>
+  </data>
+  <data name="Stats_AddWeight" xml:space="preserve">
+    <value>Προσθήκη Βάρους</value>
+  </data>
+  <data name="Stats_NoWeightData" xml:space="preserve">
+    <value>Δεν υπάρχουν δεδομένα βάρους ακόμα</value>
+  </data>
+  <data name="Stats_AddFirstWeight" xml:space="preserve">
+    <value>Προσθέστε την πρώτη σας καταχώρηση βάρους για να ξεκινήσετε την παρακολούθηση</value>
+  </data>
+  <data name="Stats_GoalWeight" xml:space="preserve">
+    <value>Στόχος</value>
+  </data>
+
+  <!-- Settings Page -->
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="Settings_ActiveChecklists" xml:space="preserve">
+    <value>Ενεργές Λίστες Ελέγχου</value>
+  </data>
+  <data name="Settings_ActiveChecklistsDesc" xml:space="preserve">
+    <value>Επιλέξτε ποιες λίστες ελέγχου θα παρακολουθείτε καθημερινά</value>
+  </data>
+  <data name="Settings_DailyDozen" xml:space="preserve">
+    <value>Daily Dozen</value>
+  </data>
+  <data name="Settings_DailyDozenDesc" xml:space="preserve">
+    <value>Από το "How Not to Die" - 12 ομάδες τροφίμων για κατανάλωση κάθε μέρα για βέλτιστη υγεία</value>
+  </data>
+  <data name="Settings_TwentyOneTweaks" xml:space="preserve">
+    <value>21 Βελτιώσεις</value>
+  </data>
+  <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
+    <value>Από το "How Not to Diet" - 21 συνήθειες επιτάχυνσης απώλειας βάρους</value>
+  </data>
+  <data name="Settings_Enabled" xml:space="preserve">
+    <value>Ενεργοποιημένο</value>
+  </data>
+  <data name="Settings_Disabled" xml:space="preserve">
+    <value>Απενεργοποιημένο</value>
+  </data>
+  <data name="Settings_WeightTracking" xml:space="preserve">
+    <value>Παρακολούθηση Βάρους</value>
+  </data>
+  <data name="Settings_WeightTrackingDesc" xml:space="preserve">
+    <value>Παρακολουθήστε το βάρος σας με την πάροδο του χρόνου</value>
+  </data>
+  <data name="Settings_EnableWeightTracking" xml:space="preserve">
+    <value>Ενεργοποίηση Παρακολούθησης Βάρους</value>
+  </data>
+  <data name="Settings_GoalWeight" xml:space="preserve">
+    <value>Βάρος Στόχος</value>
+  </data>
+  <data name="Settings_Height" xml:space="preserve">
+    <value>Ύψος (για ΔΜΣ)</value>
+  </data>
+  <data name="Settings_Optional" xml:space="preserve">
+    <value>Προαιρετικό</value>
+  </data>
+  <data name="Settings_Units" xml:space="preserve">
+    <value>Μονάδες</value>
+  </data>
+  <data name="Settings_UnitsDesc" xml:space="preserve">
+    <value>Επιλέξτε τις μονάδες μέτρησης που προτιμάτε</value>
+  </data>
+  <data name="Settings_UseMetric" xml:space="preserve">
+    <value>Χρήση Μετρικών Μονάδων</value>
+  </data>
+  <data name="Settings_Metric" xml:space="preserve">
+    <value>Μετρικό (kg, cm, ml)</value>
+  </data>
+  <data name="Settings_Imperial" xml:space="preserve">
+    <value>Αγγλοσαξονικό (lb, in, oz)</value>
+  </data>
+  <data name="Settings_Appearance" xml:space="preserve">
+    <value>Εμφάνιση</value>
+  </data>
+  <data name="Settings_AppearanceDesc" xml:space="preserve">
+    <value>Προσαρμόστε την εμφάνιση της εφαρμογής</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Θέμα</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="Settings_LanguageDesc" xml:space="preserve">
+    <value>Επιλέξτε τη γλώσσα που προτιμάτε</value>
+  </data>
+  <data name="Settings_DataManagement" xml:space="preserve">
+    <value>Διαχείριση Δεδομένων</value>
+  </data>
+  <data name="Settings_DataManagementDesc" xml:space="preserve">
+    <value>Εξαγωγή ή εισαγωγή των δεδομένων παρακολούθησης</value>
+  </data>
+  <data name="Settings_Export" xml:space="preserve">
+    <value>Εξαγωγή</value>
+  </data>
+  <data name="Settings_ExportToJson" xml:space="preserve">
+    <value>Εξαγωγή σε JSON</value>
+  </data>
+  <data name="Settings_ExportToCsv" xml:space="preserve">
+    <value>Εξαγωγή σε CSV</value>
+  </data>
+  <data name="Settings_ExportDesc" xml:space="preserve">
+    <value>Η εξαγωγή JSON περιλαμβάνει όλα τα δεδομένα συμπεριλαμβανομένων των ρυθμίσεων. Η εξαγωγή CSV περιλαμβάνει μόνο ημερήσιες καταχωρήσεις.</value>
+  </data>
+  <data name="Settings_Import" xml:space="preserve">
+    <value>Εισαγωγή</value>
+  </data>
+  <data name="Settings_ImportFromJson" xml:space="preserve">
+    <value>Εισαγωγή από JSON</value>
+  </data>
+  <data name="Settings_ImportFromCsv" xml:space="preserve">
+    <value>Εισαγωγή από CSV</value>
+  </data>
+  <data name="Settings_ImportDesc" xml:space="preserve">
+    <value>Η εισαγωγή θα συγχωνευτεί με τα υπάρχοντα δεδομένα. Οι διπλές καταχωρήσεις θα αντικατασταθούν.</value>
+  </data>
+  <data name="Settings_RestartRequired" xml:space="preserve">
+    <value>Επανεκκινήστε την εφαρμογή για να εφαρμοστεί η αλλαγή γλώσσας.</value>
+  </data>
+  <data name="Settings_IndividualItems" xml:space="preserve">
+    <value>Μεμονωμένα Στοιχεία</value>
+  </data>
+  <data name="Settings_IndividualItemsDesc" xml:space="preserve">
+    <value>Απενεργοποιήστε μεμονωμένα στοιχεία που δεν θέλετε να παρακολουθείτε</value>
+  </data>
+
+  <!-- About Page -->
+  <data name="About_Title" xml:space="preserve">
+    <value>Σχετικά</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>Παρακολουθήστε την καθημερινή σας διατροφή βάσει των συστάσεων του Δρ. Michael Greger από τα βιβλία του "How Not to Die", "How Not to Diet" και "How Not to Age".</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Έκδοση</value>
+  </data>
+  <data name="About_LearnMore" xml:space="preserve">
+    <value>Μάθετε Περισσότερα</value>
+  </data>
+  <data name="About_NutritionFacts" xml:space="preserve">
+    <value>Επισκεφθείτε το NutritionFacts.org</value>
+  </data>
+  <data name="About_NutritionFactsDesc" xml:space="preserve">
+    <value>Δωρεάν επιστημονικά τεκμηριωμένες πληροφορίες διατροφής</value>
+  </data>
+  <data name="About_Credits" xml:space="preserve">
+    <value>Συντελεστές</value>
+  </data>
+  <data name="About_CreditsDesc" xml:space="preserve">
+    <value>Βασισμένο στο έργο του Δρ. Michael Greger και του NutritionFacts.org</value>
+  </data>
+  <data name="About_BuiltWith" xml:space="preserve">
+    <value>Κατασκευασμένο με Uno Platform</value>
+  </data>
+
+  <!-- Common -->
+  <data name="Common_Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="Common_Success" xml:space="preserve">
+    <value>Επιτυχία</value>
+  </data>
+
+  <!-- Languages -->
+  <data name="Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language_Czech" xml:space="preserve">
+    <value>Czech</value>
+  </data>
+
+  <!-- Themes -->
+  <data name="Theme_System" xml:space="preserve">
+    <value>Προεπιλογή Συστήματος</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>Φωτεινό</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>Σκοτεινό</value>
+  </data>
+
+  <!-- Daily Dozen Items -->
+  <data name="DD_Beans" xml:space="preserve">
+    <value>Όσπρια</value>
+  </data>
+  <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
+    <value>1/2 φλιτζάνι μαγειρεμένα ή 1/4 φλιτζάνι χούμους</value>
+  </data>
+  <data name="DD_Beans_Serving_Metric" xml:space="preserve">
+    <value>100 g μαγειρεμένα ή 70 g χούμους</value>
+  </data>
+  <data name="DD_Beans_Desc" xml:space="preserve">
+    <value>Όσπρια, συμπεριλαμβανομένων φασολιών, φακών, ρεβιθιών και χούμους</value>
+  </data>
+  <data name="DD_Beans_Benefits" xml:space="preserve">
+    <value>Εξαιρετική πηγή πρωτεΐνης, φυτικών ινών και σύνθετων υδατανθράκων. Συσχετίζονται με τη μεγαλύτερη αύξηση του προσδόκιμου ζωής σύμφωνα με τη Μελέτη Παγκόσμιου Φορτίου Νόσου.</value>
+  </data>
+  <data name="DD_Berries" xml:space="preserve">
+    <value>Μούρα</value>
+  </data>
+  <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
+    <value>1/2 φλιτζάνι φρέσκα/κατεψυγμένα ή 1/4 φλιτζάνι αποξηραμένα</value>
+  </data>
+  <data name="DD_Berries_Serving_Metric" xml:space="preserve">
+    <value>70 g φρέσκα/κατεψυγμένα ή 40 g αποξηραμένα</value>
+  </data>
+  <data name="DD_Berries_Desc" xml:space="preserve">
+    <value>Όλα τα είδη μούρων</value>
+  </data>
+  <data name="DD_Berries_Benefits" xml:space="preserve">
+    <value>Η υψηλότερη περιεκτικότητα σε αντιοξειδωτικά από όλα τα φρούτα. Συσχετίζονται με μεγαλύτερο προσδόκιμο ζωής και γνωστικά οφέλη.</value>
+  </data>
+  <data name="DD_OtherFruits" xml:space="preserve">
+    <value>Άλλα Φρούτα</value>
+  </data>
+  <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
+    <value>1 μεσαίο φρούτο ή 1/4 φλιτζάνι αποξηραμένα</value>
+  </data>
+  <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
+    <value>1 μεσαίο φρούτο ή 40 g αποξηραμένα</value>
+  </data>
+  <data name="DD_OtherFruits_Desc" xml:space="preserve">
+    <value>Φρούτα εκτός μούρων</value>
+  </data>
+  <data name="DD_OtherFruits_Benefits" xml:space="preserve">
+    <value>Πλούσια σε βιταμίνες, μέταλλα και φυτικές ίνες. Απαραίτητα για τη γενική υγεία.</value>
+  </data>
+  <data name="DD_Greens" xml:space="preserve">
+    <value>Πράσινα Φυλλώδη</value>
+  </data>
+  <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
+    <value>1 φλιτζάνι ωμά ή 1/2 φλιτζάνι μαγειρεμένα</value>
+  </data>
+  <data name="DD_Greens_Serving_Metric" xml:space="preserve">
+    <value>60 g ωμά ή 90 g μαγειρεμένα</value>
+  </data>
+  <data name="DD_Greens_Desc" xml:space="preserve">
+    <value>Σκούρα φυλλώδη πράσινα λαχανικά</value>
+  </data>
+  <data name="DD_Greens_Benefits" xml:space="preserve">
+    <value>Τα πιο συσχετιζόμενα με μεγαλύτερο προσδόκιμο ζωής μεταξύ των λαχανικών. Πλούσια σε νιτρικά που βελτιώνουν τη λειτουργία μυών και αρτηριών.</value>
+  </data>
+  <data name="DD_Cruciferous" xml:space="preserve">
+    <value>Σταυρανθή Λαχανικά</value>
+  </data>
+  <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
+    <value>1/2 φλιτζάνι ψιλοκομμένα ή 1 κ.σ. χρένο</value>
+  </data>
+  <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
+    <value>60 g ψιλοκομμένα ή 1 κ.σ. χρένο</value>
+  </data>
+  <data name="DD_Cruciferous_Desc" xml:space="preserve">
+    <value>Μπρόκολο, κουνουπίδι, λάχανο, κέιλ, κ.λπ.</value>
+  </data>
+  <data name="DD_Cruciferous_Benefits" xml:space="preserve">
+    <value>Περιέχουν σουλφοραφάνη που ενισχύει τη λειτουργία του ανοσοποιητικού και τα ένζυμα αποτοξίνωσης του ήπατος.</value>
+  </data>
+  <data name="DD_OtherVegetables" xml:space="preserve">
+    <value>Άλλα Λαχανικά</value>
+  </data>
+  <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
+    <value>1/2 φλιτζάνι μη φυλλώδη λαχανικά</value>
+  </data>
+  <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
+    <value>90 g μη φυλλώδη λαχανικά</value>
+  </data>
+  <data name="DD_OtherVegetables_Desc" xml:space="preserve">
+    <value>Μη φυλλώδη, μη σταυρανθή λαχανικά</value>
+  </data>
+  <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
+    <value>Ποικίλα θρεπτικά συστατικά και φυτικές ίνες. Απαραίτητα για μια ισορροπημένη διατροφή.</value>
+  </data>
+  <data name="DD_Flaxseed" xml:space="preserve">
+    <value>Λιναρόσπορος</value>
+  </data>
+  <data name="DD_Flaxseed_Serving" xml:space="preserve">
+    <value>1 κ.σ. αλεσμένος</value>
+  </data>
+  <data name="DD_Flaxseed_Desc" xml:space="preserve">
+    <value>Αλεσμένος λιναρόσπορος</value>
+  </data>
+  <data name="DD_Flaxseed_Benefits" xml:space="preserve">
+    <value>Η πλουσιότερη πηγή λιγνανών και ωμέγα-3 ALA. Ωφέλιμος για την υγεία της καρδιάς και την ορμονική ισορροπία.</value>
+  </data>
+  <data name="DD_Nuts" xml:space="preserve">
+    <value>Ξηροί Καρποί</value>
+  </data>
+  <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
+    <value>1/4 φλιτζάνι ξηροί καρποί ή 2 κ.σ. βούτυρο ξηρών καρπών</value>
+  </data>
+  <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
+    <value>30 g ξηροί καρποί ή 2 κ.σ. βούτυρο ξηρών καρπών</value>
+  </data>
+  <data name="DD_Nuts_Desc" xml:space="preserve">
+    <value>Όλοι οι ξηροί καρποί και σπόροι (κατά προτίμηση καρύδια)</value>
+  </data>
+  <data name="DD_Nuts_Benefits" xml:space="preserve">
+    <value>Συσχετίζονται με τον χαμηλότερο κίνδυνο πρόωρου θανάτου από οποιαδήποτε ομάδα τροφίμων. Τα καρύδια είναι ιδιαίτερα ωφέλιμα.</value>
+  </data>
+  <data name="DD_Herbs" xml:space="preserve">
+    <value>Μπαχαρικά</value>
+  </data>
+  <data name="DD_Herbs_Serving" xml:space="preserve">
+    <value>1/4 κ.γ. κουρκουμάς</value>
+  </data>
+  <data name="DD_Herbs_Desc" xml:space="preserve">
+    <value>Ειδικά κουρκουμάς</value>
+  </data>
+  <data name="DD_Herbs_Benefits" xml:space="preserve">
+    <value>Ισχυρές αντιφλεγμονώδεις και αντιοξειδωτικές ιδιότητες.</value>
+  </data>
+  <data name="DD_WholeGrains" xml:space="preserve">
+    <value>Ολικής Αλέσεως</value>
+  </data>
+  <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
+    <value>1/2 φλιτζάνι ζεστά δημητριακά ή 1 φέτα ψωμί</value>
+  </data>
+  <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
+    <value>100 g ζεστά δημητριακά ή 1 φέτα ψωμί</value>
+  </data>
+  <data name="DD_WholeGrains_Desc" xml:space="preserve">
+    <value>Κατά προτίμηση ακέραιοι κόκκοι</value>
+  </data>
+  <data name="DD_WholeGrains_Benefits" xml:space="preserve">
+    <value>Υψηλή περιεκτικότητα σε φυτικές ίνες που υποστηρίζει την υγεία του εντέρου και τη σταθερότητα του σακχάρου στο αίμα.</value>
+  </data>
+  <data name="DD_Beverages" xml:space="preserve">
+    <value>Ροφήματα</value>
+  </data>
+  <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
+    <value>12 oz νερό, τσάι ή άλλο</value>
+  </data>
+  <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
+    <value>350 ml νερό, τσάι ή άλλο</value>
+  </data>
+  <data name="DD_Beverages_Desc" xml:space="preserve">
+    <value>Νερό, τσάι και άλλα υγιεινά ροφήματα</value>
+  </data>
+  <data name="DD_Beverages_Benefits" xml:space="preserve">
+    <value>Η σωστή ενυδάτωση είναι απαραίτητη για όλες τις λειτουργίες του σώματος.</value>
+  </data>
+  <data name="DD_Exercise" xml:space="preserve">
+    <value>Γυμναστική</value>
+  </data>
+  <data name="DD_Exercise_Serving" xml:space="preserve">
+    <value>90 λεπτά μέτρια ή 40 λεπτά έντονη</value>
+  </data>
+  <data name="DD_Exercise_Desc" xml:space="preserve">
+    <value>Καθημερινή σωματική δραστηριότητα</value>
+  </data>
+  <data name="DD_Exercise_Benefits" xml:space="preserve">
+    <value>Αυξάνει τα επίπεδα NAD+ κατά 127%. Απαραίτητη για τη μακροζωία και τη γενική υγεία.</value>
+  </data>
+  <data name="DD_VitaminB12" xml:space="preserve">
+    <value>Βιταμίνη B12</value>
+  </data>
+  <data name="DD_VitaminB12_Serving" xml:space="preserve">
+    <value>2000 mcg εβδομαδιαίως ή 50 mcg ημερησίως</value>
+  </data>
+  <data name="DD_VitaminB12_Desc" xml:space="preserve">
+    <value>Συμπλήρωμα B12</value>
+  </data>
+  <data name="DD_VitaminB12_Benefits" xml:space="preserve">
+    <value>Απαραίτητη για τη νευρική λειτουργία και τον σχηματισμό ερυθρών αιμοσφαιρίων. Απαιτείται σε φυτική διατροφή.</value>
+  </data>
+
+  <!-- Twenty-One Tweaks Items -->
+  <data name="TT_PreloadWater" xml:space="preserve">
+    <value>Προφόρτιση με Νερό</value>
+  </data>
+  <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
+    <value>2 φλιτζάνια πριν από κάθε γεύμα</value>
+  </data>
+  <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
+    <value>500 ml πριν από κάθε γεύμα</value>
+  </data>
+  <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
+    <value>Πιείτε 2 φλιτζάνια νερό πριν από κάθε γεύμα</value>
+  </data>
+  <data name="TT_PreloadWater_Benefits" xml:space="preserve">
+    <value>Ενισχύει τον μεταβολισμό και βοηθά στο αίσθημα κορεσμού, μειώνοντας την πρόσληψη θερμίδων.</value>
+  </data>
+  <data name="TT_NegativeCalorie" xml:space="preserve">
+    <value>Προεφοδιασμός Αρνητικών Θερμίδων</value>
+  </data>
+  <data name="TT_NegativeCalorie_Desc" xml:space="preserve">
+    <value>Ξεκινήστε με μήλο, σαλάτα ή σούπα</value>
+  </data>
+  <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
+    <value>Ξεκινήστε κάθε γεύμα με μήλο, σαλάτα ή σούπα</value>
+  </data>
+  <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
+    <value>Μειώνει τη συνολική κατανάλωση θερμίδων ενώ προσθέτει θρεπτικά συστατικά.</value>
+  </data>
+  <data name="TT_Vinegar" xml:space="preserve">
+    <value>Ενσωματώστε Ξίδι</value>
+  </data>
+  <data name="TT_Vinegar_Desc" xml:space="preserve">
+    <value>2 κ.γ. με κάθε γεύμα (3 φορές ημερησίως)</value>
+  </data>
+  <data name="TT_Vinegar_LongDesc" xml:space="preserve">
+    <value>Προσθέστε ξίδι στα γεύματα</value>
+  </data>
+  <data name="TT_Vinegar_Benefits" xml:space="preserve">
+    <value>Μπορεί να βοηθήσει στον έλεγχο του σακχάρου στο αίμα και τη διαχείριση βάρους.</value>
+  </data>
+  <data name="TT_Undistracted" xml:space="preserve">
+    <value>Γεύματα Χωρίς Περισπασμούς</value>
+  </data>
+  <data name="TT_Undistracted_Desc" xml:space="preserve">
+    <value>Σε κάθε γεύμα (3 φορές ημερησίως)</value>
+  </data>
+  <data name="TT_Undistracted_LongDesc" xml:space="preserve">
+    <value>Φάτε χωρίς περισπασμούς</value>
+  </data>
+  <data name="TT_Undistracted_Benefits" xml:space="preserve">
+    <value>Η συνειδητή κατανάλωση τροφής οδηγεί σε καλύτερο έλεγχο μερίδων και ικανοποίηση.</value>
+  </data>
+  <data name="TT_TwentyMinute" xml:space="preserve">
+    <value>Κανόνας Είκοσι Λεπτών</value>
+  </data>
+  <data name="TT_TwentyMinute_Desc" xml:space="preserve">
+    <value>Σε κάθε γεύμα (3 φορές ημερησίως)</value>
+  </data>
+  <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
+    <value>Αφιερώστε τουλάχιστον 20 λεπτά για φαγητό</value>
+  </data>
+  <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
+    <value>Επιτρέπει στα σήματα κορεσμού να καταγραφούν, αποτρέποντας την υπερκατανάλωση.</value>
+  </data>
+  <data name="TT_FrontLoad" xml:space="preserve">
+    <value>Μπροστά-Φόρτωση Θερμίδων</value>
+  </data>
+  <data name="TT_FrontLoad_Desc" xml:space="preserve">
+    <value>Μεγαλύτερο πρωινό</value>
+  </data>
+  <data name="TT_FrontLoad_LongDesc" xml:space="preserve">
+    <value>Φάτε μεγαλύτερο πρωινό, μικρότερο δείπνο</value>
+  </data>
+  <data name="TT_FrontLoad_Benefits" xml:space="preserve">
+    <value>Ευθυγραμμίζει τη διατροφή με τον κιρκαδικό ρυθμό για καλύτερο μεταβολισμό.</value>
+  </data>
+  <data name="TT_TimeRestricted" xml:space="preserve">
+    <value>Χρονικά Περιορισμένη Κατανάλωση</value>
+  </data>
+  <data name="TT_TimeRestricted_Desc" xml:space="preserve">
+    <value>Περιορίστε το παράθυρο κατανάλωσης</value>
+  </data>
+  <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
+    <value>Περιορίστε το παράθυρο κατανάλωσης</value>
+  </data>
+  <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
+    <value>Μπορεί να βελτιώσει τη μεταβολική υγεία και τη διαχείριση βάρους.</value>
+  </data>
+  <data name="TT_Deflour" xml:space="preserve">
+    <value>Ξεαλευρώστε τη Διατροφή σας</value>
+  </data>
+  <data name="TT_Deflour_Desc" xml:space="preserve">
+    <value>Ακέραιοι κόκκοι αντί για αλεύρι</value>
+  </data>
+  <data name="TT_Deflour_LongDesc" xml:space="preserve">
+    <value>Επιλέξτε ακέραιους κόκκους αντί για προϊόντα αλευριού</value>
+  </data>
+  <data name="TT_Deflour_Benefits" xml:space="preserve">
+    <value>Οι ακέραιοι κόκκοι έχουν χαμηλότερο γλυκαιμικό δείκτη και καλύτερο αίσθημα κορεσμού.</value>
+  </data>
+  <data name="TT_BlackCumin" xml:space="preserve">
+    <value>Μαύρο Κύμινο</value>
+  </data>
+  <data name="TT_BlackCumin_Desc" xml:space="preserve">
+    <value>1/4 κ.γ. ημερησίως</value>
+  </data>
+  <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
+    <value>Επίσης γνωστό ως Nigella sativa</value>
+  </data>
+  <data name="TT_BlackCumin_Benefits" xml:space="preserve">
+    <value>Μπορεί να βοηθήσει στην απώλεια βάρους και τον έλεγχο του σακχάρου στο αίμα.</value>
+  </data>
+  <data name="TT_Garlic" xml:space="preserve">
+    <value>Σκόνη Σκόρδου</value>
+  </data>
+  <data name="TT_Garlic_Desc" xml:space="preserve">
+    <value>1/4 κ.γ. ημερησίως</value>
+  </data>
+  <data name="TT_Garlic_LongDesc" xml:space="preserve">
+    <value>Καθημερινή συμπλήρωση σκόρδου</value>
+  </data>
+  <data name="TT_Garlic_Benefits" xml:space="preserve">
+    <value>Μελέτες δείχνουν ότι μπορεί να μειώσει το σωματικό λίπος.</value>
+  </data>
+  <data name="TT_Ginger" xml:space="preserve">
+    <value>Αλεσμένο Τζίντζερ</value>
+  </data>
+  <data name="TT_Ginger_Desc" xml:space="preserve">
+    <value>1 κ.γ. ημερησίως</value>
+  </data>
+  <data name="TT_Ginger_LongDesc" xml:space="preserve">
+    <value>Καθημερινό τζίντζερ</value>
+  </data>
+  <data name="TT_Ginger_Benefits" xml:space="preserve">
+    <value>Μπορεί να ενισχύσει τον μεταβολισμό και να μειώσει τη φλεγμονή.</value>
+  </data>
+  <data name="TT_NutritionalYeast" xml:space="preserve">
+    <value>Διατροφική Ζύμη</value>
+  </data>
+  <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
+    <value>2 κ.γ. ημερησίως</value>
+  </data>
+  <data name="TT_NutritionalYeast_LongDesc" xml:space="preserve">
+    <value>Πηγή ινών βήτα-γλυκάνης</value>
+  </data>
+  <data name="TT_NutritionalYeast_Benefits" xml:space="preserve">
+    <value>Οι ίνες βήτα-γλυκάνης μπορούν να διευκολύνουν την απώλεια βάρους.</value>
+  </data>
+  <data name="TT_Cumin" xml:space="preserve">
+    <value>Κύμινο</value>
+  </data>
+  <data name="TT_Cumin_Desc" xml:space="preserve">
+    <value>1/2 κ.γ. με μεσημεριανό και δείπνο</value>
+  </data>
+  <data name="TT_Cumin_LongDesc" xml:space="preserve">
+    <value>Κοινό μπαχαρικό κύμινο</value>
+  </data>
+  <data name="TT_Cumin_Benefits" xml:space="preserve">
+    <value>Μπορεί να βοηθήσει στην απώλεια βάρους και τη βελτίωση της χοληστερίνης.</value>
+  </data>
+  <data name="TT_GreenTea" xml:space="preserve">
+    <value>Πράσινο Τσάι</value>
+  </data>
+  <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
+    <value>3 φλιτζάνια ημερησίως</value>
+  </data>
+  <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
+    <value>720 ml ημερησίως</value>
+  </data>
+  <data name="TT_GreenTea_LongDesc" xml:space="preserve">
+    <value>Καθημερινή κατανάλωση πράσινου τσαγιού</value>
+  </data>
+  <data name="TT_GreenTea_Benefits" xml:space="preserve">
+    <value>Περιέχει κατεχίνες που μπορούν να ενισχύσουν τον μεταβολισμό.</value>
+  </data>
+  <data name="TT_Hydrated" xml:space="preserve">
+    <value>Μείνετε Ενυδατωμένοι</value>
+  </data>
+  <data name="TT_Hydrated_Desc" xml:space="preserve">
+    <value>Πίνετε αρκετό νερό</value>
+  </data>
+  <data name="TT_Hydrated_LongDesc" xml:space="preserve">
+    <value>Διατηρήστε σωστή ενυδάτωση</value>
+  </data>
+  <data name="TT_Hydrated_Benefits" xml:space="preserve">
+    <value>Η σωστή ενυδάτωση υποστηρίζει τον μεταβολισμό και μειώνει την πείνα.</value>
+  </data>
+  <data name="TT_ExerciseTiming" xml:space="preserve">
+    <value>Χρονισμός Άσκησης</value>
+  </data>
+  <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
+    <value>Νηστικοί ή απόγευμα</value>
+  </data>
+  <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
+    <value>Βέλτιστος χρονισμός για άσκηση</value>
+  </data>
+  <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
+    <value>Μπορεί να ενισχύσει την καύση λίπους και τα μεταβολικά οφέλη.</value>
+  </data>
+  <data name="TT_Sleep" xml:space="preserve">
+    <value>Αποκτήστε Επαρκή Ύπνο</value>
+  </data>
+  <data name="TT_Sleep_Desc" xml:space="preserve">
+    <value>7+ ώρες</value>
+  </data>
+  <data name="TT_Sleep_LongDesc" xml:space="preserve">
+    <value>Ποιοτικός ύπνος για διαχείριση βάρους</value>
+  </data>
+  <data name="TT_Sleep_Benefits" xml:space="preserve">
+    <value>Ο κακός ύπνος διαταράσσει τις ορμόνες πείνας και τον μεταβολισμό.</value>
+  </data>
+  <data name="TT_WeighTwice" xml:space="preserve">
+    <value>Ζυγιστείτε Δύο Φορές</value>
+  </data>
+  <data name="TT_WeighTwice_Desc" xml:space="preserve">
+    <value>Πρωί και βράδυ</value>
+  </data>
+  <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
+    <value>Ζυγιστείτε δύο φορές την ημέρα για να παρακολουθείτε τις τάσεις και να παραμένετε υπεύθυνοι.</value>
+  </data>
+  <data name="TT_WeighTwice_Benefits" xml:space="preserve">
+    <value>Η αυτοπαρακολούθηση είναι μία από τις πιο αποτελεσματικές στρατηγικές διαχείρισης βάρους.</value>
+  </data>
+  <data name="TT_Intentions" xml:space="preserve">
+    <value>Προθέσεις Υλοποίησης</value>
+  </data>
+  <data name="TT_Intentions_Desc" xml:space="preserve">
+    <value>Σχεδιάστε συγκεκριμένες στρατηγικές εάν-τότε</value>
+  </data>
+  <data name="TT_Intentions_LongDesc" xml:space="preserve">
+    <value>Συμπληρώστε τις προθέσεις υλοποίησής σας: σχεδιάστε συγκεκριμένες στρατηγικές εάν-τότε για υγιεινή διατροφή και άσκηση.</value>
+  </data>
+  <data name="TT_Intentions_Benefits" xml:space="preserve">
+    <value>Η προδέσμευση σε συγκεκριμένα σχέδια διπλασιάζει την πιθανότητα εκτέλεσης.</value>
+  </data>
+  <data name="TT_NightlyFast" xml:space="preserve">
+    <value>Νηστεία Μετά τις 7:00 μ.μ.</value>
+  </data>
+  <data name="TT_NightlyFast_Desc" xml:space="preserve">
+    <value>Χωρίς φαγητό μετά τις 7 μ.μ.</value>
+  </data>
+  <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
+    <value>Σταματήστε να τρώτε μετά τις 7:00 μ.μ. για να ευθυγραμμιστείτε με τον κιρκαδικό σας ρυθμό.</value>
+  </data>
+  <data name="TT_NightlyFast_Benefits" xml:space="preserve">
+    <value>Η βραδινή νηστεία βελτιώνει τη μεταβολική υγεία και υποστηρίζει την απώλεια βάρους.</value>
+  </data>
+  <data name="TT_Trendelenburg" xml:space="preserve">
+    <value>Ήπιο Trendelenburg</value>
+  </data>
+  <data name="TT_Trendelenburg_Desc" xml:space="preserve">
+    <value>Ύπνος με κλίση κεφαλής 6 μοίρες</value>
+  </data>
+  <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
+    <value>Πειραματιστείτε με ύπνο σε ήπια θέση Trendelenburg (κεφάλι-κάτω 6 μοίρες). ΣΗΜΑΝΤΙΚΟ: Μην το δοκιμάσετε αν έχετε προβλήματα με καρδιά, πνεύμονες, παλινδρόμηση οξέος, εγκέφαλο ή μάτια. Συμβουλευτείτε πρώτα τον γιατρό σας. Σηκωθείτε αργά για να αποφύγετε ζαλάδα.</value>
+  </data>
+  <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
+    <value>Μπορεί να βοηθήσει στη διαχείριση βάρους μέσω νυχτερινών βαρυτικών επιδράσεων. Χρήση με προσοχή.</value>
+  </data>
+
+  <!-- Diary Detail Dialog -->
+  <data name="Diary_ServingSize" xml:space="preserve">
+    <value>Μέγεθος Μερίδας</value>
+  </data>
+  <data name="Diary_ServingPerDay" xml:space="preserve">
+    <value>1 μερίδα ανά ημέρα</value>
+  </data>
+  <data name="Diary_ServingsPerDay" xml:space="preserve">
+    <value>{0} μερίδες ανά ημέρα</value>
+  </data>
+  <data name="Diary_HealthBenefits" xml:space="preserve">
+    <value>Οφέλη Υγείας</value>
+  </data>
+  <data name="Diary_LearnMore" xml:space="preserve">
+    <value>Μάθετε Περισσότερα</value>
+  </data>
+  <data name="Diary_ViewOnNutritionFacts" xml:space="preserve">
+    <value>Δείτε στο NutritionFacts.org</value>
+  </data>
+  <data name="Diary_FoundIn" xml:space="preserve">
+    <value>Βρίσκεται Σε</value>
+  </data>
+  <data name="Diary_AlsoIncludes" xml:space="preserve">
+    <value>Περιλαμβάνει Επίσης</value>
+  </data>
+  <data name="Diary_Today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="Diary_Yesterday" xml:space="preserve">
+    <value>Χθες</value>
+  </data>
+  <data name="Diary_NoItemsEnabled" xml:space="preserve">
+    <value>Δεν υπάρχουν ενεργοποιημένα στοιχεία</value>
+  </data>
+  <data name="Diary_PercentComplete" xml:space="preserve">
+    <value>{0}% ολοκληρωμένο</value>
+  </data>
+
+  <!-- Achievements - Navigation -->
+  <data name="Nav_Achievements" xml:space="preserve">
+    <value>Επιτεύγματα</value>
+  </data>
+
+  <!-- Achievements - Page -->
+  <data name="Achievements_Title" xml:space="preserve">
+    <value>Επιτεύγματα</value>
+  </data>
+  <data name="Achievements_Empty" xml:space="preserve">
+    <value>Δεν υπάρχουν επιτεύγματα ακόμα</value>
+  </data>
+  <data name="Achievement_Unlocked" xml:space="preserve">
+    <value>Επίτευγμα Ξεκλειδώθηκε!</value>
+  </data>
+
+  <!-- Achievement Types -->
+  <data name="Achievement_Type_Milestone" xml:space="preserve">
+    <value>Ορόσημα</value>
+  </data>
+  <data name="Achievement_Type_Streak" xml:space="preserve">
+    <value>Σερί</value>
+  </data>
+  <data name="Achievement_Type_Completion" xml:space="preserve">
+    <value>Τέλειες Ημέρες</value>
+  </data>
+  <data name="Achievement_Type_ItemSpecific" xml:space="preserve">
+    <value>Πρωταθλητές Τροφίμων</value>
+  </data>
+
+  <!-- Streak Achievements -->
+  <data name="Achievement_Streak7_Name" xml:space="preserve">
+    <value>Πολεμιστής Εβδομάδας</value>
+  </data>
+  <data name="Achievement_Streak7_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε ένα σερί 7 ημερών</value>
+  </data>
+  <data name="Achievement_Streak14_Name" xml:space="preserve">
+    <value>Πρωταθλητής Δύο Εβδομάδων</value>
+  </data>
+  <data name="Achievement_Streak14_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε ένα σερί 14 ημερών</value>
+  </data>
+  <data name="Achievement_Streak30_Name" xml:space="preserve">
+    <value>Μηνιαίος Κυρίαρχος</value>
+  </data>
+  <data name="Achievement_Streak30_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε ένα σερί 30 ημερών</value>
+  </data>
+  <data name="Achievement_Streak60_Name" xml:space="preserve">
+    <value>Ήρωας Δύο Μηνών</value>
+  </data>
+  <data name="Achievement_Streak60_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε ένα σερί 60 ημερών</value>
+  </data>
+  <data name="Achievement_Streak100_Name" xml:space="preserve">
+    <value>Εκατοντάρχης</value>
+  </data>
+  <data name="Achievement_Streak100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε ένα σερί 100 ημερών</value>
+  </data>
+  <data name="Achievement_Streak365_Name" xml:space="preserve">
+    <value>Ένας Χρόνος Υγείας</value>
+  </data>
+  <data name="Achievement_Streak365_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε ένα σερί 365 ημερών</value>
+  </data>
+
+  <!-- Milestone Achievements -->
+  <data name="Achievement_FirstDay_Name" xml:space="preserve">
+    <value>Πρώτο Βήμα</value>
+  </data>
+  <data name="Achievement_FirstDay_Desc" xml:space="preserve">
+    <value>Καταγράψτε την πρώτη σας ημέρα παρακολούθησης</value>
+  </data>
+  <data name="Achievement_FirstPerfect_Name" xml:space="preserve">
+    <value>Τέλεια Ημέρα</value>
+  </data>
+  <data name="Achievement_FirstPerfect_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε το 100% των ημερήσιων στόχων σας</value>
+  </data>
+  <data name="Achievement_FirstWeek_Name" xml:space="preserve">
+    <value>Μία Εβδομάδα Μέσα</value>
+  </data>
+  <data name="Achievement_FirstWeek_Desc" xml:space="preserve">
+    <value>Παρακολουθήστε για 7 ημέρες</value>
+  </data>
+  <data name="Achievement_FirstMonth_Name" xml:space="preserve">
+    <value>Μήνας Προόδου</value>
+  </data>
+  <data name="Achievement_FirstMonth_Desc" xml:space="preserve">
+    <value>Παρακολουθήστε για 30 ημέρες</value>
+  </data>
+
+  <!-- Completion Achievements -->
+  <data name="Achievement_Completion10_Name" xml:space="preserve">
+    <value>Ξεκίνημα</value>
+  </data>
+  <data name="Achievement_Completion10_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε 10 τέλειες ημέρες</value>
+  </data>
+  <data name="Achievement_Completion25_Name" xml:space="preserve">
+    <value>Χτίζοντας Συνήθειες</value>
+  </data>
+  <data name="Achievement_Completion25_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε 25 τέλειες ημέρες</value>
+  </data>
+  <data name="Achievement_Completion50_Name" xml:space="preserve">
+    <value>Ήρωας στα Μισά</value>
+  </data>
+  <data name="Achievement_Completion50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε 50 τέλειες ημέρες</value>
+  </data>
+  <data name="Achievement_Completion100_Name" xml:space="preserve">
+    <value>Εκατονταετία Υγείας</value>
+  </data>
+  <data name="Achievement_Completion100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε 100 τέλειες ημέρες</value>
+  </data>
+  <data name="Achievement_Completion365_Name" xml:space="preserve">
+    <value>Τέλειος Χρόνος</value>
+  </data>
+  <data name="Achievement_Completion365_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε 365 τέλειες ημέρες</value>
+  </data>
+
+  <!-- Item-Specific Achievements -->
+  <data name="Achievement_Beans50_Name" xml:space="preserve">
+    <value>Λογιστής Οσπρίων</value>
+  </data>
+  <data name="Achievement_Beans50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα όσπρια 50 φορές</value>
+  </data>
+  <data name="Achievement_Beans100_Name" xml:space="preserve">
+    <value>Κυρίαρχος Οσπρίων</value>
+  </data>
+  <data name="Achievement_Beans100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα όσπρια 100 φορές</value>
+  </data>
+  <data name="Achievement_Berries50_Name" xml:space="preserve">
+    <value>Μαζευτής Μούρων</value>
+  </data>
+  <data name="Achievement_Berries50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα μούρα 50 φορές</value>
+  </data>
+  <data name="Achievement_Berries100_Name" xml:space="preserve">
+    <value>Πρωταθλητής Μούρων</value>
+  </data>
+  <data name="Achievement_Berries100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα μούρα 100 φορές</value>
+  </data>
+  <data name="Achievement_Greens50_Name" xml:space="preserve">
+    <value>Πράσινο Δάχτυλο</value>
+  </data>
+  <data name="Achievement_Greens50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα πράσινα 50 φορές</value>
+  </data>
+  <data name="Achievement_Greens100_Name" xml:space="preserve">
+    <value>Γκουρού Πρασίνων</value>
+  </data>
+  <data name="Achievement_Greens100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα πράσινα 100 φορές</value>
+  </data>
+  <data name="Achievement_Cruciferous50_Name" xml:space="preserve">
+    <value>Θαυμαστής Σταυρανθών</value>
+  </data>
+  <data name="Achievement_Cruciferous50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα σταυρανθή 50 φορές</value>
+  </data>
+  <data name="Achievement_Cruciferous100_Name" xml:space="preserve">
+    <value>Πρωταθλητής Σταυρανθών</value>
+  </data>
+  <data name="Achievement_Cruciferous100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα σταυρανθή 100 φορές</value>
+  </data>
+  <data name="Achievement_WholeGrains50_Name" xml:space="preserve">
+    <value>Συλλέκτης Δημητριακών</value>
+  </data>
+  <data name="Achievement_WholeGrains50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα δημητριακά ολικής αλέσεως 50 φορές</value>
+  </data>
+  <data name="Achievement_WholeGrains100_Name" xml:space="preserve">
+    <value>Κυρίαρχος Δημητριακών</value>
+  </data>
+  <data name="Achievement_WholeGrains100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τα δημητριακά ολικής αλέσεως 100 φορές</value>
+  </data>
+  <data name="Achievement_Exercise50_Name" xml:space="preserve">
+    <value>Ενεργός Τρόπος Ζωής</value>
+  </data>
+  <data name="Achievement_Exercise50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τη γυμναστική 50 φορές</value>
+  </data>
+  <data name="Achievement_Exercise100_Name" xml:space="preserve">
+    <value>Φανατικός Γυμναστικής</value>
+  </data>
+  <data name="Achievement_Exercise100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τη γυμναστική 100 φορές</value>
+  </data>
+  <data name="Achievement_Flaxseed50_Name" xml:space="preserve">
+    <value>Θαυμαστής Λιναρόσπορου</value>
+  </data>
+  <data name="Achievement_Flaxseed50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τον λιναρόσπορο 50 φορές</value>
+  </data>
+  <data name="Achievement_Flaxseed100_Name" xml:space="preserve">
+    <value>Κυρίαρχος Λιναρόσπορου</value>
+  </data>
+  <data name="Achievement_Flaxseed100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τον λιναρόσπορο 100 φορές</value>
+  </data>
+  <data name="Achievement_Nuts50_Name" xml:space="preserve">
+    <value>Λάτρης Ξηρών Καρπών</value>
+  </data>
+  <data name="Achievement_Nuts50_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τους ξηρούς καρπούς 50 φορές</value>
+  </data>
+  <data name="Achievement_Nuts100_Name" xml:space="preserve">
+    <value>Ειδικός Ξηρών Καρπών</value>
+  </data>
+  <data name="Achievement_Nuts100_Desc" xml:space="preserve">
+    <value>Ολοκληρώστε τους ξηρούς καρπούς 100 φορές</value>
+  </data>
+
+</root>

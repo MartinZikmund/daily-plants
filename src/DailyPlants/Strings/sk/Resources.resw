@@ -66,992 +66,992 @@
 
   <!-- Navigation -->
   <data name="Nav_Diary" xml:space="preserve">
-    <value>Diary</value>
+    <value>Denník</value>
   </data>
   <data name="Nav_Statistics" xml:space="preserve">
-    <value>Statistics</value>
+    <value>Štatistiky</value>
   </data>
   <data name="Nav_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavenia</value>
   </data>
   <data name="Nav_About" xml:space="preserve">
-    <value>About</value>
+    <value>O aplikácii</value>
   </data>
 
   <!-- Diary Page -->
   <data name="Diary_GoToToday" xml:space="preserve">
-    <value>Go to Today</value>
+    <value>Prejsť na dnes</value>
   </data>
   <data name="Diary_PreviousDay" xml:space="preserve">
-    <value>Previous day</value>
+    <value>Predchádzajúci deň</value>
   </data>
   <data name="Diary_NextDay" xml:space="preserve">
-    <value>Next day</value>
+    <value>Ďalší deň</value>
   </data>
   <data name="Diary_DecreaseServing" xml:space="preserve">
-    <value>Decrease serving</value>
+    <value>Znížiť porciu</value>
   </data>
   <data name="Diary_IncreaseServing" xml:space="preserve">
-    <value>Increase serving</value>
+    <value>Zvýšiť porciu</value>
   </data>
   <data name="Diary_MoreInfo" xml:space="preserve">
-    <value>More info</value>
+    <value>Viac informácií</value>
   </data>
   <data name="Diary_NoChecklists" xml:space="preserve">
-    <value>No checklists enabled</value>
+    <value>Žiadne checklisty nie sú povolené</value>
   </data>
   <data name="Diary_EnableChecklist" xml:space="preserve">
-    <value>Enable a checklist in Settings to get started</value>
+    <value>Povoľte checklist v Nastaveniach pre začiatok</value>
   </data>
   <data name="Diary_PickDate" xml:space="preserve">
-    <value>Pick a date</value>
+    <value>Vybrať dátum</value>
   </data>
   <data name="Diary_SelectDate" xml:space="preserve">
-    <value>Select date</value>
+    <value>Vyberte dátum</value>
   </data>
 
   <!-- Statistics Page -->
   <data name="Stats_Title" xml:space="preserve">
-    <value>Statistics</value>
+    <value>Štatistiky</value>
   </data>
   <data name="Stats_Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>Prehľad</value>
   </data>
   <data name="Stats_TodayProgress" xml:space="preserve">
-    <value>Today's Progress</value>
+    <value>Dnešný pokrok</value>
   </data>
   <data name="Stats_WeekAverage" xml:space="preserve">
-    <value>This Week</value>
+    <value>Tento týždeň</value>
   </data>
   <data name="Stats_MonthAverage" xml:space="preserve">
-    <value>This Month</value>
+    <value>Tento mesiac</value>
   </data>
   <data name="Stats_Streaks" xml:space="preserve">
-    <value>Streaks</value>
+    <value>Série</value>
   </data>
   <data name="Stats_CurrentStreak" xml:space="preserve">
-    <value>Current Streak</value>
+    <value>Aktuálna séria</value>
   </data>
   <data name="Stats_LongestStreak" xml:space="preserve">
-    <value>Longest Streak</value>
+    <value>Najdlhšia séria</value>
   </data>
   <data name="Stats_Days" xml:space="preserve">
-    <value>days</value>
+    <value>dní</value>
   </data>
   <data name="Stats_Day" xml:space="preserve">
-    <value>day</value>
+    <value>deň</value>
   </data>
   <data name="Stats_Last7Days" xml:space="preserve">
-    <value>Last 7 Days</value>
+    <value>Posledných 7 dní</value>
   </data>
   <data name="Stats_PerItemBreakdown" xml:space="preserve">
-    <value>Per-Item Breakdown</value>
+    <value>Rozdelenie podľa položiek</value>
   </data>
   <data name="Stats_WeightTrend" xml:space="preserve">
-    <value>Weight Trend</value>
+    <value>Trend váhy</value>
   </data>
   <data name="Stats_AddWeight" xml:space="preserve">
-    <value>Add Weight</value>
+    <value>Pridať váhu</value>
   </data>
   <data name="Stats_NoWeightData" xml:space="preserve">
-    <value>No weight data yet</value>
+    <value>Zatiaľ žiadne údaje o váhe</value>
   </data>
   <data name="Stats_AddFirstWeight" xml:space="preserve">
-    <value>Add your first weight entry to start tracking</value>
+    <value>Pridajte prvý záznam váhy pre začatie sledovania</value>
   </data>
   <data name="Stats_GoalWeight" xml:space="preserve">
-    <value>Goal</value>
+    <value>Cieľ</value>
   </data>
 
   <!-- Settings Page -->
   <data name="Settings_Title" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavenia</value>
   </data>
   <data name="Settings_ActiveChecklists" xml:space="preserve">
-    <value>Active Checklists</value>
+    <value>Aktívne checklisty</value>
   </data>
   <data name="Settings_ActiveChecklistsDesc" xml:space="preserve">
-    <value>Choose which checklists to track daily</value>
+    <value>Vyberte, ktoré checklisty chcete denne sledovať</value>
   </data>
   <data name="Settings_DailyDozen" xml:space="preserve">
     <value>Daily Dozen</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>From "How Not to Die" - 12 food groups to eat every day for optimal health</value>
+    <value>Z knihy "How Not to Die" - 12 skupín potravín pre optimálne zdravie</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>Twenty-One Tweaks</value>
   </data>
   <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
-    <value>From "How Not to Diet" - 21 weight-loss accelerating habits</value>
+    <value>Z knihy "How Not to Diet" - 21 návykov pre zrýchlenie chudnutia</value>
   </data>
   <data name="Settings_Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Povolené</value>
   </data>
   <data name="Settings_Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Zakázané</value>
   </data>
   <data name="Settings_WeightTracking" xml:space="preserve">
-    <value>Weight Tracking</value>
+    <value>Sledovanie váhy</value>
   </data>
   <data name="Settings_WeightTrackingDesc" xml:space="preserve">
-    <value>Track your weight over time</value>
+    <value>Sledujte svoju váhu v čase</value>
   </data>
   <data name="Settings_EnableWeightTracking" xml:space="preserve">
-    <value>Enable Weight Tracking</value>
+    <value>Povoliť sledovanie váhy</value>
   </data>
   <data name="Settings_GoalWeight" xml:space="preserve">
-    <value>Goal Weight</value>
+    <value>Cieľová váha</value>
   </data>
   <data name="Settings_Height" xml:space="preserve">
-    <value>Height (for BMI)</value>
+    <value>Výška (pre BMI)</value>
   </data>
   <data name="Settings_Optional" xml:space="preserve">
-    <value>Optional</value>
+    <value>Voliteľné</value>
   </data>
   <data name="Settings_Units" xml:space="preserve">
-    <value>Units</value>
+    <value>Jednotky</value>
   </data>
   <data name="Settings_UnitsDesc" xml:space="preserve">
-    <value>Choose your preferred measurement units</value>
+    <value>Vyberte preferované jednotky merania</value>
   </data>
   <data name="Settings_UseMetric" xml:space="preserve">
-    <value>Use Metric Units</value>
+    <value>Používať metrické jednotky</value>
   </data>
   <data name="Settings_Metric" xml:space="preserve">
-    <value>Metric (kg, cm, ml)</value>
+    <value>Metrické (kg, cm, ml)</value>
   </data>
   <data name="Settings_Imperial" xml:space="preserve">
-    <value>Imperial (lb, in, oz)</value>
+    <value>Imperiálne (lb, in, oz)</value>
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Vzhľad</value>
   </data>
   <data name="Settings_AppearanceDesc" xml:space="preserve">
-    <value>Customize how the app looks</value>
+    <value>Prispôsobte vzhľad aplikácie</value>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Motív</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Jazyk</value>
   </data>
   <data name="Settings_LanguageDesc" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>Vyberte preferovaný jazyk</value>
   </data>
   <data name="Settings_DataManagement" xml:space="preserve">
-    <value>Data Management</value>
+    <value>Správa dát</value>
   </data>
   <data name="Settings_DataManagementDesc" xml:space="preserve">
-    <value>Export or import your tracking data</value>
+    <value>Export alebo import vašich dát</value>
   </data>
   <data name="Settings_Export" xml:space="preserve">
     <value>Export</value>
   </data>
   <data name="Settings_ExportToJson" xml:space="preserve">
-    <value>Export to JSON</value>
+    <value>Exportovať do JSON</value>
   </data>
   <data name="Settings_ExportToCsv" xml:space="preserve">
-    <value>Export to CSV</value>
+    <value>Exportovať do CSV</value>
   </data>
   <data name="Settings_ExportDesc" xml:space="preserve">
-    <value>JSON exports all data including settings. CSV exports daily entries only.</value>
+    <value>JSON exportuje všetky dáta vrátane nastavení. CSV exportuje iba denné záznamy.</value>
   </data>
   <data name="Settings_Import" xml:space="preserve">
     <value>Import</value>
   </data>
   <data name="Settings_ImportFromJson" xml:space="preserve">
-    <value>Import from JSON</value>
+    <value>Importovať z JSON</value>
   </data>
   <data name="Settings_ImportFromCsv" xml:space="preserve">
-    <value>Import from CSV</value>
+    <value>Importovať z CSV</value>
   </data>
   <data name="Settings_ImportDesc" xml:space="preserve">
-    <value>Import will merge with existing data. Duplicate entries will be overwritten.</value>
+    <value>Import zlúči dáta s existujúcimi. Duplicitné záznamy budú prepísané.</value>
   </data>
   <data name="Settings_RestartRequired" xml:space="preserve">
-    <value>Restart the app for the language change to take effect.</value>
+    <value>Reštartujte aplikáciu pre aplikovanie zmeny jazyka.</value>
   </data>
   <data name="Settings_IndividualItems" xml:space="preserve">
-    <value>Individual Items</value>
+    <value>Jednotlivé položky</value>
   </data>
   <data name="Settings_IndividualItemsDesc" xml:space="preserve">
-    <value>Disable individual items you don't want to track</value>
+    <value>Zakážte jednotlivé položky, ktoré nechcete sledovať</value>
   </data>
 
   <!-- About Page -->
   <data name="About_Title" xml:space="preserve">
-    <value>About</value>
+    <value>O aplikácii</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Track your daily nutrition based on Dr. Michael Greger's recommendations from his books "How Not to Die", "How Not to Diet", and "How Not to Age".</value>
+    <value>Sledujte svoju dennú výživu podľa odporúčaní Dr. Michaela Gregera z jeho kníh "How Not to Die", "How Not to Diet" a "How Not to Age".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Verzia</value>
   </data>
   <data name="About_LearnMore" xml:space="preserve">
-    <value>Learn More</value>
+    <value>Zistiť viac</value>
   </data>
   <data name="About_NutritionFacts" xml:space="preserve">
-    <value>Visit NutritionFacts.org</value>
+    <value>Navštíviť NutritionFacts.org</value>
   </data>
   <data name="About_NutritionFactsDesc" xml:space="preserve">
-    <value>Free science-based nutrition information</value>
+    <value>Bezplatné vedecky podložené informácie o výžive</value>
   </data>
   <data name="About_Credits" xml:space="preserve">
-    <value>Credits</value>
+    <value>Poďakovanie</value>
   </data>
   <data name="About_CreditsDesc" xml:space="preserve">
-    <value>Based on the work of Dr. Michael Greger and NutritionFacts.org</value>
+    <value>Založené na práci Dr. Michaela Gregera a NutritionFacts.org</value>
   </data>
   <data name="About_BuiltWith" xml:space="preserve">
-    <value>Built with Uno Platform</value>
+    <value>Vytvorené pomocou Uno Platform</value>
   </data>
 
   <!-- Common -->
   <data name="Common_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Zavrieť</value>
   </data>
   <data name="Common_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Uložiť</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Zrušiť</value>
   </data>
   <data name="Common_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Common_Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Chyba</value>
   </data>
   <data name="Common_Success" xml:space="preserve">
-    <value>Success</value>
+    <value>Úspech</value>
   </data>
 
   <!-- Languages -->
   <data name="Language_English" xml:space="preserve">
-    <value>English</value>
+    <value>Angličtina</value>
   </data>
   <data name="Language_Czech" xml:space="preserve">
-    <value>Czech</value>
+    <value>Čeština</value>
   </data>
 
   <!-- Themes -->
   <data name="Theme_System" xml:space="preserve">
-    <value>System Default</value>
+    <value>Podľa systému</value>
   </data>
   <data name="Theme_Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Svetlý</value>
   </data>
   <data name="Theme_Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tmavý</value>
   </data>
 
   <!-- Daily Dozen Items -->
   <data name="DD_Beans" xml:space="preserve">
-    <value>Beans</value>
+    <value>Strukoviny</value>
   </data>
   <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup cooked or 1/4 cup hummus</value>
+    <value>1/2 šálky varených alebo 1/4 šálky hummusu</value>
   </data>
   <data name="DD_Beans_Serving_Metric" xml:space="preserve">
-    <value>100 g cooked or 70 g hummus</value>
+    <value>100 g varených alebo 70 g hummusu</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Legumes including beans, lentils, chickpeas, and hummus</value>
+    <value>Strukoviny vrátane fazule, šošovice, cíceru a hummusu</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Excellent source of protein, fiber, and complex carbohydrates. Associated with longest lifespan gains according to Global Burden of Disease Study.</value>
+    <value>Vynikajúci zdroj bielkovín, vlákniny a komplexných sacharidov. Spojené s najvyšším predĺžením dĺžky života podľa štúdie Global Burden of Disease.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
-    <value>Berries</value>
+    <value>Bobuľoviny</value>
   </data>
   <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup fresh/frozen or 1/4 cup dried</value>
+    <value>1/2 šálky čerstvého/mrazeného alebo 1/4 šálky sušeného</value>
   </data>
   <data name="DD_Berries_Serving_Metric" xml:space="preserve">
-    <value>70 g fresh/frozen or 40 g dried</value>
+    <value>70 g čerstvého/mrazeného alebo 40 g sušeného</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>All types of berries</value>
+    <value>Všetky druhy bobuľového ovocia</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
-    <value>Highest antioxidant content of all fruits. Associated with longer lifespan and cognitive benefits.</value>
+    <value>Najvyšší obsah antioxidantov zo všetkých druhov ovocia. Spojené s dlhším životom a kognitívnymi prínosmi.</value>
   </data>
   <data name="DD_OtherFruits" xml:space="preserve">
-    <value>Other Fruits</value>
+    <value>Ostatné ovocie</value>
   </data>
   <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
-    <value>1 medium fruit or 1/4 cup dried</value>
+    <value>1 stredné ovocie alebo 1/4 šálky sušeného</value>
   </data>
   <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
-    <value>1 medium fruit or 40 g dried</value>
+    <value>1 stredné ovocie alebo 40 g sušeného</value>
   </data>
   <data name="DD_OtherFruits_Desc" xml:space="preserve">
-    <value>Fruits other than berries</value>
+    <value>Ovocie iné ako bobuľové</value>
   </data>
   <data name="DD_OtherFruits_Benefits" xml:space="preserve">
-    <value>Rich in vitamins, minerals, and fiber. Essential for overall health.</value>
+    <value>Bohaté na vitamíny, minerály a vlákninu. Nevyhnutné pre celkové zdravie.</value>
   </data>
   <data name="DD_Greens" xml:space="preserve">
-    <value>Greens</value>
+    <value>Zelenina</value>
   </data>
   <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
-    <value>1 cup raw or 1/2 cup cooked</value>
+    <value>1 šálka surovej alebo 1/2 šálky varenej</value>
   </data>
   <data name="DD_Greens_Serving_Metric" xml:space="preserve">
-    <value>60 g raw or 90 g cooked</value>
+    <value>60 g surovej alebo 90 g varenej</value>
   </data>
   <data name="DD_Greens_Desc" xml:space="preserve">
-    <value>Dark leafy green vegetables</value>
+    <value>Tmavá listová zelenina</value>
   </data>
   <data name="DD_Greens_Benefits" xml:space="preserve">
-    <value>Most associated with longer lifespan among vegetables. Rich in nitrates that improve muscle and artery function.</value>
+    <value>Najviac spojená s dlhším životom medzi zeleninou. Bohatá na dusičnany zlepšujúce funkciu svalov a tepien.</value>
   </data>
   <data name="DD_Cruciferous" xml:space="preserve">
-    <value>Cruciferous Vegetables</value>
+    <value>Košťálová zelenina</value>
   </data>
   <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup chopped or 1 tbsp horseradish</value>
+    <value>1/2 šálky nakrájanej alebo 1 lyžica chrenu</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g chopped or 1 tbsp horseradish</value>
+    <value>60 g nakrájanej alebo 1 lyžica chrenu</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
-    <value>Broccoli, cauliflower, cabbage, kale, etc.</value>
+    <value>Brokolica, karfiol, kapusta, kel atď.</value>
   </data>
   <data name="DD_Cruciferous_Benefits" xml:space="preserve">
-    <value>Contains sulforaphane which boosts immune function and liver detox enzymes.</value>
+    <value>Obsahuje sulforafán, ktorý posilňuje imunitné funkcie a pečeňové detoxikačné enzýmy.</value>
   </data>
   <data name="DD_OtherVegetables" xml:space="preserve">
-    <value>Other Vegetables</value>
+    <value>Ostatná zelenina</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup non-leafy vegetables</value>
+    <value>1/2 šálky nelistovej zeleniny</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
-    <value>90 g non-leafy vegetables</value>
+    <value>90 g nelistovej zeleniny</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Non-leafy, non-cruciferous vegetables</value>
+    <value>Nelistová, nekrížová zelenina</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
-    <value>Diverse nutrients and fiber. Essential for a balanced diet.</value>
+    <value>Rozmanité živiny a vláknina. Nevyhnutné pre vyváženú stravu.</value>
   </data>
   <data name="DD_Flaxseed" xml:space="preserve">
-    <value>Flaxseed</value>
+    <value>Ľanové semienka</value>
   </data>
   <data name="DD_Flaxseed_Serving" xml:space="preserve">
-    <value>1 tbsp ground</value>
+    <value>1 lyžica mletého</value>
   </data>
   <data name="DD_Flaxseed_Desc" xml:space="preserve">
-    <value>Ground flaxseed</value>
+    <value>Mleté ľanové semienka</value>
   </data>
   <data name="DD_Flaxseed_Benefits" xml:space="preserve">
-    <value>Richest source of lignans and omega-3 ALA. Benefits heart health and hormone balance.</value>
+    <value>Najbohatší zdroj lignánov a omega-3 ALA. Prospieva srdcovému zdraviu a hormonálnej rovnováhe.</value>
   </data>
   <data name="DD_Nuts" xml:space="preserve">
-    <value>Nuts and Seeds</value>
+    <value>Orechy a semená</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 cup nuts or 2 tbsp nut butter</value>
+    <value>1/4 šálky orechov alebo 2 lyžice orechového masla</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g nuts or 2 tbsp nut butter</value>
+    <value>30 g orechov alebo 2 lyžice orechového masla</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>All nuts and seeds (preferably walnuts)</value>
+    <value>Všetky orechy a semienka (najlepšie vlašské orechy)</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Associated with lowest risk of premature death of any food group. Walnuts are especially beneficial.</value>
+    <value>Spojené s najnižším rizikom predčasného úmrtia zo všetkých skupín potravín. Vlašské orechy sú obzvlášť prínosné.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
-    <value>Herbs and Spices</value>
+    <value>Bylinky a korenie</value>
   </data>
   <data name="DD_Herbs_Serving" xml:space="preserve">
-    <value>1/4 tsp turmeric</value>
+    <value>1/4 lyžičky kurkumy</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Especially turmeric</value>
+    <value>Najmä kurkuma</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
-    <value>Powerful anti-inflammatory and antioxidant properties.</value>
+    <value>Silné protizápalové a antioxidačné vlastnosti.</value>
   </data>
   <data name="DD_WholeGrains" xml:space="preserve">
-    <value>Whole Grains</value>
+    <value>Celozrnné obilniny</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup hot cereal or 1 slice bread</value>
+    <value>1/2 šálky horúcej kaše alebo 1 plátok chleba</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g hot cereal or 1 slice bread</value>
+    <value>100 g horúcej kaše alebo 1 plátok chleba</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Intact whole grains preferred</value>
+    <value>Preferované celé neporušené zrná</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
-    <value>High fiber content supports gut health and stable blood sugar.</value>
+    <value>Vysoký obsah vlákniny podporuje zdravie čriev a stabilnú hladinu cukru v krvi.</value>
   </data>
   <data name="DD_Beverages" xml:space="preserve">
-    <value>Beverages</value>
+    <value>Nápoje</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz water, tea, or other</value>
+    <value>12 oz vody, čaju alebo iného</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml water, tea, or other</value>
+    <value>350 ml vody, čaju alebo iného</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Water, tea, and other healthy drinks</value>
+    <value>Voda, čaj a ďalšie zdravé nápoje</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
-    <value>Proper hydration is essential for all body functions.</value>
+    <value>Správna hydratácia je nevyhnutná pre všetky telesné funkcie.</value>
   </data>
   <data name="DD_Exercise" xml:space="preserve">
-    <value>Exercise</value>
+    <value>Pohyb</value>
   </data>
   <data name="DD_Exercise_Serving" xml:space="preserve">
-    <value>90 min moderate or 40 min vigorous</value>
+    <value>90 min stredného alebo 40 min intenzívneho</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Daily physical activity</value>
+    <value>Denná fyzická aktivita</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Boosts NAD+ levels by 127%. Essential for longevity and overall health.</value>
+    <value>Zvyšuje hladiny NAD+ o 127 %. Nevyhnutné pre dlhovekosť a celkové zdravie.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
-    <value>Vitamin B12</value>
+    <value>Vitamín B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg weekly or 50 mcg daily</value>
+    <value>2000 mcg týždenne alebo 50 mcg denne</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>B12 supplementation</value>
+    <value>Suplementácia B12</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
-    <value>Essential for nerve function and red blood cell formation. Required on plant-based diet.</value>
+    <value>Nevyhnutný pre nervové funkcie a tvorbu červených krviniek. Nutný pri rastlinnej strave.</value>
   </data>
 
   <!-- Twenty-One Tweaks Items -->
   <data name="TT_PreloadWater" xml:space="preserve">
-    <value>Preload Water</value>
+    <value>Piť vodu pred jedlom</value>
   </data>
   <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
-    <value>2 cups before each meal</value>
+    <value>2 šálky pred každým jedlom</value>
   </data>
   <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
-    <value>500 ml before each meal</value>
+    <value>500 ml pred každým jedlom</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Drink 2 cups of water before each meal</value>
+    <value>Vypiť 2 šálky vody pred každým jedlom</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
-    <value>Boosts metabolism and helps feel full, reducing calorie intake.</value>
+    <value>Urýchľuje metabolizmus a pomáha cítiť sa sýty, znižuje príjem kalórií.</value>
   </data>
   <data name="TT_NegativeCalorie" xml:space="preserve">
-    <value>Negative Calorie Preload</value>
+    <value>Negatívne kalorický predkrm</value>
   </data>
   <data name="TT_NegativeCalorie_Desc" xml:space="preserve">
-    <value>Start with apple, salad, or soup</value>
+    <value>Začať s jablkom, šalátom alebo polievkou</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Start each meal with apple, salad, or soup</value>
+    <value>Začať každé jedlo jablkom, šalátom alebo polievkou</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
-    <value>Reduces overall calorie consumption while adding nutrition.</value>
+    <value>Znižuje celkový príjem kalórií a pridáva výživu.</value>
   </data>
   <data name="TT_Vinegar" xml:space="preserve">
-    <value>Incorporate Vinegar</value>
+    <value>Pridať ocot</value>
   </data>
   <data name="TT_Vinegar_Desc" xml:space="preserve">
-    <value>2 tsp with each meal (3 times daily)</value>
+    <value>2 lyžičky ku každému jedlu (3x denne)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Add vinegar to meals</value>
+    <value>Pridať ocot k jedlám</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
-    <value>May help with blood sugar control and weight management.</value>
+    <value>Môže pomôcť s kontrolou hladiny cukru v krvi a riadením hmotnosti.</value>
   </data>
   <data name="TT_Undistracted" xml:space="preserve">
-    <value>Undistracted Meals</value>
+    <value>Jedlo bez vyrušovania</value>
   </data>
   <data name="TT_Undistracted_Desc" xml:space="preserve">
-    <value>At each meal (3 times daily)</value>
+    <value>Pri každom jedle (3x denne)</value>
   </data>
   <data name="TT_Undistracted_LongDesc" xml:space="preserve">
-    <value>Eat without distractions</value>
+    <value>Jesť bez vyrušovania</value>
   </data>
   <data name="TT_Undistracted_Benefits" xml:space="preserve">
-    <value>Mindful eating leads to better portion control and satisfaction.</value>
+    <value>Vedomé jedenie vedie k lepšej kontrole porcií a spokojnosti.</value>
   </data>
   <data name="TT_TwentyMinute" xml:space="preserve">
-    <value>Twenty-Minute Rule</value>
+    <value>Pravidlo 20 minút</value>
   </data>
   <data name="TT_TwentyMinute_Desc" xml:space="preserve">
-    <value>At each meal (3 times daily)</value>
+    <value>Pri každom jedle (3x denne)</value>
   </data>
   <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
-    <value>Take at least 20 minutes to eat</value>
+    <value>Jesť aspoň 20 minút</value>
   </data>
   <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
-    <value>Allows satiety signals to register, preventing overeating.</value>
+    <value>Umožňuje signálom sýtosti sa zaregistrovať a predchádza prejedaniu.</value>
   </data>
   <data name="TT_FrontLoad" xml:space="preserve">
-    <value>Front-Load Calories</value>
+    <value>Viac kalórií ráno</value>
   </data>
   <data name="TT_FrontLoad_Desc" xml:space="preserve">
-    <value>Bigger breakfast</value>
+    <value>Väčšie raňajky</value>
   </data>
   <data name="TT_FrontLoad_LongDesc" xml:space="preserve">
-    <value>Eat bigger breakfast, smaller dinner</value>
+    <value>Jesť väčšie raňajky, menšiu večeru</value>
   </data>
   <data name="TT_FrontLoad_Benefits" xml:space="preserve">
-    <value>Aligns eating with circadian rhythm for better metabolism.</value>
+    <value>Zlaďuje stravovanie s cirkadiánnym rytmom pre lepší metabolizmus.</value>
   </data>
   <data name="TT_TimeRestricted" xml:space="preserve">
-    <value>Time-Restricted Eating</value>
+    <value>Časovo obmedzené jedenie</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Limit eating window</value>
+    <value>Obmedziť časové okno pre jedlo</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Limit eating window</value>
+    <value>Obmedziť časové okno pre jedlo</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
-    <value>May improve metabolic health and weight management.</value>
+    <value>Môže zlepšiť metabolické zdravie a riadenie hmotnosti.</value>
   </data>
   <data name="TT_Deflour" xml:space="preserve">
-    <value>Deflour Your Diet</value>
+    <value>Vyhnúť sa múke</value>
   </data>
   <data name="TT_Deflour_Desc" xml:space="preserve">
-    <value>Intact grains instead of flour</value>
+    <value>Celé zrno namiesto múky</value>
   </data>
   <data name="TT_Deflour_LongDesc" xml:space="preserve">
-    <value>Choose intact grains over flour products</value>
+    <value>Voliť celé zrná namiesto múčnych výrobkov</value>
   </data>
   <data name="TT_Deflour_Benefits" xml:space="preserve">
-    <value>Intact grains have lower glycemic impact and better satiety.</value>
+    <value>Celé zrná majú nižší glykemický dopad a lepšiu sýtosť.</value>
   </data>
   <data name="TT_BlackCumin" xml:space="preserve">
-    <value>Black Cumin</value>
+    <value>Čierna rasca</value>
   </data>
   <data name="TT_BlackCumin_Desc" xml:space="preserve">
-    <value>1/4 tsp daily</value>
+    <value>1/4 lyžičky denne</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Also known as Nigella sativa</value>
+    <value>Tiež známa ako Nigella sativa</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
-    <value>May help with weight loss and blood sugar control.</value>
+    <value>Môže pomôcť s chudnutím a kontrolou hladiny cukru v krvi.</value>
   </data>
   <data name="TT_Garlic" xml:space="preserve">
-    <value>Garlic Powder</value>
+    <value>Cesnakový prášok</value>
   </data>
   <data name="TT_Garlic_Desc" xml:space="preserve">
-    <value>1/4 tsp daily</value>
+    <value>1/4 lyžičky denne</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Daily garlic supplementation</value>
+    <value>Denná suplementácia cesnakom</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
-    <value>Studies show it can reduce body fat.</value>
+    <value>Štúdie ukazujú, že môže znížiť telesný tuk.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Ground Ginger</value>
+    <value>Mletý zázvor</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 tsp daily</value>
+    <value>1 lyžička denne</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Daily ginger</value>
+    <value>Denný zázvor</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>May boost metabolism and reduce inflammation.</value>
+    <value>Môže urýchliť metabolizmus a znížiť zápal.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
-    <value>Nutritional Yeast</value>
+    <value>Lahôdkové droždie</value>
   </data>
   <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
-    <value>2 tsp daily</value>
+    <value>2 lyžičky denne</value>
   </data>
   <data name="TT_NutritionalYeast_LongDesc" xml:space="preserve">
-    <value>Beta-glucan fiber source</value>
+    <value>Zdroj beta-glukánovej vlákniny</value>
   </data>
   <data name="TT_NutritionalYeast_Benefits" xml:space="preserve">
-    <value>Beta-glucan fiber can facilitate weight loss.</value>
+    <value>Beta-glukánová vláknina môže uľahčiť chudnutie.</value>
   </data>
   <data name="TT_Cumin" xml:space="preserve">
-    <value>Cumin</value>
+    <value>Rímsky kmín</value>
   </data>
   <data name="TT_Cumin_Desc" xml:space="preserve">
-    <value>1/2 tsp with lunch and dinner</value>
+    <value>1/2 lyžičky k obedu a večeri</value>
   </data>
   <data name="TT_Cumin_LongDesc" xml:space="preserve">
-    <value>Regular cumin spice</value>
+    <value>Korenie rímsky kmín (Cuminum cyminum)</value>
   </data>
   <data name="TT_Cumin_Benefits" xml:space="preserve">
-    <value>May help with weight loss and improve cholesterol.</value>
+    <value>Môže pomôcť s chudnutím a zlepšiť cholesterol.</value>
   </data>
   <data name="TT_GreenTea" xml:space="preserve">
-    <value>Green Tea</value>
+    <value>Zelený čaj</value>
   </data>
   <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
-    <value>3 cups daily</value>
+    <value>3 šálky denne</value>
   </data>
   <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
-    <value>720 ml daily</value>
+    <value>720 ml denne</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Daily green tea consumption</value>
+    <value>Denná konzumácia zeleného čaju</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
-    <value>Contains catechins that may boost metabolism.</value>
+    <value>Obsahuje katechíny, ktoré môžu urýchliť metabolizmus.</value>
   </data>
   <data name="TT_Hydrated" xml:space="preserve">
-    <value>Stay Hydrated</value>
+    <value>Zostaňte hydratovaní</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Drink enough water</value>
+    <value>Piť dostatok vody</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Maintain proper hydration</value>
+    <value>Udržiavať správnu hydratáciu</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
-    <value>Proper hydration supports metabolism and reduces hunger.</value>
+    <value>Správna hydratácia podporuje metabolizmus a znižuje hlad.</value>
   </data>
   <data name="TT_ExerciseTiming" xml:space="preserve">
-    <value>Exercise Timing</value>
+    <value>Načasovanie pohybu</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Fasted or afternoon</value>
+    <value>Nalačno alebo poobede</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimal timing for exercise</value>
+    <value>Optimálne načasovanie pohybu</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
-    <value>May enhance fat burning and metabolic benefits.</value>
+    <value>Môže zvýšiť spaľovanie tukov a metabolické prínosy.</value>
   </data>
   <data name="TT_Sleep" xml:space="preserve">
-    <value>Get Enough Sleep</value>
+    <value>Dostatok spánku</value>
   </data>
   <data name="TT_Sleep_Desc" xml:space="preserve">
-    <value>7+ hours</value>
+    <value>7+ hodín</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Quality sleep for weight management</value>
+    <value>Kvalitný spánok pre riadenie hmotnosti</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
-    <value>Poor sleep disrupts hunger hormones and metabolism.</value>
+    <value>Zlý spánok narúša hormóny hladu a metabolizmus.</value>
   </data>
   <data name="TT_WeighTwice" xml:space="preserve">
-    <value>Weigh Yourself Twice</value>
+    <value>Vážiť sa dvakrát</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Morning and evening</value>
+    <value>Ráno a večer</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Weigh yourself twice a day to track trends and stay accountable.</value>
+    <value>Vážiť sa dvakrát denne pre sledovanie trendov a udržanie zodpovednosti.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Self-monitoring is one of the most effective weight management strategies.</value>
+    <value>Vlastné sledovanie je jednou z najúčinnejších stratégií riadenia hmotnosti.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
-    <value>Implementation Intentions</value>
+    <value>Implementačné zámery</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Plan specific if-then strategies</value>
+    <value>Naplánovať konkrétne ak-potom stratégie</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Complete your implementation intentions: plan specific if-then strategies for healthy eating and exercise.</value>
+    <value>Splniť implementačné zámery: naplánovať konkrétne ak-potom stratégie pre zdravé stravovanie a pohyb.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Pre-committing to specific plans doubles the likelihood of following through.</value>
+    <value>Vopred sa zaviazať ku konkrétnym plánom zdvojnásobuje pravdepodobnosť ich dodržania.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
-    <value>Fast After 7:00 PM</value>
+    <value>Pôst po 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>No food after 7 PM</value>
+    <value>Žiadne jedlo po 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Stop eating after 7:00 PM to align with your circadian rhythm.</value>
+    <value>Prestať jesť po 19:00 pre zladenie s cirkadiánnym rytmom.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Evening fasting improves metabolic health and supports weight loss.</value>
+    <value>Večerný pôst zlepšuje metabolické zdravie a podporuje chudnutie.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
-    <value>Mild Trendelenburg</value>
+    <value>Mierna Trendelenburgova poloha</value>
   </data>
   <data name="TT_Trendelenburg_Desc" xml:space="preserve">
-    <value>Sleep head-down 6 degrees</value>
+    <value>Spánok hlavou dole o 6 stupňov</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experiment with sleeping in mild Trendelenburg position (head-down 6 degrees). IMPORTANT: Do not try if you have heart, lung, acid reflux, brain, or eye issues. Consult your physician first. Get up slowly to avoid dizziness.</value>
+    <value>Experimentovať so spánkom v miernej Trendelenburgovej polohe (hlavou dole o 6 stupňov). DÔLEŽITÉ: Neskúšajte, ak máte problémy so srdcom, pľúcami, refluxom, mozgom alebo očami. Najprv konzultujte s lekárom. Vstávajte pomaly, aby ste sa vyhli závratom.</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>May help with weight management through overnight gravitational effects. Use with caution.</value>
+    <value>Môže pomôcť s riadením hmotnosti vďaka nočným gravitačným účinkom. Používajte s opatrnosťou.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
   <data name="Diary_ServingSize" xml:space="preserve">
-    <value>Serving Size</value>
+    <value>Veľkosť porcie</value>
   </data>
   <data name="Diary_ServingPerDay" xml:space="preserve">
-    <value>1 serving per day</value>
+    <value>1 porcia denne</value>
   </data>
   <data name="Diary_ServingsPerDay" xml:space="preserve">
-    <value>{0} servings per day</value>
+    <value>{0} porcií denne</value>
   </data>
   <data name="Diary_HealthBenefits" xml:space="preserve">
-    <value>Health Benefits</value>
+    <value>Zdravotné prínosy</value>
   </data>
   <data name="Diary_LearnMore" xml:space="preserve">
-    <value>Learn More</value>
+    <value>Zistiť viac</value>
   </data>
   <data name="Diary_ViewOnNutritionFacts" xml:space="preserve">
-    <value>View on NutritionFacts.org</value>
+    <value>Zobraziť na NutritionFacts.org</value>
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
-    <value>Found In</value>
+    <value>Súčasť</value>
   </data>
   <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Also Includes</value>
+    <value>Zahŕňa tiež</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
-    <value>Today</value>
+    <value>Dnes</value>
   </data>
   <data name="Diary_Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
+    <value>Včera</value>
   </data>
   <data name="Diary_NoItemsEnabled" xml:space="preserve">
-    <value>No items enabled</value>
+    <value>Žiadne položky nie sú povolené</value>
   </data>
   <data name="Diary_PercentComplete" xml:space="preserve">
-    <value>{0}% complete</value>
+    <value>{0} % splnené</value>
   </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">
-    <value>Achievements</value>
+    <value>Úspechy</value>
   </data>
 
   <!-- Achievements - Page -->
   <data name="Achievements_Title" xml:space="preserve">
-    <value>Achievements</value>
+    <value>Úspechy</value>
   </data>
   <data name="Achievements_Empty" xml:space="preserve">
-    <value>No achievements yet</value>
+    <value>Zatiaľ žiadne úspechy</value>
   </data>
   <data name="Achievement_Unlocked" xml:space="preserve">
-    <value>Achievement Unlocked!</value>
+    <value>Úspech odomknutý!</value>
   </data>
 
   <!-- Achievement Types -->
   <data name="Achievement_Type_Milestone" xml:space="preserve">
-    <value>Milestones</value>
+    <value>Míľniky</value>
   </data>
   <data name="Achievement_Type_Streak" xml:space="preserve">
-    <value>Streaks</value>
+    <value>Série</value>
   </data>
   <data name="Achievement_Type_Completion" xml:space="preserve">
-    <value>Perfect Days</value>
+    <value>Perfektné dni</value>
   </data>
   <data name="Achievement_Type_ItemSpecific" xml:space="preserve">
-    <value>Food Champions</value>
+    <value>Šampióni jedla</value>
   </data>
 
   <!-- Streak Achievements -->
   <data name="Achievement_Streak7_Name" xml:space="preserve">
-    <value>Week Warrior</value>
+    <value>Týždňový bojovník</value>
   </data>
   <data name="Achievement_Streak7_Desc" xml:space="preserve">
-    <value>Complete a 7-day streak</value>
+    <value>Dosiahnite 7-dňovú sériu</value>
   </data>
   <data name="Achievement_Streak14_Name" xml:space="preserve">
-    <value>Two Week Champion</value>
+    <value>Dvojtýždňový šampión</value>
   </data>
   <data name="Achievement_Streak14_Desc" xml:space="preserve">
-    <value>Complete a 14-day streak</value>
+    <value>Dosiahnite 14-dňovú sériu</value>
   </data>
   <data name="Achievement_Streak30_Name" xml:space="preserve">
-    <value>Monthly Master</value>
+    <value>Mesačný majster</value>
   </data>
   <data name="Achievement_Streak30_Desc" xml:space="preserve">
-    <value>Complete a 30-day streak</value>
+    <value>Dosiahnite 30-dňovú sériu</value>
   </data>
   <data name="Achievement_Streak60_Name" xml:space="preserve">
-    <value>Two Month Hero</value>
+    <value>Dvojmesačný hrdina</value>
   </data>
   <data name="Achievement_Streak60_Desc" xml:space="preserve">
-    <value>Complete a 60-day streak</value>
+    <value>Dosiahnite 60-dňovú sériu</value>
   </data>
   <data name="Achievement_Streak100_Name" xml:space="preserve">
-    <value>Century Centurion</value>
+    <value>Stovkový centurión</value>
   </data>
   <data name="Achievement_Streak100_Desc" xml:space="preserve">
-    <value>Complete a 100-day streak</value>
+    <value>Dosiahnite 100-dňovú sériu</value>
   </data>
   <data name="Achievement_Streak365_Name" xml:space="preserve">
-    <value>Year of Health</value>
+    <value>Rok zdravia</value>
   </data>
   <data name="Achievement_Streak365_Desc" xml:space="preserve">
-    <value>Complete a 365-day streak</value>
+    <value>Dosiahnite 365-dňovú sériu</value>
   </data>
 
   <!-- Milestone Achievements -->
   <data name="Achievement_FirstDay_Name" xml:space="preserve">
-    <value>First Step</value>
+    <value>Prvý krok</value>
   </data>
   <data name="Achievement_FirstDay_Desc" xml:space="preserve">
-    <value>Log your first day of tracking</value>
+    <value>Zaznamenajte svoj prvý deň sledovania</value>
   </data>
   <data name="Achievement_FirstPerfect_Name" xml:space="preserve">
-    <value>Perfect Day</value>
+    <value>Perfektný deň</value>
   </data>
   <data name="Achievement_FirstPerfect_Desc" xml:space="preserve">
-    <value>Complete 100% of your daily goals</value>
+    <value>Splňte 100 % denných cieľov</value>
   </data>
   <data name="Achievement_FirstWeek_Name" xml:space="preserve">
-    <value>One Week In</value>
+    <value>Jeden týždeň</value>
   </data>
   <data name="Achievement_FirstWeek_Desc" xml:space="preserve">
-    <value>Track for 7 days</value>
+    <value>Sledujte po dobu 7 dní</value>
   </data>
   <data name="Achievement_FirstMonth_Name" xml:space="preserve">
-    <value>Month of Progress</value>
+    <value>Mesiac pokroku</value>
   </data>
   <data name="Achievement_FirstMonth_Desc" xml:space="preserve">
-    <value>Track for 30 days</value>
+    <value>Sledujte po dobu 30 dní</value>
   </data>
 
   <!-- Completion Achievements -->
   <data name="Achievement_Completion10_Name" xml:space="preserve">
-    <value>Getting Started</value>
+    <value>Začíname</value>
   </data>
   <data name="Achievement_Completion10_Desc" xml:space="preserve">
-    <value>Complete 10 perfect days</value>
+    <value>Dosiahnite 10 perfektných dní</value>
   </data>
   <data name="Achievement_Completion25_Name" xml:space="preserve">
-    <value>Building Habits</value>
+    <value>Budovanie návykov</value>
   </data>
   <data name="Achievement_Completion25_Desc" xml:space="preserve">
-    <value>Complete 25 perfect days</value>
+    <value>Dosiahnite 25 perfektných dní</value>
   </data>
   <data name="Achievement_Completion50_Name" xml:space="preserve">
-    <value>Halfway Hero</value>
+    <value>Hrdina na polceste</value>
   </data>
   <data name="Achievement_Completion50_Desc" xml:space="preserve">
-    <value>Complete 50 perfect days</value>
+    <value>Dosiahnite 50 perfektných dní</value>
   </data>
   <data name="Achievement_Completion100_Name" xml:space="preserve">
-    <value>Century of Health</value>
+    <value>Storočie zdravia</value>
   </data>
   <data name="Achievement_Completion100_Desc" xml:space="preserve">
-    <value>Complete 100 perfect days</value>
+    <value>Dosiahnite 100 perfektných dní</value>
   </data>
   <data name="Achievement_Completion365_Name" xml:space="preserve">
-    <value>Perfect Year</value>
+    <value>Perfektný rok</value>
   </data>
   <data name="Achievement_Completion365_Desc" xml:space="preserve">
-    <value>Complete 365 perfect days</value>
+    <value>Dosiahnite 365 perfektných dní</value>
   </data>
 
   <!-- Item-Specific Achievements -->
   <data name="Achievement_Beans50_Name" xml:space="preserve">
-    <value>Bean Counter</value>
+    <value>Počítač strukovín</value>
   </data>
   <data name="Achievement_Beans50_Desc" xml:space="preserve">
-    <value>Complete beans 50 times</value>
+    <value>Splňte strukoviny 50-krát</value>
   </data>
   <data name="Achievement_Beans100_Name" xml:space="preserve">
-    <value>Bean Master</value>
+    <value>Majster strukovín</value>
   </data>
   <data name="Achievement_Beans100_Desc" xml:space="preserve">
-    <value>Complete beans 100 times</value>
+    <value>Splňte strukoviny 100-krát</value>
   </data>
   <data name="Achievement_Berries50_Name" xml:space="preserve">
-    <value>Berry Picker</value>
+    <value>Zberač bobúľ</value>
   </data>
   <data name="Achievement_Berries50_Desc" xml:space="preserve">
-    <value>Complete berries 50 times</value>
+    <value>Splňte bobule 50-krát</value>
   </data>
   <data name="Achievement_Berries100_Name" xml:space="preserve">
-    <value>Berry Champion</value>
+    <value>Šampión bobúľ</value>
   </data>
   <data name="Achievement_Berries100_Desc" xml:space="preserve">
-    <value>Complete berries 100 times</value>
+    <value>Splňte bobule 100-krát</value>
   </data>
   <data name="Achievement_Greens50_Name" xml:space="preserve">
-    <value>Green Thumb</value>
+    <value>Zelený palec</value>
   </data>
   <data name="Achievement_Greens50_Desc" xml:space="preserve">
-    <value>Complete greens 50 times</value>
+    <value>Splňte zeleninu 50-krát</value>
   </data>
   <data name="Achievement_Greens100_Name" xml:space="preserve">
-    <value>Greens Guru</value>
+    <value>Guru zeleniny</value>
   </data>
   <data name="Achievement_Greens100_Desc" xml:space="preserve">
-    <value>Complete greens 100 times</value>
+    <value>Splňte zeleninu 100-krát</value>
   </data>
   <data name="Achievement_Cruciferous50_Name" xml:space="preserve">
-    <value>Cruciferous Fan</value>
+    <value>Fanúšik košťálovej zeleniny</value>
   </data>
   <data name="Achievement_Cruciferous50_Desc" xml:space="preserve">
-    <value>Complete cruciferous 50 times</value>
+    <value>Splňte košťálovú zeleninu 50-krát</value>
   </data>
   <data name="Achievement_Cruciferous100_Name" xml:space="preserve">
-    <value>Cruciferous Champion</value>
+    <value>Šampión košťálovej zeleniny</value>
   </data>
   <data name="Achievement_Cruciferous100_Desc" xml:space="preserve">
-    <value>Complete cruciferous 100 times</value>
+    <value>Splňte košťálovú zeleninu 100-krát</value>
   </data>
   <data name="Achievement_WholeGrains50_Name" xml:space="preserve">
-    <value>Grain Gatherer</value>
+    <value>Zberač obilnín</value>
   </data>
   <data name="Achievement_WholeGrains50_Desc" xml:space="preserve">
-    <value>Complete whole grains 50 times</value>
+    <value>Splňte celozrnné obilniny 50-krát</value>
   </data>
   <data name="Achievement_WholeGrains100_Name" xml:space="preserve">
-    <value>Grain Master</value>
+    <value>Majster obilnín</value>
   </data>
   <data name="Achievement_WholeGrains100_Desc" xml:space="preserve">
-    <value>Complete whole grains 100 times</value>
+    <value>Splňte celozrnné obilniny 100-krát</value>
   </data>
   <data name="Achievement_Exercise50_Name" xml:space="preserve">
-    <value>Active Lifestyle</value>
+    <value>Aktívny životný štýl</value>
   </data>
   <data name="Achievement_Exercise50_Desc" xml:space="preserve">
-    <value>Complete exercise 50 times</value>
+    <value>Splňte pohyb 50-krát</value>
   </data>
   <data name="Achievement_Exercise100_Name" xml:space="preserve">
-    <value>Fitness Fanatic</value>
+    <value>Fitness fanatik</value>
   </data>
   <data name="Achievement_Exercise100_Desc" xml:space="preserve">
-    <value>Complete exercise 100 times</value>
+    <value>Splňte pohyb 100-krát</value>
   </data>
   <data name="Achievement_Flaxseed50_Name" xml:space="preserve">
-    <value>Flax Fan</value>
+    <value>Fanúšik ľanového semienka</value>
   </data>
   <data name="Achievement_Flaxseed50_Desc" xml:space="preserve">
-    <value>Complete flaxseed 50 times</value>
+    <value>Splňte ľanové semienka 50-krát</value>
   </data>
   <data name="Achievement_Flaxseed100_Name" xml:space="preserve">
-    <value>Flax Master</value>
+    <value>Majster ľanového semienka</value>
   </data>
   <data name="Achievement_Flaxseed100_Desc" xml:space="preserve">
-    <value>Complete flaxseed 100 times</value>
+    <value>Splňte ľanové semienka 100-krát</value>
   </data>
   <data name="Achievement_Nuts50_Name" xml:space="preserve">
-    <value>Nutty for Nuts</value>
+    <value>Milovník orechov</value>
   </data>
   <data name="Achievement_Nuts50_Desc" xml:space="preserve">
-    <value>Complete nuts 50 times</value>
+    <value>Splňte orechy 50-krát</value>
   </data>
   <data name="Achievement_Nuts100_Name" xml:space="preserve">
-    <value>Nut Expert</value>
+    <value>Expert na orechy</value>
   </data>
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
-    <value>Complete nuts 100 times</value>
+    <value>Splňte orechy 100-krát</value>
   </data>
 
 </root>

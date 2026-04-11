@@ -66,266 +66,266 @@
 
   <!-- Navigation -->
   <data name="Nav_Diary" xml:space="preserve">
-    <value>Diary</value>
+    <value>Diario</value>
   </data>
   <data name="Nav_Statistics" xml:space="preserve">
-    <value>Statistics</value>
+    <value>Statistiche</value>
   </data>
   <data name="Nav_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="Nav_About" xml:space="preserve">
-    <value>About</value>
+    <value>Informazioni</value>
   </data>
 
   <!-- Diary Page -->
   <data name="Diary_GoToToday" xml:space="preserve">
-    <value>Go to Today</value>
+    <value>Torna a oggi</value>
   </data>
   <data name="Diary_PreviousDay" xml:space="preserve">
-    <value>Previous day</value>
+    <value>Giorno precedente</value>
   </data>
   <data name="Diary_NextDay" xml:space="preserve">
-    <value>Next day</value>
+    <value>Giorno successivo</value>
   </data>
   <data name="Diary_DecreaseServing" xml:space="preserve">
-    <value>Decrease serving</value>
+    <value>Diminuisci porzione</value>
   </data>
   <data name="Diary_IncreaseServing" xml:space="preserve">
-    <value>Increase serving</value>
+    <value>Aumenta porzione</value>
   </data>
   <data name="Diary_MoreInfo" xml:space="preserve">
-    <value>More info</value>
+    <value>Maggiori informazioni</value>
   </data>
   <data name="Diary_NoChecklists" xml:space="preserve">
-    <value>No checklists enabled</value>
+    <value>Nessuna lista di controllo attiva</value>
   </data>
   <data name="Diary_EnableChecklist" xml:space="preserve">
-    <value>Enable a checklist in Settings to get started</value>
+    <value>Attiva una lista di controllo nelle Impostazioni per iniziare</value>
   </data>
   <data name="Diary_PickDate" xml:space="preserve">
-    <value>Pick a date</value>
+    <value>Scegli una data</value>
   </data>
   <data name="Diary_SelectDate" xml:space="preserve">
-    <value>Select date</value>
+    <value>Seleziona data</value>
   </data>
 
   <!-- Statistics Page -->
   <data name="Stats_Title" xml:space="preserve">
-    <value>Statistics</value>
+    <value>Statistiche</value>
   </data>
   <data name="Stats_Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>Panoramica</value>
   </data>
   <data name="Stats_TodayProgress" xml:space="preserve">
-    <value>Today's Progress</value>
+    <value>Progresso di oggi</value>
   </data>
   <data name="Stats_WeekAverage" xml:space="preserve">
-    <value>This Week</value>
+    <value>Questa settimana</value>
   </data>
   <data name="Stats_MonthAverage" xml:space="preserve">
-    <value>This Month</value>
+    <value>Questo mese</value>
   </data>
   <data name="Stats_Streaks" xml:space="preserve">
-    <value>Streaks</value>
+    <value>Serie</value>
   </data>
   <data name="Stats_CurrentStreak" xml:space="preserve">
-    <value>Current Streak</value>
+    <value>Serie attuale</value>
   </data>
   <data name="Stats_LongestStreak" xml:space="preserve">
-    <value>Longest Streak</value>
+    <value>Serie pi&#249; lunga</value>
   </data>
   <data name="Stats_Days" xml:space="preserve">
-    <value>days</value>
+    <value>giorni</value>
   </data>
   <data name="Stats_Day" xml:space="preserve">
-    <value>day</value>
+    <value>giorno</value>
   </data>
   <data name="Stats_Last7Days" xml:space="preserve">
-    <value>Last 7 Days</value>
+    <value>Ultimi 7 giorni</value>
   </data>
   <data name="Stats_PerItemBreakdown" xml:space="preserve">
-    <value>Per-Item Breakdown</value>
+    <value>Dettaglio per elemento</value>
   </data>
   <data name="Stats_WeightTrend" xml:space="preserve">
-    <value>Weight Trend</value>
+    <value>Andamento del peso</value>
   </data>
   <data name="Stats_AddWeight" xml:space="preserve">
-    <value>Add Weight</value>
+    <value>Aggiungi peso</value>
   </data>
   <data name="Stats_NoWeightData" xml:space="preserve">
-    <value>No weight data yet</value>
+    <value>Nessun dato sul peso</value>
   </data>
   <data name="Stats_AddFirstWeight" xml:space="preserve">
-    <value>Add your first weight entry to start tracking</value>
+    <value>Aggiungi la tua prima registrazione del peso per iniziare il monitoraggio</value>
   </data>
   <data name="Stats_GoalWeight" xml:space="preserve">
-    <value>Goal</value>
+    <value>Obiettivo</value>
   </data>
 
   <!-- Settings Page -->
   <data name="Settings_Title" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="Settings_ActiveChecklists" xml:space="preserve">
-    <value>Active Checklists</value>
+    <value>Liste di controllo attive</value>
   </data>
   <data name="Settings_ActiveChecklistsDesc" xml:space="preserve">
-    <value>Choose which checklists to track daily</value>
+    <value>Scegli quali liste di controllo monitorare ogni giorno</value>
   </data>
   <data name="Settings_DailyDozen" xml:space="preserve">
     <value>Daily Dozen</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>From "How Not to Die" - 12 food groups to eat every day for optimal health</value>
+    <value>Da "Sei quel che mangi" - 12 gruppi alimentari da mangiare ogni giorno per una salute ottimale</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
-    <value>Twenty-One Tweaks</value>
+    <value>Ventuno mosse</value>
   </data>
   <data name="Settings_TwentyOneTweaksDesc" xml:space="preserve">
-    <value>From "How Not to Diet" - 21 weight-loss accelerating habits</value>
+    <value>Da "Contro le diete" - 21 abitudini per accelerare la perdita di peso</value>
   </data>
   <data name="Settings_Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Attivata</value>
   </data>
   <data name="Settings_Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Disattivata</value>
   </data>
   <data name="Settings_WeightTracking" xml:space="preserve">
-    <value>Weight Tracking</value>
+    <value>Monitoraggio del peso</value>
   </data>
   <data name="Settings_WeightTrackingDesc" xml:space="preserve">
-    <value>Track your weight over time</value>
+    <value>Monitora il tuo peso nel tempo</value>
   </data>
   <data name="Settings_EnableWeightTracking" xml:space="preserve">
-    <value>Enable Weight Tracking</value>
+    <value>Attiva monitoraggio del peso</value>
   </data>
   <data name="Settings_GoalWeight" xml:space="preserve">
-    <value>Goal Weight</value>
+    <value>Peso obiettivo</value>
   </data>
   <data name="Settings_Height" xml:space="preserve">
-    <value>Height (for BMI)</value>
+    <value>Altezza (per IMC)</value>
   </data>
   <data name="Settings_Optional" xml:space="preserve">
-    <value>Optional</value>
+    <value>Opzionale</value>
   </data>
   <data name="Settings_Units" xml:space="preserve">
-    <value>Units</value>
+    <value>Unit&#224; di misura</value>
   </data>
   <data name="Settings_UnitsDesc" xml:space="preserve">
-    <value>Choose your preferred measurement units</value>
+    <value>Scegli il tuo sistema di misura preferito</value>
   </data>
   <data name="Settings_UseMetric" xml:space="preserve">
-    <value>Use Metric Units</value>
+    <value>Usa unit&#224; metriche</value>
   </data>
   <data name="Settings_Metric" xml:space="preserve">
-    <value>Metric (kg, cm, ml)</value>
+    <value>Metrico (kg, cm, ml)</value>
   </data>
   <data name="Settings_Imperial" xml:space="preserve">
-    <value>Imperial (lb, in, oz)</value>
+    <value>Imperiale (lb, in, oz)</value>
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Aspetto</value>
   </data>
   <data name="Settings_AppearanceDesc" xml:space="preserve">
-    <value>Customize how the app looks</value>
+    <value>Personalizza l'aspetto dell'app</value>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Tema</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="Settings_LanguageDesc" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>Scegli la tua lingua preferita</value>
   </data>
   <data name="Settings_DataManagement" xml:space="preserve">
-    <value>Data Management</value>
+    <value>Gestione dati</value>
   </data>
   <data name="Settings_DataManagementDesc" xml:space="preserve">
-    <value>Export or import your tracking data</value>
+    <value>Esporta o importa i tuoi dati di monitoraggio</value>
   </data>
   <data name="Settings_Export" xml:space="preserve">
-    <value>Export</value>
+    <value>Esporta</value>
   </data>
   <data name="Settings_ExportToJson" xml:space="preserve">
-    <value>Export to JSON</value>
+    <value>Esporta in JSON</value>
   </data>
   <data name="Settings_ExportToCsv" xml:space="preserve">
-    <value>Export to CSV</value>
+    <value>Esporta in CSV</value>
   </data>
   <data name="Settings_ExportDesc" xml:space="preserve">
-    <value>JSON exports all data including settings. CSV exports daily entries only.</value>
+    <value>L'esportazione JSON include tutti i dati e le impostazioni. L'esportazione CSV include solo le registrazioni giornaliere.</value>
   </data>
   <data name="Settings_Import" xml:space="preserve">
-    <value>Import</value>
+    <value>Importa</value>
   </data>
   <data name="Settings_ImportFromJson" xml:space="preserve">
-    <value>Import from JSON</value>
+    <value>Importa da JSON</value>
   </data>
   <data name="Settings_ImportFromCsv" xml:space="preserve">
-    <value>Import from CSV</value>
+    <value>Importa da CSV</value>
   </data>
   <data name="Settings_ImportDesc" xml:space="preserve">
-    <value>Import will merge with existing data. Duplicate entries will be overwritten.</value>
+    <value>L'importazione verr&#224; unita ai dati esistenti. Le voci duplicate verranno sovrascritte.</value>
   </data>
   <data name="Settings_RestartRequired" xml:space="preserve">
-    <value>Restart the app for the language change to take effect.</value>
+    <value>Riavvia l'app per applicare il cambio di lingua.</value>
   </data>
   <data name="Settings_IndividualItems" xml:space="preserve">
-    <value>Individual Items</value>
+    <value>Elementi individuali</value>
   </data>
   <data name="Settings_IndividualItemsDesc" xml:space="preserve">
-    <value>Disable individual items you don't want to track</value>
+    <value>Disattiva gli elementi individuali che non vuoi monitorare</value>
   </data>
 
   <!-- About Page -->
   <data name="About_Title" xml:space="preserve">
-    <value>About</value>
+    <value>Informazioni</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Track your daily nutrition based on Dr. Michael Greger's recommendations from his books "How Not to Die", "How Not to Diet", and "How Not to Age".</value>
+    <value>Monitora la tua alimentazione quotidiana basandoti sulle raccomandazioni del Dott. Michael Greger tratte dai suoi libri "Sei quel che mangi", "Contro le diete" e "How Not to Age".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Versione</value>
   </data>
   <data name="About_LearnMore" xml:space="preserve">
-    <value>Learn More</value>
+    <value>Scopri di pi&#249;</value>
   </data>
   <data name="About_NutritionFacts" xml:space="preserve">
-    <value>Visit NutritionFacts.org</value>
+    <value>Visita NutritionFacts.org</value>
   </data>
   <data name="About_NutritionFactsDesc" xml:space="preserve">
-    <value>Free science-based nutrition information</value>
+    <value>Informazioni nutrizionali gratuite basate sulla scienza</value>
   </data>
   <data name="About_Credits" xml:space="preserve">
-    <value>Credits</value>
+    <value>Crediti</value>
   </data>
   <data name="About_CreditsDesc" xml:space="preserve">
-    <value>Based on the work of Dr. Michael Greger and NutritionFacts.org</value>
+    <value>Basato sul lavoro del Dott. Michael Greger e NutritionFacts.org</value>
   </data>
   <data name="About_BuiltWith" xml:space="preserve">
-    <value>Built with Uno Platform</value>
+    <value>Realizzata con Uno Platform</value>
   </data>
 
   <!-- Common -->
   <data name="Common_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Chiudi</value>
   </data>
   <data name="Common_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Salva</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annulla</value>
   </data>
   <data name="Common_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Common_Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Errore</value>
   </data>
   <data name="Common_Success" xml:space="preserve">
-    <value>Success</value>
+    <value>Operazione riuscita</value>
   </data>
 
   <!-- Languages -->
@@ -338,720 +338,720 @@
 
   <!-- Themes -->
   <data name="Theme_System" xml:space="preserve">
-    <value>System Default</value>
+    <value>Predefinito di sistema</value>
   </data>
   <data name="Theme_Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Chiaro</value>
   </data>
   <data name="Theme_Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Scuro</value>
   </data>
 
   <!-- Daily Dozen Items -->
   <data name="DD_Beans" xml:space="preserve">
-    <value>Beans</value>
+    <value>Legumi</value>
   </data>
   <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup cooked or 1/4 cup hummus</value>
+    <value>90 g cotti o 60 g di hummus</value>
   </data>
   <data name="DD_Beans_Serving_Metric" xml:space="preserve">
-    <value>100 g cooked or 70 g hummus</value>
+    <value>100 g cotti o 70 g di hummus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Legumes including beans, lentils, chickpeas, and hummus</value>
+    <value>Legumi inclusi fagioli, lenticchie, ceci e hummus</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Excellent source of protein, fiber, and complex carbohydrates. Associated with longest lifespan gains according to Global Burden of Disease Study.</value>
+    <value>Ottima fonte di proteine, fibre e carboidrati complessi. Associati ai maggiori guadagni di longevit&#224; secondo lo studio Global Burden of Disease.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
-    <value>Berries</value>
+    <value>Frutti di bosco</value>
   </data>
   <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup fresh/frozen or 1/4 cup dried</value>
+    <value>60 g freschi/congelati o 40 g disidratati</value>
   </data>
   <data name="DD_Berries_Serving_Metric" xml:space="preserve">
-    <value>70 g fresh/frozen or 40 g dried</value>
+    <value>70 g freschi/congelati o 40 g disidratati</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>All types of berries</value>
+    <value>Tutti i tipi di frutti di bosco</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
-    <value>Highest antioxidant content of all fruits. Associated with longer lifespan and cognitive benefits.</value>
+    <value>Il pi&#249; alto contenuto di antiossidanti tra tutta la frutta. Associati a una vita pi&#249; lunga e a benefici cognitivi.</value>
   </data>
   <data name="DD_OtherFruits" xml:space="preserve">
-    <value>Other Fruits</value>
+    <value>Altri frutti</value>
   </data>
   <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
-    <value>1 medium fruit or 1/4 cup dried</value>
+    <value>1 frutto medio o 40 g di frutta secca</value>
   </data>
   <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
-    <value>1 medium fruit or 40 g dried</value>
+    <value>1 frutto medio o 40 g di frutta secca</value>
   </data>
   <data name="DD_OtherFruits_Desc" xml:space="preserve">
-    <value>Fruits other than berries</value>
+    <value>Frutta diversa dai frutti di bosco</value>
   </data>
   <data name="DD_OtherFruits_Benefits" xml:space="preserve">
-    <value>Rich in vitamins, minerals, and fiber. Essential for overall health.</value>
+    <value>Ricchi di vitamine, minerali e fibre. Essenziali per la salute generale.</value>
   </data>
   <data name="DD_Greens" xml:space="preserve">
-    <value>Greens</value>
+    <value>Verdure verdi</value>
   </data>
   <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
-    <value>1 cup raw or 1/2 cup cooked</value>
+    <value>60 g da crude o 90 g da cotte</value>
   </data>
   <data name="DD_Greens_Serving_Metric" xml:space="preserve">
-    <value>60 g raw or 90 g cooked</value>
+    <value>60 g da crude o 90 g da cotte</value>
   </data>
   <data name="DD_Greens_Desc" xml:space="preserve">
-    <value>Dark leafy green vegetables</value>
+    <value>Verdure a foglia verde scuro</value>
   </data>
   <data name="DD_Greens_Benefits" xml:space="preserve">
-    <value>Most associated with longer lifespan among vegetables. Rich in nitrates that improve muscle and artery function.</value>
+    <value>Le pi&#249; associate a una vita pi&#249; lunga tra le verdure. Ricche di nitrati che migliorano la funzione muscolare e arteriosa.</value>
   </data>
   <data name="DD_Cruciferous" xml:space="preserve">
-    <value>Cruciferous Vegetables</value>
+    <value>Verdure crucifere</value>
   </data>
   <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup chopped or 1 tbsp horseradish</value>
+    <value>60 g tritate o 1 cucchiaio di rafano</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g chopped or 1 tbsp horseradish</value>
+    <value>60 g tritate o 1 cucchiaio di rafano</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
-    <value>Broccoli, cauliflower, cabbage, kale, etc.</value>
+    <value>Broccoli, cavolfiore, cavolo, cavolo riccio, ecc.</value>
   </data>
   <data name="DD_Cruciferous_Benefits" xml:space="preserve">
-    <value>Contains sulforaphane which boosts immune function and liver detox enzymes.</value>
+    <value>Contengono sulforafano che potenzia il sistema immunitario e gli enzimi di disintossicazione del fegato.</value>
   </data>
   <data name="DD_OtherVegetables" xml:space="preserve">
-    <value>Other Vegetables</value>
+    <value>Altre verdure</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup non-leafy vegetables</value>
+    <value>50 g di verdure non a foglia</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
-    <value>90 g non-leafy vegetables</value>
+    <value>90 g di verdure non a foglia</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Non-leafy, non-cruciferous vegetables</value>
+    <value>Verdure non a foglia e non crucifere</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
-    <value>Diverse nutrients and fiber. Essential for a balanced diet.</value>
+    <value>Nutrienti diversificati e fibre. Essenziali per una dieta equilibrata.</value>
   </data>
   <data name="DD_Flaxseed" xml:space="preserve">
-    <value>Flaxseed</value>
+    <value>Semi di lino</value>
   </data>
   <data name="DD_Flaxseed_Serving" xml:space="preserve">
-    <value>1 tbsp ground</value>
+    <value>1 cucchiaio di semi macinati</value>
   </data>
   <data name="DD_Flaxseed_Desc" xml:space="preserve">
-    <value>Ground flaxseed</value>
+    <value>Semi di lino macinati</value>
   </data>
   <data name="DD_Flaxseed_Benefits" xml:space="preserve">
-    <value>Richest source of lignans and omega-3 ALA. Benefits heart health and hormone balance.</value>
+    <value>La fonte pi&#249; ricca di lignani e omega-3 ALA. Benefici per la salute del cuore e l'equilibrio ormonale.</value>
   </data>
   <data name="DD_Nuts" xml:space="preserve">
-    <value>Nuts and Seeds</value>
+    <value>Frutta a guscio e semi</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 cup nuts or 2 tbsp nut butter</value>
+    <value>30 g di noci o 2 cucchiai di burro di noci</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g nuts or 2 tbsp nut butter</value>
+    <value>30 g di noci o 2 cucchiai di burro di noci</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>All nuts and seeds (preferably walnuts)</value>
+    <value>Tutta la frutta a guscio e i semi (preferibilmente noci)</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Associated with lowest risk of premature death of any food group. Walnuts are especially beneficial.</value>
+    <value>Associati al minor rischio di morte prematura tra tutti i gruppi alimentari. Le noci sono particolarmente benefiche.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
-    <value>Herbs and Spices</value>
+    <value>Erbe e spezie</value>
   </data>
   <data name="DD_Herbs_Serving" xml:space="preserve">
-    <value>1/4 tsp turmeric</value>
+    <value>&#188; di cucchiaino di curcuma</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Especially turmeric</value>
+    <value>Soprattutto curcuma</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
-    <value>Powerful anti-inflammatory and antioxidant properties.</value>
+    <value>Potenti propriet&#224; antinfiammatorie e antiossidanti.</value>
   </data>
   <data name="DD_WholeGrains" xml:space="preserve">
-    <value>Whole Grains</value>
+    <value>Cereali integrali</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup hot cereal or 1 slice bread</value>
+    <value>100 g di cereali integrali cotti o 1 fetta di pane</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g hot cereal or 1 slice bread</value>
+    <value>100 g di cereali integrali cotti o 1 fetta di pane</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Intact whole grains preferred</value>
+    <value>Preferibilmente cereali integrali in chicco</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
-    <value>High fiber content supports gut health and stable blood sugar.</value>
+    <value>L'alto contenuto di fibre favorisce la salute intestinale e la stabilit&#224; della glicemia.</value>
   </data>
   <data name="DD_Beverages" xml:space="preserve">
-    <value>Beverages</value>
+    <value>Bevande</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz water, tea, or other</value>
+    <value>Un bicchiere (350 ml) di acqua, t&#232; o altro</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml water, tea, or other</value>
+    <value>350 ml di acqua, t&#232; o altro</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Water, tea, and other healthy drinks</value>
+    <value>Acqua, t&#232; e altre bevande salutari</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
-    <value>Proper hydration is essential for all body functions.</value>
+    <value>Una corretta idratazione &#232; essenziale per tutte le funzioni corporee.</value>
   </data>
   <data name="DD_Exercise" xml:space="preserve">
-    <value>Exercise</value>
+    <value>Attivit&#224; fisica</value>
   </data>
   <data name="DD_Exercise_Serving" xml:space="preserve">
-    <value>90 min moderate or 40 min vigorous</value>
+    <value>90 min moderata o 40 min intensa</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Daily physical activity</value>
+    <value>Attivit&#224; fisica quotidiana</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Boosts NAD+ levels by 127%. Essential for longevity and overall health.</value>
+    <value>Aumenta i livelli di NAD+ del 127%. Essenziale per la longevit&#224; e la salute generale.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
-    <value>Vitamin B12</value>
+    <value>Vitamina B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg weekly or 50 mcg daily</value>
+    <value>2000 mcg settimanali o 50 mcg giornalieri</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>B12 supplementation</value>
+    <value>Integrazione di B12</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
-    <value>Essential for nerve function and red blood cell formation. Required on plant-based diet.</value>
+    <value>Essenziale per la funzione nervosa e la formazione dei globuli rossi. Necessaria nella dieta a base vegetale.</value>
   </data>
 
   <!-- Twenty-One Tweaks Items -->
   <data name="TT_PreloadWater" xml:space="preserve">
-    <value>Preload Water</value>
+    <value>Bevi prima dei pasti</value>
   </data>
   <data name="TT_PreloadWater_Desc_Imperial" xml:space="preserve">
-    <value>2 cups before each meal</value>
+    <value>2 tazze prima di ogni pasto</value>
   </data>
   <data name="TT_PreloadWater_Desc_Metric" xml:space="preserve">
-    <value>500 ml before each meal</value>
+    <value>500 ml prima di ogni pasto</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Drink 2 cups of water before each meal</value>
+    <value>Bevi 2 tazze d'acqua prima di ogni pasto</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
-    <value>Boosts metabolism and helps feel full, reducing calorie intake.</value>
+    <value>Accelera il metabolismo e aiuta a sentirsi sazi, riducendo l'apporto calorico.</value>
   </data>
   <data name="TT_NegativeCalorie" xml:space="preserve">
-    <value>Negative Calorie Preload</value>
+    <value>Cibi a calorie negative</value>
   </data>
   <data name="TT_NegativeCalorie_Desc" xml:space="preserve">
-    <value>Start with apple, salad, or soup</value>
+    <value>Inizia con mela, insalata o zuppa</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Start each meal with apple, salad, or soup</value>
+    <value>Inizia ogni pasto con mela, insalata o zuppa</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
-    <value>Reduces overall calorie consumption while adding nutrition.</value>
+    <value>Riduce il consumo calorico complessivo aggiungendo nutrimento.</value>
   </data>
   <data name="TT_Vinegar" xml:space="preserve">
-    <value>Incorporate Vinegar</value>
+    <value>Integra l'aceto</value>
   </data>
   <data name="TT_Vinegar_Desc" xml:space="preserve">
-    <value>2 tsp with each meal (3 times daily)</value>
+    <value>2 cucchiaini per ogni pasto (3 volte al giorno)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Add vinegar to meals</value>
+    <value>Aggiungi aceto ai pasti</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
-    <value>May help with blood sugar control and weight management.</value>
+    <value>Pu&#242; aiutare a controllare la glicemia e a gestire il peso.</value>
   </data>
   <data name="TT_Undistracted" xml:space="preserve">
-    <value>Undistracted Meals</value>
+    <value>Pasti senza distrazioni</value>
   </data>
   <data name="TT_Undistracted_Desc" xml:space="preserve">
-    <value>At each meal (3 times daily)</value>
+    <value>Ad ogni pasto (3 volte al giorno)</value>
   </data>
   <data name="TT_Undistracted_LongDesc" xml:space="preserve">
-    <value>Eat without distractions</value>
+    <value>Mangia senza distrazioni</value>
   </data>
   <data name="TT_Undistracted_Benefits" xml:space="preserve">
-    <value>Mindful eating leads to better portion control and satisfaction.</value>
+    <value>Mangiare con consapevolezza porta a un migliore controllo delle porzioni e maggiore soddisfazione.</value>
   </data>
   <data name="TT_TwentyMinute" xml:space="preserve">
-    <value>Twenty-Minute Rule</value>
+    <value>Regola dei venti minuti</value>
   </data>
   <data name="TT_TwentyMinute_Desc" xml:space="preserve">
-    <value>At each meal (3 times daily)</value>
+    <value>Ad ogni pasto (3 volte al giorno)</value>
   </data>
   <data name="TT_TwentyMinute_LongDesc" xml:space="preserve">
-    <value>Take at least 20 minutes to eat</value>
+    <value>Impiega almeno 20 minuti per mangiare</value>
   </data>
   <data name="TT_TwentyMinute_Benefits" xml:space="preserve">
-    <value>Allows satiety signals to register, preventing overeating.</value>
+    <value>Permette ai segnali di saziet&#224; di essere percepiti, prevenendo l'eccesso di cibo.</value>
   </data>
   <data name="TT_FrontLoad" xml:space="preserve">
-    <value>Front-Load Calories</value>
+    <value>Pi&#249; calorie a inizio giornata</value>
   </data>
   <data name="TT_FrontLoad_Desc" xml:space="preserve">
-    <value>Bigger breakfast</value>
+    <value>Colazione pi&#249; abbondante</value>
   </data>
   <data name="TT_FrontLoad_LongDesc" xml:space="preserve">
-    <value>Eat bigger breakfast, smaller dinner</value>
+    <value>Colazione pi&#249; abbondante, cena pi&#249; leggera</value>
   </data>
   <data name="TT_FrontLoad_Benefits" xml:space="preserve">
-    <value>Aligns eating with circadian rhythm for better metabolism.</value>
+    <value>Allinea l'alimentazione al ritmo circadiano per un metabolismo migliore.</value>
   </data>
   <data name="TT_TimeRestricted" xml:space="preserve">
-    <value>Time-Restricted Eating</value>
+    <value>Limita il tempo per mangiare</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Limit eating window</value>
+    <value>Limita la finestra alimentare</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Limit eating window</value>
+    <value>Limita la finestra alimentare</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
-    <value>May improve metabolic health and weight management.</value>
+    <value>Pu&#242; migliorare la salute metabolica e la gestione del peso.</value>
   </data>
   <data name="TT_Deflour" xml:space="preserve">
-    <value>Deflour Your Diet</value>
+    <value>Meno farina nella dieta</value>
   </data>
   <data name="TT_Deflour_Desc" xml:space="preserve">
-    <value>Intact grains instead of flour</value>
+    <value>Cereali in chicco al posto della farina</value>
   </data>
   <data name="TT_Deflour_LongDesc" xml:space="preserve">
-    <value>Choose intact grains over flour products</value>
+    <value>Scegli cereali in chicco al posto dei prodotti con farina</value>
   </data>
   <data name="TT_Deflour_Benefits" xml:space="preserve">
-    <value>Intact grains have lower glycemic impact and better satiety.</value>
+    <value>I cereali in chicco hanno un minore impatto glicemico e una migliore saziet&#224;.</value>
   </data>
   <data name="TT_BlackCumin" xml:space="preserve">
-    <value>Black Cumin</value>
+    <value>Cumino nero</value>
   </data>
   <data name="TT_BlackCumin_Desc" xml:space="preserve">
-    <value>1/4 tsp daily</value>
+    <value>&#188; di cucchiaino al giorno</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Also known as Nigella sativa</value>
+    <value>Noto anche come Nigella sativa</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
-    <value>May help with weight loss and blood sugar control.</value>
+    <value>Pu&#242; aiutare nella perdita di peso e nel controllo della glicemia.</value>
   </data>
   <data name="TT_Garlic" xml:space="preserve">
-    <value>Garlic Powder</value>
+    <value>Aglio in polvere</value>
   </data>
   <data name="TT_Garlic_Desc" xml:space="preserve">
-    <value>1/4 tsp daily</value>
+    <value>&#188; di cucchiaino al giorno</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Daily garlic supplementation</value>
+    <value>Integrazione giornaliera di aglio</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
-    <value>Studies show it can reduce body fat.</value>
+    <value>Gli studi dimostrano che pu&#242; ridurre il grasso corporeo.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Ground Ginger</value>
+    <value>Zenzero macinato</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 tsp daily</value>
+    <value>1 cucchiaino al giorno</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Daily ginger</value>
+    <value>Zenzero giornaliero</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>May boost metabolism and reduce inflammation.</value>
+    <value>Pu&#242; accelerare il metabolismo e ridurre l'infiammazione.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
-    <value>Nutritional Yeast</value>
+    <value>Lievito alimentare</value>
   </data>
   <data name="TT_NutritionalYeast_Desc" xml:space="preserve">
-    <value>2 tsp daily</value>
+    <value>2 cucchiaini al giorno</value>
   </data>
   <data name="TT_NutritionalYeast_LongDesc" xml:space="preserve">
-    <value>Beta-glucan fiber source</value>
+    <value>Fonte di fibre beta-glucano</value>
   </data>
   <data name="TT_NutritionalYeast_Benefits" xml:space="preserve">
-    <value>Beta-glucan fiber can facilitate weight loss.</value>
+    <value>Le fibre beta-glucano possono facilitare la perdita di peso.</value>
   </data>
   <data name="TT_Cumin" xml:space="preserve">
-    <value>Cumin</value>
+    <value>Cumino</value>
   </data>
   <data name="TT_Cumin_Desc" xml:space="preserve">
-    <value>1/2 tsp with lunch and dinner</value>
+    <value>&#189; cucchiaino a pranzo e a cena</value>
   </data>
   <data name="TT_Cumin_LongDesc" xml:space="preserve">
-    <value>Regular cumin spice</value>
+    <value>Cumino comune (Cuminum cyminum)</value>
   </data>
   <data name="TT_Cumin_Benefits" xml:space="preserve">
-    <value>May help with weight loss and improve cholesterol.</value>
+    <value>Pu&#242; aiutare nella perdita di peso e migliorare il colesterolo.</value>
   </data>
   <data name="TT_GreenTea" xml:space="preserve">
-    <value>Green Tea</value>
+    <value>T&#232; verde</value>
   </data>
   <data name="TT_GreenTea_Desc_Imperial" xml:space="preserve">
-    <value>3 cups daily</value>
+    <value>3 tazze al giorno</value>
   </data>
   <data name="TT_GreenTea_Desc_Metric" xml:space="preserve">
-    <value>720 ml daily</value>
+    <value>720 ml al giorno</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Daily green tea consumption</value>
+    <value>Consumo giornaliero di t&#232; verde</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
-    <value>Contains catechins that may boost metabolism.</value>
+    <value>Contiene catechine che possono accelerare il metabolismo.</value>
   </data>
   <data name="TT_Hydrated" xml:space="preserve">
-    <value>Stay Hydrated</value>
+    <value>Ricordati di bere</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Drink enough water</value>
+    <value>Bevi abbastanza acqua</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Maintain proper hydration</value>
+    <value>Mantieni una corretta idratazione</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
-    <value>Proper hydration supports metabolism and reduces hunger.</value>
+    <value>Una corretta idratazione supporta il metabolismo e riduce la fame.</value>
   </data>
   <data name="TT_ExerciseTiming" xml:space="preserve">
-    <value>Exercise Timing</value>
+    <value>Ottimizza i tempi di allenamento</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Fasted or afternoon</value>
+    <value>A digiuno o nel pomeriggio</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimal timing for exercise</value>
+    <value>Tempistica ottimale per l'esercizio</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
-    <value>May enhance fat burning and metabolic benefits.</value>
+    <value>Pu&#242; migliorare la combustione dei grassi e i benefici metabolici.</value>
   </data>
   <data name="TT_Sleep" xml:space="preserve">
-    <value>Get Enough Sleep</value>
+    <value>Dormi a sufficienza</value>
   </data>
   <data name="TT_Sleep_Desc" xml:space="preserve">
-    <value>7+ hours</value>
+    <value>7+ ore</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Quality sleep for weight management</value>
+    <value>Sonno di qualit&#224; per la gestione del peso</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
-    <value>Poor sleep disrupts hunger hormones and metabolism.</value>
+    <value>Un sonno insufficiente altera gli ormoni della fame e il metabolismo.</value>
   </data>
   <data name="TT_WeighTwice" xml:space="preserve">
-    <value>Weigh Yourself Twice</value>
+    <value>Pesati due volte</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Morning and evening</value>
+    <value>Mattina e sera</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Weigh yourself twice a day to track trends and stay accountable.</value>
+    <value>Pesati due volte al giorno per monitorare l'andamento e mantenerti responsabile.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Self-monitoring is one of the most effective weight management strategies.</value>
+    <value>L'automonitoraggio &#232; una delle strategie pi&#249; efficaci per la gestione del peso.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
-    <value>Implementation Intentions</value>
+    <value>Ambizioni di miglioramento</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Plan specific if-then strategies</value>
+    <value>Pianifica strategie "se X, allora Y"</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Complete your implementation intentions: plan specific if-then strategies for healthy eating and exercise.</value>
+    <value>Completa le tue ambizioni di miglioramento: pianifica strategie specifiche "se X, allora Y" per un'alimentazione sana e l'esercizio fisico.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Pre-committing to specific plans doubles the likelihood of following through.</value>
+    <value>Impegnarsi in anticipo con piani specifici raddoppia la probabilit&#224; di portarli a termine.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
-    <value>Fast After 7:00 PM</value>
+    <value>Digiuna dopo le 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>No food after 7 PM</value>
+    <value>Niente cibo dopo le 19</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Stop eating after 7:00 PM to align with your circadian rhythm.</value>
+    <value>Smetti di mangiare dopo le 19:00 per allinearti al tuo ritmo circadiano.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Evening fasting improves metabolic health and supports weight loss.</value>
+    <value>Il digiuno serale migliora la salute metabolica e favorisce la perdita di peso.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
-    <value>Mild Trendelenburg</value>
+    <value>Trendelenburg leggera</value>
   </data>
   <data name="TT_Trendelenburg_Desc" xml:space="preserve">
-    <value>Sleep head-down 6 degrees</value>
+    <value>Dormi inclinato a testa in gi&#249; di 6 gradi</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experiment with sleeping in mild Trendelenburg position (head-down 6 degrees). IMPORTANT: Do not try if you have heart, lung, acid reflux, brain, or eye issues. Consult your physician first. Get up slowly to avoid dizziness.</value>
+    <value>Prova a dormire nella posizione di Trendelenburg leggera (inclinato a testa in gi&#249; di 6 gradi). IMPORTANTE: non provare se hai problemi cardiaci, polmonari, reflusso acido, problemi cerebrali o agli occhi. Consulta prima il tuo medico. Alzati lentamente per evitare capogiri.</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>May help with weight management through overnight gravitational effects. Use with caution.</value>
+    <value>Pu&#242; aiutare nella gestione del peso attraverso effetti gravitazionali notturni. Usa con cautela.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
   <data name="Diary_ServingSize" xml:space="preserve">
-    <value>Serving Size</value>
+    <value>Porzione</value>
   </data>
   <data name="Diary_ServingPerDay" xml:space="preserve">
-    <value>1 serving per day</value>
+    <value>1 porzione al giorno</value>
   </data>
   <data name="Diary_ServingsPerDay" xml:space="preserve">
-    <value>{0} servings per day</value>
+    <value>{0} porzioni al giorno</value>
   </data>
   <data name="Diary_HealthBenefits" xml:space="preserve">
-    <value>Health Benefits</value>
+    <value>Benefici per la salute</value>
   </data>
   <data name="Diary_LearnMore" xml:space="preserve">
-    <value>Learn More</value>
+    <value>Scopri di pi&#249;</value>
   </data>
   <data name="Diary_ViewOnNutritionFacts" xml:space="preserve">
-    <value>View on NutritionFacts.org</value>
+    <value>Visualizza su NutritionFacts.org</value>
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
-    <value>Found In</value>
+    <value>Presente in</value>
   </data>
   <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Also Includes</value>
+    <value>Include anche</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
-    <value>Today</value>
+    <value>Oggi</value>
   </data>
   <data name="Diary_Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
+    <value>Ieri</value>
   </data>
   <data name="Diary_NoItemsEnabled" xml:space="preserve">
-    <value>No items enabled</value>
+    <value>Nessun elemento attivato</value>
   </data>
   <data name="Diary_PercentComplete" xml:space="preserve">
-    <value>{0}% complete</value>
+    <value>{0}% completato</value>
   </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">
-    <value>Achievements</value>
+    <value>Traguardi</value>
   </data>
 
   <!-- Achievements - Page -->
   <data name="Achievements_Title" xml:space="preserve">
-    <value>Achievements</value>
+    <value>Traguardi</value>
   </data>
   <data name="Achievements_Empty" xml:space="preserve">
-    <value>No achievements yet</value>
+    <value>Nessun traguardo ancora</value>
   </data>
   <data name="Achievement_Unlocked" xml:space="preserve">
-    <value>Achievement Unlocked!</value>
+    <value>Traguardo sbloccato!</value>
   </data>
 
   <!-- Achievement Types -->
   <data name="Achievement_Type_Milestone" xml:space="preserve">
-    <value>Milestones</value>
+    <value>Tappe</value>
   </data>
   <data name="Achievement_Type_Streak" xml:space="preserve">
-    <value>Streaks</value>
+    <value>Serie</value>
   </data>
   <data name="Achievement_Type_Completion" xml:space="preserve">
-    <value>Perfect Days</value>
+    <value>Giorni perfetti</value>
   </data>
   <data name="Achievement_Type_ItemSpecific" xml:space="preserve">
-    <value>Food Champions</value>
+    <value>Campioni alimentari</value>
   </data>
 
   <!-- Streak Achievements -->
   <data name="Achievement_Streak7_Name" xml:space="preserve">
-    <value>Week Warrior</value>
+    <value>Guerriero della settimana</value>
   </data>
   <data name="Achievement_Streak7_Desc" xml:space="preserve">
-    <value>Complete a 7-day streak</value>
+    <value>Completa una serie di 7 giorni</value>
   </data>
   <data name="Achievement_Streak14_Name" xml:space="preserve">
-    <value>Two Week Champion</value>
+    <value>Campione di due settimane</value>
   </data>
   <data name="Achievement_Streak14_Desc" xml:space="preserve">
-    <value>Complete a 14-day streak</value>
+    <value>Completa una serie di 14 giorni</value>
   </data>
   <data name="Achievement_Streak30_Name" xml:space="preserve">
-    <value>Monthly Master</value>
+    <value>Maestro del mese</value>
   </data>
   <data name="Achievement_Streak30_Desc" xml:space="preserve">
-    <value>Complete a 30-day streak</value>
+    <value>Completa una serie di 30 giorni</value>
   </data>
   <data name="Achievement_Streak60_Name" xml:space="preserve">
-    <value>Two Month Hero</value>
+    <value>Eroe dei due mesi</value>
   </data>
   <data name="Achievement_Streak60_Desc" xml:space="preserve">
-    <value>Complete a 60-day streak</value>
+    <value>Completa una serie di 60 giorni</value>
   </data>
   <data name="Achievement_Streak100_Name" xml:space="preserve">
-    <value>Century Centurion</value>
+    <value>Centurione dei cento giorni</value>
   </data>
   <data name="Achievement_Streak100_Desc" xml:space="preserve">
-    <value>Complete a 100-day streak</value>
+    <value>Completa una serie di 100 giorni</value>
   </data>
   <data name="Achievement_Streak365_Name" xml:space="preserve">
-    <value>Year of Health</value>
+    <value>Un anno di salute</value>
   </data>
   <data name="Achievement_Streak365_Desc" xml:space="preserve">
-    <value>Complete a 365-day streak</value>
+    <value>Completa una serie di 365 giorni</value>
   </data>
 
   <!-- Milestone Achievements -->
   <data name="Achievement_FirstDay_Name" xml:space="preserve">
-    <value>First Step</value>
+    <value>Primo passo</value>
   </data>
   <data name="Achievement_FirstDay_Desc" xml:space="preserve">
-    <value>Log your first day of tracking</value>
+    <value>Registra il tuo primo giorno di monitoraggio</value>
   </data>
   <data name="Achievement_FirstPerfect_Name" xml:space="preserve">
-    <value>Perfect Day</value>
+    <value>Giorno perfetto</value>
   </data>
   <data name="Achievement_FirstPerfect_Desc" xml:space="preserve">
-    <value>Complete 100% of your daily goals</value>
+    <value>Completa il 100% dei tuoi obiettivi giornalieri</value>
   </data>
   <data name="Achievement_FirstWeek_Name" xml:space="preserve">
-    <value>One Week In</value>
+    <value>Una settimana</value>
   </data>
   <data name="Achievement_FirstWeek_Desc" xml:space="preserve">
-    <value>Track for 7 days</value>
+    <value>Monitora per 7 giorni</value>
   </data>
   <data name="Achievement_FirstMonth_Name" xml:space="preserve">
-    <value>Month of Progress</value>
+    <value>Un mese di progressi</value>
   </data>
   <data name="Achievement_FirstMonth_Desc" xml:space="preserve">
-    <value>Track for 30 days</value>
+    <value>Monitora per 30 giorni</value>
   </data>
 
   <!-- Completion Achievements -->
   <data name="Achievement_Completion10_Name" xml:space="preserve">
-    <value>Getting Started</value>
+    <value>Si comincia</value>
   </data>
   <data name="Achievement_Completion10_Desc" xml:space="preserve">
-    <value>Complete 10 perfect days</value>
+    <value>Completa 10 giorni perfetti</value>
   </data>
   <data name="Achievement_Completion25_Name" xml:space="preserve">
-    <value>Building Habits</value>
+    <value>Costruisci abitudini</value>
   </data>
   <data name="Achievement_Completion25_Desc" xml:space="preserve">
-    <value>Complete 25 perfect days</value>
+    <value>Completa 25 giorni perfetti</value>
   </data>
   <data name="Achievement_Completion50_Name" xml:space="preserve">
-    <value>Halfway Hero</value>
+    <value>Eroe a met&#224; strada</value>
   </data>
   <data name="Achievement_Completion50_Desc" xml:space="preserve">
-    <value>Complete 50 perfect days</value>
+    <value>Completa 50 giorni perfetti</value>
   </data>
   <data name="Achievement_Completion100_Name" xml:space="preserve">
-    <value>Century of Health</value>
+    <value>Cento giorni di salute</value>
   </data>
   <data name="Achievement_Completion100_Desc" xml:space="preserve">
-    <value>Complete 100 perfect days</value>
+    <value>Completa 100 giorni perfetti</value>
   </data>
   <data name="Achievement_Completion365_Name" xml:space="preserve">
-    <value>Perfect Year</value>
+    <value>Anno perfetto</value>
   </data>
   <data name="Achievement_Completion365_Desc" xml:space="preserve">
-    <value>Complete 365 perfect days</value>
+    <value>Completa 365 giorni perfetti</value>
   </data>
 
   <!-- Item-Specific Achievements -->
   <data name="Achievement_Beans50_Name" xml:space="preserve">
-    <value>Bean Counter</value>
+    <value>Contatore di legumi</value>
   </data>
   <data name="Achievement_Beans50_Desc" xml:space="preserve">
-    <value>Complete beans 50 times</value>
+    <value>Completa i legumi 50 volte</value>
   </data>
   <data name="Achievement_Beans100_Name" xml:space="preserve">
-    <value>Bean Master</value>
+    <value>Maestro dei legumi</value>
   </data>
   <data name="Achievement_Beans100_Desc" xml:space="preserve">
-    <value>Complete beans 100 times</value>
+    <value>Completa i legumi 100 volte</value>
   </data>
   <data name="Achievement_Berries50_Name" xml:space="preserve">
-    <value>Berry Picker</value>
+    <value>Raccoglitore di frutti di bosco</value>
   </data>
   <data name="Achievement_Berries50_Desc" xml:space="preserve">
-    <value>Complete berries 50 times</value>
+    <value>Completa i frutti di bosco 50 volte</value>
   </data>
   <data name="Achievement_Berries100_Name" xml:space="preserve">
-    <value>Berry Champion</value>
+    <value>Campione dei frutti di bosco</value>
   </data>
   <data name="Achievement_Berries100_Desc" xml:space="preserve">
-    <value>Complete berries 100 times</value>
+    <value>Completa i frutti di bosco 100 volte</value>
   </data>
   <data name="Achievement_Greens50_Name" xml:space="preserve">
-    <value>Green Thumb</value>
+    <value>Pollice verde</value>
   </data>
   <data name="Achievement_Greens50_Desc" xml:space="preserve">
-    <value>Complete greens 50 times</value>
+    <value>Completa le verdure verdi 50 volte</value>
   </data>
   <data name="Achievement_Greens100_Name" xml:space="preserve">
-    <value>Greens Guru</value>
+    <value>Guru delle verdure</value>
   </data>
   <data name="Achievement_Greens100_Desc" xml:space="preserve">
-    <value>Complete greens 100 times</value>
+    <value>Completa le verdure verdi 100 volte</value>
   </data>
   <data name="Achievement_Cruciferous50_Name" xml:space="preserve">
-    <value>Cruciferous Fan</value>
+    <value>Fan delle crucifere</value>
   </data>
   <data name="Achievement_Cruciferous50_Desc" xml:space="preserve">
-    <value>Complete cruciferous 50 times</value>
+    <value>Completa le crucifere 50 volte</value>
   </data>
   <data name="Achievement_Cruciferous100_Name" xml:space="preserve">
-    <value>Cruciferous Champion</value>
+    <value>Campione delle crucifere</value>
   </data>
   <data name="Achievement_Cruciferous100_Desc" xml:space="preserve">
-    <value>Complete cruciferous 100 times</value>
+    <value>Completa le crucifere 100 volte</value>
   </data>
   <data name="Achievement_WholeGrains50_Name" xml:space="preserve">
-    <value>Grain Gatherer</value>
+    <value>Raccoglitore di cereali</value>
   </data>
   <data name="Achievement_WholeGrains50_Desc" xml:space="preserve">
-    <value>Complete whole grains 50 times</value>
+    <value>Completa i cereali integrali 50 volte</value>
   </data>
   <data name="Achievement_WholeGrains100_Name" xml:space="preserve">
-    <value>Grain Master</value>
+    <value>Maestro dei cereali</value>
   </data>
   <data name="Achievement_WholeGrains100_Desc" xml:space="preserve">
-    <value>Complete whole grains 100 times</value>
+    <value>Completa i cereali integrali 100 volte</value>
   </data>
   <data name="Achievement_Exercise50_Name" xml:space="preserve">
-    <value>Active Lifestyle</value>
+    <value>Stile di vita attivo</value>
   </data>
   <data name="Achievement_Exercise50_Desc" xml:space="preserve">
-    <value>Complete exercise 50 times</value>
+    <value>Completa l'attivit&#224; fisica 50 volte</value>
   </data>
   <data name="Achievement_Exercise100_Name" xml:space="preserve">
-    <value>Fitness Fanatic</value>
+    <value>Fanatico del fitness</value>
   </data>
   <data name="Achievement_Exercise100_Desc" xml:space="preserve">
-    <value>Complete exercise 100 times</value>
+    <value>Completa l'attivit&#224; fisica 100 volte</value>
   </data>
   <data name="Achievement_Flaxseed50_Name" xml:space="preserve">
-    <value>Flax Fan</value>
+    <value>Fan dei semi di lino</value>
   </data>
   <data name="Achievement_Flaxseed50_Desc" xml:space="preserve">
-    <value>Complete flaxseed 50 times</value>
+    <value>Completa i semi di lino 50 volte</value>
   </data>
   <data name="Achievement_Flaxseed100_Name" xml:space="preserve">
-    <value>Flax Master</value>
+    <value>Maestro dei semi di lino</value>
   </data>
   <data name="Achievement_Flaxseed100_Desc" xml:space="preserve">
-    <value>Complete flaxseed 100 times</value>
+    <value>Completa i semi di lino 100 volte</value>
   </data>
   <data name="Achievement_Nuts50_Name" xml:space="preserve">
-    <value>Nutty for Nuts</value>
+    <value>Pazzo per la frutta a guscio</value>
   </data>
   <data name="Achievement_Nuts50_Desc" xml:space="preserve">
-    <value>Complete nuts 50 times</value>
+    <value>Completa la frutta a guscio 50 volte</value>
   </data>
   <data name="Achievement_Nuts100_Name" xml:space="preserve">
-    <value>Nut Expert</value>
+    <value>Esperto di frutta a guscio</value>
   </data>
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
-    <value>Complete nuts 100 times</value>
+    <value>Completa la frutta a guscio 100 volte</value>
   </data>
 
 </root>

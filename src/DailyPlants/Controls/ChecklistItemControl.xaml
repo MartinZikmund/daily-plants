@@ -18,7 +18,7 @@
         <StackPanel Grid.Column="0" VerticalAlignment="Center">
             <TextBlock Text="{Binding Item.Name}"
                        Style="{StaticResource BodyStrongTextBlockStyle}" />
-            <TextBlock Text="{Binding Item.ServingSizeExample}"
+            <TextBlock Text="{Binding ServingSizeDisplay}"
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                        TextTrimming="CharacterEllipsis"

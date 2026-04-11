@@ -27,9 +27,14 @@ public partial record ChecklistItem
     public required int RecommendedServings { get; init; }
 
     /// <summary>
-    /// Example of what counts as one serving.
+    /// Example of what counts as one serving (metric units).
     /// </summary>
-    public required string ServingSizeExample { get; init; }
+    public required string ServingSizeMetric { get; init; }
+
+    /// <summary>
+    /// Example of what counts as one serving (imperial units).
+    /// </summary>
+    public required string ServingSizeImperial { get; init; }
 
     /// <summary>
     /// Detailed health benefits information.
@@ -45,6 +50,12 @@ public partial record ChecklistItem
     /// Path to the icon asset for this item.
     /// </summary>
     public string? IconPath { get; init; }
+
+    /// <summary>
+    /// Sort order for display grouping. Related items share nearby values.
+    /// Groups use 100-increments, items within groups use 10-increments.
+    /// </summary>
+    public int SortOrder { get; init; }
 
     /// <summary>
     /// Which checklists this item belongs to.

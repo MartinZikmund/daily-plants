@@ -69,7 +69,6 @@ public class UserSettingsExport
 {
     public bool DailyDozenEnabled { get; set; }
     public bool TwentyOneTweaksEnabled { get; set; }
-    public bool AntiAgingEightEnabled { get; set; }
     public bool WeightTrackingEnabled { get; set; }
     public bool UseMetricUnits { get; set; }
     public double? HeightCm { get; set; }

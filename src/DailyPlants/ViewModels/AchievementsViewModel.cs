@@ -1,6 +1,7 @@
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
+using DailyPlants.Services.Settings;
 
 namespace DailyPlants.ViewModels;
 
@@ -10,6 +11,7 @@ namespace DailyPlants.ViewModels;
 public partial class AchievementsViewModel : ObservableObject
 {
     private readonly IAchievementService _achievementService;
+    private readonly IAppPreferences _appPreferences;
 
     [ObservableProperty]
     private bool _isLoading;
@@ -25,9 +27,10 @@ public partial class AchievementsViewModel : ObservableObject
 
     public ObservableCollection<AchievementGroupViewModel> AchievementGroups { get; } = [];
 
-    public AchievementsViewModel(IAchievementService achievementService)
+    public AchievementsViewModel(IAchievementService achievementService, IAppPreferences appPreferences)
     {
         _achievementService = achievementService;
+        _appPreferences = appPreferences;
     }
 
     public async Task LoadAchievementsAsync()
@@ -36,7 +39,11 @@ public partial class AchievementsViewModel : ObservableObject
 
         try
         {
-            var allAchievements = _achievementService.GetAllAchievements();
+            var enabledItemIds = ChecklistDefinitions.GetEnabledItemIds(_appPreferences).ToHashSet();
+            var allAchievements = _achievementService.GetAllAchievements()
+                .Where(a => a.Type != AchievementType.ItemSpecific
+                    || (a.ItemId != null && enabledItemIds.Contains(a.ItemId)))
+                .ToList();
             var earnedAchievements = await _achievementService.GetEarnedAchievementsAsync();
             var earnedIds = earnedAchievements.Select(e => e.AchievementId).ToHashSet();
 
