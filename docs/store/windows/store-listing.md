@@ -38,7 +38,12 @@ Daily Plants is free, open-source, and built for people who want a simple, beaut
 
 ### What's new in this version
 
-Initial release.
+- New: choose metric or imperial units for items with measurable servings.
+- New: disable individual checklist items you don't want to track.
+- New: more languages and translated checklist content.
+- Improved: overlapping items across Daily Dozen, Twenty-One Tweaks, and Anti-Aging Eight are now merged, so a single serving counts toward all relevant programs.
+- Improved: faster, more reliable installation on Windows — the app is now fully self-contained.
+- Fixed: version number now reported correctly in packaged builds.
 
 ### Short description
 
@@ -119,7 +124,12 @@ Daily Plants je zdarma, s otevřeným zdrojovým kódem a vytvořena pro lidi, k
 
 ### What's new in this version
 
-První vydání.
+- Novinka: vyberte si metrické nebo imperiální jednotky u položek s měřitelnými porcemi.
+- Novinka: jednotlivé položky kontrolního seznamu, které nechcete sledovat, lze vypnout.
+- Novinka: další jazyky a přeložený obsah kontrolních seznamů.
+- Vylepšení: překrývající se položky napříč seznamy Daily Dozen, Twenty-One Tweaks a Anti-Aging Eight se nyní inteligentně slučují, takže jedna porce započítá do všech relevantních programů.
+- Vylepšení: rychlejší a spolehlivější instalace ve Windows — aplikace je nyní plně samostatná.
+- Opraveno: ve zabalených sestaveních se nyní správně zobrazuje číslo verze.
 
 ### Short description
 
