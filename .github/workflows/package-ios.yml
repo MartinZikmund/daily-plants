@@ -65,7 +65,7 @@ jobs:
       - name: Select Xcode ${{ steps.xcode-version.outputs.version }}
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: ${{ steps.xcode-version.outputs.version }}
+          xcode-version: "26.3" # {{ steps.xcode-version.outputs.version }} - pin to a specific version for now until the latest image has the required Xcode version
 
       - name: Show Xcode version (debug)
         run: xcodebuild -version
