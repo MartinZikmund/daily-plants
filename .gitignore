@@ -3,6 +3,18 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output
+fastlane/readme.html
+fastlane/.env
+fastlane/google-play-key.json
+fastlane/AuthKey_*.p8
+Gemfile.lock
+.bundle/
+vendor/bundle/
+
 # User-specific files
 *.rsuser
 *.suo
@@ -410,3 +422,4 @@ FodyWeavers.xsd
 solution-config.props
 # Publish Profiles
 !**/Properties/PublishProfiles/*.pubxml
+.claude/scheduled_tasks.lock
