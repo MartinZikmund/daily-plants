@@ -1,5 +1,6 @@
 using DailyPlants.Models;
 using DailyPlants.Services;
+using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Foundation.Metadata;
@@ -31,7 +32,7 @@ public sealed partial class ShellView : Page
             _associatedWindow.SetTitleBar(DraggableTitleBar);
             HasCustomTitleBar = true;
         }
-        if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "SystemBackdrop"))
+        if (MicaController.IsSupported())
         {
             _associatedWindow.SystemBackdrop = new MicaBackdrop();
             Background = null;
