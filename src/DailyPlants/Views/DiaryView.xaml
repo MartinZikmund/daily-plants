@@ -8,6 +8,136 @@
     xmlns:vm="using:DailyPlants.ViewModels">
 
     <Page.Resources>
+        <!--  Wide template for custom items  -->
+        <DataTemplate x:Key="CustomItemWideTemplate" x:DataType="vm:CustomItemRowViewModel">
+            <Grid Padding="16,12"
+                  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  CornerRadius="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <IconSourceElement Grid.Column="0"
+                                   Width="32" Height="32"
+                                   Margin="0,0,12,0"
+                                   VerticalAlignment="Center"
+                                   IconSource="{x:Bind IconSource, Mode=OneWay}" />
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
+                               Text="{x:Bind Item.Name}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="6">
+
+                    <Button Width="32" Height="32" Padding="0"
+                            Command="{Binding DecrementServingCommand}"
+                            CornerRadius="16"
+                            Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}">
+                        <FontIcon FontSize="12" Glyph="&#xE738;" />
+                    </Button>
+
+                    <Border MinWidth="48" Padding="12,4"
+                            Background="{Binding Progress, Converter={StaticResource ProgressToColorConverter}}"
+                            CornerRadius="12">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{Binding Progress, Converter={StaticResource ProgressToTextColorConverter}}"
+                                   Text="{Binding ServingsDisplayText}" />
+                    </Border>
+
+                    <Button Width="32" Height="32" Padding="0"
+                            Command="{Binding IncrementServingCommand}"
+                            CornerRadius="16"
+                            Style="{StaticResource AccentButtonStyle}"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
+                        <FontIcon FontSize="12" Foreground="Black" Glyph="&#xE710;" />
+                    </Button>
+
+                    <Button Width="32" Height="32" Padding="0"
+                            CornerRadius="16"
+                            Visibility="{x:Bind DescriptionVisibility, Mode=OneWay}"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Diary_MoreInfo}">
+                        <FontIcon FontSize="12" Glyph="&#xE946;" />
+                        <Button.Flyout>
+                            <Flyout>
+                                <TextBlock MaxWidth="320"
+                                           Text="{x:Bind Item.Description}"
+                                           TextWrapping="Wrap" />
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CustomItemNarrowTemplate" x:DataType="vm:CustomItemRowViewModel">
+            <Grid Padding="16,12"
+                  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  CornerRadius="8">
+                <StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                        <IconSourceElement Width="24" Height="24"
+                                           VerticalAlignment="Center"
+                                           IconSource="{x:Bind IconSource, Mode=OneWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Text="{x:Bind Item.Name}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0,6,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="6">
+                        <Button Width="32" Height="32" Padding="0"
+                                Command="{Binding DecrementServingCommand}"
+                                CornerRadius="16"
+                                Opacity="{Binding ServingsCompleted, Converter={StaticResource GreaterThanZeroToOpacityConverter}}"
+                                ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}">
+                            <FontIcon FontSize="12" Glyph="&#xE738;" />
+                        </Button>
+
+                        <Border MinWidth="48" Padding="12,4"
+                                Background="{Binding Progress, Converter={StaticResource ProgressToColorConverter}}"
+                                CornerRadius="12">
+                            <TextBlock HorizontalAlignment="Center"
+                                       FontSize="14" FontWeight="SemiBold"
+                                       Foreground="{Binding Progress, Converter={StaticResource ProgressToTextColorConverter}}"
+                                       Text="{Binding ServingsDisplayText}" />
+                        </Border>
+
+                        <Button Width="32" Height="32" Padding="0"
+                                Command="{Binding IncrementServingCommand}"
+                                CornerRadius="16"
+                                Style="{StaticResource AccentButtonStyle}"
+                                ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
+                            <FontIcon FontSize="12" Foreground="Black" Glyph="&#xE710;" />
+                        </Button>
+
+                        <Button Width="32" Height="32" Padding="0"
+                                CornerRadius="16"
+                                Visibility="{x:Bind DescriptionVisibility, Mode=OneWay}"
+                                ToolTipService.ToolTip="{helpers:Localize Key=Diary_MoreInfo}">
+                            <FontIcon FontSize="12" Glyph="&#xE946;" />
+                            <Button.Flyout>
+                                <Flyout>
+                                    <TextBlock MaxWidth="280"
+                                               Text="{x:Bind Item.Description}"
+                                               TextWrapping="Wrap" />
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
         <!--  Wide template: single-row 3-column layout  -->
         <DataTemplate x:Key="WideItemTemplate" x:DataType="vm:ChecklistItemViewModel">
             <Grid
@@ -224,6 +354,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ChecklistList.ItemTemplate" Value="{StaticResource NarrowItemTemplate}" />
+                        <Setter Target="CustomList.ItemTemplate" Value="{StaticResource CustomItemNarrowTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
@@ -232,6 +363,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ChecklistList.ItemTemplate" Value="{StaticResource WideItemTemplate}" />
+                        <Setter Target="CustomList.ItemTemplate" Value="{StaticResource CustomItemWideTemplate}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -362,22 +494,47 @@
             </Grid>
         </Grid>      
 
-        <!--  Checklist Items  -->
-        <ListView
-            x:Name="ChecklistList"
-            Grid.Row="3"
-            Margin="0"
-            Padding="4,0"
-            ItemTemplate="{StaticResource NarrowItemTemplate}"
-            ItemsSource="{Binding Items}"
-            SelectionMode="None">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Margin" Value="0,0,0,8" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+        <!--  Checklist + Custom Items  -->
+        <ScrollViewer Grid.Row="3" Padding="4,0">
+            <StackPanel Spacing="8">
+                <ListView
+                    x:Name="ChecklistList"
+                    Margin="0"
+                    ItemTemplate="{StaticResource NarrowItemTemplate}"
+                    ItemsSource="{Binding Items}"
+                    SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="0,0,0,8" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <!--  Custom Section Header  -->
+                <TextBlock
+                    Margin="4,8,4,4"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{helpers:Localize Key=DiaryView_CustomSection_Header}"
+                    Visibility="{Binding CustomSectionVisibility}" />
+
+                <!--  Custom Items  -->
+                <ListView
+                    x:Name="CustomList"
+                    Margin="0"
+                    ItemTemplate="{StaticResource CustomItemNarrowTemplate}"
+                    ItemsSource="{Binding CustomItems}"
+                    SelectionMode="None"
+                    Visibility="{Binding CustomSectionVisibility}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="0,0,0,8" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
 
         <!--  Loading Indicator  -->
         <ProgressRing

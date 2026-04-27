@@ -2,6 +2,7 @@ using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using Microsoft.UI.Xaml.Controls;
 
 namespace DailyPlants.ViewModels;
 
@@ -43,7 +44,13 @@ public partial class DiaryViewModel : ObservableObject
 
     public ObservableCollection<ChecklistItemViewModel> Items { get; } = [];
 
-    public bool ShowEmptyState => !IsLoading && Items.Count == 0;
+    public ObservableCollection<CustomItemRowViewModel> CustomItems { get; } = [];
+
+    public bool HasCustomItems => CustomItems.Count > 0;
+
+    public Visibility CustomSectionVisibility => HasCustomItems ? Visibility.Visible : Visibility.Collapsed;
+
+    public bool ShowEmptyState => !IsLoading && Items.Count == 0 && CustomItems.Count == 0;
 
     public DateOnly CurrentDate => _currentDate;
 
@@ -69,6 +76,8 @@ public partial class DiaryViewModel : ObservableObject
         try
         {
             var entries = await _dataService.GetEntriesForDateAsync(_currentDate);
+
+            await LoadCustomItemsAsync();
 
             // Get all enabled checklist items (sorted by SortOrder)
             var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
@@ -122,6 +131,43 @@ public partial class DiaryViewModel : ObservableObject
             IsLoading = false;
             OnPropertyChanged(nameof(ShowEmptyState));
         }
+    }
+
+    private async Task LoadCustomItemsAsync()
+    {
+        var definitions = await _dataService.GetCustomItemsAsync();
+        var entriesForDate = await _dataService.GetCustomItemEntriesForDateAsync(_currentDate);
+        var entriesById = entriesForDate.ToDictionary(e => e.CustomItemId, e => e.ServingsCompleted);
+
+        foreach (var old in CustomItems)
+        {
+            old.ServingsChanged -= OnCustomServingsChanged;
+        }
+        CustomItems.Clear();
+
+        foreach (var definition in definitions.OrderBy(d => d.SortOrder))
+        {
+            entriesById.TryGetValue(definition.Id, out var servings);
+            var row = new CustomItemRowViewModel(definition, _currentDate, servings);
+            row.ServingsChanged += OnCustomServingsChanged;
+            CustomItems.Add(row);
+        }
+
+        OnPropertyChanged(nameof(HasCustomItems));
+        OnPropertyChanged(nameof(CustomSectionVisibility));
+    }
+
+    private async void OnCustomServingsChanged(object? sender, int newServings)
+    {
+        if (sender is not CustomItemRowViewModel row) return;
+
+        await _dataService.SaveCustomItemEntryAsync(new CustomItemEntry
+        {
+            Date = _currentDate,
+            CustomItemId = row.Item.Id,
+            ServingsCompleted = newServings,
+            UpdatedAt = DateTime.UtcNow,
+        });
     }
 
     [RelayCommand]
@@ -399,5 +445,66 @@ public partial class ChecklistItemViewModel : ObservableObject
     private void ShowItemDetail()
     {
         ItemDetailRequested?.Invoke(this, Item);
+    }
+}
+
+/// <summary>
+/// Row view-model for a custom-item entry in the diary's "Custom" section.
+/// </summary>
+public partial class CustomItemRowViewModel : ObservableObject
+{
+    public CustomItem Item { get; }
+    public DateOnly Date { get; }
+
+    [ObservableProperty]
+    private int _servingsCompleted;
+
+    public event EventHandler<int>? ServingsChanged;
+
+    public CustomItemRowViewModel(CustomItem item, DateOnly date, int servingsCompleted)
+    {
+        Item = item;
+        Date = date;
+        _servingsCompleted = servingsCompleted;
+    }
+
+    public IconSource IconSource => CustomItemIconSourceFactory.Create(Item.IconType, Item.IconValue);
+
+    public bool IsComplete => ServingsCompleted >= Item.RecommendedServings;
+
+    public string ServingsDisplayText => $"{ServingsCompleted}/{Item.RecommendedServings}";
+
+    public double Progress => Item.RecommendedServings > 0
+        ? Math.Min(1.0, (double)ServingsCompleted / Item.RecommendedServings)
+        : 0;
+
+    public bool HasDescription => !string.IsNullOrWhiteSpace(Item.Description);
+
+    public Visibility DescriptionVisibility => HasDescription ? Visibility.Visible : Visibility.Collapsed;
+
+    partial void OnServingsCompletedChanged(int value)
+    {
+        OnPropertyChanged(nameof(ServingsDisplayText));
+        OnPropertyChanged(nameof(Progress));
+        OnPropertyChanged(nameof(IsComplete));
+        ServingsChanged?.Invoke(this, value);
+    }
+
+    [RelayCommand]
+    private void IncrementServing()
+    {
+        if (ServingsCompleted < Item.RecommendedServings)
+        {
+            ServingsCompleted++;
+        }
+    }
+
+    [RelayCommand]
+    private void DecrementServing()
+    {
+        if (ServingsCompleted > 0)
+        {
+            ServingsCompleted--;
+        }
     }
 }

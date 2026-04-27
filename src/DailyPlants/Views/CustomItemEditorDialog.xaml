@@ -1,0 +1,73 @@
+<ContentDialog x:Class="DailyPlants.Views.CustomItemEditorDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:helpers="using:DailyPlants.Helpers"
+               xmlns:local="using:DailyPlants.Views"
+               PrimaryButtonText="{helpers:Localize Key=CustomItemEditor_Save}"
+               CloseButtonText="{helpers:Localize Key=CustomItemEditor_Cancel}"
+               DefaultButton="Primary"
+               IsPrimaryButtonEnabled="{x:Bind ViewModel.IsValid, Mode=OneWay}"
+               PrimaryButtonClick="OnPrimaryButtonClick">
+
+    <ScrollViewer MaxHeight="520" VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="12" MinWidth="360">
+
+            <!-- Name -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_NameLabel}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <TextBox Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_NameTooLong}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                           Visibility="{x:Bind ViewModel.IsNameTooLong, Mode=OneWay}" />
+                <InfoBar IsOpen="{x:Bind ViewModel.IsDuplicateName, Mode=OneWay}"
+                         Severity="Warning"
+                         IsClosable="False"
+                         Message="{helpers:Localize Key=CustomItemEditor_NameDuplicateWarning}" />
+            </StackPanel>
+
+            <!-- Description -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_DescriptionLabel}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         MaxLength="500"
+                         MinHeight="64"
+                         PlaceholderText="{helpers:Localize Key=CustomItemEditor_DescriptionPlaceholder}" />
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_DescriptionTooLong}"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                           Visibility="{x:Bind ViewModel.IsDescriptionTooLong, Mode=OneWay}" />
+            </StackPanel>
+
+            <!-- Recommended servings -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_ServingsLabel}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <NumberBox Value="{x:Bind ViewModel.RecommendedServings, Mode=TwoWay}"
+                           Minimum="1"
+                           Maximum="99"
+                           SpinButtonPlacementMode="Inline" />
+            </StackPanel>
+
+            <!-- Icon picker -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_IconLabel}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <local:IconPickerControl x:Name="IconPicker"
+                                         DataContext="{x:Bind ViewModel, Mode=OneTime}" />
+            </StackPanel>
+
+            <!-- Sort order -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{helpers:Localize Key=CustomItemEditor_SortOrderLabel}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <NumberBox Value="{x:Bind ViewModel.SortOrder, Mode=TwoWay}"
+                           SpinButtonPlacementMode="Inline" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

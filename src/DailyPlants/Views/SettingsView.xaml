@@ -1,4 +1,5 @@
 ﻿<Page x:Class="DailyPlants.Views.SettingsView"
+      x:Name="PageRoot"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyPlants.Views"
@@ -119,6 +120,78 @@
                                                           OnContent="{helpers:Localize Key=Settings_Enabled}"
                                                           OffContent="{helpers:Localize Key=Settings_Disabled}"
                                                           MinWidth="0" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <!-- Custom Items Section -->
+                <TextBlock Text="{helpers:Localize Key=SettingsView_CustomItems_SectionHeader}"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           Margin="1,30,0,6" />
+
+                <controls:SettingsExpander IsExpanded="False">
+                    <controls:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xE710;" FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+                    </controls:SettingsExpander.HeaderIcon>
+                    <controls:SettingsExpander.Header>
+                        <TextBlock Text="{helpers:Localize Key=SettingsView_CustomItems_SectionHeader}" />
+                    </controls:SettingsExpander.Header>
+                    <controls:SettingsExpander.Description>
+                        <TextBlock Text="{helpers:Localize Key=SettingsView_CustomItems_SectionDescription}" />
+                    </controls:SettingsExpander.Description>
+                    <Button Content="{helpers:Localize Key=SettingsView_CustomItems_AddButton}"
+                            Command="{Binding AddCustomItemCommand}"
+                            Style="{StaticResource AccentButtonStyle}" />
+
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Visibility="{Binding IsCustomItemsEmpty}">
+                            <controls:SettingsCard.Header>
+                                <TextBlock Text="{helpers:Localize Key=SettingsView_CustomItems_EmptyState}"
+                                           TextWrapping="Wrap"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+
+                        <controls:SettingsCard ContentAlignment="Vertical"
+                                               HorizontalContentAlignment="Stretch"
+                                               Visibility="{Binding HasCustomItems}">
+                            <ItemsRepeater ItemsSource="{Binding CustomItems}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Spacing="0" />
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="0,8" ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="32" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <IconSourceElement Grid.Column="0"
+                                                               Width="28" Height="28"
+                                                               IconSource="{Binding IconSource}" />
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}"
+                                                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+                                            </StackPanel>
+                                            <Button Grid.Column="2"
+                                                    Margin="0,0,8,0"
+                                                    Command="{Binding ElementName=PageRoot, Path=DataContext.EditCustomItemCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    ToolTipService.ToolTip="{helpers:Localize Key=Common_Edit}">
+                                                <FontIcon FontSize="14" Glyph="&#xE70F;" />
+                                            </Button>
+                                            <Button Grid.Column="3"
+                                                    Command="{Binding ElementName=PageRoot, Path=DataContext.DeleteCustomItemCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    ToolTipService.ToolTip="{helpers:Localize Key=Common_Delete}">
+                                                <FontIcon FontSize="14" Glyph="&#xE74D;" />
+                                            </Button>
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>

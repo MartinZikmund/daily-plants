@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -12,6 +13,8 @@ public partial class SettingsViewModel : ObservableObject
     private readonly IAppPreferences _appPreferences;
     private readonly IExportService _exportService;
     private readonly ILocalizationService _localizationService;
+    private readonly ICustomItemService? _customItemService;
+    private readonly IDataService? _dataService;
     private string _initialLanguage = "";
 
     [ObservableProperty]
@@ -47,17 +50,42 @@ public partial class SettingsViewModel : ObservableObject
     public ObservableCollection<ChecklistItemToggleViewModel> DailyDozenItems { get; } = [];
     public ObservableCollection<ChecklistItemToggleViewModel> TwentyOneTweaksItems { get; } = [];
 
+    public ObservableCollection<CustomItemListItemViewModel> CustomItems { get; } = [];
+
+    public bool HasCustomItems => CustomItems.Count > 0;
+
+    public bool IsCustomItemsEmpty => CustomItems.Count == 0;
+
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
     public List<string> LanguageOptions { get; private set; } = [];
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
 
-    public SettingsViewModel(IAppPreferences appPreferences, IExportService exportService, ILocalizationService localizationService)
+    /// <summary>
+    /// Raised when the view should present a dialog backed by the supplied editor view-model.
+    /// Returns true after Save completed, false if the user cancelled.
+    /// </summary>
+    public event Func<CustomItemEditorViewModel, Task<bool>>? CustomItemDialogRequested;
+
+    /// <summary>
+    /// Raised when the view should ask the user how to handle a custom-item delete.
+    /// Returns the chosen action (KeepHistory / Cascade / Cancel).
+    /// </summary>
+    public event Func<CustomItem, Task<CustomItemDeleteChoice>>? CustomItemDeletePromptRequested;
+
+    public SettingsViewModel(
+        IAppPreferences appPreferences,
+        IExportService exportService,
+        ILocalizationService localizationService,
+        ICustomItemService? customItemService = null,
+        IDataService? dataService = null)
     {
         _appPreferences = appPreferences;
         _exportService = exportService;
         _localizationService = localizationService;
+        _customItemService = customItemService;
+        _dataService = dataService;
     }
 
     public Task LoadSettingsAsync()
@@ -95,7 +123,87 @@ public partial class SettingsViewModel : ObservableObject
             IsLoading = false;
         }
 
-        return Task.CompletedTask;
+        return RefreshCustomItemsAsync();
+    }
+
+    private async Task RefreshCustomItemsAsync()
+    {
+        if (_customItemService is null) return;
+
+        var items = await _customItemService.GetAllAsync();
+        CustomItems.Clear();
+        foreach (var item in items)
+        {
+            CustomItems.Add(new CustomItemListItemViewModel(item));
+        }
+        OnPropertyChanged(nameof(HasCustomItems));
+        OnPropertyChanged(nameof(IsCustomItemsEmpty));
+    }
+
+    [RelayCommand]
+    private async Task AddCustomItemAsync()
+    {
+        if (_customItemService is null || CustomItemDialogRequested is null) return;
+
+        var existing = await _customItemService.GetAllAsync();
+        var editorVm = new CustomItemEditorViewModel(_customItemService, existing);
+
+        var saved = await CustomItemDialogRequested.Invoke(editorVm);
+        if (saved)
+        {
+            await RefreshCustomItemsAsync();
+        }
+    }
+
+    [RelayCommand]
+    private async Task EditCustomItemAsync(CustomItemListItemViewModel? row)
+    {
+        if (row is null || _customItemService is null || CustomItemDialogRequested is null) return;
+
+        var existing = await _customItemService.GetAllAsync();
+        var editorVm = new CustomItemEditorViewModel(_customItemService, existing, row.Item);
+
+        var saved = await CustomItemDialogRequested.Invoke(editorVm);
+        if (saved)
+        {
+            await RefreshCustomItemsAsync();
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeleteCustomItemAsync(CustomItemListItemViewModel? row)
+    {
+        if (row is null || _customItemService is null) return;
+
+        var hasEntries = await HasAnyEntriesAsync(row.Item.Id);
+
+        var choice = CustomItemDeleteChoice.Cascade;
+        if (hasEntries && CustomItemDeletePromptRequested is not null)
+        {
+            choice = await CustomItemDeletePromptRequested.Invoke(row.Item);
+        }
+
+        switch (choice)
+        {
+            case CustomItemDeleteChoice.KeepHistory:
+                await _customItemService.DeleteAsync(row.Item.Id, cascadeEntries: false);
+                break;
+            case CustomItemDeleteChoice.Cascade:
+                await _customItemService.DeleteAsync(row.Item.Id, cascadeEntries: true);
+                break;
+            case CustomItemDeleteChoice.Cancel:
+                return;
+        }
+
+        await RefreshCustomItemsAsync();
+    }
+
+    private async Task<bool> HasAnyEntriesAsync(string customItemId)
+    {
+        if (_dataService is null) return false;
+
+        var entries = await _dataService.GetCustomItemEntriesInRangeAsync(DateOnly.MinValue, DateOnly.MaxValue);
+        return entries.Any(e => e.CustomItemId == customItemId);
     }
 
     private void PopulateItemToggles()
@@ -249,7 +357,14 @@ public partial class SettingsViewModel : ObservableObject
             var result = await _exportService.ImportFromJsonAsync(json);
             if (result.Success)
             {
-                await ShowSuccessAsync($"Imported {result.EntriesImported} entries and {result.WeightEntriesImported} weight records.");
+                var summary =
+                    $"Imported {result.EntriesImported} entries, {result.WeightEntriesImported} weight records, " +
+                    $"{result.CustomItemsImported} custom items, {result.CustomItemEntriesImported} custom entries.";
+                if (result.Warnings.Count > 0)
+                {
+                    summary += "\n\nWarnings:\n" + string.Join("\n", result.Warnings);
+                }
+                await ShowSuccessAsync(summary);
                 await LoadSettingsAsync();
             }
             else
@@ -378,4 +493,33 @@ public partial class ChecklistItemToggleViewModel : ObservableObject
     {
         _appPreferences.SetItemDisabled(ItemId, !value);
     }
+}
+
+/// <summary>
+/// Row view-model for a CustomItem in the Settings list.
+/// </summary>
+public class CustomItemListItemViewModel
+{
+    public CustomItem Item { get; }
+
+    public CustomItemListItemViewModel(CustomItem item)
+    {
+        Item = item;
+    }
+
+    public string Name => Item.Name;
+    public int RecommendedServings => Item.RecommendedServings;
+
+    public Microsoft.UI.Xaml.Controls.IconSource IconSource =>
+        CustomItemIconSourceFactory.Create(Item.IconType, Item.IconValue);
+}
+
+/// <summary>
+/// User's response to the delete-with-history prompt.
+/// </summary>
+public enum CustomItemDeleteChoice
+{
+    Cancel,
+    KeepHistory,
+    Cascade,
 }
