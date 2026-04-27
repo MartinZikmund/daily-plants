@@ -1054,4 +1054,88 @@
     <value>完成堅果 100 次</value>
   </data>
 
+
+  <!-- Custom Items -->
+  <data name="SettingsView_CustomItems_SectionHeader" xml:space="preserve">
+    <value>自訂項目</value>
+  </data>
+  <data name="SettingsView_CustomItems_SectionDescription" xml:space="preserve">
+    <value>在官方清單之外，追蹤您自己的每日項目。</value>
+  </data>
+  <data name="SettingsView_CustomItems_AddButton" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="SettingsView_CustomItems_EmptyState" xml:space="preserve">
+    <value>尚無自訂項目。請按「新增」來建立第一個。</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Title" xml:space="preserve">
+    <value>刪除自訂項目？</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_KeepHistory" xml:space="preserve">
+    <value>保留歷史記錄</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_DeleteAll" xml:space="preserve">
+    <value>全部刪除</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DiaryView_CustomSection_Header" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="CustomItemEditor_Title_Add" xml:space="preserve">
+    <value>新增自訂項目</value>
+  </data>
+  <data name="CustomItemEditor_Title_Edit" xml:space="preserve">
+    <value>編輯自訂項目</value>
+  </data>
+  <data name="CustomItemEditor_NameLabel" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="CustomItemEditor_NameTooLong" xml:space="preserve">
+    <value>名稱不得超過 60 個字元。</value>
+  </data>
+  <data name="CustomItemEditor_NameDuplicateWarning" xml:space="preserve">
+    <value>另一個項目已使用此名稱。</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionLabel" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionPlaceholder" xml:space="preserve">
+    <value>選填備註</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionTooLong" xml:space="preserve">
+    <value>描述不得超過 500 個字元。</value>
+  </data>
+  <data name="CustomItemEditor_ServingsLabel" xml:space="preserve">
+    <value>建議每日份量</value>
+  </data>
+  <data name="CustomItemEditor_IconLabel" xml:space="preserve">
+    <value>圖示</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerCatalogLabel" xml:space="preserve">
+    <value>選擇內建圖示</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiLabel" xml:space="preserve">
+    <value>或輸入表情符號</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiPlaceholder" xml:space="preserve">
+    <value>例如 🌱</value>
+  </data>
+  <data name="CustomItemEditor_SortOrderLabel" xml:space="preserve">
+    <value>排序順序</value>
+  </data>
+  <data name="CustomItemEditor_Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="CustomItemEditor_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+
 </root>

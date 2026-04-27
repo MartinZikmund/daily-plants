@@ -1054,4 +1054,88 @@
     <value>Completați nucile de 100 de ori</value>
   </data>
 
+
+  <!-- Custom Items -->
+  <data name="SettingsView_CustomItems_SectionHeader" xml:space="preserve">
+    <value>Elemente personalizate</value>
+  </data>
+  <data name="SettingsView_CustomItems_SectionDescription" xml:space="preserve">
+    <value>Urmărește elementele tale zilnice pe lângă listele oficiale.</value>
+  </data>
+  <data name="SettingsView_CustomItems_AddButton" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="SettingsView_CustomItems_EmptyState" xml:space="preserve">
+    <value>Încă nu există elemente personalizate. Folosește Adaugă pentru a crea primul.</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Title" xml:space="preserve">
+    <value>Ștergi elementul?</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_KeepHistory" xml:space="preserve">
+    <value>Păstrează istoricul</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_DeleteAll" xml:space="preserve">
+    <value>Șterge tot</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Cancel" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="DiaryView_CustomSection_Header" xml:space="preserve">
+    <value>Personalizate</value>
+  </data>
+  <data name="CustomItemEditor_Title_Add" xml:space="preserve">
+    <value>Adaugă element</value>
+  </data>
+  <data name="CustomItemEditor_Title_Edit" xml:space="preserve">
+    <value>Editează element</value>
+  </data>
+  <data name="CustomItemEditor_NameLabel" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="CustomItemEditor_NameTooLong" xml:space="preserve">
+    <value>Numele trebuie să aibă cel mult 60 de caractere.</value>
+  </data>
+  <data name="CustomItemEditor_NameDuplicateWarning" xml:space="preserve">
+    <value>Un alt element folosește deja acest nume.</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionLabel" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionPlaceholder" xml:space="preserve">
+    <value>Note opționale</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionTooLong" xml:space="preserve">
+    <value>Descrierea trebuie să aibă cel mult 500 de caractere.</value>
+  </data>
+  <data name="CustomItemEditor_ServingsLabel" xml:space="preserve">
+    <value>Porții recomandate pe zi</value>
+  </data>
+  <data name="CustomItemEditor_IconLabel" xml:space="preserve">
+    <value>Pictogramă</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerCatalogLabel" xml:space="preserve">
+    <value>Alege o pictogramă integrată</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiLabel" xml:space="preserve">
+    <value>Sau scrie un emoji</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiPlaceholder" xml:space="preserve">
+    <value>ex. 🌱</value>
+  </data>
+  <data name="CustomItemEditor_SortOrderLabel" xml:space="preserve">
+    <value>Ordine de sortare</value>
+  </data>
+  <data name="CustomItemEditor_Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="CustomItemEditor_Cancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+
 </root>

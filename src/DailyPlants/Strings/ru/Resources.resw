@@ -1054,4 +1054,88 @@
     <value>Выполните орехи 100 раз</value>
   </data>
 
+
+  <!-- Custom Items -->
+  <data name="SettingsView_CustomItems_SectionHeader" xml:space="preserve">
+    <value>Свои элементы</value>
+  </data>
+  <data name="SettingsView_CustomItems_SectionDescription" xml:space="preserve">
+    <value>Отслеживайте свои ежедневные элементы помимо официальных списков.</value>
+  </data>
+  <data name="SettingsView_CustomItems_AddButton" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="SettingsView_CustomItems_EmptyState" xml:space="preserve">
+    <value>Пока нет своих элементов. Нажмите «Добавить», чтобы создать первый.</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Title" xml:space="preserve">
+    <value>Удалить элемент?</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_KeepHistory" xml:space="preserve">
+    <value>Сохранить историю</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_DeleteAll" xml:space="preserve">
+    <value>Удалить всё</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DiaryView_CustomSection_Header" xml:space="preserve">
+    <value>Свои</value>
+  </data>
+  <data name="CustomItemEditor_Title_Add" xml:space="preserve">
+    <value>Добавить элемент</value>
+  </data>
+  <data name="CustomItemEditor_Title_Edit" xml:space="preserve">
+    <value>Изменить элемент</value>
+  </data>
+  <data name="CustomItemEditor_NameLabel" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="CustomItemEditor_NameTooLong" xml:space="preserve">
+    <value>Имя должно содержать не более 60 символов.</value>
+  </data>
+  <data name="CustomItemEditor_NameDuplicateWarning" xml:space="preserve">
+    <value>Другой элемент уже использует это имя.</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionLabel" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionPlaceholder" xml:space="preserve">
+    <value>Необязательные заметки</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionTooLong" xml:space="preserve">
+    <value>Описание должно содержать не более 500 символов.</value>
+  </data>
+  <data name="CustomItemEditor_ServingsLabel" xml:space="preserve">
+    <value>Рекомендуемые порции в день</value>
+  </data>
+  <data name="CustomItemEditor_IconLabel" xml:space="preserve">
+    <value>Значок</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerCatalogLabel" xml:space="preserve">
+    <value>Выберите встроенный значок</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiLabel" xml:space="preserve">
+    <value>Или введите эмодзи</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiPlaceholder" xml:space="preserve">
+    <value>напр. 🌱</value>
+  </data>
+  <data name="CustomItemEditor_SortOrderLabel" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="CustomItemEditor_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="CustomItemEditor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+
 </root>

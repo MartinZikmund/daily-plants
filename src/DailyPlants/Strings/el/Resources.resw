@@ -1054,4 +1054,88 @@
     <value>Ολοκληρώστε τους ξηρούς καρπούς 100 φορές</value>
   </data>
 
+
+  <!-- Custom Items -->
+  <data name="SettingsView_CustomItems_SectionHeader" xml:space="preserve">
+    <value>Προσαρμοσμένα στοιχεία</value>
+  </data>
+  <data name="SettingsView_CustomItems_SectionDescription" xml:space="preserve">
+    <value>Παρακολουθήστε τα δικά σας καθημερινά στοιχεία επιπλέον των επίσημων λιστών.</value>
+  </data>
+  <data name="SettingsView_CustomItems_AddButton" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="SettingsView_CustomItems_EmptyState" xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη προσαρμοσμένα στοιχεία. Πατήστε «Προσθήκη» για να δημιουργήσετε το πρώτο.</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Title" xml:space="preserve">
+    <value>Διαγραφή στοιχείου;</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_KeepHistory" xml:space="preserve">
+    <value>Διατήρηση ιστορικού</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_DeleteAll" xml:space="preserve">
+    <value>Διαγραφή όλων</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="DiaryView_CustomSection_Header" xml:space="preserve">
+    <value>Προσαρμοσμένα</value>
+  </data>
+  <data name="CustomItemEditor_Title_Add" xml:space="preserve">
+    <value>Προσθήκη στοιχείου</value>
+  </data>
+  <data name="CustomItemEditor_Title_Edit" xml:space="preserve">
+    <value>Επεξεργασία στοιχείου</value>
+  </data>
+  <data name="CustomItemEditor_NameLabel" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="CustomItemEditor_NameTooLong" xml:space="preserve">
+    <value>Το όνομα πρέπει να έχει έως 60 χαρακτήρες.</value>
+  </data>
+  <data name="CustomItemEditor_NameDuplicateWarning" xml:space="preserve">
+    <value>Άλλο στοιχείο χρησιμοποιεί ήδη αυτό το όνομα.</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionLabel" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionPlaceholder" xml:space="preserve">
+    <value>Προαιρετικές σημειώσεις</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionTooLong" xml:space="preserve">
+    <value>Η περιγραφή πρέπει να έχει έως 500 χαρακτήρες.</value>
+  </data>
+  <data name="CustomItemEditor_ServingsLabel" xml:space="preserve">
+    <value>Προτεινόμενες μερίδες ανά ημέρα</value>
+  </data>
+  <data name="CustomItemEditor_IconLabel" xml:space="preserve">
+    <value>Εικονίδιο</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerCatalogLabel" xml:space="preserve">
+    <value>Επιλέξτε ενσωματωμένο εικονίδιο</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiLabel" xml:space="preserve">
+    <value>Ή πληκτρολογήστε emoji</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiPlaceholder" xml:space="preserve">
+    <value>π.χ. 🌱</value>
+  </data>
+  <data name="CustomItemEditor_SortOrderLabel" xml:space="preserve">
+    <value>Σειρά ταξινόμησης</value>
+  </data>
+  <data name="CustomItemEditor_Save" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="CustomItemEditor_Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+
 </root>

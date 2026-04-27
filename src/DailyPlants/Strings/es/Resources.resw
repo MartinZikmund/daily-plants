@@ -1054,4 +1054,88 @@
     <value>Completa frutos secos 100 veces</value>
   </data>
 
+
+  <!-- Custom Items -->
+  <data name="SettingsView_CustomItems_SectionHeader" xml:space="preserve">
+    <value>Elementos personalizados</value>
+  </data>
+  <data name="SettingsView_CustomItems_SectionDescription" xml:space="preserve">
+    <value>Realiza un seguimiento de tus propios elementos diarios además de las listas oficiales.</value>
+  </data>
+  <data name="SettingsView_CustomItems_AddButton" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="SettingsView_CustomItems_EmptyState" xml:space="preserve">
+    <value>Aún no hay elementos personalizados. Usa Añadir para crear el primero.</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Title" xml:space="preserve">
+    <value>¿Eliminar el elemento?</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_KeepHistory" xml:space="preserve">
+    <value>Mantener historial</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_DeleteAll" xml:space="preserve">
+    <value>Eliminar todo</value>
+  </data>
+  <data name="SettingsView_CustomItems_DeletePrompt_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DiaryView_CustomSection_Header" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="CustomItemEditor_Title_Add" xml:space="preserve">
+    <value>Añadir elemento</value>
+  </data>
+  <data name="CustomItemEditor_Title_Edit" xml:space="preserve">
+    <value>Editar elemento</value>
+  </data>
+  <data name="CustomItemEditor_NameLabel" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="CustomItemEditor_NameTooLong" xml:space="preserve">
+    <value>El nombre debe tener 60 caracteres o menos.</value>
+  </data>
+  <data name="CustomItemEditor_NameDuplicateWarning" xml:space="preserve">
+    <value>Otro elemento ya usa este nombre.</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionLabel" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionPlaceholder" xml:space="preserve">
+    <value>Notas opcionales</value>
+  </data>
+  <data name="CustomItemEditor_DescriptionTooLong" xml:space="preserve">
+    <value>La descripción debe tener 500 caracteres o menos.</value>
+  </data>
+  <data name="CustomItemEditor_ServingsLabel" xml:space="preserve">
+    <value>Raciones recomendadas al día</value>
+  </data>
+  <data name="CustomItemEditor_IconLabel" xml:space="preserve">
+    <value>Icono</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerCatalogLabel" xml:space="preserve">
+    <value>Elige un icono integrado</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiLabel" xml:space="preserve">
+    <value>O escribe un emoji</value>
+  </data>
+  <data name="CustomItemEditor_IconPickerEmojiPlaceholder" xml:space="preserve">
+    <value>p. ej. 🌱</value>
+  </data>
+  <data name="CustomItemEditor_SortOrderLabel" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="CustomItemEditor_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="CustomItemEditor_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+
 </root>
