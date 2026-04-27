@@ -28,7 +28,7 @@ public class ExportService : IExportService
     {
         var exportData = new ExportData
         {
-            Version = "1.0",
+            Version = "1.1",
             ExportDate = DateTime.UtcNow
         };
 
@@ -68,6 +68,35 @@ public class ExportService : IExportService
             ThemePreference = _appPreferences.ThemePreference
         };
 
+        // Export custom items + entries (orphans included)
+        var customItems = await _dataService.GetCustomItemsAsync();
+        foreach (var item in customItems)
+        {
+            exportData.CustomItems.Add(new CustomItemExport
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                RecommendedServings = item.RecommendedServings,
+                IconType = item.IconType == CustomItemIconType.Emoji ? "emoji" : "catalog",
+                IconValue = item.IconValue,
+                SortOrder = item.SortOrder,
+                UpdatedAt = item.UpdatedAt.ToString("O"),
+            });
+        }
+
+        var customEntries = await _dataService.GetAllCustomItemEntriesAsync();
+        foreach (var entry in customEntries)
+        {
+            exportData.CustomItemEntries.Add(new CustomItemEntryExport
+            {
+                Date = entry.Date.ToString("yyyy-MM-dd"),
+                CustomItemId = entry.CustomItemId,
+                ServingsCompleted = entry.ServingsCompleted,
+                UpdatedAt = entry.UpdatedAt.ToString("O"),
+            });
+        }
+
         return JsonSerializer.Serialize(exportData, JsonOptions);
     }
 
@@ -78,6 +107,7 @@ public class ExportService : IExportService
         // Header
         sb.AppendLine("Date,ItemId,ItemName,ServingsCompleted,RecommendedServings");
 
+        // CSV intentionally excludes custom items per contracts/export-schema.md ("Non-goals for v1").
         // Export all entries in a single range query
         var allEntries = await _dataService.GetEntriesInRangeAsync(DateOnly.MinValue, DateOnly.MaxValue);
         foreach (var entry in allEntries)
@@ -108,6 +138,9 @@ public class ExportService : IExportService
 
             int entriesImported = 0;
             int weightEntriesImported = 0;
+            int customItemsImported = 0;
+            int customEntriesImported = 0;
+            var warnings = new List<string>();
 
             // Import daily entries
             foreach (var entry in importData.DailyEntries)
@@ -139,6 +172,93 @@ public class ExportService : IExportService
                 }
             }
 
+            // Import custom items first (so entries find their parents within the same payload).
+            foreach (var ci in importData.CustomItems)
+            {
+                if (string.IsNullOrWhiteSpace(ci.Id) || string.IsNullOrWhiteSpace(ci.Name))
+                {
+                    warnings.Add($"Skipped custom item with missing id or name.");
+                    continue;
+                }
+
+                var name = ci.Name.Trim();
+                if (name.Length > 60)
+                {
+                    warnings.Add($"Truncated custom item name '{name[..Math.Min(20, name.Length)]}...' to 60 chars.");
+                    name = name[..60];
+                }
+
+                var description = ci.Description ?? "";
+                if (description.Length > 500)
+                {
+                    warnings.Add($"Truncated description on '{name}' to 500 chars.");
+                    description = description[..500];
+                }
+
+                var servings = Math.Max(1, ci.RecommendedServings);
+
+                CustomItemIconType iconType;
+                string iconValue;
+                if (string.Equals(ci.IconType, "emoji", StringComparison.OrdinalIgnoreCase))
+                {
+                    var grapheme = CustomItemService.TakeFirstEmojiGrapheme(ci.IconValue);
+                    if (grapheme is null)
+                    {
+                        warnings.Add($"Custom item '{name}' had invalid emoji; using default catalog icon.");
+                        iconType = CustomItemIconType.Catalog;
+                        iconValue = CustomIconCatalog.DefaultKey;
+                    }
+                    else
+                    {
+                        iconType = CustomItemIconType.Emoji;
+                        iconValue = grapheme;
+                    }
+                }
+                else
+                {
+                    if (!string.Equals(ci.IconType, "catalog", StringComparison.OrdinalIgnoreCase) &&
+                        !string.IsNullOrEmpty(ci.IconType))
+                    {
+                        warnings.Add($"Unknown iconType '{ci.IconType}' on '{name}'; defaulting to catalog.");
+                    }
+                    iconType = CustomItemIconType.Catalog;
+                    iconValue = CustomIconCatalog.IsKnown(ci.IconValue ?? "")
+                        ? ci.IconValue!
+                        : CustomIconCatalog.DefaultKey;
+                }
+
+                var updatedAt = ParseUpdatedAt(ci.UpdatedAt);
+
+                await _dataService.SaveCustomItemAsync(new CustomItem
+                {
+                    Id = ci.Id,
+                    Name = name,
+                    Description = description,
+                    RecommendedServings = servings,
+                    IconType = iconType,
+                    IconValue = iconValue,
+                    SortOrder = ci.SortOrder,
+                    UpdatedAt = updatedAt,
+                });
+                customItemsImported++;
+            }
+
+            // Custom item entries (orphan-tolerant)
+            foreach (var entry in importData.CustomItemEntries)
+            {
+                if (!DateOnly.TryParse(entry.Date, out var date)) continue;
+                if (string.IsNullOrWhiteSpace(entry.CustomItemId)) continue;
+
+                await _dataService.SaveCustomItemEntryAsync(new CustomItemEntry
+                {
+                    Date = date,
+                    CustomItemId = entry.CustomItemId,
+                    ServingsCompleted = Math.Max(0, entry.ServingsCompleted),
+                    UpdatedAt = ParseUpdatedAt(entry.UpdatedAt),
+                });
+                customEntriesImported++;
+            }
+
             // Import settings (optional - don't overwrite if not provided)
             if (importData.Settings != null)
             {
@@ -155,7 +275,10 @@ public class ExportService : IExportService
             {
                 Success = true,
                 EntriesImported = entriesImported,
-                WeightEntriesImported = weightEntriesImported
+                WeightEntriesImported = weightEntriesImported,
+                CustomItemsImported = customItemsImported,
+                CustomItemEntriesImported = customEntriesImported,
+                Warnings = warnings,
             };
         }
         catch (JsonException ex)
@@ -174,6 +297,18 @@ public class ExportService : IExportService
                 ErrorMessage = $"Import failed: {ex.Message}"
             };
         }
+    }
+
+    private static DateTime ParseUpdatedAt(string? value)
+    {
+        if (string.IsNullOrEmpty(value)) return DateTime.UtcNow;
+        return DateTime.TryParse(
+            value,
+            null,
+            System.Globalization.DateTimeStyles.RoundtripKind | System.Globalization.DateTimeStyles.AssumeUniversal,
+            out var parsed)
+            ? parsed
+            : DateTime.UtcNow;
     }
 
     public async Task<ImportResult> ImportFromCsvAsync(string csv)

@@ -36,19 +36,45 @@ public class ImportResult
     public bool Success { get; init; }
     public int EntriesImported { get; init; }
     public int WeightEntriesImported { get; init; }
+    public int CustomItemsImported { get; init; }
+    public int CustomItemEntriesImported { get; init; }
+    public List<string> Warnings { get; init; } = [];
     public string? ErrorMessage { get; init; }
 }
 
 /// <summary>
-/// Data structure for JSON export/import.
+/// Data structure for JSON export/import. Version "1.1" adds customItems / customItemEntries.
 /// </summary>
 public class ExportData
 {
-    public string Version { get; set; } = "1.0";
+    public string Version { get; set; } = "1.1";
     public DateTime ExportDate { get; set; } = DateTime.UtcNow;
     public List<DailyEntryExport> DailyEntries { get; set; } = [];
     public List<WeightEntryExport> WeightEntries { get; set; } = [];
     public UserSettingsExport? Settings { get; set; }
+
+    public List<CustomItemExport> CustomItems { get; set; } = [];
+    public List<CustomItemEntryExport> CustomItemEntries { get; set; } = [];
+}
+
+public class CustomItemExport
+{
+    public string Id { get; set; } = "";
+    public string Name { get; set; } = "";
+    public string Description { get; set; } = "";
+    public int RecommendedServings { get; set; } = 1;
+    public string IconType { get; set; } = "catalog";
+    public string IconValue { get; set; } = "default";
+    public int SortOrder { get; set; }
+    public string? UpdatedAt { get; set; }
+}
+
+public class CustomItemEntryExport
+{
+    public string Date { get; set; } = "";
+    public string CustomItemId { get; set; } = "";
+    public int ServingsCompleted { get; set; }
+    public string? UpdatedAt { get; set; }
 }
 
 public class DailyEntryExport
