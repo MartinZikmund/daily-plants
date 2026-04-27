@@ -48,12 +48,13 @@ public partial class App : Application
                     services.AddSingleton<IDataService, SqliteDataService>();
                     services.AddSingleton<ILocalizationService, LocalizationService>();
                     services.AddSingleton<IAchievementService, AchievementService>();
+                    services.AddSingleton<ICustomItemService, CustomItemService>();
                     services.AddTransient<IExportService, ExportService>();
                 })
             );
         MainWindow = builder.Window;
 
-#if DEBUG
+#if false
         MainWindow.UseStudio();
 #endif
         MainWindow.SetWindowIcon();
@@ -69,6 +70,14 @@ public partial class App : Application
             // Initialize achievement service
             var achievementService = Host.Services.GetRequiredService<IAchievementService>();
             await achievementService.InitializeAsync();
+
+#if DEBUG
+            // SC-002: assert custom-item rows never leak into DailyEntries.
+            if (dataService is SqliteDataService sqlite)
+            {
+                await sqlite.VerifyAchievementIsolationDebug();
+            }
+#endif
         }
         catch (Exception ex)
         {

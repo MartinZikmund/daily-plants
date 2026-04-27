@@ -124,4 +124,51 @@ public interface IDataService
     /// Gets the total number of days with any entries.
     /// </summary>
     Task<int> GetTotalDaysTrackedAsync();
+
+    // ===== Custom Items (definitions) =====
+
+    /// <summary>
+    /// Gets all custom item definitions, ordered by SortOrder.
+    /// </summary>
+    Task<IReadOnlyList<CustomItem>> GetCustomItemsAsync();
+
+    /// <summary>
+    /// Gets a single custom item definition by Id, or null if missing.
+    /// </summary>
+    Task<CustomItem?> GetCustomItemByIdAsync(string id);
+
+    /// <summary>
+    /// Inserts or updates a custom item definition (upsert by Id).
+    /// </summary>
+    Task SaveCustomItemAsync(CustomItem item);
+
+    /// <summary>
+    /// Deletes a custom item definition. When cascadeEntries is true, also
+    /// deletes all CustomItemEntries rows for this Id in a single transaction.
+    /// When false, entries remain as orphans (FR-004 keep-history).
+    /// </summary>
+    Task DeleteCustomItemAsync(string id, bool cascadeEntries);
+
+    // ===== Custom Item Entries =====
+
+    /// <summary>
+    /// Gets all custom item entries (including orphans) for a specific date.
+    /// </summary>
+    Task<IReadOnlyList<CustomItemEntry>> GetCustomItemEntriesForDateAsync(DateOnly date);
+
+    /// <summary>
+    /// Gets all custom item entries within a date range.
+    /// </summary>
+    Task<IReadOnlyList<CustomItemEntry>> GetCustomItemEntriesInRangeAsync(DateOnly startDate, DateOnly endDate);
+
+    /// <summary>
+    /// Gets every custom item entry in the database (used by export).
+    /// Includes orphans whose parent CustomItem has been deleted.
+    /// </summary>
+    Task<IReadOnlyList<CustomItemEntry>> GetAllCustomItemEntriesAsync();
+
+    /// <summary>
+    /// Inserts or updates a custom item entry (upsert by Date + CustomItemId).
+    /// </summary>
+    Task SaveCustomItemEntryAsync(CustomItemEntry entry);
 }

@@ -39,9 +39,13 @@ public class SqliteDataService : IDataService
         await _connection.CreateTableAsync<DailyEntryEntity>();
         await _connection.CreateTableAsync<WeightEntryEntity>();
         await _connection.CreateTableAsync<EarnedAchievementEntity>();
+        await _connection.CreateTableAsync<CustomItemEntity>();
+        await _connection.CreateTableAsync<CustomItemEntryEntity>();
 
         await _connection.ExecuteAsync(
             "CREATE UNIQUE INDEX IF NOT EXISTS idx_daily_entries_date_item ON DailyEntries (Date, ItemId)");
+        await _connection.ExecuteAsync(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_custom_entries_date_item ON CustomItemEntries (Date, CustomItemId)");
 
         await RunMigrationsAsync();
 
@@ -67,8 +71,16 @@ public class SqliteDataService : IDataService
             await _connection.ExecuteAsync("PRAGMA user_version = 2");
         }
 
-        // Future migrations go here:
-        // if (version < 3) { /* migration to v3 */ await _connection.ExecuteAsync("PRAGMA user_version = 3"); }
+        if (version < 3)
+        {
+            // v3: Custom user-defined checklist items. Tables and unique index are created
+            // up-front in InitializeAsync; this migration just bumps the schema version.
+            await _connection.CreateTableAsync<CustomItemEntity>();
+            await _connection.CreateTableAsync<CustomItemEntryEntity>();
+            await _connection.ExecuteAsync(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_custom_entries_date_item ON CustomItemEntries (Date, CustomItemId)");
+            await _connection.ExecuteAsync("PRAGMA user_version = 3");
+        }
     }
 
     // ===== Daily Entries =====
@@ -408,6 +420,145 @@ public class SqliteDataService : IDataService
             "SELECT COUNT(DISTINCT Date) FROM DailyEntries");
     }
 
+    // ===== Custom Items (definitions) =====
+
+    public async Task<IReadOnlyList<CustomItem>> GetCustomItemsAsync()
+    {
+        await EnsureInitializedAsync();
+
+        var entities = await _connection.Table<CustomItemEntity>()
+            .OrderBy(e => e.SortOrder)
+            .ToListAsync();
+
+        return entities.Select(ToModel).ToList();
+    }
+
+    public async Task<CustomItem?> GetCustomItemByIdAsync(string id)
+    {
+        await EnsureInitializedAsync();
+
+        var entities = await _connection.Table<CustomItemEntity>()
+            .Where(e => e.Id == id)
+            .ToListAsync();
+
+        var entity = entities.FirstOrDefault();
+        return entity is null ? null : ToModel(entity);
+    }
+
+    public async Task SaveCustomItemAsync(CustomItem item)
+    {
+        await EnsureInitializedAsync();
+
+        var nowUtc = DateTime.UtcNow.ToString("O");
+        await _connection.ExecuteAsync(
+            "INSERT INTO CustomItems (Id, Name, Description, RecommendedServings, IconType, IconValue, SortOrder, UpdatedAt) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?) " +
+            "ON CONFLICT(Id) DO UPDATE SET Name = ?, Description = ?, RecommendedServings = ?, IconType = ?, IconValue = ?, SortOrder = ?, UpdatedAt = ?",
+            item.Id, item.Name, item.Description, item.RecommendedServings, (int)item.IconType, item.IconValue, item.SortOrder, nowUtc,
+            item.Name, item.Description, item.RecommendedServings, (int)item.IconType, item.IconValue, item.SortOrder, nowUtc);
+    }
+
+    public async Task DeleteCustomItemAsync(string id, bool cascadeEntries)
+    {
+        await EnsureInitializedAsync();
+
+        if (cascadeEntries)
+        {
+            await _connection.RunInTransactionAsync(conn =>
+            {
+                conn.Execute("DELETE FROM CustomItemEntries WHERE CustomItemId = ?", id);
+                conn.Execute("DELETE FROM CustomItems WHERE Id = ?", id);
+            });
+        }
+        else
+        {
+            await _connection.ExecuteAsync("DELETE FROM CustomItems WHERE Id = ?", id);
+        }
+    }
+
+    // ===== Custom Item Entries =====
+
+    public async Task<IReadOnlyList<CustomItemEntry>> GetCustomItemEntriesForDateAsync(DateOnly date)
+    {
+        await EnsureInitializedAsync();
+
+        var dateStr = date.ToString("yyyy-MM-dd");
+        var entities = await _connection.Table<CustomItemEntryEntity>()
+            .Where(e => e.Date == dateStr)
+            .ToListAsync();
+
+        return entities.Select(ToModel).ToList();
+    }
+
+    public async Task<IReadOnlyList<CustomItemEntry>> GetCustomItemEntriesInRangeAsync(DateOnly startDate, DateOnly endDate)
+    {
+        await EnsureInitializedAsync();
+
+        var startStr = startDate.ToString("yyyy-MM-dd");
+        var endStr = endDate.ToString("yyyy-MM-dd");
+        var entities = await _connection.QueryAsync<CustomItemEntryEntity>(
+            "SELECT * FROM CustomItemEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
+            startStr, endStr);
+
+        return entities.Select(ToModel).ToList();
+    }
+
+    public async Task<IReadOnlyList<CustomItemEntry>> GetAllCustomItemEntriesAsync()
+    {
+        await EnsureInitializedAsync();
+
+        var entities = await _connection.QueryAsync<CustomItemEntryEntity>(
+            "SELECT * FROM CustomItemEntries ORDER BY Date");
+
+        return entities.Select(ToModel).ToList();
+    }
+
+    public async Task SaveCustomItemEntryAsync(CustomItemEntry entry)
+    {
+        await EnsureInitializedAsync();
+
+        var dateStr = entry.Date.ToString("yyyy-MM-dd");
+        var nowUtc = DateTime.UtcNow.ToString("O");
+        await _connection.ExecuteAsync(
+            "INSERT INTO CustomItemEntries (Date, CustomItemId, ServingsCompleted, UpdatedAt) VALUES (?, ?, ?, ?) " +
+            "ON CONFLICT(Date, CustomItemId) DO UPDATE SET ServingsCompleted = ?, UpdatedAt = ?",
+            dateStr, entry.CustomItemId, entry.ServingsCompleted, nowUtc,
+            entry.ServingsCompleted, nowUtc);
+    }
+
+#if DEBUG
+    /// <summary>
+    /// DEBUG-only sanity check: verifies that every ItemId in DailyEntries is a known
+    /// ChecklistDefinitions item. Catches future regressions where custom-item rows leak
+    /// into DailyEntries (which would break achievement isolation per FR-009 / SC-002).
+    /// Logs to Debug output; never throws in retail.
+    /// </summary>
+    public async Task VerifyAchievementIsolationDebug()
+    {
+        try
+        {
+            await EnsureInitializedAsync();
+
+            var distinctIds = await _connection.QueryScalarsAsync<string>(
+                "SELECT DISTINCT ItemId FROM DailyEntries");
+            var knownIds = ChecklistDefinitions.AllItems.Select(i => i.Id).ToHashSet();
+
+            var unknown = distinctIds.Where(id => !knownIds.Contains(id)).ToList();
+            if (unknown.Count > 0)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    $"[VerifyAchievementIsolationDebug] WARNING: {unknown.Count} DailyEntries ItemId(s) " +
+                    $"are not present in ChecklistDefinitions: {string.Join(", ", unknown)}. " +
+                    $"This is expected only for legacy items removed in past migrations.");
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[VerifyAchievementIsolationDebug] failed: {ex}");
+        }
+    }
+#endif
+
     // ===== Mapping helpers =====
 
     private static DailyEntry ToModel(DailyEntryEntity entity) => new()
@@ -432,5 +583,32 @@ public class SqliteDataService : IDataService
         AchievementId = entity.AchievementId,
         EarnedAt = DateTime.Parse(entity.EarnedAt),
         HasBeenSeen = entity.HasBeenSeen == 1
+    };
+
+    private static CustomItem ToModel(CustomItemEntity entity) => new()
+    {
+        Id = entity.Id,
+        Name = entity.Name,
+        Description = entity.Description ?? "",
+        RecommendedServings = entity.RecommendedServings,
+        IconType = entity.IconType == (int)CustomItemIconType.Emoji
+            ? CustomItemIconType.Emoji
+            : CustomItemIconType.Catalog,
+        IconValue = string.IsNullOrEmpty(entity.IconValue) ? CustomIconCatalog.DefaultKey : entity.IconValue,
+        SortOrder = entity.SortOrder,
+        UpdatedAt = string.IsNullOrEmpty(entity.UpdatedAt)
+            ? DateTime.UtcNow
+            : DateTime.Parse(entity.UpdatedAt, null, System.Globalization.DateTimeStyles.RoundtripKind),
+    };
+
+    private static CustomItemEntry ToModel(CustomItemEntryEntity entity) => new()
+    {
+        Id = entity.Id,
+        Date = DateOnly.Parse(entity.Date),
+        CustomItemId = entity.CustomItemId,
+        ServingsCompleted = entity.ServingsCompleted,
+        UpdatedAt = string.IsNullOrEmpty(entity.UpdatedAt)
+            ? DateTime.UtcNow
+            : DateTime.Parse(entity.UpdatedAt, null, System.Globalization.DateTimeStyles.RoundtripKind),
     };
 }
