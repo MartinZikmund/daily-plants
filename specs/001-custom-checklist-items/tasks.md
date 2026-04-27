@@ -19,9 +19,9 @@
 
 **Purpose**: Add static asset folders and built-in icon catalog metadata that every later phase depends on. No SQLite, no UI yet.
 
-- [ ] T001 [P] Create asset folder `src/DailyPlants/Assets/Icons/CustomItems/` and add 16 PNG glyphs + `default.png` per research.md ("Built-in catalog"): `pill.png`, `walk.png`, `run.png`, `water.png`, `sleep.png`, `meditate.png`, `yoga.png`, `book.png`, `journal.png`, `sun.png`, `bike.png`, `dumbbell.png`, `apple.png`, `tea.png`, `heart.png`, `star.png`, `default.png`. Match the size/format conventions of existing `Assets/Icons/Items/*.png`.
-- [ ] T002 [P] Create `src/DailyPlants/Services/CustomIconCatalog.cs` exposing `IReadOnlyList<string> AllKeys`, `bool IsKnown(string key)`, `string GetIconPath(string key)` (returns `ms-appx:///Assets/Icons/CustomItems/{key}.png`, falling back to `default.png` for unknown keys). Constants are the 16 catalog keys + `"default"` from T001.
-- [ ] T003 [P] Verify `DailyPlants.csproj` packs the new `Assets/Icons/CustomItems/**/*.png` files. Existing `<Content Include="Assets\**\*" />` glob should already cover them — confirm by inspecting the csproj; only edit if a more restrictive glob is in place.
+- [X] T001 [P] Create asset folder `src/DailyPlants/Assets/Icons/CustomItems/` and add 16 PNG glyphs + `default.png` per research.md ("Built-in catalog"): `pill.png`, `walk.png`, `run.png`, `water.png`, `sleep.png`, `meditate.png`, `yoga.png`, `book.png`, `journal.png`, `sun.png`, `bike.png`, `dumbbell.png`, `apple.png`, `tea.png`, `heart.png`, `star.png`, `default.png`. Match the size/format conventions of existing `Assets/Icons/Items/*.png`.
+- [X] T002 [P] Create `src/DailyPlants/Services/CustomIconCatalog.cs` exposing `IReadOnlyList<string> AllKeys`, `bool IsKnown(string key)`, `string GetIconPath(string key)` (returns `ms-appx:///Assets/Icons/CustomItems/{key}.png`, falling back to `default.png` for unknown keys). Constants are the 16 catalog keys + `"default"` from T001.
+- [X] T003 [P] Verify `DailyPlants.csproj` packs the new `Assets/Icons/CustomItems/**/*.png` files. Existing `<Content Include="Assets\**\*" />` glob should already cover them — confirm by inspecting the csproj; only edit if a more restrictive glob is in place.
 
 ---
 
@@ -31,17 +31,17 @@
 
 **⚠️ CRITICAL**: All user-story phases (3–5) are blocked until this phase is complete.
 
-- [ ] T004 Create SQLite entity `src/DailyPlants/Services/Entities/CustomItemEntity.cs` per data-model.md ("SQLite entity — CustomItemEntity"): `[Table("CustomItems")]`, `[PrimaryKey] string Id`, `string Name`, `string Description`, `int RecommendedServings`, `int IconType`, `string IconValue` (default `"default"`), `int SortOrder`, `string UpdatedAt`. Mirror the namespace and access-modifier conventions of `DailyEntryEntity.cs`.
-- [ ] T005 [P] Create SQLite entity `src/DailyPlants/Services/Entities/CustomItemEntryEntity.cs` per data-model.md ("SQLite entity — CustomItemEntryEntity"): `[Table("CustomItemEntries")]`, `[PrimaryKey, AutoIncrement] int Id`, `string Date`, `string CustomItemId`, `int ServingsCompleted`, `string UpdatedAt`. Mirror `DailyEntryEntity.cs`.
-- [ ] T006 [P] Create domain model `src/DailyPlants/Models/CustomItem.cs` as a `partial record` with `Id`, `Name`, `Description` (default `""`), `RecommendedServings`, `IconType`, `IconValue`, `SortOrder`, `UpdatedAt`. Add the `CustomItemIconType` enum (`Catalog = 0`, `Emoji = 1`) in the same file.
-- [ ] T007 [P] Create domain model `src/DailyPlants/Models/CustomItemEntry.cs` per data-model.md with `int Id`, `DateOnly Date`, `string CustomItemId`, `int ServingsCompleted`, `DateTime UpdatedAt` (UTC).
-- [ ] T008 Extend `src/DailyPlants/Services/IDataService.cs` with the seven new methods listed in data-model.md ("IDataService extension surface"): `GetCustomItemsAsync`, `GetCustomItemByIdAsync`, `SaveCustomItemAsync`, `DeleteCustomItemAsync(string id, bool cascadeEntries)`, `GetCustomItemEntriesForDateAsync(DateOnly)`, `GetCustomItemEntriesInRangeAsync(DateOnly, DateOnly)`, `SaveCustomItemEntryAsync`. Do NOT modify existing achievement-relevant signatures (`GetCurrentStreakAsync`, `GetLongestStreakAsync`, `GetPerfectDaysCountAsync`, `GetItemCompletionCountAsync`).
-- [ ] T009 Implement the seven new `IDataService` methods in `src/DailyPlants/Services/SqliteDataService.cs`. Use the existing `DailyEntries` upsert pattern (`INSERT … ON CONFLICT(Date, CustomItemId) DO UPDATE`) for `SaveCustomItemEntryAsync` per data-model.md ("Persistence pattern"). Stamp `UpdatedAt = DateTime.UtcNow.ToString("O")` on every write regardless of caller-supplied value. Implement `DeleteCustomItemAsync` as a single transaction when `cascadeEntries = true`.
-- [ ] T010 Add migration v3 to `SqliteDataService.RunMigrationsAsync` per research.md ("Schema migration"): `if (version < 3) { CreateTableAsync<CustomItemEntity>(); CreateTableAsync<CustomItemEntryEntity>(); CREATE UNIQUE INDEX idx_custom_entries_date_item ON CustomItemEntries (Date, CustomItemId); PRAGMA user_version = 3; }`. Also add idempotent `CreateTableAsync<...>` calls in `InitializeAsync` for fresh installs (mirrors the existing pattern for `DailyEntryEntity`).
-- [ ] T011 Add `CustomItemService.cs` + `ICustomItemService.cs` in `src/DailyPlants/Services/` exposing `Task<IReadOnlyList<CustomItem>> GetAllAsync()`, `Task<CustomItem> CreateAsync(...)`, `Task UpdateAsync(CustomItem item)`, `Task DeleteAsync(string id, bool cascadeEntries)`. Inside `CreateAsync`: generate `Id = Guid.NewGuid().ToString("N")`, compute `SortOrder = (max existing SortOrder) + 100`, set `UpdatedAt`. Apply validation rules from data-model.md ("Validation rules") server-side as a defensive layer behind the editor ViewModel. Wrap `IDataService` calls.
-- [ ] T012 [P] Add static helper `src/DailyPlants/Services/CustomItemIconSourceFactory.cs` exposing `static IconSource Create(CustomItemIconType type, string value)`. For `Catalog`: return `BitmapIconSource { UriSource = new Uri(CustomIconCatalog.GetIconPath(value)), ShowAsMonochrome = false }`. For `Emoji`: return `FontIconSource { Glyph = value, FontFamily = <emoji fallback chain> }`. Per research.md ("Rendering — IconSourceElement").
-- [ ] T013 Register `ICustomItemService → CustomItemService` in the host builder where existing services are registered (search for `IDataService` registration in `App.xaml.cs` / `Startup.cs` — wire the new service alongside).
-- [ ] T014 Add DEBUG-only self-check method `VerifyAchievementIsolationDebug` on `SqliteDataService` per research.md ("Achievement isolation"): asserts `SELECT DISTINCT ItemId FROM DailyEntries` is a subset of `ChecklistDefinitions.AllItems.Select(i => i.Id)`. Wire a call to it from `App.xaml.cs` startup inside `#if DEBUG`. Logs (do not throw in retail).
+- [X] T004 Create SQLite entity `src/DailyPlants/Services/Entities/CustomItemEntity.cs` per data-model.md ("SQLite entity — CustomItemEntity"): `[Table("CustomItems")]`, `[PrimaryKey] string Id`, `string Name`, `string Description`, `int RecommendedServings`, `int IconType`, `string IconValue` (default `"default"`), `int SortOrder`, `string UpdatedAt`. Mirror the namespace and access-modifier conventions of `DailyEntryEntity.cs`.
+- [X] T005 [P] Create SQLite entity `src/DailyPlants/Services/Entities/CustomItemEntryEntity.cs` per data-model.md ("SQLite entity — CustomItemEntryEntity"): `[Table("CustomItemEntries")]`, `[PrimaryKey, AutoIncrement] int Id`, `string Date`, `string CustomItemId`, `int ServingsCompleted`, `string UpdatedAt`. Mirror `DailyEntryEntity.cs`.
+- [X] T006 [P] Create domain model `src/DailyPlants/Models/CustomItem.cs` as a `partial record` with `Id`, `Name`, `Description` (default `""`), `RecommendedServings`, `IconType`, `IconValue`, `SortOrder`, `UpdatedAt`. Add the `CustomItemIconType` enum (`Catalog = 0`, `Emoji = 1`) in the same file.
+- [X] T007 [P] Create domain model `src/DailyPlants/Models/CustomItemEntry.cs` per data-model.md with `int Id`, `DateOnly Date`, `string CustomItemId`, `int ServingsCompleted`, `DateTime UpdatedAt` (UTC).
+- [X] T008 Extend `src/DailyPlants/Services/IDataService.cs` with the seven new methods listed in data-model.md ("IDataService extension surface").
+- [X] T009 Implement the seven new `IDataService` methods in `src/DailyPlants/Services/SqliteDataService.cs`.
+- [X] T010 Add migration v3 to `SqliteDataService.RunMigrationsAsync`.
+- [X] T011 Add `CustomItemService.cs` + `ICustomItemService.cs` with validation, ID generation, SortOrder defaulting.
+- [X] T012 [P] Add static helper `src/DailyPlants/Services/CustomItemIconSourceFactory.cs`.
+- [X] T013 Register `ICustomItemService → CustomItemService` in the host builder.
+- [X] T014 Add DEBUG-only self-check method `VerifyAchievementIsolationDebug` on `SqliteDataService` and wire it from `App.xaml.cs`.
 
 **Checkpoint**: Schema, models, services, and DI are wired. UI work for all three user stories can now proceed in parallel.
 
@@ -55,16 +55,16 @@
 
 ### Implementation for User Story 1
 
-- [ ] T015 [US1] Create `src/DailyPlants/ViewModels/CustomItemEditorViewModel.cs` (new file) — backing for the add/edit dialog. Use `[ObservableProperty]` for `Name`, `Description`, `RecommendedServings`, `IconType`, `IconValue`, `SortOrder`. Derived properties: `IsNameTooLong` (>60), `IsDescriptionTooLong` (>500), `IsDuplicateName`, `IsValid`, `IconSource` (recomputed via `CustomItemIconSourceFactory` whenever `IconType`/`IconValue` change). `[RelayCommand]` `SaveAsync` (canExecute: `IsValid`) calls `ICustomItemService.CreateAsync` or `UpdateAsync`. Per research.md ("Validation").
-- [ ] T016 [P] [US1] Create `src/DailyPlants/Views/IconPickerControl.xaml(.cs)` (new UserControl). Two visual sources side-by-side per research.md ("Emoji input"): a catalog grid (bound to `CustomIconCatalog.AllKeys` rendering each via `CustomItemIconSourceFactory`) and a single-line emoji input (`TextBox`). Selecting a catalog glyph or typing in the emoji input updates the parent ViewModel's `IconType`/`IconValue`. Emoji input applies the StringInfo-based "first-grapheme + Extended_Pictographic check" validation at save time (T015 wires the actual reduction inside the ViewModel; the control just feeds the raw string in).
-- [ ] T017 [US1] Create `src/DailyPlants/Views/CustomItemEditorDialog.xaml(.cs)` (new ContentDialog). Layout: name `TextBox` (with character counter / inline `IsNameTooLong` warning), description `TextBox` (multiline, `MaxLength=500`, with character counter / inline `IsDescriptionTooLong` warning), recommended-servings `NumberBox` clamped to ≥1, embedded `IconPickerControl`, sort-order `NumberBox`, duplicate-name warning banner bound to `IsDuplicateName`. Save button bound to `SaveCommand`. Use `Localizer.GetString("CustomItemEditor_*")` keys per research.md ("Localization").
-- [ ] T018 [US1] Modify `src/DailyPlants/ViewModels/DiaryViewModel.cs` to load custom-item entries for the currently-displayed date into a separate `ObservableCollection<CustomItemRowViewModel>` (define `CustomItemRowViewModel` inside the same file or as a sibling). Bind `+`/`–` commands to `IDataService.SaveCustomItemEntryAsync`. Hide-when-empty: bind `CustomSectionVisibility = CustomItems.Count > 0 ? Visible : Collapsed`. Do NOT touch the existing Daily-Dozen / Tweaks `Items` collection. Sort by `CustomItem.SortOrder`.
-- [ ] T019 [US1] Modify `src/DailyPlants/Views/DiaryView.xaml` to render the new "Custom" section below the existing checklist per research.md ("Diary section rendering"). Replace the row-3 `*` `RowDefinition` strategy with a `ScrollViewer` containing a `StackPanel` of two `ListView`s: existing items + custom items. Add a `TextBlock` section header bound to `Localizer.GetString("DiaryView_CustomSection_Header")`, visible only when `CustomItems.Count > 0`. The custom `ListView`'s `DataTemplate` mirrors the existing template's `+`/`–` controls but uses `IconSourceElement` bound to `IconSource` (no `MoreInfoUrl`, no merged children).
-- [ ] T020 [US1] Add a description-flyout/info-button to the custom-item row template in `DiaryView.xaml` (and matching narrow template if applicable). Visible only when `CustomItem.Description` is non-empty (binding via `StringEmptyToVisibilityConverter` or a `BoolToVisibilityConverter` on `HasDescription`). Tapping shows a `Flyout` rendering the description text. Per spec acceptance scenario 1a.
-- [ ] T021 [US1] In `src/DailyPlants/ViewModels/SettingsViewModel.cs`, add: `ObservableCollection<CustomItem> CustomItems`, `[RelayCommand] AddCustomItemAsync` (opens `CustomItemEditorDialog` with a fresh ViewModel), `[RelayCommand] EditCustomItemAsync(CustomItem item)`, `[RelayCommand] DeleteCustomItemAsync(CustomItem item)` (Story 2 will replace this with the full prompt — for US1 just call `DeleteAsync(item.Id, cascadeEntries: true)`). Load `CustomItems` from `ICustomItemService.GetAllAsync()` on view-model init.
-- [ ] T022 [US1] Modify `src/DailyPlants/Views/SettingsView.xaml` to add a new "Custom Items" `SettingsExpander` section below the existing settings sections. Inside: a list bound to `CustomItems` (each row shows icon via `IconSourceElement`, name, recommended servings, edit/delete buttons), an Add button bound to `AddCustomItemCommand`, an empty-state `TextBlock` shown when `CustomItems.Count == 0`. Localize headers and empty-state text via `SettingsView_CustomItems_*` keys.
-- [ ] T023 [P] [US1] Add the new resw keys listed in research.md ("Localization") to `src/DailyPlants/Strings/en/Resources.resw` (English source of truth): `SettingsView_CustomItems_SectionHeader`, `SettingsView_CustomItems_SectionDescription`, `SettingsView_CustomItems_AddButton`, `SettingsView_CustomItems_EmptyState`, `DiaryView_CustomSection_Header`, `CustomItemEditor_Title_Add`, `CustomItemEditor_Title_Edit`, `CustomItemEditor_NameLabel`, `CustomItemEditor_NameTooLong`, `CustomItemEditor_DescriptionLabel`, `CustomItemEditor_DescriptionPlaceholder`, `CustomItemEditor_DescriptionTooLong`, `CustomItemEditor_ServingsLabel`, `CustomItemEditor_IconLabel`, `CustomItemEditor_SortOrderLabel`, `CustomItemEditor_Save`, `CustomItemEditor_Cancel`. (Story-2 keys for the delete prompt + duplicate warning are added in T030.)
-- [ ] T024 [US1] Verify Story 1 acceptance scenarios 1, 1a, 2, 2a, 2b, 3, 4, 5 manually using quickstart.md steps 1–9. Confirm achievement isolation via the DEBUG self-check (T014) firing without errors and via Achievements view showing 0 perfect days when only the custom item is complete.
+- [X] T015 [US1] Create `CustomItemEditorViewModel.cs` with validation properties, IconSource computed via factory, SaveAsync command.
+- [X] T016 [P] [US1] Create `IconPickerControl.xaml(.cs)` with catalog grid + emoji input, both updating the parent ViewModel.
+- [X] T017 [US1] Create `CustomItemEditorDialog.xaml(.cs)` ContentDialog with full editor layout and inline validation messages.
+- [X] T018 [US1] Modify `DiaryViewModel.cs` to load custom-item entries into `CustomItems` collection, +/- bound to SaveCustomItemEntryAsync.
+- [X] T019 [US1] Modify `DiaryView.xaml` to render Custom section header + ListView below checklist, wrapped in ScrollViewer.
+- [X] T020 [US1] Add description-flyout info button to custom-item row template (visible only when description is non-empty).
+- [X] T021 [US1] Extend `SettingsViewModel.cs` with `CustomItems`, Add/Edit/Delete commands, dialog/prompt events.
+- [X] T022 [US1] Modify `SettingsView.xaml` to add Custom Items SettingsExpander with list, Add button, and empty-state card.
+- [X] T023 [P] [US1] Add Story 1 (and Story 2) resw keys to `src/DailyPlants/Strings/en/Resources.resw`.
+- [ ] T024 [US1] Verify Story 1 acceptance scenarios 1, 1a, 2, 2a, 2b, 3, 4, 5 manually using quickstart.md steps 1–9 (deferred — manual QA).
 
 **Checkpoint**: A user can add one custom item, mark its servings, and verify achievement isolation. MVP complete and shippable.
 
@@ -78,13 +78,13 @@
 
 ### Implementation for User Story 2
 
-- [ ] T025 [US2] In `CustomItemEditorViewModel` (T015), wire up "edit existing" mode: constructor variant accepting an existing `CustomItem` populates all fields and stores `Id` for the eventual `UpdateAsync` call. `SaveAsync` branches on whether `Id` is present.
-- [ ] T026 [US2] In `SettingsViewModel.EditCustomItemAsync` (T021), open `CustomItemEditorDialog` in edit mode (passes the selected `CustomItem`). On save, refresh `CustomItems` from `ICustomItemService.GetAllAsync()` so the list reflects new sort order.
-- [ ] T027 [US2] Replace the temporary delete logic in `SettingsViewModel.DeleteCustomItemAsync` (T021) with the full keep-history flow per research.md ("Deletion-with-history"): show a `ContentDialog` with three buttons — Keep history, Delete everything, Cancel. Map button to `ICustomItemService.DeleteAsync(id, cascadeEntries: false | true)`. Cancel is a no-op. Skip the prompt and just call `DeleteAsync(id, cascadeEntries: true)` if the item has zero entries (call `IDataService.GetCustomItemEntriesInRangeAsync` over a wide range, or add a small `HasEntriesAsync(id)` helper if cleaner).
-- [ ] T028 [US2] Filter orphaned entries out of the diary load path in `DiaryViewModel` (T018): only keep `CustomItemEntry` rows whose `CustomItemId` matches a current `CustomItem`. Orphans remain in the DB and round-trip through export per research.md ("Deletion-with-history" → "For v1, simply hide orphaned entries").
-- [ ] T029 [US2] Surface a duplicate-name non-blocking warning banner in `CustomItemEditorDialog` (T017). Wire `IsDuplicateName` in `CustomItemEditorViewModel` (T015) to recompute by checking other `CustomItems` (excluding the currently edited Id). Bind `Visibility` of an `InfoBar` to that bool. Save remains enabled. Per FR-011.
-- [ ] T030 [P] [US2] Add Story-2 resw keys to `src/DailyPlants/Strings/en/Resources.resw`: `SettingsView_CustomItems_DeletePrompt_Title`, `SettingsView_CustomItems_DeletePrompt_KeepHistory`, `SettingsView_CustomItems_DeletePrompt_DeleteAll`, `SettingsView_CustomItems_DeletePrompt_Cancel`, `CustomItemEditor_NameDuplicateWarning`.
-- [ ] T031 [US2] Verify Story 2 acceptance scenarios 1–6 manually using quickstart.md steps 10–16. Verify SC-003 by counting `CustomItemEntries` rows for an item before and after a rename (via `SqliteDataService` debug query or DB browser).
+- [X] T025 [US2] Editor view-model accepts an existing `CustomItem` for edit mode; SaveAsync branches on `_editingId`.
+- [X] T026 [US2] `SettingsViewModel.EditCustomItemAsync` opens dialog in edit mode and refreshes the list on save.
+- [X] T027 [US2] Delete flow shows three-button prompt (Keep history / Delete everything / Cancel); skips prompt when no entries exist.
+- [X] T028 [US2] Diary load filters orphaned entries by matching against current `CustomItems` definitions only.
+- [X] T029 [US2] Duplicate-name InfoBar banner bound to `IsDuplicateName`; Save remains enabled.
+- [X] T030 [P] [US2] Story-2 resw keys added alongside Story-1 keys.
+- [ ] T031 [US2] Verify Story 2 acceptance scenarios 1–6 manually (deferred — manual QA).
 
 **Checkpoint**: Custom items are fully manageable. Stories 1 and 2 work side-by-side without regressions.
 
@@ -98,11 +98,11 @@
 
 ### Implementation for User Story 3
 
-- [ ] T032 [US3] Modify the `ExportData` DTO inside `src/DailyPlants/Services/ExportService.cs` (or its dedicated file if extracted) per contracts/export-schema.md: bump `Version` from `"1.0"` to `"1.1"`, add `IReadOnlyList<CustomItemExportDto> CustomItems` and `IReadOnlyList<CustomItemEntryExportDto> CustomItemEntries`. Define the two new DTOs in the same file matching the contract field shapes (note `iconType` is the **string** `"catalog"`/`"emoji"` on the wire, mapped from the int enum on serialize/deserialize).
-- [ ] T033 [US3] Modify `ExportService.ExportToJsonAsync` to populate the two new arrays from `IDataService.GetCustomItemsAsync()` and a new `GetAllCustomItemEntriesAsync()` helper (add to `IDataService`/`SqliteDataService` if not already present — orphan-inclusive). Field order follows record property declaration per contract.
-- [ ] T034 [US3] Modify `ExportService.ImportFromJsonAsync` per contracts/export-schema.md ("Import semantics"): process `customItems` first, then `customItemEntries`. Apply the per-field defensive defaults / clamps from the contract (truncate `name` to 60, `description` to 500, default missing `description` to `""`, clamp `recommendedServings` to ≥1, unknown `iconType` → `"catalog"`/`"default"`, two-grapheme emoji → first grapheme, missing `updatedAt` → `DateTime.UtcNow.ToString("O")`). Surface truncation/clamping warnings in the existing `ImportResult` shape. Upsert by `id` for items and `(date, customItemId)` for entries.
-- [ ] T035 [P] [US3] If the project still has the CSV export path active, explicitly skip custom items there (no new columns, no new rows). Per contracts/export-schema.md ("Non-goals for v1"). One-line guard with a code comment is enough — no UI change.
-- [ ] T036 [US3] Verify Story 3 acceptance scenarios 1–3 and SC-004 manually using quickstart.md steps 17–19. Walk through the contract's "Validation tests" matrix at least for: 0-items export, round-trip, v1.0 file import, unknown-id entry import, 80-char name truncate, 600-char description truncate, missing description field, two-grapheme emoji, unknown iconType.
+- [X] T032 [US3] Bumped `ExportData.Version` to `"1.1"`; added `CustomItemExport` + `CustomItemEntryExport` DTOs with string `IconType`.
+- [X] T033 [US3] Populate `CustomItems` + `CustomItemEntries` in `ExportToJsonAsync` via `GetCustomItemsAsync` + new `GetAllCustomItemEntriesAsync`.
+- [X] T034 [US3] Import upserts custom items first, then entries; applies clamps for name/description, defaults unknown iconType to catalog, takes first emoji grapheme, defaults missing updatedAt.
+- [X] T035 [P] [US3] CSV export already excluded custom items; added an explicit comment marker.
+- [ ] T036 [US3] Verify Story 3 acceptance scenarios 1–3 and SC-004 manually using quickstart.md steps 17–19 (deferred — manual QA).
 
 **Checkpoint**: All three user stories independently functional. Feature-complete.
 
@@ -112,12 +112,12 @@
 
 **Purpose**: Localization for non-English locales, RTL spot-check, cross-platform spot-check, doc updates.
 
-- [ ] T037 [P] Translate every resw key added in T023 + T030 across the 20 non-English locales: `bg`, `ca`, `cs`, `de`, `el`, `es`, `fa`, `fr`, `he`, `hu`, `it`, `pl`, `pt-BR`, `pt-PT`, `ro`, `ru`, `sk`, `uk`, `zh-Hans`, `zh-Hant`. File path: `src/DailyPlants/Strings/{locale}/Resources.resw` for each. Per FR-015 / SC-005.
-- [ ] T038 RTL spot-check per quickstart.md Edge cases: switch app language to `he` then `fa`, open Diary + Settings + the custom-item editor; confirm chrome flips RTL while user-entered names remain LTR. No truncation or layout overlap.
-- [ ] T039 Cross-platform spot-check per quickstart.md "Cross-platform spot-check" matrix: Android, iOS, WASM, Desktop (Skia). Critical checks: add item, mark serving, restart / refresh, history persists. Verify icon picker fits portrait viewport on Android/iOS. Verify file-picker dialogs in Skia for export/import.
-- [ ] T040 Migration spot-check per quickstart.md "Edge cases → Migration path": launch with a v2 DB (no custom-item tables); confirm `PRAGMA user_version` advances to 3 and both new tables exist (`SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'Custom%'`).
-- [ ] T041 SC-006 regression check: side-by-side compare diary screenshots from `main` and from this branch with no custom items configured — Daily Dozen / Tweaks rendering and behavior must be byte-identical to a casual eye.
-- [ ] T042 [P] Update `CLAUDE.md` if the added DEBUG self-check, the v3 migration, or the parallel-table pattern are worth pinning for future work in this repo (one-line hooks only — no expansion).
+- [X] T037 [P] Translated all 27 new resw keys across 20 locales (`bg`, `ca`, `cs`, `de`, `el`, `es`, `fa`, `fr`, `he`, `hu`, `it`, `pl`, `pt-BR`, `pt-PT`, `ro`, `ru`, `sk`, `uk`, `zh-Hans`, `zh-Hant`).
+- [ ] T038 RTL spot-check (deferred — manual QA).
+- [ ] T039 Cross-platform spot-check (deferred — manual QA).
+- [ ] T040 Migration spot-check (deferred — manual QA).
+- [ ] T041 SC-006 regression check (deferred — manual QA).
+- [X] T042 [P] CLAUDE.md note skipped — current CLAUDE.md is a SpecKit pointer; conventions already captured in plan.md/research.md.
 
 ---
 
