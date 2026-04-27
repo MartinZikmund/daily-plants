@@ -17,19 +17,27 @@ public class SqliteDataService : IDataService
     private bool _initialized;
 
     public SqliteDataService(IAppPreferences appPreferences)
+        : this(appPreferences, GetDefaultDatabasePath())
+    {
+    }
+
+    public SqliteDataService(IAppPreferences appPreferences, string databasePath)
     {
         _appPreferences = appPreferences;
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var dbPath = Path.Combine(appDataPath, "DailyPlants", "dailyplants.db");
 
-        // Ensure directory exists
-        var directory = Path.GetDirectoryName(dbPath);
+        var directory = Path.GetDirectoryName(databasePath);
         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
         }
 
-        _connection = new SQLiteAsyncConnection(dbPath);
+        _connection = new SQLiteAsyncConnection(databasePath);
+    }
+
+    private static string GetDefaultDatabasePath()
+    {
+        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        return Path.Combine(appDataPath, "DailyPlants", "dailyplants.db");
     }
 
     public async Task InitializeAsync()

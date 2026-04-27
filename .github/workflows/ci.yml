@@ -59,3 +59,14 @@ jobs:
       - name: Build ${{ env.APP_NAME }} (Debug)
         shell: pwsh
         run: msbuild $env:PROJECT_FILE /r
+
+      - name: Run unit tests
+        shell: pwsh
+        run: dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj --configuration Debug --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/**/*.trx'

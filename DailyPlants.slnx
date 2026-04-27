@@ -1,13 +1,14 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
     <File Path="global.json" />
-    <File Path="src/Directory.Build.props" />
     <File Path="src/Directory.Build.targets" />
-    <File Path="src/Directory.Packages.props" />
     <File Path="version.json" />
   </Folder>
   <Project Path="src/DailyPlants/DailyPlants.csproj">
     <Deploy />
   </Project>
+  <Project Path="tests/DailyPlants.Tests/DailyPlants.Tests.csproj" />
 </Solution>
