@@ -17,8 +17,11 @@ A user wants to track a habit beyond the official Daily Dozen and Tweaks (e.g., 
 
 **Acceptance Scenarios**:
 
-1. **Given** the user has never created a custom item, **When** they open Settings and add an item named "Take vitamin D" with 1 recommended serving and a chosen icon, **Then** the item is saved and the diary shows a new "Custom" section containing that item — rendered with the chosen icon — and 0 of 1 servings marked for today.
-2. **Given** the user is creating a new custom item, **When** they open the icon picker, **Then** they see the full built-in icon set (10–20 glyphs) and can select one with a single tap; the selected icon is shown in the form preview before save.
+1. **Given** the user has never created a custom item, **When** they open Settings and add an item named "Take vitamin D" with 1 recommended serving, an optional description "1000 IU after breakfast", and a chosen icon, **Then** the item is saved and the diary shows a new "Custom" section containing that item — rendered with the chosen icon — and 0 of 1 servings marked for today; tapping the row's info button shows the description text.
+1a. **Given** the user creates a custom item without entering a description, **When** they save, **Then** the item is created successfully and the diary row's info button is hidden (or its flyout simply has no description block) — no empty placeholder text is shown.
+2. **Given** the user is creating a new custom item, **When** they open the icon picker, **Then** they see two sources side-by-side: the full built-in catalog (10–20 glyphs) and an emoji input field. Selecting a catalog glyph or entering an emoji updates the form preview before save.
+2a. **Given** the user is creating a custom item, **When** they enter the emoji 🌱 in the emoji input, **Then** the form preview shows 🌱 and saving the item makes 🌱 the icon shown in Settings and on the diary row.
+2b. **Given** the user pastes a multi-character string `🍎🥗` into the emoji input, **When** they save, **Then** only the first emoji grapheme (🍎) is retained and rendered.
 3. **Given** a custom item exists, **When** the user marks one serving of it on the diary, **Then** the serving is persisted for that date and survives navigating away and reopening the app.
 4. **Given** a user adds a custom item without selecting an icon, **When** the item is saved, **Then** a default icon is used so the item still renders normally.
 5. **Given** a user is viewing the diary on a day with the custom item fully completed but no Daily Dozen or Tweaks items completed, **When** they look at any "perfect day" indicator, streak counter, or achievement trigger, **Then** the day is NOT counted as a perfect day and no achievement is awarded based on the custom item.
@@ -35,8 +38,8 @@ After creating one or more custom items, the user needs to refine them: rename, 
 
 **Acceptance Scenarios**:
 
-1. **Given** a custom item with several days of recorded servings, **When** the user renames it from "Walk" to "30 min walk", **Then** the name updates everywhere and prior days' servings remain attached to the same item.
-2. **Given** an existing custom item with an icon, **When** the user opens the icon picker and selects a different icon from the built-in set, **Then** the new icon is shown in both Settings and the diary on next render, and historical entries remain linked to the same item.
+1. **Given** a custom item with several days of recorded servings, **When** the user renames it from "Walk" to "30 min walk" and edits its description, **Then** both the name and description update everywhere they are surfaced and prior days' servings remain attached to the same item.
+2. **Given** an existing custom item with an icon, **When** the user opens the icon picker and either selects a different catalog glyph or enters a different emoji, **Then** the new icon is shown in both Settings and the diary on next render, and historical entries remain linked to the same item. Switching between a catalog glyph and an emoji and back is supported in either direction.
 3. **Given** two custom items with sort orders 10 and 20, **When** the user changes the second item's sort order to 5, **Then** the second item now appears above the first in the diary's Custom section and the order persists across app restarts.
 4. **Given** a custom item with recorded history, **When** the user attempts to delete it, **Then** they are presented with a choice to keep history (item removed from active list, prior entries retained) or fully remove the item and all its history.
 5. **Given** the user enters a name longer than 60 characters, **When** they attempt to save, **Then** the save is blocked or the input is truncated to 60 characters with clear feedback.
@@ -67,8 +70,11 @@ A user who exports their data (e.g., to back up or move to a new device) expects
 - **Deleting an item with history**: User is prompted with a clear binary choice — keep history (item removed from active tracking, entries retained for past-day views) or cascade delete everything.
 - **Achievement isolation**: A day on which only custom items are completed (and no Daily Dozen / Tweaks) is NOT a perfect day. Streaks and milestones are unaffected by custom-item completion.
 - **Long names**: Names longer than 60 characters are rejected or truncated with user feedback.
+- **Long descriptions**: Descriptions longer than 500 characters are rejected or truncated with user feedback. Empty descriptions are treated as "no description" and never block save.
 - **Duplicate names**: Permitted; a warning is shown at save time but does not block.
 - **Right-to-left languages**: Custom item names entered in RTL scripts render correctly in both Settings and the diary.
+- **Emoji rendering across platforms**: emoji icons render using the host OS's emoji font; appearance may differ by platform (Apple, Segoe UI Emoji, Noto Emoji) but the underlying value round-trips identically through export / import.
+- **Emoji input edge inputs**: empty emoji field, whitespace, plain text characters, and combining-character-only input are rejected (form preview shows the default catalog icon and the emoji-source button is treated as not selected).
 - **User-entered text not translated**: User-entered names appear verbatim regardless of the app's selected language; only the surrounding UI chrome is localized.
 - **Reorder consistency**: Sort order is persisted per item so the order is stable across sessions and (after import) across devices.
 
@@ -77,7 +83,9 @@ A user who exports their data (e.g., to back up or move to a new device) expects
 ### Functional Requirements
 
 - **FR-001**: Users MUST be able to create a custom daily-tracked item by providing a name and a recommended number of daily servings.
-- **FR-002**: Users MUST be able to choose an icon for each custom item from a built-in icon picker (10–20 curated glyphs) at creation time and at any later edit. The chosen icon MUST be displayed alongside the item everywhere it appears (Settings list, diary Custom section, edit form preview). If the user does not pick one, a default icon is applied automatically.
+- **FR-001a**: Users MUST be able to optionally attach a free-form description to a custom item (e.g., notes on what counts as a serving, motivation, source link). When the description is empty, no description UI is shown for that item; when present, the description is shown in the item-detail flyout opened from the diary row's info button. The description MUST be limited to 500 characters and is NOT translated.
+- **FR-002**: Users MUST be able to choose an icon for each custom item via an icon picker that exposes two sources: (a) a built-in catalog of 10–20 curated glyphs, and (b) a free-form emoji input where the user can type or paste a single emoji character. The icon picker is available at creation time and at any later edit. The chosen icon MUST be displayed alongside the item everywhere it appears (Settings list, diary Custom section, edit form preview). If the user does not pick one, a default catalog icon is applied automatically.
+- **FR-002a**: When the user supplies an emoji, the system MUST accept any single Unicode emoji character or grapheme cluster (including multi-codepoint sequences such as ZWJ-joined family / flag / skin-tone emojis). If the user enters more than one emoji, only the first emoji grapheme is retained.
 - **FR-003**: Users MUST be able to edit any field of an existing custom item (name, recommended servings, icon, sort order).
 - **FR-004**: Users MUST be able to delete a custom item; if the item has recorded history, the system MUST prompt the user to choose between keeping the history (orphan retention) or fully removing item plus all history.
 - **FR-005**: Users MUST be able to assign each custom item an explicit numeric sort order that controls its position in the diary's Custom section.
@@ -95,7 +103,7 @@ A user who exports their data (e.g., to back up or move to a new device) expects
 
 ### Key Entities
 
-- **Custom Item**: A user-defined tracked item. Attributes: stable identifier, display name (user-entered, ≤60 chars, not translated), recommended daily servings (positive integer), icon identifier (chosen from a fixed set, with a default), explicit sort order (numeric, used for diary ordering).
+- **Custom Item**: A user-defined tracked item. Attributes: stable identifier, display name (user-entered, ≤60 chars, not translated), optional description (user-entered free-form text, ≤500 chars, not translated, surfaced in the diary item-detail flyout when non-empty), recommended daily servings (positive integer), icon source (either a key from the built-in catalog or a single user-entered emoji grapheme, with a default catalog fallback), explicit sort order (numeric, used for diary ordering).
 - **Custom Item Entry**: A record of progress on a Custom Item for a single calendar day. Attributes: date, reference to the Custom Item by stable identifier, servings completed.
 
 ## Success Criteria *(mandatory)*
