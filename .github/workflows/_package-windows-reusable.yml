@@ -1,0 +1,315 @@
+name: Reusable Windows Packaging
+
+# Reusable workflow that builds, signs, bundles, and (optionally) submits a
+# WinAppSDK app to the Microsoft Store using the Windows App Development CLI
+# (`winapp`, https://github.com/microsoft/winappCli).
+#
+# Designed for reuse across multiple Uno Platform / WinAppSDK app repos.
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        description: 'Short app name used in artifact and output filenames (e.g. DailyPlants).'
+        type: string
+        required: true
+      project-file:
+        description: 'Path to the .csproj to build (e.g. src/DailyPlants/DailyPlants.csproj).'
+        type: string
+        required: true
+      project-path:
+        description: 'Project directory (e.g. src/DailyPlants).'
+        type: string
+        required: true
+      windows-target-framework:
+        description: 'Windows TFM to publish (e.g. net10.0-windows10.0.26100).'
+        type: string
+        required: true
+      executable-name:
+        description: 'Executable filename inside the publish output, used to resolve $targetnametoken$ in the manifest (e.g. DailyPlants.exe).'
+        type: string
+        required: true
+      platforms:
+        description: 'Comma-separated list of platforms to build (default: x86,x64,ARM64).'
+        type: string
+        default: 'x86,x64,ARM64'
+      dotnet-version:
+        description: '.NET SDK version selector for actions/setup-dotnet.'
+        type: string
+        default: '10.0.x'
+      runs-on:
+        description: 'Runner label.'
+        type: string
+        default: 'windows-2025-vs2026'
+      submit-to-store:
+        description: 'When true, submit the .msixupload to the Microsoft Store via `winapp store publish`. Requires MSSTORE_* and STORE_APP_ID secrets.'
+        type: boolean
+        default: false
+    secrets:
+      BASE64_ENCODED_WINDOWS_PFX:
+        description: 'Base64-encoded signing PFX.'
+        required: true
+      WINDOWS_PFX_PASSWORD:
+        description: 'Password for the signing PFX.'
+        required: true
+      STORE_APP_ID:
+        description: 'Microsoft Store product ID. Required when submit-to-store is true.'
+        required: false
+      MSSTORE_TENANT_ID:
+        required: false
+      MSSTORE_SELLER_ID:
+        required: false
+      MSSTORE_CLIENT_ID:
+        required: false
+      MSSTORE_CLIENT_SECRET:
+        required: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - id: set
+        shell: pwsh
+        run: |
+          $platforms = "${{ inputs.platforms }}".Split(',') | ForEach-Object { $_.Trim() } | Where-Object { $_ }
+          $json = ConvertTo-Json -InputObject @($platforms) -Compress -AsArray
+          "matrix=$json" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+  create_package:
+    needs: prepare
+    strategy:
+      matrix:
+        platform: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    runs-on: ${{ inputs.runs-on }}
+    env:
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      ContinuousIntegrationBuild: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: NuGet cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.sln*', '**/*.csproj', '**/Directory.Packages.props', '**/global.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}
+
+      - name: Setup winapp CLI
+        uses: microsoft/setup-WinAppCli@v0.1
+
+      - name: Map platform to RID
+        id: rid
+        shell: pwsh
+        run: |
+          $rid = switch ('${{ matrix.platform }}') {
+            'x86'   { 'win-x86' }
+            'x64'   { 'win-x64' }
+            'ARM64' { 'win-arm64' }
+            default { throw "Unknown platform '${{ matrix.platform }}'" }
+          }
+          "rid=$rid" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "publish-dir=publish/$rid" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Restore
+        run: dotnet restore "${{ inputs.project-file }}"
+
+      - name: Publish
+        run: >
+          dotnet publish "${{ inputs.project-file }}"
+          -c Release
+          -f ${{ inputs.windows-target-framework }}
+          -r ${{ steps.rid.outputs.rid }}
+          -p:PublishProfile=Properties/PublishProfiles/${{ steps.rid.outputs.rid }}.pubxml
+          -o "${{ steps.rid.outputs.publish-dir }}"
+
+      # `dotnet publish` without GenerateAppxPackageOnBuild=true does not invoke
+      # WinAppSDK packaging targets, so it neither copies Package.appxmanifest to
+      # the publish output nor lets NBGV inject the real version. We do both
+      # ourselves so `winapp pack` sees a manifest with the correct version.
+      - name: Stage manifest with NBGV-injected version
+        shell: pwsh
+        run: |
+          dotnet tool install -g nbgv | Out-Null
+          $raw = nbgv get-version -v SimpleVersion
+          $version = "$raw.0"
+          $manifestSrc = "${{ inputs.project-path }}/Package.appxmanifest"
+          $manifestDst = "${{ steps.rid.outputs.publish-dir }}/AppxManifest.xml"
+          Copy-Item $manifestSrc $manifestDst -Force
+          (Get-Content $manifestDst -Raw) -replace 'Version="0\.0\.0\.0"', "Version=`"$version`"" | Set-Content $manifestDst -Encoding utf8
+
+      - name: Decode signing PFX
+        shell: pwsh
+        run: |
+          $bytes = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_WINDOWS_PFX }}")
+          [IO.File]::WriteAllBytes("signing.pfx", $bytes)
+
+      - name: Pack MSIX (winapp pack)
+        run: >
+          winapp pack "${{ steps.rid.outputs.publish-dir }}"
+          --executable "${{ inputs.executable-name }}"
+          --output "packages/${{ inputs.app-name }}_${{ matrix.platform }}.msix"
+          --cert ./signing.pfx
+          --cert-password "${{ secrets.WINDOWS_PFX_PASSWORD }}"
+          --self-contained
+
+      - name: Collect symbols (.msixsym)
+        shell: pwsh
+        run: |
+          $pubDir = "${{ steps.rid.outputs.publish-dir }}"
+          $pdbStaging = Join-Path $env:RUNNER_TEMP "pdbs-${{ matrix.platform }}"
+          New-Item -ItemType Directory -Path $pdbStaging | Out-Null
+          $pdbs = Get-ChildItem -Path $pubDir -Filter *.pdb -Recurse
+          if (-not $pdbs) {
+            Write-Host "No PDBs found in $pubDir; skipping .msixsym generation."
+            exit 0
+          }
+          $pdbs | Copy-Item -Destination $pdbStaging
+          $symPath = "packages/${{ inputs.app-name }}_${{ matrix.platform }}.msixsym"
+          winapp tool makeappx pack /d $pdbStaging /p $symPath /nv
+
+      - name: Remove signing PFX
+        shell: pwsh
+        run: Remove-Item -Path signing.pfx -Force
+
+      - name: Upload MSIX package
+        uses: actions/upload-artifact@v4
+        with:
+          name: MSIX_Package_${{ matrix.platform }}
+          path: packages
+
+  merge:
+    needs: create_package
+    runs-on: ${{ inputs.runs-on }}
+    outputs:
+      version: ${{ steps.manifest.outputs.version }}
+      msixupload-name: ${{ steps.upload-name.outputs.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}
+
+      - name: Setup winapp CLI
+        uses: microsoft/setup-WinAppCli@v0.1
+
+      - name: Get package version from NBGV
+        id: manifest
+        shell: pwsh
+        run: |
+          dotnet tool install -g nbgv
+          $raw = nbgv get-version -v SimpleVersion
+          $version = "$raw.0"
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Compute .msixupload artifact name
+        id: upload-name
+        shell: pwsh
+        run: |
+          $name = "${{ inputs.app-name }}_${{ steps.manifest.outputs.version }}.msixupload"
+          "name=$name" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Download all MSIX_Package_* artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: MSIX_Package_*
+          path: ./msix
+
+      - name: Stage .msix files for bundling
+        id: stage
+        shell: pwsh
+        run: |
+          $msixFiles = Get-ChildItem -Path ./msix -Filter *.msix -Recurse
+          $tmp = Join-Path $env:RUNNER_TEMP ([IO.Path]::GetRandomFileName())
+          New-Item -ItemType Directory -Path $tmp | Out-Null
+          Copy-Item $msixFiles -Destination $tmp
+          "staging=$tmp" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Bundle (winapp tool makeappx)
+        shell: pwsh
+        run: |
+          $bundle = "./msix/${{ inputs.app-name }}_${{ steps.manifest.outputs.version }}.msixbundle"
+          winapp tool makeappx bundle /d "${{ steps.stage.outputs.staging }}" /p $bundle /bv ${{ steps.manifest.outputs.version }} /o
+
+      - name: Decode signing PFX
+        shell: pwsh
+        run: |
+          $bytes = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_WINDOWS_PFX }}")
+          [IO.File]::WriteAllBytes("signing.pfx", $bytes)
+
+      - name: Sign bundle (winapp sign)
+        run: >
+          winapp sign "./msix/${{ inputs.app-name }}_${{ steps.manifest.outputs.version }}.msixbundle"
+          --cert ./signing.pfx
+          --cert-password "${{ secrets.WINDOWS_PFX_PASSWORD }}"
+
+      - name: Remove signing PFX
+        shell: pwsh
+        run: Remove-Item -Path signing.pfx -Force
+
+      - name: Build .msixupload
+        shell: pwsh
+        run: |
+          $bundle = "./msix/${{ inputs.app-name }}_${{ steps.manifest.outputs.version }}.msixbundle"
+          $syms = Get-ChildItem -Path ./msix -Recurse -Filter *.msixsym
+          foreach ($sym in $syms) {
+            $newName = [IO.Path]::ChangeExtension($sym.FullName, ".appxsym")
+            Rename-Item -Path $sym.FullName -NewName $newName
+          }
+          $appxsymFiles = Get-ChildItem -Path ./msix -Recurse -Filter *.appxsym
+          $tmp = Join-Path $env:RUNNER_TEMP ([IO.Path]::GetRandomFileName())
+          New-Item -ItemType Directory -Path $tmp | Out-Null
+          Copy-Item $bundle $tmp
+          if ($appxsymFiles) { Copy-Item $appxsymFiles $tmp }
+          Compress-Archive -Path (Join-Path $tmp '*') -DestinationPath "${{ steps.upload-name.outputs.name }}" -Force
+
+      - name: Upload .msixupload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.upload-name.outputs.name }}
+          path: ${{ steps.upload-name.outputs.name }}
+
+  submit_to_store:
+    if: ${{ inputs.submit-to-store }}
+    needs: merge
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Setup winapp CLI
+        uses: microsoft/setup-WinAppCli@v0.1
+
+      - name: Download .msixupload
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.merge.outputs.msixupload-name }}
+          path: .
+
+      - name: Submit to Microsoft Store (winapp store publish)
+        env:
+          MSSTORE_TENANT_ID:     ${{ secrets.MSSTORE_TENANT_ID }}
+          MSSTORE_SELLER_ID:     ${{ secrets.MSSTORE_SELLER_ID }}
+          MSSTORE_CLIENT_ID:     ${{ secrets.MSSTORE_CLIENT_ID }}
+          MSSTORE_CLIENT_SECRET: ${{ secrets.MSSTORE_CLIENT_SECRET }}
+        run: >
+          winapp store publish "./${{ needs.merge.outputs.msixupload-name }}"
+          --appId "${{ secrets.STORE_APP_ID }}"
