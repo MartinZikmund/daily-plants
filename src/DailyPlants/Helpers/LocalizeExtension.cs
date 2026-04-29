@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-using System.Text;
 using Microsoft.UI.Xaml.Markup;
 using Windows.ApplicationModel.Resources;
 
@@ -75,53 +73,18 @@ public class LocalizeExtension : MarkupExtension
 public static class Localizer
 {
     private static ResourceLoader? _resourceLoader;
-    private static bool _resourceLoaderUnavailable;
     private static readonly object _lock = new();
 
-    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = false)]
-    private static extern int GetCurrentPackageFullName(ref int packageFullNameLength, StringBuilder? packageFullName);
-
-    private const int APPMODEL_ERROR_NO_PACKAGE = 15700;
-
-    private static bool HasPackageIdentity()
+    private static ResourceLoader ResourceLoader
     {
-        try
+        get
         {
-            int length = 0;
-            var hr = GetCurrentPackageFullName(ref length, null);
-            return hr != APPMODEL_ERROR_NO_PACKAGE;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    private static ResourceLoader? GetResourceLoader()
-    {
-        if (_resourceLoaderUnavailable) return null;
-        if (_resourceLoader != null) return _resourceLoader;
-
-        lock (_lock)
-        {
-            if (_resourceLoader != null) return _resourceLoader;
-            if (_resourceLoaderUnavailable) return null;
-
-            if (!HasPackageIdentity())
+            if (_resourceLoader == null)
             {
-                _resourceLoaderUnavailable = true;
-                return null;
-            }
-
-            try
-            {
-                _resourceLoader = ResourceLoader.GetForViewIndependentUse();
-            }
-            catch
-            {
-                // ResourceLoader is unavailable (e.g. unpackaged host such as
-                // a unit-test runner). Fall back to placeholder strings.
-                _resourceLoaderUnavailable = true;
+                lock (_lock)
+                {
+                    _resourceLoader ??= ResourceLoader.GetForViewIndependentUse();
+                }
             }
             return _resourceLoader;
         }
@@ -137,15 +100,9 @@ public static class Localizer
             return string.Empty;
         }
 
-        var loader = GetResourceLoader();
-        if (loader is null)
-        {
-            return $"[{key}]";
-        }
-
         try
         {
-            var value = loader.GetString(key);
+            var value = ResourceLoader.GetString(key);
             return string.IsNullOrEmpty(value) ? $"[{key}]" : value;
         }
         catch
@@ -162,7 +119,6 @@ public static class Localizer
         lock (_lock)
         {
             _resourceLoader = null;
-            _resourceLoaderUnavailable = false;
         }
         LocalizeExtension.ResetResourceLoader();
     }
