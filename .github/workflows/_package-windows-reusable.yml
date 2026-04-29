@@ -46,12 +46,6 @@ on:
         type: boolean
         default: false
     secrets:
-      BASE64_ENCODED_WINDOWS_PFX:
-        description: 'Base64-encoded signing PFX.'
-        required: true
-      WINDOWS_PFX_PASSWORD:
-        description: 'Password for the signing PFX.'
-        required: true
       STORE_APP_ID:
         description: 'Microsoft Store product ID. Required when submit-to-store is true.'
         required: false
@@ -154,19 +148,14 @@ jobs:
           Copy-Item $manifestSrc $manifestDst -Force
           (Get-Content $manifestDst -Raw) -replace 'Version="0\.0\.0\.0"', "Version=`"$version`"" | Set-Content $manifestDst -Encoding utf8
 
-      - name: Decode signing PFX
-        shell: pwsh
-        run: |
-          $bytes = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_WINDOWS_PFX }}")
-          [IO.File]::WriteAllBytes("signing.pfx", $bytes)
-
+      # The MSIX is left unsigned; the Microsoft Store signs the package on
+      # submission. Local installs require either Store install or a separately
+      # signed copy.
       - name: Pack MSIX (winapp pack)
         run: >
           winapp pack "${{ steps.rid.outputs.publish-dir }}"
           --executable "${{ inputs.executable-name }}"
           --output "packages/${{ inputs.app-name }}_${{ matrix.platform }}.msix"
-          --cert ./signing.pfx
-          --cert-password "${{ secrets.WINDOWS_PFX_PASSWORD }}"
           --self-contained
 
       - name: Collect symbols (.msixsym)
@@ -183,10 +172,6 @@ jobs:
           $pdbs | Copy-Item -Destination $pdbStaging
           $symPath = "packages/${{ inputs.app-name }}_${{ matrix.platform }}.msixsym"
           winapp tool makeappx pack /d $pdbStaging /p $symPath /nv
-
-      - name: Remove signing PFX
-        shell: pwsh
-        run: Remove-Item -Path signing.pfx -Force
 
       - name: Upload MSIX package
         uses: actions/upload-artifact@v4
@@ -251,22 +236,6 @@ jobs:
         run: |
           $bundle = "./msix/${{ inputs.app-name }}_${{ steps.manifest.outputs.version }}.msixbundle"
           winapp tool makeappx bundle /d "${{ steps.stage.outputs.staging }}" /p $bundle /bv ${{ steps.manifest.outputs.version }} /o
-
-      - name: Decode signing PFX
-        shell: pwsh
-        run: |
-          $bytes = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_WINDOWS_PFX }}")
-          [IO.File]::WriteAllBytes("signing.pfx", $bytes)
-
-      - name: Sign bundle (winapp sign)
-        run: >
-          winapp sign "./msix/${{ inputs.app-name }}_${{ steps.manifest.outputs.version }}.msixbundle"
-          --cert ./signing.pfx
-          --cert-password "${{ secrets.WINDOWS_PFX_PASSWORD }}"
-
-      - name: Remove signing PFX
-        shell: pwsh
-        run: Remove-Item -Path signing.pfx -Force
 
       - name: Build .msixupload
         shell: pwsh
