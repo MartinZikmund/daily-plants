@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
@@ -14,6 +14,7 @@
     <Properties>
         <DisplayName>Daily Plants</DisplayName>
         <PublisherDisplayName>Martin Zikmund</PublisherDisplayName>
+        <Logo>Platforms\Windows\PackageLogo.png</Logo>
     </Properties>
 
     <Dependencies>
@@ -29,7 +30,10 @@
         <Application Id="App"
           Executable="$targetnametoken$.exe"
           EntryPoint="$targetentrypoint$">
-            <uap:VisualElements />
+            <uap:VisualElements  Square150x150Logo="Platforms\Windows\MediumTile.png" Square44x44Logo="Platforms\Windows\AppIcon.png" DisplayName="ms-resource:AppName" Description="ms-resource:AppName">
+                <uap:DefaultTile Square71x71Logo="Platforms\Windows\SmallTile.png" Wide310x150Logo="Platforms\Windows\WideTile.png" Square310x310Logo="Platforms\Windows\LargeTile.png"/>
+                <uap:SplashScreen Image="Platforms\Windows\SplashScreen.png"/>
+            </uap:VisualElements >
         </Application>
     </Applications>
 
