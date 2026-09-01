@@ -32,7 +32,7 @@ public class ExportServiceTests
 
         json.Should().NotBeNullOrWhiteSpace();
         using var doc = JsonDocument.Parse(json);
-        doc.RootElement.GetProperty("version").GetString().Should().Be("1.0");
+        doc.RootElement.GetProperty("version").GetString().Should().Be(ExportFormat.CurrentVersion);
         doc.RootElement.TryGetProperty("exportDate", out _).Should().BeTrue();
         doc.RootElement.GetProperty("dailyEntries").GetArrayLength().Should().Be(3);
         doc.RootElement.GetProperty("weightEntries").GetArrayLength().Should().Be(1);

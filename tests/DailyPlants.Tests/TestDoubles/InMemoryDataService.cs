@@ -23,6 +23,41 @@ internal sealed class InMemoryDataService : IDataService
 
     public Task InitializeAsync() => Task.CompletedTask;
 
+    /// <summary>
+    /// Mirrors SqliteDataService's transaction semantics by snapshotting the collections
+    /// and restoring them if the operation throws.
+    /// </summary>
+    public async Task RunInTransactionAsync(Func<Task> operation)
+    {
+        var dailySnapshot = _dailyEntries.Select(Clone).ToList();
+        var weightSnapshot = _weightEntries.Select(Clone).ToList();
+        var achievementSnapshot = _earnedAchievements.Select(Clone).ToList();
+
+        try
+        {
+            await operation();
+        }
+        catch
+        {
+            _dailyEntries.Clear();
+            _dailyEntries.AddRange(dailySnapshot);
+            _weightEntries.Clear();
+            _weightEntries.AddRange(weightSnapshot);
+            _earnedAchievements.Clear();
+            _earnedAchievements.AddRange(achievementSnapshot);
+            throw;
+        }
+    }
+
+    private static DailyEntry Clone(DailyEntry e) =>
+        new() { Id = e.Id, Date = e.Date, ItemId = e.ItemId, ServingsCompleted = e.ServingsCompleted };
+
+    private static WeightEntry Clone(WeightEntry e) =>
+        new() { Id = e.Id, Date = e.Date, Weight = e.Weight, Notes = e.Notes };
+
+    private static EarnedAchievement Clone(EarnedAchievement e) =>
+        new() { Id = e.Id, AchievementId = e.AchievementId, EarnedAt = e.EarnedAt, HasBeenSeen = e.HasBeenSeen };
+
     // ===== Daily Entries =====
 
     public Task<DailyEntry?> GetEntryAsync(DateOnly date, string itemId) =>
