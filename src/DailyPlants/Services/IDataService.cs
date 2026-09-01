@@ -12,6 +12,13 @@ public interface IDataService
     /// </summary>
     Task InitializeAsync();
 
+    /// <summary>
+    /// Runs <paramref name="operation"/> as a single unit of work, discarding every write
+    /// it made if it throws. Used by import so a failure part way through cannot leave the
+    /// database half-overwritten.
+    /// </summary>
+    Task RunInTransactionAsync(Func<Task> operation);
+
     // ===== Daily Entries =====
 
     /// <summary>

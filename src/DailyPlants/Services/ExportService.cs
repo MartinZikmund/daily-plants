@@ -11,6 +11,12 @@ namespace DailyPlants.Services;
 /// </summary>
 public class ExportService : IExportService
 {
+    /// <summary>
+    /// Upper bound on servings accepted from a file. The largest recommended count in any
+    /// checklist is well under this; anything above it is corrupt rather than ambitious.
+    /// </summary>
+    private const int MaxReasonableServings = 1000;
+
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -29,7 +35,7 @@ public class ExportService : IExportService
     {
         var exportData = new ExportData
         {
-            Version = "1.0",
+            Version = ExportFormat.CurrentVersion,
             ExportDate = DateTime.UtcNow
         };
 
@@ -57,6 +63,18 @@ public class ExportService : IExportService
             });
         }
 
+        // Export earned achievements — without these a restore silently wipes every badge
+        var achievements = await _dataService.GetEarnedAchievementsAsync();
+        foreach (var achievement in achievements)
+        {
+            exportData.Achievements.Add(new EarnedAchievementExport
+            {
+                AchievementId = achievement.AchievementId,
+                EarnedAt = IsoDate.TimestampToStorage(achievement.EarnedAt),
+                HasBeenSeen = achievement.HasBeenSeen
+            });
+        }
+
         // Export settings
         exportData.Settings = new UserSettingsExport
         {
@@ -66,7 +84,9 @@ public class ExportService : IExportService
             UseMetricUnits = _appPreferences.UseMetricUnits,
             HeightCm = _appPreferences.HeightCm,
             GoalWeight = _appPreferences.GoalWeight,
-            ThemePreference = _appPreferences.ThemePreference
+            ThemePreference = _appPreferences.ThemePreference,
+            Language = _appPreferences.Language,
+            DisabledItemIds = _appPreferences.DisabledItemIds
         };
 
         return JsonSerializer.Serialize(exportData, JsonOptions);
@@ -100,21 +120,36 @@ public class ExportService : IExportService
             var importData = JsonSerializer.Deserialize<ExportData>(json, JsonOptions);
             if (importData == null)
             {
-                return new ImportResult
-                {
-                    Success = false,
-                    ErrorMessage = "Invalid JSON format"
-                };
+                return Failed("Invalid JSON format");
             }
 
-            int entriesImported = 0;
-            int weightEntriesImported = 0;
-
-            // Import daily entries
-            foreach (var entry in importData.DailyEntries)
+            if (!ExportFormat.IsSupported(importData.Version))
             {
-                if (IsoDate.TryParse(entry.Date, out var date))
+                return Failed($"Unsupported export format version: {importData.Version}");
+            }
+
+            // 1.0 files stored weights and heights in whichever unit the exporting user had
+            // selected; every version since stores kilograms and centimetres.
+            var storedInImperial = importData.Version == ExportFormat.LegacyUnitsVersion
+                && importData.Settings?.UseMetricUnits == false;
+
+            var entriesImported = 0;
+            var weightEntriesImported = 0;
+            var achievementsImported = 0;
+            var entriesSkipped = 0;
+
+            // One unit of work: a failure part way through must not leave the database
+            // half-overwritten, since import upserts straight over existing entries.
+            await _dataService.RunInTransactionAsync(async () =>
+            {
+                foreach (var entry in importData.DailyEntries)
                 {
+                    if (!IsValidEntry(entry, out var date))
+                    {
+                        entriesSkipped++;
+                        continue;
+                    }
+
                     await _dataService.SaveEntryAsync(new DailyEntry
                     {
                         Date = date,
@@ -123,57 +158,66 @@ public class ExportService : IExportService
                     });
                     entriesImported++;
                 }
-            }
 
-            // Import weight entries
-            foreach (var entry in importData.WeightEntries)
-            {
-                if (IsoDate.TryParse(entry.Date, out var date))
+                foreach (var entry in importData.WeightEntries)
                 {
+                    if (!IsoDate.TryParse(entry.Date, out var weightDate) || entry.Weight <= 0)
+                    {
+                        entriesSkipped++;
+                        continue;
+                    }
+
                     await _dataService.SaveWeightEntryAsync(new WeightEntry
                     {
-                        Date = date,
-                        Weight = entry.Weight,
+                        Date = weightDate,
+                        Weight = storedInImperial
+                            ? UnitConverter.DisplayToKilograms(entry.Weight, useMetric: false)
+                            : entry.Weight,
                         Notes = entry.Notes
                     });
                     weightEntriesImported++;
                 }
-            }
 
-            // Import settings (optional - don't overwrite if not provided)
-            if (importData.Settings != null)
-            {
-                _appPreferences.DailyDozenEnabled = importData.Settings.DailyDozenEnabled;
-                _appPreferences.TwentyOneTweaksEnabled = importData.Settings.TwentyOneTweaksEnabled;
-                _appPreferences.WeightTrackingEnabled = importData.Settings.WeightTrackingEnabled;
-                _appPreferences.UseMetricUnits = importData.Settings.UseMetricUnits;
-                _appPreferences.HeightCm = importData.Settings.HeightCm;
-                _appPreferences.GoalWeight = importData.Settings.GoalWeight;
-                _appPreferences.ThemePreference = importData.Settings.ThemePreference;
-            }
+                foreach (var achievement in importData.Achievements)
+                {
+                    if (AchievementDefinitions.GetById(achievement.AchievementId) is null)
+                    {
+                        entriesSkipped++;
+                        continue;
+                    }
+
+                    await _dataService.SaveEarnedAchievementAsync(new EarnedAchievement
+                    {
+                        AchievementId = achievement.AchievementId,
+                        EarnedAt = ParseEarnedAt(achievement.EarnedAt),
+                        HasBeenSeen = achievement.HasBeenSeen
+                    });
+                    achievementsImported++;
+                }
+
+                // Settings are optional - a file without them leaves the current ones alone.
+                if (importData.Settings is { } settings)
+                {
+                    ApplySettings(settings, storedInImperial);
+                }
+            });
 
             return new ImportResult
             {
                 Success = true,
                 EntriesImported = entriesImported,
-                WeightEntriesImported = weightEntriesImported
+                WeightEntriesImported = weightEntriesImported,
+                AchievementsImported = achievementsImported,
+                EntriesSkipped = entriesSkipped
             };
         }
         catch (JsonException ex)
         {
-            return new ImportResult
-            {
-                Success = false,
-                ErrorMessage = $"JSON parse error: {ex.Message}"
-            };
+            return Failed($"JSON parse error: {ex.Message}");
         }
         catch (Exception ex)
         {
-            return new ImportResult
-            {
-                Success = false,
-                ErrorMessage = $"Import failed: {ex.Message}"
-            };
+            return Failed($"Import failed: {ex.Message}");
         }
     }
 
@@ -184,54 +228,130 @@ public class ExportService : IExportService
             var lines = csv.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             if (lines.Length < 2)
             {
-                return new ImportResult
-                {
-                    Success = false,
-                    ErrorMessage = "CSV file is empty or has no data rows"
-                };
+                return Failed("CSV file is empty or has no data rows");
             }
 
-            int entriesImported = 0;
+            var entriesImported = 0;
+            var entriesSkipped = 0;
 
-            // Skip header row
-            for (int i = 1; i < lines.Length; i++)
+            await _dataService.RunInTransactionAsync(async () =>
             {
-                var parts = ParseCsvLine(lines[i]);
-                if (parts.Length >= 4)
+                // Skip header row
+                for (int i = 1; i < lines.Length; i++)
                 {
-                    var dateStr = parts[0].Trim();
-                    var itemId = parts[1].Trim();
-                    var servingsStr = parts[3].Trim();
-
-                    if (IsoDate.TryParse(dateStr, out var date) &&
-                        int.TryParse(servingsStr, NumberStyles.Integer, CultureInfo.InvariantCulture, out var servings))
+                    var parts = ParseCsvLine(lines[i]);
+                    if (parts.Length < 4)
                     {
-                        await _dataService.SaveEntryAsync(new DailyEntry
-                        {
-                            Date = date,
-                            ItemId = itemId,
-                            ServingsCompleted = servings
-                        });
-                        entriesImported++;
+                        entriesSkipped++;
+                        continue;
                     }
+
+                    if (!int.TryParse(parts[3].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var servings))
+                    {
+                        entriesSkipped++;
+                        continue;
+                    }
+
+                    var candidate = new DailyEntryExport
+                    {
+                        Date = parts[0].Trim(),
+                        ItemId = parts[1].Trim(),
+                        ServingsCompleted = servings
+                    };
+
+                    if (!IsValidEntry(candidate, out var date))
+                    {
+                        entriesSkipped++;
+                        continue;
+                    }
+
+                    await _dataService.SaveEntryAsync(new DailyEntry
+                    {
+                        Date = date,
+                        ItemId = candidate.ItemId,
+                        ServingsCompleted = servings
+                    });
+                    entriesImported++;
                 }
-            }
+            });
 
             return new ImportResult
             {
                 Success = true,
-                EntriesImported = entriesImported
+                EntriesImported = entriesImported,
+                EntriesSkipped = entriesSkipped
             };
         }
         catch (Exception ex)
         {
-            return new ImportResult
-            {
-                Success = false,
-                ErrorMessage = $"CSV import failed: {ex.Message}"
-            };
+            return Failed($"CSV import failed: {ex.Message}");
         }
     }
+
+    private void ApplySettings(UserSettingsExport settings, bool storedInImperial)
+    {
+        _appPreferences.DailyDozenEnabled = settings.DailyDozenEnabled;
+        _appPreferences.TwentyOneTweaksEnabled = settings.TwentyOneTweaksEnabled;
+        _appPreferences.WeightTrackingEnabled = settings.WeightTrackingEnabled;
+        _appPreferences.UseMetricUnits = settings.UseMetricUnits;
+        _appPreferences.ThemePreference = settings.ThemePreference;
+
+        _appPreferences.HeightCm = settings.HeightCm is { } height && storedInImperial
+            ? UnitConverter.DisplayToCentimetres(height, useMetric: false)
+            : settings.HeightCm;
+
+        _appPreferences.GoalWeight = settings.GoalWeight is { } goal && storedInImperial
+            ? UnitConverter.DisplayToKilograms(goal, useMetric: false)
+            : settings.GoalWeight;
+
+        if (settings.Language is not null)
+        {
+            _appPreferences.Language = settings.Language;
+        }
+
+        if (settings.DisabledItemIds is not null)
+        {
+            _appPreferences.DisabledItemIds = settings.DisabledItemIds;
+        }
+    }
+
+    /// <summary>
+    /// Rejects rows the app cannot represent: bad dates, unknown items, and servings
+    /// outside a sane range. Import upserts, so an unchecked row silently overwrites
+    /// good data with nonsense.
+    /// </summary>
+    private static bool IsValidEntry(DailyEntryExport entry, out DateOnly date)
+    {
+        if (!IsoDate.TryParse(entry.Date, out date))
+        {
+            return false;
+        }
+
+        if (entry.ServingsCompleted < 0 || entry.ServingsCompleted > MaxReasonableServings)
+        {
+            return false;
+        }
+
+        return ChecklistDefinitions.GetItemById(entry.ItemId) is not null;
+    }
+
+    private static DateTime ParseEarnedAt(string value)
+    {
+        try
+        {
+            return IsoDate.ParseTimestamp(value);
+        }
+        catch (FormatException)
+        {
+            return DateTime.UtcNow;
+        }
+    }
+
+    private static ImportResult Failed(string message) => new()
+    {
+        Success = false,
+        ErrorMessage = message
+    };
 
     private static string EscapeCsv(string value)
     {

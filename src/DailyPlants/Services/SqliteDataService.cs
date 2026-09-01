@@ -120,6 +120,23 @@ public class SqliteDataService : IDataService
         }
     }
 
+    public async Task RunInTransactionAsync(Func<Task> operation)
+    {
+        await EnsureInitializedAsync();
+
+        await _connection.ExecuteAsync("BEGIN TRANSACTION");
+        try
+        {
+            await operation();
+            await _connection.ExecuteAsync("COMMIT");
+        }
+        catch
+        {
+            await _connection.ExecuteAsync("ROLLBACK");
+            throw;
+        }
+    }
+
     private async Task BackfillSettingsSnapshotsAsync()
     {
         var requirements = SerializeRequirements(ChecklistDefinitions.GetRequiredServingsMap(_appPreferences));
