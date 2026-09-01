@@ -22,6 +22,9 @@ internal static class IsoDate
     public static string TimestampToStorage(DateTime timestamp) =>
         timestamp.ToString("O", CultureInfo.InvariantCulture);
 
+    public static bool TryParseTimestamp(string? value, out DateTime timestamp) =>
+        DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out timestamp);
+
     public static DateTime ParseTimestamp(string value) =>
         DateTime.Parse(value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
 }
