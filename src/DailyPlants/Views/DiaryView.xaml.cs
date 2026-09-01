@@ -236,8 +236,9 @@ public sealed partial class DiaryView : Page
     private async void Window_Activated(object sender, WindowActivatedEventArgs args)
     {
         // Covers the common case: the app is resumed the morning after it was left open.
-        if (args.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated) return;
-
+        // The activation state is deliberately not inspected — its enum type differs
+        // between the Windows and Uno heads (see docs/uno-issues.md) and the refresh is a
+        // no-op when the date has not changed, so running it on deactivation costs nothing.
         try
         {
             await ViewModel.RefreshIfDateChangedAsync();
