@@ -24,9 +24,16 @@ public partial class DiaryViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+    private readonly TimeProvider _timeProvider;
     private CancellationTokenSource? _achievementDebounce;
-    private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
+    private DateOnly _currentDate;
     private bool _dayCompleteAnnounced;
+
+    /// <summary>
+    /// True while the view is tracking "today" rather than a date the user picked.
+    /// Only then may a date rollover move the view.
+    /// </summary>
+    private bool _followToday = true;
 
     [ObservableProperty]
     private string _dateDisplayText = string.Empty;
@@ -116,7 +123,7 @@ public partial class DiaryViewModel : ObservableObject
     /// <summary>
     /// Maximum selectable date for the calendar picker (today).
     /// </summary>
-    public DateTimeOffset MaxSelectableDate => DateTimeOffset.Now;
+    public DateTimeOffset MaxSelectableDate => _timeProvider.GetLocalNow();
 
     public event EventHandler<ChecklistItemViewModel>? ItemDetailRequested;
 
@@ -130,12 +137,37 @@ public partial class DiaryViewModel : ObservableObject
     /// </summary>
     public event EventHandler? DayReset;
 
-    public DiaryViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
+    public DiaryViewModel(
+        IDataService dataService,
+        IAppPreferences appPreferences,
+        IAchievementService? achievementService = null,
+        TimeProvider? timeProvider = null)
     {
         _dataService = dataService;
         _appPreferences = appPreferences;
         _achievementService = achievementService;
+        _timeProvider = timeProvider ?? TimeProvider.System;
+        _currentDate = Today;
         UpdateDateDisplay();
+    }
+
+    private DateOnly Today => DateOnly.FromDateTime(_timeProvider.GetLocalNow().DateTime);
+
+    /// <summary>
+    /// Re-synchronises the view with the real date. Called when the page loads, when the
+    /// window is activated, and at local midnight, so a session left open overnight stops
+    /// writing to yesterday while still calling it "Today".
+    /// </summary>
+    public async Task RefreshIfDateChangedAsync()
+    {
+        if (!_followToday) return;
+
+        var today = Today;
+        if (_currentDate == today) return;
+
+        _currentDate = today;
+        UpdateDateDisplay();
+        await LoadDataAsync();
     }
 
     public async Task LoadDataAsync()
@@ -208,6 +240,7 @@ public partial class DiaryViewModel : ObservableObject
     private async Task GoToPreviousDayAsync()
     {
         _currentDate = _currentDate.AddDays(-1);
+        _followToday = _currentDate == Today;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
@@ -215,10 +248,11 @@ public partial class DiaryViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToNextDayAsync()
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = Today;
         if (_currentDate < today)
         {
             _currentDate = _currentDate.AddDays(1);
+            _followToday = _currentDate == today;
             UpdateDateDisplay();
             await LoadDataAsync();
         }
@@ -227,7 +261,8 @@ public partial class DiaryViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToTodayAsync()
     {
-        _currentDate = DateOnly.FromDateTime(DateTime.Today);
+        _currentDate = Today;
+        _followToday = true;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
@@ -240,7 +275,7 @@ public partial class DiaryViewModel : ObservableObject
     /// </summary>
     public async Task GoToDateAsync(DateOnly date)
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = Today;
         // Don't allow future dates
         if (date > today)
         {
@@ -248,13 +283,14 @@ public partial class DiaryViewModel : ObservableObject
         }
 
         _currentDate = date;
+        _followToday = date == today;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
 
     private void UpdateDateDisplay()
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = Today;
 
         DateDisplayText = _currentDate.ToString("MMMM d, yyyy");
 

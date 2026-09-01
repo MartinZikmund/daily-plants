@@ -40,6 +40,8 @@ public sealed partial class DiaryView : Page
 
     public DiaryViewModel ViewModel { get; }
 
+    private DispatcherTimer? _midnightTimer;
+
     public DiaryView()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
@@ -61,6 +63,7 @@ public sealed partial class DiaryView : Page
         ViewModel.DoneToday.CollectionChanged += Group_CollectionChanged;
 
         this.Loaded += DiaryView_Loaded;
+        this.Unloaded += DiaryView_Unloaded;
     }
 
     /// <summary>
@@ -84,6 +87,15 @@ public sealed partial class DiaryView : Page
     private async void DiaryView_Loaded(object sender, RoutedEventArgs e)
     {
         ApplyColumnLayout(WidthStates.CurrentState?.Name == TwoColumnStateName);
+
+        if (App.Current.MainWindow is { } window)
+        {
+            window.Activated += Window_Activated;
+        }
+
+        ScheduleMidnightRefresh();
+
+        await ViewModel.RefreshIfDateChangedAsync();
         await ViewModel.LoadDataAsync();
     }
 
@@ -200,6 +212,54 @@ public sealed partial class DiaryView : Page
             element.RenderTransform = null;
         };
         storyboard.Begin();
+    }
+
+    private void DiaryView_Unloaded(object sender, RoutedEventArgs e)
+    {
+        if (App.Current.MainWindow is { } window)
+        {
+            window.Activated -= Window_Activated;
+        }
+
+        _midnightTimer?.Stop();
+        _midnightTimer = null;
+    }
+
+    private async void Window_Activated(object sender, WindowActivatedEventArgs args)
+    {
+        // Covers the common case: the app is resumed the morning after it was left open.
+        if (args.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated) return;
+
+        await ViewModel.RefreshIfDateChangedAsync();
+    }
+
+    /// <summary>
+    /// Covers the case the activation hook cannot: the window stays focused across midnight.
+    /// </summary>
+    private void ScheduleMidnightRefresh()
+    {
+        _midnightTimer?.Stop();
+
+        var now = DateTime.Now;
+        var untilMidnight = now.Date.AddDays(1) - now;
+        if (untilMidnight <= TimeSpan.Zero)
+        {
+            untilMidnight = TimeSpan.FromMinutes(1);
+        }
+
+        _midnightTimer = new DispatcherTimer
+        {
+            // A second past the boundary, so the new date has definitely arrived.
+            Interval = untilMidnight + TimeSpan.FromSeconds(1)
+        };
+        _midnightTimer.Tick += MidnightTimer_Tick;
+        _midnightTimer.Start();
+    }
+
+    private async void MidnightTimer_Tick(object? sender, object e)
+    {
+        await ViewModel.RefreshIfDateChangedAsync();
+        ScheduleMidnightRefresh();
     }
 
     private async void CalendarView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
