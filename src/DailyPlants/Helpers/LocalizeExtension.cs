@@ -1,3 +1,4 @@
+using DailyPlants.Services;
 using Microsoft.UI.Xaml.Markup;
 using Windows.ApplicationModel.Resources;
 
@@ -121,5 +122,8 @@ public static class Localizer
             _resourceLoader = null;
         }
         LocalizeExtension.ResetResourceLoader();
+
+        // Checklist items bake their strings in on first access, so they must be rebuilt too.
+        ChecklistDefinitions.Invalidate();
     }
 }
