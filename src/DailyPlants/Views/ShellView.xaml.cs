@@ -96,23 +96,30 @@ public sealed partial class ShellView : Page
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
     {
-        XamlRoot.Changed += XamlRoot_Changed;
-        SetMinWindowSizing();
-
-        this.ActualThemeChanged += ShellView_ActualThemeChanged;
-        UpdateTitleBarColors();
-
-        RemoveResourcesIfUnreachable();
-
-        // Select the first item (Diary) by default
-        NavView.SelectedItem = NavView.MenuItems[0];
-
-        // Initialize achievement service and subscribe to events
-        _achievementService = App.Current.Services?.GetService<IAchievementService>();
-        if (_achievementService != null)
+        try
         {
-            _achievementService.AchievementEarned += OnAchievementEarned;
-            await UpdateAchievementBadgeAsync();
+            XamlRoot.Changed += XamlRoot_Changed;
+            SetMinWindowSizing();
+
+            this.ActualThemeChanged += ShellView_ActualThemeChanged;
+            UpdateTitleBarColors();
+
+            RemoveResourcesIfUnreachable();
+
+            // Select the first item (Diary) by default
+            NavView.SelectedItem = NavView.MenuItems[0];
+
+            // Initialize achievement service and subscribe to events
+            _achievementService = App.Current.Services?.GetService<IAchievementService>();
+            if (_achievementService != null)
+            {
+                _achievementService.AchievementEarned += OnAchievementEarned;
+                await UpdateAchievementBadgeAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            AppLog.Error("Shell initialization failed", ex);
         }
 
         _appNavigator = App.Current.Services?.GetService<IAppNavigator>();

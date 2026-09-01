@@ -22,6 +22,13 @@ public sealed partial class SettingsView : Page
 
     private async void SettingsView_Loaded(object sender, RoutedEventArgs e)
     {
-        await ViewModel.LoadSettingsAsync();
+        try
+        {
+            await ViewModel.LoadSettingsAsync();
+        }
+        catch (Exception ex)
+        {
+            AppLog.Error("Loading settings failed", ex);
+        }
     }
 }

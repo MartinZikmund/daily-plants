@@ -21,6 +21,13 @@ public sealed partial class AchievementsView : Page
 
     private async void AchievementsView_Loaded(object sender, RoutedEventArgs e)
     {
-        await ViewModel.LoadAchievementsAsync();
+        try
+        {
+            await ViewModel.LoadAchievementsAsync();
+        }
+        catch (Exception ex)
+        {
+            AppLog.Error("Loading achievements failed", ex);
+        }
     }
 }

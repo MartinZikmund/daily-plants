@@ -26,6 +26,12 @@ public partial class DiaryViewModel : ObservableObject
     private readonly IAchievementService? _achievementService;
     private readonly TimeProvider _timeProvider;
     private CancellationTokenSource? _achievementDebounce;
+
+    /// <summary>Last count successfully written, per item, so a failed save can roll back to it.</summary>
+    private readonly Dictionary<string, int> _lastSavedServings = [];
+
+    /// <summary>Guards the rollback assignment from re-entering the change handler.</summary>
+    private bool _isRevertingServings;
     private DateOnly _currentDate;
     private bool _dayCompleteAnnounced;
 
@@ -137,6 +143,12 @@ public partial class DiaryViewModel : ObservableObject
     /// </summary>
     public event EventHandler? DayReset;
 
+    /// <summary>
+    /// Raised when a serving could not be persisted. The view surfaces this; the count
+    /// shown to the user has already been rolled back by the time it fires.
+    /// </summary>
+    public event EventHandler<Exception>? SaveFailed;
+
     public DiaryViewModel(
         IDataService dataService,
         IAppPreferences appPreferences,
@@ -194,6 +206,8 @@ public partial class DiaryViewModel : ObservableObject
                         .Select(m => enabledItems.First(i => i.Id == m.ChildId))
                         .ToList());
 
+            _lastSavedServings.Clear();
+
             // Unsubscribe handlers from old items before clearing to prevent memory leaks
             foreach (var old in Items)
             {
@@ -219,6 +233,7 @@ public partial class DiaryViewModel : ObservableObject
                 }
 
                 var itemVm = new ChecklistItemViewModel(item, _currentDate, parentServings, _appPreferences.UseMetricUnits, children);
+                _lastSavedServings[item.Id] = parentServings;
                 itemVm.ServingsChanged += OnItemServingsChanged;
                 itemVm.ItemDetailRequested += OnItemDetailRequested;
                 Items.Add(itemVm);
@@ -347,9 +362,52 @@ public partial class DiaryViewModel : ObservableObject
 
     private async void OnItemServingsChanged(object? sender, int newServings)
     {
+        if (_isRevertingServings)
+            return;
+
         if (sender is not ChecklistItemViewModel itemVm)
             return;
 
+        try
+        {
+            await SaveServingsAsync(itemVm, newServings);
+            _lastSavedServings[itemVm.Item.Id] = newServings;
+
+            UpdateProgress();
+
+            // Runs on its own timeline: the row holds its place before it changes group.
+            _ = ScheduleGroupSyncAsync(itemVm);
+
+            // Debounce achievement check to avoid running on every tap
+            ScheduleAchievementCheck();
+        }
+        catch (Exception ex)
+        {
+            // The most frequent action in the app runs through this handler, and it is
+            // async void: an escaping exception would terminate the process with no trail.
+            RevertServings(itemVm);
+            UpdateProgress();
+            SaveFailed?.Invoke(this, ex);
+        }
+    }
+
+    private void RevertServings(ChecklistItemViewModel itemVm)
+    {
+        var lastGood = _lastSavedServings.GetValueOrDefault(itemVm.Item.Id, 0);
+
+        _isRevertingServings = true;
+        try
+        {
+            itemVm.ServingsCompleted = lastGood;
+        }
+        finally
+        {
+            _isRevertingServings = false;
+        }
+    }
+
+    private async Task SaveServingsAsync(ChecklistItemViewModel itemVm, int newServings)
+    {
         if (!itemVm.HasMergedChildren)
         {
             // Simple case: no merge, save directly
@@ -388,14 +446,6 @@ public partial class DiaryViewModel : ObservableObject
                 });
             }
         }
-
-        UpdateProgress();
-
-        // Runs on its own timeline: the row holds its place before it changes group.
-        _ = ScheduleGroupSyncAsync(itemVm);
-
-        // Debounce achievement check to avoid running on every tap
-        ScheduleAchievementCheck();
     }
 
     private void OnItemDetailRequested(object? sender, ChecklistItem item)
@@ -425,6 +475,11 @@ public partial class DiaryViewModel : ObservableObject
         catch (TaskCanceledException)
         {
             // Debounce cancelled — expected
+        }
+        catch (Exception ex)
+        {
+            // Also async void: an achievement check must never take the app down.
+            SaveFailed?.Invoke(this, ex);
         }
     }
 
