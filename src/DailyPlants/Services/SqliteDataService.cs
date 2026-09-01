@@ -75,8 +75,39 @@ public class SqliteDataService : IDataService
             await _connection.ExecuteAsync("PRAGMA user_version = 2");
         }
 
+        if (version < 3)
+        {
+            // v3: Weight is now stored in kilograms and height in centimetres regardless of
+            // the unit the user types in. Earlier versions stored whatever was typed, so an
+            // imperial user's existing rows are pounds and their HeightCm is really inches.
+            await ConvertImperialValuesToCanonicalUnitsAsync();
+            await _connection.ExecuteAsync("PRAGMA user_version = 3");
+        }
+
         // Future migrations go here:
-        // if (version < 3) { /* migration to v3 */ await _connection.ExecuteAsync("PRAGMA user_version = 3"); }
+        // if (version < 4) { /* migration to v4 */ await _connection.ExecuteAsync("PRAGMA user_version = 4"); }
+    }
+
+    private async Task ConvertImperialValuesToCanonicalUnitsAsync()
+    {
+        if (_appPreferences.UseMetricUnits)
+        {
+            // Already stored in kilograms and centimetres.
+            return;
+        }
+
+        await _connection.ExecuteAsync(
+            "UPDATE WeightEntries SET Weight = Weight / ?", UnitConverter.PoundsPerKilogram);
+
+        if (_appPreferences.HeightCm is { } heightInInches)
+        {
+            _appPreferences.HeightCm = heightInInches.DisplayToCentimetres(useMetric: false);
+        }
+
+        if (_appPreferences.GoalWeight is { } goalInPounds)
+        {
+            _appPreferences.GoalWeight = goalInPounds.DisplayToKilograms(useMetric: false);
+        }
     }
 
     // ===== Daily Entries =====
