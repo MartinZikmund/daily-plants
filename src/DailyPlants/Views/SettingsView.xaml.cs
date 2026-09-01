@@ -6,6 +6,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class SettingsView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<SettingsView>();
+
     public SettingsViewModel ViewModel { get; }
 
     public SettingsView()
@@ -22,6 +25,13 @@ public sealed partial class SettingsView : Page
 
     private async void SettingsView_Loaded(object sender, RoutedEventArgs e)
     {
-        await ViewModel.LoadSettingsAsync();
+        try
+        {
+            await ViewModel.LoadSettingsAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Loading settings failed");
+        }
     }
 }

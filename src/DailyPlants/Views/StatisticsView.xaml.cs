@@ -6,6 +6,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class StatisticsView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<StatisticsView>();
+
     public StatisticsViewModel ViewModel { get; }
 
     public StatisticsView()
@@ -21,7 +24,14 @@ public sealed partial class StatisticsView : Page
 
     private async void StatisticsView_Loaded(object sender, RoutedEventArgs e)
     {
-        await ViewModel.LoadStatisticsAsync();
+        try
+        {
+            await ViewModel.LoadStatisticsAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Loading statistics failed");
+        }
     }
 
     public Visibility Not(bool value) => value ? Visibility.Collapsed : Visibility.Visible;

@@ -15,6 +15,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class DiaryView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<DiaryView>();
+
     private const string TwoColumnStateName = "TwoColumnState";
 
     /// <summary>
@@ -52,6 +55,7 @@ public sealed partial class DiaryView : Page
             AnimateGroupChanges = _animationsEnabled
         };
         ViewModel.ItemDetailRequested += ViewModel_ItemDetailRequested;
+        ViewModel.SaveFailed += ViewModel_SaveFailed;
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
@@ -88,15 +92,22 @@ public sealed partial class DiaryView : Page
     {
         ApplyColumnLayout(WidthStates.CurrentState?.Name == TwoColumnStateName);
 
-        if (App.Current.MainWindow is { } window)
+        try
         {
-            window.Activated += Window_Activated;
+            if (App.Current.MainWindow is { } window)
+            {
+                window.Activated += Window_Activated;
+            }
+
+            ScheduleMidnightRefresh();
+
+            await ViewModel.RefreshIfDateChangedAsync();
+            await ViewModel.LoadDataAsync();
         }
-
-        ScheduleMidnightRefresh();
-
-        await ViewModel.RefreshIfDateChangedAsync();
-        await ViewModel.LoadDataAsync();
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Loading the diary failed");
+        }
     }
 
     private void WidthStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
@@ -230,7 +241,14 @@ public sealed partial class DiaryView : Page
         // Covers the common case: the app is resumed the morning after it was left open.
         if (args.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated) return;
 
-        await ViewModel.RefreshIfDateChangedAsync();
+        try
+        {
+            await ViewModel.RefreshIfDateChangedAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Refreshing the diary date failed");
+        }
     }
 
     /// <summary>
@@ -258,23 +276,68 @@ public sealed partial class DiaryView : Page
 
     private async void MidnightTimer_Tick(object? sender, object e)
     {
-        await ViewModel.RefreshIfDateChangedAsync();
+        try
+        {
+            await ViewModel.RefreshIfDateChangedAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Midnight diary refresh failed");
+        }
+
         ScheduleMidnightRefresh();
     }
 
     private async void CalendarView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
     {
-        if (args.AddedDates.Count > 0)
+        if (args.AddedDates.Count == 0) return;
+
+        try
         {
             var selectedDate = DateOnly.FromDateTime(args.AddedDates[0].DateTime);
             await ViewModel.GoToDateAsync(selectedDate);
             DatePickerFlyout.Hide();
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Navigating to the selected date failed");
+        }
+    }
+
+    private async void ViewModel_SaveFailed(object? sender, Exception exception)
+    {
+        _logger.LogError(exception, "Saving a serving failed");
+
+        try
+        {
+            // The count shown has already been rolled back, so the user is told rather
+            // than left believing a serving was recorded.
+            var dialog = new ContentDialog
+            {
+                Title = "Could not save",
+                Content = "That change could not be saved and has been undone. Please try again.",
+                CloseButtonText = "OK",
+                XamlRoot = XamlRoot
+            };
+
+            await dialog.ShowAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Could not show the save failure dialog");
+        }
     }
 
     private async void ViewModel_ItemDetailRequested(object? sender, ChecklistItemViewModel itemVm)
     {
-        await ShowItemDetailDialogAsync(itemVm);
+        try
+        {
+            await ShowItemDetailDialogAsync(itemVm);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Showing item detail failed");
+        }
     }
 
     private async Task ShowItemDetailDialogAsync(ChecklistItemViewModel itemVm)
