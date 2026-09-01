@@ -203,10 +203,11 @@ public class SqliteDataService : IDataService
         var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
         if (requiredServings.Count == 0) return 0;
 
-        // Load all entries from recent history (enough for reasonable streak)
+        // Load the full history: a windowed lookback cannot tell "no entry" from
+        // "outside the window", which silently truncated streaks at the boundary.
+        // GetLongestStreakAsync already scans the whole table, so this is no new cost class.
         var today = DateOnly.FromDateTime(DateTime.Today);
-        var lookbackStart = today.AddDays(-365);
-        var allEntries = await GetEntriesInRangeAsync(lookbackStart, today);
+        var allEntries = await GetEntriesInRangeAsync(DateOnly.MinValue, today);
 
         // Group entries by date
         var entriesByDate = allEntries.GroupBy(e => e.Date)
