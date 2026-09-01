@@ -50,7 +50,7 @@ public class SchemaMigrationTests
     }
 
     [TestMethod]
-    public async Task Initialize_OnAV2Database_UpgradesToV3()
+    public async Task Initialize_OnAV2Database_UpgradesToTheLatestVersion()
     {
         var prefs = new FakeAppPreferences { DailyDozenEnabled = true };
         var seed = new SqliteDataService(prefs, _dbPath);
@@ -60,7 +60,7 @@ public class SchemaMigrationTests
         var upgraded = new SqliteDataService(prefs, _dbPath);
         await upgraded.InitializeAsync();
 
-        (await ReadUserVersionAsync(_dbPath)).Should().Be(3);
+        (await ReadUserVersionAsync(_dbPath)).Should().Be(4);
     }
 
     [TestMethod]
@@ -131,5 +131,97 @@ public class SchemaMigrationTests
         var perfectDays = await upgraded.GetPerfectDaysCountAsync();
 
         perfectDays.Should().Be(3, "pre-migration history is backfilled and then frozen against later changes");
+    }
+
+    private async Task SetUserVersionAsync(int version)
+    {
+        var raw = new SQLiteAsyncConnection(_dbPath);
+        await raw.ExecuteAsync($"PRAGMA user_version = {version}");
+        await raw.CloseAsync();
+    }
+
+    // ===== v4: canonical units =====
+    //
+    // Before v4, weights and heights were stored in whatever unit the user had selected.
+    // The upgrade reinterprets an imperial user's existing values as pounds and inches
+    // and rewrites them as kilograms and centimetres.
+
+    [TestMethod]
+    public async Task Initialize_ForAnImperialUser_ConvertsStoredWeightsToKilograms()
+    {
+        var prefs = new FakeAppPreferences { UseMetricUnits = false, WeightTrackingEnabled = true };
+        var seed = new SqliteDataService(prefs, _dbPath);
+        await seed.InitializeAsync();
+        var date = new DateOnly(2026, 4, 1);
+        // A pre-v4 database holds the raw pounds the user typed.
+        await seed.SaveWeightEntryAsync(new WeightEntry { Date = date, Weight = 176.4 });
+        await SetUserVersionAsync(3);
+
+        var upgraded = new SqliteDataService(prefs, _dbPath);
+        await upgraded.InitializeAsync();
+
+        var entry = await upgraded.GetWeightEntryAsync(date);
+        entry!.Weight.Should().BeApproximately(80, 0.05, "176.4 lb is 80 kg");
+    }
+
+    [TestMethod]
+    public async Task Initialize_ForAnImperialUser_ConvertsHeightAndGoalWeightPreferences()
+    {
+        var prefs = new FakeAppPreferences { UseMetricUnits = false, WeightTrackingEnabled = true };
+        var seed = new SqliteDataService(prefs, _dbPath);
+        await seed.InitializeAsync();
+        await SetUserVersionAsync(3);
+        // Pre-v4 preferences hold the raw numbers the user typed.
+        prefs.HeightCm = 70;      // inches
+        prefs.GoalWeight = 176.4; // pounds
+
+        var upgraded = new SqliteDataService(prefs, _dbPath);
+        await upgraded.InitializeAsync();
+
+        prefs.HeightCm.Should().BeApproximately(177.8, 0.05);
+        prefs.GoalWeight.Should().BeApproximately(80, 0.05);
+    }
+
+    [TestMethod]
+    public async Task Initialize_ForAMetricUser_LeavesStoredValuesAlone()
+    {
+        var prefs = new FakeAppPreferences
+        {
+            UseMetricUnits = true,
+            WeightTrackingEnabled = true,
+            HeightCm = 178,
+            GoalWeight = 80
+        };
+        var seed = new SqliteDataService(prefs, _dbPath);
+        await seed.InitializeAsync();
+        var date = new DateOnly(2026, 4, 1);
+        await seed.SaveWeightEntryAsync(new WeightEntry { Date = date, Weight = 80 });
+        await SetUserVersionAsync(3);
+
+        var upgraded = new SqliteDataService(prefs, _dbPath);
+        await upgraded.InitializeAsync();
+
+        (await upgraded.GetWeightEntryAsync(date))!.Weight.Should().Be(80);
+        prefs.HeightCm.Should().Be(178);
+        prefs.GoalWeight.Should().Be(80);
+    }
+
+    [TestMethod]
+    public async Task Initialize_RunTwice_DoesNotConvertTwice()
+    {
+        var prefs = new FakeAppPreferences { UseMetricUnits = false, WeightTrackingEnabled = true };
+        var seed = new SqliteDataService(prefs, _dbPath);
+        await seed.InitializeAsync();
+        var date = new DateOnly(2026, 4, 1);
+        await seed.SaveWeightEntryAsync(new WeightEntry { Date = date, Weight = 176.4 });
+        await SetUserVersionAsync(3);
+        prefs.HeightCm = 70; // inches
+
+        await new SqliteDataService(prefs, _dbPath).InitializeAsync();
+        await new SqliteDataService(prefs, _dbPath).InitializeAsync();
+
+        var entry = await new SqliteDataService(prefs, _dbPath).GetWeightEntryAsync(date);
+        entry!.Weight.Should().BeApproximately(80, 0.05, "the migration is gated on user_version and must be idempotent");
+        prefs.HeightCm.Should().BeApproximately(177.8, 0.05);
     }
 }
