@@ -1,3 +1,4 @@
+using System.Globalization;
 using DailyPlants.Models;
 using DailyPlants.Services.Entities;
 using DailyPlants.Services.Settings;
@@ -10,8 +11,6 @@ namespace DailyPlants.Services;
 /// </summary>
 public class SqliteDataService : IDataService
 {
-    private const int CurrentSchemaVersion = 1;
-
     private readonly SQLiteAsyncConnection _connection;
     private readonly IAppPreferences _appPreferences;
     private bool _initialized;
@@ -47,6 +46,7 @@ public class SqliteDataService : IDataService
         await _connection.CreateTableAsync<DailyEntryEntity>();
         await _connection.CreateTableAsync<WeightEntryEntity>();
         await _connection.CreateTableAsync<EarnedAchievementEntity>();
+        await _connection.CreateTableAsync<DailySettingsSnapshotEntity>();
 
         await _connection.ExecuteAsync(
             "CREATE UNIQUE INDEX IF NOT EXISTS idx_daily_entries_date_item ON DailyEntries (Date, ItemId)");
@@ -75,8 +75,79 @@ public class SqliteDataService : IDataService
             await _connection.ExecuteAsync("PRAGMA user_version = 2");
         }
 
+        if (version < 3)
+        {
+            // v3: Per-date snapshots of the checklist requirements, so that changing
+            // settings no longer rewrites past streaks and perfect days. Existing history
+            // is backfilled with the current settings — the best available evidence of
+            // what these days were tracked against, and it keeps today's numbers stable.
+            await BackfillSettingsSnapshotsAsync();
+            await _connection.ExecuteAsync("PRAGMA user_version = 3");
+        }
+
         // Future migrations go here:
-        // if (version < 3) { /* migration to v3 */ await _connection.ExecuteAsync("PRAGMA user_version = 3"); }
+        // if (version < 4) { /* migration to v4 */ await _connection.ExecuteAsync("PRAGMA user_version = 4"); }
+    }
+
+    private async Task BackfillSettingsSnapshotsAsync()
+    {
+        var requirements = SerializeRequirements(ChecklistDefinitions.GetRequiredServingsMap(_appPreferences));
+        await _connection.ExecuteAsync(
+            "INSERT OR IGNORE INTO DailySettingsSnapshots (Date, RequiredItems) SELECT DISTINCT Date, ? FROM DailyEntries",
+            requirements);
+    }
+
+    /// <summary>
+    /// Records the requirements in force for <paramref name="date"/> the first time anything
+    /// is logged for it. Later writes on the same date deliberately do not overwrite it, so
+    /// enabling a checklist in the evening cannot invalidate a day already completed.
+    /// </summary>
+    private async Task EnsureSettingsSnapshotAsync(DateOnly date)
+    {
+        var requirements = SerializeRequirements(ChecklistDefinitions.GetRequiredServingsMap(_appPreferences));
+        await _connection.ExecuteAsync(
+            "INSERT OR IGNORE INTO DailySettingsSnapshots (Date, RequiredItems) VALUES (?, ?)",
+            IsoDate.ToStorage(date), requirements);
+    }
+
+    private async Task<Dictionary<DateOnly, Dictionary<string, int>>> LoadSettingsSnapshotsAsync()
+    {
+        var rows = await _connection.QueryAsync<DailySettingsSnapshotEntity>(
+            "SELECT * FROM DailySettingsSnapshots");
+
+        var result = new Dictionary<DateOnly, Dictionary<string, int>>();
+        foreach (var row in rows)
+        {
+            if (IsoDate.TryParse(row.Date, out var date))
+            {
+                result[date] = DeserializeRequirements(row.RequiredItems);
+            }
+        }
+
+        return result;
+    }
+
+    private static string SerializeRequirements(Dictionary<string, int> requirements) =>
+        string.Join(',', requirements.Select(r => $"{r.Key}:{r.Value.ToString(CultureInfo.InvariantCulture)}"));
+
+    private static Dictionary<string, int> DeserializeRequirements(string value)
+    {
+        var result = new Dictionary<string, int>();
+        if (string.IsNullOrEmpty(value)) return result;
+
+        foreach (var pair in value.Split(',', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var separator = pair.LastIndexOf(':');
+            if (separator <= 0) continue;
+
+            var itemId = pair[..separator];
+            if (int.TryParse(pair[(separator + 1)..], NumberStyles.Integer, CultureInfo.InvariantCulture, out var servings))
+            {
+                result[itemId] = servings;
+            }
+        }
+
+        return result;
     }
 
     // ===== Daily Entries =====
@@ -122,6 +193,8 @@ public class SqliteDataService : IDataService
     public async Task SaveEntryAsync(DailyEntry entry)
     {
         await EnsureInitializedAsync();
+
+        await EnsureSettingsSnapshotAsync(entry.Date);
 
         var dateStr = IsoDate.ToStorage(entry.Date);
         await _connection.ExecuteAsync(
@@ -200,8 +273,8 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
-        if (requiredServings.Count == 0) return 0;
+        var currentRequirements = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
+        var snapshots = await LoadSettingsSnapshotsAsync();
 
         // Load the full history: a windowed lookback cannot tell "no entry" from
         // "outside the window", which silently truncated streaks at the boundary.
@@ -218,7 +291,7 @@ public class SqliteDataService : IDataService
 
         while (true)
         {
-            if (IsDateComplete(entriesByDate.GetValueOrDefault(currentDate), requiredServings))
+            if (IsDateComplete(entriesByDate.GetValueOrDefault(currentDate), currentDate, snapshots, currentRequirements))
             {
                 streak++;
                 currentDate = currentDate.AddDays(-1);
@@ -241,8 +314,8 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
-        if (requiredServings.Count == 0) return 0;
+        var currentRequirements = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
+        var snapshots = await LoadSettingsSnapshotsAsync();
 
         // Load ALL entries in a single query
         var allEntries = await _connection.QueryAsync<DailyEntryEntity>(
@@ -263,7 +336,7 @@ public class SqliteDataService : IDataService
 
         foreach (var date in dates)
         {
-            if (IsDateComplete(entriesByDate[date], requiredServings))
+            if (IsDateComplete(entriesByDate[date], date, snapshots, currentRequirements))
             {
                 if (previousDate.HasValue && date.DayNumber - previousDate.Value.DayNumber == 1)
                 {
@@ -304,9 +377,21 @@ public class SqliteDataService : IDataService
         }
     }
 
-    private static bool IsDateComplete(IReadOnlyList<DailyEntry>? entries, Dictionary<string, int> requiredServings)
+    /// <summary>
+    /// Judges a day against the requirements captured for that date, falling back to the
+    /// current settings only for dates with no snapshot (history predating the v3 migration
+    /// is backfilled, so this is a safety net rather than the normal path).
+    /// </summary>
+    private static bool IsDateComplete(
+        IReadOnlyList<DailyEntry>? entries,
+        DateOnly date,
+        Dictionary<DateOnly, Dictionary<string, int>> snapshots,
+        Dictionary<string, int> currentRequirements)
     {
         if (entries == null || entries.Count == 0) return false;
+
+        var requiredServings = snapshots.GetValueOrDefault(date) ?? currentRequirements;
+        if (requiredServings.Count == 0) return false;
 
         foreach (var (itemId, required) in requiredServings)
         {
@@ -371,8 +456,8 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
-        if (requiredServings.Count == 0) return 0;
+        var currentRequirements = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
+        var snapshots = await LoadSettingsSnapshotsAsync();
 
         // Load ALL entries in a single query
         var allEntries = await _connection.QueryAsync<DailyEntryEntity>(
@@ -386,9 +471,9 @@ public class SqliteDataService : IDataService
             .ToDictionary(g => g.Key, g => (IReadOnlyList<DailyEntry>)g.ToList());
 
         var perfectDays = 0;
-        foreach (var (_, entries) in entriesByDate)
+        foreach (var (date, entries) in entriesByDate)
         {
-            if (IsDateComplete(entries, requiredServings))
+            if (IsDateComplete(entries, date, snapshots, currentRequirements))
             {
                 perfectDays++;
             }
