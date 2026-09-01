@@ -124,7 +124,7 @@ public partial class StatisticsViewModel : ObservableObject
 
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
             UseMetricUnits = _appPreferences.UseMetricUnits;
-            GoalWeight = _appPreferences.GoalWeight;
+            GoalWeight = _appPreferences.GoalWeight is { } goalKg ? ToDisplayWeight(goalKg) : null;
 
             HasChecklistData = enabledItems.Count > 0;
             HasAnyData = HasChecklistData || WeightTrackingEnabled;
@@ -285,13 +285,13 @@ public partial class StatisticsViewModel : ObservableObject
     private async Task LoadWeightDataAsync(DateOnly today)
     {
         var todayEntry = await _dataService.GetWeightEntryAsync(today);
-        TodayWeight = todayEntry?.Weight;
-        WeightInputText = todayEntry != null ? todayEntry.Weight.ToString("F1") : "";
+        TodayWeight = todayEntry is not null ? ToDisplayWeight(todayEntry.Weight) : null;
+        WeightInputText = TodayWeight?.ToString("F1") ?? "";
 
         var startDate = today.AddDays(-29);
         var entries = await _dataService.GetWeightEntriesInRangeAsync(startDate, today);
 
-        WeightHistory = entries.Select(e => new WeightDataPoint(e.Date, e.Weight)).ToList();
+        WeightHistory = entries.Select(e => new WeightDataPoint(e.Date, ToDisplayWeight(e.Weight))).ToList();
 
         if (WeightHistory.Count > 0)
         {
@@ -323,13 +323,17 @@ public partial class StatisticsViewModel : ObservableObject
             return;
         }
 
-        var change = entries[^1].Weight - entries[0].Weight;
+        var change = ToDisplayWeight(entries[^1].Weight) - ToDisplayWeight(entries[0].Weight);
         var unit = WeightUnit;
 
         WeightChangeText = Math.Abs(change) < 0.1
             ? "No change"
             : change > 0 ? $"+{change:F1} {unit}" : $"{change:F1} {unit}";
     }
+
+    /// <summary>Converts a stored (canonical kilogram) weight into the user's display unit.</summary>
+    private double ToDisplayWeight(double weightKg) =>
+        UnitConverter.KilogramsToDisplay(weightKg, UseMetricUnits);
 
     [RelayCommand]
     private async Task SaveTodayWeightAsync()
@@ -343,7 +347,7 @@ public partial class StatisticsViewModel : ObservableObject
         var entry = new WeightEntry
         {
             Date = today,
-            Weight = weight
+            Weight = UnitConverter.DisplayToKilograms(weight, UseMetricUnits)
         };
 
         await _dataService.SaveWeightEntryAsync(entry);

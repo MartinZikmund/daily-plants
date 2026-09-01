@@ -13,37 +13,37 @@ public partial class SettingsViewModel : ObservableObject
     private readonly IExportService _exportService;
     private readonly ILocalizationService _localizationService;
     private string _initialLanguage = "";
+    private bool _suppressPreferenceWrites;
 
     [ObservableProperty]
-    private bool _isLoading;
+    public partial bool IsLoading { get; set; }
 
     [ObservableProperty]
-    private bool _dailyDozenEnabled;
+    public partial bool DailyDozenEnabled { get; set; }
 
     [ObservableProperty]
-    private bool _twentyOneTweaksEnabled;
+    public partial bool TwentyOneTweaksEnabled { get; set; }
 
     [ObservableProperty]
-    private bool _weightTrackingEnabled;
+    public partial bool WeightTrackingEnabled { get; set; }
 
     [ObservableProperty]
-    private bool _useMetricUnits;
+    public partial bool UseMetricUnits { get; set; }
 
     [ObservableProperty]
-    private int _selectedThemeIndex;
+    public partial int SelectedThemeIndex { get; set; }
 
     [ObservableProperty]
-    private int _selectedLanguageIndex;
+    public partial int SelectedLanguageIndex { get; set; }
 
     [ObservableProperty]
-    private bool _showRestartMessage;
+    public partial bool ShowRestartMessage { get; set; }
 
     [ObservableProperty]
-    private string _goalWeightText = "";
+    public partial string GoalWeightText { get; set; } = "";
 
     [ObservableProperty]
-    private string _heightText = "";
-
+    public partial string HeightText { get; set; } = "";
     public ObservableCollection<ChecklistItemToggleViewModel> DailyDozenItems { get; } = [];
     public ObservableCollection<ChecklistItemToggleViewModel> TwentyOneTweaksItems { get; } = [];
 
@@ -72,8 +72,10 @@ public partial class SettingsViewModel : ObservableObject
             UseMetricUnits = _appPreferences.UseMetricUnits;
             SelectedThemeIndex = _appPreferences.ThemePreference;
 
-            GoalWeightText = _appPreferences.GoalWeight?.ToString("F1") ?? "";
-            HeightText = _appPreferences.HeightCm?.ToString("F0") ?? "";
+            _suppressPreferenceWrites = true;
+            GoalWeightText = FormatGoalWeight(_appPreferences.GoalWeight);
+            HeightText = FormatHeight(_appPreferences.HeightCm);
+            _suppressPreferenceWrites = false;
             OnPropertyChanged(nameof(WeightUnit));
             OnPropertyChanged(nameof(HeightUnit));
 
@@ -152,13 +154,31 @@ public partial class SettingsViewModel : ObservableObject
         _appPreferences.UseMetricUnits = value;
         OnPropertyChanged(nameof(WeightUnit));
         OnPropertyChanged(nameof(HeightUnit));
+
+        // Re-render the stored (canonical) values in the newly selected unit.
+        // Writes are suppressed so a round trip through the toggle cannot drift
+        // the stored value through repeated display rounding.
+        _suppressPreferenceWrites = true;
+        GoalWeightText = FormatGoalWeight(_appPreferences.GoalWeight);
+        HeightText = FormatHeight(_appPreferences.HeightCm);
+        _suppressPreferenceWrites = false;
     }
+
+    private string FormatGoalWeight(double? goalWeightKg) => goalWeightKg.HasValue
+        ? UnitConverter.KilogramsToDisplay(goalWeightKg.Value, UseMetricUnits).ToString("F1")
+        : "";
+
+    private string FormatHeight(double? heightCm) => heightCm.HasValue
+        ? UnitConverter.CentimetresToDisplay(heightCm.Value, UseMetricUnits).ToString("F1")
+        : "";
 
     partial void OnGoalWeightTextChanged(string value)
     {
+        if (_suppressPreferenceWrites) return;
+
         if (double.TryParse(value, out var weight) && weight > 0)
         {
-            _appPreferences.GoalWeight = weight;
+            _appPreferences.GoalWeight = UnitConverter.DisplayToKilograms(weight, UseMetricUnits);
         }
         else
         {
@@ -168,9 +188,11 @@ public partial class SettingsViewModel : ObservableObject
 
     partial void OnHeightTextChanged(string value)
     {
+        if (_suppressPreferenceWrites) return;
+
         if (double.TryParse(value, out var height) && height > 0)
         {
-            _appPreferences.HeightCm = height;
+            _appPreferences.HeightCm = UnitConverter.DisplayToCentimetres(height, UseMetricUnits);
         }
         else
         {
@@ -363,7 +385,7 @@ public partial class ChecklistItemToggleViewModel : ObservableObject
     public string? IconPath { get; }
 
     [ObservableProperty]
-    private bool _isEnabled;
+    public partial bool IsEnabled { get; set; }
 
     public ChecklistItemToggleViewModel(IAppPreferences appPreferences, ChecklistItem item)
     {
@@ -371,7 +393,7 @@ public partial class ChecklistItemToggleViewModel : ObservableObject
         ItemId = item.Id;
         ItemName = item.Name;
         IconPath = item.IconPath;
-        _isEnabled = !appPreferences.IsItemDisabled(item.Id);
+        IsEnabled = !appPreferences.IsItemDisabled(item.Id);
     }
 
     partial void OnIsEnabledChanged(bool value)
