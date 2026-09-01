@@ -19,6 +19,13 @@ public static class ChecklistDefinitions
     public static IReadOnlyList<ChecklistItem> AllItems => _allItems ??= CreateAllItems();
 
     /// <summary>
+    /// Drops the cached items so their localized strings are resolved again. Called when the
+    /// resource loader is reset, otherwise every item name, description, serving size and
+    /// benefit stays in the language that was active on first access.
+    /// </summary>
+    public static void Invalidate() => _allItems = null;
+
+    /// <summary>
     /// Gets items for a specific checklist type.
     /// </summary>
     public static IEnumerable<ChecklistItem> GetItemsForChecklist(ChecklistType checklist) =>
