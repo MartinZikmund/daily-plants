@@ -1,4 +1,4 @@
-namespace DailyPlants.Services.Settings;
+﻿namespace DailyPlants.Services.Settings;
 
 public interface IAppPreferences
 {
@@ -11,4 +11,12 @@ public interface IAppPreferences
     int ThemePreference { get; set; }
     string? Language { get; set; }
     string DisabledItemIds { get; set; }
+
+    /// <summary>
+    /// Whether <see cref="HeightCm"/> and <see cref="GoalWeight"/> are already stored in
+    /// centimetres and kilograms. Preferences live outside the database, so they cannot be
+    /// gated on its schema version - a database that is reset or replaced would convert
+    /// them a second time.
+    /// </summary>
+    bool UnitsAreCanonical { get; set; }
 }
