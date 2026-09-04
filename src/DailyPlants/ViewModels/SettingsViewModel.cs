@@ -422,17 +422,25 @@ public partial class ChecklistItemToggleViewModel : ObservableObject
     [ObservableProperty]
     public partial bool IsEnabled { get; set; }
 
+    /// <summary>Set while the constructor seeds the toggle, which is not the user toggling it.</summary>
+    private bool _loading;
+
     public ChecklistItemToggleViewModel(IAppPreferences appPreferences, ChecklistItem item)
     {
         _appPreferences = appPreferences;
         ItemId = item.Id;
         ItemName = item.Name;
         IconPath = item.IconPath;
+
+        _loading = true;
         IsEnabled = !appPreferences.IsItemDisabled(item.Id);
+        _loading = false;
     }
 
     partial void OnIsEnabledChanged(bool value)
     {
+        if (_loading) return;
+
         _appPreferences.SetItemDisabled(ItemId, !value);
     }
 }
