@@ -30,15 +30,19 @@
           AutomationProperties.AutomationId="DayCompleteParade"
           AutomationProperties.LiveSetting="Assertive">
 
+        <!--
+            RenderTransformOrigin is relative; CompositeTransform.CenterX/CenterY are pixels.
+            Using 0.5 there pivoted the scale a half-pixel from the top-left corner.
+        -->
         <Border x:Name="CardBorder"
                 Background="{ThemeResource DpParadeBrush}"
                 CornerRadius="8"
                 Padding="32,28"
                 MinWidth="320"
-                MaxWidth="440">
+                MaxWidth="440"
+                RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
                 <CompositeTransform x:Name="CardTransform"
-                                     CenterX="0.5" CenterY="0.5"
                                      ScaleX="1" ScaleY="1" />
             </Border.RenderTransform>
             <Border.Shadow>
