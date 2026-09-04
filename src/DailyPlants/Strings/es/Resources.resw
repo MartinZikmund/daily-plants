@@ -830,28 +830,22 @@
     <value>{0}% completado</value>
   </data>
   <data name="Diary_ServingsTally" xml:space="preserve">
-    <value>{0} of {1}</value>
-    <comment>TODO: translate (English placeholder)</comment>
+    <value>{0} de {1}</value>
   </data>
   <data name="Diary_StillToGo" xml:space="preserve">
-    <value>Still to go</value>
-    <comment>TODO: translate (English placeholder)</comment>
+    <value>Por hacer</value>
   </data>
   <data name="Diary_DoneToday" xml:space="preserve">
-    <value>Done today</value>
-    <comment>TODO: translate (English placeholder)</comment>
+    <value>Hecho hoy</value>
   </data>
   <data name="Diary_StreakDays" xml:space="preserve">
-    <value>{0}-day streak</value>
-    <comment>TODO: translate (English placeholder)</comment>
+    <value>Racha de {0} días</value>
   </data>
   <data name="Diary_DayCompleteHeadline" xml:space="preserve">
-    <value>Every serving, done.</value>
-    <comment>TODO: translate (English placeholder)</comment>
+    <value>Cada porción, hecha.</value>
   </data>
   <data name="Diary_DayCompleteSubhead" xml:space="preserve">
-    <value>All {0} servings for {1}.</value>
-    <comment>TODO: translate (English placeholder)</comment>
+    <value>Todas las {0} porciones para el {1}.</value>
   </data>
 
   <!-- Achievements - Navigation -->
