@@ -117,9 +117,15 @@ public class ExportService : IExportService
                 return Failed($"Unsupported export format version: {importData.Version}");
             }
 
+            // An explicit null reaches here as one, so normalise it the same way a missing
+            // member is normalised by the property default.
+            var version = string.IsNullOrEmpty(importData.Version)
+                ? ExportFormat.LegacyUnitsVersion
+                : importData.Version;
+
             // 1.0 files stored weights and heights in whichever unit the exporting user had
             // selected; every version since stores kilograms and centimetres.
-            var storedInImperial = importData.Version == ExportFormat.LegacyUnitsVersion
+            var storedInImperial = version == ExportFormat.LegacyUnitsVersion
                 && importData.Settings?.UseMetricUnits == false;
 
             var entriesImported = 0;
