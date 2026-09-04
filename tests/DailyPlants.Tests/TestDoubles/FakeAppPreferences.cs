@@ -1,4 +1,4 @@
-namespace DailyPlants.Tests.TestDoubles;
+﻿namespace DailyPlants.Tests.TestDoubles;
 
 /// <summary>
 /// Direct in-memory implementation of <see cref="IAppPreferences"/> for VM and service tests
@@ -15,4 +15,5 @@ internal sealed class FakeAppPreferences : IAppPreferences
     public int ThemePreference { get; set; }
     public string? Language { get; set; }
     public string DisabledItemIds { get; set; } = string.Empty;
+    public bool UnitsAreCanonical { get; set; }
 }
