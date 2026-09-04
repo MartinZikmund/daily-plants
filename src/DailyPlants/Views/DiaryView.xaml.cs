@@ -247,58 +247,12 @@ public sealed partial class DiaryView : Page
             content.Children.Add(mergeSection);
         }
 
-        // Serving controls
-        var servingCountText = new TextBlock
+        // The same stepper the Diary row uses, so the two cannot drift apart.
+        content.Children.Add(new Controls.ServingStepper
         {
-            Text = itemVm.ServingsDisplayText,
-            Style = (Style)Application.Current.Resources["DpBodyStrongTextBlockStyle"],
-            VerticalAlignment = VerticalAlignment.Center
-        };
-
-        var minusButton = new Button
-        {
-            Width = 36,
-            Height = 36,
-            Padding = new Thickness(0),
-            CornerRadius = new CornerRadius(18),
-            Content = new FontIcon { FontSize = 14, Glyph = "" }
-        };
-        AutomationProperties.SetName(minusButton, Localizer.GetString("Diary_DecreaseServing"));
-        AutomationProperties.SetAutomationId(minusButton, "DiaryDetailDecrementButton");
-
-        var plusButton = new Button
-        {
-            Width = 36,
-            Height = 36,
-            Padding = new Thickness(0),
-            CornerRadius = new CornerRadius(18),
-            Content = new FontIcon { FontSize = 14, Glyph = "" }
-        };
-        AutomationProperties.SetName(plusButton, Localizer.GetString("Diary_IncreaseServing"));
-        AutomationProperties.SetAutomationId(plusButton, "DiaryDetailIncrementButton");
-
-        minusButton.Click += (s, e) =>
-        {
-            itemVm.DecrementServingCommand.Execute(null);
-            servingCountText.Text = itemVm.ServingsDisplayText;
-        };
-
-        plusButton.Click += (s, e) =>
-        {
-            itemVm.IncrementServingCommand.Execute(null);
-            servingCountText.Text = itemVm.ServingsDisplayText;
-        };
-
-        var servingControls = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            Spacing = 12
-        };
-        servingControls.Children.Add(minusButton);
-        servingControls.Children.Add(servingCountText);
-        servingControls.Children.Add(plusButton);
-        content.Children.Add(servingControls);
+            Item = itemVm,
+            HorizontalAlignment = HorizontalAlignment.Center
+        });
 
         // Health benefits section (if available)
         if (!string.IsNullOrEmpty(item.HealthBenefits))
@@ -358,14 +312,24 @@ public sealed partial class DiaryView : Page
 
         var dialog = new ContentDialog
         {
-            Title = item.Name,
+            Title = new TextBlock
+            {
+                Text = item.Name,
+                Style = (Style)Application.Current.Resources["DpTitleTextBlockStyle"],
+                TextWrapping = TextWrapping.Wrap
+            },
             Content = new ScrollViewer
             {
                 Content = content,
                 MaxHeight = 400
             },
             CloseButtonText = Localizer.GetString("Common_Close"),
-            XamlRoot = this.XamlRoot
+            Style = (Style)Application.Current.Resources["DpContentDialogStyle"],
+            XamlRoot = this.XamlRoot,
+
+            // A dialog is hosted in a popup, so it does not inherit the page's theme.
+            // Without this it renders dark while the app is set to light, and vice versa.
+            RequestedTheme = (XamlRoot?.Content as FrameworkElement)?.ActualTheme ?? ElementTheme.Default
         };
 
         await dialog.ShowAsync();

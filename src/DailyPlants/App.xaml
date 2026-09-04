@@ -14,6 +14,7 @@
                 <!--  Windowsill design system  -->
                 <ResourceDictionary Source="ms-appx:///Styles/Colors.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Typography.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/Dialogs.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Converters  -->
