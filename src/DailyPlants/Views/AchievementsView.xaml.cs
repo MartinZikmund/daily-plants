@@ -1,9 +1,6 @@
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Media;
-using Windows.UI;
 
 namespace DailyPlants.Views;
 
