@@ -1,3 +1,4 @@
+using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
@@ -6,15 +7,26 @@ using DailyPlants.Services.Settings;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
+/// Payload for <see cref="DiaryViewModel.DayCompleted"/>, consumed by the day-complete parade.
+/// </summary>
+public sealed record DayCompleteInfo(int TotalServings, string Headline, string Subhead);
+
+/// <summary>
 /// ViewModel for the Diary page, managing date navigation and checklist items.
 /// </summary>
 public partial class DiaryViewModel : ObservableObject
 {
+    /// <summary>
+    /// Windowsill motion spec: a completed row holds its place before it moves groups.
+    /// </summary>
+    private static readonly TimeSpan GroupMoveHold = TimeSpan.FromMilliseconds(400);
+
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
     private CancellationTokenSource? _achievementDebounce;
     private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
+    private bool _dayCompleteAnnounced;
 
     [ObservableProperty]
     private string _dateDisplayText = string.Empty;
@@ -31,19 +43,73 @@ public partial class DiaryViewModel : ObservableObject
     [ObservableProperty]
     private bool _canGoToNextDay;
 
+    /// <summary>
+    /// Relative day and streak on one caption line, e.g. "Today · 12-day streak".
+    /// </summary>
+    [ObservableProperty]
+    private string _dayContextText = string.Empty;
+
+    [ObservableProperty]
+    private bool _showDayContext;
+
+    [ObservableProperty]
+    private int _currentStreak;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
+    [NotifyPropertyChangedFor(nameof(ShowTally))]
     private bool _isLoading;
 
     [ObservableProperty]
     private double _overallProgress;
 
+    /// <summary>
+    /// The tally headline, e.g. "14 of 21".
+    /// </summary>
     [ObservableProperty]
-    private string _progressText = string.Empty;
+    private string _servingsTallyText = string.Empty;
 
+    [ObservableProperty]
+    private string _stillToGoCountText = "0";
+
+    [ObservableProperty]
+    private string _doneTodayCountText = "0";
+
+    [ObservableProperty]
+    private bool _showStillToGoGroup;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowDoneTodayRows))]
+    private bool _showDoneTodayGroup;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowDoneTodayRows))]
+    private bool _isDoneTodayExpanded = true;
+
+    /// <summary>
+    /// The full, ordered set of rows for the current day. Groups are derived from it.
+    /// </summary>
     public ObservableCollection<ChecklistItemViewModel> Items { get; } = [];
 
+    public ObservableCollection<ChecklistItemViewModel> StillToGo { get; } = [];
+
+    public ObservableCollection<ChecklistItemViewModel> DoneToday { get; } = [];
+
+    /// <summary>
+    /// Set to false by the view when the user has reduced motion enabled: rows then
+    /// stay put and are regrouped on the next navigation instead of sliding across.
+    /// </summary>
+    public bool AnimateGroupChanges { get; set; } = true;
+
     public bool ShowEmptyState => !IsLoading && Items.Count == 0;
+
+    public bool ShowTally => !IsLoading && Items.Count > 0;
+
+    public bool ShowDoneTodayRows => ShowDoneTodayGroup && IsDoneTodayExpanded;
+
+    public string StillToGoHeaderText => Localized("Diary_StillToGo", "Still to go");
+
+    public string DoneTodayHeaderText => Localized("Diary_DoneToday", "Done today");
 
     public DateOnly CurrentDate => _currentDate;
 
@@ -53,6 +119,16 @@ public partial class DiaryViewModel : ObservableObject
     public DateTimeOffset MaxSelectableDate => DateTimeOffset.Now;
 
     public event EventHandler<ChecklistItemViewModel>? ItemDetailRequested;
+
+    /// <summary>
+    /// Raised once when every serving for the shown day has just been completed.
+    /// </summary>
+    public event EventHandler<DayCompleteInfo>? DayCompleted;
+
+    /// <summary>
+    /// Raised whenever a different day starts loading, so the parade can reset.
+    /// </summary>
+    public event EventHandler? DayReset;
 
     public DiaryViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
     {
@@ -65,6 +141,7 @@ public partial class DiaryViewModel : ObservableObject
     public async Task LoadDataAsync()
     {
         IsLoading = true;
+        DayReset?.Invoke(this, EventArgs.Empty);
 
         try
         {
@@ -115,12 +192,15 @@ public partial class DiaryViewModel : ObservableObject
                 Items.Add(itemVm);
             }
 
-            UpdateProgress();
+            RebuildGroups();
+            UpdateProgress(announceCompletion: false);
+            await LoadStreakAsync();
         }
         finally
         {
             IsLoading = false;
             OnPropertyChanged(nameof(ShowEmptyState));
+            OnPropertyChanged(nameof(ShowTally));
         }
     }
 
@@ -151,6 +231,9 @@ public partial class DiaryViewModel : ObservableObject
         UpdateDateDisplay();
         await LoadDataAsync();
     }
+
+    [RelayCommand]
+    private void ToggleDoneToday() => IsDoneTodayExpanded = !IsDoneTodayExpanded;
 
     /// <summary>
     /// Navigate to a specific date (called from calendar picker).
@@ -195,6 +278,35 @@ public partial class DiaryViewModel : ObservableObject
         }
 
         CanGoToNextDay = _currentDate < today;
+        _dayCompleteAnnounced = false;
+        UpdateDayContext();
+    }
+
+    private async Task LoadStreakAsync()
+    {
+        CurrentStreak = await _dataService.GetCurrentStreakAsync();
+        UpdateDayContext();
+    }
+
+    private void UpdateDayContext()
+    {
+        List<string> parts = new();
+
+        if (ShowRelativeDay && !string.IsNullOrEmpty(RelativeDayText))
+        {
+            parts.Add(RelativeDayText);
+        }
+
+        if (CurrentStreak > 0)
+        {
+            parts.Add(string.Format(
+                CultureInfo.CurrentCulture,
+                Localized("Diary_StreakDays", "{0}-day streak"),
+                CurrentStreak));
+        }
+
+        DayContextText = string.Join(" · ", parts);
+        ShowDayContext = parts.Count > 0;
     }
 
     private async void OnItemServingsChanged(object? sender, int newServings)
@@ -243,6 +355,9 @@ public partial class DiaryViewModel : ObservableObject
 
         UpdateProgress();
 
+        // Runs on its own timeline: the row holds its place before it changes group.
+        _ = ScheduleGroupSyncAsync(itemVm);
+
         // Debounce achievement check to avoid running on every tap
         ScheduleAchievementCheck();
     }
@@ -277,12 +392,12 @@ public partial class DiaryViewModel : ObservableObject
         }
     }
 
-    private void UpdateProgress()
+    private void UpdateProgress(bool announceCompletion = true)
     {
         if (Items.Count == 0)
         {
             OverallProgress = 0;
-            ProgressText = Localizer.GetString("Diary_NoItemsEnabled");
+            ServingsTallyText = FormatTally(0, 0);
             return;
         }
 
@@ -290,9 +405,137 @@ public partial class DiaryViewModel : ObservableObject
         var completedServings = Items.Sum(i => Math.Min(i.ServingsCompleted, i.TotalRecommendedServings));
 
         OverallProgress = totalServings > 0 ? (double)completedServings / totalServings : 0;
-        var percentage = (int)(OverallProgress * 100);
-        ProgressText = string.Format(Localizer.GetString("Diary_PercentComplete"), percentage);
+        ServingsTallyText = FormatTally(completedServings, totalServings);
+
+        if (totalServings == 0 || completedServings < totalServings || _dayCompleteAnnounced)
+        {
+            return;
+        }
+
+        // Fires at most once per day; a reload of an already-complete day arms the
+        // flag without announcing, so the parade never replays.
+        _dayCompleteAnnounced = true;
+
+        if (announceCompletion)
+        {
+            DayCompleted?.Invoke(this, new DayCompleteInfo(
+                totalServings,
+                Localized("Diary_DayCompleteHeadline", "Every serving, done."),
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    Localized("Diary_DayCompleteSubhead", "All {0} servings for {1}."),
+                    totalServings,
+                    DateDisplayText)));
+        }
     }
+
+    private static string FormatTally(int completed, int total) => string.Format(
+        CultureInfo.CurrentCulture,
+        Localized("Diary_ServingsTally", "{0} of {1}"),
+        completed,
+        total);
+
+    private void RebuildGroups()
+    {
+        StillToGo.Clear();
+        DoneToday.Clear();
+
+        foreach (var item in Items)
+        {
+            if (item.IsComplete)
+            {
+                DoneToday.Add(item);
+            }
+            else
+            {
+                StillToGo.Add(item);
+            }
+        }
+
+        UpdateGroupCounts();
+    }
+
+    private async Task ScheduleGroupSyncAsync(ChecklistItemViewModel item)
+    {
+        if (IsInMatchingGroup(item))
+        {
+            return;
+        }
+
+        if (!AnimateGroupChanges)
+        {
+            // Reduced motion: leave the row where it is and regroup on next navigation.
+            return;
+        }
+
+        await Task.Delay(GroupMoveHold);
+        MoveToMatchingGroup(item);
+    }
+
+    private bool IsInMatchingGroup(ChecklistItemViewModel item) =>
+        item.IsComplete ? DoneToday.Contains(item) : StillToGo.Contains(item);
+
+    private void MoveToMatchingGroup(ChecklistItemViewModel item)
+    {
+        if (!Items.Contains(item) || IsInMatchingGroup(item))
+        {
+            return;
+        }
+
+        var target = item.IsComplete ? DoneToday : StillToGo;
+        var source = item.IsComplete ? StillToGo : DoneToday;
+
+        source.Remove(item);
+        target.Insert(GroupInsertIndex(target, item), item);
+        UpdateGroupCounts();
+    }
+
+    /// <summary>
+    /// Keeps a group in the same order as <see cref="Items"/>.
+    /// </summary>
+    private int GroupInsertIndex(ObservableCollection<ChecklistItemViewModel> group, ChecklistItemViewModel item)
+    {
+        var order = Items.IndexOf(item);
+
+        for (var i = 0; i < group.Count; i++)
+        {
+            if (Items.IndexOf(group[i]) > order)
+            {
+                return i;
+            }
+        }
+
+        return group.Count;
+    }
+
+    private void UpdateGroupCounts()
+    {
+        StillToGoCountText = StillToGo.Count.ToString(CultureInfo.CurrentCulture);
+        DoneTodayCountText = DoneToday.Count.ToString(CultureInfo.CurrentCulture);
+        ShowStillToGoGroup = StillToGo.Count > 0;
+        ShowDoneTodayGroup = DoneToday.Count > 0;
+    }
+
+    /// <summary>
+    /// Resource lookup with an English fallback, for keys that are not yet in every
+    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
+    /// </summary>
+    private static string Localized(string key, string fallback)
+    {
+        var value = Localizer.GetString(key);
+        return value == $"[{key}]" ? fallback : value;
+    }
+}
+
+/// <summary>
+/// One serving dot in a row. Empty dots are outlined; earned dots are filled.
+/// </summary>
+public partial class ServingIndicator : ObservableObject
+{
+    [ObservableProperty]
+    private double _fillOpacity;
+
+    public ServingIndicator(bool isEarned) => _fillOpacity = isEarned ? 1 : 0;
 }
 
 /// <summary>
@@ -317,6 +560,11 @@ public partial class ChecklistItemViewModel : ObservableObject
     /// </summary>
     public int TotalRecommendedServings { get; }
 
+    /// <summary>
+    /// One dot per recommended serving, in order.
+    /// </summary>
+    public ObservableCollection<ServingIndicator> ServingIndicators { get; } = [];
+
     public bool HasMergedChildren => MergedChildren.Count > 0;
 
     [ObservableProperty]
@@ -333,6 +581,11 @@ public partial class ChecklistItemViewModel : ObservableObject
         MergedChildren = mergedChildren ?? [];
         TotalRecommendedServings = item.RecommendedServings + MergedChildren.Sum(c => c.RecommendedServings);
         _servingsCompleted = servingsCompleted;
+
+        for (var i = 0; i < TotalRecommendedServings; i++)
+        {
+            ServingIndicators.Add(new ServingIndicator(i < servingsCompleted));
+        }
     }
 
     /// <summary>
@@ -360,10 +613,19 @@ public partial class ChecklistItemViewModel : ObservableObject
 
     partial void OnServingsCompletedChanged(int value)
     {
+        UpdateServingIndicators();
         OnPropertyChanged(nameof(ServingsDisplayText));
         OnPropertyChanged(nameof(Progress));
         OnPropertyChanged(nameof(IsComplete));
         ServingsChanged?.Invoke(this, value);
+    }
+
+    private void UpdateServingIndicators()
+    {
+        for (var i = 0; i < ServingIndicators.Count; i++)
+        {
+            ServingIndicators[i].FillOpacity = i < ServingsCompleted ? 1 : 0;
+        }
     }
 
     [RelayCommand]
