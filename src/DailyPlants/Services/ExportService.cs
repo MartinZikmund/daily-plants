@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using DailyPlants.Models;
@@ -76,18 +76,7 @@ public class ExportService : IExportService
         }
 
         // Export settings
-        exportData.Settings = new UserSettingsExport
-        {
-            DailyDozenEnabled = _appPreferences.DailyDozenEnabled,
-            TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled,
-            WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled,
-            UseMetricUnits = _appPreferences.UseMetricUnits,
-            HeightCm = _appPreferences.HeightCm,
-            GoalWeight = _appPreferences.GoalWeight,
-            ThemePreference = _appPreferences.ThemePreference,
-            Language = _appPreferences.Language,
-            DisabledItemIds = _appPreferences.DisabledItemIds
-        };
+        exportData.Settings = CaptureSettings();
 
         return JsonSerializer.Serialize(exportData, JsonOptions);
     }
@@ -138,69 +127,88 @@ public class ExportService : IExportService
             var achievementsImported = 0;
             var entriesSkipped = 0;
 
-            // One unit of work: a failure part way through must not leave the database
-            // half-overwritten, since import upserts straight over existing entries.
-            await _dataService.RunInTransactionAsync(async () =>
+            // Settings go in first: writing an entry records the checklist requirements in
+            // force at that moment, once and for good, so restoring a backup under the
+            // importing device's settings would stamp every day in the file with the wrong
+            // bar and silently rewrite its streaks. Preferences are not part of the database
+            // transaction, so they are captured and put back by hand if the import fails.
+            // A file without settings leaves the current ones alone.
+            var settingsToRestore = importData.Settings is null ? null : CaptureSettings();
+            if (importData.Settings is { } incomingSettings)
             {
-                foreach (var entry in importData.DailyEntries)
+                ApplySettings(incomingSettings, storedInImperial);
+            }
+
+            try
+            {
+                // One unit of work: a failure part way through must not leave the database
+                // half-overwritten, since import upserts straight over existing entries.
+                await _dataService.RunInTransactionAsync(async () =>
                 {
-                    if (!IsValidEntry(entry, out var date))
+                    foreach (var entry in importData.DailyEntries)
                     {
-                        entriesSkipped++;
-                        continue;
+                        if (!IsValidEntry(entry, out var date))
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
+
+                        await _dataService.SaveEntryAsync(new DailyEntry
+                        {
+                            Date = date,
+                            ItemId = entry.ItemId,
+                            ServingsCompleted = entry.ServingsCompleted
+                        });
+                        entriesImported++;
                     }
 
-                    await _dataService.SaveEntryAsync(new DailyEntry
+                    foreach (var entry in importData.WeightEntries)
                     {
-                        Date = date,
-                        ItemId = entry.ItemId,
-                        ServingsCompleted = entry.ServingsCompleted
-                    });
-                    entriesImported++;
-                }
+                        if (!IsoDate.TryParse(entry.Date, out var weightDate) || entry.Weight <= 0)
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
 
-                foreach (var entry in importData.WeightEntries)
-                {
-                    if (!IsoDate.TryParse(entry.Date, out var weightDate) || entry.Weight <= 0)
-                    {
-                        entriesSkipped++;
-                        continue;
+                        await _dataService.SaveWeightEntryAsync(new WeightEntry
+                        {
+                            Date = weightDate,
+                            Weight = storedInImperial
+                                ? UnitConverter.DisplayToKilograms(entry.Weight, useMetric: false)
+                                : entry.Weight,
+                            Notes = entry.Notes
+                        });
+                        weightEntriesImported++;
                     }
 
-                    await _dataService.SaveWeightEntryAsync(new WeightEntry
+                    foreach (var achievement in importData.Achievements)
                     {
-                        Date = weightDate,
-                        Weight = storedInImperial
-                            ? UnitConverter.DisplayToKilograms(entry.Weight, useMetric: false)
-                            : entry.Weight,
-                        Notes = entry.Notes
-                    });
-                    weightEntriesImported++;
-                }
+                        if (AchievementDefinitions.GetById(achievement.AchievementId) is null)
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
 
-                foreach (var achievement in importData.Achievements)
-                {
-                    if (AchievementDefinitions.GetById(achievement.AchievementId) is null)
-                    {
-                        entriesSkipped++;
-                        continue;
+                        await _dataService.SaveEarnedAchievementAsync(new EarnedAchievement
+                        {
+                            AchievementId = achievement.AchievementId,
+                            EarnedAt = ParseEarnedAt(achievement.EarnedAt),
+                            HasBeenSeen = achievement.HasBeenSeen
+                        });
+                        achievementsImported++;
                     }
-
-                    await _dataService.SaveEarnedAchievementAsync(new EarnedAchievement
-                    {
-                        AchievementId = achievement.AchievementId,
-                        EarnedAt = ParseEarnedAt(achievement.EarnedAt),
-                        HasBeenSeen = achievement.HasBeenSeen
-                    });
-                    achievementsImported++;
-                }
-
-                // Settings are optional - a file without them leaves the current ones alone.
-                if (importData.Settings is { } settings)
+                });
+            }
+            catch
+            {
+                if (settingsToRestore is not null)
                 {
-                    ApplySettings(settings, storedInImperial);
+                    // Already canonical - these came out of the live preferences.
+                    ApplySettings(settingsToRestore, storedInImperial: false);
                 }
-            });
+
+                throw;
+            }
 
             return new ImportResult
             {
@@ -287,6 +295,20 @@ public class ExportService : IExportService
             return Failed($"CSV import failed: {ex.Message}");
         }
     }
+
+    /// <summary>Snapshots the live preferences, so a failed import can put them back.</summary>
+    private UserSettingsExport CaptureSettings() => new()
+    {
+        DailyDozenEnabled = _appPreferences.DailyDozenEnabled,
+        TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled,
+        WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled,
+        UseMetricUnits = _appPreferences.UseMetricUnits,
+        HeightCm = _appPreferences.HeightCm,
+        GoalWeight = _appPreferences.GoalWeight,
+        ThemePreference = _appPreferences.ThemePreference,
+        Language = _appPreferences.Language,
+        DisabledItemIds = _appPreferences.DisabledItemIds
+    };
 
     private void ApplySettings(UserSettingsExport settings, bool storedInImperial)
     {
