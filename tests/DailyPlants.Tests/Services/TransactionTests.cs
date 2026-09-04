@@ -1,4 +1,4 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 
 namespace DailyPlants.Tests.Services;
 
@@ -80,5 +80,36 @@ public class TransactionTests
 
         (await _service.GetEntryAsync(Date(1), "beans"))!.ServingsCompleted.Should().Be(3);
         (await _service.GetWeightEntryAsync(Date(1)))!.Weight.Should().Be(80);
+    }
+
+    [TestMethod]
+    public async Task RunInTransactionAsync_DoesNotSwallowAWriteMadeElsewhere()
+    {
+        var insideTransaction = new TaskCompletionSource();
+        var tapRecorded = new TaskCompletionSource();
+
+        // An import that will fail, holding a transaction open while it does.
+        var import = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>
+            await _service.RunInTransactionAsync(async () =>
+            {
+                await _service.SaveEntryAsync(new DailyEntry { Date = Date(1), ItemId = "beans", ServingsCompleted = 3 });
+                insideTransaction.SetResult();
+                await tapRecorded.Task;
+                throw new InvalidOperationException("import blew up half way");
+            }));
+
+        await insideTransaction.Task;
+
+        // The user taps a serving while the import is running. Same singleton service.
+        var tap = _service.SaveEntryAsync(new DailyEntry { Date = Date(2), ItemId = "beans", ServingsCompleted = 1 });
+        tap.IsCompleted.Should().BeFalse("the tap has to wait for the transaction rather than join it");
+
+        tapRecorded.SetResult();
+        await import;
+        await tap;
+
+        (await _service.GetEntryAsync(Date(1), "beans")).Should().BeNull("the import rolled back");
+        (await _service.GetEntryAsync(Date(2), "beans"))
+            .Should().NotBeNull("the user's own tap had nothing to do with the import");
     }
 }
