@@ -18,9 +18,11 @@
                         SelectionChanged="NavView_SelectionChanged">
 
             <!--
-                The pane background is normally a WinUI system fill; redirect the
-                three modes NavigationView can be in to DpSurfaceBrush instead of
-                restyling the control template.
+                The pane keeps DpSurfaceBrush so it reads as its own surface. The content
+                area is deliberately transparent: on Windows the Mica backdrop shows
+                through it, and on every other head it falls through to this page's
+                DpGroundBrush. Painting it opaque is what left a 1px seam of raw Mica
+                against the pane edge.
             -->
             <NavigationView.Resources>
                 <ResourceDictionary>
@@ -29,16 +31,22 @@
                             <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                            <StaticResource x:Key="NavigationViewItemSeparatorForeground" ResourceKey="DpHairlineBrush" />
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Dark">
                             <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                            <StaticResource x:Key="NavigationViewItemSeparatorForeground" ResourceKey="DpHairlineBrush" />
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="HighContrast">
                             <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="DpGroundBrush" />
+                            <StaticResource x:Key="NavigationViewItemSeparatorForeground" ResourceKey="DpHairlineBrush" />
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
                 </ResourceDictionary>
@@ -86,7 +94,7 @@
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
 
-            <Grid Background="{ThemeResource DpGroundBrush}">
+            <Grid Background="Transparent">
                 <Frame x:Name="ContentFrame" MaxWidth="1400" />
 
                 <Grid
