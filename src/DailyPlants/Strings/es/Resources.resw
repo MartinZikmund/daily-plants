@@ -1072,4 +1072,69 @@
     <value>Completa frutos secos 100 veces</value>
   </data>
 
+  <!-- Latest -->
+  <data name="Nav_Latest" xml:space="preserve">
+    <value>Novedades</value>
+  </data>
+  <data name="Latest_Title" xml:space="preserve">
+    <value>Novedades</value>
+  </data>
+  <data name="Latest_Subtitle" xml:space="preserve">
+    <value>Fresco de NutritionFacts.org</value>
+  </data>
+  <data name="Latest_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Latest_TabVideos" xml:space="preserve">
+    <value>Vídeos</value>
+  </data>
+  <data name="Latest_TabPodcast" xml:space="preserve">
+    <value>Pódcast</value>
+  </data>
+  <data name="Latest_Loading" xml:space="preserve">
+    <value>Cargando las publicaciones más recientes…</value>
+  </data>
+  <data name="Latest_Empty" xml:space="preserve">
+    <value>Aún no hay nada aquí</value>
+  </data>
+  <data name="Latest_EmptyDetail" xml:space="preserve">
+    <value>Vuelve pronto para ver algo nuevo.</value>
+  </data>
+  <data name="Latest_Offline" xml:space="preserve">
+    <value>Mostrando publicaciones guardadas — no pudimos conectar con NutritionFacts.org.</value>
+  </data>
+  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+    <value>Las publicaciones nuevas no se pueden cargar en la versión web de la aplicación.</value>
+  </data>
+  <data name="Latest_LoadError" xml:space="preserve">
+    <value>No pudimos cargar las publicaciones más recientes.</value>
+  </data>
+  <data name="Latest_Retry" xml:space="preserve">
+    <value>Reintentar</value>
+  </data>
+  <data name="Latest_Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Latest_UpdatedAt" xml:space="preserve">
+    <value>Actualizado {0}</value>
+  </data>
+  <data name="Latest_Today" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="Latest_Yesterday" xml:space="preserve">
+    <value>Ayer</value>
+  </data>
+  <data name="Latest_OpenInBrowser" xml:space="preserve">
+    <value>Abrir en el navegador</value>
+  </data>
+  <data name="Latest_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Latest_TeaserHeader" xml:space="preserve">
+    <value>Novedades de NutritionFacts.org</value>
+  </data>
+  <data name="Latest_SeeAll" xml:space="preserve">
+    <value>Ver todo</value>
+  </data>
+
 </root>

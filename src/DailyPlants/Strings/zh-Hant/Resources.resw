@@ -846,7 +846,6 @@
   </data>
   <data name="Diary_DayCompleteSubhead" xml:space="preserve">
     <value>{1}的全部{0}份，都做到了。</value>
-
   </data>
 
   <!-- Achievements - Navigation -->
@@ -1071,6 +1070,71 @@
   </data>
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>完成堅果 100 次</value>
+  </data>
+
+  <!-- Latest -->
+  <data name="Nav_Latest" xml:space="preserve">
+    <value>最新</value>
+  </data>
+  <data name="Latest_Title" xml:space="preserve">
+    <value>最新</value>
+  </data>
+  <data name="Latest_Subtitle" xml:space="preserve">
+    <value>來自 NutritionFacts.org 的新鮮內容</value>
+  </data>
+  <data name="Latest_TabBlog" xml:space="preserve">
+    <value>部落格</value>
+  </data>
+  <data name="Latest_TabVideos" xml:space="preserve">
+    <value>影片</value>
+  </data>
+  <data name="Latest_TabPodcast" xml:space="preserve">
+    <value>播客</value>
+  </data>
+  <data name="Latest_Loading" xml:space="preserve">
+    <value>正在載入最新內容…</value>
+  </data>
+  <data name="Latest_Empty" xml:space="preserve">
+    <value>這裡還沒有內容</value>
+  </data>
+  <data name="Latest_EmptyDetail" xml:space="preserve">
+    <value>請稍後再來看看新內容。</value>
+  </data>
+  <data name="Latest_Offline" xml:space="preserve">
+    <value>正在顯示已儲存的內容——未能連線到 NutritionFacts.org。</value>
+  </data>
+  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+    <value>網頁版應用程式無法載入新內容。</value>
+  </data>
+  <data name="Latest_LoadError" xml:space="preserve">
+    <value>未能載入最新內容。</value>
+  </data>
+  <data name="Latest_Retry" xml:space="preserve">
+    <value>重試</value>
+  </data>
+  <data name="Latest_Refresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="Latest_UpdatedAt" xml:space="preserve">
+    <value>已更新 {0}</value>
+  </data>
+  <data name="Latest_Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="Latest_Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="Latest_OpenInBrowser" xml:space="preserve">
+    <value>在瀏覽器中開啟</value>
+  </data>
+  <data name="Latest_ItemAutomationName" xml:space="preserve">
+    <value>{0}。{1}，{2}</value>
+  </data>
+  <data name="Latest_TeaserHeader" xml:space="preserve">
+    <value>來自 NutritionFacts.org 的新內容</value>
+  </data>
+  <data name="Latest_SeeAll" xml:space="preserve">
+    <value>查看全部</value>
   </data>
 
 </root>

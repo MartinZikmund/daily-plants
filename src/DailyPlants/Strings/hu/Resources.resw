@@ -1072,4 +1072,69 @@
     <value>Teljesítse a diófélék adagját 100-szor</value>
   </data>
 
+  <!-- Latest -->
+  <data name="Nav_Latest" xml:space="preserve">
+    <value>Újdonságok</value>
+  </data>
+  <data name="Latest_Title" xml:space="preserve">
+    <value>Újdonságok</value>
+  </data>
+  <data name="Latest_Subtitle" xml:space="preserve">
+    <value>Frissen a NutritionFacts.org-tól</value>
+  </data>
+  <data name="Latest_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Latest_TabVideos" xml:space="preserve">
+    <value>Videók</value>
+  </data>
+  <data name="Latest_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Latest_Loading" xml:space="preserve">
+    <value>A legújabb bejegyzések betöltése…</value>
+  </data>
+  <data name="Latest_Empty" xml:space="preserve">
+    <value>Még nincs itt semmi</value>
+  </data>
+  <data name="Latest_EmptyDetail" xml:space="preserve">
+    <value>Nézz vissza hamarosan valami újért.</value>
+  </data>
+  <data name="Latest_Offline" xml:space="preserve">
+    <value>Mentett bejegyzések megjelenítése — nem sikerült elérni a NutritionFacts.org oldalt.</value>
+  </data>
+  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+    <value>Az új bejegyzések nem tölthetők be az alkalmazás böngészős verziójában.</value>
+  </data>
+  <data name="Latest_LoadError" xml:space="preserve">
+    <value>Nem sikerült betölteni a legújabb bejegyzéseket.</value>
+  </data>
+  <data name="Latest_Retry" xml:space="preserve">
+    <value>Próbáld újra</value>
+  </data>
+  <data name="Latest_Refresh" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="Latest_UpdatedAt" xml:space="preserve">
+    <value>Frissítve: {0}</value>
+  </data>
+  <data name="Latest_Today" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="Latest_Yesterday" xml:space="preserve">
+    <value>Tegnap</value>
+  </data>
+  <data name="Latest_OpenInBrowser" xml:space="preserve">
+    <value>Megnyitás böngészőben</value>
+  </data>
+  <data name="Latest_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Latest_TeaserHeader" xml:space="preserve">
+    <value>Újdonság a NutritionFacts.org-tól</value>
+  </data>
+  <data name="Latest_SeeAll" xml:space="preserve">
+    <value>Összes megtekintése</value>
+  </data>
+
 </root>

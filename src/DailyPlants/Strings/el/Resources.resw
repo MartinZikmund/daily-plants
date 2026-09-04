@@ -1072,4 +1072,69 @@
     <value>Ολοκληρώστε τους ξηρούς καρπούς 100 φορές</value>
   </data>
 
+  <!-- Latest -->
+  <data name="Nav_Latest" xml:space="preserve">
+    <value>Νέα</value>
+  </data>
+  <data name="Latest_Title" xml:space="preserve">
+    <value>Νέα</value>
+  </data>
+  <data name="Latest_Subtitle" xml:space="preserve">
+    <value>Φρέσκο από το NutritionFacts.org</value>
+  </data>
+  <data name="Latest_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Latest_TabVideos" xml:space="preserve">
+    <value>Βίντεο</value>
+  </data>
+  <data name="Latest_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Latest_Loading" xml:space="preserve">
+    <value>Φόρτωση των πιο πρόσφατων αναρτήσεων…</value>
+  </data>
+  <data name="Latest_Empty" xml:space="preserve">
+    <value>Δεν υπάρχει τίποτα ακόμα</value>
+  </data>
+  <data name="Latest_EmptyDetail" xml:space="preserve">
+    <value>Έλα ξανά σύντομα για κάτι καινούργιο.</value>
+  </data>
+  <data name="Latest_Offline" xml:space="preserve">
+    <value>Εμφανίζονται αποθηκευμένες αναρτήσεις — δεν καταφέραμε να συνδεθούμε με το NutritionFacts.org.</value>
+  </data>
+  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+    <value>Οι νέες αναρτήσεις δεν μπορούν να φορτωθούν στην έκδοση της εφαρμογής για browser.</value>
+  </data>
+  <data name="Latest_LoadError" xml:space="preserve">
+    <value>Δεν καταφέραμε να φορτώσουμε τις πιο πρόσφατες αναρτήσεις.</value>
+  </data>
+  <data name="Latest_Retry" xml:space="preserve">
+    <value>Δοκίμασε ξανά</value>
+  </data>
+  <data name="Latest_Refresh" xml:space="preserve">
+    <value>Ανανέωση</value>
+  </data>
+  <data name="Latest_UpdatedAt" xml:space="preserve">
+    <value>Ενημερώθηκε {0}</value>
+  </data>
+  <data name="Latest_Today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="Latest_Yesterday" xml:space="preserve">
+    <value>Χθες</value>
+  </data>
+  <data name="Latest_OpenInBrowser" xml:space="preserve">
+    <value>Άνοιγμα στο πρόγραμμα περιήγησης</value>
+  </data>
+  <data name="Latest_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Latest_TeaserHeader" xml:space="preserve">
+    <value>Νέα από το NutritionFacts.org</value>
+  </data>
+  <data name="Latest_SeeAll" xml:space="preserve">
+    <value>Δες τα όλα</value>
+  </data>
+
 </root>

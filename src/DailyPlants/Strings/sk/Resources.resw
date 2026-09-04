@@ -1072,4 +1072,69 @@
     <value>Splňte orechy 100-krát</value>
   </data>
 
+  <!-- Latest -->
+  <data name="Nav_Latest" xml:space="preserve">
+    <value>Novinky</value>
+  </data>
+  <data name="Latest_Title" xml:space="preserve">
+    <value>Novinky</value>
+  </data>
+  <data name="Latest_Subtitle" xml:space="preserve">
+    <value>Čerstvé z NutritionFacts.org</value>
+  </data>
+  <data name="Latest_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Latest_TabVideos" xml:space="preserve">
+    <value>Videá</value>
+  </data>
+  <data name="Latest_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Latest_Loading" xml:space="preserve">
+    <value>Načítavajú sa najnovšie príspevky…</value>
+  </data>
+  <data name="Latest_Empty" xml:space="preserve">
+    <value>Zatiaľ tu nič nie je</value>
+  </data>
+  <data name="Latest_EmptyDetail" xml:space="preserve">
+    <value>Zastavte sa čoskoro znova, pribudne niečo nové.</value>
+  </data>
+  <data name="Latest_Offline" xml:space="preserve">
+    <value>Zobrazujú sa uložené príspevky — nepodarilo sa nám pripojiť k NutritionFacts.org.</value>
+  </data>
+  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+    <value>Nové príspevky sa nedajú načítať vo webovej verzii aplikácie.</value>
+  </data>
+  <data name="Latest_LoadError" xml:space="preserve">
+    <value>Nepodarilo sa nám načítať najnovšie príspevky.</value>
+  </data>
+  <data name="Latest_Retry" xml:space="preserve">
+    <value>Skúsiť znova</value>
+  </data>
+  <data name="Latest_Refresh" xml:space="preserve">
+    <value>Obnoviť</value>
+  </data>
+  <data name="Latest_UpdatedAt" xml:space="preserve">
+    <value>Aktualizované {0}</value>
+  </data>
+  <data name="Latest_Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Latest_Yesterday" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+  <data name="Latest_OpenInBrowser" xml:space="preserve">
+    <value>Otvoriť v prehliadači</value>
+  </data>
+  <data name="Latest_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Latest_TeaserHeader" xml:space="preserve">
+    <value>Novinky z NutritionFacts.org</value>
+  </data>
+  <data name="Latest_SeeAll" xml:space="preserve">
+    <value>Zobraziť všetko</value>
+  </data>
+
 </root>
