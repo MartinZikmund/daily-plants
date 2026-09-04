@@ -611,12 +611,19 @@ public partial class ChecklistItemViewModel : ObservableObject
         ? Math.Min(1.0, (double)ServingsCompleted / TotalRecommendedServings)
         : 0;
 
+    /// <summary>
+    /// Whether the row has anything to remove. The remove button is hidden entirely
+    /// until a first serving is added, so an untouched row shows only the add control.
+    /// </summary>
+    public bool CanDecrement => ServingsCompleted > 0;
+
     partial void OnServingsCompletedChanged(int value)
     {
         UpdateServingIndicators();
         OnPropertyChanged(nameof(ServingsDisplayText));
         OnPropertyChanged(nameof(Progress));
         OnPropertyChanged(nameof(IsComplete));
+        OnPropertyChanged(nameof(CanDecrement));
         ServingsChanged?.Invoke(this, value);
     }
 

@@ -1,4 +1,4 @@
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
@@ -261,7 +261,7 @@ public sealed partial class DiaryView : Page
             Height = 36,
             Padding = new Thickness(0),
             CornerRadius = new CornerRadius(18),
-            Content = new FontIcon { FontSize = 14, Glyph = "\uE738" }
+            Content = new FontIcon { FontSize = 14, Glyph = "" }
         };
         AutomationProperties.SetName(minusButton, Localizer.GetString("Diary_DecreaseServing"));
         AutomationProperties.SetAutomationId(minusButton, "DiaryDetailDecrementButton");
@@ -272,7 +272,7 @@ public sealed partial class DiaryView : Page
             Height = 36,
             Padding = new Thickness(0),
             CornerRadius = new CornerRadius(18),
-            Content = new FontIcon { FontSize = 14, Glyph = "\uE710" }
+            Content = new FontIcon { FontSize = 14, Glyph = "" }
         };
         AutomationProperties.SetName(plusButton, Localizer.GetString("Diary_IncreaseServing"));
         AutomationProperties.SetAutomationId(plusButton, "DiaryDetailIncrementButton");
@@ -373,14 +373,14 @@ public sealed partial class DiaryView : Page
 
     private void ItemRow_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
     {
-        // Ignore taps that originated from a Button to prevent opening the detail dialog
-        // when the user taps the add button within the row
+        // Taps anywhere on the row open the detail dialog, except within the serving
+        // controls -- otherwise adding a serving would also pop the dialog over it.
         if (e.OriginalSource is DependencyObject source)
         {
             var current = source;
             while (current != null && !ReferenceEquals(current, sender))
             {
-                if (current is Button)
+                if (current is Button or Controls.ServingStepper)
                 {
                     return;
                 }
@@ -388,7 +388,9 @@ public sealed partial class DiaryView : Page
             }
         }
 
-        if (sender is FrameworkElement element && element.DataContext is ChecklistItemViewModel itemVm)
+        // Tag first: ItemsRepeater leaves DataContext unset on x:Bind templates.
+        if (sender is FrameworkElement element
+            && (element.Tag as ChecklistItemViewModel ?? element.DataContext as ChecklistItemViewModel) is { } itemVm)
         {
             itemVm.ShowItemDetailCommand.Execute(null);
         }

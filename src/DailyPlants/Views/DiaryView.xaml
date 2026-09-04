@@ -10,6 +10,11 @@
 
         <!--  One row per item: 28px icon | name over serving size | dots + add  -->
         <DataTemplate x:Key="ServingRowTemplate" x:DataType="vm:ChecklistItemViewModel">
+            <!--
+                Tag carries the item: ItemsRepeater does not set DataContext on templates
+                that use x:Bind, so the tap handler had nothing to read and silently did
+                nothing.
+            -->
             <Grid
                 MinHeight="56"
                 Padding="2,12"
@@ -17,6 +22,7 @@
                 BorderBrush="{ThemeResource DpHairlineBrush}"
                 BorderThickness="0,0,0,1"
                 ColumnSpacing="12"
+                Tag="{x:Bind}"
                 Tapped="ItemRow_Tapped">
 
                 <Grid.ColumnDefinitions>
@@ -55,7 +61,11 @@
                     ShowAsMonochrome="False"
                     UriSource="{x:Bind Item.IconPath, Converter={StaticResource StringToUriConverter}}" />
 
-                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <!--  Transparent, so the empty space beside the text is still a hit target for the row  -->
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Background="Transparent">
                     <TextBlock
                         Foreground="{ThemeResource DpInkBrush}"
                         Style="{StaticResource DpBodyStrongTextBlockStyle}"
@@ -70,67 +80,11 @@
                         TextWrapping="NoWrap" />
                 </StackPanel>
 
-                <StackPanel
+                <controls:ServingStepper
+                    x:Name="ServingControls"
                     Grid.Column="2"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal"
-                    Spacing="12">
-
-                    <!--  One dot per recommended serving; an earned dot fills over 180ms  -->
-                    <ItemsRepeater VerticalAlignment="Center" ItemsSource="{x:Bind ServingIndicators}">
-                        <ItemsRepeater.Layout>
-                            <StackLayout Orientation="Horizontal" Spacing="4" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="vm:ServingIndicator">
-                                <Grid Width="10" Height="10">
-                                    <Ellipse Stroke="{ThemeResource DpGreenBrush}" StrokeThickness="1.4" />
-                                    <Ellipse Fill="{ThemeResource DpGreenBrush}" Opacity="{x:Bind FillOpacity, Mode=OneWay}">
-                                        <Ellipse.OpacityTransition>
-                                            <ScalarTransition Duration="0:0:0.18" />
-                                        </Ellipse.OpacityTransition>
-                                    </Ellipse>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-
-                    <!--
-                        The plus is drawn rather than set as a glyph. A FontIcon sits on a
-                        text baseline with its own ascent and descent, so it never optically
-                        centres in a circle; two rectangles do, and they carry the same
-                        1.4px stroke weight as the dots.
-                    -->
-                    <Button
-                        Width="24"
-                        Height="24"
-                        MinWidth="0"
-                        MinHeight="0"
-                        Padding="0"
-                        AutomationProperties.AutomationId="DiaryIncrementServingButton"
-                        AutomationProperties.Name="{helpers:Localize Key=Diary_IncreaseServing}"
-                        Background="Transparent"
-                        BorderBrush="{ThemeResource DpGreenBrush}"
-                        BorderThickness="1.4"
-                        Command="{x:Bind IncrementServingCommand}"
-                        CornerRadius="12"
-                        ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
-                        <Grid Width="10" Height="10">
-                            <Rectangle
-                                Width="10"
-                                Height="1.4"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Fill="{ThemeResource DpGreenBrush}" />
-                            <Rectangle
-                                Width="1.4"
-                                Height="10"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Fill="{ThemeResource DpGreenBrush}" />
-                        </Grid>
-                    </Button>
-                </StackPanel>
+                    Item="{x:Bind}" />
             </Grid>
         </DataTemplate>
 
