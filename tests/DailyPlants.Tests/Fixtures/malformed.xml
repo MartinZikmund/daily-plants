@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Truncated mid-download</title>
+        <link>https://nutritionfacts.org/</link>
+        <item>
+            <title>An item whose title tag never closes
+            <link>https://nutritionfacts.org/blog/broken/</link>
+        </item>
+    </channel>
+</rss>

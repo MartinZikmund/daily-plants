@@ -26,6 +26,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Include="Fixtures\*.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\..\src\DailyPlants\DailyPlants.csproj" />
     </ItemGroup>
 </Project>

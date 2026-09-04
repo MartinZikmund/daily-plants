@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>NutritionFacts.org Videos</title>
+        <link>https://nutritionfacts.org/videos/</link>
+        <description>The latest videos from NutritionFacts.org</description>
+        <language>en-US</language>
+        <item>
+            <title>The Best Way to Cook Broccoli</title>
+            <link>https://nutritionfacts.org/video/the-best-way-to-cook-broccoli/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?post_type=video&#038;p=202020</guid>
+            <pubDate>Wed, 03 Sep 2025 09:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Steaming, boiling, or microwaving &#8212; which keeps the most sulforaphane?</p>]]></description>
+            <enclosure url="https://nutritionfacts.org/app/uploads/2025/09/broccoli.mp4" length="178432110" type="video/mp4" />
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/broccoli.jpg" /><media:keywords>broccoli, sulforaphane</media:keywords>
+        </item>
+        <item>
+            <title>Do Berries Slow Brain Aging?</title>
+            <link>https://nutritionfacts.org/video/do-berries-slow-brain-aging/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?post_type=video&#038;p=202021</guid>
+            <pubDate>Tue, 02 Sep 2025 09:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>What the cohort data says about a daily handful.</p>]]></description>
+            <enclosure url="https://nutritionfacts.org/app/uploads/2025/09/berries.mp4" length="164992001" type="video/mp4" />
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/berries.jpg" />
+        </item>
+        <item>
+            <title>Flax Seeds for Blood Pressure</title>
+            <link>https://nutritionfacts.org/video/flax-seeds-for-blood-pressure/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?post_type=video&#038;p=202022</guid>
+            <pubDate>Mon, 01 Sep 2025 09:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>A tablespoon a day, and what the trials found.</p>]]></description>
+            <enclosure url="https://nutritionfacts.org/app/uploads/2025/09/flax.mp4" length="151203344" type="video/mp4" />
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/flax.jpg" />
+        </item>
+    </channel>
+</rss>
