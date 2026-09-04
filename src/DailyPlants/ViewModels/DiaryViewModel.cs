@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
@@ -613,15 +613,7 @@ public partial class DiaryViewModel : ObservableObject
         ShowDoneTodayGroup = DoneToday.Count > 0;
     }
 
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
+    private static string Localized(string key, string fallback) => Localizer.GetString(key, fallback);
 }
 
 /// <summary>

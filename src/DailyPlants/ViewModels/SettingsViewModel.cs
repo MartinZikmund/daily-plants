@@ -1,3 +1,5 @@
+﻿using System.Globalization;
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -359,11 +361,13 @@ public partial class SettingsViewModel : ObservableObject
     {
         var dialog = new ContentDialog
         {
-            Title = "Import data",
-            Content = "Entries for dates in this file will replace the ones already saved. "
-                + "Export your current data first if you want a backup. Continue?",
-            PrimaryButtonText = "Import",
-            CloseButtonText = "Cancel",
+            Title = Localizer.GetString("Settings_ImportConfirmTitle", "Import data"),
+            Content = Localizer.GetString(
+                "Settings_ImportConfirmMessage",
+                "Entries for dates in this file will replace the ones already saved. Export your "
+                    + "current data first if you want a backup. Continue?"),
+            PrimaryButtonText = Localizer.GetString("Settings_Import", "Import"),
+            CloseButtonText = Localizer.GetString("Common_Cancel", "Cancel"),
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
@@ -373,22 +377,33 @@ public partial class SettingsViewModel : ObservableObject
 
     private static string DescribeImport(ImportResult result)
     {
-        var message = $"Imported {result.EntriesImported} entries, {result.WeightEntriesImported} weight records "
-            + $"and {result.AchievementsImported} achievements.";
+        var message = string.Format(
+            CultureInfo.CurrentCulture,
+            Localizer.GetString(
+                "Settings_ImportSummary",
+                "Imported {0} entries, {1} weight records and {2} achievements."),
+            result.EntriesImported,
+            result.WeightEntriesImported,
+            result.AchievementsImported);
+
+        if (result.EntriesSkipped == 0) return message;
 
         // Never report a partial import as a clean one.
-        return result.EntriesSkipped > 0
-            ? message + $" {result.EntriesSkipped} rows were skipped because the app could not read them."
-            : message;
+        return message + " " + string.Format(
+            CultureInfo.CurrentCulture,
+            Localizer.GetString(
+                "Settings_ImportSkipped",
+                "{0} rows were skipped because the app could not read them."),
+            result.EntriesSkipped);
     }
 
     private static async Task ShowErrorAsync(string message)
     {
         var dialog = new ContentDialog
         {
-            Title = "Error",
+            Title = Localizer.GetString("Common_Error", "Error"),
             Content = message,
-            CloseButtonText = "OK",
+            CloseButtonText = Localizer.GetString("Common_Ok", "OK"),
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
         await dialog.ShowAsync();
@@ -398,9 +413,9 @@ public partial class SettingsViewModel : ObservableObject
     {
         var dialog = new ContentDialog
         {
-            Title = "Success",
+            Title = Localizer.GetString("Common_Success", "Success"),
             Content = message,
-            CloseButtonText = "OK",
+            CloseButtonText = Localizer.GetString("Common_Ok", "OK"),
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
         await dialog.ShowAsync();
