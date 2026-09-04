@@ -95,9 +95,15 @@
                         </ItemsRepeater.ItemTemplate>
                     </ItemsRepeater>
 
+                    <!--
+                        The plus is drawn rather than set as a glyph. A FontIcon sits on a
+                        text baseline with its own ascent and descent, so it never optically
+                        centres in a circle; two rectangles do, and they carry the same
+                        1.4px stroke weight as the dots.
+                    -->
                     <Button
-                        Width="25"
-                        Height="25"
+                        Width="24"
+                        Height="24"
                         MinWidth="0"
                         MinHeight="0"
                         Padding="0"
@@ -107,12 +113,22 @@
                         BorderBrush="{ThemeResource DpGreenBrush}"
                         BorderThickness="1.4"
                         Command="{x:Bind IncrementServingCommand}"
-                        CornerRadius="13"
+                        CornerRadius="12"
                         ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
-                        <FontIcon
-                            FontSize="12"
-                            Foreground="{ThemeResource DpGreenBrush}"
-                            Glyph="&#xE710;" />
+                        <Grid Width="10" Height="10">
+                            <Rectangle
+                                Width="10"
+                                Height="1.4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{ThemeResource DpGreenBrush}" />
+                            <Rectangle
+                                Width="1.4"
+                                Height="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{ThemeResource DpGreenBrush}" />
+                        </Grid>
                     </Button>
                 </StackPanel>
             </Grid>
