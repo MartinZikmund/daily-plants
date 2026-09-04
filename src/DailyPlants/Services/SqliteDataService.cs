@@ -100,11 +100,15 @@ public class SqliteDataService : IDataService
             // v4: Weight is now stored in kilograms and height in centimetres regardless of
             // the unit the user types in. Earlier versions stored whatever was typed, so an
             // imperial user's existing rows are pounds and their HeightCm is really inches.
-            await MigrateAsync(4, ConvertImperialValuesToCanonicalUnitsAsync);
+            await MigrateAsync(4, ConvertStoredWeightsToKilogramsAsync);
         }
 
         // Future migrations go here:
         // if (version < 5) { await MigrateAsync(5, MigrateToV5Async); }
+
+        // Not gated on the schema version: the preferences this converts are not in the
+        // database and do not disappear with it.
+        ConvertPreferencesToCanonicalUnits();
     }
 
     /// <summary>
@@ -132,26 +136,43 @@ public class SqliteDataService : IDataService
         }
     }
 
-    private async Task ConvertImperialValuesToCanonicalUnitsAsync()
+    private async Task ConvertStoredWeightsToKilogramsAsync()
     {
         if (_appPreferences.UseMetricUnits)
         {
-            // Already stored in kilograms and centimetres.
+            // Already stored in kilograms.
             return;
         }
 
         await _connection.ExecuteAsync(
             "UPDATE WeightEntries SET Weight = Weight / ?", UnitConverter.PoundsPerKilogram);
+    }
 
-        if (_appPreferences.HeightCm is { } heightInInches)
+    /// <summary>
+    /// Brings the height and goal weight into centimetres and kilograms, once ever. The
+    /// database's user_version cannot gate this: preferences outlive the database file, so
+    /// a database that is cleared, restored from a partial backup, or recreated after the
+    /// failure dialog would convert an already-canonical height a second time — 177.8 cm
+    /// read back as inches becomes 451.6.
+    /// </summary>
+    private void ConvertPreferencesToCanonicalUnits()
+    {
+        if (_appPreferences.UnitsAreCanonical) return;
+
+        if (!_appPreferences.UseMetricUnits)
         {
-            _appPreferences.HeightCm = UnitConverter.DisplayToCentimetres(heightInInches, useMetric: false);
+            if (_appPreferences.HeightCm is { } heightInInches)
+            {
+                _appPreferences.HeightCm = UnitConverter.DisplayToCentimetres(heightInInches, useMetric: false);
+            }
+
+            if (_appPreferences.GoalWeight is { } goalInPounds)
+            {
+                _appPreferences.GoalWeight = UnitConverter.DisplayToKilograms(goalInPounds, useMetric: false);
+            }
         }
 
-        if (_appPreferences.GoalWeight is { } goalInPounds)
-        {
-            _appPreferences.GoalWeight = UnitConverter.DisplayToKilograms(goalInPounds, useMetric: false);
-        }
+        _appPreferences.UnitsAreCanonical = true;
     }
 
     public async Task RunInTransactionAsync(Func<Task> operation)

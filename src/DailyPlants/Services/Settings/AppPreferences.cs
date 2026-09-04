@@ -1,4 +1,4 @@
-using MZikmund.Toolkit.WinUI.Services;
+﻿using MZikmund.Toolkit.WinUI.Services;
 
 namespace DailyPlants.Services.Settings;
 
@@ -9,6 +9,7 @@ public class AppPreferences : IAppPreferences
     private const string WeightTrackingEnabledKey = "WeightTrackingEnabled";
     private const string UseMetricUnitsKey = "UseMetricUnits";
     private const string HeightCmKey = "HeightCm";
+    private const string UnitsAreCanonicalKey = "UnitsAreCanonical";
     private const string GoalWeightKey = "GoalWeight";
     private const string ThemePreferenceKey = "ThemePreference";
     private const string LanguageKey = "Language";
@@ -85,5 +86,11 @@ public class AppPreferences : IAppPreferences
     {
         get => _preferences.Get(DisabledItemIdsKey, string.Empty);
         set => _preferences.Set(DisabledItemIdsKey, value);
+    }
+
+    public bool UnitsAreCanonical
+    {
+        get => _preferences.Get(UnitsAreCanonicalKey, false);
+        set => _preferences.Set(UnitsAreCanonicalKey, value);
     }
 }
