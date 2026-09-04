@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="DailyPlants.Controls.DayCompleteParade"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+
+        <!--  Applied to each plate square built at runtime in code-behind  -->
+        <Style x:Key="ParadeSquareStyle" TargetType="Border">
+            <Setter Property="Width" Value="13" />
+            <Setter Property="Height" Value="13" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Background" Value="{ThemeResource DpParadeInkBrush}" />
+        </Style>
+
+        <!--  Shared shape for confetti pieces; only Background/Rotation differ per instance  -->
+        <Style x:Key="ConfettiPieceStyle" TargetType="Border">
+            <Setter Property="Width" Value="4" />
+            <Setter Property="Height" Value="12" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid x:Name="RootGrid"
+          Visibility="Collapsed"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          AutomationProperties.AutomationId="DayCompleteParade"
+          AutomationProperties.LiveSetting="Assertive">
+
+        <Border x:Name="CardBorder"
+                Background="{ThemeResource DpParadeBrush}"
+                CornerRadius="8"
+                Padding="32,28"
+                MinWidth="320"
+                MaxWidth="440">
+            <Border.RenderTransform>
+                <CompositeTransform x:Name="CardTransform"
+                                     CenterX="0.5" CenterY="0.5"
+                                     ScaleX="1" ScaleY="1" />
+            </Border.RenderTransform>
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+
+            <Grid RowSpacing="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  Confetti: nine small rotated bars that drift down once and settle  -->
+                <Grid x:Name="ConfettiHost"
+                      Grid.Row="0"
+                      Height="16"
+                      IsHitTestVisible="False"
+                      Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="Confetti0" Grid.Column="0" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpGreenBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti0Transform" Rotation="-18" TranslateY="-10" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti1" Grid.Column="1" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpClayBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti1Transform" Rotation="12" TranslateY="-14" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti2" Grid.Column="2" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpParadeInkBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti2Transform" Rotation="-8" TranslateY="-8" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti3" Grid.Column="3" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpGreenBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti3Transform" Rotation="22" TranslateY="-16" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti4" Grid.Column="4" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpClayBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti4Transform" Rotation="-14" TranslateY="-10" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti5" Grid.Column="5" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpParadeInkBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti5Transform" Rotation="6" TranslateY="-12" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti6" Grid.Column="6" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpGreenBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti6Transform" Rotation="-22" TranslateY="-9" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti7" Grid.Column="7" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpClayBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti7Transform" Rotation="14" TranslateY="-15" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border x:Name="Confetti8" Grid.Column="8" Style="{StaticResource ConfettiPieceStyle}" Background="{ThemeResource DpParadeInkBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Confetti8Transform" Rotation="-4" TranslateY="-11" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Grid>
+
+                <TextBlock x:Name="HeadlineText"
+                           Grid.Row="1"
+                           Style="{StaticResource DpDisplayTextBlockStyle}"
+                           Foreground="{ThemeResource DpParadeInkBrush}"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+
+                <TextBlock x:Name="SubheadText"
+                           Grid.Row="2"
+                           Style="{StaticResource DpBodyTextBlockStyle}"
+                           Foreground="{ThemeResource DpParadeInkBrush}"
+                           Opacity="0.72"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           MinHeight="20" />
+
+                <StackPanel x:Name="PlateRoot"
+                            Grid.Row="3"
+                            Orientation="Vertical"
+                            Spacing="4"
+                            HorizontalAlignment="Center" />
+            </Grid>
+        </Border>
+    </Grid>
+
+</UserControl>
