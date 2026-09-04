@@ -45,10 +45,4 @@ public sealed partial class ServingStepper : UserControl
     // emitted as an instance call and will not compile against a static method.
     public static Visibility RemoveVisibility(bool canDecrement, bool collapseWhenEmpty)
         => canDecrement || !collapseWhenEmpty ? Visibility.Visible : Visibility.Collapsed;
-
-    /// <summary>
-    /// The button's brushes are set explicitly, so the default disabled visual does not
-    /// apply; dim it here instead.
-    /// </summary>
-    public static double DimWhenFalse(bool isEnabled) => isEnabled ? 1.0 : 0.35;
 }

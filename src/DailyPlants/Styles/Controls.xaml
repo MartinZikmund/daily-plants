@@ -1,0 +1,80 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        The circular add / remove control.
+
+        The stock Button style paints its own grey fill behind the circle on hover and
+        swaps the border for a system colour, which reads as a grey box sitting behind a
+        green ring. This template instead washes the circle with a tint of its own
+        BorderBrush, so the add button highlights green and the remove button neutral,
+        from one style. Disabled dims the whole thing, which the default visual cannot do
+        here because the brushes are set explicitly rather than inherited.
+    -->
+    <Style x:Key="DpStepperButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1.4" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="Root" Background="Transparent">
+
+                        <!--  Tinted with the button's own outline colour  -->
+                        <Border
+                            x:Name="Wash"
+                            Background="{TemplateBinding BorderBrush}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Opacity="0">
+                            <Border.OpacityTransition>
+                                <ScalarTransition Duration="0:0:0.09" />
+                            </Border.OpacityTransition>
+                        </Border>
+
+                        <Border
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}" />
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="Wash.Opacity" Value="0.14" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="Wash.Opacity" Value="0.28" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="Root.Opacity" Value="0.35" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

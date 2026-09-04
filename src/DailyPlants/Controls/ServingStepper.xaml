@@ -16,20 +16,12 @@
         Spacing="12">
 
         <Button
-            Width="24"
-            Height="24"
-            MinWidth="0"
-            MinHeight="0"
-            Padding="0"
             AutomationProperties.AutomationId="ServingStepperDecrement"
             AutomationProperties.Name="{helpers:Localize Key=Diary_DecreaseServing}"
-            Background="Transparent"
             BorderBrush="{ThemeResource DpInkMutedBrush}"
-            BorderThickness="1.4"
             Command="{x:Bind Item.DecrementServingCommand, Mode=OneWay}"
-            CornerRadius="12"
             IsEnabled="{x:Bind Item.CanDecrement, Mode=OneWay}"
-            Opacity="{x:Bind local:ServingStepper.DimWhenFalse(Item.CanDecrement), Mode=OneWay}"
+            Style="{StaticResource DpStepperButtonStyle}"
             ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}"
             Visibility="{x:Bind local:ServingStepper.RemoveVisibility(Item.CanDecrement, CollapseRemoveWhenEmpty), Mode=OneWay}">
             <Grid Width="10" Height="10">
@@ -67,18 +59,11 @@
             as the dots, and it costs no icon font on the non-Windows heads.
         -->
         <Button
-            Width="24"
-            Height="24"
-            MinWidth="0"
-            MinHeight="0"
-            Padding="0"
             AutomationProperties.AutomationId="ServingStepperIncrement"
             AutomationProperties.Name="{helpers:Localize Key=Diary_IncreaseServing}"
-            Background="Transparent"
             BorderBrush="{ThemeResource DpGreenBrush}"
-            BorderThickness="1.4"
             Command="{x:Bind Item.IncrementServingCommand, Mode=OneWay}"
-            CornerRadius="12"
+            Style="{StaticResource DpStepperButtonStyle}"
             ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
             <Grid Width="10" Height="10">
                 <Rectangle
