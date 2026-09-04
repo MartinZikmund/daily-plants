@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Выполните орехи 100 раз</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants не удалось открыть данные</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Не удалось загрузить записи, а изменения могут не сохраняться. Перезапустите приложение, а если это повторяется, подробности есть в файле журнала: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Не удалось загрузить записи, а изменения могут не сохраняться. Перезапустите приложение, а если это повторяется, подробности есть в журнале в папке данных приложения.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Всё равно продолжить</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Не удалось сохранить</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Это изменение не удалось сохранить, поэтому оно отменено. Попробуйте ещё раз.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Импорт данных</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Записи для дат из этого файла заменят уже сохранённые. Если нужна резервная копия, сначала экспортируйте текущие данные. Продолжить?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Импортировано записей: {0}, записей о весе: {1}, достижений: {2}.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>Пропущено строк: {0} — приложение не смогло их прочитать.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

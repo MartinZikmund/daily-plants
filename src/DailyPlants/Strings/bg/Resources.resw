@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Завършете ядки 100 пъти</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants не можа да отвори данните</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Записите не можаха да бъдат заредени и промените може да не се запазват. Рестартирайте приложението, а ако това продължи, подробностите са във файла с журнала: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Записите не можаха да бъдат заредени и промените може да не се запазват. Рестартирайте приложението, а ако това продължи, подробностите са в журнала в папката с данни на приложението.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Продължаване въпреки това</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Неуспешно записване</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Тази промяна не можа да бъде записана и беше отменена. Опитайте отново.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Импортиране на данни</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Записите за датите в този файл ще заменят вече запазените. Ако искате резервно копие, първо експортирайте текущите данни. Продължаване?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Импортирани са {0} записа, {1} записа за тегло и {2} постижения.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} реда бяха пропуснати, защото приложението не можа да ги прочете.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

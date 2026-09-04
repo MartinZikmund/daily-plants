@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>完成坚果100次</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants 无法打开你的数据</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>无法加载条目，更改也可能不会保存。请重启应用；如果问题持续出现，日志文件中有详细信息：{0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>无法加载条目，更改也可能不会保存。请重启应用；如果问题持续出现，详细信息在应用数据文件夹的日志中。</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>仍然继续</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>无法保存</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>该更改未能保存，已被撤销。请重试。</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>导入数据</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>此文件中这些日期的条目将替换已保存的条目。如果需要备份，请先导出当前数据。要继续吗？</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>已导入 {0} 条条目、{1} 条体重记录和 {2} 项成就。</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>已跳过 {0} 行，因为应用无法读取它们。</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

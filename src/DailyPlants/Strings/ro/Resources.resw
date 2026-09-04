@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Completați nucile de 100 de ori</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants nu a putut deschide datele</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Intrările nu au putut fi încărcate, iar modificările s-ar putea să nu fie salvate. Reporniți aplicația, iar dacă problema persistă, detaliile se află în fișierul jurnal: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Intrările nu au putut fi încărcate, iar modificările s-ar putea să nu fie salvate. Reporniți aplicația, iar dacă problema persistă, detaliile se află în jurnalul din folderul de date al aplicației.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Continuă oricum</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Salvarea nu a reușit</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Această modificare nu a putut fi salvată și a fost anulată. Încercați din nou.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Import de date</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Intrările pentru datele din acest fișier le vor înlocui pe cele deja salvate. Dacă doriți o copie de rezervă, exportați mai întâi datele curente. Continuați?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Au fost importate {0} intrări, {1} înregistrări de greutate și {2} realizări.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} rânduri au fost omise deoarece aplicația nu a putut să le citească.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

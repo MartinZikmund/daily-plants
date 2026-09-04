@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Ολοκληρώστε τους ξηρούς καρπούς 100 φορές</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Το Daily Plants δεν μπόρεσε να ανοίξει τα δεδομένα</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Οι καταχωρίσεις δεν φορτώθηκαν και οι αλλαγές ενδέχεται να μην αποθηκευτούν. Κάντε επανεκκίνηση της εφαρμογής και, αν το πρόβλημα επιμένει, οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Οι καταχωρίσεις δεν φορτώθηκαν και οι αλλαγές ενδέχεται να μην αποθηκευτούν. Κάντε επανεκκίνηση της εφαρμογής και, αν το πρόβλημα επιμένει, οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής στον φάκελο δεδομένων της εφαρμογής.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Συνέχεια ούτως ή άλλως</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η αποθήκευση</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Αυτή η αλλαγή δεν αποθηκεύτηκε και αναιρέθηκε. Δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Εισαγωγή δεδομένων</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Οι καταχωρίσεις για τις ημερομηνίες αυτού του αρχείου θα αντικαταστήσουν όσες έχουν ήδη αποθηκευτεί. Αν θέλετε αντίγραφο ασφαλείας, εξαγάγετε πρώτα τα τρέχοντα δεδομένα. Συνέχεια;</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Έγινε εισαγωγή {0} καταχωρίσεων, {1} εγγραφών βάρους και {2} επιτευγμάτων.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} γραμμές παραλείφθηκαν επειδή η εφαρμογή δεν μπόρεσε να τις διαβάσει.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
