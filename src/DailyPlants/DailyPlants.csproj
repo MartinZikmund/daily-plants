@@ -48,4 +48,11 @@
       </Content>
     </ItemGroup>
 
+    <!-- Tile/splash images referenced by Package.appxmanifest; Uno's default png glob skips the WinAppSDK head -->
+    <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
+      <Content Include="Platforms\Windows\**\*.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
