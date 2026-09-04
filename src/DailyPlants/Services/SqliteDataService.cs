@@ -64,7 +64,7 @@ public class SqliteDataService : IDataService
         if (version < 1)
         {
             // v1: Initial schema - tables already created above via CreateTableAsync
-            await _connection.ExecuteAsync("PRAGMA user_version = 1");
+            await MigrateAsync(1, () => Task.CompletedTask);
         }
 
         if (version < 2)
@@ -72,7 +72,7 @@ public class SqliteDataService : IDataService
             // v2: Removed Anti-Aging Eight checklist and corrected 21 Tweaks items.
             // Orphaned DailyEntries for removed items (sun_protection, fat_free_dressings,
             // more_legumes, more_greens, more_berries) are intentionally preserved.
-            await _connection.ExecuteAsync("PRAGMA user_version = 2");
+            await MigrateAsync(2, () => Task.CompletedTask);
         }
 
         if (version < 3)
@@ -80,12 +80,36 @@ public class SqliteDataService : IDataService
             // v3: Weight is now stored in kilograms and height in centimetres regardless of
             // the unit the user types in. Earlier versions stored whatever was typed, so an
             // imperial user's existing rows are pounds and their HeightCm is really inches.
-            await ConvertImperialValuesToCanonicalUnitsAsync();
-            await _connection.ExecuteAsync("PRAGMA user_version = 3");
+            await MigrateAsync(3, ConvertImperialValuesToCanonicalUnitsAsync);
         }
 
         // Future migrations go here:
-        // if (version < 4) { /* migration to v4 */ await _connection.ExecuteAsync("PRAGMA user_version = 4"); }
+        // if (version < 4) { await MigrateAsync(4, MigrateToV4Async); }
+    }
+
+    /// <summary>
+    /// Applies one migration and its version bump as a single transaction. Run as separate
+    /// statements they are separate autocommits, leaving a window where the work is durable
+    /// but the version is not — and this runs during launch, before the window is shown,
+    /// which is exactly where the OS kills apps. The next launch would then apply the same
+    /// migration again: for v3 that divides every stored weight by 2.2 a second time.
+    /// </summary>
+    private async Task MigrateAsync(int version, Func<Task> migrate)
+    {
+        await _connection.ExecuteAsync("BEGIN TRANSACTION");
+        try
+        {
+            await migrate();
+
+            // user_version lives in the database header, so this bump rolls back with the rest.
+            await _connection.ExecuteAsync($"PRAGMA user_version = {version}");
+            await _connection.ExecuteAsync("COMMIT");
+        }
+        catch
+        {
+            await _connection.ExecuteAsync("ROLLBACK");
+            throw;
+        }
     }
 
     private async Task ConvertImperialValuesToCanonicalUnitsAsync()
