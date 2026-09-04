@@ -1,4 +1,4 @@
-namespace DailyPlants.Tests.TestDoubles;
+﻿namespace DailyPlants.Tests.TestDoubles;
 
 /// <summary>
 /// Wraps a working data service and fails writes on demand, standing in for the transient
@@ -11,10 +11,20 @@ internal sealed class FailingDataService : IDataService
 
     public bool FailWrites { get; set; }
 
+    /// <summary>Lets the first N writes through, then fails, for testing partial writes.</summary>
+    public int? FailAfterWrites { get; set; }
+
+    private int _writes;
+
     public FailingDataService(IDataService inner) => _inner = inner;
 
     private void ThrowIfFailing()
     {
+        if (FailAfterWrites is { } allowed && _writes++ >= allowed)
+        {
+            throw new InvalidOperationException("database is locked");
+        }
+
         if (FailWrites)
         {
             throw new InvalidOperationException("database is locked");
