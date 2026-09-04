@@ -1,0 +1,308 @@
+﻿<Page
+    x:Class="DailyPlants.Views.LatestView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="using:DailyPlants.Helpers"
+    xmlns:local="using:DailyPlants.Views"
+    xmlns:vm="using:DailyPlants.ViewModels"
+    NavigationCacheMode="Required">
+
+    <Page.Resources>
+
+        <!--  Thumbnail | kicker over title, summary and date. The whole card is the tap target.  -->
+        <DataTemplate x:Key="FeedCardTemplate" x:DataType="vm:FeedItemViewModel">
+            <Grid
+                MinHeight="84"
+                Padding="12"
+                AutomationProperties.AutomationId="{x:Bind AutomationId}"
+                AutomationProperties.Name="{x:Bind AutomationName}"
+                Background="{ThemeResource DpSurfaceBrush}"
+                BorderBrush="{ThemeResource DpHairlineBrush}"
+                BorderThickness="1"
+                ColumnSpacing="12"
+                CornerRadius="8"
+                Tag="{x:Bind}"
+                Tapped="FeedCard_Tapped"
+                ToolTipService.ToolTip="{helpers:Localize Key=Latest_OpenInBrowser}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Placeholder behind the image: a remote thumbnail may be slow, missing or refused  -->
+                <Border
+                    Width="112"
+                    Height="63"
+                    VerticalAlignment="Top"
+                    Background="{ThemeResource DpHairlineBrush}"
+                    CornerRadius="8">
+                    <Image
+                        Source="{x:Bind ThumbnailUrl, Converter={StaticResource StringToImageSourceConverter}}"
+                        Stretch="UniformToFill"
+                        Visibility="{x:Bind HasThumbnail}" />
+                </Border>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Spacing="2">
+                    <TextBlock Style="{StaticResource DpOverlineTextBlockStyle}" Text="{x:Bind KindText}" />
+                    <TextBlock
+                        Foreground="{ThemeResource DpInkBrush}"
+                        MaxLines="2"
+                        Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                        Text="{x:Bind Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        MaxLines="2"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{x:Bind Summary}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind HasSummary}" />
+                    <TextBlock
+                        Foreground="{ThemeResource DpGreenInkBrush}"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{x:Bind PublishedText}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Header: title + refresh, then the tab strip, closed by a hairline rule  -->
+        <StackPanel Grid.Row="0" Padding="20,20,20,0">
+
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Style="{StaticResource DpTitleTextBlockStyle}" Text="{helpers:Localize Key=Latest_Title}" />
+                    <TextBlock
+                        Margin="0,4,0,0"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{helpers:Localize Key=Latest_Subtitle}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.SelectedTab.UpdatedText, Mode=OneWay}" />
+                    <Button
+                        Width="28"
+                        Height="28"
+                        MinWidth="0"
+                        MinHeight="0"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="LatestRefreshButton"
+                        AutomationProperties.Name="{helpers:Localize Key=Latest_Refresh}"
+                        Background="Transparent"
+                        BorderBrush="{ThemeResource DpHairlineBrush}"
+                        BorderThickness="1"
+                        Command="{x:Bind ViewModel.RefreshCommand}"
+                        CornerRadius="14"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Latest_Refresh}">
+                        <FontIcon
+                            FontSize="12"
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Glyph="&#xE72C;" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!--  Tab strip. Unselected tabs sit back on opacity rather than swapping weight, so selecting one never re-flows the strip.  -->
+            <StackPanel
+                Margin="0,16,0,0"
+                Orientation="Horizontal"
+                Spacing="24">
+                <Button
+                    MinWidth="0"
+                    MinHeight="0"
+                    Padding="0,0,0,8"
+                    AutomationProperties.AutomationId="LatestTabBlogButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Latest_TabBlog}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{x:Bind ViewModel.SelectTabCommand}"
+                    CommandParameter="Blog"
+                    HorizontalContentAlignment="Stretch"
+                    Opacity="{x:Bind local:LatestView.TabOpacity(ViewModel.IsBlogSelected), Mode=OneWay}">
+                    <Grid RowSpacing="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{helpers:Localize Key=Latest_TabBlog}" />
+                        <Border
+                            Grid.Row="1"
+                            Height="2"
+                            Background="{ThemeResource DpGreenBrush}"
+                            CornerRadius="1"
+                            Visibility="{x:Bind ViewModel.IsBlogSelected, Mode=OneWay}" />
+                    </Grid>
+                </Button>
+
+                <Button
+                    MinWidth="0"
+                    MinHeight="0"
+                    Padding="0,0,0,8"
+                    AutomationProperties.AutomationId="LatestTabVideosButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Latest_TabVideos}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{x:Bind ViewModel.SelectTabCommand}"
+                    CommandParameter="Videos"
+                    HorizontalContentAlignment="Stretch"
+                    Opacity="{x:Bind local:LatestView.TabOpacity(ViewModel.IsVideosSelected), Mode=OneWay}">
+                    <Grid RowSpacing="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{helpers:Localize Key=Latest_TabVideos}" />
+                        <Border
+                            Grid.Row="1"
+                            Height="2"
+                            Background="{ThemeResource DpGreenBrush}"
+                            CornerRadius="1"
+                            Visibility="{x:Bind ViewModel.IsVideosSelected, Mode=OneWay}" />
+                    </Grid>
+                </Button>
+
+                <Button
+                    MinWidth="0"
+                    MinHeight="0"
+                    Padding="0,0,0,8"
+                    AutomationProperties.AutomationId="LatestTabPodcastButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Latest_TabPodcast}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{x:Bind ViewModel.SelectTabCommand}"
+                    CommandParameter="Podcast"
+                    HorizontalContentAlignment="Stretch"
+                    Opacity="{x:Bind local:LatestView.TabOpacity(ViewModel.IsPodcastSelected), Mode=OneWay}">
+                    <Grid RowSpacing="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{helpers:Localize Key=Latest_TabPodcast}" />
+                        <Border
+                            Grid.Row="1"
+                            Height="2"
+                            Background="{ThemeResource DpGreenBrush}"
+                            CornerRadius="1"
+                            Visibility="{x:Bind ViewModel.IsPodcastSelected, Mode=OneWay}" />
+                    </Grid>
+                </Button>
+            </StackPanel>
+
+            <Border Height="1" Background="{ThemeResource DpHairlineBrush}" />
+        </StackPanel>
+
+        <ScrollViewer
+            Grid.Row="1"
+            Padding="20,16,20,20"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+
+                <!--  Cached posts are still worth reading, so the notice sits above them rather than replacing them  -->
+                <Border
+                    Padding="12"
+                    Background="{ThemeResource DpSurfaceBrush}"
+                    BorderBrush="{ThemeResource DpHairlineBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Visibility="{x:Bind ViewModel.SelectedTab.ShowNotice, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon
+                            VerticalAlignment="Top"
+                            FontSize="14"
+                            Foreground="{ThemeResource DpClayBrush}"
+                            Glyph="&#xE946;" />
+                        <TextBlock
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.SelectedTab.NoticeText, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <ItemsRepeater ItemTemplate="{StaticResource FeedCardTemplate}" ItemsSource="{x:Bind ViewModel.SelectedTab.Items, Mode=OneWay}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="12" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <ProgressRing
+            Grid.Row="1"
+            Width="48"
+            Height="48"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="{ThemeResource DpGreenBrush}"
+            IsActive="{x:Bind ViewModel.SelectedTab.IsLoading, Mode=OneWay}" />
+
+        <StackPanel
+            Grid.Row="1"
+            MaxWidth="320"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="4"
+            Visibility="{x:Bind ViewModel.SelectedTab.ShowEmptyState, Mode=OneWay}">
+            <FontIcon
+                FontSize="48"
+                Foreground="{ThemeResource DpInkMutedBrush}"
+                Glyph="&#xE8F1;" />
+            <TextBlock
+                Margin="0,12,0,0"
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource DpInkBrush}"
+                Style="{StaticResource DpSubtitleTextBlockStyle}"
+                Text="{x:Bind ViewModel.SelectedTab.EmptyStateText, Mode=OneWay}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource DpInkMutedBrush}"
+                Style="{StaticResource DpBodyTextBlockStyle}"
+                Text="{helpers:Localize Key=Latest_EmptyDetail}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+            <HyperlinkButton
+                Margin="0,4,0,0"
+                HorizontalAlignment="Center"
+                AutomationProperties.AutomationId="LatestRetryButton"
+                Command="{x:Bind ViewModel.RefreshCommand}"
+                Content="{helpers:Localize Key=Latest_Retry}" />
+        </StackPanel>
+    </Grid>
+</Page>

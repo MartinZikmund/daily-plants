@@ -1,0 +1,103 @@
+﻿<UserControl
+    x:Class="DailyPlants.Controls.LatestTeaser"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="using:DailyPlants.Helpers"
+    xmlns:vm="using:DailyPlants.ViewModels">
+
+    <!--
+        The three newest posts across all three feeds, at the foot of the Diary page.
+        Stays collapsed until there is something to show, so the day never ends in a hole.
+    -->
+    <StackPanel Margin="0,24,0,0" Visibility="{x:Bind ViewModel.ShowStrip, Mode=OneWay}">
+
+        <Grid Margin="0,0,0,8" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{StaticResource DpOverlineTextBlockStyle}"
+                Text="{helpers:Localize Key=Latest_TeaserHeader}" />
+            <Rectangle
+                Grid.Column="1"
+                Height="1"
+                VerticalAlignment="Center"
+                Fill="{ThemeResource DpHairlineBrush}" />
+            <HyperlinkButton
+                Grid.Column="2"
+                Padding="0"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="DiaryLatestSeeAllButton"
+                Command="{x:Bind ViewModel.OpenLatestCommand}"
+                Content="{helpers:Localize Key=Latest_SeeAll}" />
+        </Grid>
+
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Auto"
+            HorizontalScrollMode="Auto"
+            VerticalScrollBarVisibility="Disabled"
+            VerticalScrollMode="Disabled">
+            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+                <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Horizontal" Spacing="12" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="vm:FeedItemViewModel">
+                        <Grid
+                            Width="200"
+                            AutomationProperties.AutomationId="{x:Bind AutomationId}"
+                            AutomationProperties.Name="{x:Bind AutomationName}"
+                            Background="{ThemeResource DpSurfaceBrush}"
+                            BorderBrush="{ThemeResource DpHairlineBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Tag="{x:Bind}"
+                            Tapped="TeaserCard_Tapped"
+                            ToolTipService.ToolTip="{helpers:Localize Key=Latest_OpenInBrowser}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Placeholder behind the image: a remote thumbnail may be slow, missing or refused  -->
+                            <Border
+                                Height="112"
+                                Background="{ThemeResource DpHairlineBrush}"
+                                CornerRadius="8,8,0,0">
+                                <Image
+                                    Source="{x:Bind ThumbnailUrl, Converter={StaticResource StringToImageSourceConverter}}"
+                                    Stretch="UniformToFill"
+                                    Visibility="{x:Bind HasThumbnail}" />
+                            </Border>
+
+                            <!--  MinHeight keeps the three cards level when a title runs to one line instead of two  -->
+                            <StackPanel
+                                Grid.Row="1"
+                                MinHeight="92"
+                                Padding="12"
+                                Spacing="2">
+                                <TextBlock Style="{StaticResource DpOverlineTextBlockStyle}" Text="{x:Bind KindText}" />
+                                <TextBlock
+                                    Foreground="{ThemeResource DpInkBrush}"
+                                    MaxLines="2"
+                                    Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Title}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Foreground="{ThemeResource DpGreenInkBrush}"
+                                    Style="{StaticResource DpCaptionTextBlockStyle}"
+                                    Text="{x:Bind PublishedText}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+    </StackPanel>
+</UserControl>
