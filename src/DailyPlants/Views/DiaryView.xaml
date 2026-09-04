@@ -364,6 +364,9 @@
                     </ItemsRepeater.Layout>
                 </ItemsRepeater>
 
+                <!--  Newest posts from NutritionFacts.org; collapses itself when there is nothing to show  -->
+                <controls:LatestTeaser x:Name="LatestTeaser" />
+
             </StackPanel>
         </ScrollViewer>
 

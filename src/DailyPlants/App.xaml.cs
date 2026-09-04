@@ -15,6 +15,7 @@ public partial class App : Application
     /// </summary>
     public App()
     {
+        AppLog.Initialize();
         this.InitializeComponent();
     }
 
@@ -49,6 +50,18 @@ public partial class App : Application
                     services.AddSingleton<ILocalizationService, LocalizationService>();
                     services.AddSingleton<IAchievementService, AchievementService>();
                     services.AddTransient<IExportService, ExportService>();
+
+                    // Latest feed
+                    services.AddSingleton(TimeProvider.System);
+                    services.AddSingleton(_ =>
+                    {
+                        HttpClient client = new() { Timeout = TimeSpan.FromSeconds(15) };
+                        client.DefaultRequestHeaders.UserAgent.ParseAdd("DailyPlants");
+                        return client;
+                    });
+                    services.AddSingleton<IFeedCache, JsonFeedCache>();
+                    services.AddSingleton<IFeedService, FeedService>();
+                    services.AddSingleton<IAppNavigator, AppNavigator>();
                 })
             );
         MainWindow = builder.Window;

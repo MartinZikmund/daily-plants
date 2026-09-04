@@ -11,6 +11,8 @@ namespace DailyPlants.Views;
 public sealed partial class ShellView : Page
 {
     private IAchievementService? _achievementService;
+    private IAppNavigator? _appNavigator;
+    private object? _pendingNavigationParameter;
     private readonly Window _associatedWindow;
 
     public ShellView(Window associatedWindow)
@@ -110,6 +112,12 @@ public sealed partial class ShellView : Page
             _achievementService.AchievementEarned += OnAchievementEarned;
             await UpdateAchievementBadgeAsync();
         }
+
+        _appNavigator = App.Current.Services?.GetService<IAppNavigator>();
+        if (_appNavigator != null)
+        {
+            _appNavigator.NavigationRequested += OnNavigationRequested;
+        }
     }
 
     private void XamlRoot_Changed(XamlRoot sender, XamlRootChangedEventArgs args)
@@ -152,7 +160,9 @@ public sealed partial class ShellView : Page
         if (args.SelectedItem is NavigationViewItem item)
         {
             var tag = item.Tag?.ToString();
-            NavigateToPage(tag);
+            var parameter = _pendingNavigationParameter;
+            _pendingNavigationParameter = null;
+            NavigateToPage(tag, parameter);
 
             // Clear badge when navigating to achievements
             if (tag == "Achievements")
@@ -162,11 +172,36 @@ public sealed partial class ShellView : Page
         }
     }
 
-    private void NavigateToPage(string? tag)
+    private void OnNavigationRequested(object? sender, AppNavigationRequest request)
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            var item = NavView.MenuItems.Concat(NavView.FooterMenuItems)
+                .OfType<NavigationViewItem>()
+                .FirstOrDefault(i => (string?)i.Tag == request.PageTag);
+            if (item is null)
+            {
+                return;
+            }
+
+            if (ReferenceEquals(NavView.SelectedItem, item))
+            {
+                // Already selected, so SelectionChanged will not fire - navigate directly.
+                NavigateToPage(request.PageTag, request.Parameter);
+                return;
+            }
+
+            _pendingNavigationParameter = request.Parameter;
+            NavView.SelectedItem = item;
+        });
+    }
+
+    private void NavigateToPage(string? tag, object? parameter = null)
     {
         Type? pageType = tag switch
         {
             "Diary" => typeof(DiaryView),
+            "Latest" => typeof(LatestView),
             "Statistics" => typeof(StatisticsView),
             "Achievements" => typeof(AchievementsView),
             "Settings" => typeof(SettingsView),
@@ -174,9 +209,10 @@ public sealed partial class ShellView : Page
             _ => null
         };
 
-        if (pageType != null && ContentFrame.CurrentSourcePageType != pageType)
+        // A deep link re-navigates even when the page is already showing, so the target tab changes.
+        if (pageType != null && (ContentFrame.CurrentSourcePageType != pageType || parameter is not null))
         {
-            ContentFrame.Navigate(pageType);
+            ContentFrame.Navigate(pageType, parameter);
         }
     }
 }
