@@ -17,9 +17,9 @@ public sealed partial class ShellView : Page
         this.InitializeComponent();
         _associatedWindow = associatedWindow;
         this.Loaded += ShellView_Loaded;
-		CustomizeWindow();
+        CustomizeWindow();
     }
-    
+
     public bool HasCustomTitleBar { get; private set; }
 
     private void CustomizeWindow()

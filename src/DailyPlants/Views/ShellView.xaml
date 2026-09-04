@@ -5,10 +5,11 @@
       xmlns:controls="using:DailyPlants.Controls"
       xmlns:helpers="using:DailyPlants.Helpers"
       xmlns:toolkit="using:Uno.UI.Toolkit"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource DpGroundBrush}">
 
     <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
         <NavigationView x:Name="NavView"
+                        AutomationProperties.AutomationId="ShellNavigationView"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
                         AlwaysShowHeader="False"
@@ -16,14 +17,41 @@
                         CompactModeThresholdWidth="500"
                         SelectionChanged="NavView_SelectionChanged">
 
+            <!--
+                The pane background is normally a WinUI system fill; redirect the
+                three modes NavigationView can be in to DpSurfaceBrush instead of
+                restyling the control template.
+            -->
+            <NavigationView.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light">
+                            <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="HighContrast">
+                            <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
+                            <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </NavigationView.Resources>
+
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="{helpers:Localize Key=Nav_Diary}" Tag="Diary">
+                <NavigationViewItem Content="{helpers:Localize Key=Nav_Diary}" Tag="Diary" AutomationProperties.AutomationId="NavItemDiary">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE80F;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="{helpers:Localize Key=Nav_Statistics}" Tag="Statistics">
+                <NavigationViewItem Content="{helpers:Localize Key=Nav_Statistics}" Tag="Statistics" AutomationProperties.AutomationId="NavItemStatistics">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE9D9;" />
                     </NavigationViewItem.Icon>
@@ -31,7 +59,8 @@
 
                 <NavigationViewItem x:Name="AchievementsNavItem"
                                     Content="{helpers:Localize Key=Nav_Achievements}"
-                                    Tag="Achievements">
+                                    Tag="Achievements"
+                                    AutomationProperties.AutomationId="NavItemAchievements">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE734;" />
                     </NavigationViewItem.Icon>
@@ -44,27 +73,27 @@
             </NavigationView.MenuItems>
 
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="{helpers:Localize Key=Nav_Settings}" Tag="Settings">
+                <NavigationViewItem Content="{helpers:Localize Key=Nav_Settings}" Tag="Settings" AutomationProperties.AutomationId="NavItemSettings">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE713;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="{helpers:Localize Key=Nav_About}" Tag="About">
+                <NavigationViewItem Content="{helpers:Localize Key=Nav_About}" Tag="About" AutomationProperties.AutomationId="NavItemAbout">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE946;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
 
-            <Grid>
-                <Frame x:Name="ContentFrame" MaxWidth="1024" />
+            <Grid Background="{ThemeResource DpGroundBrush}">
+                <Frame x:Name="ContentFrame" MaxWidth="1400" />
 
                 <Grid
                     Height="46"
                     x:Name="TitleBarOuter"
                     Padding="0,0"
-                    Background="#00000000"
+                    Background="{ThemeResource DpSurfaceBrush}"
                     VerticalAlignment="Top"
                     ColumnSpacing="16"
                     Visibility="{x:Bind HasCustomTitleBar}">
@@ -75,7 +104,7 @@
                             <TextBlock
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Style="{ThemeResource CaptionTextBlockStyle}"
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
                             Text="Daily Plants" />
                         </StackPanel>
                     </Grid>
