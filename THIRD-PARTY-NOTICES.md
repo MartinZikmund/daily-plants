@@ -105,6 +105,17 @@ Licensed under the MIT License
 - **License**: Included with Windows, usage permitted in applications
 - **Usage**: UI icons throughout the application
 
+### Icons8
+
+- **Source**: [Icons8](https://icons8.com)
+- **Usage**: Food and activity icons for the checklist items (`Assets/Icons/Items`),
+  achievement badge artwork (`Assets/Icons/Achievements`), and the application logo
+  (`Assets/Svg/applogo.svg`)
+- **License**: Icons8 requires a visible attribution link when icons are used under
+  their free tier; a paid Icons8 licence removes that requirement.
+
+Icons by [Icons8](https://icons8.com).
+
 ---
 
 ## Fonts
@@ -113,7 +124,19 @@ Licensed under the MIT License
 
 - **Source**: Microsoft
 - **License**: Included with Windows
-- **Usage**: Default application font on Windows
+- **Usage**: Fallback application font on Windows
+
+### Fraunces
+
+- **Source**: [Undercase Type](https://github.com/undercasetype/Fraunces)
+- **License**: SIL Open Font License 1.1
+- **Usage**: Display typeface — page titles, dates, tallies and stat values
+
+### Karla
+
+- **Source**: [Jonny Pinhorn](https://github.com/googlefonts/karla)
+- **License**: SIL Open Font License 1.1
+- **Usage**: Body typeface — item names, running text, captions and labels
 
 ---
 
