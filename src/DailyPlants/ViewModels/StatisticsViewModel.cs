@@ -6,7 +6,9 @@ using DailyPlants.Services.Settings;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// ViewModel for the Statistics page.
+/// ViewModel for the Statistics page: four panels, each backed by real data
+/// from <see cref="IDataService"/> - daily completion, streaks, what gets
+/// missed most, and (optionally) weight trend.
 /// </summary>
 public partial class StatisticsViewModel : ObservableObject
 {
@@ -16,26 +18,31 @@ public partial class StatisticsViewModel : ObservableObject
     [ObservableProperty]
     private bool _isLoading;
 
-    // Overview Stats
     [ObservableProperty]
-    private double _todayProgress;
+    private bool _hasAnyData = true;
+
+    /// <summary>Gates panels 1-3, which need at least one enabled checklist item.</summary>
+    [ObservableProperty]
+    private bool _hasChecklistData;
+
+    // ===== Panel 1: Daily completion (last 30 days) =====
+
+    public ObservableCollection<DailyCompletionPoint> DailyCompletion { get; } = [];
 
     [ObservableProperty]
-    private string _todayProgressText = "0%";
+    private string _dailyFirstDateLabel = "";
 
     [ObservableProperty]
-    private double _weekProgress;
+    private string _dailyMiddleDateLabel = "";
 
     [ObservableProperty]
-    private string _weekProgressText = "0%";
+    private string _dailyTodayLabel = "";
 
     [ObservableProperty]
-    private double _monthProgress;
+    private string _dailyCompletionAutomationName = "";
 
-    [ObservableProperty]
-    private string _monthProgressText = "0%";
+    // ===== Panel 2: Streaks =====
 
-    // Streaks
     [ObservableProperty]
     private int _currentStreak;
 
@@ -48,17 +55,23 @@ public partial class StatisticsViewModel : ObservableObject
     [ObservableProperty]
     private string _longestStreakText = "0 days";
 
-    // Item Stats
-    public ObservableCollection<ItemStatViewModel> ItemStats { get; } = [];
+    [ObservableProperty]
+    private string _currentStreakCaption = "";
 
-    // Weekly Chart Data
-    public ObservableCollection<DayProgressViewModel> WeeklyProgress { get; } = [];
+    [ObservableProperty]
+    private string _longestStreakCaption = "";
 
-    // Weight Tracking
+    // ===== Panel 3: What you miss most (last 30 days, worst first) =====
+
+    public ObservableCollection<ItemMissViewModel> MissedItems { get; } = [];
+
+    // ===== Panel 4: Weight trend =====
+
     [ObservableProperty]
     private bool _weightTrackingEnabled;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WeightUnit))]
     private bool _useMetricUnits;
 
     [ObservableProperty]
@@ -68,26 +81,31 @@ public partial class StatisticsViewModel : ObservableObject
     private double? _todayWeight;
 
     [ObservableProperty]
-    private string _todayWeightText = "No entry";
-
-    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(GoalWeightForChart))]
     private double? _goalWeight;
-
-    [ObservableProperty]
-    private string _goalWeightText = "Not set";
 
     [ObservableProperty]
     private string _weightChangeText = "";
 
     [ObservableProperty]
-    private string _bmiText = "";
+    private IReadOnlyList<WeightDataPoint> _weightHistory = [];
 
     [ObservableProperty]
-    private double? _heightCm;
+    private string _weightFirstDateLabel = "";
+
+    [ObservableProperty]
+    private string _weightLastDateLabel = "";
+
+    [ObservableProperty]
+    private string _weightLastDateWithChangeLabel = "";
+
+    [ObservableProperty]
+    private string _weightChartAutomationName = "";
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
 
-    public ObservableCollection<WeightDataPoint> WeightHistory { get; } = [];
+    /// <summary>NaN when no goal is set - the chart control treats NaN as "no goal line".</summary>
+    public double GoalWeightForChart => GoalWeight ?? double.NaN;
 
     public StatisticsViewModel(IDataService dataService, IAppPreferences appPreferences)
     {
@@ -102,44 +120,22 @@ public partial class StatisticsViewModel : ObservableObject
         try
         {
             var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
+            var today = DateOnly.FromDateTime(DateTime.Today);
 
-            // Load weight settings
             WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled;
             UseMetricUnits = _appPreferences.UseMetricUnits;
             GoalWeight = _appPreferences.GoalWeight;
-            HeightCm = _appPreferences.HeightCm;
-            OnPropertyChanged(nameof(WeightUnit));
 
-            if (enabledItems.Count == 0 && !WeightTrackingEnabled)
+            HasChecklistData = enabledItems.Count > 0;
+            HasAnyData = HasChecklistData || WeightTrackingEnabled;
+
+            if (HasChecklistData)
             {
-                // Nothing to show
-                return;
+                await CalculateDailyCompletionAsync(today, enabledItems);
+                await CalculateStreaksAsync(today, enabledItems);
+                await CalculateMissedItemsAsync(today, enabledItems);
             }
 
-            var today = DateOnly.FromDateTime(DateTime.Today);
-
-            if (enabledItems.Count > 0)
-            {
-                // Calculate today's progress
-                await CalculateTodayProgressAsync(today, enabledItems);
-
-                // Calculate week progress
-                await CalculateWeekProgressAsync(today, enabledItems);
-
-                // Calculate month progress
-                await CalculateMonthProgressAsync(today, enabledItems);
-
-                // Calculate streaks
-                await CalculateStreaksAsync();
-
-                // Calculate per-item stats
-                await CalculateItemStatsAsync(today, enabledItems);
-
-                // Calculate weekly chart data
-                await CalculateWeeklyChartAsync(today, enabledItems);
-            }
-
-            // Load weight data if enabled
             if (WeightTrackingEnabled)
             {
                 await LoadWeightDataAsync(today);
@@ -151,83 +147,125 @@ public partial class StatisticsViewModel : ObservableObject
         }
     }
 
-    private async Task CalculateTodayProgressAsync(DateOnly today, List<ChecklistItem> enabledItems)
+    private async Task CalculateDailyCompletionAsync(DateOnly today, List<ChecklistItem> enabledItems)
     {
-        var entries = await _dataService.GetEntriesForDateAsync(today);
-        var (completed, total) = CalculateProgress(entries, enabledItems);
+        DailyCompletion.Clear();
 
-        TodayProgress = total > 0 ? (double)completed / total : 0;
-        TodayProgressText = $"{(int)(TodayProgress * 100)}%";
-    }
+        var startDate = today.AddDays(-29);
+        var entriesByDate = await GetEntriesByDateAsync(startDate, today);
 
-    private async Task CalculateWeekProgressAsync(DateOnly today, List<ChecklistItem> enabledItems)
-    {
-        var firstDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
-        var diff = ((int)today.DayOfWeek - (int)firstDayOfWeek + 7) % 7;
-        var weekStart = today.AddDays(-diff);
-        var entries = await _dataService.GetEntriesInRangeAsync(weekStart, today);
-
-        var totalCompleted = 0;
-        var totalPossible = 0;
-        var daysCount = (today.DayNumber - weekStart.DayNumber) + 1;
-
-        for (var date = weekStart; date <= today; date = date.AddDays(1))
+        for (var date = startDate; date <= today; date = date.AddDays(1))
         {
-            var dayEntries = entries.Where(e => e.Date == date).ToList();
-            var (completed, total) = CalculateProgress(dayEntries, enabledItems);
-            totalCompleted += completed;
-            totalPossible += total;
+            var (completed, total) = CalculateProgress(entriesByDate.GetValueOrDefault(date, []), enabledItems);
+            var share = total > 0 ? (double)completed / total : 0;
+            DailyCompletion.Add(new DailyCompletionPoint(date, share, date == today));
         }
 
-        WeekProgress = totalPossible > 0 ? (double)totalCompleted / totalPossible : 0;
-        WeekProgressText = $"{(int)(WeekProgress * 100)}%";
+        DailyFirstDateLabel = startDate.ToString("MMM d", CultureInfo.CurrentCulture);
+        DailyMiddleDateLabel = startDate.AddDays(14).ToString("MMM d", CultureInfo.CurrentCulture);
+
+        var todayShare = DailyCompletion.Count > 0 ? DailyCompletion[^1].Share : 0;
+        DailyTodayLabel = $"Today · {(int)Math.Round(todayShare * 100)}%";
+        DailyCompletionAutomationName = $"Daily completion, last 30 days. {DailyTodayLabel}.";
     }
 
-    private async Task CalculateMonthProgressAsync(DateOnly today, List<ChecklistItem> enabledItems)
-    {
-        var monthStart = new DateOnly(today.Year, today.Month, 1);
-        var entries = await _dataService.GetEntriesInRangeAsync(monthStart, today);
-
-        var totalCompleted = 0;
-        var totalPossible = 0;
-
-        for (var date = monthStart; date <= today; date = date.AddDays(1))
-        {
-            var dayEntries = entries.Where(e => e.Date == date).ToList();
-            var (completed, total) = CalculateProgress(dayEntries, enabledItems);
-            totalCompleted += completed;
-            totalPossible += total;
-        }
-
-        MonthProgress = totalPossible > 0 ? (double)totalCompleted / totalPossible : 0;
-        MonthProgressText = $"{(int)(MonthProgress * 100)}%";
-    }
-
-    private async Task CalculateStreaksAsync()
+    private async Task CalculateStreaksAsync(DateOnly today, List<ChecklistItem> enabledItems)
     {
         CurrentStreak = await _dataService.GetCurrentStreakAsync();
         LongestStreak = await _dataService.GetLongestStreakAsync();
 
         CurrentStreakText = CurrentStreak == 1 ? "1 day" : $"{CurrentStreak} days";
         LongestStreakText = LongestStreak == 1 ? "1 day" : $"{LongestStreak} days";
+
+        if (CurrentStreak == 0)
+        {
+            CurrentStreakCaption = "Get today to 100% to start one.";
+        }
+        else
+        {
+            // The streak count alone doesn't say where it started - work that
+            // out from whether today itself is already complete.
+            var todayEntries = await _dataService.GetEntriesForDateAsync(today);
+            var endDate = IsDayComplete(todayEntries, enabledItems) ? today : today.AddDays(-1);
+            var startDate = endDate.AddDays(-(CurrentStreak - 1));
+            CurrentStreakCaption = $"Since {startDate:MMM d}.";
+        }
+
+        if (LongestStreak == 0)
+        {
+            LongestStreakCaption = "No streak yet.";
+        }
+        else
+        {
+            var (start, end) = await FindLongestStreakRangeAsync(enabledItems, today);
+            LongestStreakCaption = start.HasValue && end.HasValue
+                ? $"{start:MMM d}–{end:MMM d}."
+                : "Your best run.";
+        }
     }
 
-    private async Task CalculateItemStatsAsync(DateOnly today, List<ChecklistItem> enabledItems)
+    /// <summary>
+    /// Re-walks the whole tracked history to find the date range of the
+    /// longest streak - the streak count alone doesn't carry it.
+    /// </summary>
+    private async Task<(DateOnly? Start, DateOnly? End)> FindLongestStreakRangeAsync(List<ChecklistItem> enabledItems, DateOnly today)
     {
-        ItemStats.Clear();
+        var trackedDates = await _dataService.GetDatesWithEntriesAsync();
+        if (trackedDates.Count == 0)
+        {
+            return (null, null);
+        }
 
-        // Get last 30 days of data
+        var earliest = trackedDates.Min();
+        var entriesByDate = await GetEntriesByDateAsync(earliest, today);
+
+        DateOnly? bestStart = null;
+        DateOnly? bestEnd = null;
+        DateOnly? runStart = null;
+        var bestLength = 0;
+        var runLength = 0;
+
+        for (var date = earliest; date <= today; date = date.AddDays(1))
+        {
+            if (IsDayComplete(entriesByDate.GetValueOrDefault(date, []), enabledItems))
+            {
+                runStart ??= date;
+                runLength++;
+
+                if (runLength > bestLength)
+                {
+                    bestLength = runLength;
+                    bestStart = runStart;
+                    bestEnd = date;
+                }
+            }
+            else
+            {
+                runLength = 0;
+                runStart = null;
+            }
+        }
+
+        return (bestStart, bestEnd);
+    }
+
+    private async Task CalculateMissedItemsAsync(DateOnly today, List<ChecklistItem> enabledItems)
+    {
+        MissedItems.Clear();
+
         var startDate = today.AddDays(-29);
         var entries = await _dataService.GetEntriesInRangeAsync(startDate, today);
 
-        foreach (var item in enabledItems.Take(10)) // Show top 10 items
+        var rates = new List<(ChecklistItem Item, double Rate)>();
+        foreach (var item in enabledItems)
         {
             var itemEntries = entries.Where(e => e.ItemId == item.Id).ToList();
             var daysCompleted = 0;
-            var totalDays = 30;
+            var totalDays = 0;
 
             for (var date = startDate; date <= today; date = date.AddDays(1))
             {
+                totalDays++;
                 var entry = itemEntries.FirstOrDefault(e => e.Date == date);
                 if (entry != null && entry.ServingsCompleted >= item.RecommendedServings)
                 {
@@ -235,43 +273,101 @@ public partial class StatisticsViewModel : ObservableObject
                 }
             }
 
-            var completionRate = (double)daysCompleted / totalDays;
+            rates.Add((item, totalDays > 0 ? (double)daysCompleted / totalDays : 0));
+        }
 
-            ItemStats.Add(new ItemStatViewModel
-            {
-                ItemName = item.Name,
-                CompletionRate = completionRate,
-                CompletionText = $"{(int)(completionRate * 100)}%",
-                DaysCompleted = daysCompleted,
-                TotalDays = totalDays
-            });
+        foreach (var (item, rate) in rates.OrderBy(r => r.Rate))
+        {
+            MissedItems.Add(new ItemMissViewModel(item.Name, rate));
         }
     }
 
-    private async Task CalculateWeeklyChartAsync(DateOnly today, List<ChecklistItem> enabledItems)
+    private async Task LoadWeightDataAsync(DateOnly today)
     {
-        WeeklyProgress.Clear();
+        var todayEntry = await _dataService.GetWeightEntryAsync(today);
+        TodayWeight = todayEntry?.Weight;
+        WeightInputText = todayEntry != null ? todayEntry.Weight.ToString("F1") : "";
 
-        // Single range query for all 7 days
-        var weekStart = today.AddDays(-6);
-        var entries = await _dataService.GetEntriesInRangeAsync(weekStart, today);
+        var startDate = today.AddDays(-29);
+        var entries = await _dataService.GetWeightEntriesInRangeAsync(startDate, today);
 
-        for (int i = 6; i >= 0; i--)
+        WeightHistory = entries.Select(e => new WeightDataPoint(e.Date, e.Weight)).ToList();
+
+        if (WeightHistory.Count > 0)
         {
-            var date = today.AddDays(-i);
-            var dayEntries = entries.Where(e => e.Date == date).ToList();
-            var (completed, total) = CalculateProgress(dayEntries, enabledItems);
-            var progress = total > 0 ? (double)completed / total : 0;
-
-            WeeklyProgress.Add(new DayProgressViewModel
-            {
-                Date = date,
-                DayName = date == today ? "Today" : date.ToString("ddd"),
-                Progress = progress,
-                ProgressText = $"{(int)(progress * 100)}%",
-                IsToday = date == today
-            });
+            WeightFirstDateLabel = WeightHistory[0].Date.ToString("MMM d", CultureInfo.CurrentCulture);
+            WeightLastDateLabel = WeightHistory[^1].Date.ToString("MMM d", CultureInfo.CurrentCulture);
         }
+        else
+        {
+            WeightFirstDateLabel = "";
+            WeightLastDateLabel = "";
+        }
+
+        CalculateWeightChange(entries);
+
+        WeightLastDateWithChangeLabel = WeightChangeText.Length > 0
+            ? $"{WeightLastDateLabel} · {WeightChangeText}"
+            : WeightLastDateLabel;
+
+        WeightChartAutomationName = WeightHistory.Count > 0
+            ? $"Weight trend, {WeightFirstDateLabel} to {WeightLastDateLabel}. Latest {WeightHistory[^1].Weight:F1} {WeightUnit}. {WeightChangeText}"
+            : "Weight trend. No entries yet.";
+    }
+
+    private void CalculateWeightChange(IReadOnlyList<WeightEntry> entries)
+    {
+        if (entries.Count < 2)
+        {
+            WeightChangeText = "";
+            return;
+        }
+
+        var change = entries[^1].Weight - entries[0].Weight;
+        var unit = WeightUnit;
+
+        WeightChangeText = Math.Abs(change) < 0.1
+            ? "No change"
+            : change > 0 ? $"+{change:F1} {unit}" : $"{change:F1} {unit}";
+    }
+
+    [RelayCommand]
+    private async Task SaveTodayWeightAsync()
+    {
+        if (!double.TryParse(WeightInputText, out var weight) || weight <= 0)
+        {
+            return;
+        }
+
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        var entry = new WeightEntry
+        {
+            Date = today,
+            Weight = weight
+        };
+
+        await _dataService.SaveWeightEntryAsync(entry);
+        await LoadWeightDataAsync(today);
+    }
+
+    [RelayCommand]
+    private async Task DeleteTodayWeightAsync()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        await _dataService.DeleteWeightEntryAsync(today);
+        await LoadWeightDataAsync(today);
+    }
+
+    private async Task<Dictionary<DateOnly, IReadOnlyList<DailyEntry>>> GetEntriesByDateAsync(DateOnly startDate, DateOnly endDate)
+    {
+        var entries = await _dataService.GetEntriesInRangeAsync(startDate, endDate);
+        return entries.GroupBy(e => e.Date).ToDictionary(g => g.Key, g => (IReadOnlyList<DailyEntry>)g.ToList());
+    }
+
+    private static bool IsDayComplete(IReadOnlyList<DailyEntry> dayEntries, List<ChecklistItem> enabledItems)
+    {
+        var (completed, total) = CalculateProgress(dayEntries, enabledItems);
+        return total > 0 && completed == total;
     }
 
     private static (int completed, int total) CalculateProgress(IEnumerable<DailyEntry> entries, List<ChecklistItem> enabledItems)
@@ -290,183 +386,29 @@ public partial class StatisticsViewModel : ObservableObject
 
         return (completedServings, totalServings);
     }
-
-    // ===== Weight Tracking Methods =====
-
-    private async Task LoadWeightDataAsync(DateOnly today)
-    {
-        // Load today's weight
-        var todayEntry = await _dataService.GetWeightEntryAsync(today);
-        if (todayEntry != null)
-        {
-            TodayWeight = todayEntry.Weight;
-            WeightInputText = todayEntry.Weight.ToString("F1");
-            TodayWeightText = FormatWeight(todayEntry.Weight);
-        }
-        else
-        {
-            TodayWeight = null;
-            WeightInputText = "";
-            TodayWeightText = "No entry";
-        }
-
-        // Format goal weight
-        if (GoalWeight.HasValue)
-        {
-            GoalWeightText = FormatWeight(GoalWeight.Value);
-        }
-        else
-        {
-            GoalWeightText = "Not set";
-        }
-
-        // Load weight history (last 30 days)
-        var startDate = today.AddDays(-29);
-        var entries = await _dataService.GetWeightEntriesInRangeAsync(startDate, today);
-
-        WeightHistory.Clear();
-        foreach (var entry in entries)
-        {
-            WeightHistory.Add(new WeightDataPoint
-            {
-                Date = entry.Date,
-                Weight = entry.Weight,
-                DateText = entry.Date.ToString("M/d"),
-                WeightText = FormatWeight(entry.Weight)
-            });
-        }
-
-        // Calculate weight change
-        CalculateWeightChange(entries);
-
-        // Calculate BMI if height is set
-        CalculateBmi();
-    }
-
-    private void CalculateWeightChange(IReadOnlyList<WeightEntry> entries)
-    {
-        if (entries.Count < 2)
-        {
-            WeightChangeText = "";
-            return;
-        }
-
-        var oldest = entries.First();
-        var newest = entries.Last();
-        var change = newest.Weight - oldest.Weight;
-        var unit = WeightUnit;
-
-        if (Math.Abs(change) < 0.1)
-        {
-            WeightChangeText = "No change";
-        }
-        else if (change > 0)
-        {
-            WeightChangeText = $"+{change:F1} {unit}";
-        }
-        else
-        {
-            WeightChangeText = $"{change:F1} {unit}";
-        }
-    }
-
-    private void CalculateBmi()
-    {
-        if (!TodayWeight.HasValue || !HeightCm.HasValue || HeightCm.Value <= 0)
-        {
-            BmiText = "";
-            return;
-        }
-
-        // Convert weight to kg if in imperial
-        var weightKg = UseMetricUnits ? TodayWeight.Value : TodayWeight.Value * 0.453592;
-        var heightM = HeightCm.Value / 100.0;
-        var bmi = weightKg / (heightM * heightM);
-
-        var category = bmi switch
-        {
-            < 18.5 => "Underweight",
-            < 25 => "Normal",
-            < 30 => "Overweight",
-            _ => "Obese"
-        };
-
-        BmiText = $"BMI: {bmi:F1} ({category})";
-    }
-
-    private string FormatWeight(double weight)
-    {
-        return $"{weight:F1} {WeightUnit}";
-    }
-
-    [RelayCommand]
-    private async Task SaveTodayWeightAsync()
-    {
-        if (string.IsNullOrWhiteSpace(WeightInputText))
-        {
-            return;
-        }
-
-        if (!double.TryParse(WeightInputText, out var weight) || weight <= 0)
-        {
-            return;
-        }
-
-        var today = DateOnly.FromDateTime(DateTime.Today);
-        var entry = new WeightEntry
-        {
-            Date = today,
-            Weight = weight
-        };
-
-        await _dataService.SaveWeightEntryAsync(entry);
-
-        // Reload weight data
-        await LoadWeightDataAsync(today);
-    }
-
-    [RelayCommand]
-    private async Task DeleteTodayWeightAsync()
-    {
-        var today = DateOnly.FromDateTime(DateTime.Today);
-        await _dataService.DeleteWeightEntryAsync(today);
-
-        // Reload weight data
-        await LoadWeightDataAsync(today);
-    }
 }
 
-/// <summary>
-/// ViewModel for per-item statistics.
-/// </summary>
-public class ItemStatViewModel
-{
-    public string ItemName { get; set; } = string.Empty;
-    public double CompletionRate { get; set; }
-    public string CompletionText { get; set; } = "0%";
-    public int DaysCompleted { get; set; }
-    public int TotalDays { get; set; }
-}
+/// <summary>One column of the 30-day daily-completion chart.</summary>
+public sealed record DailyCompletionPoint(DateOnly Date, double Share, bool IsToday);
 
-/// <summary>
-/// ViewModel for daily progress in the weekly chart.
-/// </summary>
-public class DayProgressViewModel
-{
-    public DateOnly Date { get; set; }
-    public string DayName { get; set; } = string.Empty;
-    public double Progress { get; set; }
-    public string ProgressText { get; set; } = "0%";
-    public bool IsToday { get; set; }
-}
+/// <summary>One point on the weight trend line.</summary>
+public sealed record WeightDataPoint(DateOnly Date, double Weight);
 
-/// <summary>
-/// Data point for weight chart.
-/// </summary>
-public class WeightDataPoint
+/// <summary>One row of the "what you miss most" panel.</summary>
+public sealed class ItemMissViewModel
 {
-    public DateOnly Date { get; set; }
-    public double Weight { get; set; }
-    public string DateText { get; set; } = string.Empty;
-    public string WeightText { get; set; } = string.Empty;
+    public ItemMissViewModel(string itemName, double completionRate)
+    {
+        ItemName = itemName;
+        CompletionRate = completionRate;
+        CompletionText = $"{(int)Math.Round(completionRate * 100)}%";
+        IsBelowHalf = completionRate < 0.5;
+    }
+
+    public string ItemName { get; }
+    public double CompletionRate { get; }
+    public string CompletionText { get; }
+    public bool IsBelowHalf { get; }
+    public Visibility NormalVisibility => IsBelowHalf ? Visibility.Collapsed : Visibility.Visible;
+    public Visibility BelowHalfVisibility => IsBelowHalf ? Visibility.Visible : Visibility.Collapsed;
 }

@@ -1,7 +1,6 @@
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
-using Microsoft.UI.Xaml.Data;
 
 namespace DailyPlants.Views;
 
@@ -24,4 +23,10 @@ public sealed partial class StatisticsView : Page
     {
         await ViewModel.LoadStatisticsAsync();
     }
+
+    public Visibility Not(bool value) => value ? Visibility.Collapsed : Visibility.Visible;
+
+    public Visibility VisibleIfAny(int count) => count > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+    public Visibility VisibleIfZero(int count) => count == 0 ? Visibility.Visible : Visibility.Collapsed;
 }
