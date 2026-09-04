@@ -71,7 +71,7 @@
                                                           OffContent="{helpers:Localize Key=Settings_Disabled}"
                                                           MinWidth="0"
                                                           AutomationProperties.Name="{Binding ItemName}"
-                                                          AutomationProperties.AutomationId="{Binding ItemName}" />
+                                                          AutomationProperties.AutomationId="{Binding ItemId}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>
@@ -125,7 +125,7 @@
                                                           OffContent="{helpers:Localize Key=Settings_Disabled}"
                                                           MinWidth="0"
                                                           AutomationProperties.Name="{Binding ItemName}"
-                                                          AutomationProperties.AutomationId="{Binding ItemName}" />
+                                                          AutomationProperties.AutomationId="{Binding ItemId}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>

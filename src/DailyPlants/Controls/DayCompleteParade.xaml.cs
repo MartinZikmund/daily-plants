@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml.Automation;
+﻿using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 
@@ -29,6 +29,8 @@ public sealed partial class DayCompleteParade : UserControl
     private Border[] ConfettiPieces { get; }
     private CompositeTransform[] ConfettiTransforms { get; }
 
+    private readonly (double TranslateY, double Rotation)[] _confettiRestingPose;
+
     public DayCompleteParade()
     {
         InitializeComponent();
@@ -39,6 +41,13 @@ public sealed partial class DayCompleteParade : UserControl
             Confetti0Transform, Confetti1Transform, Confetti2Transform, Confetti3Transform, Confetti4Transform,
             Confetti5Transform, Confetti6Transform, Confetti7Transform, Confetti8Transform
         ];
+
+        // AnimateConfetti reads each transform's current value as its From, so the resting
+        // pose has to be exact on every replay. Snapshotting it here means Reset can restore
+        // it directly rather than relying on Storyboard.Stop reverting the animated value.
+        _confettiRestingPose = ConfettiTransforms
+            .Select(t => (t.TranslateY, t.Rotation))
+            .ToArray();
     }
 
     /// <summary>
@@ -89,9 +98,11 @@ public sealed partial class DayCompleteParade : UserControl
         CardTransform.ScaleY = 1;
 
         ConfettiHost.Visibility = Visibility.Collapsed;
-        foreach (var piece in ConfettiPieces)
+        for (var i = 0; i < ConfettiPieces.Length; i++)
         {
-            piece.Opacity = 0;
+            ConfettiPieces[i].Opacity = 0;
+            ConfettiTransforms[i].TranslateY = _confettiRestingPose[i].TranslateY;
+            ConfettiTransforms[i].Rotation = _confettiRestingPose[i].Rotation;
         }
     }
 

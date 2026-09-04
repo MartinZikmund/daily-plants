@@ -154,7 +154,10 @@ public class AchievementViewModel
     public double BadgeOpacity => IsEarned ? 1.0 : 0.45;
 
     // Not localized: this ViewModel doesn't own the .resw files.
+    // Reuses EarnedDateText so the announcement matches what is on screen -- formatting
+    // EarnedAt again risks a different format, a UTC/local mismatch, or "earned " with
+    // nothing after it when the date is missing.
     public string AutomationName => IsEarned
-        ? $"{Name}, earned {EarnedAt:d MMMM}"
+        ? string.IsNullOrWhiteSpace(EarnedDateText) ? Name : $"{Name}, earned {EarnedDateText}"
         : $"{Name}, locked, {ProgressText}";
 }
