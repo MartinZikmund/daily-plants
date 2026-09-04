@@ -420,31 +420,37 @@ public partial class DiaryViewModel : ObservableObject
         }
         else
         {
-            // Distribute across parent and children: parent fills first
-            var remaining = newServings;
-
-            var parentServings = Math.Min(remaining, itemVm.Item.RecommendedServings);
-            remaining -= parentServings;
-
-            await _dataService.SaveEntryAsync(new DailyEntry
+            // One count is spread over several rows, so a failure between them would leave a
+            // total on disk that nobody typed - and the rollback below only puts the display
+            // back, not the rows.
+            await _dataService.RunInTransactionAsync(async () =>
             {
-                Date = _currentDate,
-                ItemId = itemVm.Item.Id,
-                ServingsCompleted = parentServings
-            });
+                // Distribute across parent and children: parent fills first
+                var remaining = newServings;
 
-            foreach (var child in itemVm.MergedChildren)
-            {
-                var childServings = Math.Min(remaining, child.RecommendedServings);
-                remaining -= childServings;
+                var parentServings = Math.Min(remaining, itemVm.Item.RecommendedServings);
+                remaining -= parentServings;
 
                 await _dataService.SaveEntryAsync(new DailyEntry
                 {
                     Date = _currentDate,
-                    ItemId = child.Id,
-                    ServingsCompleted = childServings
+                    ItemId = itemVm.Item.Id,
+                    ServingsCompleted = parentServings
                 });
-            }
+
+                foreach (var child in itemVm.MergedChildren)
+                {
+                    var childServings = Math.Min(remaining, child.RecommendedServings);
+                    remaining -= childServings;
+
+                    await _dataService.SaveEntryAsync(new DailyEntry
+                    {
+                        Date = _currentDate,
+                        ItemId = child.Id,
+                        ServingsCompleted = childServings
+                    });
+                }
+            });
         }
     }
 
