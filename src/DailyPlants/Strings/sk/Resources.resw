@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Splňte orechy 100-krát</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants nedokázala otvoriť vaše údaje</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Záznamy sa nepodarilo načítať a zmeny sa nemusia ukladať. Reštartujte aplikáciu, a ak to bude pokračovať, podrobnosti nájdete v súbore denníka: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Záznamy sa nepodarilo načítať a zmeny sa nemusia ukladať. Reštartujte aplikáciu, a ak to bude pokračovať, podrobnosti nájdete v denníku v priečinku údajov aplikácie.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Napriek tomu pokračovať</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Nepodarilo sa uložiť</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Túto zmenu sa nepodarilo uložiť a bola vrátená späť. Skúste to znova.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Import údajov</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Záznamy pre dátumy v tomto súbore nahradia tie už uložené. Ak chcete zálohu, najprv exportujte svoje súčasné údaje. Pokračovať?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Importované: {0} záznamov, {1} záznamov o hmotnosti a {2} úspechov.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} riadkov bolo preskočených, pretože ich aplikácia nedokázala prečítať.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

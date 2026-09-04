@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>完成堅果 100 次</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants 無法開啟你的資料</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>無法載入項目，變更也可能不會儲存。請重新啟動應用程式；如果問題持續發生，記錄檔中有詳細資訊：{0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>無法載入項目，變更也可能不會儲存。請重新啟動應用程式；如果問題持續發生，詳細資訊在應用程式資料夾的記錄檔中。</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>仍要繼續</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>無法儲存</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>這項變更未能儲存，已被復原。請再試一次。</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>匯入資料</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>此檔案中這些日期的項目將取代已儲存的項目。如果需要備份，請先匯出目前的資料。要繼續嗎？</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>已匯入 {0} 個項目、{1} 筆體重記錄和 {2} 項成就。</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>已略過 {0} 列，因為應用程式無法讀取它們。</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

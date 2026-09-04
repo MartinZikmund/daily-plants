@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Completa la frutta a guscio 100 volte</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants non è riuscita ad aprire i dati</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Non è stato possibile caricare le registrazioni e le modifiche potrebbero non essere salvate. Riavviare l'app e, se il problema persiste, il file di log ne contiene i dettagli: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Non è stato possibile caricare le registrazioni e le modifiche potrebbero non essere salvate. Riavviare l'app e, se il problema persiste, i dettagli si trovano nel log nella cartella dati dell'app.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Continua comunque</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Salvataggio non riuscito</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Questa modifica non è stata salvata ed è stata annullata. Riprovare.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Importa dati</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Le registrazioni per le date presenti in questo file sostituiranno quelle già salvate. Per avere una copia di sicurezza, esportare prima i dati attuali. Continuare?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Importate {0} registrazioni, {1} rilevazioni di peso e {2} obiettivi.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} righe sono state ignorate perché l'app non è riuscita a leggerle.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

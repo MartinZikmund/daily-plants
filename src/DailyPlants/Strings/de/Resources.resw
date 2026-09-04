@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Nüsse 100-mal abschließen</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants konnte die Daten nicht öffnen</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Die Einträge konnten nicht geladen werden und Änderungen werden möglicherweise nicht gespeichert. Ein Neustart der App kann helfen; bleibt das Problem bestehen, enthält die Protokolldatei die Details: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Die Einträge konnten nicht geladen werden und Änderungen werden möglicherweise nicht gespeichert. Ein Neustart der App kann helfen; bleibt das Problem bestehen, stehen die Details im Protokoll im App-Datenordner.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Trotzdem fortfahren</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Speichern fehlgeschlagen</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Diese Änderung konnte nicht gespeichert werden und wurde rückgängig gemacht. Bitte erneut versuchen.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Daten importieren</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Einträge für Daten in dieser Datei ersetzen die bereits gespeicherten. Für eine Sicherung sollten die aktuellen Daten zuerst exportiert werden. Fortfahren?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>{0} Einträge, {1} Gewichtsdatensätze und {2} Erfolge importiert.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} Zeilen wurden übersprungen, weil die App sie nicht lesen konnte.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
