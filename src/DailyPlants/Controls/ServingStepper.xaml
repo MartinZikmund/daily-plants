@@ -28,8 +28,10 @@
             BorderThickness="1.4"
             Command="{x:Bind Item.DecrementServingCommand, Mode=OneWay}"
             CornerRadius="12"
+            IsEnabled="{x:Bind Item.CanDecrement, Mode=OneWay}"
+            Opacity="{x:Bind local:ServingStepper.DimWhenFalse(Item.CanDecrement), Mode=OneWay}"
             ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}"
-            Visibility="{x:Bind local:ServingStepper.VisibleWhen(Item.CanDecrement), Mode=OneWay}">
+            Visibility="{x:Bind local:ServingStepper.RemoveVisibility(Item.CanDecrement, CollapseRemoveWhenEmpty), Mode=OneWay}">
             <Grid Width="10" Height="10">
                 <Rectangle
                     Width="10"

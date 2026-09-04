@@ -251,7 +251,11 @@ public sealed partial class DiaryView : Page
         content.Children.Add(new Controls.ServingStepper
         {
             Item = itemVm,
-            HorizontalAlignment = HorizontalAlignment.Center
+            HorizontalAlignment = HorizontalAlignment.Center,
+
+            // Alone in a dialog, dropping remove from the layout throws the remaining
+            // controls off-centre; keep it in place and let it grey out.
+            CollapseRemoveWhenEmpty = false
         });
 
         // Health benefits section (if available)
