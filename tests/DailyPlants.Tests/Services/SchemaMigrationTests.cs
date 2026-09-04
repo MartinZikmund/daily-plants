@@ -12,10 +12,14 @@ namespace DailyPlants.Tests.Services;
 public class SchemaMigrationTests
 {
     private string _dbPath = string.Empty;
+    private string _replacementDbPath = string.Empty;
 
     [TestInitialize]
-    public void Initialize() =>
+    public void Initialize()
+    {
         _dbPath = Path.Combine(Path.GetTempPath(), $"DailyPlants-Migration-{Guid.NewGuid():N}.db");
+        _replacementDbPath = Path.Combine(Path.GetTempPath(), $"DailyPlants-Migration-{Guid.NewGuid():N}.db");
+    }
 
     [TestCleanup]
     public void Cleanup()
@@ -23,6 +27,7 @@ public class SchemaMigrationTests
         try
         {
             if (File.Exists(_dbPath)) File.Delete(_dbPath);
+            if (File.Exists(_replacementDbPath)) File.Delete(_replacementDbPath);
         }
         catch (IOException)
         {
@@ -171,7 +176,8 @@ public class SchemaMigrationTests
         var seed = new SqliteDataService(prefs, _dbPath);
         await seed.InitializeAsync();
         await SetUserVersionAsync(3);
-        // Pre-v4 preferences hold the raw numbers the user typed.
+        // Pre-v4 preferences hold the raw numbers the user typed, and predate the marker.
+        prefs.UnitsAreCanonical = false;
         prefs.HeightCm = 70;      // inches
         prefs.GoalWeight = 176.4; // pounds
 
@@ -215,6 +221,7 @@ public class SchemaMigrationTests
         var date = new DateOnly(2026, 4, 1);
         await seed.SaveWeightEntryAsync(new WeightEntry { Date = date, Weight = 176.4 });
         await SetUserVersionAsync(3);
+        prefs.UnitsAreCanonical = false;
         prefs.HeightCm = 70; // inches
 
         await new SqliteDataService(prefs, _dbPath).InitializeAsync();
@@ -228,8 +235,8 @@ public class SchemaMigrationTests
     // ===== Crash safety =====
 
     /// <summary>
-    /// Preferences that blow up part way through the v4 conversion, standing in for the
-    /// process being killed after the weight UPDATE but before the version bump.
+    /// Preferences that blow up while a migration is reading them, standing in for the
+    /// process dying part way through one.
     /// </summary>
     private sealed class ThrowingPreferences : IAppPreferences
     {
@@ -237,12 +244,13 @@ public class SchemaMigrationTests
         public bool TwentyOneTweaksEnabled { get; set; }
         public bool WeightTrackingEnabled { get; set; } = true;
         public bool UseMetricUnits { get; set; }
+        public double? HeightCm { get; set; }
         public double? GoalWeight { get; set; }
         public int ThemePreference { get; set; }
         public string? Language { get; set; }
-        public string DisabledItemIds { get; set; } = string.Empty;
+        public bool UnitsAreCanonical { get; set; }
 
-        public double? HeightCm
+        public string DisabledItemIds
         {
             get => throw new InvalidOperationException("preference store went away mid-migration");
             set => throw new InvalidOperationException("preference store went away mid-migration");
@@ -250,24 +258,36 @@ public class SchemaMigrationTests
     }
 
     [TestMethod]
-    public async Task Initialize_WhenAMigrationFailsPartWayThrough_RollsBackBothTheWorkAndTheVersion()
+    public async Task Initialize_WhenAMigrationThrows_LeavesTheVersionWhereItWas()
     {
-        var prefs = new FakeAppPreferences { UseMetricUnits = false, WeightTrackingEnabled = true };
-        var seed = new SqliteDataService(prefs, _dbPath);
-        await seed.InitializeAsync();
-        var date = new DateOnly(2026, 4, 1);
-        await seed.SaveWeightEntryAsync(new WeightEntry { Date = date, Weight = 176.4 });
-        await SetUserVersionAsync(3);
+        var prefs = new FakeAppPreferences();
+        await new SqliteDataService(prefs, _dbPath).InitializeAsync();
+        await RewindToV2Async();
 
-        // v4 divides the weights, then reads HeightCm - which throws.
+        // v3 reads the disabled items to build its requirements map, and that throws.
         var failing = new SqliteDataService(new ThrowingPreferences(), _dbPath);
         await Assert.ThrowsExceptionAsync<InvalidOperationException>(failing.InitializeAsync);
 
-        (await ReadUserVersionAsync(_dbPath)).Should().Be(3, "the failed migration must not claim to have run");
-        var entry = await new SqliteDataService(prefs, _dbPath).GetWeightEntryAsync(date);
-        entry!.Weight.Should().BeApproximately(
-            80,
-            0.05,
-            "the retry converts the untouched pounds exactly once, rather than halving an already-converted value");
+        (await ReadUserVersionAsync(_dbPath)).Should().Be(2,
+            "a migration that threw must not leave a version claiming it ran - the next "
+            + "launch would skip it for good");
+    }
+
+    [TestMethod]
+    public async Task Initialize_AfterTheDatabaseIsLost_DoesNotConvertPreferencesAgain()
+    {
+        var prefs = new FakeAppPreferences { UseMetricUnits = false, WeightTrackingEnabled = true };
+        prefs.HeightCm = 70;      // inches
+        prefs.GoalWeight = 176.4; // pounds
+
+        await new SqliteDataService(prefs, _dbPath).InitializeAsync();
+        prefs.HeightCm.Should().BeApproximately(177.8, 0.05, "the upgrade converts them once");
+
+        // The database is replaced - preferences survive it and are already canonical.
+        await new SqliteDataService(prefs, _replacementDbPath).InitializeAsync();
+
+        prefs.HeightCm.Should().BeApproximately(177.8, 0.05,
+            "a fresh database starts at version 0, but the preferences were never lost");
+        prefs.GoalWeight.Should().BeApproximately(80, 0.05);
     }
 }
