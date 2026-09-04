@@ -1,4 +1,4 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 
 namespace DailyPlants.Tests.Services;
 
@@ -187,6 +187,44 @@ public class ExportRoundTripTests
 
         (await _data.GetWeightEntryAsync(Date(1)))!.Weight.Should().Be(80);
         _prefs.HeightCm.Should().Be(177.8);
+    }
+
+    [TestMethod]
+    public async Task Import_OfAFileWithNoVersion_TakesItAsTheLegacyFormat()
+    {
+        // Nothing this app has shipped writes a file without a version, so one that turns
+        // up predates the field - which means its numbers are in the exporter's own units.
+        var json = """
+        {
+          "dailyEntries": [],
+          "weightEntries": [ { "date": "2026-04-01", "weight": 176.4 } ],
+          "settings": { "useMetricUnits": false, "heightCm": 70, "goalWeight": 176.4 }
+        }
+        """;
+
+        await _service.ImportFromJsonAsync(json);
+
+        (await _data.GetWeightEntryAsync(Date(1)))!.Weight.Should().BeApproximately(
+            80, 0.05, "176.4 lb is 80 kg - reading it as kilograms would be wrong by 2.2x");
+        _prefs.HeightCm.Should().BeApproximately(177.8, 0.05);
+    }
+
+    [TestMethod]
+    public async Task Import_OfAFileWithANullVersion_TakesItAsTheLegacyFormat()
+    {
+        var json = """
+        {
+          "version": null,
+          "dailyEntries": [],
+          "weightEntries": [ { "date": "2026-04-01", "weight": 176.4 } ],
+          "settings": { "useMetricUnits": false }
+        }
+        """;
+
+        var result = await _service.ImportFromJsonAsync(json);
+
+        result.Success.Should().BeTrue();
+        (await _data.GetWeightEntryAsync(Date(1)))!.Weight.Should().BeApproximately(80, 0.05);
     }
 
     [TestMethod]
