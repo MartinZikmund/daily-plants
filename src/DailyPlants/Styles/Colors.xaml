@@ -40,6 +40,13 @@
             <SolidColorBrush x:Key="DpClayBrush" Color="{StaticResource DpClayColor}" />
             <SolidColorBrush x:Key="DpParadeBrush" Color="{StaticResource DpParadeColor}" />
             <SolidColorBrush x:Key="DpParadeInkBrush" Color="{StaticResource DpParadeInkColor}" />
+
+            <!--
+                Linen laid over the Mica backdrop. Mica should tint the page, not become
+                it: at full strength the wallpaper washes across the reading surface and
+                the paper ground disappears. Reading text keeps priority over the material.
+            -->
+            <SolidColorBrush x:Key="DpGroundScrimBrush" Opacity="0.62" Color="{StaticResource DpGroundColor}" />
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
@@ -72,6 +79,9 @@
             <SolidColorBrush x:Key="DpClayBrush" Color="{StaticResource DpClayColor}" />
             <SolidColorBrush x:Key="DpParadeBrush" Color="{StaticResource DpParadeColor}" />
             <SolidColorBrush x:Key="DpParadeInkBrush" Color="{StaticResource DpParadeInkColor}" />
+
+            <!--  Dark Mica carries more contrast, so the scrim sits a little heavier  -->
+            <SolidColorBrush x:Key="DpGroundScrimBrush" Opacity="0.68" Color="{StaticResource DpGroundColor}" />
         </ResourceDictionary>
 
         <!--  Only the approved system color brushes are legal here. No accents, no opacity.  -->
@@ -86,6 +96,7 @@
             <StaticResource x:Key="DpClayBrush" ResourceKey="SystemColorWindowTextColorBrush" />
             <StaticResource x:Key="DpParadeBrush" ResourceKey="SystemColorHighlightColorBrush" />
             <StaticResource x:Key="DpParadeInkBrush" ResourceKey="SystemColorHighlightTextColorBrush" />
+            <StaticResource x:Key="DpGroundScrimBrush" ResourceKey="SystemColorWindowColorBrush" />
         </ResourceDictionary>
 
     </ResourceDictionary.ThemeDictionaries>

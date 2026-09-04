@@ -31,21 +31,21 @@
                             <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                            <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="DpGroundScrimBrush" />
                             <StaticResource x:Key="NavigationViewItemSeparatorForeground" ResourceKey="DpHairlineBrush" />
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Dark">
                             <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                            <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="DpGroundScrimBrush" />
                             <StaticResource x:Key="NavigationViewItemSeparatorForeground" ResourceKey="DpHairlineBrush" />
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="HighContrast">
                             <StaticResource x:Key="NavigationViewExpandedPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewDefaultPaneBackground" ResourceKey="DpSurfaceBrush" />
                             <StaticResource x:Key="NavigationViewTopPaneBackground" ResourceKey="DpSurfaceBrush" />
-                            <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="DpGroundBrush" />
+                            <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="DpGroundScrimBrush" />
                             <StaticResource x:Key="NavigationViewItemSeparatorForeground" ResourceKey="DpHairlineBrush" />
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
