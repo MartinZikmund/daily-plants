@@ -8,6 +8,19 @@
       Background="{ThemeResource DpGroundBrush}">
 
     <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
+
+        <!--
+            The system draws the caption buttons, so their colours have to be handed to
+            AppWindowTitleBar as Color values rather than brushes. This zero-size probe
+            is how code reads the theme-resolved palette without hardcoding hex.
+        -->
+        <Border
+            x:Name="ThemeProbe"
+            Width="0"
+            Height="0"
+            Background="{ThemeResource DpInkBrush}"
+            BorderBrush="{ThemeResource DpInkMutedBrush}"
+            IsHitTestVisible="False" />
         <NavigationView x:Name="NavView"
                         AutomationProperties.AutomationId="ShellNavigationView"
                         IsBackButtonVisible="Collapsed"
