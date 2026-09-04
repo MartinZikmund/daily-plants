@@ -312,9 +312,11 @@ public sealed partial class DiaryView : Page
             // than left believing a serving was recorded.
             var dialog = new ContentDialog
             {
-                Title = "Could not save",
-                Content = "That change could not be saved and has been undone. Please try again.",
-                CloseButtonText = "OK",
+                Title = Localizer.GetString("Diary_SaveFailedTitle", "Could not save"),
+                Content = Localizer.GetString(
+                    "Diary_SaveFailedMessage",
+                    "That change could not be saved and has been undone. Please try again."),
+                CloseButtonText = Localizer.GetString("Common_Ok", "OK"),
                 XamlRoot = XamlRoot
             };
 

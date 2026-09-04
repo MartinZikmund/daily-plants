@@ -1,3 +1,5 @@
+﻿using System.Globalization;
+using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
@@ -177,20 +179,39 @@ public partial class App : Application
         }
     }
 
+    /// <summary>
+    /// The log path is appended rather than dropped into the middle of a sentence, so that
+    /// translations do not have to bend a grammatical case around a file path.
+    /// </summary>
+    private static string DescribeDatabaseFailure(Exception failure)
+    {
+        var explanation = AppLog.LogFilePath is { } path
+            ? string.Format(
+                CultureInfo.CurrentCulture,
+                Localizer.GetString(
+                    "Database_FailureMessage",
+                    "Your entries could not be loaded and changes may not be saved. Restart the "
+                        + "app, and if this keeps happening the log file has the details: {0}"),
+                path)
+            : Localizer.GetString(
+                "Database_FailureMessageNoLog",
+                "Your entries could not be loaded and changes may not be saved. Restart the app, "
+                    + "and if this keeps happening the details are in the log in the app data folder.");
+
+        return explanation + Environment.NewLine + Environment.NewLine + failure.Message;
+    }
+
     private async Task ShowDatabaseFailureAsync(Exception failure)
     {
         try
         {
             var dialog = new ContentDialog
             {
-                Title = "Daily Plants could not open your data",
-                Content = "Your entries could not be loaded and changes may not be saved. "
-                    + "Restart the app, and if this keeps happening the log file at "
-                    + (AppLog.LogFilePath ?? "the app data folder")
-                    + " has the details."
-                    + Environment.NewLine + Environment.NewLine
-                    + failure.Message,
-                CloseButtonText = "Continue anyway",
+                Title = Localizer.GetString(
+                    "Database_FailureTitle",
+                    "Daily Plants could not open your data"),
+                Content = DescribeDatabaseFailure(failure),
+                CloseButtonText = Localizer.GetString("Database_FailureContinue", "Continue anyway"),
                 XamlRoot = MainWindow?.Content?.XamlRoot
             };
 

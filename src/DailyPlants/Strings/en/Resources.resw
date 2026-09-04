@@ -1071,6 +1071,36 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Complete nuts 100 times</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants could not open your data</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Your entries could not be loaded and changes may not be saved. Restart the app, and if this keeps happening the log file has the details: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Your entries could not be loaded and changes may not be saved. Restart the app, and if this keeps happening the details are in the log in the app data folder.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Continue anyway</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Could not save</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>That change could not be saved and has been undone. Please try again.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Import data</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Entries for dates in this file will replace the ones already saved. Export your current data first if you want a backup. Continue?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Imported {0} entries, {1} weight records and {2} achievements.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} rows were skipped because the app could not read them.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
