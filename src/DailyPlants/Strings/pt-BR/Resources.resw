@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0}% concluído</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0} de {1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>Por Fazer</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>Concluído Hoje</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>Sequência de {0} Dias</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>Todas as porções, feitas!</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>Todas as {0} porções de {1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

@@ -1,0 +1,85 @@
+﻿<UserControl
+    x:Class="DailyPlants.Controls.ServingStepper"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="using:DailyPlants.Helpers"
+    xmlns:local="using:DailyPlants.Controls"
+    xmlns:vm="using:DailyPlants.ViewModels">
+
+    <!--
+        The serving control, shared by the Diary row and the item detail dialog so the
+        two cannot drift apart. Remove stays hidden until there is something to remove.
+    -->
+    <StackPanel
+        VerticalAlignment="Center"
+        Orientation="Horizontal"
+        Spacing="12">
+
+        <Button
+            AutomationProperties.AutomationId="ServingStepperDecrement"
+            AutomationProperties.Name="{helpers:Localize Key=Diary_DecreaseServing}"
+            BorderBrush="{ThemeResource DpInkMutedBrush}"
+            Command="{x:Bind Item.DecrementServingCommand, Mode=OneWay}"
+            IsEnabled="{x:Bind Item.CanDecrement, Mode=OneWay}"
+            Style="{StaticResource DpStepperButtonStyle}"
+            ToolTipService.ToolTip="{helpers:Localize Key=Diary_DecreaseServing}"
+            Visibility="{x:Bind local:ServingStepper.RemoveVisibility(Item.CanDecrement, CollapseRemoveWhenEmpty), Mode=OneWay}">
+            <Grid Width="10" Height="10">
+                <Rectangle
+                    Width="10"
+                    Height="1.4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource DpInkMutedBrush}" />
+            </Grid>
+        </Button>
+
+        <!--  One dot per recommended serving; an earned dot fills over 180ms  -->
+        <ItemsRepeater VerticalAlignment="Center" ItemsSource="{x:Bind Item.ServingIndicators, Mode=OneWay}">
+            <ItemsRepeater.Layout>
+                <StackLayout Orientation="Horizontal" Spacing="4" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="vm:ServingIndicator">
+                    <Grid Width="10" Height="10">
+                        <Ellipse Stroke="{ThemeResource DpGreenBrush}" StrokeThickness="1.4" />
+                        <Ellipse Fill="{ThemeResource DpGreenBrush}" Opacity="{x:Bind FillOpacity, Mode=OneWay}">
+                            <Ellipse.OpacityTransition>
+                                <ScalarTransition Duration="0:0:0.18" />
+                            </Ellipse.OpacityTransition>
+                        </Ellipse>
+                    </Grid>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+
+        <!--
+            Drawn rather than a glyph: a FontIcon sits on a text baseline and never
+            optically centres in a circle. Two rectangles do, at the same 1.4px weight
+            as the dots, and it costs no icon font on the non-Windows heads.
+        -->
+        <Button
+            AutomationProperties.AutomationId="ServingStepperIncrement"
+            AutomationProperties.Name="{helpers:Localize Key=Diary_IncreaseServing}"
+            BorderBrush="{ThemeResource DpGreenBrush}"
+            Command="{x:Bind Item.IncrementServingCommand, Mode=OneWay}"
+            Style="{StaticResource DpStepperButtonStyle}"
+            ToolTipService.ToolTip="{helpers:Localize Key=Diary_IncreaseServing}">
+            <Grid Width="10" Height="10">
+                <Rectangle
+                    Width="10"
+                    Height="1.4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource DpGreenBrush}" />
+                <Rectangle
+                    Width="1.4"
+                    Height="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource DpGreenBrush}" />
+            </Grid>
+        </Button>
+    </StackPanel>
+
+</UserControl>

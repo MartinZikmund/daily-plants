@@ -10,6 +10,12 @@
                 <!--  Load WinUI resources  -->
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.SettingsControls/Themes/Generic.xaml" />
+
+                <!--  Windowsill design system  -->
+                <ResourceDictionary Source="ms-appx:///Styles/Colors.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/Typography.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/Dialogs.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Converters  -->
@@ -23,34 +29,6 @@
             <converters:ProgressToTextColorConverter x:Key="ProgressToTextColorConverter" />
             <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
             <converters:StringToUriConverter x:Key="StringToUriConverter" />
-
-            <!--  Green Theme Colors  -->
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <Color x:Key="SystemAccentColor">#4CAF50</Color>
-                    <Color x:Key="SystemAccentColorLight1">#66BB6A</Color>
-                    <Color x:Key="SystemAccentColorLight2">#81C784</Color>
-                    <Color x:Key="SystemAccentColorLight3">#A5D6A7</Color>
-                    <Color x:Key="SystemAccentColorDark1">#43A047</Color>
-                    <Color x:Key="SystemAccentColorDark2">#388E3C</Color>
-                    <Color x:Key="SystemAccentColorDark3">#2E7D32</Color>
-                    <SolidColorBrush x:Key="AccentBrush" Color="#4CAF50" />
-                    <SolidColorBrush x:Key="AccentBrushLight" Color="#81C784" />
-                    <SolidColorBrush x:Key="AccentBrushDark" Color="#388E3C" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <Color x:Key="SystemAccentColor">#66BB6A</Color>
-                    <Color x:Key="SystemAccentColorLight1">#81C784</Color>
-                    <Color x:Key="SystemAccentColorLight2">#A5D6A7</Color>
-                    <Color x:Key="SystemAccentColorLight3">#C8E6C9</Color>
-                    <Color x:Key="SystemAccentColorDark1">#4CAF50</Color>
-                    <Color x:Key="SystemAccentColorDark2">#43A047</Color>
-                    <Color x:Key="SystemAccentColorDark3">#388E3C</Color>
-                    <SolidColorBrush x:Key="AccentBrush" Color="#66BB6A" />
-                    <SolidColorBrush x:Key="AccentBrushLight" Color="#A5D6A7" />
-                    <SolidColorBrush x:Key="AccentBrushDark" Color="#4CAF50" />
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
 
         </ResourceDictionary>
     </Application.Resources>

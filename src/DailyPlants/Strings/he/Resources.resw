@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0}% הושלם</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0} מתוך {1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>נותר לביצוע</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>בוצע היום</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>רצף של {0} ימים</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>כל המנות הושלמו.</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>כל {0} המנות ל-{1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

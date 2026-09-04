@@ -829,6 +829,25 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>已完成 {0}%</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0}/{1}份</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>尚待完成</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>今天已完成</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>連勝{0}天</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>每一份，都做到了！</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>{1}的全部{0}份，都做到了。</value>
+
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

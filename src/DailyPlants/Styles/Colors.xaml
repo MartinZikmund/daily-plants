@@ -1,0 +1,104 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        Windowsill palette. Nine tokens, each with exactly one meaning.
+        Dark is authored, not inverted: the ground stays a warm green-black and
+        the green lifts two steps to clear 4.5:1 against it.
+    -->
+    <ResourceDictionary.ThemeDictionaries>
+
+        <ResourceDictionary x:Key="Light">
+            <Color x:Key="DpGroundColor">#FBFAF5</Color>
+            <Color x:Key="DpSurfaceColor">#F3F1E9</Color>
+            <Color x:Key="DpHairlineColor">#E6E3D8</Color>
+            <Color x:Key="DpInkColor">#23271F</Color>
+            <Color x:Key="DpInkMutedColor">#767C6C</Color>
+            <Color x:Key="DpGreenColor">#4C7A56</Color>
+            <Color x:Key="DpGreenInkColor">#3A6244</Color>
+            <Color x:Key="DpClayColor">#B9724C</Color>
+            <Color x:Key="DpParadeColor">#3A6244</Color>
+            <Color x:Key="DpParadeInkColor">#F7F5EC</Color>
+
+            <!--  Overriding the system colors lets stock controls inherit the palette  -->
+            <Color x:Key="SystemAccentColor">#4C7A56</Color>
+            <Color x:Key="SystemAccentColorLight1">#5C8A62</Color>
+            <Color x:Key="SystemAccentColorLight2">#77A47D</Color>
+            <Color x:Key="SystemAccentColorLight3">#9CBFA1</Color>
+            <Color x:Key="SystemAccentColorDark1">#436E4C</Color>
+            <Color x:Key="SystemAccentColorDark2">#3A6244</Color>
+            <Color x:Key="SystemAccentColorDark3">#2F5138</Color>
+
+            <SolidColorBrush x:Key="DpGroundBrush" Color="{StaticResource DpGroundColor}" />
+            <SolidColorBrush x:Key="DpSurfaceBrush" Color="{StaticResource DpSurfaceColor}" />
+            <SolidColorBrush x:Key="DpHairlineBrush" Color="{StaticResource DpHairlineColor}" />
+            <SolidColorBrush x:Key="DpInkBrush" Color="{StaticResource DpInkColor}" />
+            <SolidColorBrush x:Key="DpInkMutedBrush" Color="{StaticResource DpInkMutedColor}" />
+            <SolidColorBrush x:Key="DpGreenBrush" Color="{StaticResource DpGreenColor}" />
+            <SolidColorBrush x:Key="DpGreenInkBrush" Color="{StaticResource DpGreenInkColor}" />
+            <SolidColorBrush x:Key="DpClayBrush" Color="{StaticResource DpClayColor}" />
+            <SolidColorBrush x:Key="DpParadeBrush" Color="{StaticResource DpParadeColor}" />
+            <SolidColorBrush x:Key="DpParadeInkBrush" Color="{StaticResource DpParadeInkColor}" />
+
+            <!--
+                Linen laid over the Mica backdrop. Mica should tint the page, not become
+                it: at full strength the wallpaper washes across the reading surface and
+                the paper ground disappears. Reading text keeps priority over the material.
+            -->
+            <SolidColorBrush x:Key="DpGroundScrimBrush" Opacity="0.62" Color="{StaticResource DpGroundColor}" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <Color x:Key="DpGroundColor">#191A15</Color>
+            <Color x:Key="DpSurfaceColor">#20221B</Color>
+            <Color x:Key="DpHairlineColor">#2E3128</Color>
+            <Color x:Key="DpInkColor">#E9EAE1</Color>
+            <Color x:Key="DpInkMutedColor">#959B8A</Color>
+            <Color x:Key="DpGreenColor">#82B189</Color>
+            <Color x:Key="DpGreenInkColor">#A3CBA8</Color>
+            <Color x:Key="DpClayColor">#D19670</Color>
+            <Color x:Key="DpParadeColor">#2A4A33</Color>
+            <Color x:Key="DpParadeInkColor">#F2F5EA</Color>
+
+            <Color x:Key="SystemAccentColor">#82B189</Color>
+            <Color x:Key="SystemAccentColorLight1">#9CC4A2</Color>
+            <Color x:Key="SystemAccentColorLight2">#B4D5B9</Color>
+            <Color x:Key="SystemAccentColorLight3">#CDE4D1</Color>
+            <Color x:Key="SystemAccentColorDark1">#6B9A72</Color>
+            <Color x:Key="SystemAccentColorDark2">#57845F</Color>
+            <Color x:Key="SystemAccentColorDark3">#436E4C</Color>
+
+            <SolidColorBrush x:Key="DpGroundBrush" Color="{StaticResource DpGroundColor}" />
+            <SolidColorBrush x:Key="DpSurfaceBrush" Color="{StaticResource DpSurfaceColor}" />
+            <SolidColorBrush x:Key="DpHairlineBrush" Color="{StaticResource DpHairlineColor}" />
+            <SolidColorBrush x:Key="DpInkBrush" Color="{StaticResource DpInkColor}" />
+            <SolidColorBrush x:Key="DpInkMutedBrush" Color="{StaticResource DpInkMutedColor}" />
+            <SolidColorBrush x:Key="DpGreenBrush" Color="{StaticResource DpGreenColor}" />
+            <SolidColorBrush x:Key="DpGreenInkBrush" Color="{StaticResource DpGreenInkColor}" />
+            <SolidColorBrush x:Key="DpClayBrush" Color="{StaticResource DpClayColor}" />
+            <SolidColorBrush x:Key="DpParadeBrush" Color="{StaticResource DpParadeColor}" />
+            <SolidColorBrush x:Key="DpParadeInkBrush" Color="{StaticResource DpParadeInkColor}" />
+
+            <!--  Dark Mica carries more contrast, so the scrim sits a little heavier  -->
+            <SolidColorBrush x:Key="DpGroundScrimBrush" Opacity="0.68" Color="{StaticResource DpGroundColor}" />
+        </ResourceDictionary>
+
+        <!--  Only the approved system color brushes are legal here. No accents, no opacity.  -->
+        <ResourceDictionary x:Key="HighContrast">
+            <StaticResource x:Key="DpGroundBrush" ResourceKey="SystemColorWindowColorBrush" />
+            <StaticResource x:Key="DpSurfaceBrush" ResourceKey="SystemColorWindowColorBrush" />
+            <StaticResource x:Key="DpHairlineBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+            <StaticResource x:Key="DpInkBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+            <StaticResource x:Key="DpInkMutedBrush" ResourceKey="SystemColorGrayTextColorBrush" />
+            <StaticResource x:Key="DpGreenBrush" ResourceKey="SystemColorHighlightColorBrush" />
+            <StaticResource x:Key="DpGreenInkBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+            <StaticResource x:Key="DpClayBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+            <StaticResource x:Key="DpParadeBrush" ResourceKey="SystemColorHighlightColorBrush" />
+            <StaticResource x:Key="DpParadeInkBrush" ResourceKey="SystemColorHighlightTextColorBrush" />
+            <StaticResource x:Key="DpGroundScrimBrush" ResourceKey="SystemColorWindowColorBrush" />
+        </ResourceDictionary>
+
+    </ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>

@@ -1,0 +1,45 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        ContentDialog is hosted in a popup, so it does not inherit the page's
+        surface colours. Redirecting its brushes here keeps dialogs on the same
+        paper as the rest of the app instead of the stock WinUI grey.
+    -->
+    <ResourceDictionary.ThemeDictionaries>
+
+        <ResourceDictionary x:Key="Light">
+            <StaticResource x:Key="ContentDialogBackground" ResourceKey="DpGroundBrush" />
+            <StaticResource x:Key="ContentDialogForeground" ResourceKey="DpInkBrush" />
+            <StaticResource x:Key="ContentDialogBorderBrush" ResourceKey="DpHairlineBrush" />
+            <StaticResource x:Key="ContentDialogTopOverlay" ResourceKey="DpGroundBrush" />
+            <StaticResource x:Key="ContentDialogSeparatorBorderBrush" ResourceKey="DpHairlineBrush" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <StaticResource x:Key="ContentDialogBackground" ResourceKey="DpGroundBrush" />
+            <StaticResource x:Key="ContentDialogForeground" ResourceKey="DpInkBrush" />
+            <StaticResource x:Key="ContentDialogBorderBrush" ResourceKey="DpHairlineBrush" />
+            <StaticResource x:Key="ContentDialogTopOverlay" ResourceKey="DpGroundBrush" />
+            <StaticResource x:Key="ContentDialogSeparatorBorderBrush" ResourceKey="DpHairlineBrush" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <StaticResource x:Key="ContentDialogBackground" ResourceKey="SystemColorWindowColorBrush" />
+            <StaticResource x:Key="ContentDialogForeground" ResourceKey="SystemColorWindowTextColorBrush" />
+            <StaticResource x:Key="ContentDialogBorderBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+            <StaticResource x:Key="ContentDialogTopOverlay" ResourceKey="SystemColorWindowColorBrush" />
+            <StaticResource x:Key="ContentDialogSeparatorBorderBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+        </ResourceDictionary>
+
+    </ResourceDictionary.ThemeDictionaries>
+
+    <Style x:Key="DpContentDialogStyle"
+           BasedOn="{StaticResource DefaultContentDialogStyle}"
+           TargetType="ContentDialog">
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+</ResourceDictionary>

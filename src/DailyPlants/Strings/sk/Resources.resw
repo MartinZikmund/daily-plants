@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0} % splnené</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0} z {1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>Ešte zostáva</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>Dnes hotovo</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>{0}-dňová séria</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>Všetky porcie splnené.</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>Všetkých {0} porcií pre {1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0}% завършено</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0} от {1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>Остава</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>Завършено днес</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>{0}-дневна поредица</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>Всички порции завършени.</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>Всички {0} порции за {1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

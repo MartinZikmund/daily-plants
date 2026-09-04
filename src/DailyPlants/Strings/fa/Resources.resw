@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0}٪ تکمیل‌شده</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0} از {1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>باقی‌مانده</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>انجام‌شده امروز</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>دوره {0} روزه</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>همهٔ سهم‌ها، تکمیل شد.</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>تمام {0} سهم برای {1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

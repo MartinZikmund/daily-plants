@@ -2,7 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DailyPlants.Views"
-      xmlns:helpers="using:DailyPlants.Helpers">
+      xmlns:helpers="using:DailyPlants.Helpers"
+      Background="Transparent">
 
     <ScrollViewer Padding="16">
         <StackPanel Spacing="16"
@@ -12,44 +13,53 @@
             <StackPanel Spacing="8" HorizontalAlignment="Center">
                 <Image Source="ms-appx:///Assets/Svg/applogo.svg" Width="100" Height="100" />
                 <TextBlock Text="{helpers:Localize Key=AppName}"
-                           Style="{StaticResource TitleLargeTextBlockStyle}"
+                           Style="{StaticResource DpTitleTextBlockStyle}"
                            HorizontalAlignment="Center" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
                     <TextBlock Text="{helpers:Localize Key=About_Version}"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                               Style="{StaticResource DpCaptionTextBlockStyle}" />
                     <TextBlock x:Name="VersionText"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                               Style="{StaticResource DpCaptionTextBlockStyle}" />
                 </StackPanel>
             </StackPanel>
 
             <!-- Description -->
             <TextBlock Text="{helpers:Localize Key=About_Description}"
                        TextWrapping="Wrap"
-                       Style="{StaticResource BodyTextBlockStyle}"
+                       Style="{StaticResource DpBodyTextBlockStyle}"
                        TextAlignment="Center" />
 
             <!-- Links -->
             <StackPanel Spacing="8">
                 <HyperlinkButton Content="{helpers:Localize Key=About_NutritionFacts}"
                                  NavigateUri="https://nutritionfacts.org"
-                                 HorizontalAlignment="Center" />
+                                 HorizontalAlignment="Center"
+                                 AutomationProperties.AutomationId="NutritionFactsLink" />
                 <TextBlock Text="{helpers:Localize Key=About_NutritionFactsDesc}"
-                           Style="{StaticResource CaptionTextBlockStyle}"
-                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
                            HorizontalAlignment="Center" />
             </StackPanel>
 
             <!-- Credits -->
             <StackPanel Spacing="4" Margin="0,16,0,0">
                 <TextBlock Text="{helpers:Localize Key=About_BuiltWith}"
-                           Style="{StaticResource CaptionTextBlockStyle}"
-                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
                            HorizontalAlignment="Center" />
                 <TextBlock Text="{helpers:Localize Key=About_CreditsDesc}"
-                           Style="{StaticResource CaptionTextBlockStyle}"
-                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
+                           HorizontalAlignment="Center" />
+
+                <!--
+                    Not localized: Strings/*.resw belong to another agent's scope.
+                    Free-tier Icons8 requires a visible attribution link (see
+                    docs/design/windowsill.md, "Licensing — unresolved").
+                -->
+                <HyperlinkButton Content="Visit Icons8.com"
+                                 NavigateUri="https://icons8.com"
+                                 HorizontalAlignment="Center"
+                                 AutomationProperties.AutomationId="Icons8Link" />
+                <TextBlock Text="Item and achievement icons by Icons8"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
                            HorizontalAlignment="Center" />
             </StackPanel>
 

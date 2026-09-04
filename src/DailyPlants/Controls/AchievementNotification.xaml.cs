@@ -1,5 +1,6 @@
 using DailyPlants.Helpers;
 using DailyPlants.Models;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -63,6 +64,8 @@ public sealed partial class AchievementNotification : UserControl
 
         // Show with animation
         RootGrid.Visibility = Visibility.Visible;
+        var eyebrow = Localizer.GetString("Achievement_Unlocked");
+        AutomationProperties.SetName(RootGrid, $"{eyebrow}. {AchievementName.Text}. {AchievementDescription.Text}");
         AnimateIn();
 
         // Auto-hide after 5 seconds

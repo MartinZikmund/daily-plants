@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0}% kész</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0}/{1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>Még hátravan</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>Ma kész</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>{0} napos sorozat</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>Minden adag, kész.</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>Mind a {0} adag megvan – {1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

@@ -829,6 +829,24 @@
   <data name="Diary_PercentComplete" xml:space="preserve">
     <value>{0}% completat</value>
   </data>
+  <data name="Diary_ServingsTally" xml:space="preserve">
+    <value>{0} din {1}</value>
+  </data>
+  <data name="Diary_StillToGo" xml:space="preserve">
+    <value>Rămase</value>
+  </data>
+  <data name="Diary_DoneToday" xml:space="preserve">
+    <value>Completate azi</value>
+  </data>
+  <data name="Diary_StreakDays" xml:space="preserve">
+    <value>Serie de {0} zile</value>
+  </data>
+  <data name="Diary_DayCompleteHeadline" xml:space="preserve">
+    <value>Toate porțiile, completate!</value>
+  </data>
+  <data name="Diary_DayCompleteSubhead" xml:space="preserve">
+    <value>Toate cele {0} porții pentru {1}.</value>
+  </data>
 
   <!-- Achievements - Navigation -->
   <data name="Nav_Achievements" xml:space="preserve">

@@ -23,7 +23,7 @@ public partial class AchievementsViewModel : ObservableObject
     private int _totalCount;
 
     [ObservableProperty]
-    private string _progressText = "0 / 0";
+    private string _tallyText = "0 of 0";
 
     public ObservableCollection<AchievementGroupViewModel> AchievementGroups { get; } = [];
 
@@ -52,7 +52,7 @@ public partial class AchievementsViewModel : ObservableObject
 
             TotalCount = allAchievements.Count;
             EarnedCount = earnedIds.Count;
-            ProgressText = $"{EarnedCount} / {TotalCount}";
+            TallyText = $"{EarnedCount} of {TotalCount}";
 
             AchievementGroups.Clear();
 
@@ -66,8 +66,7 @@ public partial class AchievementsViewModel : ObservableObject
                 var groupVm = new AchievementGroupViewModel
                 {
                     Type = group.Key,
-                    TypeName = GetTypeName(group.Key),
-                    TypeIcon = GetTypeIcon(group.Key)
+                    TypeName = GetTypeName(group.Key)
                 };
 
                 foreach (var achievement in group.OrderBy(a => a.TargetValue))
@@ -84,14 +83,16 @@ public partial class AchievementsViewModel : ObservableObject
                         Description = Localizer.GetString(achievement.DescriptionKey),
                         IsEarned = isEarned,
                         EarnedAt = earnedAt,
-                        EarnedAtText = earnedAt.HasValue ? earnedAt.Value.ToLocalTime().ToString("d") : null,
+                        EarnedDateText = earnedAt?.ToLocalTime().ToString("d MMMM"),
                         Progress = progress,
-                        ProgressText = $"{currentValue} / {achievement.TargetValue}",
-                        IconGlyph = achievement.IconGlyph,
+                        ProgressText = $"{currentValue} of {achievement.TargetValue}",
                         IconUri = !string.IsNullOrEmpty(achievement.IconPath) ? new Uri(achievement.IconPath) : null,
                         BadgeColor = achievement.BadgeColor
                     });
                 }
+
+                var earnedInGroup = groupVm.Achievements.Count(a => a.IsEarned);
+                groupVm.TallyText = $"{earnedInGroup} of {groupVm.Achievements.Count}";
 
                 AchievementGroups.Add(groupVm);
             }
@@ -119,15 +120,6 @@ public partial class AchievementsViewModel : ObservableObject
         AchievementType.ItemSpecific => Localizer.GetString("Achievement_Type_ItemSpecific"),
         _ => type.ToString()
     };
-
-    private static string GetTypeIcon(AchievementType type) => type switch
-    {
-        AchievementType.Milestone => "\uE8E1",  // Star
-        AchievementType.Streak => "\uE7C1",     // Fire
-        AchievementType.Completion => "\uE73E", // Checkmark
-        AchievementType.ItemSpecific => "\uE707", // Leaf
-        _ => "\uE8E1"
-    };
 }
 
 /// <summary>
@@ -137,12 +129,12 @@ public class AchievementGroupViewModel
 {
     public AchievementType Type { get; set; }
     public string TypeName { get; set; } = string.Empty;
-    public string TypeIcon { get; set; } = string.Empty;
+    public string TallyText { get; set; } = "0 of 0";
     public ObservableCollection<AchievementViewModel> Achievements { get; } = [];
 }
 
 /// <summary>
-/// ViewModel for a single achievement.
+/// ViewModel for a single achievement tile.
 /// </summary>
 public class AchievementViewModel
 {
@@ -150,16 +142,19 @@ public class AchievementViewModel
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public bool IsEarned { get; set; }
+    public bool IsLocked => !IsEarned;
     public DateTime? EarnedAt { get; set; }
-    public string? EarnedAtText { get; set; }
+    public string? EarnedDateText { get; set; }
     public double Progress { get; set; }
-    public string ProgressText { get; set; } = "0 / 0";
-    public string IconGlyph { get; set; } = string.Empty;
+    public string ProgressText { get; set; } = "0 of 0";
     public Uri? IconUri { get; set; }
     public string BadgeColor { get; set; } = "#888888";
     public string BadgeBackground => IsEarned ? BadgeColor : "#9E9E9E";
-
     public bool ShowAsMonochrome => !IsEarned;
-    public double Opacity => IsEarned ? 1.0 : 0.5;
-    public bool ShowProgress => !IsEarned;
+    public double BadgeOpacity => IsEarned ? 1.0 : 0.45;
+
+    // Not localized: this ViewModel doesn't own the .resw files.
+    public string AutomationName => IsEarned
+        ? $"{Name}, earned {EarnedAt:d MMMM}"
+        : $"{Name}, locked, {ProgressText}";
 }
