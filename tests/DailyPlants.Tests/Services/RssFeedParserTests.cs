@@ -177,8 +177,16 @@ public class RssFeedParserTests
         => RssFeedParser.KindFromLink("https://nutritionfacts.org/audio/greens-on-the-podcast/").Should().Be(FeedKind.Podcast);
 
     [TestMethod]
-    public void KindFromLink_QuestionsPermalink_ReturnsOther()
-        => RssFeedParser.KindFromLink("https://nutritionfacts.org/questions/are-bagged-greens-safe/").Should().Be(FeedKind.Other);
+    public void KindFromLink_RecipePermalink_ReturnsRecipes()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/recipe/kale-and-white-bean-soup/").Should().Be(FeedKind.Recipes);
+
+    [TestMethod]
+    public void KindFromLink_QuestionsPermalink_ReturnsQuestions()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/questions/are-bagged-greens-safe/").Should().Be(FeedKind.Questions);
+
+    [TestMethod]
+    public void KindFromLink_WebinarPermalink_ReturnsWebinars()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/webinar/greens-live/").Should().Be(FeedKind.Webinars);
 
     [TestMethod]
     public void KindFromLink_UnrecognisedLink_ReturnsOtherNotBlog()
@@ -190,10 +198,17 @@ public class RssFeedParserTests
     }
 
     [TestMethod]
-    public void KindFromLink_VideosFeedUrl_IsNotMistakenForAVideo()
+    public void KindFromLink_PluralFeedUrls_AreNotMistakenForItems()
     {
-        // The feed URL is /videos/, an item is /video/ - the plural must not match.
+        // The feed paths are plural, the item paths singular - /videos/ is not a video, /recipes/
+        // is not a recipe, /webinars/ is not a webinar.
         RssFeedParser.KindFromLink("https://nutritionfacts.org/videos/feed/").Should().Be(FeedKind.Other);
+        RssFeedParser.KindFromLink("https://nutritionfacts.org/recipes/feed/").Should().Be(FeedKind.Other);
+        RssFeedParser.KindFromLink("https://nutritionfacts.org/webinars/feed/").Should().Be(FeedKind.Other);
+
+        // Questions is the exception the other way round: its items really are plural, so its own
+        // feed URL reads as a question. Nothing renders a feed URL as a card, so that is harmless.
+        RssFeedParser.KindFromLink("https://nutritionfacts.org/questions/feed/").Should().Be(FeedKind.Questions);
     }
 
     [TestMethod]
@@ -201,8 +216,15 @@ public class RssFeedParserTests
     {
         var items = RssFeedParser.ParseMixed(Load("search.xml"));
 
-        items.Should().HaveCount(4);
-        items.Select(item => item.Kind).Should().Equal(FeedKind.Blog, FeedKind.Videos, FeedKind.Podcast, FeedKind.Other);
+        items.Should().HaveCount(7);
+        items.Select(item => item.Kind).Should().Equal(
+            FeedKind.Blog,
+            FeedKind.Videos,
+            FeedKind.Podcast,
+            FeedKind.Questions,
+            FeedKind.Recipes,
+            FeedKind.Webinars,
+            FeedKind.Other);
     }
 
     [TestMethod]

@@ -42,5 +42,30 @@
             <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
             <description><![CDATA[<p>A question from the Q&#038;A archive.</p>]]></description>
         </item>
+        <item>
+            <title>Kale &#038; White Bean Soup</title>
+            <link>https://nutritionfacts.org/recipe/kale-and-white-bean-soup/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=505050</guid>
+            <pubDate>Sat, 30 Aug 2025 06:30:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Greens, simmered.</p>]]></description>
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/08/kale-soup.jpg" />
+        </item>
+        <item>
+            <title>Greens Live: The Webinar</title>
+            <link>https://nutritionfacts.org/webinar/greens-live/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=606060</guid>
+            <pubDate>Fri, 29 Aug 2025 17:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>An hour of questions about leafy vegetables.</p>]]></description>
+        </item>
+        <item>
+            <title>Topic: Greens</title>
+            <link>https://nutritionfacts.org/topics/greens/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=707070</guid>
+            <pubDate>Thu, 28 Aug 2025 12:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Everything on one page.</p>]]></description>
+        </item>
     </channel>
 </rss>

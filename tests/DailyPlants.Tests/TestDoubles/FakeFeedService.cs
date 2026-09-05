@@ -20,12 +20,7 @@ internal sealed class FakeFeedService : IFeedService
     private TaskCompletionSource? _pause;
 
     /// <summary>GetFeedAsync calls per feed - assert 0 to prove a tab loaded lazily.</summary>
-    public Dictionary<FeedKind, int> CallCounts { get; } = new()
-    {
-        [FeedKind.Blog] = 0,
-        [FeedKind.Videos] = 0,
-        [FeedKind.Podcast] = 0
-    };
+    public Dictionary<FeedKind, int> CallCounts { get; } = FeedKinds.Feeds.ToDictionary(kind => kind, _ => 0);
 
     /// <summary>The forceRefresh flag of the most recent GetFeedAsync call, per feed.</summary>
     public Dictionary<FeedKind, bool> LastForceRefresh { get; } = new();
@@ -99,6 +94,24 @@ internal sealed class FakeFeedService : IFeedService
         }
 
         return Task.FromResult<IReadOnlyList<FeedItem>>(LatestAcrossFeeds.Take(count).ToList());
+    }
+
+    /// <summary>What GetOverviewAsync returns, before <c>perFeed</c> is applied.</summary>
+    public IReadOnlyList<FeedGroup> OverviewGroups { get; set; } = [];
+
+    public int OverviewCallCount { get; private set; }
+
+    public Task<IReadOnlyList<FeedGroup>> GetOverviewAsync(int perFeed, CancellationToken cancellationToken = default)
+    {
+        OverviewCallCount++;
+
+        if (ExceptionToThrow is { } exception)
+        {
+            throw exception;
+        }
+
+        return Task.FromResult<IReadOnlyList<FeedGroup>>(
+            OverviewGroups.Select(group => new FeedGroup(group.Kind, group.Items.Take(Math.Max(perFeed, 0)).ToList())).ToList());
     }
 
     public async Task<FeedPage> GetFeedPageAsync(FeedKind kind, int page, CancellationToken cancellationToken = default)

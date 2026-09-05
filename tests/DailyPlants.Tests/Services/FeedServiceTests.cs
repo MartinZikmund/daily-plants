@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using DailyPlants.Tests.TestDoubles;
 
@@ -41,6 +42,22 @@ public class FeedServiceTests
         FetchedAt = fetchedAt,
         Items = [new FeedItem { Id = "cached-1", Kind = FeedKind.Blog, Title = "A Saved Post" }]
     };
+
+    /// <summary>Stubs all six feeds with fixture XML, so an overview call can succeed end to end.</summary>
+    private void RespondToEveryFeed()
+    {
+        foreach (var kind in FeedKinds.Feeds)
+        {
+            var fixture = kind switch
+            {
+                FeedKind.Videos or FeedKind.Webinars => "videos.xml",
+                FeedKind.Podcast or FeedKind.Questions => "podcast.xml",
+                _ => "blog.xml"
+            };
+
+            _handler.RespondWith(FeedService.GetFeedUrl(kind), Load(fixture));
+        }
+    }
 
     [TestMethod]
     public async Task GetFeedAsync_NoCache_FetchesAndReturnsFresh()
@@ -201,11 +218,40 @@ public class FeedServiceTests
     }
 
     [TestMethod]
+    public void GetFeedUrl_EveryFeed_UsesThePluralFeedPath()
+    {
+        // The feed path is plural where the item path is singular: /recipes/feed/ serves /recipe/
+        // items, and /recipe/feed/ is a 404. Questions is plural on both sides.
+        FeedService.GetFeedUrl(FeedKind.Blog).AbsoluteUri.Should().Be("https://nutritionfacts.org/feed/");
+        FeedService.GetFeedUrl(FeedKind.Videos).AbsoluteUri.Should().Be("https://nutritionfacts.org/videos/feed/");
+        FeedService.GetFeedUrl(FeedKind.Podcast).AbsoluteUri.Should().Be("https://nutritionfacts.org/audio/feed/");
+        FeedService.GetFeedUrl(FeedKind.Recipes).AbsoluteUri.Should().Be("https://nutritionfacts.org/recipes/feed/");
+        FeedService.GetFeedUrl(FeedKind.Questions).AbsoluteUri.Should().Be("https://nutritionfacts.org/questions/feed/");
+        FeedService.GetFeedUrl(FeedKind.Webinars).AbsoluteUri.Should().Be("https://nutritionfacts.org/webinars/feed/");
+    }
+
+    [TestMethod]
+    public void GetFeedUrl_Other_HasNoFeedOfItsOwn()
+    {
+        var url = () => FeedService.GetFeedUrl(FeedKind.Other);
+
+        url.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    [TestMethod]
     public void GetFeedUrl_PageTwoAndUp_CarriesThePagedParameter()
     {
         FeedService.GetFeedUrl(FeedKind.Blog, 2).AbsoluteUri.Should().Be("https://nutritionfacts.org/feed/?paged=2");
         FeedService.GetFeedUrl(FeedKind.Videos, 3).AbsoluteUri.Should().Be("https://nutritionfacts.org/videos/feed/?paged=3");
         FeedService.GetFeedUrl(FeedKind.Podcast, 7).AbsoluteUri.Should().Be("https://nutritionfacts.org/audio/feed/?paged=7");
+    }
+
+    [TestMethod]
+    public void GetFeedUrl_NewFeedsPageTwoAndUp_CarryThePagedParameter()
+    {
+        FeedService.GetFeedUrl(FeedKind.Recipes, 2).AbsoluteUri.Should().Be("https://nutritionfacts.org/recipes/feed/?paged=2");
+        FeedService.GetFeedUrl(FeedKind.Questions, 4).AbsoluteUri.Should().Be("https://nutritionfacts.org/questions/feed/?paged=4");
+        FeedService.GetFeedUrl(FeedKind.Webinars, 6).AbsoluteUri.Should().Be("https://nutritionfacts.org/webinars/feed/?paged=6");
     }
 
     [TestMethod]
@@ -356,9 +402,15 @@ public class FeedServiceTests
         var page = await CreateService().SearchAsync("greens", 1);
 
         page.Status.Should().Be(FeedResultStatus.Fresh);
-        page.Items.Should().HaveCount(4);
-        page.Items.Select(item => item.Kind)
-            .Should().Equal(FeedKind.Blog, FeedKind.Videos, FeedKind.Podcast, FeedKind.Other);
+        page.Items.Should().HaveCount(7);
+        page.Items.Select(item => item.Kind).Should().Equal(
+            FeedKind.Blog,
+            FeedKind.Videos,
+            FeedKind.Podcast,
+            FeedKind.Questions,
+            FeedKind.Recipes,
+            FeedKind.Webinars,
+            FeedKind.Other);
         page.MayHaveMore.Should().BeTrue();
         _cache.Store.Should().BeEmpty();
     }
@@ -371,7 +423,7 @@ public class FeedServiceTests
 
         var page = await CreateService().SearchAsync("greens", 2);
 
-        page.Items.Should().HaveCount(4);
+        page.Items.Should().HaveCount(7);
         _handler.RequestCount.Should().Be(1);
     }
 
@@ -429,5 +481,179 @@ public class FeedServiceTests
         page.Items.Should().BeEmpty();
         page.MayHaveMore.Should().BeFalse();
         _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_ReturnsOneGroupPerFeedInDisplayOrder()
+    {
+        RespondToEveryFeed();
+
+        var groups = await CreateService().GetOverviewAsync(2);
+
+        groups.Select(group => group.Kind).Should().Equal(FeedKinds.Feeds);
+        groups.Should().OnlyContain(group => group.Items.Count == 2);
+        groups.Should().OnlyContain(group => group.HasItems);
+        _handler.RequestCount.Should().Be(6);
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_AsksEachFeedForExactlyTheRequestedCount()
+    {
+        RespondToEveryFeed();
+
+        var groups = await CreateService().GetOverviewAsync(1);
+
+        // The fixtures hold three items each; the overview shows only the newest one asked for.
+        groups.Should().OnlyContain(group => group.Items.Count == 1);
+        groups[0].Items[0].Title.Should().Be("Greens & Beans: A Love Story");
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_StampsEachGroupWithItsOwnKind()
+    {
+        RespondToEveryFeed();
+
+        var groups = await CreateService().GetOverviewAsync(2);
+
+        groups.Should().OnlyContain(group => group.Items.All(item => item.Kind == group.Kind));
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_OneFeedFails_YieldsAnEmptyGroupAndKeepsTheOtherFive()
+    {
+        RespondToEveryFeed();
+        _handler.RespondWith(FeedService.GetFeedUrl(FeedKind.Recipes), new HttpRequestException("no network"));
+
+        var groups = await CreateService().GetOverviewAsync(2);
+
+        groups.Should().HaveCount(6);
+        groups.Single(group => group.Kind == FeedKind.Recipes).Items.Should().BeEmpty();
+        groups.Where(group => group.Kind != FeedKind.Recipes).Should().OnlyContain(group => group.HasItems);
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_SecondCall_ServesTheWarmCacheWithoutHttpCalls()
+    {
+        RespondToEveryFeed();
+        var service = CreateService();
+
+        await service.GetOverviewAsync(2);
+        var groups = await service.GetOverviewAsync(2);
+
+        groups.Should().OnlyContain(group => group.HasItems);
+        _handler.RequestCount.Should().Be(6);
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_FreshDiskCache_SkipsThatFeedsHttpCall()
+    {
+        RespondToEveryFeed();
+        _cache.Store[FeedKind.Webinars] = new CachedFeed
+        {
+            Kind = FeedKind.Webinars,
+            FetchedAt = Now.AddMinutes(-10),
+            Items = [new FeedItem { Id = "cached-web", Kind = FeedKind.Webinars, Title = "A Saved Webinar" }]
+        };
+
+        var groups = await CreateService().GetOverviewAsync(2);
+
+        groups.Single(group => group.Kind == FeedKind.Webinars)
+            .Items.Should().ContainSingle().Which.Title.Should().Be("A Saved Webinar");
+
+        // Only the five uncached feeds went to the network.
+        _handler.RequestCount.Should().Be(5);
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_FetchesTheSixFeedsConcurrentlyNotOneAfterAnother()
+    {
+        // Every request blocks until all six have arrived, so a sequential implementation waits out
+        // the probe timeout and comes back with empty groups instead.
+        ConcurrentArrivalHandler probe = new(expected: FeedKinds.Feeds.Count, body: Load("blog.xml"));
+        FeedService service = new(new HttpClient(probe), _cache, _clock);
+
+        var groups = await service.GetOverviewAsync(2);
+
+        groups.Should().OnlyContain(group => group.HasItems);
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_ThenOpeningATab_ServesThatFeedFromTheWarmCache()
+    {
+        // The overview is the default tab, so it warms all six. Selecting one afterwards must read
+        // what the overview already fetched rather than going back to the network for it.
+        RespondToEveryFeed();
+        var service = CreateService();
+
+        await service.GetOverviewAsync(2);
+        var page = await service.GetFeedPageAsync(FeedKind.Recipes, 1);
+
+        page.Items.Should().NotBeEmpty();
+        _handler.RequestCount.Should().Be(6, "the six the overview made, and not one more");
+    }
+
+    [TestMethod]
+    public async Task GetOverviewAsync_ZeroPerFeed_ReturnsEmptyGroupsRatherThanThrowing()
+    {
+        RespondToEveryFeed();
+
+        var groups = await CreateService().GetOverviewAsync(0);
+
+        groups.Should().HaveCount(6);
+        groups.Should().OnlyContain(group => group.Items.Count == 0);
+    }
+
+    [TestMethod]
+    public async Task GetLatestAcrossFeedsAsync_AsksOnlyTheThreeTeaserFeeds()
+    {
+        // The Diary teaser must not grow when FeedKind does: six fetches on the app's first page
+        // is not worth two more cards. Every request is counted, so 3 is the proof.
+        RespondToEveryFeed();
+
+        await CreateService().GetLatestAcrossFeedsAsync(10);
+
+        _handler.RequestCount.Should().Be(3);
+    }
+
+    /// <summary>
+    /// Answers only once every expected request has arrived: succeeds under a concurrent caller,
+    /// times out under a sequential one.
+    /// </summary>
+    private sealed class ConcurrentArrivalHandler : HttpMessageHandler
+    {
+        private static readonly TimeSpan GiveUpAfter = TimeSpan.FromSeconds(5);
+
+        private readonly int _expected;
+        private readonly string _body;
+        private readonly TaskCompletionSource _allArrived = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        private int _arrived;
+
+        public ConcurrentArrivalHandler(int expected, string body)
+        {
+            _expected = expected;
+            _body = body;
+        }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (Interlocked.Increment(ref _arrived) >= _expected)
+            {
+                _allArrived.TrySetResult();
+            }
+
+            try
+            {
+                await _allArrived.Task.WaitAsync(GiveUpAfter, cancellationToken);
+            }
+            catch (TimeoutException)
+            {
+                // Give up for everyone, so a sequential caller fails once rather than six times over.
+                _allArrived.TrySetResult();
+                throw;
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(_body) };
+        }
     }
 }

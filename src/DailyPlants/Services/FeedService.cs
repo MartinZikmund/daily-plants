@@ -30,12 +30,8 @@ public sealed class FeedService : IFeedService
     private readonly IFeedCache _cache;
     private readonly TimeProvider _timeProvider;
 
-    private readonly Dictionary<FeedKind, SemaphoreSlim> _gates = new()
-    {
-        [FeedKind.Blog] = new(1, 1),
-        [FeedKind.Videos] = new(1, 1),
-        [FeedKind.Podcast] = new(1, 1)
-    };
+    private readonly Dictionary<FeedKind, SemaphoreSlim> _gates =
+        FeedKinds.Feeds.ToDictionary(kind => kind, _ => new SemaphoreSlim(1, 1));
 
     private readonly ConcurrentDictionary<FeedKind, CachedFeed> _memory = new();
 
@@ -52,11 +48,16 @@ public sealed class FeedService : IFeedService
     /// </summary>
     public static Uri GetFeedUrl(FeedKind kind, int page = 1)
     {
+        // The feed path is plural where the item path is singular - /recipes/feed/ serves
+        // /recipe/ items - and /recipe/feed/ is a 404.
         var path = kind switch
         {
             FeedKind.Blog => "feed/",
             FeedKind.Videos => "videos/feed/",
             FeedKind.Podcast => "audio/feed/",
+            FeedKind.Recipes => "recipes/feed/",
+            FeedKind.Questions => "questions/feed/",
+            FeedKind.Webinars => "webinars/feed/",
             _ => throw new ArgumentOutOfRangeException(nameof(kind))
         };
 
@@ -156,6 +157,7 @@ public sealed class FeedService : IFeedService
     public async Task<IReadOnlyList<FeedItem>> GetLatestAcrossFeedsAsync(int count, CancellationToken cancellationToken = default)
     {
         // Each call already degrades on its own failure, so a dead feed cannot fail the whole strip.
+        // Three feeds by name, not FeedKinds.Feeds: the teaser must not grow when FeedKind does.
         var results = await Task.WhenAll(
             GetFeedAsync(FeedKind.Blog, cancellationToken: cancellationToken),
             GetFeedAsync(FeedKind.Videos, cancellationToken: cancellationToken),
@@ -167,6 +169,17 @@ public sealed class FeedService : IFeedService
             .OrderByDescending(item => item.PublishedAt ?? DateTimeOffset.MinValue)
             .Take(count)
             .ToList();
+    }
+
+    public async Task<IReadOnlyList<FeedGroup>> GetOverviewAsync(int perFeed, CancellationToken cancellationToken = default)
+    {
+        // Concurrently, not one after another: six sequential round trips is the whole page's wait.
+        // Each call carries its own cache and failure handling, so a dead feed only empties its group.
+        var results = await Task.WhenAll(
+            FeedKinds.Feeds.Select(kind => GetFeedAsync(kind, cancellationToken: cancellationToken)));
+
+        var take = Math.Max(perFeed, 0);
+        return results.Select(result => new FeedGroup(result.Kind, result.Items.Take(take).ToList())).ToList();
     }
 
     private async Task<FeedResult> FetchAsync(FeedKind kind, CachedFeed? cached, CancellationToken cancellationToken)

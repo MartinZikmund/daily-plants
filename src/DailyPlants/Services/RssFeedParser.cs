@@ -35,8 +35,23 @@ public static class RssFeedParser
     public static IReadOnlyList<FeedItem> ParseMixed(string xml) => ParseItems(xml, kind: null);
 
     /// <summary>
-    /// The kind a search hit belongs to, read off its permalink: /blog/ is a post, /video/ a video,
-    /// /audio/ a podcast episode. Anything else - /questions/ today - is
+    /// An item permalink and the kind it belongs to. Item paths are singular where the feed path is
+    /// plural (/recipes/feed/ serves /recipe/ items), so matching the segment with both slashes is
+    /// what keeps a feed URL from being read as an item. Questions is the exception: its items
+    /// really do sit under /questions/.
+    /// </summary>
+    private static readonly (string Segment, FeedKind Kind)[] ItemSegments =
+    [
+        ("/blog/", FeedKind.Blog),
+        ("/video/", FeedKind.Videos),
+        ("/audio/", FeedKind.Podcast),
+        ("/recipe/", FeedKind.Recipes),
+        ("/questions/", FeedKind.Questions),
+        ("/webinar/", FeedKind.Webinars)
+    ];
+
+    /// <summary>
+    /// The kind a search hit belongs to, read off its permalink. Anything unrecognised is
     /// <see cref="FeedKind.Other"/>; guessing Blog would mislabel the card.
     /// </summary>
     public static FeedKind KindFromLink(string? link)
@@ -46,19 +61,12 @@ public static class RssFeedParser
             return FeedKind.Other;
         }
 
-        if (link.Contains("/blog/", StringComparison.OrdinalIgnoreCase))
+        foreach (var (segment, kind) in ItemSegments)
         {
-            return FeedKind.Blog;
-        }
-
-        if (link.Contains("/video/", StringComparison.OrdinalIgnoreCase))
-        {
-            return FeedKind.Videos;
-        }
-
-        if (link.Contains("/audio/", StringComparison.OrdinalIgnoreCase))
-        {
-            return FeedKind.Podcast;
+            if (link.Contains(segment, StringComparison.OrdinalIgnoreCase))
+            {
+                return kind;
+            }
         }
 
         return FeedKind.Other;

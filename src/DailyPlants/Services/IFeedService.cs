@@ -33,11 +33,23 @@ public interface IFeedService
     Task<FeedResult> GetFeedAsync(FeedKind kind, bool forceRefresh = false, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// The newest <paramref name="count"/> items across all three feeds, deduped by
+    /// The newest <paramref name="count"/> items across Blog, Videos and Podcast, deduped by
     /// <see cref="FeedItem.Id"/> and ordered by <see cref="FeedItem.PublishedAt"/> descending
     /// (items with no date sort last). Feeds that fail contribute nothing; the call still succeeds.
     /// </summary>
+    /// <remarks>
+    /// Deliberately three feeds, not <see cref="FeedKinds.Feeds"/>: this is the Diary teaser, and
+    /// six fetches on the app's first page is not worth two more cards.
+    /// </remarks>
     Task<IReadOnlyList<FeedItem>> GetLatestAcrossFeedsAsync(int count, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// The newest <paramref name="perFeed"/> items from each of the feeds in
+    /// <see cref="FeedKinds.Feeds"/>, one group per feed, in that display order. A feed that fails
+    /// contributes an empty group; the call still succeeds. Goes through the same memo, cache and
+    /// freshness window as <see cref="GetFeedAsync"/>, so a second visit costs no network.
+    /// </summary>
+    Task<IReadOnlyList<FeedGroup>> GetOverviewAsync(int perFeed, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Page <paramref name="page"/> (1-based) of one feed. Page 1 goes through the memo, cache and
@@ -49,7 +61,7 @@ public interface IFeedService
 
     /// <summary>
     /// One page of results from the whole nutritionfacts.org archive. Network-only, never cached,
-    /// and the items may be of any <see cref="FeedKind"/> - search crosses all three feeds and turns
+    /// and the items may be of any <see cref="FeedKind"/> - search crosses every feed and turns
     /// up pages that belong to none of them. A blank query returns an empty page without a request.
     /// Never throws.
     /// </summary>

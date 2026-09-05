@@ -32,6 +32,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <!-- The test project drives a few internal test seams (the search debounce, for one). -->
+        <InternalsVisibleTo Include="DailyPlants.Tests" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="MZikmund.Toolkit.WinUI" />
         <PackageReference Include="sqlite-net-e" />
         <PackageReference Include="SourceGear.sqlite3" />
