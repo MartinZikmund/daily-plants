@@ -1072,68 +1072,68 @@
     <value>השלימו אגוזים 100 פעמים</value>
   </data>
 
-  <!-- Latest -->
-  <data name="Nav_Latest" xml:space="preserve">
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
     <value>חדשות</value>
   </data>
-  <data name="Latest_Title" xml:space="preserve">
+  <data name="Resources_Title" xml:space="preserve">
     <value>חדשות</value>
   </data>
-  <data name="Latest_Subtitle" xml:space="preserve">
+  <data name="Resources_Subtitle" xml:space="preserve">
     <value>ישר מ-NutritionFacts.org</value>
   </data>
-  <data name="Latest_TabBlog" xml:space="preserve">
+  <data name="Resources_TabBlog" xml:space="preserve">
     <value>בלוג</value>
   </data>
-  <data name="Latest_TabVideos" xml:space="preserve">
+  <data name="Resources_TabVideos" xml:space="preserve">
     <value>סרטונים</value>
   </data>
-  <data name="Latest_TabPodcast" xml:space="preserve">
+  <data name="Resources_TabPodcast" xml:space="preserve">
     <value>פודקאסט</value>
   </data>
-  <data name="Latest_Loading" xml:space="preserve">
+  <data name="Resources_Loading" xml:space="preserve">
     <value>טוען את הפוסטים החדשים ביותר…</value>
   </data>
-  <data name="Latest_Empty" xml:space="preserve">
+  <data name="Resources_Empty" xml:space="preserve">
     <value>עדיין אין כאן כלום</value>
   </data>
-  <data name="Latest_EmptyDetail" xml:space="preserve">
+  <data name="Resources_EmptyDetail" xml:space="preserve">
     <value>חזרו בקרוב לתוכן חדש.</value>
   </data>
-  <data name="Latest_Offline" xml:space="preserve">
+  <data name="Resources_Offline" xml:space="preserve">
     <value>מוצגים פוסטים שמורים — לא הצלחנו להתחבר אל NutritionFacts.org.</value>
   </data>
-  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
     <value>לא ניתן לטעון פוסטים חדשים בגרסת הדפדפן של האפליקציה.</value>
   </data>
-  <data name="Latest_LoadError" xml:space="preserve">
+  <data name="Resources_LoadError" xml:space="preserve">
     <value>לא הצלחנו לטעון את הפוסטים החדשים ביותר.</value>
   </data>
-  <data name="Latest_Retry" xml:space="preserve">
+  <data name="Resources_Retry" xml:space="preserve">
     <value>נסה שוב</value>
   </data>
-  <data name="Latest_Refresh" xml:space="preserve">
+  <data name="Resources_Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
-  <data name="Latest_UpdatedAt" xml:space="preserve">
+  <data name="Resources_UpdatedAt" xml:space="preserve">
     <value>עודכן {0}</value>
   </data>
-  <data name="Latest_Today" xml:space="preserve">
+  <data name="Resources_Today" xml:space="preserve">
     <value>היום</value>
   </data>
-  <data name="Latest_Yesterday" xml:space="preserve">
+  <data name="Resources_Yesterday" xml:space="preserve">
     <value>אתמול</value>
   </data>
-  <data name="Latest_OpenInBrowser" xml:space="preserve">
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
     <value>פתח בדפדפן</value>
   </data>
-  <data name="Latest_ItemAutomationName" xml:space="preserve">
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
     <value>{0}. {1}, {2}</value>
   </data>
-  <data name="Latest_TeaserHeader" xml:space="preserve">
+  <data name="Resources_TeaserHeader" xml:space="preserve">
     <value>חדש מ-NutritionFacts.org</value>
   </data>
-  <data name="Latest_SeeAll" xml:space="preserve">
+  <data name="Resources_SeeAll" xml:space="preserve">
     <value>הצג הכול</value>
   </data>
 

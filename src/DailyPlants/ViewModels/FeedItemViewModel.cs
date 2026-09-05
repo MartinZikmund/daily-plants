@@ -5,7 +5,7 @@ using DailyPlants.Models;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// One card on the Latest page or in the Diary teaser.
+/// One card on the Resources page or in the Diary teaser.
 /// </summary>
 public partial class FeedItemViewModel : ObservableObject
 {
@@ -20,7 +20,7 @@ public partial class FeedItemViewModel : ObservableObject
         KindText = FormatKind(item.Kind);
         AutomationName = string.Format(
             CultureInfo.CurrentCulture,
-            Localized("Latest_ItemAutomationName", "{0}. {1}, {2}"),
+            Localized("Resources_ItemAutomationName", "{0}. {1}, {2}"),
             Title,
             KindText,
             PublishedText);
@@ -49,7 +49,7 @@ public partial class FeedItemViewModel : ObservableObject
     /// <summary>Localized feed name, e.g. "Blog" - shown as the card's kicker.</summary>
     public string KindText { get; }
 
-    /// <summary>Latest_ItemAutomationName formatted with title, kind and date.</summary>
+    /// <summary>Resources_ItemAutomationName formatted with title, kind and date.</summary>
     public string AutomationName { get; }
 
     /// <summary>Opens <see cref="FeedItem.Link"/> in the system browser.</summary>
@@ -81,12 +81,12 @@ public partial class FeedItemViewModel : ObservableObject
 
         if (localDate == today)
         {
-            return Localized("Latest_Today", "Today");
+            return Localized("Resources_Today", "Today");
         }
 
         if (localDate == today.AddDays(-1))
         {
-            return Localized("Latest_Yesterday", "Yesterday");
+            return Localized("Resources_Yesterday", "Yesterday");
         }
 
         return published.ToLocalTime().ToString("d MMM", CultureInfo.CurrentCulture);
@@ -94,9 +94,9 @@ public partial class FeedItemViewModel : ObservableObject
 
     private static string FormatKind(FeedKind kind) => kind switch
     {
-        FeedKind.Videos => Localized("Latest_TabVideos", "Videos"),
-        FeedKind.Podcast => Localized("Latest_TabPodcast", "Podcast"),
-        _ => Localized("Latest_TabBlog", "Blog")
+        FeedKind.Videos => Localized("Resources_TabVideos", "Videos"),
+        FeedKind.Podcast => Localized("Resources_TabPodcast", "Podcast"),
+        _ => Localized("Resources_TabBlog", "Blog")
     };
 
     /// <summary>

@@ -1072,68 +1072,68 @@
     <value>Complétez les noix 100 fois</value>
   </data>
 
-  <!-- Latest -->
-  <data name="Nav_Latest" xml:space="preserve">
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
     <value>Nouveautés</value>
   </data>
-  <data name="Latest_Title" xml:space="preserve">
+  <data name="Resources_Title" xml:space="preserve">
     <value>Nouveautés</value>
   </data>
-  <data name="Latest_Subtitle" xml:space="preserve">
+  <data name="Resources_Subtitle" xml:space="preserve">
     <value>En direct de NutritionFacts.org</value>
   </data>
-  <data name="Latest_TabBlog" xml:space="preserve">
+  <data name="Resources_TabBlog" xml:space="preserve">
     <value>Blog</value>
   </data>
-  <data name="Latest_TabVideos" xml:space="preserve">
+  <data name="Resources_TabVideos" xml:space="preserve">
     <value>Vidéos</value>
   </data>
-  <data name="Latest_TabPodcast" xml:space="preserve">
+  <data name="Resources_TabPodcast" xml:space="preserve">
     <value>Podcast</value>
   </data>
-  <data name="Latest_Loading" xml:space="preserve">
+  <data name="Resources_Loading" xml:space="preserve">
     <value>Chargement des derniers articles…</value>
   </data>
-  <data name="Latest_Empty" xml:space="preserve">
+  <data name="Resources_Empty" xml:space="preserve">
     <value>Rien ici pour le moment</value>
   </data>
-  <data name="Latest_EmptyDetail" xml:space="preserve">
+  <data name="Resources_EmptyDetail" xml:space="preserve">
     <value>Revenez bientôt pour découvrir du nouveau.</value>
   </data>
-  <data name="Latest_Offline" xml:space="preserve">
+  <data name="Resources_Offline" xml:space="preserve">
     <value>Affichage des articles enregistrés — nous n'avons pas pu joindre NutritionFacts.org.</value>
   </data>
-  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
     <value>Les nouveaux articles ne peuvent pas être chargés dans la version web de l'application.</value>
   </data>
-  <data name="Latest_LoadError" xml:space="preserve">
+  <data name="Resources_LoadError" xml:space="preserve">
     <value>Nous n'avons pas pu charger les derniers articles.</value>
   </data>
-  <data name="Latest_Retry" xml:space="preserve">
+  <data name="Resources_Retry" xml:space="preserve">
     <value>Réessayer</value>
   </data>
-  <data name="Latest_Refresh" xml:space="preserve">
+  <data name="Resources_Refresh" xml:space="preserve">
     <value>Actualiser</value>
   </data>
-  <data name="Latest_UpdatedAt" xml:space="preserve">
+  <data name="Resources_UpdatedAt" xml:space="preserve">
     <value>Mis à jour {0}</value>
   </data>
-  <data name="Latest_Today" xml:space="preserve">
+  <data name="Resources_Today" xml:space="preserve">
     <value>Aujourd'hui</value>
   </data>
-  <data name="Latest_Yesterday" xml:space="preserve">
+  <data name="Resources_Yesterday" xml:space="preserve">
     <value>Hier</value>
   </data>
-  <data name="Latest_OpenInBrowser" xml:space="preserve">
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
     <value>Ouvrir dans le navigateur</value>
   </data>
-  <data name="Latest_ItemAutomationName" xml:space="preserve">
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
     <value>{0}. {1}, {2}</value>
   </data>
-  <data name="Latest_TeaserHeader" xml:space="preserve">
+  <data name="Resources_TeaserHeader" xml:space="preserve">
     <value>Nouveautés de NutritionFacts.org</value>
   </data>
-  <data name="Latest_SeeAll" xml:space="preserve">
+  <data name="Resources_SeeAll" xml:space="preserve">
     <value>Tout voir</value>
   </data>
 

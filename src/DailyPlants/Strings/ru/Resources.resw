@@ -1072,68 +1072,68 @@
     <value>Выполните орехи 100 раз</value>
   </data>
 
-  <!-- Latest -->
-  <data name="Nav_Latest" xml:space="preserve">
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
     <value>Новое</value>
   </data>
-  <data name="Latest_Title" xml:space="preserve">
+  <data name="Resources_Title" xml:space="preserve">
     <value>Новое</value>
   </data>
-  <data name="Latest_Subtitle" xml:space="preserve">
+  <data name="Resources_Subtitle" xml:space="preserve">
     <value>Свежее от NutritionFacts.org</value>
   </data>
-  <data name="Latest_TabBlog" xml:space="preserve">
+  <data name="Resources_TabBlog" xml:space="preserve">
     <value>Блог</value>
   </data>
-  <data name="Latest_TabVideos" xml:space="preserve">
+  <data name="Resources_TabVideos" xml:space="preserve">
     <value>Видео</value>
   </data>
-  <data name="Latest_TabPodcast" xml:space="preserve">
+  <data name="Resources_TabPodcast" xml:space="preserve">
     <value>Подкаст</value>
   </data>
-  <data name="Latest_Loading" xml:space="preserve">
+  <data name="Resources_Loading" xml:space="preserve">
     <value>Загружаем свежие материалы…</value>
   </data>
-  <data name="Latest_Empty" xml:space="preserve">
+  <data name="Resources_Empty" xml:space="preserve">
     <value>Здесь пока пусто</value>
   </data>
-  <data name="Latest_EmptyDetail" xml:space="preserve">
+  <data name="Resources_EmptyDetail" xml:space="preserve">
     <value>Загляните позже — появится что-то новое.</value>
   </data>
-  <data name="Latest_Offline" xml:space="preserve">
+  <data name="Resources_Offline" xml:space="preserve">
     <value>Показаны сохранённые материалы — не удалось подключиться к NutritionFacts.org.</value>
   </data>
-  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
     <value>Новые материалы нельзя загрузить в веб-версии приложения.</value>
   </data>
-  <data name="Latest_LoadError" xml:space="preserve">
+  <data name="Resources_LoadError" xml:space="preserve">
     <value>Не удалось загрузить свежие материалы.</value>
   </data>
-  <data name="Latest_Retry" xml:space="preserve">
+  <data name="Resources_Retry" xml:space="preserve">
     <value>Повторить</value>
   </data>
-  <data name="Latest_Refresh" xml:space="preserve">
+  <data name="Resources_Refresh" xml:space="preserve">
     <value>Обновить</value>
   </data>
-  <data name="Latest_UpdatedAt" xml:space="preserve">
+  <data name="Resources_UpdatedAt" xml:space="preserve">
     <value>Обновлено {0}</value>
   </data>
-  <data name="Latest_Today" xml:space="preserve">
+  <data name="Resources_Today" xml:space="preserve">
     <value>Сегодня</value>
   </data>
-  <data name="Latest_Yesterday" xml:space="preserve">
+  <data name="Resources_Yesterday" xml:space="preserve">
     <value>Вчера</value>
   </data>
-  <data name="Latest_OpenInBrowser" xml:space="preserve">
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
     <value>Открыть в браузере</value>
   </data>
-  <data name="Latest_ItemAutomationName" xml:space="preserve">
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
     <value>{0}. {1}, {2}</value>
   </data>
-  <data name="Latest_TeaserHeader" xml:space="preserve">
+  <data name="Resources_TeaserHeader" xml:space="preserve">
     <value>Новое от NutritionFacts.org</value>
   </data>
-  <data name="Latest_SeeAll" xml:space="preserve">
+  <data name="Resources_SeeAll" xml:space="preserve">
     <value>Смотреть всё</value>
   </data>
 

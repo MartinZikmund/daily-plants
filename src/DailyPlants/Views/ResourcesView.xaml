@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="DailyPlants.Views.LatestView"
+    x:Class="DailyPlants.Views.ResourcesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:helpers="using:DailyPlants.Helpers"
@@ -23,7 +23,7 @@
                 CornerRadius="8"
                 Tag="{x:Bind}"
                 Tapped="FeedCard_Tapped"
-                ToolTipService.ToolTip="{helpers:Localize Key=Latest_OpenInBrowser}">
+                ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -88,11 +88,11 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
-                    <TextBlock Style="{StaticResource DpTitleTextBlockStyle}" Text="{helpers:Localize Key=Latest_Title}" />
+                    <TextBlock Style="{StaticResource DpTitleTextBlockStyle}" Text="{helpers:Localize Key=Resources_Title}" />
                     <TextBlock
                         Margin="0,4,0,0"
                         Style="{StaticResource DpCaptionTextBlockStyle}"
-                        Text="{helpers:Localize Key=Latest_Subtitle}" />
+                        Text="{helpers:Localize Key=Resources_Subtitle}" />
                 </StackPanel>
 
                 <StackPanel
@@ -111,14 +111,14 @@
                         MinHeight="0"
                         Padding="0"
                         VerticalAlignment="Center"
-                        AutomationProperties.AutomationId="LatestRefreshButton"
-                        AutomationProperties.Name="{helpers:Localize Key=Latest_Refresh}"
+                        AutomationProperties.AutomationId="ResourcesRefreshButton"
+                        AutomationProperties.Name="{helpers:Localize Key=Resources_Refresh}"
                         Background="Transparent"
                         BorderBrush="{ThemeResource DpHairlineBrush}"
                         BorderThickness="1"
                         Command="{x:Bind ViewModel.RefreshCommand}"
                         CornerRadius="14"
-                        ToolTipService.ToolTip="{helpers:Localize Key=Latest_Refresh}">
+                        ToolTipService.ToolTip="{helpers:Localize Key=Resources_Refresh}">
                         <FontIcon
                             FontSize="12"
                             Foreground="{ThemeResource DpInkBrush}"
@@ -136,14 +136,14 @@
                     MinWidth="0"
                     MinHeight="0"
                     Padding="0,0,0,8"
-                    AutomationProperties.AutomationId="LatestTabBlogButton"
-                    AutomationProperties.Name="{helpers:Localize Key=Latest_TabBlog}"
+                    AutomationProperties.AutomationId="ResourcesTabBlogButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_TabBlog}"
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{x:Bind ViewModel.SelectTabCommand}"
                     CommandParameter="Blog"
                     HorizontalContentAlignment="Stretch"
-                    Opacity="{x:Bind local:LatestView.TabOpacity(ViewModel.IsBlogSelected), Mode=OneWay}">
+                    Opacity="{x:Bind local:ResourcesView.TabOpacity(ViewModel.IsBlogSelected), Mode=OneWay}">
                     <Grid RowSpacing="6">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -152,7 +152,7 @@
                         <TextBlock
                             Foreground="{ThemeResource DpInkBrush}"
                             Style="{StaticResource DpBodyStrongTextBlockStyle}"
-                            Text="{helpers:Localize Key=Latest_TabBlog}" />
+                            Text="{helpers:Localize Key=Resources_TabBlog}" />
                         <Border
                             Grid.Row="1"
                             Height="2"
@@ -166,14 +166,14 @@
                     MinWidth="0"
                     MinHeight="0"
                     Padding="0,0,0,8"
-                    AutomationProperties.AutomationId="LatestTabVideosButton"
-                    AutomationProperties.Name="{helpers:Localize Key=Latest_TabVideos}"
+                    AutomationProperties.AutomationId="ResourcesTabVideosButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_TabVideos}"
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{x:Bind ViewModel.SelectTabCommand}"
                     CommandParameter="Videos"
                     HorizontalContentAlignment="Stretch"
-                    Opacity="{x:Bind local:LatestView.TabOpacity(ViewModel.IsVideosSelected), Mode=OneWay}">
+                    Opacity="{x:Bind local:ResourcesView.TabOpacity(ViewModel.IsVideosSelected), Mode=OneWay}">
                     <Grid RowSpacing="6">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -182,7 +182,7 @@
                         <TextBlock
                             Foreground="{ThemeResource DpInkBrush}"
                             Style="{StaticResource DpBodyStrongTextBlockStyle}"
-                            Text="{helpers:Localize Key=Latest_TabVideos}" />
+                            Text="{helpers:Localize Key=Resources_TabVideos}" />
                         <Border
                             Grid.Row="1"
                             Height="2"
@@ -196,14 +196,14 @@
                     MinWidth="0"
                     MinHeight="0"
                     Padding="0,0,0,8"
-                    AutomationProperties.AutomationId="LatestTabPodcastButton"
-                    AutomationProperties.Name="{helpers:Localize Key=Latest_TabPodcast}"
+                    AutomationProperties.AutomationId="ResourcesTabPodcastButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_TabPodcast}"
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{x:Bind ViewModel.SelectTabCommand}"
                     CommandParameter="Podcast"
                     HorizontalContentAlignment="Stretch"
-                    Opacity="{x:Bind local:LatestView.TabOpacity(ViewModel.IsPodcastSelected), Mode=OneWay}">
+                    Opacity="{x:Bind local:ResourcesView.TabOpacity(ViewModel.IsPodcastSelected), Mode=OneWay}">
                     <Grid RowSpacing="6">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -212,7 +212,7 @@
                         <TextBlock
                             Foreground="{ThemeResource DpInkBrush}"
                             Style="{StaticResource DpBodyStrongTextBlockStyle}"
-                            Text="{helpers:Localize Key=Latest_TabPodcast}" />
+                            Text="{helpers:Localize Key=Resources_TabPodcast}" />
                         <Border
                             Grid.Row="1"
                             Height="2"
@@ -294,15 +294,15 @@
                 HorizontalAlignment="Center"
                 Foreground="{ThemeResource DpInkMutedBrush}"
                 Style="{StaticResource DpBodyTextBlockStyle}"
-                Text="{helpers:Localize Key=Latest_EmptyDetail}"
+                Text="{helpers:Localize Key=Resources_EmptyDetail}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <HyperlinkButton
                 Margin="0,4,0,0"
                 HorizontalAlignment="Center"
-                AutomationProperties.AutomationId="LatestRetryButton"
+                AutomationProperties.AutomationId="ResourcesRetryButton"
                 Command="{x:Bind ViewModel.RefreshCommand}"
-                Content="{helpers:Localize Key=Latest_Retry}" />
+                Content="{helpers:Localize Key=Resources_Retry}" />
         </StackPanel>
     </Grid>
 </Page>

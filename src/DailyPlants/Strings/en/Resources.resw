@@ -1072,68 +1072,68 @@
     <value>Complete nuts 100 times</value>
   </data>
 
-  <!-- Latest -->
-  <data name="Nav_Latest" xml:space="preserve">
-    <value>Latest</value>
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Resources</value>
   </data>
-  <data name="Latest_Title" xml:space="preserve">
-    <value>Latest</value>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Resources</value>
   </data>
-  <data name="Latest_Subtitle" xml:space="preserve">
+  <data name="Resources_Subtitle" xml:space="preserve">
     <value>Fresh from NutritionFacts.org</value>
   </data>
-  <data name="Latest_TabBlog" xml:space="preserve">
+  <data name="Resources_TabBlog" xml:space="preserve">
     <value>Blog</value>
   </data>
-  <data name="Latest_TabVideos" xml:space="preserve">
+  <data name="Resources_TabVideos" xml:space="preserve">
     <value>Videos</value>
   </data>
-  <data name="Latest_TabPodcast" xml:space="preserve">
+  <data name="Resources_TabPodcast" xml:space="preserve">
     <value>Podcast</value>
   </data>
-  <data name="Latest_Loading" xml:space="preserve">
+  <data name="Resources_Loading" xml:space="preserve">
     <value>Fetching the newest posts…</value>
   </data>
-  <data name="Latest_Empty" xml:space="preserve">
+  <data name="Resources_Empty" xml:space="preserve">
     <value>Nothing here yet</value>
   </data>
-  <data name="Latest_EmptyDetail" xml:space="preserve">
+  <data name="Resources_EmptyDetail" xml:space="preserve">
     <value>Check back soon for something new.</value>
   </data>
-  <data name="Latest_Offline" xml:space="preserve">
+  <data name="Resources_Offline" xml:space="preserve">
     <value>Showing saved posts — we couldn't reach NutritionFacts.org.</value>
   </data>
-  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
     <value>New posts can't be fetched in the browser version of the app.</value>
   </data>
-  <data name="Latest_LoadError" xml:space="preserve">
+  <data name="Resources_LoadError" xml:space="preserve">
     <value>We couldn't load the newest posts.</value>
   </data>
-  <data name="Latest_Retry" xml:space="preserve">
+  <data name="Resources_Retry" xml:space="preserve">
     <value>Try again</value>
   </data>
-  <data name="Latest_Refresh" xml:space="preserve">
+  <data name="Resources_Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="Latest_UpdatedAt" xml:space="preserve">
+  <data name="Resources_UpdatedAt" xml:space="preserve">
     <value>Updated {0}</value>
   </data>
-  <data name="Latest_Today" xml:space="preserve">
+  <data name="Resources_Today" xml:space="preserve">
     <value>Today</value>
   </data>
-  <data name="Latest_Yesterday" xml:space="preserve">
+  <data name="Resources_Yesterday" xml:space="preserve">
     <value>Yesterday</value>
   </data>
-  <data name="Latest_OpenInBrowser" xml:space="preserve">
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
     <value>Open in browser</value>
   </data>
-  <data name="Latest_ItemAutomationName" xml:space="preserve">
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
     <value>{0}. {1}, {2}</value>
   </data>
-  <data name="Latest_TeaserHeader" xml:space="preserve">
+  <data name="Resources_TeaserHeader" xml:space="preserve">
     <value>New from NutritionFacts.org</value>
   </data>
-  <data name="Latest_SeeAll" xml:space="preserve">
+  <data name="Resources_SeeAll" xml:space="preserve">
     <value>See all</value>
   </data>
 

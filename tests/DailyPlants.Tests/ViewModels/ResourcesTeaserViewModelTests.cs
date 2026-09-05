@@ -4,7 +4,7 @@ using DailyPlants.ViewModels;
 namespace DailyPlants.Tests.ViewModels;
 
 [TestClass]
-public class LatestTeaserViewModelTests
+public class ResourcesTeaserViewModelTests
 {
     private static FeedItem NewItem(string id, FeedKind kind = FeedKind.Blog) => new()
     {
@@ -23,7 +23,7 @@ public class LatestTeaserViewModelTests
         {
             LatestAcrossFeeds = [NewItem("a"), NewItem("b", FeedKind.Videos), NewItem("c", FeedKind.Podcast)]
         };
-        LatestTeaserViewModel vm = new(feedService, new FakeAppNavigator());
+        ResourcesTeaserViewModel vm = new(feedService, new FakeAppNavigator());
 
         await vm.LoadAsync();
 
@@ -37,7 +37,7 @@ public class LatestTeaserViewModelTests
     public async Task LoadAsync_NoItems_StripStaysHidden()
     {
         FakeFeedService feedService = new();
-        LatestTeaserViewModel vm = new(feedService, new FakeAppNavigator());
+        ResourcesTeaserViewModel vm = new(feedService, new FakeAppNavigator());
 
         await vm.LoadAsync();
 
@@ -50,7 +50,7 @@ public class LatestTeaserViewModelTests
     public async Task LoadAsync_ServiceThrows_StripStaysHiddenAndDoesNotThrow()
     {
         FakeFeedService feedService = new() { ExceptionToThrow = new HttpRequestException("offline") };
-        LatestTeaserViewModel vm = new(feedService, new FakeAppNavigator());
+        ResourcesTeaserViewModel vm = new(feedService, new FakeAppNavigator());
 
         await vm.Invoking(v => v.LoadAsync()).Should().NotThrowAsync();
 
@@ -60,19 +60,19 @@ public class LatestTeaserViewModelTests
     }
 
     [TestMethod]
-    public void OpenLatest_RaisesNavigationRequestWithKindName()
+    public void OpenResources_RaisesNavigationRequestWithKindName()
     {
         FakeAppNavigator navigator = new();
-        LatestTeaserViewModel vm = new(new FakeFeedService(), navigator);
+        ResourcesTeaserViewModel vm = new(new FakeFeedService(), navigator);
         AppNavigationRequest? raised = null;
         navigator.NavigationRequested += (_, request) => raised = request;
 
-        vm.OpenLatestCommand.Execute("Videos");
+        vm.OpenResourcesCommand.Execute("Videos");
 
         navigator.RequestCount.Should().Be(1);
-        navigator.LastPageTag.Should().Be("Latest");
+        navigator.LastPageTag.Should().Be("Resources");
         navigator.LastParameter.Should().Be("Videos");
         raised.Should().NotBeNull();
-        raised!.PageTag.Should().Be("Latest");
+        raised!.PageTag.Should().Be("Resources");
     }
 }

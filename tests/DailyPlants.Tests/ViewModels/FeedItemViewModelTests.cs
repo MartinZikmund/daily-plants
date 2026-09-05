@@ -59,7 +59,7 @@ public class FeedItemViewModelTests
     {
         var vm = new FeedItemViewModel(NewItem(publishedAt: DateTimeOffset.Now));
 
-        vm.PublishedText.Should().Be(Localized("Latest_Today", "Today"));
+        vm.PublishedText.Should().Be(Localized("Resources_Today", "Today"));
     }
 
     [TestMethod]

@@ -1072,68 +1072,68 @@
     <value>آجیل را ۱۰۰ بار تکمیل کنید</value>
   </data>
 
-  <!-- Latest -->
-  <data name="Nav_Latest" xml:space="preserve">
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
     <value>تازه‌ها</value>
   </data>
-  <data name="Latest_Title" xml:space="preserve">
+  <data name="Resources_Title" xml:space="preserve">
     <value>تازه‌ها</value>
   </data>
-  <data name="Latest_Subtitle" xml:space="preserve">
+  <data name="Resources_Subtitle" xml:space="preserve">
     <value>تازه از NutritionFacts.org</value>
   </data>
-  <data name="Latest_TabBlog" xml:space="preserve">
+  <data name="Resources_TabBlog" xml:space="preserve">
     <value>وبلاگ</value>
   </data>
-  <data name="Latest_TabVideos" xml:space="preserve">
+  <data name="Resources_TabVideos" xml:space="preserve">
     <value>ویدیوها</value>
   </data>
-  <data name="Latest_TabPodcast" xml:space="preserve">
+  <data name="Resources_TabPodcast" xml:space="preserve">
     <value>پادکست</value>
   </data>
-  <data name="Latest_Loading" xml:space="preserve">
+  <data name="Resources_Loading" xml:space="preserve">
     <value>در حال دریافت جدیدترین مطالب…</value>
   </data>
-  <data name="Latest_Empty" xml:space="preserve">
+  <data name="Resources_Empty" xml:space="preserve">
     <value>هنوز چیزی اینجا نیست</value>
   </data>
-  <data name="Latest_EmptyDetail" xml:space="preserve">
+  <data name="Resources_EmptyDetail" xml:space="preserve">
     <value>به‌زودی دوباره سر بزنید تا چیز تازه‌ای ببینید.</value>
   </data>
-  <data name="Latest_Offline" xml:space="preserve">
+  <data name="Resources_Offline" xml:space="preserve">
     <value>نمایش مطالب ذخیره‌شده — نتوانستیم به NutritionFacts.org متصل شویم.</value>
   </data>
-  <data name="Latest_BrowserUnavailable" xml:space="preserve">
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
     <value>مطالب جدید در نسخه مرورگر برنامه قابل دریافت نیستند.</value>
   </data>
-  <data name="Latest_LoadError" xml:space="preserve">
+  <data name="Resources_LoadError" xml:space="preserve">
     <value>نتوانستیم جدیدترین مطالب را بارگذاری کنیم.</value>
   </data>
-  <data name="Latest_Retry" xml:space="preserve">
+  <data name="Resources_Retry" xml:space="preserve">
     <value>تلاش دوباره</value>
   </data>
-  <data name="Latest_Refresh" xml:space="preserve">
+  <data name="Resources_Refresh" xml:space="preserve">
     <value>به‌روزرسانی</value>
   </data>
-  <data name="Latest_UpdatedAt" xml:space="preserve">
+  <data name="Resources_UpdatedAt" xml:space="preserve">
     <value>به‌روزرسانی‌شده {0}</value>
   </data>
-  <data name="Latest_Today" xml:space="preserve">
+  <data name="Resources_Today" xml:space="preserve">
     <value>امروز</value>
   </data>
-  <data name="Latest_Yesterday" xml:space="preserve">
+  <data name="Resources_Yesterday" xml:space="preserve">
     <value>دیروز</value>
   </data>
-  <data name="Latest_OpenInBrowser" xml:space="preserve">
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
     <value>باز کردن در مرورگر</value>
   </data>
-  <data name="Latest_ItemAutomationName" xml:space="preserve">
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
     <value>{0}. {1}، {2}</value>
   </data>
-  <data name="Latest_TeaserHeader" xml:space="preserve">
+  <data name="Resources_TeaserHeader" xml:space="preserve">
     <value>تازه از NutritionFacts.org</value>
   </data>
-  <data name="Latest_SeeAll" xml:space="preserve">
+  <data name="Resources_SeeAll" xml:space="preserve">
     <value>مشاهده همه</value>
   </data>
 

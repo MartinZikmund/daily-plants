@@ -8,22 +8,22 @@ namespace DailyPlants.Controls;
 /// The "new from NutritionFacts.org" strip on the Diary page. Self-contained: it resolves
 /// its own services so the Diary page needs one line of XAML and no ViewModel change.
 /// </summary>
-public sealed partial class LatestTeaser : UserControl
+public sealed partial class ResourcesTeaser : UserControl
 {
-    public LatestTeaser()
+    public ResourcesTeaser()
     {
         var feedService = App.Current.Services!.GetRequiredService<IFeedService>();
         var navigator = App.Current.Services!.GetRequiredService<IAppNavigator>();
-        ViewModel = new LatestTeaserViewModel(feedService, navigator);
+        ViewModel = new ResourcesTeaserViewModel(feedService, navigator);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
-        this.Loaded += LatestTeaser_Loaded;
+        this.Loaded += ResourcesTeaser_Loaded;
     }
 
-    public LatestTeaserViewModel ViewModel { get; }
+    public ResourcesTeaserViewModel ViewModel { get; }
 
-    private async void LatestTeaser_Loaded(object sender, RoutedEventArgs e) => await ViewModel.LoadAsync();
+    private async void ResourcesTeaser_Loaded(object sender, RoutedEventArgs e) => await ViewModel.LoadAsync();
 
     private async void TeaserCard_Tapped(object sender, TappedRoutedEventArgs e)
     {

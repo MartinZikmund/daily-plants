@@ -4,7 +4,7 @@ using DailyPlants.ViewModels;
 namespace DailyPlants.Tests.ViewModels;
 
 [TestClass]
-public class LatestViewModelTests
+public class ResourcesViewModelTests
 {
     private static FeedItem NewItem(FeedKind kind, string id) => new()
     {
@@ -45,7 +45,7 @@ public class LatestViewModelTests
     public async Task LoadAsync_NoInitialKind_SelectsBlogAndLoadsOnlyBlog()
     {
         FakeFeedService feedService = new();
-        LatestViewModel vm = new(feedService);
+        ResourcesViewModel vm = new(feedService);
 
         await vm.LoadAsync();
 
@@ -59,7 +59,7 @@ public class LatestViewModelTests
     public async Task LoadAsync_WithInitialKind_SelectsThatTabAndLoadsIt()
     {
         FakeFeedService feedService = new();
-        LatestViewModel vm = new(feedService);
+        ResourcesViewModel vm = new(feedService);
 
         await vm.LoadAsync(FeedKind.Podcast);
 
@@ -73,7 +73,7 @@ public class LatestViewModelTests
     public async Task SelectTabAsync_UnknownName_LeavesSelectionUnchanged()
     {
         FakeFeedService feedService = new();
-        LatestViewModel vm = new(feedService);
+        ResourcesViewModel vm = new(feedService);
 
         await vm.SelectTabCommand.ExecuteAsync("Newsletter");
 
@@ -85,7 +85,7 @@ public class LatestViewModelTests
     public async Task SelectTabAsync_SecondVisitToATab_DoesNotRefetch()
     {
         FakeFeedService feedService = new();
-        LatestViewModel vm = new(feedService);
+        ResourcesViewModel vm = new(feedService);
 
         await vm.SelectTabCommand.ExecuteAsync("Videos");
         await vm.SelectTabCommand.ExecuteAsync("Blog");
@@ -99,7 +99,7 @@ public class LatestViewModelTests
     public async Task RefreshAsync_ForcesRefreshOfSelectedTabOnly()
     {
         FakeFeedService feedService = new();
-        LatestViewModel vm = new(feedService);
+        ResourcesViewModel vm = new(feedService);
         await vm.LoadAsync();
 
         await vm.RefreshCommand.ExecuteAsync(null);
@@ -114,7 +114,7 @@ public class LatestViewModelTests
     public async Task IsBlogSelected_TracksSelectedTab()
     {
         FakeFeedService feedService = new();
-        LatestViewModel vm = new(feedService);
+        ResourcesViewModel vm = new(feedService);
 
         vm.IsBlogSelected.Should().BeTrue();
         vm.IsVideosSelected.Should().BeFalse();

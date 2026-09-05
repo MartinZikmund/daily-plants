@@ -51,7 +51,7 @@ public partial class App : Application
                     services.AddSingleton<IAchievementService, AchievementService>();
                     services.AddTransient<IExportService, ExportService>();
 
-                    // Latest feed
+                    // Resources feed
                     services.AddSingleton(TimeProvider.System);
                     services.AddSingleton(_ =>
                     {

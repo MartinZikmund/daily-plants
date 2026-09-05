@@ -73,7 +73,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="{helpers:Localize Key=Nav_Latest}" Tag="Latest" AutomationProperties.AutomationId="NavItemLatest">
+                <NavigationViewItem Content="{helpers:Localize Key=Nav_Resources}" Tag="Resources" AutomationProperties.AutomationId="NavItemResources">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8F1;" />
                     </NavigationViewItem.Icon>

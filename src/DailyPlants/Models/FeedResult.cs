@@ -1,7 +1,7 @@
 namespace DailyPlants.Models;
 
 /// <summary>
-/// How a <see cref="FeedResult"/> was obtained. Drives the notice/empty state on the Latest page.
+/// How a <see cref="FeedResult"/> was obtained. Drives the notice/empty state on the Resources page.
 /// </summary>
 public enum FeedResultStatus
 {

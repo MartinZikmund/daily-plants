@@ -201,7 +201,7 @@ public sealed partial class ShellView : Page
         Type? pageType = tag switch
         {
             "Diary" => typeof(DiaryView),
-            "Latest" => typeof(LatestView),
+            "Resources" => typeof(ResourcesView),
             "Statistics" => typeof(StatisticsView),
             "Achievements" => typeof(AchievementsView),
             "Settings" => typeof(SettingsView),

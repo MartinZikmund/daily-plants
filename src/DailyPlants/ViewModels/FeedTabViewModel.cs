@@ -6,7 +6,7 @@ using DailyPlants.Services;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// State for one feed tab on the Latest page.
+/// State for one feed tab on the Resources page.
 /// </summary>
 public partial class FeedTabViewModel : ObservableObject
 {
@@ -21,7 +21,7 @@ public partial class FeedTabViewModel : ObservableObject
 
     public FeedKind Kind { get; }
 
-    /// <summary>Localized tab label (Latest_TabBlog / _TabVideos / _TabPodcast).</summary>
+    /// <summary>Localized tab label (Resources_TabBlog / _TabVideos / _TabPodcast).</summary>
     public string Title { get; }
 
     public ObservableCollection<FeedItemViewModel> Items { get; } = [];
@@ -38,16 +38,16 @@ public partial class FeedTabViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
     private bool _hasLoaded;
 
-    /// <summary>Latest_Offline / _BrowserUnavailable / _LoadError, or empty when all is well.</summary>
+    /// <summary>Resources_Offline / _BrowserUnavailable / _LoadError, or empty when all is well.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
     private string _noticeText = string.Empty;
 
-    /// <summary>Latest_Empty headline, or the status-specific replacement.</summary>
+    /// <summary>Resources_Empty headline, or the status-specific replacement.</summary>
     [ObservableProperty]
     private string _emptyStateText = string.Empty;
 
-    /// <summary>Latest_UpdatedAt formatted, or empty when never fetched.</summary>
+    /// <summary>Resources_UpdatedAt formatted, or empty when never fetched.</summary>
     [ObservableProperty]
     private string _updatedText = string.Empty;
 
@@ -78,7 +78,7 @@ public partial class FeedTabViewModel : ObservableObject
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
             AppLog.Error($"Loading the {Kind} feed failed", ex);
-            NoticeText = Localized("Latest_LoadError", "We couldn't load the newest posts.");
+            NoticeText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
         }
         finally
         {
@@ -93,30 +93,30 @@ public partial class FeedTabViewModel : ObservableObject
         UpdatedText = result.FetchedAt is { } fetchedAt
             ? string.Format(
                 CultureInfo.CurrentCulture,
-                Localized("Latest_UpdatedAt", "Updated {0}"),
+                Localized("Resources_UpdatedAt", "Updated {0}"),
                 fetchedAt.ToLocalTime().ToString("t", CultureInfo.CurrentCulture))
             : string.Empty;
 
         switch (result.Status)
         {
             case FeedResultStatus.Stale:
-                NoticeText = Localized("Latest_Offline", "Showing saved posts — we couldn't reach NutritionFacts.org.");
-                EmptyStateText = Localized("Latest_Empty", "Nothing here yet");
+                NoticeText = Localized("Resources_Offline", "Showing saved posts — we couldn't reach NutritionFacts.org.");
+                EmptyStateText = Localized("Resources_Empty", "Nothing here yet");
                 break;
 
             case FeedResultStatus.Unavailable:
                 NoticeText = string.Empty;
-                EmptyStateText = Localized("Latest_LoadError", "We couldn't load the newest posts.");
+                EmptyStateText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
                 break;
 
             case FeedResultStatus.LiveFetchUnavailable:
                 NoticeText = string.Empty;
-                EmptyStateText = Localized("Latest_BrowserUnavailable", "New posts can't be fetched in the browser version of the app.");
+                EmptyStateText = Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app.");
                 break;
 
             default:
                 NoticeText = string.Empty;
-                EmptyStateText = Localized("Latest_Empty", "Nothing here yet");
+                EmptyStateText = Localized("Resources_Empty", "Nothing here yet");
                 break;
         }
     }

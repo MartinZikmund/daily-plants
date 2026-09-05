@@ -5,15 +5,15 @@ using DailyPlants.Services;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// ViewModel for the Latest page - three independently loaded feed tabs.
+/// ViewModel for the Resources page - three independently loaded feed tabs.
 /// </summary>
-public partial class LatestViewModel : ObservableObject
+public partial class ResourcesViewModel : ObservableObject
 {
-    public LatestViewModel(IFeedService feedService)
+    public ResourcesViewModel(IFeedService feedService)
     {
-        Blog = new FeedTabViewModel(feedService, FeedKind.Blog, Localized("Latest_TabBlog", "Blog"));
-        Videos = new FeedTabViewModel(feedService, FeedKind.Videos, Localized("Latest_TabVideos", "Videos"));
-        Podcast = new FeedTabViewModel(feedService, FeedKind.Podcast, Localized("Latest_TabPodcast", "Podcast"));
+        Blog = new FeedTabViewModel(feedService, FeedKind.Blog, Localized("Resources_TabBlog", "Blog"));
+        Videos = new FeedTabViewModel(feedService, FeedKind.Videos, Localized("Resources_TabVideos", "Videos"));
+        Podcast = new FeedTabViewModel(feedService, FeedKind.Podcast, Localized("Resources_TabPodcast", "Podcast"));
         _selectedTab = Blog;
     }
 

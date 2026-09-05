@@ -3,7 +3,7 @@ namespace DailyPlants.Services;
 /// <summary>
 /// A request to move the shell to a page, optionally with a parameter.
 /// </summary>
-/// <param name="PageTag">The NavigationViewItem Tag, e.g. "Latest".</param>
+/// <param name="PageTag">The NavigationViewItem Tag, e.g. "Resources".</param>
 /// <param name="Parameter">Passed straight to Frame.Navigate; keep it to simple types (string).</param>
 public sealed record AppNavigationRequest(string PageTag, object? Parameter);
 

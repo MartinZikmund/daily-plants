@@ -5,14 +5,14 @@ namespace DailyPlants.ViewModels;
 /// <summary>
 /// The "new from NutritionFacts.org" strip at the foot of the Diary page.
 /// </summary>
-public partial class LatestTeaserViewModel : ObservableObject
+public partial class ResourcesTeaserViewModel : ObservableObject
 {
     private const int TeaserCount = 3;
 
     private readonly IFeedService _feedService;
     private readonly IAppNavigator _navigator;
 
-    public LatestTeaserViewModel(IFeedService feedService, IAppNavigator navigator)
+    public ResourcesTeaserViewModel(IFeedService feedService, IAppNavigator navigator)
     {
         _feedService = feedService;
         _navigator = navigator;
@@ -31,10 +31,10 @@ public partial class LatestTeaserViewModel : ObservableObject
 
     public bool ShowStrip => HasItems && !IsLoading;
 
-    /// <summary>Deep-links to the Latest page, opening the tab the given item came from.</summary>
+    /// <summary>Deep-links to the Resources page, opening the tab the given item came from.</summary>
     [RelayCommand]
-    private void OpenLatest(string? kindName)
-        => _navigator.RequestNavigation("Latest", kindName);
+    private void OpenResources(string? kindName)
+        => _navigator.RequestNavigation("Resources", kindName);
 
     /// <summary>Loads the three newest items across all feeds. Never throws.</summary>
     public async Task LoadAsync()

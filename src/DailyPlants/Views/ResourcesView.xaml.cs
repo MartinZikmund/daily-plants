@@ -6,21 +6,21 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace DailyPlants.Views;
 
-public sealed partial class LatestView : Page
+public sealed partial class ResourcesView : Page
 {
     private FeedKind? _initialKind;
 
-    public LatestView()
+    public ResourcesView()
     {
         var feedService = App.Current.Services!.GetRequiredService<IFeedService>();
-        ViewModel = new LatestViewModel(feedService);
+        ViewModel = new ResourcesViewModel(feedService);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
-        this.Loaded += LatestView_Loaded;
+        this.Loaded += ResourcesView_Loaded;
     }
 
-    public LatestViewModel ViewModel { get; }
+    public ResourcesViewModel ViewModel { get; }
 
     // Qualified in XAML so x:Bind emits a static call; an unqualified function binding
     // is emitted as an instance call and will not compile against a static method.
@@ -30,11 +30,11 @@ public sealed partial class LatestView : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        // ignoreCase to match LatestViewModel.SelectTabAsync, so one spelling works on both paths.
+        // ignoreCase to match ResourcesViewModel.SelectTabAsync, so one spelling works on both paths.
         _initialKind = e.Parameter is string name && Enum.TryParse<FeedKind>(name, ignoreCase: true, out var kind) ? kind : null;
     }
 
-    private async void LatestView_Loaded(object sender, RoutedEventArgs e)
+    private async void ResourcesView_Loaded(object sender, RoutedEventArgs e)
     {
         await ViewModel.LoadAsync(_initialKind);
         _initialKind = null;
