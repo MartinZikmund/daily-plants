@@ -49,7 +49,7 @@ public sealed partial class ResourcesView : Page
     /// are stored as PathIcons because XAML converts the path mini-language only when it lands on
     /// a Geometry-typed property; only their Data is ever used.
     /// </summary>
-    public static Geometry IconFor(FeedKind? kind) => ((PathIcon)Application.Current.Resources[kind switch
+    public static DataTemplate IconFor(FeedKind? kind) => (DataTemplate)Application.Current.Resources[kind switch
     {
         FeedKind.Blog => "DpResIconBlog",
         FeedKind.Videos => "DpResIconVideos",
@@ -59,13 +59,13 @@ public sealed partial class ResourcesView : Page
         FeedKind.Webinars => "DpResIconWebinars",
         null => "DpResIconLatest",
         _ => "DpResIconBlog"
-    }]).Data;
+    }];
 
     /// <summary>
     /// <see cref="IconFor"/> for an overview section, whose Kind is not nullable. A separate name
     /// rather than an overload, so the function binding cannot resolve to the wrong one.
     /// </summary>
-    public static Geometry SectionIcon(FeedKind kind) => IconFor(kind);
+    public static DataTemplate SectionIcon(FeedKind kind) => IconFor(kind);
 
     /// <summary>Resources_SearchResultsFor with the query the results are actually for.</summary>
     public static string SearchResultsHeader(string query)

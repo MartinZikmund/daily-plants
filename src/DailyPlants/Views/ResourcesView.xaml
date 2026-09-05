@@ -107,7 +107,7 @@
                             Width="16"
                             Height="16"
                             VerticalAlignment="Center">
-                            <PathIcon Data="{x:Bind local:ResourcesView.IconFor(Kind)}" Foreground="{ThemeResource DpInkBrush}" />
+                            <ContentPresenter Content="{x:Bind}" ContentTemplate="{x:Bind local:ResourcesView.IconFor(Kind)}" Foreground="{ThemeResource DpInkBrush}" />
                         </Viewbox>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -134,7 +134,7 @@
                     Width="16"
                     Height="16"
                     VerticalAlignment="Center">
-                    <PathIcon Data="{x:Bind local:ResourcesView.IconFor(Kind)}" Foreground="{ThemeResource DpInkBrush}" />
+                    <ContentPresenter Content="{x:Bind}" ContentTemplate="{x:Bind local:ResourcesView.IconFor(Kind)}" Foreground="{ThemeResource DpInkBrush}" />
                 </Viewbox>
                 <TextBlock
                     VerticalAlignment="Center"
@@ -167,7 +167,7 @@
                             Width="16"
                             Height="16"
                             VerticalAlignment="Center">
-                            <PathIcon Data="{x:Bind local:ResourcesView.SectionIcon(Kind)}" Foreground="{ThemeResource DpGreenInkBrush}" />
+                            <ContentPresenter Content="{x:Bind}" ContentTemplate="{x:Bind local:ResourcesView.SectionIcon(Kind)}" Foreground="{ThemeResource DpGreenInkBrush}" />
                         </Viewbox>
                         <TextBlock
                             VerticalAlignment="Center"
