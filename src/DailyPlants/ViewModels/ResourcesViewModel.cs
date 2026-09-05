@@ -1,3 +1,4 @@
+using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
@@ -6,7 +7,9 @@ namespace DailyPlants.ViewModels;
 
 /// <summary>
 /// ViewModel for the Resources page - an overview tab plus one independently loaded tab per feed,
-/// and a search that replaces them all with results from the whole nutritionfacts.org archive.
+/// a search that replaces them all with results from the whole nutritionfacts.org archive, and a
+/// topic mode that does the same for a single topic. Search and topic mode are alternatives:
+/// entering one leaves the other, and either hides the tab strip until it is cleared.
 /// </summary>
 public partial class ResourcesViewModel : ObservableObject
 {
@@ -32,6 +35,7 @@ public partial class ResourcesViewModel : ObservableObject
         Latest = new LatestOverviewViewModel(feedService, Localized("Resources_TabLatest", "Latest"), SelectKindAsync);
         _feedTabs = FeedKinds.Feeds.ToDictionary(kind => kind, kind => new FeedListViewModel(feedService, kind, FeedKindLabel.For(kind)));
         SearchResults = FeedListViewModel.CreateSearch(feedService, Localized("Resources_SearchPlaceholder", "Search NutritionFacts.org"));
+        TopicResults = FeedListViewModel.CreateTopic(feedService, string.Empty);
 
         // FeedKinds.Feeds is the display order; the overview goes in front of it.
         Tabs = [Latest, .. FeedKinds.Feeds.Select(kind => (IResourceTab)_feedTabs[kind])];
@@ -58,6 +62,9 @@ public partial class ResourcesViewModel : ObservableObject
     /// <summary>The archive search results. Never cached, and empty until a query is submitted.</summary>
     public FeedListViewModel SearchResults { get; }
 
+    /// <summary>One topic's items. Never cached, and empty until a topic is opened.</summary>
+    public FeedListViewModel TopicResults { get; }
+
     /// <summary>Every tab in display order: Latest, then one per feed.</summary>
     public IReadOnlyList<IResourceTab> Tabs { get; }
 
@@ -74,16 +81,45 @@ public partial class ResourcesViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ActiveList))]
     [NotifyPropertyChangedFor(nameof(IsOverviewActive))]
+    [NotifyPropertyChangedFor(nameof(ShowTabs))]
     private bool _isSearchActive;
 
+    /// <summary>True while one topic's items stand in for the tabs.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ActiveList))]
+    [NotifyPropertyChangedFor(nameof(IsOverviewActive))]
+    [NotifyPropertyChangedFor(nameof(ShowTabs))]
+    private bool _isTopicActive;
+
+    /// <summary>The slug topic mode is showing, or empty when it is not active.</summary>
+    [ObservableProperty]
+    private string _topicSlug = string.Empty;
+
+    /// <summary>The item name the topic header reads back, or empty when topic mode is not active.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(TopicHeader))]
+    private string _topicTitle = string.Empty;
+
+    /// <summary>Resources_TopicHeader filled in, e.g. "Latest on Berries".</summary>
+    public string TopicHeader => string.Format(
+        CultureInfo.CurrentCulture,
+        Localized("Resources_TopicHeader", "Latest on {0}"),
+        TopicTitle);
+
     /// <summary>
-    /// The paginated list the page renders: search results when searching, otherwise the selected
-    /// feed tab. Null on the overview tab, which renders <see cref="Latest"/> instead.
+    /// The paginated list the page renders: the topic when one is open, then search results,
+    /// otherwise the selected feed tab. Null on the overview tab, which renders
+    /// <see cref="Latest"/> instead.
     /// </summary>
-    public FeedListViewModel? ActiveList => IsSearchActive ? SearchResults : SelectedTab as FeedListViewModel;
+    public FeedListViewModel? ActiveList => IsTopicActive
+        ? TopicResults
+        : IsSearchActive ? SearchResults : SelectedTab as FeedListViewModel;
 
     /// <summary>True when the overview - not a list - is what the page should show.</summary>
-    public bool IsOverviewActive => !IsSearchActive && ReferenceEquals(SelectedTab, Latest);
+    public bool IsOverviewActive => !IsSearchActive && !IsTopicActive && ReferenceEquals(SelectedTab, Latest);
+
+    /// <summary>True while the tab strip is what the page is browsing; false in search and topic mode.</summary>
+    public bool ShowTabs => !IsSearchActive && !IsTopicActive;
 
     /// <summary>
     /// The automatic search queued or in flight, or null when nothing is pending. Tests await it;
@@ -117,6 +153,7 @@ public partial class ResourcesViewModel : ObservableObject
         // A search still pending would otherwise land on top of the tab you just asked for.
         CancelPendingSearch();
         IsSearchActive = false;
+        LeaveTopic();
 
         await EnsureLoadedAsync(tab);
     }
@@ -178,7 +215,10 @@ public partial class ResourcesViewModel : ObservableObject
         }
     }
 
-    /// <summary>Drops the query and the results and puts the tabs back.</summary>
+    /// <summary>
+    /// Drops the query and the results and puts the tabs back. Deliberately leaves topic mode
+    /// alone: emptying a search box that was not showing anything must not close a topic.
+    /// </summary>
     [RelayCommand]
     private void ClearSearch()
     {
@@ -189,12 +229,57 @@ public partial class ResourcesViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Called from the page's Loaded handler. Selects <paramref name="initialKind"/> when given
-    /// (the Diary deep link), then loads the selected tab; other tabs load lazily on first selection.
+    /// Shows one nutritionfacts.org topic in place of the tabs - the item dialog's "See all", and
+    /// the deep link that arrives with it. Leaves search mode, and leaves
+    /// <see cref="SelectedTab"/> alone so clearing the topic comes back to the same tab. A blank
+    /// slug clears topic mode instead, so a missing <c>TopicSlug</c> cannot strand the page.
     /// </summary>
-    public async Task LoadAsync(FeedKind? initialKind = null)
+    public async Task ShowTopicAsync(string? slug, string? title)
     {
-        if (initialKind is { } kind && GetTab(kind) is { } tab)
+        var trimmed = slug?.Trim() ?? string.Empty;
+
+        if (trimmed.Length == 0)
+        {
+            await ClearTopicAsync();
+            return;
+        }
+
+        // The two modes are alternatives, and a search still pending would land on top of the topic.
+        ClearSearch();
+
+        TopicSlug = trimmed;
+        TopicTitle = title?.Trim() ?? string.Empty;
+        IsTopicActive = true;
+
+        await TopicResults.LoadTopicAsync(trimmed, TopicTitle);
+    }
+
+    /// <summary>
+    /// Leaves topic mode and puts the tabs back, on whichever tab was selected before the topic
+    /// opened - loading it if the deep link arrived before anything else had been fetched.
+    /// </summary>
+    [RelayCommand]
+    private async Task ClearTopicAsync()
+    {
+        LeaveTopic();
+        await EnsureLoadedAsync(SelectedTab);
+    }
+
+    /// <summary>
+    /// Called from the page's Loaded handler with whatever navigation parameter brought the page
+    /// up. A <see cref="ResourcesTopicRequest"/> opens topic mode; a <see cref="FeedKind"/> or its
+    /// name selects that tab (the Diary teaser); anything else, null included, keeps the current
+    /// selection. Then loads what is on screen - other tabs load lazily on first selection.
+    /// </summary>
+    public async Task LoadAsync(object? parameter = null)
+    {
+        if (parameter is ResourcesTopicRequest topic)
+        {
+            await ShowTopicAsync(topic.Slug, topic.Title);
+            return;
+        }
+
+        if (Resolve(parameter) is { } tab)
         {
             SelectedTab = tab;
         }
@@ -248,6 +333,8 @@ public partial class ResourcesViewModel : ObservableObject
 
     private async Task RunSearchAsync(string query, CancellationToken cancellationToken)
     {
+        // Searching is the other way out of topic mode; the two never share the screen.
+        LeaveTopic();
         IsSearchActive = true;
         await SearchResults.SearchAsync(query, cancellationToken);
     }
@@ -266,6 +353,15 @@ public partial class ResourcesViewModel : ObservableObject
 
         await Task.Yield();
         cancellationToken.ThrowIfCancellationRequested();
+    }
+
+    /// <summary>Drops topic mode and its results, without touching the tab underneath it.</summary>
+    private void LeaveTopic()
+    {
+        IsTopicActive = false;
+        TopicSlug = string.Empty;
+        TopicTitle = string.Empty;
+        TopicResults.Clear();
     }
 
     /// <summary>Drops whatever search is pending or already in flight.</summary>

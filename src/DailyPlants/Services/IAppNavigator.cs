@@ -4,8 +4,20 @@ namespace DailyPlants.Services;
 /// A request to move the shell to a page, optionally with a parameter.
 /// </summary>
 /// <param name="PageTag">The NavigationViewItem Tag, e.g. "Resources".</param>
-/// <param name="Parameter">Passed straight to Frame.Navigate; keep it to simple types (string).</param>
+/// <param name="Parameter">
+/// Passed straight to Frame.Navigate; keep it to simple types - a string, or one of the small
+/// parameter records declared alongside this one.
+/// </param>
 public sealed record AppNavigationRequest(string PageTag, object? Parameter);
+
+/// <summary>
+/// The parameter that opens the Resources page in topic mode - on one nutritionfacts.org topic
+/// rather than on a tab. Carried by the same <see cref="AppNavigationRequest"/> the tab deep link
+/// uses, so there is still only the one way into the page.
+/// </summary>
+/// <param name="Slug">The topic slug, as in <c>ChecklistItem.TopicSlug</c> (e.g. "flax-seeds").</param>
+/// <param name="Title">The item name the header reads back, e.g. "Flaxseeds".</param>
+public sealed record ResourcesTopicRequest(string Slug, string Title);
 
 /// <summary>
 /// Lets a view request shell navigation without holding a reference to ShellView.

@@ -6,12 +6,23 @@ using DailyPlants.Services;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// A paginated list of feed items with its loading state - one feed tab on the Resources page, or
-/// the results of a site-wide search when <see cref="Kind"/> is null.
+/// A paginated list of feed items with its loading state - one feed tab on the Resources page, the
+/// results of a site-wide search, or one nutritionfacts.org topic. The two latter modes have no
+/// <see cref="Kind"/> of their own and fetch by <see cref="Query"/> instead.
 /// </summary>
 public partial class FeedListViewModel : ObservableObject, IResourceTab
 {
+    /// <summary>What this list fetches, and therefore which service call pages it.</summary>
+    private enum ListMode
+    {
+        Feed,
+        Search,
+        Topic
+    }
+
     private readonly IFeedService _feedService;
+
+    private readonly ListMode _mode;
 
     /// <summary>Ids already on screen; the dedupe that decides where a paginated list ends.</summary>
     private readonly HashSet<string> _seenIds = new(StringComparer.Ordinal);
@@ -22,42 +33,61 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     private int _loadedPage;
 
     public FeedListViewModel(IFeedService feedService, FeedKind kind, string title)
-        : this(feedService, kind, title, isSearch: false)
+        : this(feedService, kind, title, ListMode.Feed)
     {
     }
 
-    private FeedListViewModel(IFeedService feedService, FeedKind? kind, string title, bool isSearch)
+    private FeedListViewModel(IFeedService feedService, FeedKind? kind, string title, ListMode mode)
     {
         _feedService = feedService;
         Kind = kind;
-        Title = title;
-        IsSearch = isSearch;
+        _title = title;
+        _mode = mode;
     }
 
     /// <summary>The list that holds search results: no feed of its own, one query at a time.</summary>
     public static FeedListViewModel CreateSearch(IFeedService feedService, string title)
-        => new(feedService, null, title, isSearch: true);
-
-    /// <summary>The feed this list pages through, or null in search mode.</summary>
-    public FeedKind? Kind { get; }
-
-    /// <summary>Localized tab label (Resources_Tab*), or the search heading.</summary>
-    public string Title { get; }
+        => new(feedService, null, title, ListMode.Search);
 
     /// <summary>
-    /// AutomationProperties.AutomationId for this tab's button. The search list is not a tab and
-    /// never appears in the strip, so it gets a name of its own rather than a tab id.
+    /// The list that holds one topic's items: no feed of its own, one slug at a time, and a
+    /// <see cref="Title"/> that changes with the topic rather than naming a tab.
     /// </summary>
-    public string TabAutomationId => Kind is { } kind ? $"ResourcesTab{kind}Button" : "ResourcesSearchResults";
+    public static FeedListViewModel CreateTopic(IFeedService feedService, string title)
+        => new(feedService, null, title, ListMode.Topic);
+
+    /// <summary>The feed this list pages through, or null in search and topic mode.</summary>
+    public FeedKind? Kind { get; }
+
+    /// <summary>
+    /// Localized tab label (Resources_Tab*), the search heading, or - in topic mode - the name of
+    /// the topic currently loaded, which is why it notifies.
+    /// </summary>
+    [ObservableProperty]
+    private string _title;
+
+    /// <summary>
+    /// AutomationProperties.AutomationId for this tab's button. The search and topic lists are not
+    /// tabs and never appear in the strip, so they get names of their own rather than a tab id.
+    /// </summary>
+    public string TabAutomationId => Kind is { } kind
+        ? $"ResourcesTab{kind}Button"
+        : IsTopic ? "ResourcesTopicResults" : "ResourcesSearchResults";
 
     /// <summary>True while this is the selected tab. Maintained by <see cref="ResourcesViewModel"/>.</summary>
     [ObservableProperty]
     private bool _isSelected;
 
     /// <summary>True for the search list: it fetches by query rather than by feed, and is never cached.</summary>
-    public bool IsSearch { get; }
+    public bool IsSearch => _mode == ListMode.Search;
 
-    /// <summary>The query these results are for. Empty in tab mode and before the first search.</summary>
+    /// <summary>True for the topic list: it fetches by slug rather than by feed, and is never cached.</summary>
+    public bool IsTopic => _mode == ListMode.Topic;
+
+    /// <summary>
+    /// The query these results are for - the search text, or the topic slug in topic mode. Empty in
+    /// tab mode and before the first search.
+    /// </summary>
     public string Query
     {
         get => _query;
@@ -109,15 +139,22 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     public bool ShowLoadingMore => IsLoadingMore;
 
     /// <summary>
-    /// Loads (or reloads) the first page, resetting paging. In search mode this re-runs the current
-    /// query. Sets IsLoading in a try/finally; never throws, except for cancellation, which is
-    /// rethrown having left the list, the spinner and the notice exactly as it found them.
+    /// Loads (or reloads) the first page, resetting paging. In search and topic mode this re-runs
+    /// whatever is already loaded, which is what makes Refresh work in those modes too. Sets
+    /// IsLoading in a try/finally; never throws, except for cancellation, which is rethrown having
+    /// left the list, the spinner and the notice exactly as it found them.
     /// </summary>
     public async Task LoadAsync(bool forceRefresh = false, CancellationToken cancellationToken = default)
     {
         if (IsSearch)
         {
             await SearchAsync(Query, cancellationToken);
+            return;
+        }
+
+        if (IsTopic)
+        {
+            await LoadTopicAsync(Query, Title, cancellationToken);
             return;
         }
 
@@ -225,8 +262,68 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     }
 
     /// <summary>
+    /// Topic mode only: loads page 1 of <paramref name="slug"/> and retitles the list to
+    /// <paramref name="title"/>. A blank slug clears the list without a request. Never throws,
+    /// except for cancellation, which is rethrown having left the list exactly as it found it.
+    /// </summary>
+    public async Task LoadTopicAsync(string slug, string title, CancellationToken cancellationToken = default)
+    {
+        if (!IsTopic)
+        {
+            return;
+        }
+
+        var trimmed = slug?.Trim() ?? string.Empty;
+        if (trimmed.Length == 0)
+        {
+            Clear();
+            return;
+        }
+
+        Title = title;
+        Query = trimmed;
+        IsLoading = true;
+        var cancelled = false;
+
+        try
+        {
+            var page = await _feedService.GetTopicPageAsync(trimmed, 1, cancellationToken);
+
+            // The response may be a late one for a topic the user has already navigated past.
+            cancellationToken.ThrowIfCancellationRequested();
+
+            Reset(page.Items);
+            _loadedPage = 1;
+            HasMore = _feedService.SupportsLiveFetch && page.MayHaveMore && Items.Count > 0;
+
+            ApplyPageStatus(page);
+        }
+        catch (OperationCanceledException)
+        {
+            cancelled = true;
+            throw;
+        }
+        catch (Exception ex)
+        {
+            // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
+            AppLog.Error($"Loading the \"{trimmed}\" topic failed", ex);
+            EmptyStateText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
+            HasMore = false;
+        }
+        finally
+        {
+            if (!cancelled)
+            {
+                IsLoading = false;
+                HasLoaded = true;
+                OnPropertyChanged(nameof(ShowItems));
+            }
+        }
+    }
+
+    /// <summary>
     /// Appends the next page. No-ops when a load is already running, when the list has ended, or in
-    /// search mode with no query. Never throws.
+    /// search and topic mode before there is anything to page. Never throws.
     /// </summary>
     public async Task LoadMoreAsync()
     {
@@ -236,7 +333,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
             return;
         }
 
-        if (IsSearch && string.IsNullOrWhiteSpace(Query))
+        if (_mode != ListMode.Feed && string.IsNullOrWhiteSpace(Query))
         {
             return;
         }
@@ -246,9 +343,12 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
 
         try
         {
-            var result = IsSearch
-                ? await _feedService.SearchAsync(Query, page)
-                : await _feedService.GetFeedPageAsync(Kind!.Value, page);
+            var result = _mode switch
+            {
+                ListMode.Search => await _feedService.SearchAsync(Query, page),
+                ListMode.Topic => await _feedService.GetTopicPageAsync(Query, page),
+                _ => await _feedService.GetFeedPageAsync(Kind!.Value, page)
+            };
 
             var added = Append(result.Items);
 
@@ -266,7 +366,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
-            AppLog.Error($"Loading page {page} of the {(IsSearch ? "search results" : Kind.ToString())} failed", ex);
+            AppLog.Error($"Loading page {page} of the {SourceDescription} failed", ex);
             HasMore = false;
         }
         finally
@@ -388,6 +488,14 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         NoticeText = Items.Count > 0 ? unreachable : string.Empty;
         EmptyStateText = unreachable;
     }
+
+    /// <summary>What this list is, for a log line: the feed name, "search results" or the slug.</summary>
+    private string SourceDescription => _mode switch
+    {
+        ListMode.Search => "search results",
+        ListMode.Topic => $"\"{Query}\" topic",
+        _ => Kind.ToString() ?? string.Empty
+    };
 
     /// <summary>
     /// Resource lookup with an English fallback, for keys that are not yet in every
