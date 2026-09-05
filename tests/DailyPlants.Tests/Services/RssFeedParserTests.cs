@@ -164,5 +164,76 @@ public class RssFeedParserTests
         items.Should().OnlyContain(item => item.Kind == FeedKind.Videos);
     }
 
+    [TestMethod]
+    public void KindFromLink_BlogPermalink_ReturnsBlog()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/blog/greens-and-beans/").Should().Be(FeedKind.Blog);
+
+    [TestMethod]
+    public void KindFromLink_VideoPermalink_ReturnsVideos()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/video/the-best-way-to-cook-greens/").Should().Be(FeedKind.Videos);
+
+    [TestMethod]
+    public void KindFromLink_AudioPermalink_ReturnsPodcast()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/audio/greens-on-the-podcast/").Should().Be(FeedKind.Podcast);
+
+    [TestMethod]
+    public void KindFromLink_QuestionsPermalink_ReturnsOther()
+        => RssFeedParser.KindFromLink("https://nutritionfacts.org/questions/are-bagged-greens-safe/").Should().Be(FeedKind.Other);
+
+    [TestMethod]
+    public void KindFromLink_UnrecognisedLink_ReturnsOtherNotBlog()
+    {
+        RssFeedParser.KindFromLink("banana").Should().Be(FeedKind.Other);
+        RssFeedParser.KindFromLink("https://nutritionfacts.org/topics/kale/").Should().Be(FeedKind.Other);
+        RssFeedParser.KindFromLink(null).Should().Be(FeedKind.Other);
+        RssFeedParser.KindFromLink("   ").Should().Be(FeedKind.Other);
+    }
+
+    [TestMethod]
+    public void KindFromLink_VideosFeedUrl_IsNotMistakenForAVideo()
+    {
+        // The feed URL is /videos/, an item is /video/ - the plural must not match.
+        RssFeedParser.KindFromLink("https://nutritionfacts.org/videos/feed/").Should().Be(FeedKind.Other);
+    }
+
+    [TestMethod]
+    public void ParseMixed_SearchFixture_DerivesKindPerItemFromTheLink()
+    {
+        var items = RssFeedParser.ParseMixed(Load("search.xml"));
+
+        items.Should().HaveCount(4);
+        items.Select(item => item.Kind).Should().Equal(FeedKind.Blog, FeedKind.Videos, FeedKind.Podcast, FeedKind.Other);
+    }
+
+    [TestMethod]
+    public void ParseMixed_SearchFixture_ReadsTheSameFieldsAsAFeedItem()
+    {
+        var items = RssFeedParser.ParseMixed(Load("search.xml"));
+
+        items[0].Id.Should().Be("https://nutritionfacts.org/?p=101010");
+        items[0].Title.Should().Be("Greens & Beans: A Love Story");
+        items[0].Author.Should().Be("Michael Greger M.D. FACLM");
+        items[0].ThumbnailUrl.Should().Be("https://nutritionfacts.org/app/uploads/2025/09/greens-and-beans.jpg");
+        items[0].PublishedAt.Should().Be(new DateTimeOffset(2025, 9, 3, 13, 0, 0, TimeSpan.Zero));
+        items[3].Summary.Should().Be("A question from the Q&A archive.");
+        items[3].ThumbnailUrl.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void ParseMixed_EmptyChannel_ReturnsEmptyList()
+    {
+        const string xml = """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0">
+                <channel>
+                    <title>Search Results</title>
+                    <link>https://nutritionfacts.org/?s=zzzz</link>
+                </channel>
+            </rss>
+            """;
+
+        RssFeedParser.ParseMixed(xml).Should().BeEmpty();
+    }
+
     private static string Load(string name) => File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name));
 }

@@ -8,8 +8,20 @@ namespace DailyPlants.Services;
 /// </summary>
 public interface IFeedService
 {
+    /// <summary>
+    /// False when this head cannot reach the feeds at all (browserwasm, where the site sends no
+    /// CORS header). Callers use it to avoid offering a next page that can only fail.
+    /// </summary>
+    bool SupportsLiveFetch { get; }
+
     /// <summary>The freshness window: cache newer than this is served without a network call.</summary>
     static TimeSpan FreshnessWindow => TimeSpan.FromHours(1);
+
+    /// <summary>
+    /// Runaway guard. Paging stops here however many pages the site would go on serving; the blog
+    /// runs about 50 pages deep, so this is past the end rather than a limit anyone will feel.
+    /// </summary>
+    static int MaxPage => 50;
 
     /// <summary>
     /// Returns the newest items for one feed. Order: in-memory memo (if fresh), disk cache (if fresh),
@@ -26,4 +38,20 @@ public interface IFeedService
     /// (items with no date sort last). Feeds that fail contribute nothing; the call still succeeds.
     /// </summary>
     Task<IReadOnlyList<FeedItem>> GetLatestAcrossFeedsAsync(int count, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Page <paramref name="page"/> (1-based) of one feed. Page 1 goes through the memo, cache and
+    /// freshness window exactly like <see cref="GetFeedAsync"/>. Pages 2 and up are network-only and
+    /// are never written to the cache, so the offline story stays "you get the first page".
+    /// Never throws: a failure arrives as an end-of-list page.
+    /// </summary>
+    Task<FeedPage> GetFeedPageAsync(FeedKind kind, int page, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// One page of results from the whole nutritionfacts.org archive. Network-only, never cached,
+    /// and the items may be of any <see cref="FeedKind"/> - search crosses all three feeds and turns
+    /// up pages that belong to none of them. A blank query returns an empty page without a request.
+    /// Never throws.
+    /// </summary>
+    Task<FeedPage> SearchAsync(string query, int page, CancellationToken cancellationToken = default);
 }

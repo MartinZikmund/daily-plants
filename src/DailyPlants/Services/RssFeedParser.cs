@@ -26,7 +26,46 @@ public static class RssFeedParser
     /// Returns an empty list for a well-formed document with no items.
     /// Throws <see cref="System.Xml.XmlException"/> for malformed XML; callers catch and fall back to cache.
     /// </summary>
-    public static IReadOnlyList<FeedItem> Parse(string xml, FeedKind kind)
+    public static IReadOnlyList<FeedItem> Parse(string xml, FeedKind kind) => ParseItems(xml, kind);
+
+    /// <summary>
+    /// Parses a document whose items are of mixed kinds - the site-wide search feed - deriving each
+    /// item's <see cref="FeedItem.Kind"/> from its link. Same failure modes as <see cref="Parse"/>.
+    /// </summary>
+    public static IReadOnlyList<FeedItem> ParseMixed(string xml) => ParseItems(xml, kind: null);
+
+    /// <summary>
+    /// The kind a search hit belongs to, read off its permalink: /blog/ is a post, /video/ a video,
+    /// /audio/ a podcast episode. Anything else - /questions/ today - is
+    /// <see cref="FeedKind.Other"/>; guessing Blog would mislabel the card.
+    /// </summary>
+    public static FeedKind KindFromLink(string? link)
+    {
+        if (string.IsNullOrWhiteSpace(link))
+        {
+            return FeedKind.Other;
+        }
+
+        if (link.Contains("/blog/", StringComparison.OrdinalIgnoreCase))
+        {
+            return FeedKind.Blog;
+        }
+
+        if (link.Contains("/video/", StringComparison.OrdinalIgnoreCase))
+        {
+            return FeedKind.Videos;
+        }
+
+        if (link.Contains("/audio/", StringComparison.OrdinalIgnoreCase))
+        {
+            return FeedKind.Podcast;
+        }
+
+        return FeedKind.Other;
+    }
+
+    /// <param name="kind">Null stamps each item with <see cref="KindFromLink"/> instead.</param>
+    private static IReadOnlyList<FeedItem> ParseItems(string xml, FeedKind? kind)
     {
         XDocument document = XDocument.Parse(xml);
 
@@ -50,7 +89,7 @@ public static class RssFeedParser
         return items;
     }
 
-    private static FeedItem? ParseItem(XElement element, FeedKind kind)
+    private static FeedItem? ParseItem(XElement element, FeedKind? kind)
     {
         var link = Value(element.Element("link"));
 
@@ -69,7 +108,7 @@ public static class RssFeedParser
         return new FeedItem
         {
             Id = id,
-            Kind = kind,
+            Kind = kind ?? KindFromLink(link),
             Title = Value(element.Element("title")),
             Link = link,
             Summary = CleanSummary(ReadSummarySource(element)),

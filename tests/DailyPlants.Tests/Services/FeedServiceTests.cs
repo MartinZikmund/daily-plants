@@ -8,6 +8,17 @@ public class FeedServiceTests
 {
     private static readonly DateTimeOffset Now = new(2025, 9, 3, 15, 0, 0, TimeSpan.Zero);
 
+    /// <summary>What a page past the end of the archive - or a search nothing matches - answers with.</summary>
+    private const string EmptyChannel = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+            <channel>
+                <title>NutritionFacts.org</title>
+                <link>https://nutritionfacts.org/</link>
+            </channel>
+        </rss>
+        """;
+
     private FakeHttpMessageHandler _handler = null!;
     private InMemoryFeedCache _cache = null!;
     private TestTimeProvider _clock = null!;
@@ -180,5 +191,243 @@ public class FeedServiceTests
         items.Should().HaveCount(3);
         items.Should().NotContain(item => item.Kind == FeedKind.Videos);
         items[0].Title.Should().Be("Greens & Beans: A Love Story");
+    }
+    [TestMethod]
+    public void GetFeedUrl_PageOne_CarriesNoPagedParameter()
+    {
+        FeedService.GetFeedUrl(FeedKind.Blog, 1).AbsoluteUri.Should().Be("https://nutritionfacts.org/feed/");
+        FeedService.GetFeedUrl(FeedKind.Blog, 1).Should().Be(FeedService.GetFeedUrl(FeedKind.Blog));
+        FeedService.GetFeedUrl(FeedKind.Videos, 1).AbsoluteUri.Should().NotContain("paged");
+    }
+
+    [TestMethod]
+    public void GetFeedUrl_PageTwoAndUp_CarriesThePagedParameter()
+    {
+        FeedService.GetFeedUrl(FeedKind.Blog, 2).AbsoluteUri.Should().Be("https://nutritionfacts.org/feed/?paged=2");
+        FeedService.GetFeedUrl(FeedKind.Videos, 3).AbsoluteUri.Should().Be("https://nutritionfacts.org/videos/feed/?paged=3");
+        FeedService.GetFeedUrl(FeedKind.Podcast, 7).AbsoluteUri.Should().Be("https://nutritionfacts.org/audio/feed/?paged=7");
+    }
+
+    [TestMethod]
+    public void GetSearchUrl_PageOne_UrlEncodesTheQueryAndOmitsPaged()
+    {
+        FeedService.GetSearchUrl("greens & beans", 1).AbsoluteUri
+            .Should().Be("https://nutritionfacts.org/?s=greens%20%26%20beans&feed=rss2");
+        FeedService.GetSearchUrl("  kale  ", 1).AbsoluteUri
+            .Should().Be("https://nutritionfacts.org/?s=kale&feed=rss2");
+    }
+
+    [TestMethod]
+    public void GetSearchUrl_PageTwo_AppendsPagedAfterTheFeedParameter()
+        => FeedService.GetSearchUrl("kale", 2).AbsoluteUri
+            .Should().Be("https://nutritionfacts.org/?s=kale&feed=rss2&paged=2");
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PageOne_FreshCache_ServesCacheWithoutHttpCall()
+    {
+        _cache.Store[FeedKind.Blog] = CachedBlog(Now.AddMinutes(-59));
+
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Blog, 1);
+
+        page.Status.Should().Be(FeedResultStatus.Cached);
+        page.Items.Should().ContainSingle().Which.Title.Should().Be("A Saved Post");
+        page.MayHaveMore.Should().BeTrue();
+        _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PageOne_NoCache_FetchesTheUnpagedFeed()
+    {
+        _handler.RespondWith(FeedService.GetFeedUrl(FeedKind.Blog), Load("blog.xml"));
+
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Blog, 1);
+
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+        page.Items.Should().HaveCount(3);
+        page.MayHaveMore.Should().BeTrue();
+        _handler.RequestCount.Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PageOne_OfflineWithStaleCache_ServesItemsButOffersNoMore()
+    {
+        _handler.RespondWith(FeedService.GetFeedUrl(FeedKind.Blog), new HttpRequestException("no network"));
+        _cache.Store[FeedKind.Blog] = CachedBlog(Now.AddHours(-5));
+
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Blog, 1);
+
+        page.Status.Should().Be(FeedResultStatus.Stale);
+        page.HasItems.Should().BeTrue();
+
+        // The network is down: offering "load more" would only buy a second failure.
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PageTwo_FetchesEvenWithAFreshCacheAndNeverWritesToIt()
+    {
+        _cache.Store[FeedKind.Blog] = CachedBlog(Now.AddMinutes(-1));
+        _handler.RespondWith(FeedService.GetFeedUrl(FeedKind.Blog, 2), Load("blog.xml"));
+        var service = CreateService();
+
+        var page = await service.GetFeedPageAsync(FeedKind.Blog, 2);
+
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+        page.Items.Should().HaveCount(3);
+        page.MayHaveMore.Should().BeTrue();
+        _handler.RequestCount.Should().Be(1);
+
+        // The cache stays page-1-sized, and the memo is untouched.
+        _cache.Store[FeedKind.Blog].Items.Should().ContainSingle().Which.Title.Should().Be("A Saved Post");
+        (await service.GetFeedAsync(FeedKind.Blog)).Items.Should().ContainSingle();
+        _handler.RequestCount.Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PageWithZeroItems_EndsTheList()
+    {
+        _handler.RespondWith(FeedService.GetFeedUrl(FeedKind.Blog, 4), EmptyChannel);
+
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Blog, 4);
+
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PageThatFails_ReportsUnavailableAndEndsTheList()
+    {
+        // Past the last page the site answers 404, which arrives here as a failed fetch.
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Blog, 9);
+
+        page.Status.Should().Be(FeedResultStatus.Unavailable);
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_AtTheRunawayCap_ServesTheItemsButOffersNoMore()
+    {
+        _handler.RespondWith(FeedService.GetFeedUrl(FeedKind.Blog, IFeedService.MaxPage), Load("blog.xml"));
+
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Blog, IFeedService.MaxPage);
+
+        page.Items.Should().HaveCount(3);
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task GetFeedPageAsync_PastTheRunawayCap_ReturnsAnEmptyPageWithoutHttpCall()
+    {
+        var service = CreateService();
+
+        var beyond = await service.GetFeedPageAsync(FeedKind.Blog, IFeedService.MaxPage + 1);
+        var nonsense = await service.GetFeedPageAsync(FeedKind.Blog, 0);
+
+        beyond.Items.Should().BeEmpty();
+        beyond.MayHaveMore.Should().BeFalse();
+        nonsense.Items.Should().BeEmpty();
+        nonsense.MayHaveMore.Should().BeFalse();
+        _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_BlankQuery_ReturnsAnEmptyPageWithoutHttpCall()
+    {
+        var service = CreateService();
+
+        foreach (var query in new[] { string.Empty, "   ", "\t" })
+        {
+            var page = await service.SearchAsync(query, 1);
+
+            page.Items.Should().BeEmpty();
+            page.MayHaveMore.Should().BeFalse();
+        }
+
+        _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_FirstPage_ReturnsMixedKindsAndNeverTouchesTheCache()
+    {
+        _handler.RespondWith(FeedService.GetSearchUrl("greens", 1), Load("search.xml"));
+
+        var page = await CreateService().SearchAsync("greens", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+        page.Items.Should().HaveCount(4);
+        page.Items.Select(item => item.Kind)
+            .Should().Equal(FeedKind.Blog, FeedKind.Videos, FeedKind.Podcast, FeedKind.Other);
+        page.MayHaveMore.Should().BeTrue();
+        _cache.Store.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_PageTwo_RequestsThePagedSearchUrl()
+    {
+        // Only the paged URL is stubbed, so a request to any other URL 404s into Unavailable.
+        _handler.RespondWith(FeedService.GetSearchUrl("greens", 2), Load("search.xml"));
+
+        var page = await CreateService().SearchAsync("greens", 2);
+
+        page.Items.Should().HaveCount(4);
+        _handler.RequestCount.Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_NoResults_EndsTheList()
+    {
+        // A query nothing matches answers 200 with an empty channel rather than 404.
+        _handler.RespondWith(FeedService.GetSearchUrl("zzzz", 1), EmptyChannel);
+
+        var page = await CreateService().SearchAsync("zzzz", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_Offline_ReportsUnavailableRatherThanThrowing()
+    {
+        _handler.RespondWith(FeedService.GetSearchUrl("greens", 1), new HttpRequestException("no network"));
+
+        var page = await CreateService().SearchAsync("greens", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Unavailable);
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_MalformedXml_ReportsUnavailableRatherThanThrowing()
+    {
+        _handler.RespondWith(FeedService.GetSearchUrl("greens", 1), Load("malformed.xml"));
+
+        var page = await CreateService().SearchAsync("greens", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Unavailable);
+        page.Items.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public async Task SearchAsync_PastTheRunawayCap_ReturnsAnEmptyPageWithoutHttpCall()
+    {
+        var page = await CreateService().SearchAsync("greens", IFeedService.MaxPage + 1);
+
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+        _handler.RequestCount.Should().Be(0);
+    }
+    [TestMethod]
+    public async Task GetFeedPageAsync_OtherKind_ReturnsAnEmptyPageRatherThanThrowing()
+    {
+        // Other is a search-only kind: there is no /other/ feed to page through.
+        var page = await CreateService().GetFeedPageAsync(FeedKind.Other, 1);
+
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+        _handler.RequestCount.Should().Be(0);
     }
 }
