@@ -16,6 +16,7 @@ internal sealed class FakeFeedService : IFeedService
     private readonly Dictionary<FeedKind, FeedResult> _responses = new();
     private readonly Dictionary<(FeedKind Kind, int Page), FeedPage> _feedPages = new();
     private readonly Dictionary<(string Query, int Page), FeedPage> _searchPages = new();
+    private readonly Dictionary<(string Slug, int Page), FeedPage> _topicPages = new();
 
     private TaskCompletionSource? _pause;
 
@@ -30,6 +31,9 @@ internal sealed class FakeFeedService : IFeedService
 
     /// <summary>Every SearchAsync call in order, query included.</summary>
     public List<(string Query, int Page)> SearchRequests { get; } = [];
+
+    /// <summary>Every GetTopicPageAsync call in order, slug included.</summary>
+    public List<(string Slug, int Page)> TopicRequests { get; } = [];
 
     /// <summary>What GetLatestAcrossFeedsAsync returns, before the count is applied.</summary>
     public IReadOnlyList<FeedItem> LatestAcrossFeeds { get; set; } = [];
@@ -56,6 +60,13 @@ internal sealed class FakeFeedService : IFeedService
     public FakeFeedService SetSearchPage(string query, int page, FeedPage result)
     {
         _searchPages[(query, page)] = result;
+        return this;
+    }
+
+    /// <summary>Canned answer for one page of one topic. Unconfigured pages come back empty and ended.</summary>
+    public FakeFeedService SetTopicPage(string slug, int page, FeedPage result)
+    {
+        _topicPages[(slug, page)] = result;
         return this;
     }
 
@@ -142,6 +153,22 @@ internal sealed class FakeFeedService : IFeedService
         await WaitForResumeAsync();
 
         return _searchPages.TryGetValue((query, page), out var result)
+            ? result
+            : FeedPage.End(FeedResultStatus.Fresh);
+    }
+
+    public async Task<FeedPage> GetTopicPageAsync(string slug, int page, CancellationToken cancellationToken = default)
+    {
+        TopicRequests.Add((slug, page));
+
+        if (ExceptionToThrow is { } exception)
+        {
+            throw exception;
+        }
+
+        await WaitForResumeAsync();
+
+        return _topicPages.TryGetValue((slug, page), out var result)
             ? result
             : FeedPage.End(FeedResultStatus.Fresh);
     }

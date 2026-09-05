@@ -66,4 +66,11 @@ public interface IFeedService
     /// Never throws.
     /// </summary>
     Task<FeedPage> SearchAsync(string query, int page, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// One page of a single topic's feed, e.g. <c>topics/berries/feed/</c>. Network-only, never
+    /// cached, and the items may be of any <see cref="FeedKind"/> - a topic collects videos, posts
+    /// and podcasts alike. A blank slug returns an empty page without a request. Never throws.
+    /// </summary>
+    Task<FeedPage> GetTopicPageAsync(string slug, int page, CancellationToken cancellationToken = default);
 }

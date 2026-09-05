@@ -74,6 +74,16 @@ public sealed class FeedService : IFeedService
         return new Uri(page > 1 ? $"{url}&paged={page}" : url);
     }
 
+    /// <summary>
+    /// One topic's feed for one page. Page 1 carries no <c>paged</c> parameter, exactly like the
+    /// per-feed URLs.
+    /// </summary>
+    public static Uri GetTopicUrl(string slug, int page = 1)
+    {
+        var url = $"{SiteRoot}topics/{Uri.EscapeDataString(slug.Trim())}/feed/";
+        return new Uri(page > 1 ? $"{url}?paged={page}" : url);
+    }
+
     public async Task<FeedResult> GetFeedAsync(FeedKind kind, bool forceRefresh = false, CancellationToken cancellationToken = default)
     {
         if (!forceRefresh && TryGetFreshMemo(kind) is { } memo)
@@ -151,6 +161,23 @@ public sealed class FeedService : IFeedService
             RssFeedParser.ParseMixed,
             page,
             $"search page {page}",
+            cancellationToken);
+    }
+
+    public async Task<FeedPage> GetTopicPageAsync(string slug, int page, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(slug) || page < 1 || page > IFeedService.MaxPage)
+        {
+            return FeedPage.End(FeedResultStatus.Fresh);
+        }
+
+        // ParseMixed, not Parse: a topic feed mixes videos, posts and podcasts, so each item has to
+        // carry the kind its own link says it is.
+        return await FetchPageAsync(
+            () => GetTopicUrl(slug, page),
+            RssFeedParser.ParseMixed,
+            page,
+            $"topic {slug} page {page}",
             cancellationToken);
     }
 

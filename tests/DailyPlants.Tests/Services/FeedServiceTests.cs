@@ -472,6 +472,136 @@ public class FeedServiceTests
         page.MayHaveMore.Should().BeFalse();
         _handler.RequestCount.Should().Be(0);
     }
+
+    [TestMethod]
+    public void GetTopicUrl_PageOne_OmitsPaged()
+    {
+        FeedService.GetTopicUrl("berries").AbsoluteUri.Should().Be("https://nutritionfacts.org/topics/berries/feed/");
+        FeedService.GetTopicUrl("flax-seeds", 1).AbsoluteUri.Should().Be("https://nutritionfacts.org/topics/flax-seeds/feed/");
+        FeedService.GetTopicUrl("  grains  ", 1).AbsoluteUri.Should().Be("https://nutritionfacts.org/topics/grains/feed/");
+    }
+
+    [TestMethod]
+    public void GetTopicUrl_PageTwoAndUp_AppendsPaged()
+    {
+        FeedService.GetTopicUrl("berries", 2).AbsoluteUri.Should().Be("https://nutritionfacts.org/topics/berries/feed/?paged=2");
+        FeedService.GetTopicUrl("vitamin-b12", 7).AbsoluteUri.Should().Be("https://nutritionfacts.org/topics/vitamin-b12/feed/?paged=7");
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_BlankSlug_ReturnsAnEmptyPageWithoutHttpCall()
+    {
+        var service = CreateService();
+
+        foreach (var slug in new[] { string.Empty, "   ", "	" })
+        {
+            var page = await service.GetTopicPageAsync(slug, 1);
+
+            page.Items.Should().BeEmpty();
+            page.MayHaveMore.Should().BeFalse();
+        }
+
+        _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_FirstPage_ReturnsMixedKindsAndNeverTouchesTheCache()
+    {
+        // A topic collects every content type, so items must be stamped from their own links -
+        // the search fixture is the one that carries all seven kinds.
+        _handler.RespondWith(FeedService.GetTopicUrl("berries", 1), Load("search.xml"));
+
+        var page = await CreateService().GetTopicPageAsync("berries", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+        page.Items.Select(item => item.Kind).Should().Equal(
+            FeedKind.Blog,
+            FeedKind.Videos,
+            FeedKind.Podcast,
+            FeedKind.Questions,
+            FeedKind.Recipes,
+            FeedKind.Webinars,
+            FeedKind.Other);
+        page.MayHaveMore.Should().BeTrue();
+        _cache.Store.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_PageTwo_RequestsThePagedTopicUrl()
+    {
+        // Only the paged URL is stubbed, so a request to any other URL 404s into Unavailable.
+        _handler.RespondWith(FeedService.GetTopicUrl("berries", 2), Load("search.xml"));
+
+        var page = await CreateService().GetTopicPageAsync("berries", 2);
+
+        page.Items.Should().HaveCount(7);
+        _handler.RequestCount.Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_NoResults_EndsTheList()
+    {
+        _handler.RespondWith(FeedService.GetTopicUrl("berries", 1), EmptyChannel);
+
+        var page = await CreateService().GetTopicPageAsync("berries", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Fresh);
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_Offline_ReportsUnavailableRatherThanThrowing()
+    {
+        _handler.RespondWith(FeedService.GetTopicUrl("berries", 1), new HttpRequestException("no network"));
+
+        var page = await CreateService().GetTopicPageAsync("berries", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Unavailable);
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_UnknownSlug_ReportsUnavailableRatherThanThrowing()
+    {
+        // A slug that is not a topic 404s - "whole-grains" and "flaxseeds" both do.
+        var page = await CreateService().GetTopicPageAsync("whole-grains", 1);
+
+        page.Status.Should().Be(FeedResultStatus.Unavailable);
+        page.Items.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_PastTheRunawayCap_ReturnsAnEmptyPageWithoutHttpCall()
+    {
+        var page = await CreateService().GetTopicPageAsync("berries", IFeedService.MaxPage + 1);
+
+        page.Items.Should().BeEmpty();
+        page.MayHaveMore.Should().BeFalse();
+        _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
+    public async Task GetTopicPageAsync_WithoutLiveFetch_ReportsLiveFetchUnavailableWithoutARequest()
+    {
+        // LiveFetchSupported is compiled false on the browser head and true everywhere else, so
+        // assert whichever half this build is: the browser skips the request entirely.
+        var service = CreateService();
+
+        var page = await service.GetTopicPageAsync("berries", 1);
+
+        if (service.SupportsLiveFetch)
+        {
+            page.Status.Should().Be(FeedResultStatus.Unavailable);
+            _handler.RequestCount.Should().Be(1);
+        }
+        else
+        {
+            page.Status.Should().Be(FeedResultStatus.LiveFetchUnavailable);
+            _handler.RequestCount.Should().Be(0);
+        }
+    }
     [TestMethod]
     public async Task GetFeedPageAsync_OtherKind_ReturnsAnEmptyPageRatherThanThrowing()
     {

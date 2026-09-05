@@ -178,4 +178,45 @@ public class ChecklistDefinitionsTests
             map[item.Id].Should().Be(item.RecommendedServings);
         }
     }
+
+    /// <summary>
+    /// The slugs verified live against nutritionfacts.org/topics/&lt;slug&gt;/feed/. Two obvious
+    /// guesses are 404s - the topic is "grains", not "whole-grains", and "flax-seeds", not
+    /// "flaxseeds" - and a wrong slug fails silently as an empty section, so it is pinned here.
+    /// </summary>
+    private static readonly string[] VerifiedTopicSlugs =
+    [
+        "beans", "berries", "fruit", "cruciferous-vegetables", "greens", "vegetables", "flax-seeds",
+        "nuts", "spices", "grains", "beverages", "exercise", "vitamin-b12"
+    ];
+
+    [TestMethod]
+    public void AllItems_EveryDailyDozenItem_HasATopicSlug()
+    {
+        var dailyDozen = ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen).ToList();
+
+        dailyDozen.Should().HaveCount(13);
+        dailyDozen.Should().OnlyContain(item => !string.IsNullOrWhiteSpace(item.TopicSlug));
+    }
+
+    [TestMethod]
+    public void AllItems_DailyDozenTopicSlugs_AreTheVerifiedOnes()
+    {
+        var slugs = ChecklistDefinitions.GetItemsForChecklist(ChecklistType.DailyDozen)
+            .Select(item => item.TopicSlug)
+            .ToList();
+
+        slugs.Should().BeEquivalentTo(VerifiedTopicSlugs);
+    }
+
+    [TestMethod]
+    public void AllItems_TopicSlugs_AreNotSharedByTwoItems()
+    {
+        var slugs = ChecklistDefinitions.AllItems
+            .Select(item => item.TopicSlug)
+            .Where(slug => slug is not null)
+            .ToList();
+
+        slugs.Should().OnlyHaveUniqueItems();
+    }
 }

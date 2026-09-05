@@ -1,4 +1,4 @@
-using DailyPlants.Helpers;
+﻿using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services.Settings;
 
@@ -74,6 +74,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Beans_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_Beans_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/beans/",
+            TopicSlug = "beans",
             IconPath = "ms-appx:///Assets/Icons/Items/beans.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -90,6 +91,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Berries_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_Berries_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/berries/",
+            TopicSlug = "berries",
             IconPath = "ms-appx:///Assets/Icons/Items/berries.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -106,6 +108,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_OtherFruits_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_OtherFruits_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/fruit/",
+            TopicSlug = "fruit",
             IconPath = "ms-appx:///Assets/Icons/Items/other_fruits.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -122,6 +125,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Greens_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_Greens_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/greens/",
+            TopicSlug = "greens",
             IconPath = "ms-appx:///Assets/Icons/Items/greens.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -138,6 +142,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Cruciferous_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_Cruciferous_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/cruciferous-vegetables/",
+            TopicSlug = "cruciferous-vegetables",
             IconPath = "ms-appx:///Assets/Icons/Items/cruciferous.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -154,6 +159,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_OtherVegetables_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_OtherVegetables_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vegetables/",
+            TopicSlug = "vegetables",
             IconPath = "ms-appx:///Assets/Icons/Items/other_vegetables.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -170,6 +176,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Flaxseed_Serving"),
             HealthBenefits = Localizer.GetString("DD_Flaxseed_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/flax-seeds/",
+            TopicSlug = "flax-seeds",
             IconPath = "ms-appx:///Assets/Icons/Items/flaxseed.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -186,6 +193,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Nuts_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_Nuts_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/nuts/",
+            TopicSlug = "nuts",
             IconPath = "ms-appx:///Assets/Icons/Items/nuts.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -202,6 +210,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Herbs_Serving"),
             HealthBenefits = Localizer.GetString("DD_Herbs_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/spices/",
+            TopicSlug = "spices",
             IconPath = "ms-appx:///Assets/Icons/Items/herbs_spices.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -217,7 +226,8 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("DD_WholeGrains_Serving_Metric"),
             ServingSizeImperial = Localizer.GetString("DD_WholeGrains_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_WholeGrains_Benefits"),
-            MoreInfoUrl = "https://nutritionfacts.org/topics/whole-grains/",
+            MoreInfoUrl = "https://nutritionfacts.org/topics/grains/",
+            TopicSlug = "grains",
             IconPath = "ms-appx:///Assets/Icons/Items/whole_grains.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -234,6 +244,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Beverages_Serving_Imperial"),
             HealthBenefits = Localizer.GetString("DD_Beverages_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/beverages/",
+            TopicSlug = "beverages",
             IconPath = "ms-appx:///Assets/Icons/Items/beverages.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -250,6 +261,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_Exercise_Serving"),
             HealthBenefits = Localizer.GetString("DD_Exercise_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/exercise/",
+            TopicSlug = "exercise",
             IconPath = "ms-appx:///Assets/Icons/Items/exercise.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -266,6 +278,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("DD_VitaminB12_Serving"),
             HealthBenefits = Localizer.GetString("DD_VitaminB12_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vitamin-b12/",
+            TopicSlug = "vitamin-b12",
             IconPath = "ms-appx:///Assets/Icons/Items/vitamin_b12.png",
             Checklists = [ChecklistType.DailyDozen]
         },
