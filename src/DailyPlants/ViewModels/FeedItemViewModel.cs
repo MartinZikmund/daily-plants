@@ -96,6 +96,8 @@ public partial class FeedItemViewModel : ObservableObject
     {
         FeedKind.Videos => Localized("Resources_TabVideos", "Videos"),
         FeedKind.Podcast => Localized("Resources_TabPodcast", "Podcast"),
+        // A search hit from outside the three feeds - "Article" rather than a feed name it isn't in.
+        FeedKind.Other => Localized("Resources_KindOther", "Article"),
         _ => Localized("Resources_TabBlog", "Blog")
     };
 

@@ -30,11 +30,11 @@ public class ResourcesViewModelTests
         return new FeedResult(kind, items, status, fetchedAt);
     }
 
-    private static async Task<FeedTabViewModel> LoadTabAsync(FeedResultStatus status, int itemCount)
+    private static async Task<FeedListViewModel> LoadTabAsync(FeedResultStatus status, int itemCount)
     {
         FakeFeedService feedService = new();
         feedService.SetResponse(FeedKind.Blog, Result(FeedKind.Blog, status, itemCount, DateTimeOffset.UtcNow));
-        FeedTabViewModel tab = new(feedService, FeedKind.Blog, "Blog");
+        FeedListViewModel tab = new(feedService, FeedKind.Blog, "Blog");
 
         await tab.LoadAsync();
 
@@ -169,7 +169,7 @@ public class ResourcesViewModelTests
     public async Task LoadAsync_Failure_LeavesIsLoadingFalse()
     {
         FakeFeedService feedService = new() { ExceptionToThrow = new InvalidOperationException("boom") };
-        FeedTabViewModel tab = new(feedService, FeedKind.Blog, "Blog");
+        FeedListViewModel tab = new(feedService, FeedKind.Blog, "Blog");
 
         await tab.Invoking(t => t.LoadAsync()).Should().NotThrowAsync();
 
@@ -177,5 +177,192 @@ public class ResourcesViewModelTests
         tab.HasLoaded.Should().BeTrue();
         tab.NoticeText.Should().NotBeEmpty();
         tab.ShowEmptyState.Should().BeTrue();
+    }
+
+    private static FakeFeedService SearchingFor(string query, params string[] ids)
+    {
+        FakeFeedService feedService = new();
+        feedService.SetSearchPage(
+            query,
+            1,
+            new FeedPage(ids.Select(id => NewItem(FeedKind.Other, id)).ToList(), FeedResultStatus.Fresh, false));
+
+        return feedService;
+    }
+
+    [TestMethod]
+    public void ActiveList_BeforeAnySearch_IsTheSelectedTab()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+
+        vm.ActiveList.Should().BeSameAs(vm.Blog);
+        vm.IsSearchActive.Should().BeFalse();
+        vm.SearchResults.Kind.Should().BeNull();
+    }
+
+    [TestMethod]
+    public async Task ActiveList_FollowsTheSelectedTab_AndAnnouncesIt()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+        List<string?> changed = [];
+        vm.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
+
+        await vm.SelectTabCommand.ExecuteAsync("Videos");
+
+        vm.ActiveList.Should().BeSameAs(vm.Videos);
+        changed.Should().Contain(nameof(ResourcesViewModel.ActiveList));
+    }
+
+    [TestMethod]
+    public async Task SubmitSearchAsync_ActivatesSearchAndAnnouncesTheNewActiveList()
+    {
+        var feedService = SearchingFor("beans", "one", "two");
+        ResourcesViewModel vm = new(feedService);
+        await vm.LoadAsync();
+        List<string?> changed = [];
+        vm.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
+
+        await vm.SubmitSearchCommand.ExecuteAsync("beans");
+
+        vm.IsSearchActive.Should().BeTrue();
+        vm.ActiveList.Should().BeSameAs(vm.SearchResults);
+        vm.SearchResults.Items.Should().HaveCount(2);
+        changed.Should().Contain(nameof(ResourcesViewModel.ActiveList));
+        feedService.SearchRequests.Should().Equal(("beans", 1));
+    }
+
+    [TestMethod]
+    public async Task SubmitSearchAsync_TrimsTheQuery()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService);
+
+        await vm.SubmitSearchCommand.ExecuteAsync("  beans  ");
+
+        vm.SearchQuery.Should().Be("beans");
+        feedService.SearchRequests.Should().Equal(("beans", 1));
+    }
+
+    [TestMethod]
+    public async Task SubmitSearchAsync_NoArgument_UsesWhatIsInTheBox()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService) { SearchQuery = "beans" };
+
+        await vm.SubmitSearchCommand.ExecuteAsync(null);
+
+        vm.IsSearchActive.Should().BeTrue();
+        feedService.SearchRequests.Should().Equal(("beans", 1));
+    }
+
+    [TestMethod]
+    public async Task SubmitSearchAsync_BlankQuery_ClearsInsteadOfSearching()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService);
+        await vm.SubmitSearchCommand.ExecuteAsync("beans");
+
+        await vm.SubmitSearchCommand.ExecuteAsync("   ");
+
+        vm.IsSearchActive.Should().BeFalse();
+        vm.SearchQuery.Should().BeEmpty();
+        vm.SearchResults.Items.Should().BeEmpty();
+        vm.ActiveList.Should().BeSameAs(vm.Blog);
+        feedService.SearchRequests.Should().Equal(("beans", 1));
+    }
+
+    [TestMethod]
+    public async Task ClearSearch_PutsTheTabsBack()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService);
+        await vm.SubmitSearchCommand.ExecuteAsync("beans");
+
+        vm.ClearSearchCommand.Execute(null);
+
+        vm.IsSearchActive.Should().BeFalse();
+        vm.SearchQuery.Should().BeEmpty();
+        vm.SearchResults.Items.Should().BeEmpty();
+        vm.SearchResults.Query.Should().BeEmpty();
+        vm.ActiveList.Should().BeSameAs(vm.SelectedTab);
+    }
+
+    [TestMethod]
+    public async Task SelectTab_WhileSearching_LeavesTheResults()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService);
+        await vm.SubmitSearchCommand.ExecuteAsync("beans");
+
+        await vm.SelectTabCommand.ExecuteAsync("Podcast");
+
+        vm.IsSearchActive.Should().BeFalse();
+        vm.ActiveList.Should().BeSameAs(vm.Podcast);
+    }
+
+    [TestMethod]
+    public async Task RefreshAsync_WhileSearching_RerunsTheSearchAndLeavesTheTabsAlone()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService);
+        await vm.LoadAsync();
+        await vm.SubmitSearchCommand.ExecuteAsync("beans");
+
+        await vm.RefreshCommand.ExecuteAsync(null);
+
+        feedService.SearchRequests.Should().Equal(("beans", 1), ("beans", 1));
+        feedService.CallCounts[FeedKind.Blog].Should().Be(1, "the tab was not the list on screen");
+    }
+
+    [TestMethod]
+    public async Task LoadMoreAsync_GoesToTheListOnScreen()
+    {
+        var feedService = SearchingFor("beans", "one");
+        ResourcesViewModel vm = new(feedService);
+        feedService.SetSearchPage(
+            "beans",
+            1,
+            new FeedPage([NewItem(FeedKind.Other, "one")], FeedResultStatus.Fresh, true));
+        feedService.SetSearchPage(
+            "beans",
+            2,
+            new FeedPage([NewItem(FeedKind.Other, "two")], FeedResultStatus.Fresh, false));
+        await vm.SubmitSearchCommand.ExecuteAsync("beans");
+
+        await vm.LoadMoreCommand.ExecuteAsync(null);
+
+        vm.SearchResults.Items.Should().HaveCount(2);
+        feedService.SearchRequests.Should().Equal(("beans", 1), ("beans", 2));
+    }
+
+    /// <summary>
+    /// The scroll handler fires LoadMoreCommand.Execute on every ViewChanged, so the guard has to
+    /// hold against the fire-and-forget command, not just against an awaited LoadMoreAsync.
+    /// </summary>
+    [TestMethod]
+    public async Task LoadMoreCommand_FiredRepeatedlyByScrolling_FetchesOnePage()
+    {
+        FakeFeedService feedService = new();
+        feedService.SetResponse(FeedKind.Blog, Result(FeedKind.Blog, FeedResultStatus.Fresh, itemCount: 1));
+        feedService.SetPage(FeedKind.Blog, 2, new FeedPage([NewItem(FeedKind.Blog, "two")], FeedResultStatus.Fresh, false));
+
+        ResourcesViewModel vm = new(feedService);
+        await vm.LoadAsync();
+
+        // Hold page 2 open so the burst of scroll events lands while it is still in flight.
+        feedService.Pause();
+        for (var i = 0; i < 10; i++)
+        {
+            vm.LoadMoreCommand.Execute(null);
+        }
+
+        feedService.Resume();
+        await vm.LoadMoreCommand.ExecutionTask!;
+
+        feedService.PageRequests.Should().Equal((FeedKind.Blog, 2));
+        vm.Blog.Items.Should().HaveCount(2);
+        vm.Blog.IsLoadingMore.Should().BeFalse();
     }
 }
