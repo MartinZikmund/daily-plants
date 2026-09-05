@@ -17,7 +17,7 @@ public partial class FeedItemViewModel : ObservableObject
         ThumbnailUrl = Uri.TryCreate(item.ThumbnailUrl, UriKind.Absolute, out _) ? item.ThumbnailUrl : null;
         Summary = Truncate(item.Summary);
         PublishedText = FormatPublished(item.PublishedAt);
-        KindText = FormatKind(item.Kind);
+        KindText = FeedKindLabel.For(item.Kind);
         AutomationName = string.Format(
             CultureInfo.CurrentCulture,
             Localized("Resources_ItemAutomationName", "{0}. {1}, {2}"),
@@ -91,15 +91,6 @@ public partial class FeedItemViewModel : ObservableObject
 
         return published.ToLocalTime().ToString("d MMM", CultureInfo.CurrentCulture);
     }
-
-    private static string FormatKind(FeedKind kind) => kind switch
-    {
-        FeedKind.Videos => Localized("Resources_TabVideos", "Videos"),
-        FeedKind.Podcast => Localized("Resources_TabPodcast", "Podcast"),
-        // A search hit from outside the three feeds - "Article" rather than a feed name it isn't in.
-        FeedKind.Other => Localized("Resources_KindOther", "Article"),
-        _ => Localized("Resources_TabBlog", "Blog")
-    };
 
     /// <summary>
     /// Resource lookup with an English fallback, for keys that are not yet in every

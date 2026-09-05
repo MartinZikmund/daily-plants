@@ -9,7 +9,7 @@ namespace DailyPlants.ViewModels;
 /// A paginated list of feed items with its loading state - one feed tab on the Resources page, or
 /// the results of a site-wide search when <see cref="Kind"/> is null.
 /// </summary>
-public partial class FeedListViewModel : ObservableObject
+public partial class FeedListViewModel : ObservableObject, IResourceTab
 {
     private readonly IFeedService _feedService;
 
@@ -41,8 +41,18 @@ public partial class FeedListViewModel : ObservableObject
     /// <summary>The feed this list pages through, or null in search mode.</summary>
     public FeedKind? Kind { get; }
 
-    /// <summary>Localized tab label (Resources_TabBlog / _TabVideos / _TabPodcast), or the search heading.</summary>
+    /// <summary>Localized tab label (Resources_Tab*), or the search heading.</summary>
     public string Title { get; }
+
+    /// <summary>
+    /// AutomationProperties.AutomationId for this tab's button. The search list is not a tab and
+    /// never appears in the strip, so it gets a name of its own rather than a tab id.
+    /// </summary>
+    public string TabAutomationId => Kind is { } kind ? $"ResourcesTab{kind}Button" : "ResourcesSearchResults";
+
+    /// <summary>True while this is the selected tab. Maintained by <see cref="ResourcesViewModel"/>.</summary>
+    [ObservableProperty]
+    private bool _isSelected;
 
     /// <summary>True for the search list: it fetches by query rather than by feed, and is never cached.</summary>
     public bool IsSearch { get; }
@@ -100,21 +110,26 @@ public partial class FeedListViewModel : ObservableObject
 
     /// <summary>
     /// Loads (or reloads) the first page, resetting paging. In search mode this re-runs the current
-    /// query. Sets IsLoading in a try/finally; never throws.
+    /// query. Sets IsLoading in a try/finally; never throws, except for cancellation, which is
+    /// rethrown having left the list, the spinner and the notice exactly as it found them.
     /// </summary>
-    public async Task LoadAsync(bool forceRefresh = false)
+    public async Task LoadAsync(bool forceRefresh = false, CancellationToken cancellationToken = default)
     {
         if (IsSearch)
         {
-            await SearchAsync(Query);
+            await SearchAsync(Query, cancellationToken);
             return;
         }
 
         IsLoading = true;
+        var cancelled = false;
 
         try
         {
-            var result = await _feedService.GetFeedAsync(Kind!.Value, forceRefresh);
+            var result = await _feedService.GetFeedAsync(Kind!.Value, forceRefresh, cancellationToken);
+
+            // The response may be a late one for a load that has already been superseded.
+            cancellationToken.ThrowIfCancellationRequested();
 
             Reset(result.Items);
             _loadedPage = 1;
@@ -126,6 +141,11 @@ public partial class FeedListViewModel : ObservableObject
 
             ApplyStatus(result);
         }
+        catch (OperationCanceledException)
+        {
+            cancelled = true;
+            throw;
+        }
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
@@ -135,17 +155,22 @@ public partial class FeedListViewModel : ObservableObject
         }
         finally
         {
-            IsLoading = false;
-            HasLoaded = true;
-            OnPropertyChanged(nameof(ShowItems));
+            if (!cancelled)
+            {
+                IsLoading = false;
+                HasLoaded = true;
+                OnPropertyChanged(nameof(ShowItems));
+            }
         }
     }
 
     /// <summary>
     /// Search mode only: runs <paramref name="query"/> from page 1. A blank query clears the list
-    /// without a request. Never throws.
+    /// without a request. Never throws, except for cancellation: a superseded search rethrows
+    /// <see cref="OperationCanceledException"/> having left the results, the spinner and the notice
+    /// exactly as it found them, so the search that replaced it owns the screen.
     /// </summary>
-    public async Task SearchAsync(string query)
+    public async Task SearchAsync(string query, CancellationToken cancellationToken = default)
     {
         if (!IsSearch)
         {
@@ -161,16 +186,25 @@ public partial class FeedListViewModel : ObservableObject
 
         Query = trimmed;
         IsLoading = true;
+        var cancelled = false;
 
         try
         {
-            var page = await _feedService.SearchAsync(trimmed, 1);
+            var page = await _feedService.SearchAsync(trimmed, 1, cancellationToken);
+
+            // The response may be a late one for a query the user has already typed past.
+            cancellationToken.ThrowIfCancellationRequested();
 
             Reset(page.Items);
             _loadedPage = 1;
             HasMore = _feedService.SupportsLiveFetch && page.MayHaveMore && Items.Count > 0;
 
             ApplyPageStatus(page);
+        }
+        catch (OperationCanceledException)
+        {
+            cancelled = true;
+            throw;
         }
         catch (Exception ex)
         {
@@ -181,9 +215,12 @@ public partial class FeedListViewModel : ObservableObject
         }
         finally
         {
-            IsLoading = false;
-            HasLoaded = true;
-            OnPropertyChanged(nameof(ShowItems));
+            if (!cancelled)
+            {
+                IsLoading = false;
+                HasLoaded = true;
+                OnPropertyChanged(nameof(ShowItems));
+            }
         }
     }
 
@@ -247,6 +284,7 @@ public partial class FeedListViewModel : ObservableObject
         _loadedPage = 0;
         HasMore = false;
         HasLoaded = false;
+        IsLoading = false;
         NoticeText = string.Empty;
         EmptyStateText = string.Empty;
         UpdatedText = string.Empty;

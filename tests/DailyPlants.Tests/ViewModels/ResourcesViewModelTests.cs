@@ -42,17 +42,18 @@ public class ResourcesViewModelTests
     }
 
     [TestMethod]
-    public async Task LoadAsync_NoInitialKind_SelectsBlogAndLoadsOnlyBlog()
+    public async Task LoadAsync_NoInitialKind_SelectsLatestAndLoadsOnlyTheOverview()
     {
         FakeFeedService feedService = new();
         ResourcesViewModel vm = new(feedService);
 
         await vm.LoadAsync();
 
-        vm.SelectedTab.Should().BeSameAs(vm.Blog);
-        feedService.CallCounts[FeedKind.Blog].Should().Be(1);
-        feedService.CallCounts[FeedKind.Videos].Should().Be(0);
-        feedService.CallCounts[FeedKind.Podcast].Should().Be(0);
+        vm.SelectedTab.Should().BeSameAs(vm.Latest);
+        vm.IsOverviewActive.Should().BeTrue();
+        vm.Latest.HasLoaded.Should().BeTrue();
+        feedService.OverviewCallCount.Should().Be(1);
+        feedService.CallCounts.Values.Should().AllSatisfy(count => count.Should().Be(0));
     }
 
     [TestMethod]
@@ -67,6 +68,7 @@ public class ResourcesViewModelTests
         vm.Podcast.HasLoaded.Should().BeTrue();
         feedService.CallCounts[FeedKind.Podcast].Should().Be(1);
         feedService.CallCounts[FeedKind.Blog].Should().Be(0);
+        feedService.OverviewCallCount.Should().Be(0, "the deep link skipped the overview entirely");
     }
 
     [TestMethod]
@@ -77,8 +79,9 @@ public class ResourcesViewModelTests
 
         await vm.SelectTabCommand.ExecuteAsync("Newsletter");
 
-        vm.SelectedTab.Should().BeSameAs(vm.Blog);
+        vm.SelectedTab.Should().BeSameAs(vm.Latest);
         feedService.CallCounts.Values.Should().AllSatisfy(count => count.Should().Be(0));
+        feedService.OverviewCallCount.Should().Be(0);
     }
 
     [TestMethod]
@@ -100,7 +103,7 @@ public class ResourcesViewModelTests
     {
         FakeFeedService feedService = new();
         ResourcesViewModel vm = new(feedService);
-        await vm.LoadAsync();
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
 
         await vm.RefreshCommand.ExecuteAsync(null);
 
@@ -111,19 +114,124 @@ public class ResourcesViewModelTests
     }
 
     [TestMethod]
-    public async Task IsBlogSelected_TracksSelectedTab()
+    public async Task RefreshAsync_OnTheOverview_RefreshesTheOverview()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+        await vm.LoadAsync();
+
+        await vm.RefreshCommand.ExecuteAsync(null);
+
+        feedService.OverviewCallCount.Should().Be(2);
+        feedService.LastForceRefresh.Should().NotBeEmpty("a forced overview has to get past the freshness window");
+        feedService.LastForceRefresh.Values.Should().AllSatisfy(forced => forced.Should().BeTrue());
+    }
+
+    [TestMethod]
+    public void Tabs_AreLatestThenEveryFeedInDisplayOrder()
     {
         FakeFeedService feedService = new();
         ResourcesViewModel vm = new(feedService);
 
-        vm.IsBlogSelected.Should().BeTrue();
-        vm.IsVideosSelected.Should().BeFalse();
+        vm.Tabs.Select(tab => tab.Kind).Should().Equal(
+            (FeedKind?)null,
+            FeedKind.Blog,
+            FeedKind.Videos,
+            FeedKind.Podcast,
+            FeedKind.Recipes,
+            FeedKind.Questions,
+            FeedKind.Webinars);
 
-        await vm.SelectTabCommand.ExecuteAsync("Videos");
+        vm.Tabs[0].Should().BeSameAs(vm.Latest);
+        vm.SelectedTab.Should().BeSameAs(vm.Latest, "the overview is the tab the page opens on");
+    }
 
-        vm.IsBlogSelected.Should().BeFalse();
-        vm.IsVideosSelected.Should().BeTrue();
-        vm.IsPodcastSelected.Should().BeFalse();
+    /// <summary>
+    /// UI automation drives this page by these ids, and three of them predate the seventh tab.
+    /// They are a contract, not a naming convention, so they are asserted literally.
+    /// </summary>
+    [TestMethod]
+    public void TabAutomationId_KeepsTheIdsUiAutomationAlreadyUses()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+
+        vm.Tabs.Select(tab => tab.TabAutomationId).Should().Equal(
+            "ResourcesTabLatestButton",
+            "ResourcesTabBlogButton",
+            "ResourcesTabVideosButton",
+            "ResourcesTabPodcastButton",
+            "ResourcesTabRecipesButton",
+            "ResourcesTabQuestionsButton",
+            "ResourcesTabWebinarsButton");
+    }
+
+    [TestMethod]
+    public async Task SelectTab_LeavesExactlyOneTabSelected()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+
+        vm.Tabs.Where(tab => tab.IsSelected).Should().ContainSingle().Which.Should().BeSameAs(vm.Latest);
+
+        await vm.SelectTabCommand.ExecuteAsync("Webinars");
+
+        vm.Tabs.Where(tab => tab.IsSelected).Should().ContainSingle().Which.Should().BeSameAs(vm.Webinars);
+        vm.Latest.IsSelected.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task SelectTabAsync_TabInstance_SelectsIt()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+
+        await vm.SelectTabCommand.ExecuteAsync(vm.Questions);
+
+        vm.SelectedTab.Should().BeSameAs(vm.Questions);
+        feedService.CallCounts[FeedKind.Questions].Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task SelectTabAsync_FeedKind_SelectsThatFeedsTab()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+
+        await vm.SelectTabCommand.ExecuteAsync(FeedKind.Recipes);
+
+        vm.SelectedTab.Should().BeSameAs(vm.Recipes);
+    }
+
+    [TestMethod]
+    public async Task SelectTabAsync_KindWithNoFeed_IsIgnored()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+
+        await vm.SelectTabCommand.ExecuteAsync(FeedKind.Other);
+
+        vm.SelectedTab.Should().BeSameAs(vm.Latest);
+        feedService.CallCounts.Values.Should().AllSatisfy(count => count.Should().Be(0));
+    }
+
+    /// <summary>
+    /// Seven tabs is seven fetches if they are eager. Opening the page must cost the overview and
+    /// nothing else, and the first tab you pick must cost only itself.
+    /// </summary>
+    [TestMethod]
+    public async Task SelectTab_AfterOpeningThePage_FetchesOnlyThatTab()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+        await vm.LoadAsync();
+
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
+
+        feedService.OverviewCallCount.Should().Be(1);
+        feedService.CallCounts[FeedKind.Blog].Should().Be(1);
+        feedService.CallCounts.Where(entry => entry.Key != FeedKind.Blog)
+            .Should().AllSatisfy(entry => entry.Value.Should().Be(0, $"{entry.Key} was never opened"));
     }
 
     [TestMethod]
@@ -191,14 +299,19 @@ public class ResourcesViewModelTests
     }
 
     [TestMethod]
-    public void ActiveList_BeforeAnySearch_IsTheSelectedTab()
+    public async Task ActiveList_FollowsTheSelectedTab()
     {
         FakeFeedService feedService = new();
         ResourcesViewModel vm = new(feedService);
 
-        vm.ActiveList.Should().BeSameAs(vm.Blog);
+        vm.ActiveList.Should().BeNull("the overview is not a paginated list");
         vm.IsSearchActive.Should().BeFalse();
         vm.SearchResults.Kind.Should().BeNull();
+
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
+
+        vm.ActiveList.Should().BeSameAs(vm.Blog);
+        vm.IsOverviewActive.Should().BeFalse();
     }
 
     [TestMethod]
@@ -262,6 +375,7 @@ public class ResourcesViewModelTests
     {
         var feedService = SearchingFor("beans", "one");
         ResourcesViewModel vm = new(feedService);
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
         await vm.SubmitSearchCommand.ExecuteAsync("beans");
 
         await vm.SubmitSearchCommand.ExecuteAsync("   ");
@@ -278,6 +392,7 @@ public class ResourcesViewModelTests
     {
         var feedService = SearchingFor("beans", "one");
         ResourcesViewModel vm = new(feedService);
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
         await vm.SubmitSearchCommand.ExecuteAsync("beans");
 
         vm.ClearSearchCommand.Execute(null);
@@ -307,7 +422,7 @@ public class ResourcesViewModelTests
     {
         var feedService = SearchingFor("beans", "one");
         ResourcesViewModel vm = new(feedService);
-        await vm.LoadAsync();
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
         await vm.SubmitSearchCommand.ExecuteAsync("beans");
 
         await vm.RefreshCommand.ExecuteAsync(null);
@@ -337,6 +452,19 @@ public class ResourcesViewModelTests
         feedService.SearchRequests.Should().Equal(("beans", 1), ("beans", 2));
     }
 
+    [TestMethod]
+    public async Task LoadMoreAsync_OnTheOverview_DoesNothing()
+    {
+        FakeFeedService feedService = new();
+        ResourcesViewModel vm = new(feedService);
+        await vm.LoadAsync();
+
+        await vm.LoadMoreCommand.ExecuteAsync(null);
+
+        feedService.PageRequests.Should().BeEmpty();
+        feedService.SearchRequests.Should().BeEmpty();
+    }
+
     /// <summary>
     /// The scroll handler fires LoadMoreCommand.Execute on every ViewChanged, so the guard has to
     /// hold against the fire-and-forget command, not just against an awaited LoadMoreAsync.
@@ -349,7 +477,7 @@ public class ResourcesViewModelTests
         feedService.SetPage(FeedKind.Blog, 2, new FeedPage([NewItem(FeedKind.Blog, "two")], FeedResultStatus.Fresh, false));
 
         ResourcesViewModel vm = new(feedService);
-        await vm.LoadAsync();
+        await vm.SelectTabCommand.ExecuteAsync("Blog");
 
         // Hold page 2 open so the burst of scroll events lands while it is still in flight.
         feedService.Pause();
