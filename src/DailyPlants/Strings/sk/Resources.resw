@@ -1160,5 +1160,17 @@
   <data name="Resources_KindOther" xml:space="preserve">
     <value>Článok</value>
   </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Najnovšie</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Recepty</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Otázky</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webináre</value>
+  </data>
 
 </root>

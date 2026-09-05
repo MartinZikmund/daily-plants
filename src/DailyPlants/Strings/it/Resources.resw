@@ -1160,5 +1160,17 @@
   <data name="Resources_KindOther" xml:space="preserve">
     <value>Articolo</value>
   </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Novità</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Ricette</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>D&amp;R</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinar</value>
+  </data>
 
 </root>

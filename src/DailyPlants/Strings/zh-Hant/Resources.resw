@@ -1160,5 +1160,17 @@
   <data name="Resources_KindOther" xml:space="preserve">
     <value>文章</value>
   </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>最新</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>食譜</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>問答</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>網路研討會</value>
+  </data>
 
 </root>

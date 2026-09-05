@@ -1160,5 +1160,17 @@
   <data name="Resources_KindOther" xml:space="preserve">
     <value>Статия</value>
   </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Най-ново</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Рецепти</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Въпроси</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Уебинари</value>
+  </data>
 
 </root>
