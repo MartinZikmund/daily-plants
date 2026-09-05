@@ -268,6 +268,28 @@
                             Foreground="{ThemeResource DpInkBrush}"
                             Glyph="&#xE72C;" />
                     </Button>
+
+                    <!--  /random/ redirects to a different video on every visit, so there is nothing to fetch  -->
+                    <Button
+                        Width="28"
+                        Height="28"
+                        MinWidth="0"
+                        MinHeight="0"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="ResourcesSurpriseButton"
+                        AutomationProperties.Name="{helpers:Localize Key=Resources_Surprise}"
+                        Background="Transparent"
+                        BorderBrush="{ThemeResource DpHairlineBrush}"
+                        BorderThickness="1"
+                        Click="SurpriseButton_Click"
+                        CornerRadius="14"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Resources_Surprise}">
+                        <FontIcon
+                            FontSize="12"
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Glyph="&#xE8B1;" />
+                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -362,7 +384,7 @@
                 declared but only ever one is visible, and the picker's SelectionChanged ignores the
                 echo of a selection the strip just made, so the two can never both drive the ViewModel.
             -->
-            <Grid Margin="0,16,0,0" Visibility="{x:Bind local:ResourcesView.TabsVisibility(ViewModel.IsSearchActive), Mode=OneWay}">
+            <Grid Margin="0,16,0,0" Visibility="{x:Bind ViewModel.ShowTabs, Mode=OneWay}">
 
                 <!--
                     Wide: the strip, in a horizontal ScrollViewer so a locale with long labels
@@ -541,6 +563,32 @@
                     Content="{helpers:Localize Key=Resources_SearchClear}" />
             </Grid>
 
+            <!--  Stands in for the tabs while a topic is open, and is the way back to them  -->
+            <Grid
+                Margin="0,16,0,16"
+                ColumnSpacing="12"
+                Visibility="{x:Bind ViewModel.IsTopicActive, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource DpInkBrush}"
+                    Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.TopicHeader, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+
+                <HyperlinkButton
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="ResourcesClearTopicButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_TopicClear}"
+                    Command="{x:Bind ViewModel.ClearTopicCommand}"
+                    Content="{helpers:Localize Key=Resources_TopicClear}" />
+            </Grid>
+
             <Border Height="1" Background="{ThemeResource DpHairlineBrush}" />
         </StackPanel>
 
@@ -613,23 +661,27 @@
                     </ItemsRepeater>
                 </StackPanel>
 
-                <!--  Sits under the last card, so reaching it is the same gesture that asks for the next page  -->
-                <StackPanel
-                    Margin="0,4,0,0"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal"
-                    Spacing="8"
-                    Visibility="{x:Bind ViewModel.ActiveList.ShowLoadingMore, Mode=OneWay}">
-                    <ProgressRing
-                        Width="16"
-                        Height="16"
-                        Foreground="{ThemeResource DpGreenBrush}"
-                        IsActive="{x:Bind ViewModel.ActiveList.ShowLoadingMore, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource DpCaptionTextBlockStyle}"
-                        Text="{helpers:Localize Key=Resources_LoadingMore}" />
-                </StackPanel>
+                <!--  Sits under the last card, so reaching it is the same gesture that asks for the next page.
+                    ActiveList is null in overview mode, so the outer Grid carries the gate: a binding through
+                    a null path never evaluates and would leave this row visible over the overview.  -->
+                <Grid Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}">
+                    <StackPanel
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8"
+                        Visibility="{x:Bind ViewModel.ActiveList.ShowLoadingMore, Mode=OneWay}">
+                        <ProgressRing
+                            Width="16"
+                            Height="16"
+                            Foreground="{ThemeResource DpGreenBrush}"
+                            IsActive="{x:Bind ViewModel.ActiveList.ShowLoadingMore, Mode=OneWay}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
+                            Text="{helpers:Localize Key=Resources_LoadingMore}" />
+                    </StackPanel>
+                </Grid>
 
             </StackPanel>
         </ScrollViewer>

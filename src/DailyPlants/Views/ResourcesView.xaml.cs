@@ -16,7 +16,10 @@ public sealed partial class ResourcesView : Page
     /// <summary>How close the viewport has to get to the end of the content before the next page is asked for.</summary>
     private const double LoadMoreThreshold = 600;
 
-    private FeedKind? _initialKind;
+    /// <summary>Redirects to a different video server-side on every visit, so there is nothing to fetch.</summary>
+    private const string RandomUrl = "https://nutritionfacts.org/random/";
+
+    private object? _initialParameter;
 
     public ResourcesView()
     {
@@ -37,7 +40,7 @@ public sealed partial class ResourcesView : Page
     // is emitted as an instance call and will not compile against a static method.
     public static double TabOpacity(bool isSelected) => isSelected ? 1.0 : 0.55;
 
-    /// <summary>The tabs and the search results header are alternatives, never both at once.</summary>
+    /// <summary>The detail line that belongs to browsing rather than to searching.</summary>
     public static Visibility TabsVisibility(bool isSearchActive) => isSearchActive ? Visibility.Collapsed : Visibility.Visible;
 
     /// <summary>The paginated list and the Latest overview are alternatives too.</summary>
@@ -84,18 +87,22 @@ public sealed partial class ResourcesView : Page
     public static string SearchResultsHeader(string query)
         => string.Format(CultureInfo.CurrentCulture, Localized("Resources_SearchResultsFor", "Results for “{0}”"), query);
 
-    /// <summary>The Diary teaser passes a FeedKind name so the page opens on the matching tab.</summary>
+    /// <summary>
+    /// The Diary teaser passes a FeedKind name so the page opens on the matching tab, and the item
+    /// dialog a <see cref="ResourcesTopicRequest"/> so it opens in topic mode. The parameter is
+    /// stashed whole rather than decoded here - <see cref="ResourcesViewModel.LoadAsync"/> knows
+    /// every shape it can take, and one dispatch is easier to keep honest than two.
+    /// </summary>
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        // ignoreCase to match ResourcesViewModel.SelectTabAsync, so one spelling works on both paths.
-        _initialKind = e.Parameter is string name && Enum.TryParse<FeedKind>(name, ignoreCase: true, out var kind) ? kind : null;
+        _initialParameter = e.Parameter;
     }
 
     private async void ResourcesView_Loaded(object sender, RoutedEventArgs e)
     {
-        await ViewModel.LoadAsync(_initialKind);
-        _initialKind = null;
+        await ViewModel.LoadAsync(_initialParameter);
+        _initialParameter = null;
     }
 
     /// <summary>A different list means different items, so the old scroll offset means nothing in it.</summary>
@@ -155,6 +162,14 @@ public sealed partial class ResourcesView : Page
             ViewModel.SelectTabCommand.Execute(tab);
         }
     }
+
+    /// <summary>
+    /// "Surprise me". Opening the URL is the whole feature: it redirects to a different video
+    /// every time, so there is nothing to fetch, parse or cache - and a navigation works on the
+    /// wasm head, which is why this is not gated on SupportsLiveFetch. Never throws.
+    /// </summary>
+    private async void SurpriseButton_Click(object sender, RoutedEventArgs e)
+        => await BrowserLauncher.OpenAsync(RandomUrl);
 
     private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         => ViewModel.SubmitSearchCommand.Execute(args.QueryText);
