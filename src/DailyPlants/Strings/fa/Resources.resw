@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>تازه‌ها</value>
+    <value>منابع</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>تازه‌ها</value>
+    <value>منابع</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>تازه از NutritionFacts.org</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>مشاهده همه</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>جست‌وجو در NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>نتایج برای «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>چیزی برای «{0}» پیدا نشد</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>واژهٔ دیگری را امتحان کنید یا بین برگه‌ها بگردید.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>پاک کردن جست‌وجو</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>جست‌وجو نیاز به اتصال به NutritionFacts.org دارد.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>در حال بارگذاری بیشتر…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>مقاله</value>
   </data>
 
 </root>

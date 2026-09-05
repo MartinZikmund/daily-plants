@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>Новини</value>
+    <value>Материали</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>Новини</value>
+    <value>Материали</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>Прясно от NutritionFacts.org</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Виж всички</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Търсене в NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Резултати за „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Нищо не е намерено за „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Опитайте с друга дума или разгледайте разделите.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Изчистване на търсенето</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Търсенето изисква връзка с NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Зареждане на още…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Статия</value>
   </data>
 
 </root>

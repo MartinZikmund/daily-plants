@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>最新</value>
+    <value>資料</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>最新</value>
+    <value>資料</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>來自 NutritionFacts.org 的新鮮內容</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>查看全部</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>搜尋 NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>「{0}」的搜尋結果</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>找不到「{0}」的相關內容</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>換個關鍵字試試，或瀏覽下方分頁。</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>清除搜尋</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>搜尋功能需要連線至 NutritionFacts.org。</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>正在載入更多內容…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>文章</value>
   </data>
 
 </root>

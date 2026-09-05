@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>Újdonságok</value>
+    <value>Tudástár</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>Újdonságok</value>
+    <value>Tudástár</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>Frissen a NutritionFacts.org-tól</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Összes megtekintése</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Keresés a NutritionFacts.org oldalon</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Találatok erre: „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nincs találat erre: „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Próbálj másik szót, vagy nézd meg a füleket.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Keresés törlése</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>A kereséshez kapcsolat szükséges a NutritionFacts.org oldalhoz.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>További betöltése…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Cikk</value>
   </data>
 
 </root>

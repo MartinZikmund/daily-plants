@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>Novetats</value>
+    <value>Recursos</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>Novetats</value>
+    <value>Recursos</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>Fresc de NutritionFacts.org</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Mostra-ho tot</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Cerca a NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Resultats per a «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>No s'ha trobat res per a «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Prova una altra paraula o consulta les pestanyes.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Esborra la cerca</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>La cerca necessita connexió amb NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Carregant més…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Article</value>
   </data>
 
 </root>

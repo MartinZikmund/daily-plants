@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>Novinky</value>
+    <value>Materiály</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>Novinky</value>
+    <value>Materiály</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>Čerstvé z NutritionFacts.org</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Zobrazit vše</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Hledat na NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Výsledky pro „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Pro „{0}“ nic nenalezeno</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Zkuste jiné slovo, nebo procházejte záložky.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Vymazat hledání</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Hledání vyžaduje připojení k NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Načítání dalších…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Článek</value>
   </data>
 
 </root>

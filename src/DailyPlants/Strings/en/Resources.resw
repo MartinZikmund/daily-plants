@@ -1136,5 +1136,29 @@
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>See all</value>
   </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Search NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Results for “{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nothing found for “{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Try a different word, or browse the tabs.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Clear search</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Search needs a connection to NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Loading more…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Article</value>
+  </data>
 
 </root>

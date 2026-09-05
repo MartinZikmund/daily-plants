@@ -1074,10 +1074,10 @@
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
-    <value>Novidades</value>
+    <value>Materiais</value>
   </data>
   <data name="Resources_Title" xml:space="preserve">
-    <value>Novidades</value>
+    <value>Materiais</value>
   </data>
   <data name="Resources_Subtitle" xml:space="preserve">
     <value>Direto do NutritionFacts.org</value>
@@ -1135,6 +1135,30 @@
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Ver tudo</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Pesquisar no NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Resultados para “{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nada encontrado para “{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Tente outra palavra ou explore as abas.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Limpar pesquisa</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>A pesquisa exige conexão com o NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Carregando mais…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Artigo</value>
   </data>
 
 </root>
