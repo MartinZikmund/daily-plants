@@ -78,6 +78,84 @@
     </Style>
 
     <!--
+        Feed cards on the Resources page and the Diary teaser. They are Buttons rather than
+        tapped Grids so a card answers the keyboard and reports itself as invokable, and so
+        hover and pressed come from the control rather than being hand-rolled.
+
+        The wash is a tint of DpInkBrush laid over the whole card, thumbnail included, which
+        reads correctly in both themes: ink is dark on a light surface and light on a dark one.
+        It sits above the content and is not hit-testable, so it cannot swallow the click.
+    -->
+    <Style x:Key="DpFeedCardButtonStyle" TargetType="Button">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="{ThemeResource DpSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource DpHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="Root">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+
+                        <ContentPresenter
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+
+                        <Border
+                            x:Name="Wash"
+                            Background="{ThemeResource DpInkBrush}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            IsHitTestVisible="False"
+                            Opacity="0">
+                            <Border.OpacityTransition>
+                                <ScalarTransition Duration="0:0:0.09" />
+                            </Border.OpacityTransition>
+                        </Border>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="Wash.Opacity" Value="0.05" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="Wash.Opacity" Value="0.11" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="Root.Opacity" Value="0.35" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--
         Resources page tab icons. Icons8 line icons on a 50x50 viewBox, the same weight as the
         ShellView nav icons; wrap one in a 16x16 Viewbox to draw it at tab size. Looked up by key
         through Application.Current.Resources, so this dictionary has to stay merged app-wide.

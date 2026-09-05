@@ -25,13 +25,4 @@ public sealed partial class ResourcesTeaser : UserControl
 
     private async void ResourcesTeaser_Loaded(object sender, RoutedEventArgs e) => await ViewModel.LoadAsync();
 
-    private async void TeaserCard_Tapped(object sender, TappedRoutedEventArgs e)
-    {
-        // Tag first: ItemsRepeater does not set DataContext on x:Bind templates.
-        if (sender is FrameworkElement element
-            && (element.Tag as FeedItemViewModel ?? element.DataContext as FeedItemViewModel) is { } itemVm)
-        {
-            await itemVm.OpenCommand.ExecuteAsync(null);
-        }
-    }
 }

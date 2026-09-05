@@ -14,19 +14,14 @@
 
         <!--  Thumbnail | kicker over title, summary and date. The whole card is the tap target.  -->
         <DataTemplate x:Key="FeedCardTemplate" x:DataType="vm:FeedItemViewModel">
-            <Grid
+            <Button
                 MinHeight="84"
-                Padding="12"
                 AutomationProperties.AutomationId="{x:Bind AutomationId}"
                 AutomationProperties.Name="{x:Bind AutomationName}"
-                Background="{ThemeResource DpSurfaceBrush}"
-                BorderBrush="{ThemeResource DpHairlineBrush}"
-                BorderThickness="1"
-                ColumnSpacing="12"
-                CornerRadius="8"
-                Tag="{x:Bind}"
-                Tapped="FeedCard_Tapped"
+                Command="{x:Bind OpenCommand}"
+                Style="{StaticResource DpFeedCardButtonStyle}"
                 ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
+                <Grid Padding="12" ColumnSpacing="12">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -70,7 +65,8 @@
                         Style="{StaticResource DpCaptionTextBlockStyle}"
                         Text="{x:Bind PublishedText}" />
                 </StackPanel>
-            </Grid>
+                </Grid>
+            </Button>
         </DataTemplate>
 
         <!--
@@ -557,6 +553,7 @@
             <StackPanel Spacing="12">
 
                 <!--  Cached posts are still worth reading, so the notice sits above them rather than replacing them  -->
+                <Grid Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}">
                 <Border
                     Padding="12"
                     Background="{ThemeResource DpSurfaceBrush}"
@@ -576,6 +573,7 @@
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
+                </Grid>
 
                 <ItemsRepeater
                     ItemTemplate="{StaticResource FeedCardTemplate}"
@@ -643,7 +641,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Foreground="{ThemeResource DpGreenBrush}"
-            IsActive="{x:Bind ViewModel.ActiveList.IsLoading, Mode=OneWay}" />
+            IsActive="{x:Bind ViewModel.ActiveList.IsLoading, Mode=OneWay}"
+            Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}" />
 
         <!--  The overview fetches six feeds at once, so it gets the same spinner in its own right  -->
         <ProgressRing
@@ -656,51 +655,53 @@
             IsActive="{x:Bind ViewModel.Latest.IsLoading, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.IsOverviewActive, Mode=OneWay}" />
 
-        <StackPanel
-            Grid.Row="1"
-            MaxWidth="320"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Spacing="4"
-            Visibility="{x:Bind ViewModel.ActiveList.ShowEmptyState, Mode=OneWay}">
-            <FontIcon
-                FontSize="48"
-                Foreground="{ThemeResource DpInkMutedBrush}"
-                Glyph="&#xE8F1;" />
-            <TextBlock
-                Margin="0,12,0,0"
+        <Grid Grid.Row="1" Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}">
+            <StackPanel
+                Grid.Row="1"
+                MaxWidth="320"
                 HorizontalAlignment="Center"
-                Foreground="{ThemeResource DpInkBrush}"
-                Style="{StaticResource DpSubtitleTextBlockStyle}"
-                Text="{x:Bind ViewModel.ActiveList.EmptyStateText, Mode=OneWay}"
-                TextAlignment="Center"
-                TextWrapping="Wrap" />
+                VerticalAlignment="Center"
+                Spacing="4"
+                Visibility="{x:Bind ViewModel.ActiveList.ShowEmptyState, Mode=OneWay}">
+                <FontIcon
+                    FontSize="48"
+                    Foreground="{ThemeResource DpInkMutedBrush}"
+                    Glyph="&#xE8F1;" />
+                <TextBlock
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource DpInkBrush}"
+                    Style="{StaticResource DpSubtitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.ActiveList.EmptyStateText, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
 
-            <!--  Two details, one headline: browsing sends you to refresh, searching sends you to a different word  -->
-            <TextBlock
-                HorizontalAlignment="Center"
-                Foreground="{ThemeResource DpInkMutedBrush}"
-                Style="{StaticResource DpBodyTextBlockStyle}"
-                Text="{helpers:Localize Key=Resources_EmptyDetail}"
-                TextAlignment="Center"
-                TextWrapping="Wrap"
-                Visibility="{x:Bind local:ResourcesView.TabsVisibility(ViewModel.IsSearchActive), Mode=OneWay}" />
-            <TextBlock
-                HorizontalAlignment="Center"
-                Foreground="{ThemeResource DpInkMutedBrush}"
-                Style="{StaticResource DpBodyTextBlockStyle}"
-                Text="{helpers:Localize Key=Resources_SearchEmptyDetail}"
-                TextAlignment="Center"
-                TextWrapping="Wrap"
-                Visibility="{x:Bind ViewModel.IsSearchActive, Mode=OneWay}" />
+                <!--  Two details, one headline: browsing sends you to refresh, searching sends you to a different word  -->
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource DpInkMutedBrush}"
+                    Style="{StaticResource DpBodyTextBlockStyle}"
+                    Text="{helpers:Localize Key=Resources_EmptyDetail}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind local:ResourcesView.TabsVisibility(ViewModel.IsSearchActive), Mode=OneWay}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource DpInkMutedBrush}"
+                    Style="{StaticResource DpBodyTextBlockStyle}"
+                    Text="{helpers:Localize Key=Resources_SearchEmptyDetail}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind ViewModel.IsSearchActive, Mode=OneWay}" />
 
-            <HyperlinkButton
-                Margin="0,4,0,0"
-                HorizontalAlignment="Center"
-                AutomationProperties.AutomationId="ResourcesRetryButton"
-                Command="{x:Bind ViewModel.RefreshCommand}"
-                Content="{helpers:Localize Key=Resources_Retry}" />
-        </StackPanel>
+                <HyperlinkButton
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
+                    AutomationProperties.AutomationId="ResourcesRetryButton"
+                    Command="{x:Bind ViewModel.RefreshCommand}"
+                    Content="{helpers:Localize Key=Resources_Retry}" />
+            </StackPanel>
+        </Grid>
 
         <!--  Every one of the six feeds came back empty. Same headline, minus the search wording it can never carry.  -->
         <StackPanel

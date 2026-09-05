@@ -47,17 +47,14 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="vm:FeedItemViewModel">
-                        <Grid
+                        <Button
                             Width="200"
                             AutomationProperties.AutomationId="{x:Bind AutomationId}"
                             AutomationProperties.Name="{x:Bind AutomationName}"
-                            Background="{ThemeResource DpSurfaceBrush}"
-                            BorderBrush="{ThemeResource DpHairlineBrush}"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            Tag="{x:Bind}"
-                            Tapped="TeaserCard_Tapped"
+                            Command="{x:Bind OpenCommand}"
+                            Style="{StaticResource DpFeedCardButtonStyle}"
                             ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
+                            <Grid>
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -94,7 +91,8 @@
                                     Style="{StaticResource DpCaptionTextBlockStyle}"
                                     Text="{x:Bind PublishedText}" />
                             </StackPanel>
-                        </Grid>
+                            </Grid>
+                        </Button>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

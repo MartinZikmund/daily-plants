@@ -67,6 +67,19 @@ public sealed partial class ResourcesView : Page
     /// </summary>
     public static DataTemplate SectionIcon(FeedKind kind) => IconFor(kind);
 
+    /// <summary>
+    /// Visibility for the notice, empty state and load-more row, which belong to a list tab and
+    /// have to stay out of the overview's way.
+    /// </summary>
+    /// <remarks>
+    /// It takes <c>IsOverviewActive</c> rather than reading ActiveList because ActiveList is null on
+    /// the overview tab, and an x:Bind whose path hits null neither evaluates nor clears its target:
+    /// the element simply keeps whatever it had, which for these overlays was Visible. Gating on a
+    /// flag that hangs off a never-null root is what makes the binding actually run.
+    /// </remarks>
+    public static Visibility ListChrome(bool isOverviewActive)
+        => isOverviewActive ? Visibility.Collapsed : Visibility.Visible;
+
     /// <summary>Resources_SearchResultsFor with the query the results are actually for.</summary>
     public static string SearchResultsHeader(string query)
         => string.Format(CultureInfo.CurrentCulture, Localized("Resources_SearchResultsFor", "Results for “{0}”"), query);
@@ -156,16 +169,6 @@ public sealed partial class ResourcesView : Page
             && string.IsNullOrWhiteSpace(sender.Text))
         {
             ViewModel.ClearSearchCommand.Execute(null);
-        }
-    }
-
-    private async void FeedCard_Tapped(object sender, TappedRoutedEventArgs e)
-    {
-        // Tag first: ItemsRepeater does not set DataContext on x:Bind templates.
-        if (sender is FrameworkElement element
-            && (element.Tag as FeedItemViewModel ?? element.DataContext as FeedItemViewModel) is { } itemVm)
-        {
-            await itemVm.OpenCommand.ExecuteAsync(null);
         }
     }
 
