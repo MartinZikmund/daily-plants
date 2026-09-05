@@ -1,11 +1,13 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using Microsoft.UI.Xaml.Automation;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Animation;
 using Windows.UI.ViewManagement;
 
@@ -19,6 +21,13 @@ public sealed partial class DiaryView : Page
     /// Wide enough that a 900px canvas still splits into two readable columns.
     /// </summary>
     private const double TwoColumnMinItemWidth = 380;
+
+    /// <summary>Row hover and pressed wash, matching DpFeedCardButtonStyle.</summary>
+    private const double RowHoverWashOpacity = 0.05;
+    private const double RowPressedWashOpacity = 0.11;
+
+    /// <summary>The item dialog's icon, big enough to read as the item's portrait.</summary>
+    private const double DialogIconSize = 48;
 
     private static readonly TimeSpan RowArrivalDuration = TimeSpan.FromMilliseconds(300);
 
@@ -131,19 +140,38 @@ public sealed partial class DiaryView : Page
 
     private void GroupRepeater_ElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
     {
-        if (_pendingArrivals.Count == 0 || args.Element is not FrameworkElement element)
+        if (args.Element is not FrameworkElement element)
         {
             return;
         }
 
         var group = ReferenceEquals(sender, DoneTodayRepeater) ? ViewModel.DoneToday : ViewModel.StillToGo;
-        if (args.Index < 0 || args.Index >= group.Count || !_pendingArrivals.Remove(group[args.Index]))
+        if (args.Index < 0 || args.Index >= group.Count)
+        {
+            return;
+        }
+
+        var itemVm = group[args.Index];
+
+        // Containers are recycled, so the row is renamed on every prepare rather than once.
+        AutomationProperties.SetName(element, RowAutomationName(itemVm));
+
+        if (_pendingArrivals.Count == 0 || !_pendingArrivals.Remove(itemVm))
         {
             return;
         }
 
         PlayRowArrival(element);
     }
+
+    /// <summary>
+    /// What a screen reader says for a row: the item, then what tapping it does. The wash alone
+    /// would leave the affordance purely visual.
+    /// </summary>
+    private static string RowAutomationName(ChecklistItemViewModel itemVm) => string.Format(
+        CultureInfo.CurrentCulture,
+        Localized("Diary_ItemRowAutomationName", "{0}. Tap for details."),
+        itemVm.Item.Name);
 
     private static void PlayRowArrival(FrameworkElement element)
     {
@@ -276,6 +304,18 @@ public sealed partial class DiaryView : Page
             content.Children.Add(benefitsSection);
         }
 
+        // "Latest on <item>" - built now, filled in after the dialog is up, absent when the item
+        // has no nutritionfacts.org topic.
+        var topic = new ItemTopicViewModel(
+            App.Current.Services!.GetRequiredService<IFeedService>(),
+            App.Current.Services!.GetRequiredService<IAppNavigator>(),
+            item);
+
+        if (topic.HasTopic)
+        {
+            content.Children.Add(BuildTopicSection(topic));
+        }
+
         // More info link (if available)
         if (!string.IsNullOrEmpty(item.MoreInfoUrl))
         {
@@ -316,12 +356,7 @@ public sealed partial class DiaryView : Page
 
         var dialog = new ContentDialog
         {
-            Title = new TextBlock
-            {
-                Text = item.Name,
-                Style = (Style)Application.Current.Resources["DpTitleTextBlockStyle"],
-                TextWrapping = TextWrapping.Wrap
-            },
+            Title = BuildDialogTitle(item),
             Content = new ScrollViewer
             {
                 Content = content,
@@ -336,25 +371,86 @@ public sealed partial class DiaryView : Page
             RequestedTheme = (XamlRoot?.Content as FrameworkElement)?.ActualTheme ?? ElementTheme.Default
         };
 
-        await dialog.ShowAsync();
+        // Raised before the navigation, so the frame never changes under an open dialog.
+        topic.SeeAllRequested += (_, _) => dialog.Hide();
+
+        var showing = dialog.ShowAsync();
+
+        // Only now, with the dialog already on screen, is anything asked of the network.
+        // LoadAsync never throws and nothing waits on it.
+        _ = topic.LoadAsync();
+
+        await showing;
     }
 
-    private void ItemRow_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+    /// <summary>
+    /// The dialog's heading: the item's own colourful icon beside its name, drawn the way the
+    /// Diary row draws it. Items with no icon get the name alone.
+    /// </summary>
+    private static object BuildDialogTitle(ChecklistItem item)
+    {
+        var name = new TextBlock
+        {
+            Text = item.Name,
+            Style = (Style)Application.Current.Resources["DpTitleTextBlockStyle"],
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        if (!Uri.TryCreate(item.IconPath, UriKind.Absolute, out var iconUri))
+        {
+            return name;
+        }
+
+        var heading = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
+        heading.Children.Add(new BitmapIcon
+        {
+            Width = DialogIconSize,
+            Height = DialogIconSize,
+            VerticalAlignment = VerticalAlignment.Center,
+            ShowAsMonochrome = false,
+            UriSource = iconUri
+        });
+        heading.Children.Add(name);
+        return heading;
+    }
+
+    /// <summary>
+    /// The dialog's "Latest on ..." block: the section header with a "See all", a small spinner
+    /// while the topic feed is out, then the three newest cards. Its chrome is a XAML template so
+    /// that its ThemeResource brushes resolve against the dialog's own theme; only the block's
+    /// overall visibility is driven from here, and it stays collapsed unless there is something to
+    /// show - a failed or empty fetch leaves no trace.
+    /// </summary>
+    private FrameworkElement BuildTopicSection(ItemTopicViewModel topic)
+    {
+        var template = (DataTemplate)Resources["DialogTopicSectionTemplate"];
+        var section = (FrameworkElement)template.LoadContent()!;
+
+        // Assigning the DataContext is what connects the template's compiled bindings.
+        section.DataContext = topic;
+
+        void Sync() => section.Visibility = VisibleWhen(topic.ShowProgress || topic.ShowItems);
+
+        topic.PropertyChanged += (_, _) => Sync();
+        Sync();
+
+        return section;
+    }
+
+    private static Visibility VisibleWhen(bool visible) => visible ? Visibility.Visible : Visibility.Collapsed;
+
+    private void ItemRow_Tapped(object sender, TappedRoutedEventArgs e)
     {
         // Taps anywhere on the row open the detail dialog, except within the serving
         // controls -- otherwise adding a serving would also pop the dialog over it.
-        if (e.OriginalSource is DependencyObject source)
+        if (IsWithinRowControls(e.OriginalSource, sender))
         {
-            var current = source;
-            while (current != null && !ReferenceEquals(current, sender))
-            {
-                if (current is Button or Controls.ServingStepper)
-                {
-                    return;
-                }
-                current = VisualTreeHelper.GetParent(current);
-            }
+            return;
         }
+
+        // The dialog covers the row, so no pointer event arrives to take the wash back down.
+        SetRowWash(sender, 0);
 
         // Tag first: ItemsRepeater leaves DataContext unset on x:Bind templates.
         if (sender is FrameworkElement element
@@ -362,5 +458,64 @@ public sealed partial class DiaryView : Page
         {
             itemVm.ShowItemDetailCommand.Execute(null);
         }
+    }
+
+    private void ItemRow_PointerOver(object sender, PointerRoutedEventArgs e)
+        => SetRowWash(sender, IsWithinRowControls(e.OriginalSource, sender) ? 0 : RowHoverWashOpacity);
+
+    private void ItemRow_PointerPressed(object sender, PointerRoutedEventArgs e)
+        => SetRowWash(sender, IsWithinRowControls(e.OriginalSource, sender) ? 0 : RowPressedWashOpacity);
+
+    /// <summary>
+    /// The pointer left, was released, or was taken away. Exits bubbling up from the stepper leave
+    /// the wash down for a frame until the next move lights it again - cheaper than tracking which
+    /// child the pointer moved to.
+    /// </summary>
+    private void ItemRow_PointerLeft(object sender, PointerRoutedEventArgs e) => SetRowWash(sender, 0);
+
+    /// <summary>
+    /// True when the pointer is on one of the row's own controls - the stepper, or a button inside
+    /// it. Tapping there does not open the dialog, so the row must not look tappable either. Shared
+    /// with <see cref="ItemRow_Tapped"/> so the wash and the activation cannot disagree.
+    /// </summary>
+    private static bool IsWithinRowControls(object originalSource, object row)
+    {
+        if (originalSource is not DependencyObject source)
+        {
+            return false;
+        }
+
+        var current = source;
+        while (current != null && !ReferenceEquals(current, row))
+        {
+            if (current is Button or Controls.ServingStepper)
+            {
+                return true;
+            }
+            current = VisualTreeHelper.GetParent(current);
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// The row template's only Border child is the wash; its own ScalarTransition does the fade.
+    /// </summary>
+    private static void SetRowWash(object row, double opacity)
+    {
+        if ((row as Panel)?.Children.OfType<Border>().FirstOrDefault() is { } wash)
+        {
+            wash.Opacity = opacity;
+        }
+    }
+
+    /// <summary>
+    /// Resource lookup with an English fallback, for keys that are not yet in every
+    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
+    /// </summary>
+    private static string Localized(string key, string fallback)
+    {
+        var value = Localizer.GetString(key);
+        return value == $"[{key}]" ? fallback : value;
     }
 }
