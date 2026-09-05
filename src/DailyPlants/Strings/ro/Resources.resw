@@ -1172,5 +1172,17 @@
   <data name="Resources_TabWebinars" xml:space="preserve">
     <value>Webinarii</value>
   </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Cele mai noi despre {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Înapoi la toate</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Surprindeți-mă</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Deschideți detaliile</value>
+  </data>
 
 </root>

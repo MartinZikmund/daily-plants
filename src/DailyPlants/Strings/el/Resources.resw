@@ -1172,5 +1172,17 @@
   <data name="Resources_TabWebinars" xml:space="preserve">
     <value>Σεμινάρια</value>
   </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Τελευταία: {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Πίσω σε όλα</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Εκπλήξτε με</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Άνοιγμα λεπτομερειών</value>
+  </data>
 
 </root>

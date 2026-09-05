@@ -1172,5 +1172,17 @@
   <data name="Resources_TabWebinars" xml:space="preserve">
     <value>وبینارها</value>
   </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>جدیدترین درباره {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>بازگشت به همه</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>غافلگیرم کن</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. باز کردن جزئیات</value>
+  </data>
 
 </root>

@@ -1172,5 +1172,17 @@
   <data name="Resources_TabWebinars" xml:space="preserve">
     <value>网络研讨会</value>
   </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>{0} 最新资讯</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>返回全部</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>给我惊喜</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}。打开详情</value>
+  </data>
 
 </root>
