@@ -45,6 +45,15 @@ public class SchemaMigrationTests
         await raw.CloseAsync();
     }
 
+    private static async Task<bool> TableExistsAsync(string path, string table)
+    {
+        var raw = new SQLiteAsyncConnection(path);
+        var count = await raw.ExecuteScalarAsync<int>(
+            "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?", table);
+        await raw.CloseAsync();
+        return count > 0;
+    }
+
     private static async Task<int> ReadUserVersionAsync(string path)
     {
         var raw = new SQLiteAsyncConnection(path);
@@ -220,9 +229,9 @@ public class SchemaMigrationTests
         public double? GoalWeight { get; set; }
         public int ThemePreference { get; set; }
         public string? Language { get; set; }
-        public bool UnitsAreCanonical { get; set; }
-
         public string DisabledItemIds { get; set; } = string.Empty;
+        public bool UnitsAreCanonical { get; set; }
+        public bool HasSeenChecklistImpactWarning { get; set; }
 
         public bool UseMetricUnits
         {
@@ -236,13 +245,13 @@ public class SchemaMigrationTests
     {
         var prefs = new FakeAppPreferences();
         await new SqliteDataService(prefs, _dbPath).InitializeAsync();
-        await RewindToV2Async();
+        await SetUserVersionAsync(3);
 
         // v3 reads the unit preference to decide whether to convert, and that throws.
         var failing = new SqliteDataService(new ThrowingPreferences(), _dbPath);
         await Assert.ThrowsExceptionAsync<InvalidOperationException>(failing.InitializeAsync);
 
-        (await ReadUserVersionAsync(_dbPath)).Should().Be(2,
+        (await ReadUserVersionAsync(_dbPath)).Should().Be(3,
             "a migration that threw must not leave a version claiming it ran - the next "
             + "launch would skip it for good");
     }
