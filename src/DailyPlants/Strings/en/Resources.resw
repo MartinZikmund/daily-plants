@@ -1098,6 +1098,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} rows were skipped because the app could not read them.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>This changes your history</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Streaks and perfect days are judged against the items you track now, so switching items or checklists on or off also changes days you have already recorded. Change these settings whenever you like — this notice is only shown once.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

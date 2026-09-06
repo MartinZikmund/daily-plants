@@ -19,4 +19,10 @@ public interface IAppPreferences
     /// them a second time.
     /// </summary>
     bool UnitsAreCanonical { get; set; }
+
+    /// <summary>
+    /// Whether the user has been told that changing which items are tracked also changes
+    /// the streaks and perfect days already on record. Shown once, then never again.
+    /// </summary>
+    bool HasSeenChecklistImpactWarning { get; set; }
 }

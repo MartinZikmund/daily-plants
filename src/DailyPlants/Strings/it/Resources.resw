@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} righe sono state ignorate perché l'app non è riuscita a leggerle.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Questo cambia la tua cronologia</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Le serie e i giorni perfetti vengono calcolati in base agli elementi che segui adesso, quindi attivare o disattivare elementi o elenchi cambia anche i giorni già registrati. Puoi modificare queste impostazioni quando vuoi: questo avviso viene mostrato una sola volta.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

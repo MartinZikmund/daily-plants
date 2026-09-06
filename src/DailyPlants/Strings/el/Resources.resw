@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} γραμμές παραλείφθηκαν επειδή η εφαρμογή δεν μπόρεσε να τις διαβάσει.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Αυτό αλλάζει το ιστορικό σου</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Τα σερί και οι τέλειες ημέρες υπολογίζονται με βάση τα στοιχεία που παρακολουθείς τώρα, οπότε η ενεργοποίηση ή απενεργοποίηση στοιχείων ή λιστών αλλάζει και τις ημέρες που έχεις ήδη καταγράψει. Μπορείς να αλλάξεις αυτές τις ρυθμίσεις όποτε θέλεις — αυτή η ειδοποίηση εμφανίζεται μόνο μία φορά.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

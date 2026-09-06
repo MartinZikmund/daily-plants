@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} lignes ont été ignorées car l'application n'a pas pu les lire.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Cela modifie votre historique</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Les séries et les journées parfaites sont évaluées selon les éléments que vous suivez actuellement : activer ou désactiver des éléments ou des listes modifie donc aussi les journées déjà enregistrées. Vous pouvez changer ces réglages quand vous voulez — cet avis ne s’affiche qu’une fois.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

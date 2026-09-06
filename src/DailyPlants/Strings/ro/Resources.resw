@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} rânduri au fost omise deoarece aplicația nu a putut să le citească.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Acest lucru îți schimbă istoricul</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Seriile și zilele perfecte sunt evaluate în funcție de elementele pe care le urmărești acum, așa că activarea sau dezactivarea elementelor ori a listelor schimbă și zilele deja înregistrate. Poți modifica aceste setări oricând — acest mesaj apare o singură dată.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

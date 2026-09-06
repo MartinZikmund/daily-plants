@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} Zeilen wurden übersprungen, weil die App sie nicht lesen konnte.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Das ändert deinen Verlauf</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Serien und perfekte Tage werden anhand der Einträge bewertet, die du jetzt verfolgst. Wenn du Einträge oder Listen ein- oder ausschaltest, ändern sich also auch bereits erfasste Tage. Du kannst diese Einstellungen jederzeit ändern – dieser Hinweis erscheint nur einmal.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
