@@ -36,14 +36,25 @@ public class SchemaMigrationTests
     }
 
     /// <summary>
-    /// Rewinds a fully migrated database to the v2 shape: no snapshot table, user_version 2.
+    /// Rewinds a fully migrated database to the v2 shape, complete with the per-date
+    /// requirements table that builds of that era wrote. user_version goes back to 2.
     /// </summary>
     private async Task RewindToV2Async()
     {
         var raw = new SQLiteAsyncConnection(_dbPath);
-        await raw.ExecuteAsync("DROP TABLE IF EXISTS DailySettingsSnapshots");
+        await raw.ExecuteAsync(
+            "CREATE TABLE IF NOT EXISTS DailySettingsSnapshots (Date TEXT PRIMARY KEY, RequiredItems TEXT)");
         await raw.ExecuteAsync("PRAGMA user_version = 2");
         await raw.CloseAsync();
+    }
+
+    private static async Task<bool> TableExistsAsync(string path, string table)
+    {
+        var raw = new SQLiteAsyncConnection(path);
+        var count = await raw.ExecuteScalarAsync<int>(
+            "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?", table);
+        await raw.CloseAsync();
+        return count > 0;
     }
 
     private static async Task<int> ReadUserVersionAsync(string path)
@@ -113,29 +124,19 @@ public class SchemaMigrationTests
     }
 
     [TestMethod]
-    public async Task Initialize_OnAV2Database_BackfillsHistorySoLaterSettingsChangesDoNotRewriteIt()
+    public async Task Initialize_OnAV2Database_DropsThePerDateRequirementsTable()
     {
-        var prefs = new FakeAppPreferences { DailyDozenEnabled = true, TwentyOneTweaksEnabled = false };
-        prefs.DisabledItemIds = string.Join(',', ChecklistDefinitions.AllItems
-            .Where(i => i.Id != "beans" && i.Id != "green_tea")
-            .Select(i => i.Id));
-
+        var prefs = new FakeAppPreferences { DailyDozenEnabled = true };
         var seed = new SqliteDataService(prefs, _dbPath);
         await seed.InitializeAsync();
-        var today = DateOnly.FromDateTime(DateTime.Today);
-        for (var i = 0; i < 3; i++)
-        {
-            await seed.SaveEntryAsync(new DailyEntry { Date = today.AddDays(-i), ItemId = "beans", ServingsCompleted = 3 });
-        }
         await RewindToV2Async();
+        (await TableExistsAsync(_dbPath, "DailySettingsSnapshots")).Should().BeTrue("sanity: the rewind put it back");
 
         var upgraded = new SqliteDataService(prefs, _dbPath);
         await upgraded.InitializeAsync();
-        prefs.TwentyOneTweaksEnabled = true;
 
-        var perfectDays = await upgraded.GetPerfectDaysCountAsync();
-
-        perfectDays.Should().Be(3, "pre-migration history is backfilled and then frozen against later changes");
+        (await TableExistsAsync(_dbPath, "DailySettingsSnapshots")).Should().BeFalse(
+            "completion is judged against the current settings, so the stale copy is not kept around");
     }
 
     private async Task SetUserVersionAsync(int version)
@@ -243,14 +244,15 @@ public class SchemaMigrationTests
         public bool DailyDozenEnabled { get; set; } = true;
         public bool TwentyOneTweaksEnabled { get; set; }
         public bool WeightTrackingEnabled { get; set; } = true;
-        public bool UseMetricUnits { get; set; }
         public double? HeightCm { get; set; }
         public double? GoalWeight { get; set; }
         public int ThemePreference { get; set; }
         public string? Language { get; set; }
+        public string DisabledItemIds { get; set; } = string.Empty;
         public bool UnitsAreCanonical { get; set; }
+        public bool HasSeenChecklistImpactWarning { get; set; }
 
-        public string DisabledItemIds
+        public bool UseMetricUnits
         {
             get => throw new InvalidOperationException("preference store went away mid-migration");
             set => throw new InvalidOperationException("preference store went away mid-migration");
@@ -262,13 +264,13 @@ public class SchemaMigrationTests
     {
         var prefs = new FakeAppPreferences();
         await new SqliteDataService(prefs, _dbPath).InitializeAsync();
-        await RewindToV2Async();
+        await SetUserVersionAsync(3);
 
-        // v3 reads the disabled items to build its requirements map, and that throws.
+        // v4 reads the unit preference to decide whether to convert, and that throws.
         var failing = new SqliteDataService(new ThrowingPreferences(), _dbPath);
         await Assert.ThrowsExceptionAsync<InvalidOperationException>(failing.InitializeAsync);
 
-        (await ReadUserVersionAsync(_dbPath)).Should().Be(2,
+        (await ReadUserVersionAsync(_dbPath)).Should().Be(3,
             "a migration that threw must not leave a version claiming it ran - the next "
             + "launch would skip it for good");
     }

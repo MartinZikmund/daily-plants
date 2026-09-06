@@ -1,4 +1,4 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 using DailyPlants.ViewModels;
 
 namespace DailyPlants.Tests.ViewModels;
@@ -26,6 +26,7 @@ public class ChecklistToggleTests
         public int ThemePreference { get; set; }
         public string? Language { get; set; }
         public bool UnitsAreCanonical { get; set; }
+        public bool HasSeenChecklistImpactWarning { get; set; }
 
         public string DisabledItemIds
         {

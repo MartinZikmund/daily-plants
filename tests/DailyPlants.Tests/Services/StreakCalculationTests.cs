@@ -1,11 +1,10 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 
 namespace DailyPlants.Tests.Services;
 
 /// <summary>
 /// Streak and perfect-day correctness. These numbers are the app's core promise,
-/// so they must not depend on how long the user has been tracking or on settings
-/// they changed after the fact.
+/// so they must not depend on how long the user has been tracking.
 /// </summary>
 [TestClass]
 public class StreakCalculationTests
@@ -99,10 +98,12 @@ public class StreakCalculationTests
         streak.Should().Be(10, "the streak ends at the first incomplete day");
     }
 
-    // ===== Point-in-time settings =====
+    // ===== Settings changes =====
     //
-    // Completion for a past day must be judged against the checklists and items the
-    // user had enabled when they logged it, not against whatever is enabled now.
+    // Completion is judged against the settings in force right now, for every day. That
+    // is a deliberate trade: the user is free to change what they track, the numbers stay
+    // explainable, and Settings warns once that history moves with them. Achievements are
+    // a separate matter - they are only ever awarded, never taken back.
 
     /// <summary>Enables only beans (Daily Dozen) and green tea (21 Tweaks).</summary>
     private void RequireOnlyBeansAndGreenTea()
@@ -114,7 +115,7 @@ public class StreakCalculationTests
     }
 
     [TestMethod]
-    public async Task GetLongestStreakAsync_AfterEnablingAnotherChecklist_KeepsPastStreaks()
+    public async Task GetLongestStreakAsync_AfterEnablingAnotherChecklist_RejudgesPastDays()
     {
         RequireOnlyBeansAndGreenTea();
         _prefs.TwentyOneTweaksEnabled = false;
@@ -125,25 +126,11 @@ public class StreakCalculationTests
 
         var longest = await _service.GetLongestStreakAsync();
 
-        longest.Should().Be(10, "days already earned must not be revoked by a later settings change");
+        longest.Should().Be(0, "green tea is now required and was never logged on those days");
     }
 
     [TestMethod]
-    public async Task GetPerfectDaysCountAsync_AfterEnablingAnotherChecklist_KeepsPastPerfectDays()
-    {
-        RequireOnlyBeansAndGreenTea();
-        _prefs.TwentyOneTweaksEnabled = false;
-        await CompleteBeansForDaysAsync(5, Today());
-
-        _prefs.TwentyOneTweaksEnabled = true;
-
-        var perfectDays = await _service.GetPerfectDaysCountAsync();
-
-        perfectDays.Should().Be(5);
-    }
-
-    [TestMethod]
-    public async Task GetPerfectDaysCountAsync_AfterDisablingARequiredItem_DoesNotInventPastPerfectDays()
+    public async Task GetPerfectDaysCountAsync_AfterDisablingARequiredItem_CountsThoseDays()
     {
         RequireOnlyBeansAndGreenTea();
         _prefs.TwentyOneTweaksEnabled = true;
@@ -157,17 +144,17 @@ public class StreakCalculationTests
 
         var perfectDays = await _service.GetPerfectDaysCountAsync();
 
-        perfectDays.Should().Be(0, "disabling an item must not retroactively award days the user did not earn");
+        perfectDays.Should().Be(5, "beans is all that is tracked now, and beans was logged every day");
     }
 
     [TestMethod]
-    public async Task GetPerfectDaysCountAsync_ForDaysLoggedAfterTheChange_UsesTheNewSettings()
+    public async Task GetPerfectDaysCountAsync_AfterASettingsChange_JudgesEveryDayTheSameWay()
     {
         RequireOnlyBeansAndGreenTea();
         _prefs.TwentyOneTweaksEnabled = true;
         var today = Today();
 
-        // Day one, under the stricter settings: beans only, so not perfect.
+        // Logged while green tea was still required, so incomplete at the time.
         await _service.SaveEntryAsync(new DailyEntry { Date = today.AddDays(-1), ItemId = "beans", ServingsCompleted = 3 });
 
         // Green tea switched off, then a fresh day logged under the looser settings.
@@ -176,6 +163,6 @@ public class StreakCalculationTests
 
         var perfectDays = await _service.GetPerfectDaysCountAsync();
 
-        perfectDays.Should().Be(1, "only the day logged under the looser settings counts");
+        perfectDays.Should().Be(2, "one bar applies to the whole history, not one bar per day");
     }
 }
