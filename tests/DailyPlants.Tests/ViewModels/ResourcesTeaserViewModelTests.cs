@@ -60,6 +60,24 @@ public class ResourcesTeaserViewModelTests
     }
 
     [TestMethod]
+    public async Task LoadAsync_LiveFetchUnsupported_StaysHiddenAndDoesNotFetch()
+    {
+        FakeFeedService feedService = new()
+        {
+            SupportsLiveFetch = false,
+            LatestAcrossFeeds = [NewItem("a"), NewItem("b"), NewItem("c")]
+        };
+        ResourcesTeaserViewModel vm = new(feedService, new FakeAppNavigator());
+
+        await vm.LoadAsync();
+
+        feedService.LatestAcrossFeedsCallCount.Should().Be(0);
+        vm.Items.Should().BeEmpty();
+        vm.ShowStrip.Should().BeFalse();
+        vm.IsLoading.Should().BeFalse();
+    }
+
+    [TestMethod]
     public void OpenResources_RaisesNavigationRequestWithKindName()
     {
         FakeAppNavigator navigator = new();

@@ -32,7 +32,7 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
     public FeedKind? Kind => null;
 
     [ObservableProperty]
-    private bool _isSelected;
+    public partial bool IsSelected { get; set; }
 
     /// <summary>One entry per feed that had something to show; a feed that failed is simply absent.</summary>
     public ObservableCollection<FeedGroupViewModel> Groups { get; } = [];
@@ -41,22 +41,22 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
     [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
     [NotifyPropertyChangedFor(nameof(ShowItems))]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
-    private bool _isLoading;
+    public partial bool IsLoading { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
     [NotifyPropertyChangedFor(nameof(ShowItems))]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
-    private bool _hasLoaded;
+    public partial bool HasLoaded { get; set; }
 
     /// <summary>Resources_LoadError, or empty when all is well.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
-    private string _noticeText = string.Empty;
+    public partial string NoticeText { get; set; } = string.Empty;
 
     /// <summary>Resources_Empty headline, or the status-specific replacement.</summary>
     [ObservableProperty]
-    private string _emptyStateText = string.Empty;
+    public partial string EmptyStateText { get; set; } = string.Empty;
 
     public bool ShowItems => Groups.Count > 0;
 
@@ -101,8 +101,8 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
 
             NoticeText = string.Empty;
             EmptyStateText = Groups.Count == 0 && !_feedService.SupportsLiveFetch
-                ? Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app.")
-                : Localized("Resources_Empty", "Nothing here yet");
+                ? Localizer.GetString("Resources_BrowserUnavailable")
+                : Localizer.GetString("Resources_Empty");
         }
         catch (OperationCanceledException)
         {
@@ -113,8 +113,8 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
         {
             // The service reports failure as an empty group, so this is a guard against a ViewModel-side bug.
             AppLog.Error("Loading the Resources overview failed", ex);
-            NoticeText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
-            EmptyStateText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
+            NoticeText = Localizer.GetString("Resources_LoadError");
+            EmptyStateText = Localizer.GetString("Resources_LoadError");
         }
         finally
         {
@@ -131,14 +131,4 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
     /// <summary>Opens the tab a section heading stands for.</summary>
     [RelayCommand]
     private async Task SelectSectionAsync(FeedKind kind) => await _selectSection(kind);
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
 }

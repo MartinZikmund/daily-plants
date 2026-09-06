@@ -1,3 +1,4 @@
+using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Tests.TestDoubles;
 using DailyPlants.ViewModels;
@@ -42,13 +43,6 @@ public class FeedListViewModelTests
         await list.SearchAsync(Query);
 
         return list;
-    }
-
-    /// <summary>Mirrors the ViewModels' own resource lookup so the assertions hold in any locale.</summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
     }
 
     [TestMethod]
@@ -287,7 +281,13 @@ public class FeedListViewModelTests
         var list = await SearchedAsync(feedService, FeedPage.End(FeedResultStatus.Fresh));
 
         list.ShowEmptyState.Should().BeTrue();
-        list.EmptyStateText.Should().Contain(Query);
+        list.EmptyStateText.Should().Be(string.Format(
+            CultureInfo.CurrentCulture,
+            Localizer.GetString("Resources_SearchEmpty"),
+            Query));
+        list.EmptyStateText.Should().NotBe(
+            Localizer.GetString("Resources_Empty"),
+            "a search that found nothing is not the same as a feed with nothing in it");
         list.NoticeText.Should().BeEmpty();
         list.HasMore.Should().BeFalse();
     }
@@ -300,8 +300,8 @@ public class FeedListViewModelTests
         var unavailable = await SearchedAsync(feedService, FeedPage.End(FeedResultStatus.Unavailable));
 
         unavailable.EmptyStateText.Should().Be(
-            Localized("Resources_SearchOffline", "Search needs a connection to NutritionFacts.org."));
-        unavailable.EmptyStateText.Should().NotBe(Localized("Resources_LoadError", "We couldn't load the newest posts."));
+            Localizer.GetString("Resources_SearchOffline"));
+        unavailable.EmptyStateText.Should().NotBe(Localizer.GetString("Resources_LoadError"));
         unavailable.ShowEmptyState.Should().BeTrue();
         unavailable.NoticeText.Should().BeEmpty("with nothing on screen the empty state carries the message");
     }
@@ -315,9 +315,9 @@ public class FeedListViewModelTests
 
         // The browser head has a connection; CORS is what stops it, so the offline wording would lie.
         browser.EmptyStateText.Should().Be(
-            Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app."));
+            Localizer.GetString("Resources_BrowserUnavailable"));
         browser.EmptyStateText.Should().NotBe(
-            Localized("Resources_SearchOffline", "Search needs a connection to NutritionFacts.org."));
+            Localizer.GetString("Resources_SearchOffline"));
     }
 
     [TestMethod]
@@ -385,7 +385,7 @@ public class FeedListViewModelTests
         list.HasMore.Should().BeFalse();
         list.ShowNotice.Should().BeTrue();
         list.NoticeText.Should().Be(
-            Localized("Resources_SearchOffline", "Search needs a connection to NutritionFacts.org."));
+            Localizer.GetString("Resources_SearchOffline"));
     }
 
     [TestMethod]
@@ -413,8 +413,8 @@ public class FeedListViewModelTests
 
         // The same status on page 1 says this, so page 2 must not contradict it.
         list.NoticeText.Should().Be(
-            Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app."));
-        list.NoticeText.Should().NotBe(Localized("Resources_LoadError", "We couldn't load the newest posts."));
+            Localizer.GetString("Resources_BrowserUnavailable"));
+        list.NoticeText.Should().NotBe(Localizer.GetString("Resources_LoadError"));
         list.Items.Should().HaveCount(1);
         list.HasMore.Should().BeFalse();
     }

@@ -24,13 +24,6 @@ public class FeedItemViewModelTests
             PublishedAt = publishedAt
         };
 
-    /// <summary>Mirrors the ViewModels' own resource lookup so the assertions hold in any locale.</summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
-
     [TestMethod]
     public void Summary_LongerThanLimit_TruncatedAtWordBoundaryWithEllipsis()
     {
@@ -59,7 +52,7 @@ public class FeedItemViewModelTests
     {
         var vm = new FeedItemViewModel(NewItem(publishedAt: DateTimeOffset.Now));
 
-        vm.PublishedText.Should().Be(Localized("Resources_Today", "Today"));
+        vm.PublishedText.Should().Be(Localizer.GetString("Resources_Today"));
     }
 
     [TestMethod]
@@ -85,7 +78,12 @@ public class FeedItemViewModelTests
         var vm = new FeedItemViewModel(NewItem(id: "https://nutritionfacts.org/?p=99"));
 
         vm.AutomationId.Should().Be("https://nutritionfacts.org/?p=99");
-        vm.AutomationName.Should().Contain(vm.Title).And.Contain(vm.KindText);
+        vm.AutomationName.Should().Be(string.Format(
+            CultureInfo.CurrentCulture,
+            Localizer.GetString("Resources_ItemAutomationName"),
+            vm.Title,
+            vm.KindText,
+            vm.PublishedText));
     }
 
     [TestMethod]

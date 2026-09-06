@@ -11,23 +11,13 @@ internal static class FeedKindLabel
 {
     public static string For(FeedKind kind) => kind switch
     {
-        FeedKind.Blog => Localized("Resources_TabBlog", "Blog"),
-        FeedKind.Videos => Localized("Resources_TabVideos", "Videos"),
-        FeedKind.Podcast => Localized("Resources_TabPodcast", "Podcast"),
-        FeedKind.Recipes => Localized("Resources_TabRecipes", "Recipes"),
-        FeedKind.Questions => Localized("Resources_TabQuestions", "Q&A"),
-        FeedKind.Webinars => Localized("Resources_TabWebinars", "Webinars"),
+        FeedKind.Blog => Localizer.GetString("Resources_TabBlog"),
+        FeedKind.Videos => Localizer.GetString("Resources_TabVideos"),
+        FeedKind.Podcast => Localizer.GetString("Resources_TabPodcast"),
+        FeedKind.Recipes => Localizer.GetString("Resources_TabRecipes"),
+        FeedKind.Questions => Localizer.GetString("Resources_TabQuestions"),
+        FeedKind.Webinars => Localizer.GetString("Resources_TabWebinars"),
         // A search hit from outside the feeds - "Article" rather than a feed name it isn't in.
-        _ => Localized("Resources_KindOther", "Article")
+        _ => Localizer.GetString("Resources_KindOther")
     };
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
 }

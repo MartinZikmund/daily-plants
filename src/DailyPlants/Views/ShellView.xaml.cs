@@ -1,4 +1,4 @@
-﻿using DailyPlants.Models;
+using DailyPlants.Models;
 using DailyPlants.Services;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
@@ -102,6 +102,8 @@ public sealed partial class ShellView : Page
         this.ActualThemeChanged += ShellView_ActualThemeChanged;
         UpdateTitleBarColors();
 
+        RemoveResourcesIfUnreachable();
+
         // Select the first item (Diary) by default
         NavView.SelectedItem = NavView.MenuItems[0];
 
@@ -117,6 +119,18 @@ public sealed partial class ShellView : Page
         if (_appNavigator != null)
         {
             _appNavigator.NavigationRequested += OnNavigationRequested;
+        }
+    }
+
+    /// <summary>
+    /// The browser head cannot read nutritionfacts.org - it sends no CORS header - so the whole
+    /// Resources page would be an empty shell there. Drop the entry rather than show it empty.
+    /// </summary>
+    private void RemoveResourcesIfUnreachable()
+    {
+        if (App.Current.Services?.GetService<IFeedService>() is { SupportsLiveFetch: false })
+        {
+            NavView.MenuItems.Remove(ResourcesNavItem);
         }
     }
 

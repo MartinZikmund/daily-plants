@@ -11,6 +11,8 @@
     <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
     <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
     <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <!-- Ahead of the Uno SDK's implicit 8.4.0: [ObservableProperty] only generates for partial properties from 8.4.2. -->
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
   </ItemGroup>
 
   <!-- Test packages -->

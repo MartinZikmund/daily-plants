@@ -28,13 +28,6 @@ public class ResourcesSearchDebounceTests
     private static ResourcesViewModel WithZeroDebounce(FakeFeedService feedService)
         => new(feedService) { SearchDebounce = TimeSpan.Zero };
 
-    /// <summary>Mirrors the ViewModels' own resource lookup so the assertions hold in any locale.</summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
-
     /// <summary>
     /// The pause the user takes between words. Standing in for it with a gate the test opens is
     /// what makes "typed quickly" mean the same thing here as it does on a keyboard - the burst is
@@ -207,7 +200,7 @@ public class ResourcesSearchDebounceTests
         abandoned.IsCompletedSuccessfully.Should().BeTrue("cancellation is not a failure");
         vm.SearchResults.NoticeText.Should().BeEmpty();
         vm.SearchResults.EmptyStateText.Should().NotBe(
-            Localized("Resources_SearchOffline", "Search needs a connection to NutritionFacts.org."));
+            Localizer.GetString("Resources_SearchOffline"));
         vm.SearchResults.IsLoading.Should().BeFalse("the search that won cleared the spinner");
     }
 

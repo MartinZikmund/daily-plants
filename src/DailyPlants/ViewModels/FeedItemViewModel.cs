@@ -20,7 +20,7 @@ public partial class FeedItemViewModel : ObservableObject
         KindText = FeedKindLabel.For(item.Kind);
         AutomationName = string.Format(
             CultureInfo.CurrentCulture,
-            Localized("Resources_ItemAutomationName", "{0}. {1}, {2}"),
+            Localizer.GetString("Resources_ItemAutomationName"),
             Title,
             KindText,
             PublishedText);
@@ -81,24 +81,14 @@ public partial class FeedItemViewModel : ObservableObject
 
         if (localDate == today)
         {
-            return Localized("Resources_Today", "Today");
+            return Localizer.GetString("Resources_Today");
         }
 
         if (localDate == today.AddDays(-1))
         {
-            return Localized("Resources_Yesterday", "Yesterday");
+            return Localizer.GetString("Resources_Yesterday");
         }
 
         return published.ToLocalTime().ToString("d MMM", CultureInfo.CurrentCulture);
-    }
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
     }
 }

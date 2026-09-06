@@ -31,20 +31,22 @@ public partial class ItemTopicViewModel : ObservableObject
         _navigator = navigator;
         _name = item.Name;
 
-        var slug = item.TopicSlug?.Trim();
+        // A head that cannot reach the topic feed counts as "no topic": no header, no fetch, no
+        // "See all" onto a Resources page it does not have either.
+        var slug = feedService.SupportsLiveFetch ? item.TopicSlug?.Trim() : null;
         _slug = string.IsNullOrEmpty(slug) ? null : slug;
     }
 
     /// <summary>
-    /// False when the item has no topic. The dialog builds nothing at all in that case, so this is
-    /// the one flag it has to read before anything else.
+    /// False when the item has no topic, or when this head cannot fetch one. The dialog builds
+    /// nothing at all in that case, so this is the one flag it has to read before anything else.
     /// </summary>
     public bool HasTopic => _slug is not null;
 
     /// <summary>Resources_TopicHeader filled in, e.g. "Latest on Berries".</summary>
     public string Header => string.Format(
         CultureInfo.CurrentCulture,
-        Localized("Resources_TopicHeader", "Latest on {0}"),
+        Localizer.GetString("Resources_TopicHeader"),
         _name);
 
     /// <summary>At most <see cref="HighlightCount"/> cards, in the order the topic feed gave them.</summary>
@@ -53,11 +55,11 @@ public partial class ItemTopicViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowProgress))]
     [NotifyPropertyChangedFor(nameof(ShowItems))]
-    private bool _isLoading;
+    public partial bool IsLoading { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowItems))]
-    private bool _hasItems;
+    public partial bool HasItems { get; set; }
 
     /// <summary>The small spinner in the block, up only while the fetch is out.</summary>
     public bool ShowProgress => HasTopic && IsLoading;
@@ -119,15 +121,5 @@ public partial class ItemTopicViewModel : ObservableObject
         {
             IsLoading = false;
         }
-    }
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
     }
 }

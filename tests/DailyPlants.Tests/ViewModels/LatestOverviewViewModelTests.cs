@@ -31,13 +31,6 @@ public class LatestOverviewViewModelTests
         return feedService;
     }
 
-    /// <summary>Mirrors the ViewModels' own resource lookup so the assertions hold in any locale.</summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
-
     [TestMethod]
     public async Task LoadAsync_EveryFeedPopulated_ShowsTwoItemsPerSectionInTabOrder()
     {
@@ -89,7 +82,7 @@ public class LatestOverviewViewModelTests
         vm.Latest.Groups.Should().BeEmpty();
         vm.Latest.ShowItems.Should().BeFalse();
         vm.Latest.ShowEmptyState.Should().BeTrue();
-        vm.Latest.EmptyStateText.Should().Be(Localized("Resources_Empty", "Nothing here yet"));
+        vm.Latest.EmptyStateText.Should().Be(Localizer.GetString("Resources_Empty"));
         vm.Latest.NoticeText.Should().BeEmpty();
     }
 
@@ -103,7 +96,7 @@ public class LatestOverviewViewModelTests
 
         vm.Latest.ShowEmptyState.Should().BeTrue();
         vm.Latest.EmptyStateText.Should().Be(
-            Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app."));
+            Localizer.GetString("Resources_BrowserUnavailable"));
     }
 
     [TestMethod]
@@ -176,7 +169,7 @@ public class LatestOverviewViewModelTests
 
         vm.Latest.Kind.Should().BeNull();
         vm.Latest.TabAutomationId.Should().Be("ResourcesTabLatestButton");
-        vm.Latest.Title.Should().Be(Localized("Resources_TabLatest", "Latest"));
+        vm.Latest.Title.Should().Be(Localizer.GetString("Resources_TabLatest"));
     }
 
     [DataTestMethod]

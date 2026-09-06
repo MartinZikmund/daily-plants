@@ -5,19 +5,18 @@ namespace DailyPlants.Models;
 /// site-wide search can turn up.
 /// </summary>
 /// <remarks>
-/// Serialized into the cache JSON as a number - do not reorder or renumber. New members are
-/// appended, which is why the numbers no longer run in display order; use
-/// <see cref="FeedKinds.Feeds"/> for that.
+/// Serialized into the cache JSON as a number - do not renumber. <see cref="Other"/> is 0 so a kind
+/// nobody set reads as "none of our feeds" rather than as the blog; the rest run in the order the
+/// Resources page shows them, which <see cref="FeedKinds.Feeds"/> spells out.
 /// </remarks>
 public enum FeedKind
 {
-    Blog = 0,
-    Videos = 1,
-    Podcast = 2,
-
     /// <summary>A search hit that belongs to none of the feeds - a /topics/ page, say.</summary>
-    Other = 3,
+    Other = 0,
 
+    Blog = 1,
+    Videos = 2,
+    Podcast = 3,
     Recipes = 4,
     Questions = 5,
     Webinars = 6

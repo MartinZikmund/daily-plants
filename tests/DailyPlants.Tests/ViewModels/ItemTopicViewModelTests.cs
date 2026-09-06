@@ -45,13 +45,6 @@ public class ItemTopicViewModelTests
         string name = "Berries")
         => new(feedService, navigator, Item(topicSlug, name));
 
-    /// <summary>Mirrors the ViewModel's own resource lookup so the assertion holds in any locale.</summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
-
     [TestMethod]
     public async Task NullTopicSlug_ProducesNoSectionAndNoRequest()
     {
@@ -76,6 +69,21 @@ public class ItemTopicViewModelTests
         await vm.LoadAsync();
 
         vm.HasTopic.Should().BeFalse();
+        vm.ShowItems.Should().BeFalse();
+        feedService.TopicRequests.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public async Task LiveFetchUnsupported_ProducesNoSectionAndNoRequest()
+    {
+        FakeFeedService feedService = new() { SupportsLiveFetch = false };
+        feedService.SetTopicPage(Slug, 1, Page("one", "two", "three"));
+        var vm = Create(feedService, new FakeAppNavigator(), Slug);
+
+        await vm.LoadAsync();
+
+        vm.HasTopic.Should().BeFalse();
+        vm.ShowProgress.Should().BeFalse();
         vm.ShowItems.Should().BeFalse();
         feedService.TopicRequests.Should().BeEmpty();
     }
@@ -178,7 +186,7 @@ public class ItemTopicViewModelTests
 
         vm.Header.Should().Be(string.Format(
             CultureInfo.CurrentCulture,
-            Localized("Resources_TopicHeader", "Latest on {0}"),
+            Localizer.GetString("Resources_TopicHeader"),
             "Flaxseeds"));
     }
 

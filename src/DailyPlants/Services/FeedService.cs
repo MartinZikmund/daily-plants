@@ -86,6 +86,13 @@ public sealed class FeedService : IFeedService
 
     public async Task<FeedResult> GetFeedAsync(FeedKind kind, bool forceRefresh = false, CancellationToken cancellationToken = default)
     {
+        // Other has no feed of its own, and it is the default value - an unset kind lands here
+        // rather than on a gate that was never created for it.
+        if (kind == FeedKind.Other)
+        {
+            return new FeedResult(kind, [], FeedResultStatus.Fresh, null);
+        }
+
         if (!forceRefresh && TryGetFreshMemo(kind) is { } memo)
         {
             return Served(memo, FeedResultStatus.Cached);

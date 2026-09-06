@@ -22,12 +22,12 @@ public partial class ResourcesTeaserViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowStrip))]
-    private bool _isLoading;
+    public partial bool IsLoading { get; set; }
 
     /// <summary>Collapses the whole strip until there is something worth showing - the Diary page must never grow an empty hole.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowStrip))]
-    private bool _hasItems;
+    public partial bool HasItems { get; set; }
 
     public bool ShowStrip => HasItems && !IsLoading;
 
@@ -39,6 +39,12 @@ public partial class ResourcesTeaserViewModel : ObservableObject
     /// <summary>Loads the three newest items across all feeds. Never throws.</summary>
     public async Task LoadAsync()
     {
+        // A head that cannot reach the feeds gets no strip at all rather than an empty one.
+        if (!_feedService.SupportsLiveFetch)
+        {
+            return;
+        }
+
         IsLoading = true;
 
         try

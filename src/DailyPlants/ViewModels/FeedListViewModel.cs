@@ -41,7 +41,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     {
         _feedService = feedService;
         Kind = kind;
-        _title = title;
+        Title = title;
         _mode = mode;
     }
 
@@ -64,7 +64,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     /// the topic currently loaded, which is why it notifies.
     /// </summary>
     [ObservableProperty]
-    private string _title;
+    public partial string Title { get; set; }
 
     /// <summary>
     /// AutomationProperties.AutomationId for this tab's button. The search and topic lists are not
@@ -76,7 +76,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
 
     /// <summary>True while this is the selected tab. Maintained by <see cref="ResourcesViewModel"/>.</summary>
     [ObservableProperty]
-    private bool _isSelected;
+    public partial bool IsSelected { get; set; }
 
     /// <summary>True for the search list: it fetches by query rather than by feed, and is never cached.</summary>
     public bool IsSearch => _mode == ListMode.Search;
@@ -100,35 +100,35 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
     [NotifyPropertyChangedFor(nameof(ShowItems))]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
-    private bool _isLoading;
+    public partial bool IsLoading { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowEmptyState))]
     [NotifyPropertyChangedFor(nameof(ShowItems))]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
-    private bool _hasLoaded;
+    public partial bool HasLoaded { get; set; }
 
     /// <summary>Resources_Offline / _BrowserUnavailable / _LoadError, or empty when all is well.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowNotice))]
-    private string _noticeText = string.Empty;
+    public partial string NoticeText { get; set; } = string.Empty;
 
     /// <summary>Resources_Empty headline, or the status-specific replacement.</summary>
     [ObservableProperty]
-    private string _emptyStateText = string.Empty;
+    public partial string EmptyStateText { get; set; } = string.Empty;
 
     /// <summary>Resources_UpdatedAt formatted, or empty when never fetched.</summary>
     [ObservableProperty]
-    private string _updatedText = string.Empty;
+    public partial string UpdatedText { get; set; } = string.Empty;
 
     /// <summary>True while the next page is on its way; the first page uses IsLoading instead.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowLoadingMore))]
-    private bool _isLoadingMore;
+    public partial bool IsLoadingMore { get; set; }
 
     /// <summary>True while asking for another page is still worth it. False is the end of the list.</summary>
     [ObservableProperty]
-    private bool _hasMore;
+    public partial bool HasMore { get; set; }
 
     public bool ShowItems => Items.Count > 0;
 
@@ -187,7 +187,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
             AppLog.Error($"Loading the {Kind} feed failed", ex);
-            NoticeText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
+            NoticeText = Localizer.GetString("Resources_LoadError");
             HasMore = false;
         }
         finally
@@ -247,7 +247,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
             AppLog.Error($"Searching for \"{trimmed}\" failed", ex);
-            EmptyStateText = Localized("Resources_SearchOffline", "Search needs a connection to NutritionFacts.org.");
+            EmptyStateText = Localizer.GetString("Resources_SearchOffline");
             HasMore = false;
         }
         finally
@@ -307,7 +307,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
             AppLog.Error($"Loading the \"{trimmed}\" topic failed", ex);
-            EmptyStateText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
+            EmptyStateText = Localizer.GetString("Resources_LoadError");
             HasMore = false;
         }
         finally
@@ -422,30 +422,30 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         UpdatedText = result.FetchedAt is { } fetchedAt
             ? string.Format(
                 CultureInfo.CurrentCulture,
-                Localized("Resources_UpdatedAt", "Updated {0}"),
+                Localizer.GetString("Resources_UpdatedAt"),
                 fetchedAt.ToLocalTime().ToString("t", CultureInfo.CurrentCulture))
             : string.Empty;
 
         switch (result.Status)
         {
             case FeedResultStatus.Stale:
-                NoticeText = Localized("Resources_Offline", "Showing saved posts — we couldn't reach NutritionFacts.org.");
-                EmptyStateText = Localized("Resources_Empty", "Nothing here yet");
+                NoticeText = Localizer.GetString("Resources_Offline");
+                EmptyStateText = Localizer.GetString("Resources_Empty");
                 break;
 
             case FeedResultStatus.Unavailable:
                 NoticeText = string.Empty;
-                EmptyStateText = Localized("Resources_LoadError", "We couldn't load the newest posts.");
+                EmptyStateText = Localizer.GetString("Resources_LoadError");
                 break;
 
             case FeedResultStatus.LiveFetchUnavailable:
                 NoticeText = string.Empty;
-                EmptyStateText = Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app.");
+                EmptyStateText = Localizer.GetString("Resources_BrowserUnavailable");
                 break;
 
             default:
                 NoticeText = string.Empty;
-                EmptyStateText = Localized("Resources_Empty", "Nothing here yet");
+                EmptyStateText = Localizer.GetString("Resources_Empty");
                 break;
         }
     }
@@ -462,9 +462,9 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
             EmptyStateText = IsSearch
                 ? string.Format(
                     CultureInfo.CurrentCulture,
-                    Localized("Resources_SearchEmpty", "Nothing found for “{0}”"),
+                    Localizer.GetString("Resources_SearchEmpty"),
                     Query)
-                : Localized("Resources_Empty", "Nothing here yet");
+                : Localizer.GetString("Resources_Empty");
             return;
         }
 
@@ -474,15 +474,15 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         {
             // The browser head cannot fetch at all, which is not the same thing as a request that
             // failed, so it says so even in search mode where the user does have a connection.
-            unreachable = Localized("Resources_BrowserUnavailable", "New posts can't be fetched in the browser version of the app.");
+            unreachable = Localizer.GetString("Resources_BrowserUnavailable");
         }
         else if (IsSearch)
         {
-            unreachable = Localized("Resources_SearchOffline", "Search needs a connection to NutritionFacts.org.");
+            unreachable = Localizer.GetString("Resources_SearchOffline");
         }
         else
         {
-            unreachable = Localized("Resources_LoadError", "We couldn't load the newest posts.");
+            unreachable = Localizer.GetString("Resources_LoadError");
         }
 
         NoticeText = Items.Count > 0 ? unreachable : string.Empty;
@@ -496,14 +496,4 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         ListMode.Topic => $"\"{Query}\" topic",
         _ => Kind.ToString() ?? string.Empty
     };
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
 }

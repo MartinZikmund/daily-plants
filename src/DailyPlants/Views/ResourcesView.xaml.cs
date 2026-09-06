@@ -85,7 +85,7 @@ public sealed partial class ResourcesView : Page
 
     /// <summary>Resources_SearchResultsFor with the query the results are actually for.</summary>
     public static string SearchResultsHeader(string query)
-        => string.Format(CultureInfo.CurrentCulture, Localized("Resources_SearchResultsFor", "Results for “{0}”"), query);
+        => string.Format(CultureInfo.CurrentCulture, Localizer.GetString("Resources_SearchResultsFor"), query);
 
     /// <summary>
     /// The Diary teaser passes a FeedKind name so the page opens on the matching tab, and the item
@@ -185,16 +185,6 @@ public sealed partial class ResourcesView : Page
         {
             ViewModel.ClearSearchCommand.Execute(null);
         }
-    }
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
     }
 }
 

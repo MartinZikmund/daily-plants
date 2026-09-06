@@ -603,6 +603,17 @@ public class FeedServiceTests
         }
     }
     [TestMethod]
+    public async Task GetFeedAsync_OtherKind_ReturnsAnEmptyResultRatherThanThrowing()
+    {
+        // Other is the default enum value, so an unset kind must not fall onto a missing gate.
+        var result = await CreateService().GetFeedAsync(FeedKind.Other);
+
+        result.Items.Should().BeEmpty();
+        result.Kind.Should().Be(FeedKind.Other);
+        _handler.RequestCount.Should().Be(0);
+    }
+
+    [TestMethod]
     public async Task GetFeedPageAsync_OtherKind_ReturnsAnEmptyPageRatherThanThrowing()
     {
         // Other is a search-only kind: there is no /other/ feed to page through.

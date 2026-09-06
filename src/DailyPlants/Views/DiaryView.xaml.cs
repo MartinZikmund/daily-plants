@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using DailyPlants.Helpers;
@@ -170,7 +170,7 @@ public sealed partial class DiaryView : Page
     /// </summary>
     private static string RowAutomationName(ChecklistItemViewModel itemVm) => string.Format(
         CultureInfo.CurrentCulture,
-        Localized("Diary_ItemRowAutomationName", "{0}. Tap for details."),
+        Localizer.GetString("Diary_ItemRowAutomationName"),
         itemVm.Item.Name);
 
     private static void PlayRowArrival(FrameworkElement element)
@@ -507,15 +507,5 @@ public sealed partial class DiaryView : Page
         {
             wash.Opacity = opacity;
         }
-    }
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
     }
 }

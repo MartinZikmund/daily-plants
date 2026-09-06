@@ -35,13 +35,6 @@ public class ResourcesTopicModeTests
         return feedService;
     }
 
-    /// <summary>Mirrors the ViewModels' own resource lookup so the assertions hold in any locale.</summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
-
     [TestMethod]
     public async Task ShowTopicAsync_LoadsTheTopicAndStandsInForTheTabs()
     {
@@ -82,7 +75,7 @@ public class ResourcesTopicModeTests
 
         vm.TopicHeader.Should().Be(string.Format(
             CultureInfo.CurrentCulture,
-            Localized("Resources_TopicHeader", "Latest on {0}"),
+            Localizer.GetString("Resources_TopicHeader"),
             TopicName));
     }
 
@@ -260,7 +253,7 @@ public class ResourcesTopicModeTests
         vm.TopicResults.IsLoading.Should().BeFalse();
         vm.TopicResults.HasMore.Should().BeFalse();
         vm.TopicResults.EmptyStateText.Should()
-            .Be(Localized("Resources_LoadError", "We couldn't load the newest posts."));
+            .Be(Localizer.GetString("Resources_LoadError"));
     }
 
     [TestMethod]

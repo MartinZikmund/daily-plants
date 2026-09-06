@@ -32,16 +32,15 @@ public partial class ResourcesViewModel : ObservableObject
 
     public ResourcesViewModel(IFeedService feedService)
     {
-        Latest = new LatestOverviewViewModel(feedService, Localized("Resources_TabLatest", "Latest"), SelectKindAsync);
+        Latest = new LatestOverviewViewModel(feedService, Localizer.GetString("Resources_TabLatest"), SelectKindAsync);
         _feedTabs = FeedKinds.Feeds.ToDictionary(kind => kind, kind => new FeedListViewModel(feedService, kind, FeedKindLabel.For(kind)));
-        SearchResults = FeedListViewModel.CreateSearch(feedService, Localized("Resources_SearchPlaceholder", "Search NutritionFacts.org"));
+        SearchResults = FeedListViewModel.CreateSearch(feedService, Localizer.GetString("Resources_SearchPlaceholder"));
         TopicResults = FeedListViewModel.CreateTopic(feedService, string.Empty);
 
         // FeedKinds.Feeds is the display order; the overview goes in front of it.
         Tabs = [Latest, .. FeedKinds.Feeds.Select(kind => (IResourceTab)_feedTabs[kind])];
 
-        _selectedTab = Latest;
-        ApplySelection();
+        SelectedTab = Latest;
     }
 
     /// <summary>The overview tab: the newest couple of items from every feed.</summary>
@@ -71,39 +70,39 @@ public partial class ResourcesViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ActiveList))]
     [NotifyPropertyChangedFor(nameof(IsOverviewActive))]
-    private IResourceTab _selectedTab;
+    public partial IResourceTab SelectedTab { get; set; }
 
     /// <summary>What is in the search box; bound two-way so the clear button can empty it.</summary>
     [ObservableProperty]
-    private string _searchQuery = string.Empty;
+    public partial string SearchQuery { get; set; } = string.Empty;
 
     /// <summary>True while search results stand in for the tabs.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ActiveList))]
     [NotifyPropertyChangedFor(nameof(IsOverviewActive))]
     [NotifyPropertyChangedFor(nameof(ShowTabs))]
-    private bool _isSearchActive;
+    public partial bool IsSearchActive { get; set; }
 
     /// <summary>True while one topic's items stand in for the tabs.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ActiveList))]
     [NotifyPropertyChangedFor(nameof(IsOverviewActive))]
     [NotifyPropertyChangedFor(nameof(ShowTabs))]
-    private bool _isTopicActive;
+    public partial bool IsTopicActive { get; set; }
 
     /// <summary>The slug topic mode is showing, or empty when it is not active.</summary>
     [ObservableProperty]
-    private string _topicSlug = string.Empty;
+    public partial string TopicSlug { get; set; } = string.Empty;
 
     /// <summary>The item name the topic header reads back, or empty when topic mode is not active.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TopicHeader))]
-    private string _topicTitle = string.Empty;
+    public partial string TopicTitle { get; set; } = string.Empty;
 
     /// <summary>Resources_TopicHeader filled in, e.g. "Latest on Berries".</summary>
     public string TopicHeader => string.Format(
         CultureInfo.CurrentCulture,
-        Localized("Resources_TopicHeader", "Latest on {0}"),
+        Localizer.GetString("Resources_TopicHeader"),
         TopicTitle);
 
     /// <summary>
@@ -442,15 +441,5 @@ public partial class ResourcesViewModel : ObservableObject
         {
             tab.IsSelected = ReferenceEquals(SelectedTab, tab);
         }
-    }
-
-    /// <summary>
-    /// Resource lookup with an English fallback, for keys that are not yet in every
-    /// <c>Strings/*/Resources.resw</c>. <see cref="Localizer"/> returns "[Key]" on a miss.
-    /// </summary>
-    private static string Localized(string key, string fallback)
-    {
-        var value = Localizer.GetString(key);
-        return value == $"[{key}]" ? fallback : value;
     }
 }
