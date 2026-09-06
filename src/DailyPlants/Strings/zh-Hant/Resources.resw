@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>已略過 {0} 列，因為應用程式無法讀取它們。</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>這會改變你的歷史紀錄</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>連續天數與完美日是依你目前追蹤的項目判定的，因此開啟或關閉項目和清單也會改變已經記錄過的日子。你可以隨時更改這些設定——此提示只會顯示一次。</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

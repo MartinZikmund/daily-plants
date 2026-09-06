@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>已跳过 {0} 行，因为应用无法读取它们。</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>这会改变你的历史记录</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>连续天数和完美日是按你当前追踪的项目判定的，所以开启或关闭项目和清单也会改变已经记录过的日子。你可以随时更改这些设置——此提示只会显示一次。</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>Pominięto {0} wierszy, ponieważ aplikacja nie mogła ich odczytać.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>To zmieni twoją historię</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Serie i idealne dni są oceniane według elementów, które śledzisz teraz, więc włączenie lub wyłączenie elementów albo list zmieni także dni już zapisane. Możesz zmieniać te ustawienia, kiedy chcesz — to powiadomienie pojawi się tylko raz.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

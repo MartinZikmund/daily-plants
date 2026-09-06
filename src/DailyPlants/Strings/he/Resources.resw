@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} שורות דולגו מפני שהאפליקציה לא הצליחה לקרוא אותן.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>זה משנה את ההיסטוריה שלך</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>רצפים וימים מושלמים נמדדים לפי הפריטים שאתה עוקב אחריהם עכשיו, ולכן הפעלה או כיבוי של פריטים או רשימות משנה גם ימים שכבר נרשמו. אפשר לשנות את ההגדרות האלה בכל עת — ההודעה הזו מוצגת פעם אחת בלבד.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

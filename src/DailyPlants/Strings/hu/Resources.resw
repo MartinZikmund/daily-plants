@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} sor ki lett hagyva, mert az alkalmazás nem tudta beolvasni őket.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Ez megváltoztatja az előzményeidet</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>A sorozatokat és a tökéletes napokat a most követett elemek alapján számoljuk, ezért az elemek vagy listák be- és kikapcsolása a már rögzített napokat is megváltoztatja. Ezeket a beállításokat bármikor módosíthatod – ez a figyelmeztetés csak egyszer jelenik meg.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

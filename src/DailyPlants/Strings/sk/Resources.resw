@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} riadkov bolo preskočených, pretože ich aplikácia nedokázala prečítať.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Týmto sa zmení vaša história</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Série a perfektné dni sa posudzujú podľa položiek, ktoré sledujete teraz, takže zapnutie alebo vypnutie položiek či zoznamov zmení aj dni, ktoré už máte zaznamenané. Nastavenia môžete meniť kedykoľvek — toto upozornenie sa zobrazí len raz.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>Se han omitido {0} filas porque la aplicación no ha podido leerlas.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Esto cambia tu historial</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Las rachas y los días perfectos se calculan según los elementos que sigues ahora, así que activar o desactivar elementos o listas también cambia los días que ya has registrado. Puedes cambiar estos ajustes cuando quieras: este aviso solo se muestra una vez.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

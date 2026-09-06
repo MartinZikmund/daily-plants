@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>Пропущено строк: {0} — приложение не смогло их прочитать.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Это изменит вашу историю</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Серии и идеальные дни оцениваются по пунктам, которые вы отслеживаете сейчас, поэтому включение или отключение пунктов или списков изменит и уже записанные дни. Вы можете менять эти настройки когда угодно — это уведомление показывается только один раз.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>S'han omès {0} files perquè l'aplicació no ha pogut llegir-les.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Això canvia el teu historial</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Les ratxes i els dies perfectes es calculen segons els elements que segueixes ara, així que activar o desactivar elements o llistes també canvia els dies que ja has registrat. Pots canviar aquests paràmetres quan vulguis: aquest avís només es mostra una vegada.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

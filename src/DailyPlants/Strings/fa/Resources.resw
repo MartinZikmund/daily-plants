@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} ردیف نادیده گرفته شد چون برنامه نتوانست آن‌ها را بخواند.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>این کار سابقهٔ شما را تغییر می‌دهد</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>زنجیره‌ها و روزهای کامل بر اساس مواردی که اکنون پیگیری می‌کنید سنجیده می‌شوند؛ بنابراین روشن یا خاموش کردن موارد یا فهرست‌ها روزهای ثبت‌شده را هم تغییر می‌دهد. هر وقت خواستید می‌توانید این تنظیمات را عوض کنید — این پیام فقط یک بار نشان داده می‌شود.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

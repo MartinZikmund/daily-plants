@@ -1101,6 +1101,12 @@
   <data name="Settings_ImportSkipped" xml:space="preserve">
     <value>{0} реда бяха пропуснати, защото приложението не можа да ги прочете.</value>
   </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Това променя историята ви</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Сериите и перфектните дни се изчисляват спрямо елементите, които следите сега, затова включването или изключването на елементи или списъци променя и вече записаните дни. Можете да променяте тези настройки когато пожелаете — това известие се показва само веднъж.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">
