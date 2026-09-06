@@ -52,9 +52,6 @@
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
 
-		<!-- No background modes are required. The key is omitted rather than set to an
-		     empty array, which App Store validation rejects. -->
-
 		<!-- Launch storyboard -->
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>

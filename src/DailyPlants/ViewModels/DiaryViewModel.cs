@@ -3,6 +3,7 @@ using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -24,6 +25,8 @@ public partial class DiaryViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+
+    private readonly ILogger _logger;
     private readonly TimeProvider _timeProvider;
     private CancellationTokenSource? _achievementDebounce;
 
@@ -120,9 +123,9 @@ public partial class DiaryViewModel : ObservableObject
 
     public bool ShowDoneTodayRows => ShowDoneTodayGroup && IsDoneTodayExpanded;
 
-    public string StillToGoHeaderText => Localized("Diary_StillToGo", "Still to go");
+    public string StillToGoHeaderText => Localizer.GetString("Diary_StillToGo");
 
-    public string DoneTodayHeaderText => Localized("Diary_DoneToday", "Done today");
+    public string DoneTodayHeaderText => Localizer.GetString("Diary_DoneToday");
 
     public DateOnly CurrentDate => _currentDate;
 
@@ -153,12 +156,14 @@ public partial class DiaryViewModel : ObservableObject
         IDataService dataService,
         IAppPreferences appPreferences,
         IAchievementService? achievementService = null,
-        TimeProvider? timeProvider = null)
+        TimeProvider? timeProvider = null,
+        ILogger<DiaryViewModel>? logger = null)
     {
         _dataService = dataService;
         _appPreferences = appPreferences;
         _achievementService = achievementService;
         _timeProvider = timeProvider ?? TimeProvider.System;
+        _logger = logger ?? NullLogger<DiaryViewModel>.Instance;
         _currentDate = Today;
         UpdateDateDisplay();
     }
@@ -352,7 +357,7 @@ public partial class DiaryViewModel : ObservableObject
         {
             parts.Add(string.Format(
                 CultureInfo.CurrentCulture,
-                Localized("Diary_StreakDays", "{0}-day streak"),
+                Localizer.GetString("Diary_StreakDays"),
                 CurrentStreak));
         }
 
@@ -484,8 +489,9 @@ public partial class DiaryViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            // Also async void: an achievement check must never take the app down.
-            SaveFailed?.Invoke(this, ex);
+            // Also async void: an achievement check must never take the app down. It is not
+            // a persistence failure either, so it is logged rather than shown to the user.
+            _logger.LogError(ex, "Achievement check failed");
         }
     }
 
@@ -517,10 +523,10 @@ public partial class DiaryViewModel : ObservableObject
         {
             DayCompleted?.Invoke(this, new DayCompleteInfo(
                 totalServings,
-                Localized("Diary_DayCompleteHeadline", "Every serving, done."),
+                Localizer.GetString("Diary_DayCompleteHeadline"),
                 string.Format(
                     CultureInfo.CurrentCulture,
-                    Localized("Diary_DayCompleteSubhead", "All {0} servings for {1}."),
+                    Localizer.GetString("Diary_DayCompleteSubhead"),
                     totalServings,
                     DateDisplayText)));
         }
@@ -528,7 +534,7 @@ public partial class DiaryViewModel : ObservableObject
 
     private static string FormatTally(int completed, int total) => string.Format(
         CultureInfo.CurrentCulture,
-        Localized("Diary_ServingsTally", "{0} of {1}"),
+        Localizer.GetString("Diary_ServingsTally"),
         completed,
         total);
 
@@ -612,8 +618,6 @@ public partial class DiaryViewModel : ObservableObject
         ShowStillToGoGroup = StillToGo.Count > 0;
         ShowDoneTodayGroup = DoneToday.Count > 0;
     }
-
-    private static string Localized(string key, string fallback) => Localizer.GetString(key, fallback);
 }
 
 /// <summary>

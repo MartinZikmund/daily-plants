@@ -195,16 +195,13 @@ public partial class App : Application
     }
 
     /// <summary>
-    /// The log path is appended rather than dropped into the middle of a sentence, so that
-    /// translations do not have to bend a grammatical case around a file path.
+    /// The exception text is appended rather than dropped into the middle of a sentence, so
+    /// translations do not have to bend a grammatical case around it.
     /// </summary>
     private string DescribeDatabaseFailure(Exception failure)
     {
-        // Serilog owns the file now, so the app no longer knows the path to quote.
-        var explanation = Localizer.GetString(
-            "Database_FailureMessageNoLog",
-            "Your entries could not be loaded and changes may not be saved. Restart the app, "
-                + "and if this keeps happening the details are in the log in the app data folder.");
+        // Serilog owns the log file, so the app no longer has a path to quote.
+        var explanation = Localizer.GetString("Database_FailureMessageNoLog");
 
         return explanation + Environment.NewLine + Environment.NewLine + failure.Message;
     }
@@ -215,11 +212,9 @@ public partial class App : Application
         {
             var dialog = new ContentDialog
             {
-                Title = Localizer.GetString(
-                    "Database_FailureTitle",
-                    "Daily Plants could not open your data"),
+                Title = Localizer.GetString("Database_FailureTitle"),
                 Content = DescribeDatabaseFailure(failure),
-                CloseButtonText = Localizer.GetString("Database_FailureContinue", "Continue anyway"),
+                CloseButtonText = Localizer.GetString("Database_FailureContinue"),
                 XamlRoot = MainWindow?.Content?.XamlRoot
             };
 
