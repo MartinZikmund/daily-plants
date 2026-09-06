@@ -150,6 +150,79 @@ public class UnitHandlingTests
         vm.WeightChangeText.Should().Contain("lb");
     }
 
+    // ===== Edit precision =====
+    //
+    // The input box shows one decimal, so converting what it displays straight back into
+    // kilograms shaves a little off a weight the user never actually edited. Saving is a
+    // button press rather than a text change, so it happens on every press.
+
+    [TestMethod]
+    public async Task SaveTodayWeight_WithTheLoadedTextUntouched_KeepsTheStoredKilogramsExact()
+    {
+        _prefs.UseMetricUnits = false;
+        var data = new InMemoryDataService(_prefs);
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        await data.SaveWeightEntryAsync(new WeightEntry { Date = today, Weight = 80 });
+        var vm = CreateStatistics(data);
+        await vm.LoadStatisticsAsync();
+        vm.WeightInputText.Should().Be("176.4", "sanity: 80 kg renders as 176.4 lb at one decimal");
+
+        await vm.SaveTodayWeightCommand.ExecuteAsync(null);
+
+        var stored = await data.GetWeightEntryAsync(today);
+        stored!.Weight.Should().Be(80, "re-saving a weight the user never edited must not re-derive it from the rounded pounds");
+    }
+
+    [TestMethod]
+    public async Task SaveTodayWeight_PressedRepeatedly_DoesNotWalkTheStoredWeight()
+    {
+        _prefs.UseMetricUnits = false;
+        var data = new InMemoryDataService(_prefs);
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        await data.SaveWeightEntryAsync(new WeightEntry { Date = today, Weight = 80 });
+        var vm = CreateStatistics(data);
+        await vm.LoadStatisticsAsync();
+
+        for (var i = 0; i < 5; i++)
+        {
+            await vm.SaveTodayWeightCommand.ExecuteAsync(null);
+        }
+
+        (await data.GetWeightEntryAsync(today))!.Weight.Should().Be(80);
+    }
+
+    [TestMethod]
+    public async Task SaveTodayWeight_AfterTheUserEditsTheText_StoresWhatTheyTyped()
+    {
+        _prefs.UseMetricUnits = false;
+        var data = new InMemoryDataService(_prefs);
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        await data.SaveWeightEntryAsync(new WeightEntry { Date = today, Weight = 80 });
+        var vm = CreateStatistics(data);
+        await vm.LoadStatisticsAsync();
+
+        vm.WeightInputText = "180";
+        await vm.SaveTodayWeightCommand.ExecuteAsync(null);
+
+        var stored = await data.GetWeightEntryAsync(today);
+        stored!.Weight.Should().BeApproximately(81.65, 0.01, "180 lb is 81.65 kg - the guard must not swallow a real edit");
+    }
+
+    [TestMethod]
+    public async Task SaveTodayWeight_ForAMetricUser_StoresTheTypedKilograms()
+    {
+        _prefs.UseMetricUnits = true;
+        var data = new InMemoryDataService(_prefs);
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        var vm = CreateStatistics(data);
+        await vm.LoadStatisticsAsync();
+
+        vm.WeightInputText = "80.4";
+        await vm.SaveTodayWeightCommand.ExecuteAsync(null);
+
+        (await data.GetWeightEntryAsync(today))!.Weight.Should().Be(80.4);
+    }
+
     // ===== Chart values =====
 
     [TestMethod]

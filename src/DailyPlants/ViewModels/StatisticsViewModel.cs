@@ -80,6 +80,9 @@ public partial class StatisticsViewModel : ObservableObject
     [ObservableProperty]
     private double? _todayWeight;
 
+    /// <summary>The weight loaded for today, in kilograms, before any display rounding.</summary>
+    private double? _todayWeightKg;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(GoalWeightForChart))]
     private double? _goalWeight;
@@ -285,6 +288,7 @@ public partial class StatisticsViewModel : ObservableObject
     private async Task LoadWeightDataAsync(DateOnly today)
     {
         var todayEntry = await _dataService.GetWeightEntryAsync(today);
+        _todayWeightKg = todayEntry?.Weight;
         TodayWeight = todayEntry is not null ? ToDisplayWeight(todayEntry.Weight) : null;
         WeightInputText = TodayWeight?.ToString("F1") ?? "";
 
@@ -335,6 +339,18 @@ public partial class StatisticsViewModel : ObservableObject
     private double ToDisplayWeight(double weightKg) =>
         weightKg.KilogramsToDisplay(UseMetricUnits);
 
+    /// <summary>
+    /// The kilograms to store for what the input box currently holds. Saving is a button
+    /// press rather than a text change, so it also fires when the user only wanted to
+    /// confirm what was already there - and the box shows one decimal, so converting that
+    /// back would shave 14 g off an 80 kg weight every time. Text that still renders the
+    /// loaded weight is not an edit, and the loaded weight is the more precise answer.
+    /// </summary>
+    private double ResolveWeightToStore(double displayWeight) =>
+        _todayWeightKg is { } loaded && ToDisplayWeight(loaded).ToString("F1") == WeightInputText
+            ? loaded
+            : displayWeight.DisplayToKilograms(UseMetricUnits);
+
     [RelayCommand]
     private async Task SaveTodayWeightAsync()
     {
@@ -347,7 +363,7 @@ public partial class StatisticsViewModel : ObservableObject
         var entry = new WeightEntry
         {
             Date = today,
-            Weight = weight.DisplayToKilograms(UseMetricUnits)
+            Weight = ResolveWeightToStore(weight)
         };
 
         await _dataService.SaveWeightEntryAsync(entry);
