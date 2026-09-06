@@ -113,17 +113,6 @@ public static class Localizer
     }
 
     /// <summary>
-    /// Resource lookup with an English fallback, for keys that may not have reached every
-    /// <c>Strings/*/Resources.resw</c> yet. <see cref="GetString(string)"/> returns "[Key]"
-    /// on a miss, which is a debugging aid rather than something to show a user.
-    /// </summary>
-    public static string GetString(string key, string fallback)
-    {
-        var value = GetString(key);
-        return value == $"[{key}]" ? fallback : value;
-    }
-
-    /// <summary>
     /// Resets the ResourceLoader to force reloading resources.
     /// </summary>
     public static void Reset()

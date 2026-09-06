@@ -229,8 +229,7 @@ public sealed partial class DiaryView : Page
             window.Activated -= Window_Activated;
         }
 
-        _midnightTimer?.Stop();
-        _midnightTimer = null;
+        StopMidnightTimer();
     }
 
     private async void Window_Activated(object sender, WindowActivatedEventArgs args)
@@ -254,7 +253,7 @@ public sealed partial class DiaryView : Page
     /// </summary>
     private void ScheduleMidnightRefresh()
     {
-        _midnightTimer?.Stop();
+        StopMidnightTimer();
 
         var now = DateTime.Now;
         var untilMidnight = now.Date.AddDays(1) - now;
@@ -270,6 +269,19 @@ public sealed partial class DiaryView : Page
         };
         _midnightTimer.Tick += MidnightTimer_Tick;
         _midnightTimer.Start();
+    }
+
+    /// <summary>
+    /// Stops the timer and detaches the handler: a tick already queued on the dispatcher
+    /// would otherwise still run, and the subscription keeps the page alive.
+    /// </summary>
+    private void StopMidnightTimer()
+    {
+        if (_midnightTimer is not { } timer) return;
+
+        timer.Tick -= MidnightTimer_Tick;
+        timer.Stop();
+        _midnightTimer = null;
     }
 
     private async void MidnightTimer_Tick(object? sender, object e)
@@ -312,11 +324,9 @@ public sealed partial class DiaryView : Page
             // than left believing a serving was recorded.
             var dialog = new ContentDialog
             {
-                Title = Localizer.GetString("Diary_SaveFailedTitle", "Could not save"),
-                Content = Localizer.GetString(
-                    "Diary_SaveFailedMessage",
-                    "That change could not be saved and has been undone. Please try again."),
-                CloseButtonText = Localizer.GetString("Common_Ok", "OK"),
+                Title = Localizer.GetString("Diary_SaveFailedTitle"),
+                Content = Localizer.GetString("Diary_SaveFailedMessage"),
+                CloseButtonText = Localizer.GetString("Common_Ok"),
                 XamlRoot = XamlRoot
             };
 

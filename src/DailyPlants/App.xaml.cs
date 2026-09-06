@@ -188,15 +188,9 @@ public partial class App : Application
         var explanation = AppLog.LogFilePath is { } path
             ? string.Format(
                 CultureInfo.CurrentCulture,
-                Localizer.GetString(
-                    "Database_FailureMessage",
-                    "Your entries could not be loaded and changes may not be saved. Restart the "
-                        + "app, and if this keeps happening the log file has the details: {0}"),
+                Localizer.GetString("Database_FailureMessage"),
                 path)
-            : Localizer.GetString(
-                "Database_FailureMessageNoLog",
-                "Your entries could not be loaded and changes may not be saved. Restart the app, "
-                    + "and if this keeps happening the details are in the log in the app data folder.");
+            : Localizer.GetString("Database_FailureMessageNoLog");
 
         return explanation + Environment.NewLine + Environment.NewLine + failure.Message;
     }
@@ -207,11 +201,9 @@ public partial class App : Application
         {
             var dialog = new ContentDialog
             {
-                Title = Localizer.GetString(
-                    "Database_FailureTitle",
-                    "Daily Plants could not open your data"),
+                Title = Localizer.GetString("Database_FailureTitle"),
                 Content = DescribeDatabaseFailure(failure),
-                CloseButtonText = Localizer.GetString("Database_FailureContinue", "Continue anyway"),
+                CloseButtonText = Localizer.GetString("Database_FailureContinue"),
                 XamlRoot = MainWindow?.Content?.XamlRoot
             };
 
