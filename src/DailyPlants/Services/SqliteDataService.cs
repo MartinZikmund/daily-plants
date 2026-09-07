@@ -75,8 +75,39 @@ public class SqliteDataService : IDataService
             await _connection.ExecuteAsync("PRAGMA user_version = 2");
         }
 
+        if (version < 3)
+        {
+            // v3: Weight is now stored in kilograms and height in centimetres regardless of
+            // the unit the user types in. Earlier versions stored whatever was typed, so an
+            // imperial user's existing rows are pounds and their HeightCm is really inches.
+            await ConvertImperialValuesToCanonicalUnitsAsync();
+            await _connection.ExecuteAsync("PRAGMA user_version = 3");
+        }
+
         // Future migrations go here:
-        // if (version < 3) { /* migration to v3 */ await _connection.ExecuteAsync("PRAGMA user_version = 3"); }
+        // if (version < 4) { /* migration to v4 */ await _connection.ExecuteAsync("PRAGMA user_version = 4"); }
+    }
+
+    private async Task ConvertImperialValuesToCanonicalUnitsAsync()
+    {
+        if (_appPreferences.UseMetricUnits)
+        {
+            // Already stored in kilograms and centimetres.
+            return;
+        }
+
+        await _connection.ExecuteAsync(
+            "UPDATE WeightEntries SET Weight = Weight / ?", UnitConverter.PoundsPerKilogram);
+
+        if (_appPreferences.HeightCm is { } heightInInches)
+        {
+            _appPreferences.HeightCm = heightInInches.DisplayToCentimetres(useMetric: false);
+        }
+
+        if (_appPreferences.GoalWeight is { } goalInPounds)
+        {
+            _appPreferences.GoalWeight = goalInPounds.DisplayToKilograms(useMetric: false);
+        }
     }
 
     // ===== Daily Entries =====
@@ -85,7 +116,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(date);
         var entities = await _connection.Table<DailyEntryEntity>()
             .Where(e => e.Date == dateStr && e.ItemId == itemId)
             .ToListAsync();
@@ -98,7 +129,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(date);
         var entities = await _connection.Table<DailyEntryEntity>()
             .Where(e => e.Date == dateStr)
             .ToListAsync();
@@ -110,8 +141,8 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var startStr = startDate.ToString("yyyy-MM-dd");
-        var endStr = endDate.ToString("yyyy-MM-dd");
+        var startStr = IsoDate.ToStorage(startDate);
+        var endStr = IsoDate.ToStorage(endDate);
         var entities = await _connection.QueryAsync<DailyEntryEntity>(
             "SELECT * FROM DailyEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
             startStr, endStr);
@@ -123,7 +154,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = entry.Date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(entry.Date);
         await _connection.ExecuteAsync(
             "INSERT INTO DailyEntries (Date, ItemId, ServingsCompleted) VALUES (?, ?, ?) ON CONFLICT(Date, ItemId) DO UPDATE SET ServingsCompleted = ?",
             dateStr, entry.ItemId, entry.ServingsCompleted, entry.ServingsCompleted);
@@ -133,7 +164,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(date);
         await _connection.ExecuteAsync("DELETE FROM DailyEntries WHERE Date = ?", dateStr);
     }
 
@@ -154,8 +185,8 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var startStr = startDate.ToString("yyyy-MM-dd");
-        var endStr = endDate.ToString("yyyy-MM-dd");
+        var startStr = IsoDate.ToStorage(startDate);
+        var endStr = IsoDate.ToStorage(endDate);
         var entities = await _connection.QueryAsync<WeightEntryEntity>(
             "SELECT * FROM WeightEntries WHERE Date BETWEEN ? AND ? ORDER BY Date",
             startStr, endStr);
@@ -167,7 +198,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(date);
         var entities = await _connection.Table<WeightEntryEntity>()
             .Where(e => e.Date == dateStr)
             .ToListAsync();
@@ -180,7 +211,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = entry.Date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(entry.Date);
         await _connection.ExecuteAsync(
             "INSERT INTO WeightEntries (Date, Weight, Notes) VALUES (?, ?, ?) ON CONFLICT(Date) DO UPDATE SET Weight = ?, Notes = ?",
             dateStr, entry.Weight, entry.Notes, entry.Weight, entry.Notes);
@@ -190,7 +221,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = date.ToString("yyyy-MM-dd");
+        var dateStr = IsoDate.ToStorage(date);
         await _connection.ExecuteAsync("DELETE FROM WeightEntries WHERE Date = ?", dateStr);
     }
 
@@ -203,10 +234,11 @@ public class SqliteDataService : IDataService
         var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
         if (requiredServings.Count == 0) return 0;
 
-        // Load all entries from recent history (enough for reasonable streak)
+        // Load the full history: a windowed lookback cannot tell "no entry" from
+        // "outside the window", which silently truncated streaks at the boundary.
+        // GetLongestStreakAsync already scans the whole table, so this is no new cost class.
         var today = DateOnly.FromDateTime(DateTime.Today);
-        var lookbackStart = today.AddDays(-365);
-        var allEntries = await GetEntriesInRangeAsync(lookbackStart, today);
+        var allEntries = await GetEntriesInRangeAsync(DateOnly.MinValue, today);
 
         // Group entries by date
         var entriesByDate = allEntries.GroupBy(e => e.Date)
@@ -292,7 +324,7 @@ public class SqliteDataService : IDataService
 
         var dates = await _connection.QueryScalarsAsync<string>(
             "SELECT DISTINCT Date FROM DailyEntries ORDER BY Date");
-        return dates.Select(d => DateOnly.Parse(d)).ToList();
+        return dates.Select(IsoDate.Parse).ToList();
     }
 
     private async Task EnsureInitializedAsync()
@@ -338,7 +370,7 @@ public class SqliteDataService : IDataService
 
         await _connection.ExecuteAsync(
             "INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen) VALUES (?, ?, ?)",
-            achievement.AchievementId, achievement.EarnedAt.ToString("O"), achievement.HasBeenSeen ? 1 : 0);
+            achievement.AchievementId, IsoDate.TimestampToStorage(achievement.EarnedAt), achievement.HasBeenSeen ? 1 : 0);
     }
 
     public async Task<bool> IsAchievementEarnedAsync(string achievementId)
@@ -421,7 +453,7 @@ public class SqliteDataService : IDataService
     private static DailyEntry ToModel(DailyEntryEntity entity) => new()
     {
         Id = entity.Id,
-        Date = DateOnly.Parse(entity.Date),
+        Date = IsoDate.Parse(entity.Date),
         ItemId = entity.ItemId,
         ServingsCompleted = entity.ServingsCompleted
     };
@@ -429,7 +461,7 @@ public class SqliteDataService : IDataService
     private static WeightEntry ToModel(WeightEntryEntity entity) => new()
     {
         Id = entity.Id,
-        Date = DateOnly.Parse(entity.Date),
+        Date = IsoDate.Parse(entity.Date),
         Weight = entity.Weight,
         Notes = entity.Notes
     };
@@ -438,7 +470,7 @@ public class SqliteDataService : IDataService
     {
         Id = entity.Id,
         AchievementId = entity.AchievementId,
-        EarnedAt = DateTime.Parse(entity.EarnedAt),
+        EarnedAt = IsoDate.ParseTimestamp(entity.EarnedAt),
         HasBeenSeen = entity.HasBeenSeen == 1
     };
 }

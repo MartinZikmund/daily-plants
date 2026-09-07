@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using DailyPlants.Models;
@@ -38,7 +39,7 @@ public class ExportService : IExportService
         {
             exportData.DailyEntries.Add(new DailyEntryExport
             {
-                Date = entry.Date.ToString("yyyy-MM-dd"),
+                Date = IsoDate.ToStorage(entry.Date),
                 ItemId = entry.ItemId,
                 ServingsCompleted = entry.ServingsCompleted
             });
@@ -50,7 +51,7 @@ public class ExportService : IExportService
         {
             exportData.WeightEntries.Add(new WeightEntryExport
             {
-                Date = entry.Date.ToString("yyyy-MM-dd"),
+                Date = IsoDate.ToStorage(entry.Date),
                 Weight = entry.Weight,
                 Notes = entry.Notes
             });
@@ -86,7 +87,7 @@ public class ExportService : IExportService
             var itemName = item?.Name ?? entry.ItemId;
             var recommended = item?.RecommendedServings ?? 0;
 
-            sb.AppendLine($"{entry.Date:yyyy-MM-dd},{entry.ItemId},{EscapeCsv(itemName)},{entry.ServingsCompleted},{recommended}");
+            sb.AppendLine($"{IsoDate.ToStorage(entry.Date)},{entry.ItemId},{EscapeCsv(itemName)},{entry.ServingsCompleted},{recommended}");
         }
 
         return sb.ToString();
@@ -112,7 +113,7 @@ public class ExportService : IExportService
             // Import daily entries
             foreach (var entry in importData.DailyEntries)
             {
-                if (DateOnly.TryParse(entry.Date, out var date))
+                if (IsoDate.TryParse(entry.Date, out var date))
                 {
                     await _dataService.SaveEntryAsync(new DailyEntry
                     {
@@ -127,7 +128,7 @@ public class ExportService : IExportService
             // Import weight entries
             foreach (var entry in importData.WeightEntries)
             {
-                if (DateOnly.TryParse(entry.Date, out var date))
+                if (IsoDate.TryParse(entry.Date, out var date))
                 {
                     await _dataService.SaveWeightEntryAsync(new WeightEntry
                     {
@@ -202,8 +203,8 @@ public class ExportService : IExportService
                     var itemId = parts[1].Trim();
                     var servingsStr = parts[3].Trim();
 
-                    if (DateOnly.TryParse(dateStr, out var date) &&
-                        int.TryParse(servingsStr, out var servings))
+                    if (IsoDate.TryParse(dateStr, out var date) &&
+                        int.TryParse(servingsStr, NumberStyles.Integer, CultureInfo.InvariantCulture, out var servings))
                     {
                         await _dataService.SaveEntryAsync(new DailyEntry
                         {
