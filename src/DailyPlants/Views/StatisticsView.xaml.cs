@@ -6,6 +6,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class StatisticsView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<StatisticsView>();
+
     public StatisticsViewModel ViewModel { get; }
 
     public StatisticsView()
@@ -27,7 +30,7 @@ public sealed partial class StatisticsView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Loading statistics failed", ex);
+            _logger.LogError(ex, "Loading statistics failed");
         }
     }
 

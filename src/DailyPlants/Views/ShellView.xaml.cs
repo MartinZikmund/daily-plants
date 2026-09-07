@@ -10,6 +10,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class ShellView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<ShellView>();
+
     private IAchievementService? _achievementService;
     private IAppNavigator? _appNavigator;
     private object? _pendingNavigationParameter;
@@ -119,7 +122,7 @@ public sealed partial class ShellView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Shell initialization failed", ex);
+            _logger.LogError(ex, "Shell initialization failed");
         }
 
         _appNavigator = App.Current.Services?.GetService<IAppNavigator>();

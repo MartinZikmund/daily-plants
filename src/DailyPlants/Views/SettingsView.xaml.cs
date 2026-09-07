@@ -7,6 +7,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class SettingsView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<SettingsView>();
+
     public SettingsViewModel ViewModel { get; }
 
     public SettingsView()
@@ -30,7 +33,7 @@ public sealed partial class SettingsView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Loading settings failed", ex);
+            _logger.LogError(ex, "Loading settings failed");
         }
     }
 
@@ -51,7 +54,7 @@ public sealed partial class SettingsView : Page
         catch (Exception ex)
         {
             // Async void: a notice the user cannot act on must never take the app down.
-            AppLog.Error("Showing the checklist change warning failed", ex);
+            _logger.LogError(ex, "Showing the checklist change warning failed");
         }
     }
 }

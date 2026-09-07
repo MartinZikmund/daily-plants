@@ -6,6 +6,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class AchievementsView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<AchievementsView>();
+
     public AchievementsViewModel ViewModel { get; }
 
     public AchievementsView()
@@ -27,7 +30,7 @@ public sealed partial class AchievementsView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Loading achievements failed", ex);
+            _logger.LogError(ex, "Loading achievements failed");
         }
     }
 }

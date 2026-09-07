@@ -5,12 +5,21 @@ using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
+using Serilog;
 using Uno.Resizetizer;
 
 namespace DailyPlants;
 
 public partial class App : Application
 {
+    /// <summary>The one Serilog sink; the host's pipeline shares it so both write the same file.</summary>
+    private readonly Serilog.Core.Logger _fileLogger;
+
+    /// <summary>Owns the provider behind <see cref="_logger"/>; the host builds its own later.</summary>
+    private readonly ILoggerFactory _loggerFactory;
+
+    private readonly ILogger<App> _logger;
+
     /// <summary>
     /// Initializes the singleton application object. This is the first line of authored code
     /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -19,9 +28,17 @@ public partial class App : Application
     {
         this.InitializeComponent();
 
-        AppLog.Initialize();
+        // Built before the host: the handlers registered below can fire before it exists.
+        LogFilePath = LogFile.Resolve();
+        _fileLogger = BuildFileLogger(LogFilePath);
+        _loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(_fileLogger, dispose: false));
+        _logger = _loggerFactory.CreateLogger<App>();
+
         RegisterGlobalExceptionHandlers();
     }
+
+    /// <summary>The log file the sink writes to, or null on a head with no writable location.</summary>
+    public string? LogFilePath { get; }
 
     public Window? MainWindow { get; private set; }
 
@@ -38,20 +55,40 @@ public partial class App : Application
     public IServiceProvider? Services => Host?.Services;
 
     /// <summary>
+    /// Rolls on size rather than by date, so <see cref="LogFilePath"/> keeps naming the live file.
+    /// A null path yields a sink that discards - file logging is optional, never fatal.
+    /// </summary>
+    private static Serilog.Core.Logger BuildFileLogger(string? path)
+    {
+        LoggerConfiguration configuration = new();
+
+        if (path is not null)
+        {
+            configuration = configuration.WriteTo.File(
+                path,
+                fileSizeLimitBytes: LogFile.MaxBytes,
+                rollOnFileSizeLimit: true,
+                retainedFileCountLimit: LogFile.RetainedFiles);
+        }
+
+        return configuration.CreateLogger();
+    }
+
+    /// <summary>
     /// Records crashes to the local log so a user-reported failure has a trail to follow.
     /// Nothing here marks an exception handled: the goal is diagnosis, not hiding faults.
     /// </summary>
     private void RegisterGlobalExceptionHandlers()
     {
         UnhandledException += (_, e) =>
-            AppLog.Error("Unhandled UI exception", e.Exception);
+            _logger.LogError(e.Exception, "Unhandled UI exception");
 
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
-            AppLog.Error("Unhandled exception", e.ExceptionObject as Exception);
+            _logger.LogError(e.ExceptionObject as Exception, "Unhandled exception");
 
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
-            AppLog.Error("Unobserved task exception", e.Exception);
+            _logger.LogError(e.Exception, "Unobserved task exception");
             e.SetObserved();
         };
     }
@@ -65,7 +102,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            AppLog.Error("Application startup failed", ex);
+            _logger.LogError(ex, "Application startup failed");
             throw;
         }
     }
@@ -79,7 +116,8 @@ public partial class App : Application
                 .UseEnvironment(Environments.Development)
 #endif
                 .UseLogging(configure: (context, logging) => logging
-                    .SetMinimumLevel(context.HostingEnvironment.IsDevelopment() ? LogLevel.Debug : LogLevel.Information))
+                    .SetMinimumLevel(context.HostingEnvironment.IsDevelopment() ? LogLevel.Debug : LogLevel.Information)
+                    .AddSerilog(_fileLogger, dispose: false))
                 .ConfigureServices((context, services) =>
                 {
                     // Register services
@@ -123,7 +161,7 @@ public partial class App : Application
         catch (Exception ex)
         {
             // The app is usable in the default language; a failure here must not block launch.
-            AppLog.Error("Localization initialization failed", ex);
+            _logger.LogError(ex, "Localization initialization failed");
         }
 
         // Do not repeat app initialization when the Window already has content,
@@ -174,7 +212,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            AppLog.Error("Database initialization failed", ex);
+            _logger.LogError(ex, "Database initialization failed");
             return ex;
         }
     }
@@ -183,9 +221,9 @@ public partial class App : Application
     /// The log path is appended rather than dropped into the middle of a sentence, so that
     /// translations do not have to bend a grammatical case around a file path.
     /// </summary>
-    private static string DescribeDatabaseFailure(Exception failure)
+    private string DescribeDatabaseFailure(Exception failure)
     {
-        var explanation = AppLog.LogFilePath is { } path
+        var explanation = LogFilePath is { } path
             ? string.Format(
                 CultureInfo.CurrentCulture,
                 Localizer.GetString("Database_FailureMessage"),
@@ -211,7 +249,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            AppLog.Error("Could not show the database failure dialog", ex);
+            _logger.LogError(ex, "Could not show the database failure dialog");
         }
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using DailyPlants.Helpers;
@@ -15,6 +15,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class DiaryView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<DiaryView>();
+
     private const string TwoColumnStateName = "TwoColumnState";
 
     /// <summary>
@@ -47,7 +50,11 @@ public sealed partial class DiaryView : Page
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
         var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
         var achievementService = App.Current.Services!.GetService<IAchievementService>();
-        ViewModel = new DiaryViewModel(dataService, appPreferences, achievementService)
+        ViewModel = new DiaryViewModel(
+            dataService,
+            appPreferences,
+            achievementService,
+            logger: App.Current.Services!.GetRequiredService<ILogger<DiaryViewModel>>())
         {
             AnimateGroupChanges = _animationsEnabled
         };
@@ -103,7 +110,7 @@ public sealed partial class DiaryView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Loading the diary failed", ex);
+            _logger.LogError(ex, "Loading the diary failed");
         }
     }
 
@@ -244,7 +251,7 @@ public sealed partial class DiaryView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Refreshing the diary date failed", ex);
+            _logger.LogError(ex, "Refreshing the diary date failed");
         }
     }
 
@@ -292,7 +299,7 @@ public sealed partial class DiaryView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Midnight diary refresh failed", ex);
+            _logger.LogError(ex, "Midnight diary refresh failed");
         }
 
         ScheduleMidnightRefresh();
@@ -310,13 +317,13 @@ public sealed partial class DiaryView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Navigating to the selected date failed", ex);
+            _logger.LogError(ex, "Navigating to the selected date failed");
         }
     }
 
     private async void ViewModel_SaveFailed(object? sender, Exception exception)
     {
-        AppLog.Error("Saving a serving failed", exception);
+        _logger.LogError(exception, "Saving a serving failed");
 
         try
         {
@@ -334,7 +341,7 @@ public sealed partial class DiaryView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Could not show the save failure dialog", ex);
+            _logger.LogError(ex, "Could not show the save failure dialog");
         }
     }
 
@@ -346,7 +353,7 @@ public sealed partial class DiaryView : Page
         }
         catch (Exception ex)
         {
-            AppLog.Error("Showing item detail failed", ex);
+            _logger.LogError(ex, "Showing item detail failed");
         }
     }
 

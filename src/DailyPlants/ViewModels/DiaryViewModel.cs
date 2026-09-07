@@ -3,6 +3,7 @@ using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -24,6 +25,8 @@ public partial class DiaryViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+
+    private readonly ILogger _logger;
     private readonly TimeProvider _timeProvider;
     private CancellationTokenSource? _achievementDebounce;
 
@@ -153,12 +156,14 @@ public partial class DiaryViewModel : ObservableObject
         IDataService dataService,
         IAppPreferences appPreferences,
         IAchievementService? achievementService = null,
-        TimeProvider? timeProvider = null)
+        TimeProvider? timeProvider = null,
+        ILogger<DiaryViewModel>? logger = null)
     {
         _dataService = dataService;
         _appPreferences = appPreferences;
         _achievementService = achievementService;
         _timeProvider = timeProvider ?? TimeProvider.System;
+        _logger = logger ?? NullLogger<DiaryViewModel>.Instance;
         _currentDate = Today;
         UpdateDateDisplay();
     }
@@ -486,7 +491,7 @@ public partial class DiaryViewModel : ObservableObject
         {
             // Also async void: an achievement check must never take the app down. It is not
             // a persistence failure either, so it is logged rather than shown to the user.
-            AppLog.Error("Achievement check failed", ex);
+            _logger.LogError(ex, "Achievement check failed");
         }
     }
 

@@ -17,6 +17,7 @@
         <UnoFeatures>
             Hosting;
             Logging;
+            LoggingSerilog;
             Mvvm;
             SkiaRenderer;
             Svg;
