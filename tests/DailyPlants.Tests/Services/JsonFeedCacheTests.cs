@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging.Abstractions;
+
 namespace DailyPlants.Tests.Services;
 
 [TestClass]
@@ -10,7 +12,7 @@ public class JsonFeedCacheTests
     public void Initialize()
     {
         _cacheDirectory = Path.Combine(Path.GetTempPath(), $"DailyPlants-FeedCache-{Guid.NewGuid():N}");
-        _cache = new JsonFeedCache(_cacheDirectory);
+        _cache = new JsonFeedCache(_cacheDirectory, NullLogger<JsonFeedCache>.Instance);
     }
 
     [TestCleanup]
@@ -138,7 +140,7 @@ public class JsonFeedCacheTests
 
         try
         {
-            JsonFeedCache blocked = new(blockedPath);
+            JsonFeedCache blocked = new(blockedPath, NullLogger<JsonFeedCache>.Instance);
 
             var write = async () => await blocked.WriteAsync(SampleFeed());
 

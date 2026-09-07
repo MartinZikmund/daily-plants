@@ -29,17 +29,19 @@ public sealed class FeedService : IFeedService
     private readonly HttpClient _httpClient;
     private readonly IFeedCache _cache;
     private readonly TimeProvider _timeProvider;
+    private readonly ILogger<FeedService> _logger;
 
     private readonly Dictionary<FeedKind, SemaphoreSlim> _gates =
         FeedKinds.Feeds.ToDictionary(kind => kind, _ => new SemaphoreSlim(1, 1));
 
     private readonly ConcurrentDictionary<FeedKind, CachedFeed> _memory = new();
 
-    public FeedService(HttpClient httpClient, IFeedCache cache, TimeProvider timeProvider)
+    public FeedService(HttpClient httpClient, IFeedCache cache, TimeProvider timeProvider, ILogger<FeedService> logger)
     {
         _httpClient = httpClient;
         _cache = cache;
         _timeProvider = timeProvider;
+        _logger = logger;
     }
 
     /// <summary>
@@ -117,7 +119,7 @@ public sealed class FeedService : IFeedService
 
             if (!LiveFetchSupported)
             {
-                AppLog.Info($"Live fetch is unavailable on this platform; serving cache for {kind}.");
+                _logger.LogInformation("Live fetch is unavailable on this platform; serving cache for {Kind}.", kind);
                 return cached is null
                     ? new FeedResult(kind, [], FeedResultStatus.LiveFetchUnavailable, null)
                     : Served(cached, IsFresh(cached) ? FeedResultStatus.Cached : FeedResultStatus.Stale);
@@ -240,7 +242,7 @@ public sealed class FeedService : IFeedService
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Feed fetch failed for {kind}", ex);
+            _logger.LogError(ex, "Feed fetch failed for {Kind}", kind);
             return cached is null
                 ? new FeedResult(kind, [], FeedResultStatus.Unavailable, null)
                 : Served(cached, FeedResultStatus.Stale);
@@ -260,7 +262,7 @@ public sealed class FeedService : IFeedService
     {
         if (!LiveFetchSupported)
         {
-            AppLog.Info($"Live fetch is unavailable on this platform; skipping {description}.");
+            _logger.LogInformation("Live fetch is unavailable on this platform; skipping {Description}.", description);
             return FeedPage.End(FeedResultStatus.LiveFetchUnavailable);
         }
 
@@ -279,7 +281,7 @@ public sealed class FeedService : IFeedService
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Feed fetch failed for {description}", ex);
+            _logger.LogError(ex, "Feed fetch failed for {Description}", description);
             return FeedPage.End(FeedResultStatus.Unavailable);
         }
     }

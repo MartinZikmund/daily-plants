@@ -8,11 +8,11 @@ namespace DailyPlants.ViewModels;
 /// </summary>
 public sealed class FeedGroupViewModel
 {
-    public FeedGroupViewModel(FeedGroup group, IAsyncRelayCommand<FeedKind> selectSectionCommand)
+    public FeedGroupViewModel(FeedGroup group, IAsyncRelayCommand<FeedKind> selectSectionCommand, ILoggerFactory? loggerFactory = null)
     {
         Kind = group.Kind;
         Title = FeedKindLabel.For(group.Kind);
-        Items = group.Items.Select(item => new FeedItemViewModel(item)).ToList();
+        Items = group.Items.Select(item => new FeedItemViewModel(item, loggerFactory)).ToList();
         SelectSectionCommand = selectSectionCommand;
     }
 

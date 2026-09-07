@@ -21,10 +21,13 @@ public sealed partial class ResourcesView : Page
 
     private object? _initialParameter;
 
+    private readonly ILoggerFactory _loggerFactory;
+
     public ResourcesView()
     {
         var feedService = App.Current.Services!.GetRequiredService<IFeedService>();
-        ViewModel = new ResourcesViewModel(feedService);
+        _loggerFactory = App.Current.Services!.GetRequiredService<ILoggerFactory>();
+        ViewModel = new ResourcesViewModel(feedService, _loggerFactory);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
@@ -169,7 +172,7 @@ public sealed partial class ResourcesView : Page
     /// wasm head, which is why this is not gated on SupportsLiveFetch. Never throws.
     /// </summary>
     private async void SurpriseButton_Click(object sender, RoutedEventArgs e)
-        => await BrowserLauncher.OpenAsync(RandomUrl);
+        => await BrowserLauncher.OpenAsync(RandomUrl, _loggerFactory.CreateLogger<ResourcesView>());
 
     private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         => ViewModel.SubmitSearchCommand.Execute(args.QueryText);

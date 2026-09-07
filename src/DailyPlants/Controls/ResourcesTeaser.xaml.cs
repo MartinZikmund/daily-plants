@@ -14,7 +14,8 @@ public sealed partial class ResourcesTeaser : UserControl
     {
         var feedService = App.Current.Services!.GetRequiredService<IFeedService>();
         var navigator = App.Current.Services!.GetRequiredService<IAppNavigator>();
-        ViewModel = new ResourcesTeaserViewModel(feedService, navigator);
+        var loggerFactory = App.Current.Services!.GetRequiredService<ILoggerFactory>();
+        ViewModel = new ResourcesTeaserViewModel(feedService, navigator, loggerFactory);
 
         this.InitializeComponent();
         this.DataContext = ViewModel;

@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using DailyPlants.Tests.TestDoubles;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.Tests.Services;
 
@@ -32,7 +33,7 @@ public class FeedServiceTests
         _clock = new TestTimeProvider(Now);
     }
 
-    private FeedService CreateService() => new(new HttpClient(_handler), _cache, _clock);
+    private FeedService CreateService() => new(new HttpClient(_handler), _cache, _clock, NullLogger<FeedService>.Instance);
 
     private static string Load(string name) => File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name));
 
@@ -711,7 +712,7 @@ public class FeedServiceTests
         // Every request blocks until all six have arrived, so a sequential implementation waits out
         // the probe timeout and comes back with empty groups instead.
         ConcurrentArrivalHandler probe = new(expected: FeedKinds.Feeds.Count, body: Load("blog.xml"));
-        FeedService service = new(new HttpClient(probe), _cache, _clock);
+        FeedService service = new(new HttpClient(probe), _cache, _clock, NullLogger<FeedService>.Instance);
 
         var groups = await service.GetOverviewAsync(2);
 

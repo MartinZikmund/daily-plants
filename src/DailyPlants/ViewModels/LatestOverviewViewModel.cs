@@ -1,6 +1,7 @@
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -16,11 +17,19 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
 
     private readonly IFeedService _feedService;
     private readonly Func<FeedKind, Task> _selectSection;
+    private readonly ILoggerFactory? _loggerFactory;
+    private readonly ILogger _logger;
 
-    public LatestOverviewViewModel(IFeedService feedService, string title, Func<FeedKind, Task> selectSection)
+    public LatestOverviewViewModel(
+        IFeedService feedService,
+        string title,
+        Func<FeedKind, Task> selectSection,
+        ILoggerFactory? loggerFactory = null)
     {
         _feedService = feedService;
         _selectSection = selectSection;
+        _loggerFactory = loggerFactory;
+        _logger = loggerFactory?.CreateLogger<LatestOverviewViewModel>() ?? NullLogger<LatestOverviewViewModel>.Instance;
         Title = title;
     }
 
@@ -96,7 +105,7 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
                     continue;
                 }
 
-                Groups.Add(new FeedGroupViewModel(group, SelectSectionCommand));
+                Groups.Add(new FeedGroupViewModel(group, SelectSectionCommand, _loggerFactory));
             }
 
             NoticeText = string.Empty;
@@ -112,7 +121,7 @@ public partial class LatestOverviewViewModel : ObservableObject, IResourceTab
         catch (Exception ex)
         {
             // The service reports failure as an empty group, so this is a guard against a ViewModel-side bug.
-            AppLog.Error("Loading the Resources overview failed", ex);
+            _logger.LogError(ex, "Loading the Resources overview failed");
             NoticeText = Localizer.GetString("Resources_LoadError");
             EmptyStateText = Localizer.GetString("Resources_LoadError");
         }

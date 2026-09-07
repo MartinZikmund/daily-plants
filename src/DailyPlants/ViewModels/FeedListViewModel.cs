@@ -2,6 +2,7 @@ using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -24,6 +25,10 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
 
     private readonly ListMode _mode;
 
+    private readonly ILoggerFactory? _loggerFactory;
+
+    private readonly ILogger _logger;
+
     /// <summary>Ids already on screen; the dedupe that decides where a paginated list ends.</summary>
     private readonly HashSet<string> _seenIds = new(StringComparer.Ordinal);
 
@@ -32,29 +37,31 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
     /// <summary>The last page that actually contributed items. Only that page advances it.</summary>
     private int _loadedPage;
 
-    public FeedListViewModel(IFeedService feedService, FeedKind kind, string title)
-        : this(feedService, kind, title, ListMode.Feed)
+    public FeedListViewModel(IFeedService feedService, FeedKind kind, string title, ILoggerFactory? loggerFactory = null)
+        : this(feedService, kind, title, ListMode.Feed, loggerFactory)
     {
     }
 
-    private FeedListViewModel(IFeedService feedService, FeedKind? kind, string title, ListMode mode)
+    private FeedListViewModel(IFeedService feedService, FeedKind? kind, string title, ListMode mode, ILoggerFactory? loggerFactory)
     {
         _feedService = feedService;
+        _loggerFactory = loggerFactory;
+        _logger = loggerFactory?.CreateLogger<FeedListViewModel>() ?? NullLogger<FeedListViewModel>.Instance;
         Kind = kind;
         Title = title;
         _mode = mode;
     }
 
     /// <summary>The list that holds search results: no feed of its own, one query at a time.</summary>
-    public static FeedListViewModel CreateSearch(IFeedService feedService, string title)
-        => new(feedService, null, title, ListMode.Search);
+    public static FeedListViewModel CreateSearch(IFeedService feedService, string title, ILoggerFactory? loggerFactory = null)
+        => new(feedService, null, title, ListMode.Search, loggerFactory);
 
     /// <summary>
     /// The list that holds one topic's items: no feed of its own, one slug at a time, and a
     /// <see cref="Title"/> that changes with the topic rather than naming a tab.
     /// </summary>
-    public static FeedListViewModel CreateTopic(IFeedService feedService, string title)
-        => new(feedService, null, title, ListMode.Topic);
+    public static FeedListViewModel CreateTopic(IFeedService feedService, string title, ILoggerFactory? loggerFactory = null)
+        => new(feedService, null, title, ListMode.Topic, loggerFactory);
 
     /// <summary>The feed this list pages through, or null in search and topic mode.</summary>
     public FeedKind? Kind { get; }
@@ -186,7 +193,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
-            AppLog.Error($"Loading the {Kind} feed failed", ex);
+            _logger.LogError(ex, "Loading the {Kind} feed failed", Kind);
             NoticeText = Localizer.GetString("Resources_LoadError");
             HasMore = false;
         }
@@ -246,7 +253,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
-            AppLog.Error($"Searching for \"{trimmed}\" failed", ex);
+            _logger.LogError(ex, "Searching for \"{Query}\" failed", trimmed);
             EmptyStateText = Localizer.GetString("Resources_SearchOffline");
             HasMore = false;
         }
@@ -306,7 +313,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
-            AppLog.Error($"Loading the \"{trimmed}\" topic failed", ex);
+            _logger.LogError(ex, "Loading the \"{Slug}\" topic failed", trimmed);
             EmptyStateText = Localizer.GetString("Resources_LoadError");
             HasMore = false;
         }
@@ -366,7 +373,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
-            AppLog.Error($"Loading page {page} of the {SourceDescription} failed", ex);
+            _logger.LogError(ex, "Loading page {Page} of the {Source} failed", page, SourceDescription);
             HasMore = false;
         }
         finally
@@ -410,7 +417,7 @@ public partial class FeedListViewModel : ObservableObject, IResourceTab
                 continue;
             }
 
-            Items.Add(new FeedItemViewModel(item));
+            Items.Add(new FeedItemViewModel(item, _loggerFactory));
             added++;
         }
 

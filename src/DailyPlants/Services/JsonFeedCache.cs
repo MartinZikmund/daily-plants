@@ -15,15 +15,17 @@ public sealed class JsonFeedCache : IFeedCache
     };
 
     private readonly string _cacheDirectory;
+    private readonly ILogger<JsonFeedCache> _logger;
 
-    public JsonFeedCache()
-        : this(GetDefaultCacheDirectory())
+    public JsonFeedCache(ILogger<JsonFeedCache> logger)
+        : this(GetDefaultCacheDirectory(), logger)
     {
     }
 
-    public JsonFeedCache(string cacheDirectory)
+    public JsonFeedCache(string cacheDirectory, ILogger<JsonFeedCache> logger)
     {
         _cacheDirectory = cacheDirectory;
+        _logger = logger;
         EnsureDirectory();
     }
 
@@ -46,7 +48,7 @@ public sealed class JsonFeedCache : IFeedCache
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Feed cache read failed for {kind}", ex);
+            _logger.LogError(ex, "Feed cache read failed for {Kind}", kind);
             return null;
         }
     }
@@ -71,7 +73,7 @@ public sealed class JsonFeedCache : IFeedCache
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Feed cache write failed for {feed.Kind}", ex);
+            _logger.LogError(ex, "Feed cache write failed for {Kind}", feed.Kind);
         }
     }
 
@@ -89,7 +91,7 @@ public sealed class JsonFeedCache : IFeedCache
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Feed cache directory unavailable: {_cacheDirectory}", ex);
+            _logger.LogError(ex, "Feed cache directory unavailable: {CacheDirectory}", _cacheDirectory);
         }
     }
 

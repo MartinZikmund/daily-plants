@@ -30,12 +30,12 @@ public partial class ResourcesViewModel : ObservableObject
     /// <summary>True while the ViewModel itself is writing SearchQuery, so it does not re-trigger.</summary>
     private bool _isWritingQuery;
 
-    public ResourcesViewModel(IFeedService feedService)
+    public ResourcesViewModel(IFeedService feedService, ILoggerFactory? loggerFactory = null)
     {
-        Latest = new LatestOverviewViewModel(feedService, Localizer.GetString("Resources_TabLatest"), SelectKindAsync);
-        _feedTabs = FeedKinds.Feeds.ToDictionary(kind => kind, kind => new FeedListViewModel(feedService, kind, FeedKindLabel.For(kind)));
-        SearchResults = FeedListViewModel.CreateSearch(feedService, Localizer.GetString("Resources_SearchPlaceholder"));
-        TopicResults = FeedListViewModel.CreateTopic(feedService, string.Empty);
+        Latest = new LatestOverviewViewModel(feedService, Localizer.GetString("Resources_TabLatest"), SelectKindAsync, loggerFactory);
+        _feedTabs = FeedKinds.Feeds.ToDictionary(kind => kind, kind => new FeedListViewModel(feedService, kind, FeedKindLabel.For(kind), loggerFactory));
+        SearchResults = FeedListViewModel.CreateSearch(feedService, Localizer.GetString("Resources_SearchPlaceholder"), loggerFactory);
+        TopicResults = FeedListViewModel.CreateTopic(feedService, string.Empty, loggerFactory);
 
         // FeedKinds.Feeds is the display order; the overview goes in front of it.
         Tabs = [Latest, .. FeedKinds.Feeds.Select(kind => (IResourceTab)_feedTabs[kind])];

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using DailyPlants.Services;
 
 namespace DailyPlants.Helpers;
 
@@ -10,11 +9,11 @@ namespace DailyPlants.Helpers;
 public static class BrowserLauncher
 {
     /// <summary>Returns true when the OS accepted the URL. Logs and returns false otherwise; never throws.</summary>
-    public static async Task<bool> OpenAsync(string url)
+    public static async Task<bool> OpenAsync(string url, ILogger? logger = null)
     {
         if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
         {
-            AppLog.Error($"Refusing to launch a non-absolute URL: {url}", null);
+            logger?.LogError("Refusing to launch a non-absolute URL: {Url}", url);
             return false;
         }
 
@@ -27,14 +26,14 @@ public static class BrowserLauncher
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Launcher.LaunchUriAsync failed for {uri}", ex);
+            logger?.LogError(ex, "Launcher.LaunchUriAsync failed for {Uri}", uri);
         }
 
-        return TryShellExecute(uri);
+        return TryShellExecute(uri, logger);
     }
 
     // The Skia desktop head is not a documented Launcher target; shelling out is the documented fallback.
-    private static bool TryShellExecute(Uri uri)
+    private static bool TryShellExecute(Uri uri, ILogger? logger)
     {
         if (!OperatingSystem.IsWindows() && !OperatingSystem.IsLinux() && !OperatingSystem.IsMacOS())
         {
@@ -48,7 +47,7 @@ public static class BrowserLauncher
         }
         catch (Exception ex)
         {
-            AppLog.Error($"Opening {uri} through the shell failed", ex);
+            logger?.LogError(ex, "Opening {Uri} through the shell failed", uri);
             return false;
         }
     }

@@ -2,6 +2,7 @@ using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -19,16 +20,24 @@ public partial class ItemTopicViewModel : ObservableObject
 
     private readonly IFeedService _feedService;
     private readonly IAppNavigator _navigator;
+    private readonly ILoggerFactory? _loggerFactory;
+    private readonly ILogger _logger;
 
     /// <summary>The trimmed slug, or null when this item has no topic.</summary>
     private readonly string? _slug;
 
     private readonly string _name;
 
-    public ItemTopicViewModel(IFeedService feedService, IAppNavigator navigator, ChecklistItem item)
+    public ItemTopicViewModel(
+        IFeedService feedService,
+        IAppNavigator navigator,
+        ChecklistItem item,
+        ILoggerFactory? loggerFactory = null)
     {
         _feedService = feedService;
         _navigator = navigator;
+        _loggerFactory = loggerFactory;
+        _logger = loggerFactory?.CreateLogger<ItemTopicViewModel>() ?? NullLogger<ItemTopicViewModel>.Instance;
         _name = item.Name;
 
         // A head that cannot reach the topic feed counts as "no topic": no header, no fetch, no
@@ -106,7 +115,7 @@ public partial class ItemTopicViewModel : ObservableObject
             Items.Clear();
             foreach (var item in page.Items.Take(HighlightCount))
             {
-                Items.Add(new FeedItemViewModel(item));
+                Items.Add(new FeedItemViewModel(item, _loggerFactory));
             }
 
             HasItems = Items.Count > 0;
@@ -114,7 +123,7 @@ public partial class ItemTopicViewModel : ObservableObject
         catch (Exception ex)
         {
             // The service reports failure as a status, so this is a guard against a ViewModel-side bug.
-            AppLog.Error($"Loading the \"{slug}\" topic highlights failed", ex);
+            _logger.LogError(ex, "Loading the \"{Slug}\" topic highlights failed", slug);
             HasItems = false;
         }
         finally

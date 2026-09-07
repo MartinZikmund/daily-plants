@@ -1,4 +1,5 @@
 using DailyPlants.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -11,11 +12,15 @@ public partial class ResourcesTeaserViewModel : ObservableObject
 
     private readonly IFeedService _feedService;
     private readonly IAppNavigator _navigator;
+    private readonly ILoggerFactory? _loggerFactory;
+    private readonly ILogger _logger;
 
-    public ResourcesTeaserViewModel(IFeedService feedService, IAppNavigator navigator)
+    public ResourcesTeaserViewModel(IFeedService feedService, IAppNavigator navigator, ILoggerFactory? loggerFactory = null)
     {
         _feedService = feedService;
         _navigator = navigator;
+        _loggerFactory = loggerFactory;
+        _logger = loggerFactory?.CreateLogger<ResourcesTeaserViewModel>() ?? NullLogger<ResourcesTeaserViewModel>.Instance;
     }
 
     public ObservableCollection<FeedItemViewModel> Items { get; } = [];
@@ -54,7 +59,7 @@ public partial class ResourcesTeaserViewModel : ObservableObject
             Items.Clear();
             foreach (var item in items)
             {
-                Items.Add(new FeedItemViewModel(item));
+                Items.Add(new FeedItemViewModel(item, _loggerFactory));
             }
 
             HasItems = Items.Count > 0;
@@ -62,7 +67,7 @@ public partial class ResourcesTeaserViewModel : ObservableObject
         catch (Exception ex)
         {
             // The Diary page is not the place to report a feed problem - stay collapsed instead.
-            AppLog.Error("Loading the Diary teaser failed", ex);
+            _logger.LogError(ex, "Loading the Diary teaser failed");
             HasItems = false;
         }
         finally

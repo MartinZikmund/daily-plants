@@ -15,7 +15,6 @@ public partial class App : Application
     /// </summary>
     public App()
     {
-        AppLog.Initialize();
         this.InitializeComponent();
     }
 
@@ -41,6 +40,8 @@ public partial class App : Application
                 // Switch to Development environment when running in DEBUG
                 .UseEnvironment(Environments.Development)
 #endif
+                .UseLogging(configure: (context, logging) => logging
+                    .SetMinimumLevel(context.HostingEnvironment.IsDevelopment() ? LogLevel.Debug : LogLevel.Information))
                 .ConfigureServices((context, services) =>
                 {
                     // Register services

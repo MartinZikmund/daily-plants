@@ -1,6 +1,7 @@
 using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
 
@@ -11,8 +12,11 @@ public partial class FeedItemViewModel : ObservableObject
 {
     private const int SummaryMaxLength = 180;
 
-    public FeedItemViewModel(FeedItem item)
+    private readonly ILogger _logger;
+
+    public FeedItemViewModel(FeedItem item, ILoggerFactory? loggerFactory = null)
     {
+        _logger = loggerFactory?.CreateLogger<FeedItemViewModel>() ?? NullLogger<FeedItemViewModel>.Instance;
         Item = item;
         ThumbnailUrl = Uri.TryCreate(item.ThumbnailUrl, UriKind.Absolute, out _) ? item.ThumbnailUrl : null;
         Summary = Truncate(item.Summary);
@@ -55,7 +59,7 @@ public partial class FeedItemViewModel : ObservableObject
     /// <summary>Opens <see cref="FeedItem.Link"/> in the system browser.</summary>
     /// <remarks>Nothing may be awaited before the launch call - wasm blocks a popup opened after the tap has yielded.</remarks>
     [RelayCommand]
-    private async Task OpenAsync() => await BrowserLauncher.OpenAsync(Item.Link);
+    private async Task OpenAsync() => await BrowserLauncher.OpenAsync(Item.Link, _logger);
 
     private static string Truncate(string summary)
     {

@@ -309,7 +309,8 @@ public sealed partial class DiaryView : Page
         var topic = new ItemTopicViewModel(
             App.Current.Services!.GetRequiredService<IFeedService>(),
             App.Current.Services!.GetRequiredService<IAppNavigator>(),
-            item);
+            item,
+            App.Current.Services!.GetRequiredService<ILoggerFactory>());
 
         if (topic.HasTopic)
         {
