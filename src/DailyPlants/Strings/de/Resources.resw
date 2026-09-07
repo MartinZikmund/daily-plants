@@ -1072,4 +1072,117 @@
     <value>Nüsse 100-mal abschließen</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Frisch von NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Neueste Beiträge werden geladen…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Hier ist noch nichts</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Schau bald wieder vorbei, es gibt bestimmt bald etwas Neues.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Zeigt gespeicherte Beiträge — wir konnten NutritionFacts.org nicht erreichen.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Neue Beiträge lassen sich in der Web-Version der App nicht laden.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Die neuesten Beiträge konnten nicht geladen werden.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Erneut versuchen</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Aktualisiert {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Heute</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Gestern</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Im Browser öffnen</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Neues von NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Alle anzeigen</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>NutritionFacts.org durchsuchen</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Ergebnisse für „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nichts gefunden für „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Versuche ein anderes Wort oder stöbere in den Tabs.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Suche löschen</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Für die Suche wird eine Verbindung zu NutritionFacts.org benötigt.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Weitere werden geladen…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Artikel</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Neu</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Rezepte</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Fragen &amp; Antworten</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinare</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Neuestes: {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Zurück zu allen</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Überraschen Sie mich</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Details öffnen</value>
+  </data>
+
 </root>

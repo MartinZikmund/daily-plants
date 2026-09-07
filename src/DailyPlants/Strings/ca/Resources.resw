@@ -1072,4 +1072,117 @@
     <value>Completa fruits secs 100 vegades</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Recursos</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Recursos</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Fresc de NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Vídeos</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Pòdcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Carregant les publicacions més recents…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Encara no hi ha res</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Torna aviat per veure novetats.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Mostrant publicacions desades — no hem pogut connectar amb NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Les publicacions noves no es poden carregar en la versió web de l'aplicació.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>No hem pogut carregar les publicacions més recents.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Torna-ho a provar</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Actualitza</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Actualitzat {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Avui</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Ahir</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Obre al navegador</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Novetats de NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Mostra-ho tot</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Cerca a NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Resultats per a «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>No s'ha trobat res per a «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Prova una altra paraula o consulta les pestanyes.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Esborra la cerca</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>La cerca necessita connexió amb NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Carregant més…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Novetats</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Receptes</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Preguntes</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinars</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Últim sobre {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Torna a totes</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Sorprèn-me</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Obre els detalls</value>
+  </data>
+
 </root>

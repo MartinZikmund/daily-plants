@@ -1072,4 +1072,117 @@
     <value>Teljesítse a diófélék adagját 100-szor</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Tudástár</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Tudástár</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Frissen a NutritionFacts.org-tól</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Videók</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>A legújabb bejegyzések betöltése…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Még nincs itt semmi</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Nézz vissza hamarosan valami újért.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Mentett bejegyzések megjelenítése — nem sikerült elérni a NutritionFacts.org oldalt.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Az új bejegyzések nem tölthetők be az alkalmazás böngészős verziójában.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Nem sikerült betölteni a legújabb bejegyzéseket.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Próbáld újra</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Frissítve: {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Tegnap</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Megnyitás böngészőben</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Újdonság a NutritionFacts.org-tól</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Összes megtekintése</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Keresés a NutritionFacts.org oldalon</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Találatok erre: „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nincs találat erre: „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Próbálj másik szót, vagy nézd meg a füleket.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Keresés törlése</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>A kereséshez kapcsolat szükséges a NutritionFacts.org oldalhoz.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>További betöltése…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Cikk</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Legújabb</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Receptek</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>GYIK</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinárok</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Legújabb: {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Vissza az összeshez</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Lepjen meg!</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Részletek megnyitása</value>
+  </data>
+
 </root>

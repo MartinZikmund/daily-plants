@@ -1072,4 +1072,117 @@
     <value>Complete nuts 100 times</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Fresh from NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Fetching the newest posts…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Nothing here yet</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Check back soon for something new.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Showing saved posts — we couldn't reach NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>New posts can't be fetched in the browser version of the app.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>We couldn't load the newest posts.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Updated {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Open in browser</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>New from NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>See all</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Search NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Results for “{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nothing found for “{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Try a different word, or browse the tabs.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Clear search</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Search needs a connection to NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Loading more…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Latest</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Recipes</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Q&amp;A</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinars</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Latest on {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Back to all</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Surprise me</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Open details</value>
+  </data>
+
 </root>

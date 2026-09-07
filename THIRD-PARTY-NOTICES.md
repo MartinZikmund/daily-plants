@@ -18,6 +18,25 @@ The Daily Dozen, Twenty-One Tweaks, and Anti-Aging Eight checklists are based on
 
 This app is not affiliated with or endorsed by Dr. Michael Greger or NutritionFacts.org. The checklist concepts are used for educational and personal health tracking purposes.
 
+### NutritionFacts.org Feed Content
+
+The Resources page and the Diary teaser display headlines, summary excerpts and thumbnail images retrieved at
+runtime from the public RSS feeds at:
+- https://nutritionfacts.org/feed/
+- https://nutritionfacts.org/videos/feed/
+- https://nutritionfacts.org/audio/feed/
+- https://nutritionfacts.org/recipes/feed/
+- https://nutritionfacts.org/questions/feed/
+- https://nutritionfacts.org/webinars/feed/
+- Search RSS: https://nutritionfacts.org/?s={query}&feed=rss2
+
+- **Source**: [NutritionFacts.org](https://nutritionfacts.org/)
+- **Usage**: Feed headlines, excerpts and thumbnails shown on the Resources page and the Diary teaser
+All such text and imagery remains the property of NutritionFacts.org and Dr. Michael Greger.
+The app displays excerpts only and links every item out to the original page on
+nutritionfacts.org rather than reproducing full articles. This app is not affiliated with or
+endorsed by NutritionFacts.org.
+
 ---
 
 ## NuGet Package Dependencies

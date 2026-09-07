@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>Nutrition Facts with Dr. Greger</title>
+        <link>https://nutritionfacts.org/audio/</link>
+        <description>The latest audio from NutritionFacts.org</description>
+        <language>en-US</language>
+        <item>
+            <title>Eating to Live: The Podcast</title>
+            <link>https://nutritionfacts.org/audio/eating-to-live/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?post_type=audio&#038;p=303030</guid>
+            <pubDate>Wed, 03 Sep 2025 08:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <category><![CDATA[Podcast]]></category>
+            <description><![CDATA[<p>This week: legumes, longevity, and listener questions&#8230;</p>]]></description>
+            <enclosure url="https://nutritionfacts.org/app/uploads/2025/09/eating-to-live.mp3" length="24118400" type="audio/mpeg" />
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/eating-to-live.jpg" />
+        </item>
+        <item>
+            <title>The Undated Episode</title>
+            <link>https://nutritionfacts.org/audio/the-undated-episode/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?post_type=audio&#038;p=303031</guid>
+            <pubDate>not a date</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <category><![CDATA[Podcast]]></category>
+            <description><![CDATA[<p>Occasionally a feed emits a date nothing can parse.</p>]]></description>
+            <enclosure url="https://nutritionfacts.org/app/uploads/2025/09/undated.mp3" length="21993472" type="audio/mpeg" />
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/undated.jpg" />
+        </item>
+        <item>
+            <title>Beans, Beans, Good for the Heart</title>
+            <link>https://nutritionfacts.org/audio/beans-beans/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?post_type=audio&#038;p=303032</guid>
+            <pubDate>Mon, 01 Sep 2025 08:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <category><![CDATA[Podcast]]></category>
+            <description><![CDATA[<p>Everything the trials say about a daily serving.</p>]]></description>
+            <enclosure url="https://nutritionfacts.org/app/uploads/2025/09/beans.mp3" length="20971520" type="audio/mpeg" />
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/beans.jpg" />
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>Search Results for &#8220;greens&#8221; &#8211; NutritionFacts.org</title>
+        <link>https://nutritionfacts.org/?s=greens</link>
+        <description>The latest in nutrition related research</description>
+        <language>en-US</language>
+        <item>
+            <title>Greens &#038; Beans: A Love Story</title>
+            <link>https://nutritionfacts.org/blog/greens-and-beans/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=101010</guid>
+            <pubDate>Wed, 03 Sep 2025 13:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Why the humble bean belongs on every plate&#8230;</p>]]></description>
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/greens-and-beans.jpg" />
+        </item>
+        <item>
+            <title>The Best Way to Cook Greens</title>
+            <link>https://nutritionfacts.org/video/the-best-way-to-cook-greens/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=202020</guid>
+            <pubDate>Tue, 02 Sep 2025 09:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Steaming versus boiling, measured.</p>]]></description>
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/09/cook-greens.jpg" />
+        </item>
+        <item>
+            <title>Greens on the Podcast</title>
+            <link>https://nutritionfacts.org/audio/greens-on-the-podcast/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=303030</guid>
+            <pubDate>Mon, 01 Sep 2025 08:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Twelve minutes on leafy vegetables.</p>]]></description>
+        </item>
+        <item>
+            <title>Are Bagged Greens Safe?</title>
+            <link>https://nutritionfacts.org/questions/are-bagged-greens-safe/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=404040</guid>
+            <pubDate>Sun, 31 Aug 2025 07:45:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>A question from the Q&#038;A archive.</p>]]></description>
+        </item>
+        <item>
+            <title>Kale &#038; White Bean Soup</title>
+            <link>https://nutritionfacts.org/recipe/kale-and-white-bean-soup/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=505050</guid>
+            <pubDate>Sat, 30 Aug 2025 06:30:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Greens, simmered.</p>]]></description>
+            <media:content medium="image" url="https://nutritionfacts.org/app/uploads/2025/08/kale-soup.jpg" />
+        </item>
+        <item>
+            <title>Greens Live: The Webinar</title>
+            <link>https://nutritionfacts.org/webinar/greens-live/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=606060</guid>
+            <pubDate>Fri, 29 Aug 2025 17:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>An hour of questions about leafy vegetables.</p>]]></description>
+        </item>
+        <item>
+            <title>Topic: Greens</title>
+            <link>https://nutritionfacts.org/topics/greens/</link>
+            <guid isPermaLink="false">https://nutritionfacts.org/?p=707070</guid>
+            <pubDate>Thu, 28 Aug 2025 12:00:00 +0000</pubDate>
+            <dc:creator><![CDATA[Michael Greger M.D. FACLM]]></dc:creator>
+            <description><![CDATA[<p>Everything on one page.</p>]]></description>
+        </item>
+    </channel>
+</rss>

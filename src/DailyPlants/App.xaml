@@ -29,6 +29,7 @@
             <converters:ProgressToTextColorConverter x:Key="ProgressToTextColorConverter" />
             <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
             <converters:StringToUriConverter x:Key="StringToUriConverter" />
+            <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

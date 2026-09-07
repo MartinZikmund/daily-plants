@@ -1072,4 +1072,117 @@
     <value>Splňte ořechy 100krát</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Materiály</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Materiály</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Čerstvé z NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Videa</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Načítání nejnovějších příspěvků…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Zatím tu nic není</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Zastavte se brzy znovu, přibude něco nového.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Zobrazujeme uložené příspěvky — nepodařilo se nám spojit s NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Nové příspěvky nelze v webové verzi aplikace načíst.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Nepodařilo se nám načíst nejnovější příspěvky.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Zkusit znovu</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Aktualizováno {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Otevřít v prohlížeči</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Novinky z NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Zobrazit vše</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Hledat na NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Výsledky pro „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Pro „{0}“ nic nenalezeno</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Zkuste jiné slovo, nebo procházejte záložky.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Vymazat hledání</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Hledání vyžaduje připojení k NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Načítání dalších…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Článek</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Novinky</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Recepty</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Otázky</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webináře</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Nejnovější: {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Zpět na vše</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Překvapte mě</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Otevřít podrobnosti</value>
+  </data>
+
 </root>

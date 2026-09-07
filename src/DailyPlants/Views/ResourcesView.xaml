@@ -1,0 +1,793 @@
+﻿<Page
+    x:Class="DailyPlants.Views.ResourcesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="using:DailyPlants.Helpers"
+    xmlns:local="using:DailyPlants.Views"
+    xmlns:vm="using:DailyPlants.ViewModels"
+    NavigationCacheMode="Required">
+
+    <Page.Resources>
+
+        <!--  Unselected tabs sit back on opacity rather than swapping weight; see ResourcesView.TabOpacity.  -->
+        <local:TabOpacityConverter x:Key="TabOpacityConverter" />
+
+        <!--  Thumbnail | kicker over title, summary and date. The whole card is the tap target.  -->
+        <DataTemplate x:Key="FeedCardTemplate" x:DataType="vm:FeedItemViewModel">
+            <Button
+                MinHeight="84"
+                AutomationProperties.AutomationId="{x:Bind AutomationId}"
+                AutomationProperties.Name="{x:Bind AutomationName}"
+                Command="{x:Bind OpenCommand}"
+                Style="{StaticResource DpFeedCardButtonStyle}"
+                ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
+                <Grid Padding="12" ColumnSpacing="12">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Placeholder behind the image: a remote thumbnail may be slow, missing or refused  -->
+                <Border
+                    Width="112"
+                    Height="63"
+                    VerticalAlignment="Top"
+                    Background="{ThemeResource DpHairlineBrush}"
+                    CornerRadius="8">
+                    <Image
+                        Source="{x:Bind ThumbnailUrl, Converter={StaticResource StringToImageSourceConverter}}"
+                        Stretch="UniformToFill"
+                        Visibility="{x:Bind HasThumbnail}" />
+                </Border>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Spacing="2">
+                    <TextBlock Style="{StaticResource DpOverlineTextBlockStyle}" Text="{x:Bind KindText}" />
+                    <TextBlock
+                        Foreground="{ThemeResource DpInkBrush}"
+                        MaxLines="2"
+                        Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                        Text="{x:Bind Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        MaxLines="2"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{x:Bind Summary}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind HasSummary}" />
+                    <TextBlock
+                        Foreground="{ThemeResource DpGreenInkBrush}"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{x:Bind PublishedText}" />
+                </StackPanel>
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!--
+            One tab in the wide strip: icon, label, and the 2px rule under the selected one.
+
+            IsSelected arrives through a classic Binding rather than x:Bind because the items are
+            typed as IResourceTab, an interface that does not itself implement INotifyPropertyChanged -
+            an x:Bind OneWay would compile and then never update. DataContext="{x:Bind}" on the root
+            is what makes those bindings resolve: ItemsRepeater sets DataContext itself only for
+            templates that have no compiled bindings at all.
+        -->
+        <DataTemplate x:Key="ResourceTabTemplate" x:DataType="vm:IResourceTab">
+            <Button
+                MinWidth="0"
+                MinHeight="0"
+                Padding="0,0,0,8"
+                AutomationProperties.AutomationId="{x:Bind TabAutomationId}"
+                AutomationProperties.Name="{x:Bind Title}"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="Tab_Click"
+                DataContext="{x:Bind}"
+                HorizontalContentAlignment="Stretch"
+                Opacity="{Binding IsSelected, Converter={StaticResource TabOpacityConverter}}"
+                Tag="{x:Bind}">
+                <Grid RowSpacing="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Viewbox
+                            Width="16"
+                            Height="16"
+                            VerticalAlignment="Center">
+                            <ContentPresenter Content="{x:Bind}" ContentTemplate="{x:Bind local:ResourcesView.IconFor(Kind)}" Foreground="{ThemeResource DpInkBrush}" />
+                        </Viewbox>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{x:Bind Title}" />
+                    </StackPanel>
+
+                    <!--  Faded rather than collapsed, so selecting a tab never changes the strip's height  -->
+                    <Border
+                        Grid.Row="1"
+                        Height="2"
+                        Background="{ThemeResource DpGreenBrush}"
+                        CornerRadius="1"
+                        Opacity="{Binding IsSelected, Converter={StaticResource BoolToOpacityConverter}}" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!--  The same tab in the narrow-window picker, where the ComboBox draws the selection itself  -->
+        <DataTemplate x:Key="ResourceTabSelectorTemplate" x:DataType="vm:IResourceTab">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Viewbox
+                    Width="16"
+                    Height="16"
+                    VerticalAlignment="Center">
+                    <ContentPresenter Content="{x:Bind}" ContentTemplate="{x:Bind local:ResourcesView.IconFor(Kind)}" Foreground="{ThemeResource DpInkBrush}" />
+                </Viewbox>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource DpInkBrush}"
+                    Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                    Text="{x:Bind Title}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <!--
+            One section of the Latest overview: a tappable heading that opens that feed's own tab,
+            over the very same cards the tabs use - FeedCardTemplate is declared above, so it resolves.
+        -->
+        <DataTemplate x:Key="FeedSectionTemplate" x:DataType="vm:FeedGroupViewModel">
+            <StackPanel Spacing="12">
+                <Button
+                    MinWidth="0"
+                    MinHeight="0"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="{x:Bind HeadingAutomationId}"
+                    AutomationProperties.Name="{x:Bind Title}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{x:Bind SelectSectionCommand}"
+                    CommandParameter="{x:Bind Kind}"
+                    ToolTipService.ToolTip="{helpers:Localize Key=Resources_SeeAll}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Viewbox
+                            Width="16"
+                            Height="16"
+                            VerticalAlignment="Center">
+                            <ContentPresenter Content="{x:Bind}" ContentTemplate="{x:Bind local:ResourcesView.SectionIcon(Kind)}" Foreground="{ThemeResource DpGreenInkBrush}" />
+                        </Viewbox>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{x:Bind Title}" />
+                        <FontIcon
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="{ThemeResource DpInkMutedBrush}"
+                            Glyph="&#xE76C;" />
+                    </StackPanel>
+                </Button>
+
+                <ItemsRepeater ItemTemplate="{StaticResource FeedCardTemplate}" ItemsSource="{x:Bind Items}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="12" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </StackPanel>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="TabPresentationStates">
+                <VisualState x:Name="TabPickerState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TabStrip.Visibility" Value="Collapsed" />
+                        <Setter Target="TabSelector.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="TabStripState">
+                    <VisualState.StateTriggers>
+                        <!--
+                            Seven icon+label tabs want roughly 630 of content width. Below this the
+                            picker takes over. Between 1008 and about 1100 the nav pane expands and
+                            the strip can still run out of room - that is what its ScrollViewer is for.
+                        -->
+                        <AdaptiveTrigger MinWindowWidth="1000" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TabStrip.Visibility" Value="Visible" />
+                        <Setter Target="TabSelector.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!--  Header: title + refresh, the search box, then either the tabs or the results header, closed by a hairline rule  -->
+        <StackPanel Grid.Row="0" Padding="20,20,20,0">
+
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Style="{StaticResource DpTitleTextBlockStyle}" Text="{helpers:Localize Key=Resources_Title}" />
+                    <TextBlock
+                        Margin="0,4,0,0"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{helpers:Localize Key=Resources_Subtitle}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource DpCaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.ActiveList.UpdatedText, Mode=OneWay}" />
+                    <Button
+                        Width="28"
+                        Height="28"
+                        MinWidth="0"
+                        MinHeight="0"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="ResourcesRefreshButton"
+                        AutomationProperties.Name="{helpers:Localize Key=Resources_Refresh}"
+                        Background="Transparent"
+                        BorderBrush="{ThemeResource DpHairlineBrush}"
+                        BorderThickness="1"
+                        Command="{x:Bind ViewModel.RefreshCommand}"
+                        CornerRadius="14"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Resources_Refresh}">
+                        <FontIcon
+                            FontSize="12"
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Glyph="&#xE72C;" />
+                    </Button>
+
+                    <!--  /random/ redirects to a different video on every visit, so there is nothing to fetch  -->
+                    <Button
+                        Width="28"
+                        Height="28"
+                        MinWidth="0"
+                        MinHeight="0"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="ResourcesSurpriseButton"
+                        AutomationProperties.Name="{helpers:Localize Key=Resources_Surprise}"
+                        Background="Transparent"
+                        BorderBrush="{ThemeResource DpHairlineBrush}"
+                        BorderThickness="1"
+                        Click="SurpriseButton_Click"
+                        CornerRadius="14"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Resources_Surprise}">
+                        <FontIcon
+                            FontSize="12"
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Glyph="&#xE8B1;" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!--  Searches the whole nutritionfacts.org archive, not just the loaded pages  -->
+            <AutoSuggestBox
+                x:Name="SearchBox"
+                MaxWidth="420"
+                Margin="0,16,0,0"
+                HorizontalAlignment="Left"
+                AutomationProperties.AutomationId="ResourcesSearchBox"
+                AutomationProperties.Name="{helpers:Localize Key=Resources_SearchPlaceholder}"
+                PlaceholderText="{helpers:Localize Key=Resources_SearchPlaceholder}"
+                QueryIcon="Find"
+                QuerySubmitted="SearchBox_QuerySubmitted"
+                TextChanged="SearchBox_TextChanged"
+                Text="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}">
+
+                <!--
+                    The stock text-control brushes are Fluent greys and read as a foreign chip on
+                    DpGroundBrush. Scoped to this box so nothing else in the app is restyled.
+                -->
+                <AutoSuggestBox.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.ThemeDictionaries>
+                            <ResourceDictionary x:Key="Light">
+                                <StaticResource x:Key="TextControlBackground" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBackgroundFocused" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBorderBrush" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlBorderBrushPointerOver" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlBorderBrushFocused" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlElevationBorderBrush" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlElevationBorderFocusedBrush" ResourceKey="DpGreenBrush" />
+                                <StaticResource x:Key="TextControlForeground" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlForegroundFocused" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForeground" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForegroundPointerOver" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForegroundFocused" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlButtonForeground" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlButtonForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="AutoSuggestBoxSuggestionsListBackground" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="AutoSuggestBoxSuggestionsListBorderBrush" ResourceKey="DpHairlineBrush" />
+                            </ResourceDictionary>
+                            <ResourceDictionary x:Key="Dark">
+                                <StaticResource x:Key="TextControlBackground" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBackgroundFocused" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBorderBrush" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlBorderBrushPointerOver" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlBorderBrushFocused" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlElevationBorderBrush" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlElevationBorderFocusedBrush" ResourceKey="DpGreenBrush" />
+                                <StaticResource x:Key="TextControlForeground" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlForegroundFocused" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForeground" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForegroundPointerOver" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForegroundFocused" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlButtonForeground" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlButtonForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="AutoSuggestBoxSuggestionsListBackground" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="AutoSuggestBoxSuggestionsListBorderBrush" ResourceKey="DpHairlineBrush" />
+                            </ResourceDictionary>
+                            <ResourceDictionary x:Key="HighContrast">
+                                <StaticResource x:Key="TextControlBackground" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBackgroundFocused" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="TextControlBorderBrush" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlBorderBrushPointerOver" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlBorderBrushFocused" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlElevationBorderBrush" ResourceKey="DpHairlineBrush" />
+                                <StaticResource x:Key="TextControlElevationBorderFocusedBrush" ResourceKey="DpGreenBrush" />
+                                <StaticResource x:Key="TextControlForeground" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlForegroundFocused" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForeground" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForegroundPointerOver" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlPlaceholderForegroundFocused" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlButtonForeground" ResourceKey="DpInkMutedBrush" />
+                                <StaticResource x:Key="TextControlButtonForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                <StaticResource x:Key="AutoSuggestBoxSuggestionsListBackground" ResourceKey="DpSurfaceBrush" />
+                                <StaticResource x:Key="AutoSuggestBoxSuggestionsListBorderBrush" ResourceKey="DpHairlineBrush" />
+                            </ResourceDictionary>
+                        </ResourceDictionary.ThemeDictionaries>
+                    </ResourceDictionary>
+                </AutoSuggestBox.Resources>
+            </AutoSuggestBox>
+
+            <!--
+                The tabs, in whichever of the two presentations the window has room for. Both are
+                declared but only ever one is visible, and the picker's SelectionChanged ignores the
+                echo of a selection the strip just made, so the two can never both drive the ViewModel.
+            -->
+            <Grid Margin="0,16,0,0" Visibility="{x:Bind ViewModel.ShowTabs, Mode=OneWay}">
+
+                <!--
+                    Wide: the strip, in a horizontal ScrollViewer so a locale with long labels
+                    scrolls sideways instead of clipping. Vertical scrolling is off and it has no
+                    ViewChanged handler, so it stays clear of the content scroller's load-more.
+                -->
+                <ScrollViewer
+                    x:Name="TabStrip"
+                    HorizontalScrollBarVisibility="Auto"
+                    HorizontalScrollMode="Enabled"
+                    VerticalScrollBarVisibility="Disabled"
+                    VerticalScrollMode="Disabled"
+                    Visibility="Collapsed">
+                    <ItemsRepeater ItemTemplate="{StaticResource ResourceTabTemplate}" ItemsSource="{x:Bind ViewModel.Tabs}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Horizontal" Spacing="24" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
+
+                <!--  Narrow: the same seven tabs as a picker  -->
+                <ComboBox
+                    x:Name="TabSelector"
+                    MinWidth="200"
+                    MaxWidth="420"
+                    Margin="0,0,0,8"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="ResourcesTabSelector"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_Title}"
+                    ItemTemplate="{StaticResource ResourceTabSelectorTemplate}"
+                    ItemsSource="{x:Bind ViewModel.Tabs}"
+                    SelectedItem="{x:Bind ViewModel.SelectedTab, Mode=OneWay}"
+                    SelectionChanged="TabSelector_SelectionChanged">
+
+                    <!--  Same reason as the search box: the stock ComboBox greys read as a foreign chip on DpGroundBrush.  -->
+                    <ComboBox.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Light">
+                                    <StaticResource x:Key="ComboBoxBackground" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundPressed" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundUnfocused" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundFocused" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrush" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrushPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrushPressed" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundBorderBrushFocused" ResourceKey="DpGreenBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundBorderBrushUnfocused" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundFocused" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundFocusedPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackground" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackgroundPointerPressed" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBorderBrush" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForeground" ResourceKey="DpInkMutedBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelected" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelectedPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelectedPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundPressed" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelected" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelectedPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelectedPressed" ResourceKey="DpHairlineBrush" />
+                                </ResourceDictionary>
+                                <ResourceDictionary x:Key="Dark">
+                                    <StaticResource x:Key="ComboBoxBackground" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundPressed" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundUnfocused" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundFocused" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrush" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrushPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrushPressed" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundBorderBrushFocused" ResourceKey="DpGreenBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundBorderBrushUnfocused" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundFocused" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundFocusedPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackground" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackgroundPointerPressed" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBorderBrush" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForeground" ResourceKey="DpInkMutedBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelected" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelectedPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelectedPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundPressed" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelected" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelectedPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelectedPressed" ResourceKey="DpHairlineBrush" />
+                                </ResourceDictionary>
+                                <ResourceDictionary x:Key="HighContrast">
+                                    <StaticResource x:Key="ComboBoxBackground" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundPressed" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundUnfocused" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundFocused" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrush" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrushPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBorderBrushPressed" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundBorderBrushFocused" ResourceKey="DpGreenBrush" />
+                                    <StaticResource x:Key="ComboBoxBackgroundBorderBrushUnfocused" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundFocused" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxForegroundFocusedPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackground" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackgroundPointerOver" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBackgroundPointerPressed" ResourceKey="DpSurfaceBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownBorderBrush" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForeground" ResourceKey="DpInkMutedBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxDropDownGlyphForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForeground" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelected" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelectedPointerOver" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemForegroundSelectedPressed" ResourceKey="DpInkBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundPressed" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelected" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelectedPointerOver" ResourceKey="DpHairlineBrush" />
+                                    <StaticResource x:Key="ComboBoxItemBackgroundSelectedPressed" ResourceKey="DpHairlineBrush" />
+                                </ResourceDictionary>
+                            </ResourceDictionary.ThemeDictionaries>
+                        </ResourceDictionary>
+                    </ComboBox.Resources>
+                </ComboBox>
+            </Grid>
+
+            <!--  Stands in for the tabs while searching, and is the way back to them  -->
+            <Grid
+                Margin="0,16,0,16"
+                ColumnSpacing="12"
+                Visibility="{x:Bind ViewModel.IsSearchActive, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource DpInkBrush}"
+                    Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                    Text="{x:Bind local:ResourcesView.SearchResultsHeader(ViewModel.SearchResults.Query), Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+
+                <HyperlinkButton
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="ResourcesClearSearchButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_SearchClear}"
+                    Command="{x:Bind ViewModel.ClearSearchCommand}"
+                    Content="{helpers:Localize Key=Resources_SearchClear}" />
+            </Grid>
+
+            <!--  Stands in for the tabs while a topic is open, and is the way back to them  -->
+            <Grid
+                Margin="0,16,0,16"
+                ColumnSpacing="12"
+                Visibility="{x:Bind ViewModel.IsTopicActive, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource DpInkBrush}"
+                    Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.TopicHeader, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+
+                <HyperlinkButton
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="ResourcesClearTopicButton"
+                    AutomationProperties.Name="{helpers:Localize Key=Resources_TopicClear}"
+                    Command="{x:Bind ViewModel.ClearTopicCommand}"
+                    Content="{helpers:Localize Key=Resources_TopicClear}" />
+            </Grid>
+
+            <Border Height="1" Background="{ThemeResource DpHairlineBrush}" />
+        </StackPanel>
+
+        <ScrollViewer
+            x:Name="FeedScrollViewer"
+            Grid.Row="1"
+            Padding="20,16,20,20"
+            VerticalScrollBarVisibility="Auto"
+            ViewChanged="FeedScrollViewer_ViewChanged">
+            <StackPanel Spacing="12">
+
+                <!--  Cached posts are still worth reading, so the notice sits above them rather than replacing them  -->
+                <Grid Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}">
+                <Border
+                    Padding="12"
+                    Background="{ThemeResource DpSurfaceBrush}"
+                    BorderBrush="{ThemeResource DpHairlineBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Visibility="{x:Bind ViewModel.ActiveList.ShowNotice, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon
+                            VerticalAlignment="Top"
+                            FontSize="14"
+                            Foreground="{ThemeResource DpClayBrush}"
+                            Glyph="&#xE946;" />
+                        <TextBlock
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.ActiveList.NoticeText, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+                </Grid>
+
+                <ItemsRepeater
+                    ItemTemplate="{StaticResource FeedCardTemplate}"
+                    ItemsSource="{x:Bind ViewModel.ActiveList.Items, Mode=OneWay}"
+                    Visibility="{x:Bind local:ResourcesView.ListVisibility(ViewModel.IsOverviewActive), Mode=OneWay}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="12" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+
+                <!--  The Latest tab: two cards per feed, under a heading that opens that feed's own tab  -->
+                <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsOverviewActive, Mode=OneWay}">
+                    <Border
+                        Padding="12"
+                        Background="{ThemeResource DpSurfaceBrush}"
+                        BorderBrush="{ThemeResource DpHairlineBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Visibility="{x:Bind ViewModel.Latest.ShowNotice, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon
+                                VerticalAlignment="Top"
+                                FontSize="14"
+                                Foreground="{ThemeResource DpClayBrush}"
+                                Glyph="&#xE946;" />
+                            <TextBlock
+                                Style="{StaticResource DpCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.Latest.NoticeText, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+
+                    <ItemsRepeater ItemTemplate="{StaticResource FeedSectionTemplate}" ItemsSource="{x:Bind ViewModel.Latest.Groups, Mode=OneWay}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Spacing="24" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </StackPanel>
+
+                <!--  Sits under the last card, so reaching it is the same gesture that asks for the next page.
+                    ActiveList is null in overview mode, so the outer Grid carries the gate: a binding through
+                    a null path never evaluates and would leave this row visible over the overview.  -->
+                <Grid Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}">
+                    <StackPanel
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8"
+                        Visibility="{x:Bind ViewModel.ActiveList.ShowLoadingMore, Mode=OneWay}">
+                        <ProgressRing
+                            Width="16"
+                            Height="16"
+                            Foreground="{ThemeResource DpGreenBrush}"
+                            IsActive="{x:Bind ViewModel.ActiveList.ShowLoadingMore, Mode=OneWay}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
+                            Text="{helpers:Localize Key=Resources_LoadingMore}" />
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <ProgressRing
+            Grid.Row="1"
+            Width="48"
+            Height="48"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="{ThemeResource DpGreenBrush}"
+            IsActive="{x:Bind ViewModel.ActiveList.IsLoading, Mode=OneWay}"
+            Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}" />
+
+        <!--  The overview fetches six feeds at once, so it gets the same spinner in its own right  -->
+        <ProgressRing
+            Grid.Row="1"
+            Width="48"
+            Height="48"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="{ThemeResource DpGreenBrush}"
+            IsActive="{x:Bind ViewModel.Latest.IsLoading, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsOverviewActive, Mode=OneWay}" />
+
+        <Grid Grid.Row="1" Visibility="{x:Bind local:ResourcesView.ListChrome(ViewModel.IsOverviewActive), Mode=OneWay}">
+            <StackPanel
+                Grid.Row="1"
+                MaxWidth="320"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="4"
+                Visibility="{x:Bind ViewModel.ActiveList.ShowEmptyState, Mode=OneWay}">
+                <FontIcon
+                    FontSize="48"
+                    Foreground="{ThemeResource DpInkMutedBrush}"
+                    Glyph="&#xE8F1;" />
+                <TextBlock
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource DpInkBrush}"
+                    Style="{StaticResource DpSubtitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.ActiveList.EmptyStateText, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+
+                <!--  Two details, one headline: browsing sends you to refresh, searching sends you to a different word  -->
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource DpInkMutedBrush}"
+                    Style="{StaticResource DpBodyTextBlockStyle}"
+                    Text="{helpers:Localize Key=Resources_EmptyDetail}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind local:ResourcesView.TabsVisibility(ViewModel.IsSearchActive), Mode=OneWay}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource DpInkMutedBrush}"
+                    Style="{StaticResource DpBodyTextBlockStyle}"
+                    Text="{helpers:Localize Key=Resources_SearchEmptyDetail}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind ViewModel.IsSearchActive, Mode=OneWay}" />
+
+                <HyperlinkButton
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
+                    AutomationProperties.AutomationId="ResourcesRetryButton"
+                    Command="{x:Bind ViewModel.RefreshCommand}"
+                    Content="{helpers:Localize Key=Resources_Retry}" />
+            </StackPanel>
+        </Grid>
+
+        <!--  Every one of the six feeds came back empty. Same headline, minus the search wording it can never carry.  -->
+        <StackPanel
+            Grid.Row="1"
+            MaxWidth="320"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="4"
+            Visibility="{x:Bind ViewModel.Latest.ShowEmptyState, Mode=OneWay}">
+            <FontIcon
+                FontSize="48"
+                Foreground="{ThemeResource DpInkMutedBrush}"
+                Glyph="&#xE8F1;" />
+            <TextBlock
+                Margin="0,12,0,0"
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource DpInkBrush}"
+                Style="{StaticResource DpSubtitleTextBlockStyle}"
+                Text="{x:Bind ViewModel.Latest.EmptyStateText, Mode=OneWay}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource DpInkMutedBrush}"
+                Style="{StaticResource DpBodyTextBlockStyle}"
+                Text="{helpers:Localize Key=Resources_EmptyDetail}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+            <HyperlinkButton
+                Margin="0,4,0,0"
+                HorizontalAlignment="Center"
+                AutomationProperties.AutomationId="ResourcesOverviewRetryButton"
+                Command="{x:Bind ViewModel.RefreshCommand}"
+                Content="{helpers:Localize Key=Resources_Retry}" />
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1072,4 +1072,117 @@
     <value>آجیل را ۱۰۰ بار تکمیل کنید</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>منابع</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>منابع</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>تازه از NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>وبلاگ</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>ویدیوها</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>پادکست</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>در حال دریافت جدیدترین مطالب…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>هنوز چیزی اینجا نیست</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>به‌زودی دوباره سر بزنید تا چیز تازه‌ای ببینید.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>نمایش مطالب ذخیره‌شده — نتوانستیم به NutritionFacts.org متصل شویم.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>مطالب جدید در نسخه مرورگر برنامه قابل دریافت نیستند.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>نتوانستیم جدیدترین مطالب را بارگذاری کنیم.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>تلاش دوباره</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>به‌روزرسانی</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>به‌روزرسانی‌شده {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>دیروز</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>باز کردن در مرورگر</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}، {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>تازه از NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>مشاهده همه</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>جست‌وجو در NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>نتایج برای «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>چیزی برای «{0}» پیدا نشد</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>واژهٔ دیگری را امتحان کنید یا بین برگه‌ها بگردید.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>پاک کردن جست‌وجو</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>جست‌وجو نیاز به اتصال به NutritionFacts.org دارد.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>در حال بارگذاری بیشتر…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>مقاله</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>جدیدترین</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>دستور پخت</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>پرسش و پاسخ</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>وبینارها</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>جدیدترین درباره {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>بازگشت به همه</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>غافلگیرم کن</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. باز کردن جزئیات</value>
+  </data>
+
 </root>

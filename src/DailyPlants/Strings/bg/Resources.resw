@@ -1072,4 +1072,117 @@
     <value>Завършете ядки 100 пъти</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Материали</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Материали</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Прясно от NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Блог</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Видеа</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Подкаст</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Зареждане на най-новите публикации…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Все още няма нищо</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Наминете отново скоро за нещо ново.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Показваме запазени публикации — не успяхме да се свържем с NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Нови публикации не могат да се зареждат в браузърната версия на приложението.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Не успяхме да заредим най-новите публикации.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Опитай отново</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Обнови</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Обновено {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Отвори в браузър</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Ново от NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Виж всички</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Търсене в NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Резултати за „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Нищо не е намерено за „{0}“</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Опитайте с друга дума или разгледайте разделите.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Изчистване на търсенето</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Търсенето изисква връзка с NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Зареждане на още…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Статия</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Най-ново</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Рецепти</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Въпроси</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Уебинари</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Най-новото за {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Обратно към всички</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Изненадайте ме</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Отваряне на подробности</value>
+  </data>
+
 </root>

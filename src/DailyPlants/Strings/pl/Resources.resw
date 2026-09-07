@@ -1072,4 +1072,117 @@
     <value>Ukończ orzechy 100 razy</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Materiały</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Materiały</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Świeże z NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Filmy</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Wczytywanie najnowszych wpisów…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Nic tu jeszcze nie ma</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Zajrzyj wkrótce po coś nowego.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Wyświetlamy zapisane wpisy — nie udało się połączyć z NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Nowych wpisów nie można wczytać w wersji przeglądarkowej aplikacji.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Nie udało się wczytać najnowszych wpisów.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Spróbuj ponownie</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Odśwież</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Zaktualizowano {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Dzisiaj</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Wczoraj</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Otwórz w przeglądarce</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Nowości z NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Zobacz wszystko</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Szukaj na NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Wyniki dla „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Nic nie znaleziono dla „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Spróbuj innego słowa lub przejrzyj zakładki.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Wyczyść wyszukiwanie</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Wyszukiwanie wymaga połączenia z NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Wczytywanie kolejnych…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Artykuł</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Najnowsze</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Przepisy</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Pytania</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinaria</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Najnowsze: {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Wróć do wszystkich</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Zaskocz mnie</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Otwórz szczegóły</value>
+  </data>
+
 </root>

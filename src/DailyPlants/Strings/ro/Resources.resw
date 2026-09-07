@@ -1072,4 +1072,117 @@
     <value>Completați nucile de 100 de ori</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Materiale</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Materiale</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Proaspăt de la NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Videoclipuri</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Se încarcă cele mai noi articole…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Încă nu e nimic aici</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Revino curând pentru ceva nou.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Se afișează articole salvate — nu am putut contacta NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Articolele noi nu pot fi încărcate în versiunea de browser a aplicației.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Nu am putut încărca cele mai noi articole.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Încearcă din nou</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Reîmprospătare</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Actualizat {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Azi</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Ieri</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Deschide în browser</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Noutăți de la NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Vezi tot</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Caută pe NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Rezultate pentru „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>Niciun rezultat pentru „{0}”</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Încearcă alt cuvânt sau răsfoiește filele.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Șterge căutarea</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Căutarea necesită o conexiune la NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Se încarcă mai multe…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Articol</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Noutăți</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Rețete</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Întrebări</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Webinarii</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Cele mai noi despre {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Înapoi la toate</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Surprindeți-mă</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Deschideți detaliile</value>
+  </data>
+
 </root>

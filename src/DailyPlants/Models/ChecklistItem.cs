@@ -47,6 +47,12 @@ public partial record ChecklistItem
     public string? MoreInfoUrl { get; init; }
 
     /// <summary>
+    /// The nutritionfacts.org topic this item maps to (e.g. "berries", "flax-seeds"), or null when
+    /// the item has no topic of its own. Drives the "Latest on ..." section and its deep link.
+    /// </summary>
+    public string? TopicSlug { get; init; }
+
+    /// <summary>
     /// Path to the icon asset for this item.
     /// </summary>
     public string? IconPath { get; init; }

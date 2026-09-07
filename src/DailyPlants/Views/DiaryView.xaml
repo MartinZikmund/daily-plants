@@ -16,20 +16,18 @@
                 nothing.
             -->
             <Grid
-                MinHeight="56"
-                Padding="2,12"
                 Background="Transparent"
                 BorderBrush="{ThemeResource DpHairlineBrush}"
                 BorderThickness="0,0,0,1"
-                ColumnSpacing="12"
+                PointerCanceled="ItemRow_PointerLeft"
+                PointerCaptureLost="ItemRow_PointerLeft"
+                PointerEntered="ItemRow_PointerOver"
+                PointerExited="ItemRow_PointerLeft"
+                PointerMoved="ItemRow_PointerOver"
+                PointerPressed="ItemRow_PointerPressed"
+                PointerReleased="ItemRow_PointerLeft"
                 Tag="{x:Bind}"
                 Tapped="ItemRow_Tapped">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
 
                 <!--  Right-click / long-press keeps decrement and details reachable off the row  -->
                 <Grid.ContextFlyout>
@@ -53,39 +51,169 @@
                     </MenuFlyout>
                 </Grid.ContextFlyout>
 
-                <BitmapIcon
-                    Grid.Column="0"
-                    Width="28"
-                    Height="28"
-                    VerticalAlignment="Center"
-                    ShowAsMonochrome="False"
-                    UriSource="{x:Bind Item.IconPath, Converter={StaticResource StringToUriConverter}}" />
+                <!--
+                    Hover and pressed wash, the same 0.05 / 0.11 over DpInkBrush and the same 0.09s
+                    ScalarTransition the feed cards use. Never hit-testable, so the stepper keeps its
+                    taps; the code-behind finds it as the row's only Border child.
+                -->
+                <Border
+                    Background="{ThemeResource DpInkBrush}"
+                    CornerRadius="6"
+                    IsHitTestVisible="False"
+                    Opacity="0">
+                    <Border.OpacityTransition>
+                        <ScalarTransition Duration="0:0:0.09" />
+                    </Border.OpacityTransition>
+                </Border>
 
-                <!--  Transparent, so the empty space beside the text is still a hit target for the row  -->
-                <StackPanel
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    Background="Transparent">
-                    <TextBlock
-                        Foreground="{ThemeResource DpInkBrush}"
-                        Style="{StaticResource DpBodyStrongTextBlockStyle}"
-                        Text="{x:Bind Item.Name}"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="NoWrap" />
-                    <TextBlock
-                        MaxLines="1"
-                        Style="{StaticResource DpCaptionTextBlockStyle}"
-                        Text="{x:Bind ServingSizeDisplay}"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="NoWrap" />
-                </StackPanel>
+                <Grid
+                    MinHeight="56"
+                    Padding="2,12"
+                    ColumnSpacing="12">
 
-                <controls:ServingStepper
-                    x:Name="ServingControls"
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    Item="{x:Bind}" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <BitmapIcon
+                        Grid.Column="0"
+                        Width="28"
+                        Height="28"
+                        VerticalAlignment="Center"
+                        ShowAsMonochrome="False"
+                        UriSource="{x:Bind Item.IconPath, Converter={StaticResource StringToUriConverter}}" />
+
+                    <!--  Transparent, so the empty space beside the text is still a hit target for the row  -->
+                    <StackPanel
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Background="Transparent">
+                        <TextBlock
+                            Foreground="{ThemeResource DpInkBrush}"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{x:Bind Item.Name}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            MaxLines="1"
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
+                            Text="{x:Bind ServingSizeDisplay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap" />
+                    </StackPanel>
+
+                    <controls:ServingStepper
+                        x:Name="ServingControls"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Item="{x:Bind}" />
+                </Grid>
             </Grid>
+        </DataTemplate>
+
+        <!--
+            One "Latest on ..." card in the item detail dialog - the Resources page's card idiom at
+            dialog width. Declared before the section template below, which resolves it by key.
+        -->
+        <DataTemplate x:Key="DialogTopicCardTemplate" x:DataType="vm:FeedItemViewModel">
+            <Button
+                MinHeight="72"
+                AutomationProperties.AutomationId="{x:Bind AutomationId}"
+                AutomationProperties.Name="{x:Bind AutomationName}"
+                Command="{x:Bind OpenCommand}"
+                Style="{StaticResource DpFeedCardButtonStyle}"
+                ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
+                <Grid Padding="10" ColumnSpacing="10">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Placeholder behind the image: a remote thumbnail may be slow, missing or refused  -->
+                    <Border
+                        Width="88"
+                        Height="50"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource DpHairlineBrush}"
+                        CornerRadius="6">
+                        <Image
+                            Source="{x:Bind ThumbnailUrl, Converter={StaticResource StringToImageSourceConverter}}"
+                            Stretch="UniformToFill"
+                            Visibility="{x:Bind HasThumbnail}" />
+                    </Border>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Spacing="2">
+                        <TextBlock Style="{StaticResource DpOverlineTextBlockStyle}" Text="{x:Bind KindText}" />
+                        <TextBlock
+                            Foreground="{ThemeResource DpInkBrush}"
+                            MaxLines="2"
+                            Style="{StaticResource DpBodyStrongTextBlockStyle}"
+                            Text="{x:Bind Title}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Foreground="{ThemeResource DpGreenInkBrush}"
+                            Style="{StaticResource DpCaptionTextBlockStyle}"
+                            Text="{x:Bind PublishedText}" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!--
+            The item dialog's "Latest on ..." block. Declarative rather than hand-built in the
+            code-behind so its ThemeResource brushes resolve against the dialog's own theme; the
+            code-behind loads it, hands it the ItemTopicViewModel and owns only its outer visibility.
+        -->
+        <DataTemplate x:Key="DialogTopicSectionTemplate" x:DataType="vm:ItemTopicViewModel">
+            <StackPanel Spacing="8">
+
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource DpOverlineTextBlockStyle}"
+                        Text="{x:Bind Header}" />
+                    <Rectangle
+                        Grid.Column="1"
+                        Height="1"
+                        VerticalAlignment="Center"
+                        Fill="{ThemeResource DpHairlineBrush}" />
+                    <HyperlinkButton
+                        Grid.Column="2"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="DiaryItemTopicSeeAllButton"
+                        Command="{x:Bind SeeAllCommand}"
+                        Content="{helpers:Localize Key=Resources_SeeAll}"
+                        Visibility="{x:Bind ShowItems, Mode=OneWay}" />
+                </Grid>
+
+                <ProgressRing
+                    Width="20"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    Foreground="{ThemeResource DpGreenBrush}"
+                    IsActive="{x:Bind ShowProgress, Mode=OneWay}"
+                    Visibility="{x:Bind ShowProgress, Mode=OneWay}" />
+
+                <ItemsRepeater ItemTemplate="{StaticResource DialogTopicCardTemplate}" ItemsSource="{x:Bind Items}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="8" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </StackPanel>
         </DataTemplate>
 
     </Page.Resources>
@@ -363,6 +491,9 @@
                             MinItemWidth="0" />
                     </ItemsRepeater.Layout>
                 </ItemsRepeater>
+
+                <!--  Newest posts from NutritionFacts.org; collapses itself when there is nothing to show  -->
+                <controls:ResourcesTeaser x:Name="ResourcesTeaser" />
 
             </StackPanel>
         </ScrollViewer>

@@ -1072,4 +1072,117 @@
     <value>Виконати горіхи 100 разів</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>Матеріали</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>Матеріали</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>Свіже від NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>Блог</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>Відео</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>Подкаст</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>Завантаження найновіших дописів…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>Ще нічого немає</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>Заходьте незабаром — з'явиться щось нове.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>Показано збережені дописи — не вдалося з'єднатися з NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>Нові дописи не можна завантажити у веб-версії застосунку.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>Не вдалося завантажити найновіші дописи.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>Спробувати ще раз</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>Оновити</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>Оновлено {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>Вчора</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>Відкрити в браузері</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>Нове від NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>Переглянути все</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>Пошук на NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>Результати за запитом «{0}»</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>За запитом «{0}» нічого не знайдено</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>Спробуйте інше слово або перегляньте вкладки.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>Очистити пошук</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>Пошук потребує підключення до NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>Завантажуємо більше…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>Стаття</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>Нове</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>Рецепти</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>Запитання</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>Вебінари</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>Останнє: {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>Назад до всіх</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>Здивуйте мене</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. Відкрити деталі</value>
+  </data>
+
 </root>

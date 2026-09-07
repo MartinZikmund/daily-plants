@@ -1072,4 +1072,117 @@
     <value>השלימו אגוזים 100 פעמים</value>
   </data>
 
+  <!-- Resources -->
+  <data name="Nav_Resources" xml:space="preserve">
+    <value>חומרים</value>
+  </data>
+  <data name="Resources_Title" xml:space="preserve">
+    <value>חומרים</value>
+  </data>
+  <data name="Resources_Subtitle" xml:space="preserve">
+    <value>ישר מ-NutritionFacts.org</value>
+  </data>
+  <data name="Resources_TabBlog" xml:space="preserve">
+    <value>בלוג</value>
+  </data>
+  <data name="Resources_TabVideos" xml:space="preserve">
+    <value>סרטונים</value>
+  </data>
+  <data name="Resources_TabPodcast" xml:space="preserve">
+    <value>פודקאסט</value>
+  </data>
+  <data name="Resources_Loading" xml:space="preserve">
+    <value>טוען את הפוסטים החדשים ביותר…</value>
+  </data>
+  <data name="Resources_Empty" xml:space="preserve">
+    <value>עדיין אין כאן כלום</value>
+  </data>
+  <data name="Resources_EmptyDetail" xml:space="preserve">
+    <value>חזרו בקרוב לתוכן חדש.</value>
+  </data>
+  <data name="Resources_Offline" xml:space="preserve">
+    <value>מוצגים פוסטים שמורים — לא הצלחנו להתחבר אל NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_BrowserUnavailable" xml:space="preserve">
+    <value>לא ניתן לטעון פוסטים חדשים בגרסת הדפדפן של האפליקציה.</value>
+  </data>
+  <data name="Resources_LoadError" xml:space="preserve">
+    <value>לא הצלחנו לטעון את הפוסטים החדשים ביותר.</value>
+  </data>
+  <data name="Resources_Retry" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
+  <data name="Resources_Refresh" xml:space="preserve">
+    <value>רענן</value>
+  </data>
+  <data name="Resources_UpdatedAt" xml:space="preserve">
+    <value>עודכן {0}</value>
+  </data>
+  <data name="Resources_Today" xml:space="preserve">
+    <value>היום</value>
+  </data>
+  <data name="Resources_Yesterday" xml:space="preserve">
+    <value>אתמול</value>
+  </data>
+  <data name="Resources_OpenInBrowser" xml:space="preserve">
+    <value>פתח בדפדפן</value>
+  </data>
+  <data name="Resources_ItemAutomationName" xml:space="preserve">
+    <value>{0}. {1}, {2}</value>
+  </data>
+  <data name="Resources_TeaserHeader" xml:space="preserve">
+    <value>חדש מ-NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SeeAll" xml:space="preserve">
+    <value>הצג הכול</value>
+  </data>
+  <data name="Resources_SearchPlaceholder" xml:space="preserve">
+    <value>חיפוש ב-NutritionFacts.org</value>
+  </data>
+  <data name="Resources_SearchResultsFor" xml:space="preserve">
+    <value>תוצאות עבור "{0}"</value>
+  </data>
+  <data name="Resources_SearchEmpty" xml:space="preserve">
+    <value>לא נמצא דבר עבור "{0}"</value>
+  </data>
+  <data name="Resources_SearchEmptyDetail" xml:space="preserve">
+    <value>נסו מילה אחרת, או עיינו בלשוניות.</value>
+  </data>
+  <data name="Resources_SearchClear" xml:space="preserve">
+    <value>ניקוי חיפוש</value>
+  </data>
+  <data name="Resources_SearchOffline" xml:space="preserve">
+    <value>החיפוש דורש חיבור אל NutritionFacts.org.</value>
+  </data>
+  <data name="Resources_LoadingMore" xml:space="preserve">
+    <value>טוען עוד…</value>
+  </data>
+  <data name="Resources_KindOther" xml:space="preserve">
+    <value>מאמר</value>
+  </data>
+  <data name="Resources_TabLatest" xml:space="preserve">
+    <value>אחרונים</value>
+  </data>
+  <data name="Resources_TabRecipes" xml:space="preserve">
+    <value>מתכונים</value>
+  </data>
+  <data name="Resources_TabQuestions" xml:space="preserve">
+    <value>שו״ת</value>
+  </data>
+  <data name="Resources_TabWebinars" xml:space="preserve">
+    <value>וובינרים</value>
+  </data>
+  <data name="Resources_TopicHeader" xml:space="preserve">
+    <value>החדש ביותר על {0}</value>
+  </data>
+  <data name="Resources_TopicClear" xml:space="preserve">
+    <value>חזרה לכל הנושאים</value>
+  </data>
+  <data name="Resources_Surprise" xml:space="preserve">
+    <value>תפתיעו אותי</value>
+  </data>
+  <data name="Diary_ItemRowAutomationName" xml:space="preserve">
+    <value>{0}. פתיחת פרטים</value>
+  </data>
+
 </root>

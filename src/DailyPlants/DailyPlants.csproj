@@ -16,6 +16,7 @@
         
         <UnoFeatures>
             Hosting;
+            Logging;
             Mvvm;
             SkiaRenderer;
             Svg;
@@ -30,6 +31,11 @@
 
         <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
     </PropertyGroup>
+
+    <ItemGroup>
+        <!-- The test project drives a few internal test seams (the search debounce, for one). -->
+        <InternalsVisibleTo Include="DailyPlants.Tests" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="MZikmund.Toolkit.WinUI" />
