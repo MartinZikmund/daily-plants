@@ -30,6 +30,12 @@
         <UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.6</UnoIconForegroundScale>
 
         <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
+
+        <!--
+          App Store Connect rejects a MinimumOSVersion below 15.0 from Spring 2027 (ITMS-90068).
+          The Uno SDK still defaults this to 14.2, and the value ends up in the generated Info.plist.
+        -->
+        <SupportedOSPlatformVersion Condition="'$(IsIOS)' == 'true'">15.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <ItemGroup>
