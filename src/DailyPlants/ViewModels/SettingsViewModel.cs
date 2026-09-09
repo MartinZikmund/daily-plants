@@ -268,10 +268,12 @@ public partial class SettingsViewModel : ObservableObject
             var json = await OpenFileAsync(".json", "JSON files");
             if (string.IsNullOrEmpty(json)) return;
 
+            if (!await ConfirmImportAsync()) return;
+
             var result = await _exportService.ImportFromJsonAsync(json);
             if (result.Success)
             {
-                await ShowSuccessAsync($"Imported {result.EntriesImported} entries and {result.WeightEntriesImported} weight records.");
+                await ShowSuccessAsync(DescribeImport(result));
                 await LoadSettingsAsync();
             }
             else
@@ -293,10 +295,13 @@ public partial class SettingsViewModel : ObservableObject
             var csv = await OpenFileAsync(".csv", "CSV files");
             if (string.IsNullOrEmpty(csv)) return;
 
+            if (!await ConfirmImportAsync()) return;
+
             var result = await _exportService.ImportFromCsvAsync(csv);
             if (result.Success)
             {
-                await ShowSuccessAsync($"Imported {result.EntriesImported} entries.");
+                await ShowSuccessAsync(DescribeImport(result));
+                await LoadSettingsAsync();
             }
             else
             {
@@ -345,6 +350,36 @@ public partial class SettingsViewModel : ObservableObject
             return await FileIO.ReadTextAsync(file);
         }
         return null;
+    }
+
+    /// <summary>
+    /// Import upserts over existing entries, so the user gets a chance to back out first.
+    /// </summary>
+    private static async Task<bool> ConfirmImportAsync()
+    {
+        var dialog = new ContentDialog
+        {
+            Title = "Import data",
+            Content = "Entries for dates in this file will replace the ones already saved. "
+                + "Export your current data first if you want a backup. Continue?",
+            PrimaryButtonText = "Import",
+            CloseButtonText = "Cancel",
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
+        };
+
+        return await dialog.ShowAsync() == ContentDialogResult.Primary;
+    }
+
+    private static string DescribeImport(ImportResult result)
+    {
+        var message = $"Imported {result.EntriesImported} entries, {result.WeightEntriesImported} weight records "
+            + $"and {result.AchievementsImported} achievements.";
+
+        // Never report a partial import as a clean one.
+        return result.EntriesSkipped > 0
+            ? message + $" {result.EntriesSkipped} rows were skipped because the app could not read them."
+            : message;
     }
 
     private static async Task ShowErrorAsync(string message)
