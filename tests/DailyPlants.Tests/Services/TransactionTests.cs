@@ -85,8 +85,10 @@ public class TransactionTests
     [TestMethod]
     public async Task RunInTransactionAsync_DoesNotSwallowAWriteMadeElsewhere()
     {
-        var insideTransaction = new TaskCompletionSource();
-        var tapRecorded = new TaskCompletionSource();
+        // Continuations must not run inline on the thread that calls SetResult - that thread
+        // is inside the transaction, and resuming the test body on it invites reentrancy.
+        var insideTransaction = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var tapRecorded = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 
         // An import that will fail, holding a transaction open while it does.
         var import = Assert.ThrowsExceptionAsync<InvalidOperationException>(async () =>

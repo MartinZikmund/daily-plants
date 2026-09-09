@@ -1,4 +1,4 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 
 namespace DailyPlants.Tests.Services;
 
@@ -29,7 +29,7 @@ public class BackupRestoreTests
         }
     }
 
-    private async Task<SqliteDataService> NewDeviceAsync(FakeAppPreferences prefs)
+    private async Task<SqliteDataService> NewDeviceAsync(IAppPreferences prefs)
     {
         var path = Path.Combine(Path.GetTempPath(), $"DailyPlants-Restore-{Guid.NewGuid():N}.db");
         _databases.Add(path);
@@ -95,7 +95,8 @@ public class BackupRestoreTests
 
         var restoredPrefs = new FakeAppPreferences();
         var restored = await NewDeviceAsync(restoredPrefs);
-        await new ExportService(restored, restoredPrefs).ImportFromJsonAsync(backup);
+        var import = await new ExportService(restored, restoredPrefs).ImportFromJsonAsync(backup);
+        import.Success.Should().BeTrue("a failed import would leave an empty database that also counts zero");
 
         (await restored.GetPerfectDaysCountAsync()).Should().Be(
             expected,
@@ -119,5 +120,58 @@ public class BackupRestoreTests
         result.Success.Should().BeFalse();
         ownPrefs.Language.Should().Be("en", "a failed import must not leave the file's settings behind");
         ownPrefs.TwentyOneTweaksEnabled.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task Restore_WhereApplyingSettingsThrowsPartWay_PutsTheUsersOwnSettingsBack()
+    {
+        var sourcePrefs = new FakeAppPreferences { TwentyOneTweaksEnabled = true, ThemePreference = 2, Language = "cs" };
+        var source = await NewDeviceAsync(sourcePrefs);
+        var backup = await new ExportService(source, sourcePrefs).ExportToJsonAsync();
+
+        var ownPrefs = new ThrowsOnceOnLanguage { TwentyOneTweaksEnabled = false, ThemePreference = 0 };
+        var target = await NewDeviceAsync(ownPrefs);
+
+        var result = await new ExportService(target, ownPrefs).ImportFromJsonAsync(backup);
+
+        result.Success.Should().BeFalse();
+        ownPrefs.TwentyOneTweaksEnabled.Should().BeFalse(
+            "the settings written before the throw have to be put back");
+        ownPrefs.ThemePreference.Should().Be(0);
+    }
+
+    /// <summary>
+    /// Fails the first write to <see cref="Language"/> and behaves afterwards, standing in for a
+    /// backing store that drops out mid-write. Import applies the file's settings before it opens
+    /// the database transaction, so that half-applied state is only recoverable by hand.
+    /// </summary>
+    private sealed class ThrowsOnceOnLanguage : IAppPreferences
+    {
+        private bool _thrown;
+        private string? _language;
+
+        public bool DailyDozenEnabled { get; set; } = true;
+        public bool TwentyOneTweaksEnabled { get; set; }
+        public bool WeightTrackingEnabled { get; set; }
+        public bool UseMetricUnits { get; set; } = true;
+        public double? HeightCm { get; set; }
+        public double? GoalWeight { get; set; }
+        public int ThemePreference { get; set; }
+        public string DisabledItemIds { get; set; } = string.Empty;
+
+        public string? Language
+        {
+            get => _language;
+            set
+            {
+                if (!_thrown)
+                {
+                    _thrown = true;
+                    throw new InvalidOperationException("preferences backing store unavailable");
+                }
+
+                _language = value;
+            }
+        }
     }
 }
