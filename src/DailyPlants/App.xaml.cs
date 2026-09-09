@@ -3,20 +3,19 @@ using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
-using Serilog;
 using Uno.Resizetizer;
 
 namespace DailyPlants;
 
 public partial class App : Application
 {
-    /// <summary>The one Serilog sink; the host's pipeline shares it so both write the same file.</summary>
-    private readonly Serilog.Core.Logger _fileLogger;
+    /// <summary>
+    /// Covers the window before the host exists - the handlers registered in the constructor can
+    /// fire that early. Once the host is up, <see cref="Log"/> switches to its pipeline.
+    /// </summary>
+    private readonly ILoggerFactory _bootstrapLoggerFactory;
 
-    /// <summary>Owns the provider behind <see cref="_logger"/>; the host builds its own later.</summary>
-    private readonly ILoggerFactory _loggerFactory;
-
-    private readonly ILogger<App> _logger;
+    private readonly ILogger<App> _bootstrapLogger;
 
     /// <summary>
     /// Initializes the singleton application object. This is the first line of authored code
@@ -27,16 +26,14 @@ public partial class App : Application
         this.InitializeComponent();
 
         // Built before the host: the handlers registered below can fire before it exists.
-        LogFilePath = LogFile.Resolve();
-        _fileLogger = BuildFileLogger(LogFilePath);
-        _loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(_fileLogger, dispose: false));
-        _logger = _loggerFactory.CreateLogger<App>();
+        _bootstrapLoggerFactory = LoggerFactory.Create(builder => builder.AddDebug());
+        _bootstrapLogger = _bootstrapLoggerFactory.CreateLogger<App>();
 
         RegisterGlobalExceptionHandlers();
     }
 
-    /// <summary>The log file the sink writes to, or null on a head with no writable location.</summary>
-    public string? LogFilePath { get; }
+    /// <summary>Serilog's pipeline once the host is up, and the bootstrap logger until then.</summary>
+    private ILogger Log => Host?.Services.GetService<ILogger<App>>() ?? _bootstrapLogger;
 
     public Window? MainWindow { get; private set; }
 
@@ -53,40 +50,20 @@ public partial class App : Application
     public IServiceProvider? Services => Host?.Services;
 
     /// <summary>
-    /// Rolls on size rather than by date, so <see cref="LogFilePath"/> keeps naming the live file.
-    /// A null path yields a sink that discards - file logging is optional, never fatal.
-    /// </summary>
-    private static Serilog.Core.Logger BuildFileLogger(string? path)
-    {
-        LoggerConfiguration configuration = new();
-
-        if (path is not null)
-        {
-            configuration = configuration.WriteTo.File(
-                path,
-                fileSizeLimitBytes: LogFile.MaxBytes,
-                rollOnFileSizeLimit: true,
-                retainedFileCountLimit: LogFile.RetainedFiles);
-        }
-
-        return configuration.CreateLogger();
-    }
-
-    /// <summary>
     /// Records crashes to the local log so a user-reported failure has a trail to follow.
     /// Nothing here marks an exception handled: the goal is diagnosis, not hiding faults.
     /// </summary>
     private void RegisterGlobalExceptionHandlers()
     {
         UnhandledException += (_, e) =>
-            _logger.LogError(e.Exception, "Unhandled UI exception");
+            Log.LogError(e.Exception, "Unhandled UI exception");
 
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
-            _logger.LogError(e.ExceptionObject as Exception, "Unhandled exception");
+            Log.LogError(e.ExceptionObject as Exception, "Unhandled exception");
 
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
-            _logger.LogError(e.Exception, "Unobserved task exception");
+            Log.LogError(e.Exception, "Unobserved task exception");
             e.SetObserved();
         };
     }
@@ -100,7 +77,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Application startup failed");
+            Log.LogError(ex, "Application startup failed");
             throw;
         }
     }
@@ -113,9 +90,9 @@ public partial class App : Application
                 // Switch to Development environment when running in DEBUG
                 .UseEnvironment(Environments.Development)
 #endif
+                .UseSerilog(consoleLoggingEnabled: true, fileLoggingEnabled: true)
                 .UseLogging(configure: (context, logging) => logging
-                    .SetMinimumLevel(context.HostingEnvironment.IsDevelopment() ? LogLevel.Debug : LogLevel.Information)
-                    .AddSerilog(_fileLogger, dispose: false))
+                    .SetMinimumLevel(context.HostingEnvironment.IsDevelopment() ? LogLevel.Debug : LogLevel.Information))
                 .ConfigureServices((context, services) =>
                 {
                     // Register services
@@ -159,7 +136,7 @@ public partial class App : Application
         catch (Exception ex)
         {
             // The app is usable in the default language; a failure here must not block launch.
-            _logger.LogError(ex, "Localization initialization failed");
+            Log.LogError(ex, "Localization initialization failed");
         }
 
         // Do not repeat app initialization when the Window already has content,
@@ -210,7 +187,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Database initialization failed");
+            Log.LogError(ex, "Database initialization failed");
             return ex;
         }
     }
@@ -223,9 +200,7 @@ public partial class App : Application
             {
                 Title = "Daily Plants could not open your data",
                 Content = "Your entries could not be loaded and changes may not be saved. "
-                    + "Restart the app, and if this keeps happening the log file at "
-                    + (LogFilePath ?? "the app data folder")
-                    + " has the details."
+                    + "Restart the app, and if this keeps happening the app's log file has the details."
                     + Environment.NewLine + Environment.NewLine
                     + failure.Message,
                 CloseButtonText = "Continue anyway",
@@ -236,7 +211,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Could not show the database failure dialog");
+            Log.LogError(ex, "Could not show the database failure dialog");
         }
     }
 }
