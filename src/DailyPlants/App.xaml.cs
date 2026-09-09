@@ -1,10 +1,10 @@
-﻿using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
+using Uno.Extensions.Hosting;
 using Uno.Resizetizer;
 
 namespace DailyPlants;
@@ -206,6 +206,30 @@ public partial class App : Application
         return explanation + Environment.NewLine + Environment.NewLine + failure.Message;
     }
 
+    /// <summary>
+    /// Where Serilog's file sink writes, asked of the host rather than recomposed - the two
+    /// drifting apart is exactly what made the old hand-rolled path unreliable. Null when the
+    /// head has no file manager to open it with, or the host is not up.
+    /// </summary>
+    private string? ResolveLogFolder()
+    {
+        if (!FolderLauncher.IsSupported)
+        {
+            return null;
+        }
+
+        try
+        {
+            var path = Host?.Services.GetService<IHostEnvironment>()?.GetAppDataPath();
+            return string.IsNullOrWhiteSpace(path) || !Directory.Exists(path) ? null : path;
+        }
+        catch (Exception ex)
+        {
+            Log.LogError(ex, "Could not resolve the log folder");
+            return null;
+        }
+    }
+
     private async Task ShowDatabaseFailureAsync(Exception failure)
     {
         try
@@ -217,6 +241,19 @@ public partial class App : Application
                 CloseButtonText = Localizer.GetString("Database_FailureContinue"),
                 XamlRoot = MainWindow?.Content?.XamlRoot
             };
+
+            if (ResolveLogFolder() is { } logFolder)
+            {
+                dialog.SecondaryButtonText = Localizer.GetString("Database_FailureOpenLogs");
+
+                // Cancelled so the folder opens beside the dialog rather than instead of it -
+                // the message is what the user will be asked to quote.
+                dialog.SecondaryButtonClick += async (sender, args) =>
+                {
+                    args.Cancel = true;
+                    await FolderLauncher.OpenAsync(logFolder, Log);
+                };
+            }
 
             await dialog.ShowAsync();
         }

@@ -1074,6 +1074,9 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants could not open your data</value>
   </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Open log folder</value>
+  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Your entries could not be loaded and changes may not be saved. Restart the app, and if this keeps happening the details are in the log in the app data folder.</value>
   </data>
