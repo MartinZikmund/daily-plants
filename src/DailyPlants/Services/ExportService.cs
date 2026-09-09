@@ -112,16 +112,17 @@ public class ExportService : IExportService
                 return Failed("Invalid JSON format");
             }
 
-            if (!ExportFormat.IsSupported(importData.Version))
-            {
-                return Failed($"Unsupported export format version: {importData.Version}");
-            }
-
-            // An explicit null reaches here as one, so normalise it the same way a missing
-            // member is normalised by the property default.
+            // Normalised before the check, not after: an explicit null or an empty string both
+            // mean "written before the field existed", and validating the raw value rejected
+            // the empty one that the line below is happy to read as legacy.
             var version = string.IsNullOrEmpty(importData.Version)
                 ? ExportFormat.LegacyUnitsVersion
                 : importData.Version;
+
+            if (!ExportFormat.IsSupported(version))
+            {
+                return Failed($"Unsupported export format version: {importData.Version}");
+            }
 
             // 1.0 files stored weights and heights in whichever unit the exporting user had
             // selected; every version since stores kilograms and centimetres.
@@ -140,6 +141,7 @@ public class ExportService : IExportService
             // transaction, so they are captured and put back by hand if the import fails.
             // A file without settings leaves the current ones alone.
             var settingsToRestore = importData.Settings is null ? null : CaptureSettings();
+            var unitsWereCanonical = _appPreferences.UnitsAreCanonical;
 
             try
             {
@@ -147,7 +149,9 @@ public class ExportService : IExportService
                 // incoming settings applied, and only the restore below puts them back.
                 if (importData.Settings is { } incomingSettings)
                 {
-                    ApplySettings(incomingSettings, storedInImperial);
+                    // Canonical either way: a 1.1 file already stores them so, and a 1.0 file's
+                    // imperial values are converted on the way in.
+                    ApplySettings(incomingSettings, storedInImperial, unitsAreCanonical: true);
                 }
 
                 // One unit of work: a failure part way through must not leave the database
@@ -221,7 +225,7 @@ public class ExportService : IExportService
                 if (settingsToRestore is not null)
                 {
                     // Already canonical - these came out of the live preferences.
-                    ApplySettings(settingsToRestore, storedInImperial: false);
+                    ApplySettings(settingsToRestore, storedInImperial: false, unitsWereCanonical);
                 }
 
                 throw;
@@ -327,7 +331,13 @@ public class ExportService : IExportService
         DisabledItemIds = _appPreferences.DisabledItemIds
     };
 
-    private void ApplySettings(UserSettingsExport settings, bool storedInImperial)
+    /// <summary>
+    /// Writes <paramref name="settings"/> into the live preferences. <paramref name="unitsAreCanonical"/>
+    /// records whether the height and goal weight left behind are already centimetres and kilograms:
+    /// unset, the next start-up reads an imperial <c>UseMetricUnits</c> and converts them a second
+    /// time, turning 177.8 cm into 451.6.
+    /// </summary>
+    private void ApplySettings(UserSettingsExport settings, bool storedInImperial, bool unitsAreCanonical)
     {
         _appPreferences.DailyDozenEnabled = settings.DailyDozenEnabled;
         _appPreferences.TwentyOneTweaksEnabled = settings.TwentyOneTweaksEnabled;
@@ -352,6 +362,8 @@ public class ExportService : IExportService
         {
             _appPreferences.DisabledItemIds = settings.DisabledItemIds;
         }
+
+        _appPreferences.UnitsAreCanonical = unitsAreCanonical;
     }
 
     /// <summary>
