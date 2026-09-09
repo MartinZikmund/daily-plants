@@ -118,7 +118,19 @@ public class SqliteDataService : IDataService
         }
         catch
         {
-            await _connection.ExecuteAsync("ROLLBACK");
+            // SQLite may already have rolled back on its own, in which case ROLLBACK throws
+            // "no transaction is active" - letting that escape would replace the migration
+            // failure the caller actually needs to see.
+            try
+            {
+                await _connection.ExecuteAsync("ROLLBACK");
+            }
+            catch
+            {
+                // Nothing useful to do with it, and the migration failure is the one worth
+                // seeing - a failed rollback would otherwise replace it on the way out.
+            }
+
             throw;
         }
     }

@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using DailyPlants.Models;
@@ -134,13 +134,16 @@ public class ExportService : IExportService
             // transaction, so they are captured and put back by hand if the import fails.
             // A file without settings leaves the current ones alone.
             var settingsToRestore = importData.Settings is null ? null : CaptureSettings();
-            if (importData.Settings is { } incomingSettings)
-            {
-                ApplySettings(incomingSettings, storedInImperial);
-            }
 
             try
             {
+                // Inside the try: a setter that throws part way through leaves some of the
+                // incoming settings applied, and only the restore below puts them back.
+                if (importData.Settings is { } incomingSettings)
+                {
+                    ApplySettings(incomingSettings, storedInImperial);
+                }
+
                 // One unit of work: a failure part way through must not leave the database
                 // half-overwritten, since import upserts straight over existing entries.
                 await _dataService.RunInTransactionAsync(async () =>
