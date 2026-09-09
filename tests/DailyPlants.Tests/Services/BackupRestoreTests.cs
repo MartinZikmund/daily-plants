@@ -158,6 +158,7 @@ public class BackupRestoreTests
         public double? GoalWeight { get; set; }
         public int ThemePreference { get; set; }
         public string DisabledItemIds { get; set; } = string.Empty;
+        public bool UnitsAreCanonical { get; set; }
 
         public string? Language
         {

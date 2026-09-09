@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using DailyPlants.Tests.TestDoubles;
 
 namespace DailyPlants.Tests.Services;
@@ -224,5 +224,34 @@ public class ExportServiceTests
 
         var entries = await data.GetEntriesInRangeAsync(DateOnly.MinValue, DateOnly.MaxValue);
         entries.Should().ContainSingle().Which.ItemId.Should().Be("berries");
+    }
+
+    [TestMethod]
+    public async Task ImportFromJsonAsync_WithAnEmptyVersion_ReadsItAsTheLegacyFormat()
+    {
+        var (service, _, _) = NewService();
+        var json = "{ \"version\": \"\", \"dailyEntries\": [], \"weightEntries\": [] }";
+
+        var result = await service.ImportFromJsonAsync(json);
+
+        result.Success.Should().BeTrue(
+            "an empty version means the same as a missing one - written before the field existed");
+    }
+
+    [TestMethod]
+    public async Task ImportFromJsonAsync_MarksTheImportedUnitsCanonical()
+    {
+        var (service, _, prefs) = NewService();
+        prefs.UnitsAreCanonical = false;
+
+        // A 1.0 file from an imperial device: 70 inches and 154 pounds go in as cm and kg.
+        var json = "{ \"version\": \"1.0\", \"dailyEntries\": [], \"weightEntries\": [], " +
+            "\"settings\": { \"useMetricUnits\": false, \"heightCm\": 70, \"goalWeight\": 154 } }";
+
+        var result = await service.ImportFromJsonAsync(json);
+
+        result.Success.Should().BeTrue();
+        prefs.UnitsAreCanonical.Should().BeTrue(
+            "start-up would otherwise convert the values the import already converted");
     }
 }
