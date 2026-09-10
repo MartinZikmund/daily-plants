@@ -1221,4 +1221,40 @@
     <value>{0}. Deschideți detaliile</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Atinge pentru a înregistra o porție</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Fiecare atingere pe un rând adaugă o porție. Atinge din nou pentru încă una.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Ziua ta dintr-o privire</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Această bară se umple pe parcursul zilei. Umple-o, iar ziua contează pentru seria ta.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Ai ratat o zi?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Folosește data pentru a reveni și a completa o zi neînregistrată.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Înainte</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Omite</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Am înțeles</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Afișează din nou sfaturile</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Reia scurta prezentare a jurnalului.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Afișează din nou</value>
+  </data>
 </root>

@@ -1221,4 +1221,40 @@
     <value>{0}. Abrir detalles</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Toca para registrar una ración</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Cada toque en una fila añade una ración. Toca de nuevo para otra.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Tu día de un vistazo</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Esta barra se llena a lo largo del día. Complétala y el día cuenta para tu racha.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>¿Te saltaste un día?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Usa la fecha para volver atrás y completar un día sin registrar.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Omitir</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Entendido</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Volver a mostrar los consejos</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Repite la breve guía del diario.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Mostrar de nuevo</value>
+  </data>
 </root>

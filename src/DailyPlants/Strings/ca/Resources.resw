@@ -1221,4 +1221,40 @@
     <value>{0}. Obre els detalls</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Toca per registrar una ració</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Cada toc en una fila afegeix una ració. Torna a tocar per a una altra.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>El teu dia d'un cop d'ull</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Aquesta barra s'omple al llarg del dia. Omple-la i el dia compta per a la teva ratxa.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Has saltat un dia?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Fes servir la data per tornar enrere i completar un dia sense registrar.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Següent</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Omet</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Entesos</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Torna a mostrar els consells</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Repeteix la breu presentació del diari.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Mostra de nou</value>
+  </data>
 </root>

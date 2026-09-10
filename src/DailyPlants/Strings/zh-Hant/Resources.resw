@@ -1221,4 +1221,40 @@
     <value>{0}。開啟詳情</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>點按即可記錄一份</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>每次點按一列就會增加一份。再次點按可繼續增加。</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>一目了然的一天</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>這條進度列會隨著記錄逐漸填滿。填滿後，這一天就會計入你的連續記錄。</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>漏記了一天？</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>使用日期返回並補記未記錄的那一天。</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>略過</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>知道了</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>重新顯示提示</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>重新播放日記頁的簡短導覽。</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>重新顯示</value>
+  </data>
 </root>

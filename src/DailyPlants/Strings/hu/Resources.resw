@@ -1221,4 +1221,40 @@
     <value>{0}. Részletek megnyitása</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Koppintson az adag rögzítéséhez</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Minden koppintás a soron hozzáad egy adagot. Koppintson újra a következőhöz.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>A napja egy pillantásra</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Ez a sáv a nap folyamán telik meg. Töltse fel, és a nap beszámít a sorozatába.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Kihagyott egy napot?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>A dátummal lépjen vissza, és pótolja a nem rögzített napot.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Tovább</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Kihagyás</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Értem</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Tippek újbóli megjelenítése</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>A napló rövid bemutatójának újrajátszása.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Megjelenítés újra</value>
+  </data>
 </root>
