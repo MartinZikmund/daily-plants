@@ -1,4 +1,4 @@
-﻿namespace DailyPlants.Services.Settings;
+namespace DailyPlants.Services.Settings;
 
 public interface IAppPreferences
 {
@@ -25,4 +25,10 @@ public interface IAppPreferences
     /// the streaks and perfect days already on record. Shown once, then never again.
     /// </summary>
     bool HasSeenChecklistImpactWarning { get; set; }
+
+    /// <summary>
+    /// Comma-separated ids of the teaching tips already shown. One value rather than a
+    /// flag per tip, so a new tip does not mean a new preference key.
+    /// </summary>
+    string SeenTips { get; set; }
 }
