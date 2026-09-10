@@ -1221,4 +1221,40 @@
     <value>{0}. Details öffnen</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Zum Erfassen tippen</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Jedes Tippen auf eine Zeile fügt eine Portion hinzu. Nochmal tippen für eine weitere.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Ihr Tag auf einen Blick</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Dieser Balken füllt sich im Lauf des Tages. Ist er voll, zählt der Tag für Ihre Serie.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Einen Tag verpasst?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Über das Datum gehen Sie zurück und tragen einen Tag nach.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Überspringen</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Verstanden</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Tipps erneut anzeigen</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Die kurze Einführung im Tagebuch noch einmal abspielen.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Erneut anzeigen</value>
+  </data>
 </root>

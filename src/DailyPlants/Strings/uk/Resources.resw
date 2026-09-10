@@ -1221,4 +1221,40 @@
     <value>{0}. Відкрити деталі</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Торкніться, щоб записати порцію</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Кожен дотик до рядка додає одну порцію. Торкніться ще раз для наступної.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Ваш день з першого погляду</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Ця смуга заповнюється протягом дня. Заповніть її, і день зарахується до серії.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Пропустили день?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>За допомогою дати поверніться назад і заповніть незаписаний день.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Далі</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Пропустити</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Зрозуміло</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Показати підказки знову</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Повторити короткий огляд щоденника.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Показати знову</value>
+  </data>
 </root>

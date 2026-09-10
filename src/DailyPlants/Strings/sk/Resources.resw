@@ -1221,4 +1221,40 @@
     <value>{0}. Otvoriť podrobnosti</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Klepnutím zaznamenáte porciu</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Každé klepnutie na riadok pridá jednu porciu. Klepnite znova pre ďalšiu.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Váš deň v prehľade</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Tento pruh sa plní počas dňa. Zaplňte ho a deň sa započíta do vašej série.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Vynechali ste deň?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Pomocou dátumu sa vráťte späť a doplňte deň, ktorý ste nezaznamenali.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Ďalej</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Preskočiť</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Rozumiem</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Zobraziť tipy znova</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Znova prehrá krátkeho sprievodcu v denníku.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Zobraziť znova</value>
+  </data>
 </root>

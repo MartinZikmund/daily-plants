@@ -1221,4 +1221,40 @@
     <value>{0}. פתיחת פרטים</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>הקישו כדי לרשום מנה</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>כל הקשה על שורה מוסיפה מנה אחת. הקישו שוב כדי להוסיף עוד.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>היום שלכם במבט אחד</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>הפס הזה מתמלא במהלך היום. מלאו אותו והיום ייחשב לרצף שלכם.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>פספסתם יום?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>השתמשו בתאריך כדי לחזור אחורה ולהשלים יום שלא נרשם.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>דלג</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>הבנתי</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>הצג טיפים שוב</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>הפעלה חוזרת של הסיור הקצר ביומן.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>הצג שוב</value>
+  </data>
 </root>

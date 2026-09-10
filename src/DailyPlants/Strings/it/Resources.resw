@@ -1221,4 +1221,40 @@
     <value>{0}. Apri dettagli</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Tocca per registrare una porzione</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Ogni tocco su una riga aggiunge una porzione. Tocca di nuovo per un'altra.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>La tua giornata a colpo d'occhio</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Questa barra si riempie durante la giornata. Riempila e il giorno conta per la tua serie.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Hai saltato un giorno?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Usa la data per tornare indietro e completare un giorno non registrato.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Salta</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Ho capito</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Mostra di nuovo i suggerimenti</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Riproduci di nuovo la breve guida del diario.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Mostra di nuovo</value>
+  </data>
 </root>
