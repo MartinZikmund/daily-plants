@@ -251,6 +251,21 @@
                            Visibility="{Binding ShowRestartMessage}"
                            Margin="0,4,0,0" />
 
+                <controls:SettingsCard>
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE82F;" FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+                    </controls:SettingsCard.HeaderIcon>
+                    <controls:SettingsCard.Header>
+                        <TextBlock Text="{helpers:Localize Key=Settings_ShowTipsAgain}" />
+                    </controls:SettingsCard.Header>
+                    <controls:SettingsCard.Description>
+                        <TextBlock Text="{helpers:Localize Key=Settings_ShowTipsAgainDesc}" TextWrapping="Wrap" />
+                    </controls:SettingsCard.Description>
+                    <Button Content="{helpers:Localize Key=Settings_ShowTipsAgainAction}"
+                            Command="{Binding ShowTipsAgainCommand}"
+                            AutomationProperties.AutomationId="ShowTipsAgainButton" />
+                </controls:SettingsCard>
+
                 <!-- Data Management Section -->
                 <TextBlock Text="{helpers:Localize Key=Settings_DataManagement}"
                            Style="{StaticResource DpOverlineTextBlockStyle}"

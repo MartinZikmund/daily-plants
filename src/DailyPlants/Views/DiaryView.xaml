@@ -529,6 +529,45 @@
                 Style="{StaticResource DpBodyTextBlockStyle}"
                 Text="{helpers:Localize Key=Diary_EnableChecklist}" />
         </StackPanel>
+
+        <!--
+            Coach marks. IsOpen is driven one way from the ViewModel, which owns the order;
+            the buttons are the only way out, so a stray tap on the page cannot silently
+            spend a tip. Step one's target is the first realized row, assigned in code.
+        -->
+        <TeachingTip
+            x:Name="LogServingTip"
+            IsLightDismissEnabled="False"
+            IsOpen="{x:Bind ViewModel.ShowLogServingTip, Mode=OneWay}"
+            PreferredPlacement="Bottom"
+            Title="{helpers:Localize Key=Tip_LogServing_Title}"
+            Subtitle="{helpers:Localize Key=Tip_LogServing_Subtitle}"
+            ActionButtonContent="{helpers:Localize Key=Tip_Next}"
+            ActionButtonCommand="{x:Bind ViewModel.TipNextCommand}"
+            CloseButtonContent="{helpers:Localize Key=Tip_Skip}"
+            CloseButtonCommand="{x:Bind ViewModel.TipSkipCommand}" />
+
+        <TeachingTip
+            x:Name="DayProgressTip"
+            Target="{x:Bind TallyTrack}"
+            IsLightDismissEnabled="False"
+            IsOpen="{x:Bind ViewModel.ShowDayProgressTip, Mode=OneWay}"
+            PreferredPlacement="Bottom"
+            Title="{helpers:Localize Key=Tip_DayProgress_Title}"
+            Subtitle="{helpers:Localize Key=Tip_DayProgress_Subtitle}"
+            CloseButtonContent="{helpers:Localize Key=Tip_GotIt}"
+            CloseButtonCommand="{x:Bind ViewModel.TipDismissedCommand}" />
+
+        <TeachingTip
+            x:Name="PastDaysTip"
+            Target="{x:Bind DatePickerButton}"
+            IsLightDismissEnabled="False"
+            IsOpen="{x:Bind ViewModel.ShowPastDaysTip, Mode=OneWay}"
+            PreferredPlacement="Bottom"
+            Title="{helpers:Localize Key=Tip_PastDays_Title}"
+            Subtitle="{helpers:Localize Key=Tip_PastDays_Subtitle}"
+            CloseButtonContent="{helpers:Localize Key=Tip_GotIt}"
+            CloseButtonCommand="{x:Bind ViewModel.TipDismissedCommand}" />
     </Grid>
 
 </Page>
