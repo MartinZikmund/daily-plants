@@ -1,4 +1,4 @@
-using DailyPlants.Models;
+﻿using DailyPlants.Models;
 
 namespace DailyPlants.Services;
 
@@ -58,7 +58,13 @@ public class ExportData
     /// Format version. "1.0" stored weights and heights in whichever unit the exporting
     /// user had selected; "1.1" always stores kilograms and centimetres.
     /// </summary>
-    public string Version { get; set; } = ExportFormat.CurrentVersion;
+    /// <remarks>
+    /// Defaults to the legacy version, because the only file that can arrive without one
+    /// predates the field. Reading it as current would take pounds for kilograms; reading
+    /// it as legacy at worst converts a metric file whose settings say imperial, which no
+    /// exporter this app has shipped produces. Export always sets this explicitly.
+    /// </remarks>
+    public string Version { get; set; } = ExportFormat.LegacyUnitsVersion;
     public DateTime ExportDate { get; set; } = DateTime.UtcNow;
     public List<DailyEntryExport> DailyEntries { get; set; } = [];
     public List<WeightEntryExport> WeightEntries { get; set; } = [];

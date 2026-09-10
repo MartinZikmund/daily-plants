@@ -1,4 +1,4 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 using DailyPlants.ViewModels;
 
 namespace DailyPlants.Tests.ViewModels;
@@ -87,5 +87,28 @@ public class DiarySaveFailureTests
 
         var stored = await _inner.GetEntryAsync(vm.CurrentDate, "beans");
         stored!.ServingsCompleted.Should().Be(2, "recovery must not be blocked by the earlier failure");
+    }
+
+    [TestMethod]
+    public async Task ServingsChanged_OnAMergedItem_WritesNoRowAtAllWhenOneWriteFails()
+    {
+        // beverages is the visible parent; stay_hydrated folds into it, so one tap on the
+        // row writes two rows.
+        _prefs.TwentyOneTweaksEnabled = true;
+        var vm = NewViewModel();
+        await vm.LoadDataAsync();
+
+        var merged = vm.Items.Single(i => i.Item.Id == "beverages");
+        merged.HasMergedChildren.Should().BeTrue("the pair must actually be merged for this to mean anything");
+
+        // Let the parent row through, then fail on the child.
+        _data.FailAfterWrites = 1;
+        merged.ServingsCompleted = 1;
+        await Task.Yield();
+
+        var date = vm.CurrentDate;
+        (await _inner.GetEntryAsync(date, "beverages")).Should().BeNull(
+            "a partly written total is one the user never entered");
+        (await _inner.GetEntryAsync(date, "stay_hydrated")).Should().BeNull();
     }
 }

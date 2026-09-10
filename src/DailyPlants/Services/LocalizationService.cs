@@ -101,7 +101,21 @@ public class LocalizationService : ILocalizationService
                 : "en";
         }
 
-        ApplyLanguage(_currentLanguage);
+        try
+        {
+            ApplyLanguage(_currentLanguage);
+        }
+        finally
+        {
+            // Anything resolved before this point cached strings in the system language
+            // rather than the chosen one — startup brings the database up first, and that
+            // reads the checklist to backfill snapshots and award achievements. Dropping the
+            // caches here keeps the fix independent of what else startup decides to touch,
+            // and on the common path there is nothing cached yet to throw away. In the
+            // finally so a head that cannot apply the override still ends up consistent.
+            Localizer.Reset();
+        }
+
         return Task.CompletedTask;
     }
 

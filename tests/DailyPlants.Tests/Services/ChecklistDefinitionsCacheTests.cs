@@ -1,4 +1,5 @@
-using DailyPlants.Helpers;
+﻿using DailyPlants.Helpers;
+using DailyPlants.Tests.TestDoubles;
 
 namespace DailyPlants.Tests.Services;
 
@@ -39,5 +40,28 @@ public class ChecklistDefinitionsCacheTests
 
         ChecklistDefinitions.AllItems.Should().BeSameAs(first,
             "the cache must survive ordinary access, or every read rebuilds 34 items");
+    }
+
+    [TestMethod]
+    public async Task LocalizationInitialize_DropsStringsCachedBeforeTheLanguageWasApplied()
+    {
+        var prefs = new FakeAppPreferences { Language = "cs" };
+
+        // Startup brings the database up first, and that reads the checklist - so the
+        // items are already cached, in the system language, before localization runs.
+        var cachedTooEarly = ChecklistDefinitions.AllItems;
+
+        try
+        {
+            await new LocalizationService(prefs).InitializeAsync();
+        }
+        catch (Exception)
+        {
+            // ApplicationLanguages needs package identity, which the test host has no way
+            // to give it. The cache reset is in a finally precisely so this does not matter.
+        }
+
+        ChecklistDefinitions.AllItems.Should().NotBeSameAs(cachedTooEarly,
+            "items resolved before the chosen language was applied are in the wrong language");
     }
 }
