@@ -1,4 +1,4 @@
-﻿using DailyPlants.ViewModels;
+using DailyPlants.ViewModels;
 
 namespace DailyPlants.Controls;
 
@@ -26,6 +26,12 @@ public sealed partial class ServingStepper : UserControl
             typeof(bool),
             typeof(ServingStepper),
             new PropertyMetadata(true));
+
+    /// <summary>
+    /// The add button, for anything that needs to point at it - the diary's teaching tip
+    /// anchors here, because this is the control that actually logs a serving.
+    /// </summary>
+    public FrameworkElement IncrementTarget => IncrementButton;
 
     public ServingStepper() => this.InitializeComponent();
 

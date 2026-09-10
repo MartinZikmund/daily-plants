@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Toca para registrar una ración</value>
+    <value>Toca + para registrar una ración</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Cada toque en una fila añade una ración. Toca de nuevo para otra.</value>
+    <value>Cada toque añade una ración. Toca la fila para leer más sobre el alimento.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>Tu día de un vistazo</value>

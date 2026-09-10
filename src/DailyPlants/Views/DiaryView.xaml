@@ -539,7 +539,7 @@
             x:Name="LogServingTip"
             IsLightDismissEnabled="False"
             IsOpen="{x:Bind ViewModel.ShowLogServingTip, Mode=OneWay}"
-            PreferredPlacement="Bottom"
+            PreferredPlacement="BottomLeft"
             Title="{helpers:Localize Key=Tip_LogServing_Title}"
             Subtitle="{helpers:Localize Key=Tip_LogServing_Subtitle}"
             ActionButtonContent="{helpers:Localize Key=Tip_Next}"

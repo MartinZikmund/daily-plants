@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Klepnutím zaznamenáte porciu</value>
+    <value>Klepnutím na + zaznamenáte porciu</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Každé klepnutie na riadok pridá jednu porciu. Klepnite znova pre ďalšiu.</value>
+    <value>Každé klepnutie pridá jednu porciu. Klepnutím na riadok si o položke prečítate viac.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>Váš deň v prehľade</value>

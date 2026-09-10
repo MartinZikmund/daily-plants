@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Zum Erfassen tippen</value>
+    <value>Zum Erfassen auf + tippen</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Jedes Tippen auf eine Zeile fügt eine Portion hinzu. Nochmal tippen für eine weitere.</value>
+    <value>Jedes Tippen fügt eine Portion hinzu. Tippen Sie auf die Zeile, um mehr über den Eintrag zu lesen.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>Ihr Tag auf einen Blick</value>

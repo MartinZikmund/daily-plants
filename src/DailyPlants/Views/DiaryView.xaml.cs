@@ -5,6 +5,7 @@ using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.Controls;
 using DailyPlants.Services.Tips;
 using Microsoft.UI.Dispatching;
 using DailyPlants.ViewModels;
@@ -126,6 +127,26 @@ public sealed partial class DiaryView : Page
         }
     }
 
+    private static ServingStepper? FindServingStepper(DependencyObject root)
+    {
+        if (root is ServingStepper stepper)
+        {
+            return stepper;
+        }
+
+        var children = VisualTreeHelper.GetChildrenCount(root);
+
+        for (var i = 0; i < children; i++)
+        {
+            if (FindServingStepper(VisualTreeHelper.GetChild(root, i)) is { } found)
+            {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
     /// <summary>
     /// Runs the teaching flow's decision once per page load. A tip is never worth taking
     /// the page down with it, so a failure here is logged and forgotten.
@@ -220,14 +241,16 @@ public sealed partial class DiaryView : Page
 
         if (args.Index == 0 && ReferenceEquals(sender, StillToGoRepeater))
         {
-            LogServingTip.Target = element;
-
             // A row is prepared before it is arranged, and a tip opened against its
             // pre-layout bounds lands over the row instead of below it. Going through the
-            // queue at low priority puts the decision after this pass of layout.
-            DispatcherQueue.TryEnqueue(
-                DispatcherQueuePriority.Low,
-                async () => await EvaluateTipsOnceAsync(canPointAtARow: true));
+            // queue at low priority puts both the target and the decision after layout.
+            DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+            {
+                // The add button, not the row: tapping the row opens the item's details,
+                // and only this button logs a serving.
+                LogServingTip.Target = FindServingStepper(element)?.IncrementTarget ?? element;
+                await EvaluateTipsOnceAsync(canPointAtARow: true);
+            });
         }
 
         if (_pendingArrivals.Count == 0 || !_pendingArrivals.Remove(itemVm))

@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Tocca per registrare una porzione</value>
+    <value>Tocca + per registrare una porzione</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Ogni tocco su una riga aggiunge una porzione. Tocca di nuovo per un'altra.</value>
+    <value>Ogni tocco aggiunge una porzione. Tocca la riga per saperne di più sull'alimento.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>La tua giornata a colpo d'occhio</value>

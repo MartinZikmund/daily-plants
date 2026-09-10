@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>برای ثبت یک وعده ضربه بزنید</value>
+    <value>برای ثبت یک وعده روی + ضربه بزنید</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>هر ضربه روی یک ردیف، یک وعده اضافه می‌کند. برای وعده بعدی دوباره ضربه بزنید.</value>
+    <value>هر ضربه یک وعده اضافه می‌کند. برای خواندن درباره این مورد روی ردیف ضربه بزنید.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>روز شما در یک نگاه</value>

@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Торкніться, щоб записати порцію</value>
+    <value>Натисніть +, щоб записати порцію</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Кожен дотик до рядка додає одну порцію. Торкніться ще раз для наступної.</value>
+    <value>Кожне натискання додає одну порцію. Торкніться рядка, щоб дізнатися більше про продукт.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>Ваш день з першого погляду</value>
