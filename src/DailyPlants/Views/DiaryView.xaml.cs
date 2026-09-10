@@ -6,6 +6,7 @@ using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.Services.Tips;
+using Microsoft.UI.Dispatching;
 using DailyPlants.ViewModels;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Input;
@@ -220,7 +221,13 @@ public sealed partial class DiaryView : Page
         if (args.Index == 0 && ReferenceEquals(sender, StillToGoRepeater))
         {
             LogServingTip.Target = element;
-            _ = EvaluateTipsOnceAsync(canPointAtARow: true);
+
+            // A row is prepared before it is arranged, and a tip opened against its
+            // pre-layout bounds lands over the row instead of below it. Going through the
+            // queue at low priority puts the decision after this pass of layout.
+            DispatcherQueue.TryEnqueue(
+                DispatcherQueuePriority.Low,
+                async () => await EvaluateTipsOnceAsync(canPointAtARow: true));
         }
 
         if (_pendingArrivals.Count == 0 || !_pendingArrivals.Remove(itemVm))
