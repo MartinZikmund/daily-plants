@@ -1,6 +1,7 @@
 using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.Services.Tips;
 using DailyPlants.ViewModels;
 
 namespace DailyPlants.Views;
@@ -17,7 +18,11 @@ public sealed partial class SettingsView : Page
         var appPreferences = App.Current.Services!.GetRequiredService<IAppPreferences>();
         var exportService = App.Current.Services!.GetRequiredService<IExportService>();
         var localizationService = App.Current.Services!.GetRequiredService<ILocalizationService>();
-        ViewModel = new SettingsViewModel(appPreferences, exportService, localizationService);
+        ViewModel = new SettingsViewModel(
+            appPreferences,
+            exportService,
+            localizationService,
+            App.Current.Services!.GetService<ITipService>());
 
         this.InitializeComponent();
         this.DataContext = ViewModel;

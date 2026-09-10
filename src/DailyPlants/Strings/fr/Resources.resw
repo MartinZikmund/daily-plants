@@ -1221,4 +1221,40 @@
     <value>{0}. Ouvrir les détails</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Touchez + pour enregistrer une portion</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Chaque appui ajoute une portion. Touchez la ligne pour en savoir plus sur l'aliment.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Votre journée en un coup d'œil</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Cette barre se remplit au fil de la journée. Remplissez-la et le jour compte pour votre série.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Un jour oublié ?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Utilisez la date pour revenir en arrière et compléter un jour non enregistré.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Ignorer</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>J'ai compris</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Revoir les conseils</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Rejouer la courte présentation du journal.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Revoir</value>
+  </data>
 </root>

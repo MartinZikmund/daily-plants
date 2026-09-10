@@ -1,6 +1,7 @@
 using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.Services.Tips;
 using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
@@ -103,6 +104,7 @@ public partial class App : Application
                     services.AddSingleton<IDataService, SqliteDataService>();
                     services.AddSingleton<ILocalizationService, LocalizationService>();
                     services.AddSingleton<IAchievementService, AchievementService>();
+                    services.AddSingleton<ITipService, TipService>();
                     services.AddTransient<IExportService, ExportService>();
 
                     // Resources feed

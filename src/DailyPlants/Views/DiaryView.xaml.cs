@@ -5,6 +5,9 @@ using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.Controls;
+using DailyPlants.Services.Tips;
+using Microsoft.UI.Dispatching;
 using DailyPlants.ViewModels;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Input;
@@ -45,6 +48,8 @@ public sealed partial class DiaryView : Page
 
     private DispatcherTimer? _midnightTimer;
 
+    private bool _tipsEvaluated;
+
     public DiaryView()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
@@ -54,7 +59,8 @@ public sealed partial class DiaryView : Page
             dataService,
             appPreferences,
             achievementService,
-            logger: App.Current.Services!.GetRequiredService<ILogger<DiaryViewModel>>())
+            logger: App.Current.Services!.GetRequiredService<ILogger<DiaryViewModel>>(),
+            tipService: App.Current.Services!.GetService<ITipService>())
         {
             AnimateGroupChanges = _animationsEnabled
         };
@@ -107,10 +113,60 @@ public sealed partial class DiaryView : Page
 
             await ViewModel.RefreshIfDateChangedAsync();
             await ViewModel.LoadDataAsync();
+
+            // With rows to show, evaluation waits for the first one to realize so the tour
+            // has something to point at. With none, it can happen now.
+            if (ViewModel.StillToGo.Count == 0)
+            {
+                await EvaluateTipsOnceAsync(canPointAtARow: false);
+            }
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Loading the diary failed");
+        }
+    }
+
+    private static ServingStepper? FindServingStepper(DependencyObject root)
+    {
+        if (root is ServingStepper stepper)
+        {
+            return stepper;
+        }
+
+        var children = VisualTreeHelper.GetChildrenCount(root);
+
+        for (var i = 0; i < children; i++)
+        {
+            if (FindServingStepper(VisualTreeHelper.GetChild(root, i)) is { } found)
+            {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Runs the teaching flow's decision once per page load. A tip is never worth taking
+    /// the page down with it, so a failure here is logged and forgotten.
+    /// </summary>
+    private async Task EvaluateTipsOnceAsync(bool canPointAtARow)
+    {
+        if (_tipsEvaluated)
+        {
+            return;
+        }
+
+        _tipsEvaluated = true;
+
+        try
+        {
+            await ViewModel.EvaluateTipsAsync(canPointAtARow);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Deciding which teaching tip to show failed");
         }
     }
 
@@ -182,6 +238,20 @@ public sealed partial class DiaryView : Page
 
         // Containers are recycled, so the row is renamed on every prepare rather than once.
         AutomationProperties.SetName(element, RowAutomationName(itemVm));
+
+        if (args.Index == 0 && ReferenceEquals(sender, StillToGoRepeater))
+        {
+            // A row is prepared before it is arranged, and a tip opened against its
+            // pre-layout bounds lands over the row instead of below it. Going through the
+            // queue at low priority puts both the target and the decision after layout.
+            DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+            {
+                // The add button, not the row: tapping the row opens the item's details,
+                // and only this button logs a serving.
+                LogServingTip.Target = FindServingStepper(element)?.IncrementTarget ?? element;
+                await EvaluateTipsOnceAsync(canPointAtARow: true);
+            });
+        }
 
         if (_pendingArrivals.Count == 0 || !_pendingArrivals.Remove(itemVm))
         {

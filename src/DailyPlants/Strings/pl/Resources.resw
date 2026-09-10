@@ -1221,4 +1221,40 @@
     <value>{0}. Otwórz szczegóły</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Dotknij +, aby zapisać porcję</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Każde dotknięcie dodaje jedną porcję. Dotknij wiersza, aby przeczytać więcej o produkcie.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Twój dzień w skrócie</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Ten pasek wypełnia się w ciągu dnia. Wypełnij go, a dzień zaliczy się do serii.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Pominięto dzień?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Użyj daty, aby cofnąć się i uzupełnić niezapisany dzień.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Dalej</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Pomiń</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Rozumiem</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Pokaż wskazówki ponownie</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Odtwórz ponownie krótki przewodnik po dzienniku.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Pokaż ponownie</value>
+  </data>
 </root>

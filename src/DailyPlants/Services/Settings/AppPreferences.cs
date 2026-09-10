@@ -1,4 +1,4 @@
-﻿using MZikmund.Toolkit.WinUI.Services;
+using MZikmund.Toolkit.WinUI.Services;
 
 namespace DailyPlants.Services.Settings;
 
@@ -15,6 +15,7 @@ public class AppPreferences : IAppPreferences
     private const string LanguageKey = "Language";
     private const string DisabledItemIdsKey = "DisabledItemIds";
     private const string HasSeenChecklistImpactWarningKey = "HasSeenChecklistImpactWarning";
+    private const string SeenTipsKey = "SeenTips";
 
     private readonly IPreferences _preferences;
 
@@ -99,5 +100,11 @@ public class AppPreferences : IAppPreferences
     {
         get => _preferences.Get(UnitsAreCanonicalKey, false);
         set => _preferences.Set(UnitsAreCanonicalKey, value);
+    }
+
+    public string SeenTips
+    {
+        get => _preferences.Get(SeenTipsKey, string.Empty);
+        set => _preferences.Set(SeenTipsKey, value);
     }
 }

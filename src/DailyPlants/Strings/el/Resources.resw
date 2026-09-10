@@ -1221,4 +1221,40 @@
     <value>{0}. Άνοιγμα λεπτομερειών</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Πατήστε + για να καταγράψετε μια μερίδα</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Κάθε πάτημα προσθέτει μία μερίδα. Πατήστε τη γραμμή για να διαβάσετε περισσότερα για το τρόφιμο.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Η μέρα σας με μια ματιά</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Αυτή η μπάρα γεμίζει μέσα στη μέρα. Γεμίστε την και η μέρα μετράει στο σερί σας.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Χάσατε μια μέρα;</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Χρησιμοποιήστε την ημερομηνία για να πάτε πίσω και να συμπληρώσετε μια μέρα.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Παράλειψη</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Το κατάλαβα</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Εμφάνιση συμβουλών ξανά</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Επανάληψη της σύντομης ξενάγησης στο ημερολόγιο.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Εμφάνιση ξανά</value>
+  </data>
 </root>

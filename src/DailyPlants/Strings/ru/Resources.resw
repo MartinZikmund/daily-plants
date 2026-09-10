@@ -1221,4 +1221,40 @@
     <value>{0}. Открыть подробности</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Нажмите +, чтобы записать порцию</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Каждое нажатие добавляет одну порцию. Нажмите на строку, чтобы узнать больше о продукте.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Ваш день с первого взгляда</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Эта полоса заполняется в течение дня. Заполните её, и день засчитается в серию.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Пропустили день?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>С помощью даты вернитесь назад и заполните незаписанный день.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Понятно</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Показать подсказки снова</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Повторить краткое знакомство с дневником.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Показать снова</value>
+  </data>
 </root>

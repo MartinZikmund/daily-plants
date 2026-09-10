@@ -1221,4 +1221,40 @@
     <value>{0}. Отваряне на подробности</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>Докоснете +, за да запишете порция</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>Всяко докосване добавя една порция. Докоснете реда, за да прочетете повече за продукта.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>Вашият ден с един поглед</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>Тази лента се пълни през деня. Напълнете я и денят се брои за поредицата ви.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>Пропуснахте ден?</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>Използвайте датата, за да се върнете назад и да попълните незаписан ден.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>Напред</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>Пропусни</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>Разбрах</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>Показване на съветите отново</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>Повтаря краткото въведение в дневника.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>Покажи отново</value>
+  </data>
 </root>

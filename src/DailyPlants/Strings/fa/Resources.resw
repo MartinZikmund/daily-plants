@@ -1221,4 +1221,40 @@
     <value>{0}. باز کردن جزئیات</value>
   </data>
 
+  <data name="Tip_LogServing_Title" xml:space="preserve">
+    <value>برای ثبت یک وعده روی + ضربه بزنید</value>
+  </data>
+  <data name="Tip_LogServing_Subtitle" xml:space="preserve">
+    <value>هر ضربه یک وعده اضافه می‌کند. برای خواندن درباره این مورد روی ردیف ضربه بزنید.</value>
+  </data>
+  <data name="Tip_DayProgress_Title" xml:space="preserve">
+    <value>روز شما در یک نگاه</value>
+  </data>
+  <data name="Tip_DayProgress_Subtitle" xml:space="preserve">
+    <value>این نوار در طول روز پر می‌شود. آن را پر کنید تا روز در زنجیره شما حساب شود.</value>
+  </data>
+  <data name="Tip_PastDays_Title" xml:space="preserve">
+    <value>روزی را از دست دادید؟</value>
+  </data>
+  <data name="Tip_PastDays_Subtitle" xml:space="preserve">
+    <value>با استفاده از تاریخ به عقب بروید و روزی را که ثبت نکرده‌اید تکمیل کنید.</value>
+  </data>
+  <data name="Tip_Next" xml:space="preserve">
+    <value>بعدی</value>
+  </data>
+  <data name="Tip_Skip" xml:space="preserve">
+    <value>رد کردن</value>
+  </data>
+  <data name="Tip_GotIt" xml:space="preserve">
+    <value>متوجه شدم</value>
+  </data>
+  <data name="Settings_ShowTipsAgain" xml:space="preserve">
+    <value>نمایش دوباره نکته‌ها</value>
+  </data>
+  <data name="Settings_ShowTipsAgainDesc" xml:space="preserve">
+    <value>پخش دوباره راهنمای کوتاه دفترچه.</value>
+  </data>
+  <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
+    <value>نمایش دوباره</value>
+  </data>
 </root>
