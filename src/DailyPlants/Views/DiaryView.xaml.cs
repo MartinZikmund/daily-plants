@@ -15,6 +15,9 @@ namespace DailyPlants.Views;
 
 public sealed partial class DiaryView : Page
 {
+    private readonly ILogger _logger =
+        App.Current.Services!.GetRequiredService<ILoggerFactory>().CreateLogger<DiaryView>();
+
     private const string TwoColumnStateName = "TwoColumnState";
 
     /// <summary>
@@ -40,6 +43,8 @@ public sealed partial class DiaryView : Page
 
     public DiaryViewModel ViewModel { get; }
 
+    private DispatcherTimer? _midnightTimer;
+
     public DiaryView()
     {
         var dataService = App.Current.Services!.GetRequiredService<IDataService>();
@@ -50,6 +55,7 @@ public sealed partial class DiaryView : Page
             AnimateGroupChanges = _animationsEnabled
         };
         ViewModel.ItemDetailRequested += ViewModel_ItemDetailRequested;
+        ViewModel.SaveFailed += ViewModel_SaveFailed;
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
@@ -61,6 +67,7 @@ public sealed partial class DiaryView : Page
         ViewModel.DoneToday.CollectionChanged += Group_CollectionChanged;
 
         this.Loaded += DiaryView_Loaded;
+        this.Unloaded += DiaryView_Unloaded;
     }
 
     /// <summary>
@@ -84,7 +91,23 @@ public sealed partial class DiaryView : Page
     private async void DiaryView_Loaded(object sender, RoutedEventArgs e)
     {
         ApplyColumnLayout(WidthStates.CurrentState?.Name == TwoColumnStateName);
-        await ViewModel.LoadDataAsync();
+
+        try
+        {
+            if (App.Current.MainWindow is { } window)
+            {
+                window.Activated += Window_Activated;
+            }
+
+            ScheduleMidnightRefresh();
+
+            await ViewModel.RefreshIfDateChangedAsync();
+            await ViewModel.LoadDataAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Loading the diary failed");
+        }
     }
 
     private void WidthStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
@@ -202,19 +225,120 @@ public sealed partial class DiaryView : Page
         storyboard.Begin();
     }
 
+    private void DiaryView_Unloaded(object sender, RoutedEventArgs e)
+    {
+        if (App.Current.MainWindow is { } window)
+        {
+            window.Activated -= Window_Activated;
+        }
+
+        _midnightTimer?.Stop();
+        _midnightTimer = null;
+    }
+
+    private async void Window_Activated(object sender, WindowActivatedEventArgs args)
+    {
+        // Covers the common case: the app is resumed the morning after it was left open.
+        // The activation state is deliberately not inspected — its enum type differs
+        // between the Windows and Uno heads, and the refresh is a no-op when the date has
+        // not changed, so running it on deactivation costs nothing.
+        try
+        {
+            await ViewModel.RefreshIfDateChangedAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Refreshing the diary date failed");
+        }
+    }
+
+    /// <summary>
+    /// Covers the case the activation hook cannot: the window stays focused across midnight.
+    /// </summary>
+    private void ScheduleMidnightRefresh()
+    {
+        _midnightTimer?.Stop();
+
+        var now = DateTime.Now;
+        var untilMidnight = now.Date.AddDays(1) - now;
+        if (untilMidnight <= TimeSpan.Zero)
+        {
+            untilMidnight = TimeSpan.FromMinutes(1);
+        }
+
+        _midnightTimer = new DispatcherTimer
+        {
+            // A second past the boundary, so the new date has definitely arrived.
+            Interval = untilMidnight + TimeSpan.FromSeconds(1)
+        };
+        _midnightTimer.Tick += MidnightTimer_Tick;
+        _midnightTimer.Start();
+    }
+
+    private async void MidnightTimer_Tick(object? sender, object e)
+    {
+        try
+        {
+            await ViewModel.RefreshIfDateChangedAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Midnight diary refresh failed");
+        }
+
+        ScheduleMidnightRefresh();
+    }
+
     private async void CalendarView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
     {
-        if (args.AddedDates.Count > 0)
+        if (args.AddedDates.Count == 0) return;
+
+        try
         {
             var selectedDate = DateOnly.FromDateTime(args.AddedDates[0].DateTime);
             await ViewModel.GoToDateAsync(selectedDate);
             DatePickerFlyout.Hide();
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Navigating to the selected date failed");
+        }
+    }
+
+    private async void ViewModel_SaveFailed(object? sender, Exception exception)
+    {
+        _logger.LogError(exception, "Saving a serving failed");
+
+        try
+        {
+            // The count shown has already been rolled back, so the user is told rather
+            // than left believing a serving was recorded.
+            var dialog = new ContentDialog
+            {
+                Title = "Could not save",
+                Content = "That change could not be saved and has been undone. Please try again.",
+                CloseButtonText = "OK",
+                XamlRoot = XamlRoot
+            };
+
+            await dialog.ShowAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Could not show the save failure dialog");
+        }
     }
 
     private async void ViewModel_ItemDetailRequested(object? sender, ChecklistItemViewModel itemVm)
     {
-        await ShowItemDetailDialogAsync(itemVm);
+        try
+        {
+            await ShowItemDetailDialogAsync(itemVm);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Showing item detail failed");
+        }
     }
 
     private async Task ShowItemDetailDialogAsync(ChecklistItemViewModel itemVm)

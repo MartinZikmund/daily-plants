@@ -11,6 +11,7 @@ using Android.Widget;
 using Microsoft.UI.Xaml.Media;
 
 namespace DailyPlants.Droid;
+
 [global::Android.App.ApplicationAttribute(
     Label = "@string/ApplicationName",
     Icon = "@mipmap/icon",

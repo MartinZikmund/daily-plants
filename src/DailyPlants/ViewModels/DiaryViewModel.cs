@@ -24,9 +24,22 @@ public partial class DiaryViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+    private readonly TimeProvider _timeProvider;
     private CancellationTokenSource? _achievementDebounce;
-    private DateOnly _currentDate = DateOnly.FromDateTime(DateTime.Today);
+
+    /// <summary>Last count successfully written, per item, so a failed save can roll back to it.</summary>
+    private readonly Dictionary<string, int> _lastSavedServings = [];
+
+    /// <summary>Guards the rollback assignment from re-entering the change handler.</summary>
+    private bool _isRevertingServings;
+    private DateOnly _currentDate;
     private bool _dayCompleteAnnounced;
+
+    /// <summary>
+    /// True while the view is tracking "today" rather than a date the user picked.
+    /// Only then may a date rollover move the view.
+    /// </summary>
+    private bool _followToday = true;
 
     [ObservableProperty]
     private string _dateDisplayText = string.Empty;
@@ -116,7 +129,7 @@ public partial class DiaryViewModel : ObservableObject
     /// <summary>
     /// Maximum selectable date for the calendar picker (today).
     /// </summary>
-    public DateTimeOffset MaxSelectableDate => DateTimeOffset.Now;
+    public DateTimeOffset MaxSelectableDate => _timeProvider.GetLocalNow();
 
     public event EventHandler<ChecklistItemViewModel>? ItemDetailRequested;
 
@@ -130,12 +143,43 @@ public partial class DiaryViewModel : ObservableObject
     /// </summary>
     public event EventHandler? DayReset;
 
-    public DiaryViewModel(IDataService dataService, IAppPreferences appPreferences, IAchievementService? achievementService = null)
+    /// <summary>
+    /// Raised when a serving could not be persisted. The view surfaces this; the count
+    /// shown to the user has already been rolled back by the time it fires.
+    /// </summary>
+    public event EventHandler<Exception>? SaveFailed;
+
+    public DiaryViewModel(
+        IDataService dataService,
+        IAppPreferences appPreferences,
+        IAchievementService? achievementService = null,
+        TimeProvider? timeProvider = null)
     {
         _dataService = dataService;
         _appPreferences = appPreferences;
         _achievementService = achievementService;
+        _timeProvider = timeProvider ?? TimeProvider.System;
+        _currentDate = Today;
         UpdateDateDisplay();
+    }
+
+    private DateOnly Today => DateOnly.FromDateTime(_timeProvider.GetLocalNow().DateTime);
+
+    /// <summary>
+    /// Re-synchronises the view with the real date. Called when the page loads, when the
+    /// window is activated, and at local midnight, so a session left open overnight stops
+    /// writing to yesterday while still calling it "Today".
+    /// </summary>
+    public async Task RefreshIfDateChangedAsync()
+    {
+        if (!_followToday) return;
+
+        var today = Today;
+        if (_currentDate == today) return;
+
+        _currentDate = today;
+        UpdateDateDisplay();
+        await LoadDataAsync();
     }
 
     public async Task LoadDataAsync()
@@ -162,6 +206,8 @@ public partial class DiaryViewModel : ObservableObject
                         .Select(m => enabledItems.First(i => i.Id == m.ChildId))
                         .ToList());
 
+            _lastSavedServings.Clear();
+
             // Unsubscribe handlers from old items before clearing to prevent memory leaks
             foreach (var old in Items)
             {
@@ -187,6 +233,7 @@ public partial class DiaryViewModel : ObservableObject
                 }
 
                 var itemVm = new ChecklistItemViewModel(item, _currentDate, parentServings, _appPreferences.UseMetricUnits, children);
+                _lastSavedServings[item.Id] = parentServings;
                 itemVm.ServingsChanged += OnItemServingsChanged;
                 itemVm.ItemDetailRequested += OnItemDetailRequested;
                 Items.Add(itemVm);
@@ -208,6 +255,7 @@ public partial class DiaryViewModel : ObservableObject
     private async Task GoToPreviousDayAsync()
     {
         _currentDate = _currentDate.AddDays(-1);
+        _followToday = _currentDate == Today;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
@@ -215,10 +263,11 @@ public partial class DiaryViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToNextDayAsync()
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = Today;
         if (_currentDate < today)
         {
             _currentDate = _currentDate.AddDays(1);
+            _followToday = _currentDate == today;
             UpdateDateDisplay();
             await LoadDataAsync();
         }
@@ -227,7 +276,8 @@ public partial class DiaryViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToTodayAsync()
     {
-        _currentDate = DateOnly.FromDateTime(DateTime.Today);
+        _currentDate = Today;
+        _followToday = true;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
@@ -240,7 +290,7 @@ public partial class DiaryViewModel : ObservableObject
     /// </summary>
     public async Task GoToDateAsync(DateOnly date)
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = Today;
         // Don't allow future dates
         if (date > today)
         {
@@ -248,13 +298,14 @@ public partial class DiaryViewModel : ObservableObject
         }
 
         _currentDate = date;
+        _followToday = date == today;
         UpdateDateDisplay();
         await LoadDataAsync();
     }
 
     private void UpdateDateDisplay()
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = Today;
 
         DateDisplayText = _currentDate.ToString("MMMM d, yyyy");
 
@@ -311,9 +362,52 @@ public partial class DiaryViewModel : ObservableObject
 
     private async void OnItemServingsChanged(object? sender, int newServings)
     {
+        if (_isRevertingServings)
+            return;
+
         if (sender is not ChecklistItemViewModel itemVm)
             return;
 
+        try
+        {
+            await SaveServingsAsync(itemVm, newServings);
+            _lastSavedServings[itemVm.Item.Id] = newServings;
+
+            UpdateProgress();
+
+            // Runs on its own timeline: the row holds its place before it changes group.
+            _ = ScheduleGroupSyncAsync(itemVm);
+
+            // Debounce achievement check to avoid running on every tap
+            ScheduleAchievementCheck();
+        }
+        catch (Exception ex)
+        {
+            // The most frequent action in the app runs through this handler, and it is
+            // async void: an escaping exception would terminate the process with no trail.
+            RevertServings(itemVm);
+            UpdateProgress();
+            SaveFailed?.Invoke(this, ex);
+        }
+    }
+
+    private void RevertServings(ChecklistItemViewModel itemVm)
+    {
+        var lastGood = _lastSavedServings.GetValueOrDefault(itemVm.Item.Id, 0);
+
+        _isRevertingServings = true;
+        try
+        {
+            itemVm.ServingsCompleted = lastGood;
+        }
+        finally
+        {
+            _isRevertingServings = false;
+        }
+    }
+
+    private async Task SaveServingsAsync(ChecklistItemViewModel itemVm, int newServings)
+    {
         if (!itemVm.HasMergedChildren)
         {
             // Simple case: no merge, save directly
@@ -352,14 +446,6 @@ public partial class DiaryViewModel : ObservableObject
                 });
             }
         }
-
-        UpdateProgress();
-
-        // Runs on its own timeline: the row holds its place before it changes group.
-        _ = ScheduleGroupSyncAsync(itemVm);
-
-        // Debounce achievement check to avoid running on every tap
-        ScheduleAchievementCheck();
     }
 
     private void OnItemDetailRequested(object? sender, ChecklistItem item)
@@ -389,6 +475,11 @@ public partial class DiaryViewModel : ObservableObject
         catch (TaskCanceledException)
         {
             // Debounce cancelled — expected
+        }
+        catch (Exception ex)
+        {
+            // Also async void: an achievement check must never take the app down.
+            SaveFailed?.Invoke(this, ex);
         }
     }
 
