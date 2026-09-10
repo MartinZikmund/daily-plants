@@ -74,18 +74,10 @@ Stored through the existing `_preferences.Get`/`Set` pair in `AppPreferences`, f
 
 ### Data
 
-`IDataService` gains:
-
-```csharp
-/// <summary>
-/// The date of the most recent daily entry, or null when nothing has ever been logged.
-/// </summary>
-Task<DateOnly?> GetMostRecentEntryDateAsync();
-```
-
-Implemented in `SqliteDataService` as a `MAX(date)` query. The contextual trigger needs a
-single date; pulling a range into memory to find its maximum would be wasteful, and the
-lookback window would have to be guessed.
+No new `IDataService` member. The design originally proposed a `GetMostRecentEntryDateAsync`
+returning `DateOnly?`; `GetDatesWithEntriesAsync` already answers the question, so adding a
+second way to ask it would have been duplication for no gain. The call only happens while
+the contextual tip is still unseen, so its cost stops the moment the tip has been shown.
 
 ### Sequencing
 
@@ -94,7 +86,9 @@ Sequencing lives in `DiaryViewModel`, not in the view:
 - `ActiveTip` — `TipId?`, observable. Null means no tip is showing.
 - `TipNextCommand` — marks `ActiveTip` seen and advances to the next tour step, or clears.
 - `TipSkipCommand` — marks every remaining tour tip seen and clears `ActiveTip`.
-- `EvaluateTipsAsync()` — called on Diary load. Picks the tip to show, if any.
+- `EvaluateTipsAsync(bool canPointAtARow = true)` — called on Diary load. Picks the tip to
+  show, if any. The view passes whether a checklist row is realized, because the ViewModel
+  cannot see the visual tree and step one has nothing to point at without one.
 
 `DiaryView.xaml` holds three `TeachingTip` elements. Each binds `IsOpen` to whether
 `ActiveTip` matches its id, and contributes only its target, title, subtitle and buttons.
@@ -133,8 +127,10 @@ talks as for users.
 - **Malformed `SeenTips`.** Parsed defensively: blank and whitespace segments are ignored,
   and ids that do not map to a known `TipId` are *preserved* on write rather than dropped,
   so running an older build does not replay tips a newer build already showed.
-- **Missing target.** If a tip's target element has not realized, the tip does not open
-  and is *not* marked seen. It is retried on the next load.
+- **Missing target.** If no checklist row has realized, the view calls evaluation with
+  `canPointAtARow: false`; the tour sits that load out and is *not* marked seen. Tour step
+  two and the contextual tip target elements that are always present, so neither depends
+  on realization.
 - **Data failure.** If `GetMostRecentEntryDateAsync` throws, the contextual tip is skipped
   for that session and left unseen. A teaching tip is never worth surfacing an error over.
 
@@ -150,7 +146,6 @@ Eleven new keys, translated into all 21 locales:
 
 - `Services/Tips/TipId.cs`, `ITipService.cs`, `TipService.cs` — new
 - `Services/Settings/IAppPreferences.cs`, `AppPreferences.cs` — `SeenTips`
-- `Services/IDataService.cs`, `SqliteDataService.cs` — `GetMostRecentEntryDateAsync`
 - `ViewModels/DiaryViewModel.cs` — `ActiveTip`, commands, evaluation
 - `Views/DiaryView.xaml` — three `TeachingTip` elements
 - `ViewModels/SettingsViewModel.cs`, `Views/SettingsView.xaml` — replay button
@@ -182,17 +177,18 @@ Test-driven, with the fix and its test as separate commits per the usual rule.
 - With everything seen, nothing opens.
 - A throwing `GetMostRecentEntryDateAsync` opens nothing and leaves the tip unseen.
 
-**`SqliteDataService`**
+**`SettingsViewModel`**
 
-- `GetMostRecentEntryDateAsync` returns null on an empty table and the maximum date
-  otherwise, with dates compared under the invariant culture.
+- "Show tips again" makes every tip eligible again, and touches nothing else the user
+  configured.
 
 ## Risks
 
-1. **`ItemsRepeater` realization timing.** Tour step 1 targets a realized item, which may
-   not exist when the page first loads. Mitigation: evaluate after the repeater reports
-   its elements, and fall back to targeting the repeater itself if no item realizes. This
-   is the only part of the design likely to need iteration against the real app.
+1. **`ItemsRepeater` realization timing.** *Resolved by construction rather than by a
+   fallback target.* Evaluation is triggered from `ElementPrepared` for the first row of
+   `StillToGoRepeater`, which is also where the target is assigned; a load with no rows
+   instead evaluates with `canPointAtARow: false`. Either way the tip never opens without
+   something to point at. Still worth watching on a real device.
 2. **Cross-head rendering.** `TeachingTip` is a full mux port in shared `Uno.UI`, so it is
    present on every head, but its placement and tail behaviour should be smoke-checked on
    WebAssembly and Android early rather than after everything else is built.
