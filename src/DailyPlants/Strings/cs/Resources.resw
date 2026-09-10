@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Splňte ořechy 100krát</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants nemohla otevřít vaše data</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Záznamy se nepodařilo načíst a změny se nemusí ukládat. Restartujte aplikaci, a pokud to bude pokračovat, podrobnosti najdete v souboru protokolu: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Záznamy se nepodařilo načíst a změny se nemusí ukládat. Restartujte aplikaci, a pokud to bude pokračovat, podrobnosti najdete v protokolu ve složce dat aplikace.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Přesto pokračovat</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Nepodařilo se uložit</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Tuto změnu se nepodařilo uložit a byla vrácena zpět. Zkuste to prosím znovu.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Import dat</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Záznamy pro data v tomto souboru nahradí ty již uložené. Pokud chcete zálohu, nejprve exportujte svá současná data. Pokračovat?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Importováno: {0} záznamů, {1} záznamů o hmotnosti a {2} úspěchů.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} řádků bylo přeskočeno, protože je aplikace nedokázala přečíst.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Tímto se změní vaše historie</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Série a perfektní dny se posuzují podle položek, které sledujete teď, takže zapnutí nebo vypnutí položek či seznamů změní i dny, které už máte zaznamenané. Nastavení můžete měnit, kdykoli chcete — toto upozornění se zobrazí jen jednou.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
@@ -21,6 +22,7 @@ public sealed partial class SettingsView : Page
         this.InitializeComponent();
         this.DataContext = ViewModel;
         this.Loaded += SettingsView_Loaded;
+        ViewModel.ChecklistImpactWarningRequested += ViewModel_ChecklistImpactWarningRequested;
     }
 
     private async void SettingsView_Loaded(object sender, RoutedEventArgs e)
@@ -32,6 +34,27 @@ public sealed partial class SettingsView : Page
         catch (Exception ex)
         {
             _logger.LogError(ex, "Loading settings failed");
+        }
+    }
+
+    private async void ViewModel_ChecklistImpactWarningRequested(object? sender, EventArgs e)
+    {
+        try
+        {
+            var dialog = new ContentDialog
+            {
+                Title = Localizer.GetString("Settings_ChecklistImpactTitle"),
+                Content = Localizer.GetString("Settings_ChecklistImpactMessage"),
+                CloseButtonText = Localizer.GetString("Common_Ok"),
+                XamlRoot = XamlRoot
+            };
+
+            await dialog.ShowAsync();
+        }
+        catch (Exception ex)
+        {
+            // Async void: a notice the user cannot act on must never take the app down.
+            _logger.LogError(ex, "Showing the checklist change warning failed");
         }
     }
 }

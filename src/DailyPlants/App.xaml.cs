@@ -1,8 +1,10 @@
+using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
 using DailyPlants.ViewModels;
 using DailyPlants.Views;
 using MZikmund.Toolkit.WinUI.Services;
+using Uno.Extensions.Hosting;
 using Uno.Resizetizer;
 
 namespace DailyPlants;
@@ -192,20 +194,66 @@ public partial class App : Application
         }
     }
 
+    /// <summary>
+    /// The exception text is appended rather than dropped into the middle of a sentence, so
+    /// translations do not have to bend a grammatical case around it.
+    /// </summary>
+    private string DescribeDatabaseFailure(Exception failure)
+    {
+        // Serilog owns the log file, so the app no longer has a path to quote.
+        var explanation = Localizer.GetString("Database_FailureMessageNoLog");
+
+        return explanation + Environment.NewLine + Environment.NewLine + failure.Message;
+    }
+
+    /// <summary>
+    /// Where Serilog's file sink writes, asked of the host rather than recomposed - the two
+    /// drifting apart is exactly what made the old hand-rolled path unreliable. Null when the
+    /// head has no file manager to open it with, or the host is not up.
+    /// </summary>
+    private string? ResolveLogFolder()
+    {
+        if (!FolderLauncher.IsSupported)
+        {
+            return null;
+        }
+
+        try
+        {
+            var path = Host?.Services.GetService<IHostEnvironment>()?.GetAppDataPath();
+            return string.IsNullOrWhiteSpace(path) || !Directory.Exists(path) ? null : path;
+        }
+        catch (Exception ex)
+        {
+            Log.LogError(ex, "Could not resolve the log folder");
+            return null;
+        }
+    }
+
     private async Task ShowDatabaseFailureAsync(Exception failure)
     {
         try
         {
             var dialog = new ContentDialog
             {
-                Title = "Daily Plants could not open your data",
-                Content = "Your entries could not be loaded and changes may not be saved. "
-                    + "Restart the app, and if this keeps happening the app's log file has the details."
-                    + Environment.NewLine + Environment.NewLine
-                    + failure.Message,
-                CloseButtonText = "Continue anyway",
+                Title = Localizer.GetString("Database_FailureTitle"),
+                Content = DescribeDatabaseFailure(failure),
+                CloseButtonText = Localizer.GetString("Database_FailureContinue"),
                 XamlRoot = MainWindow?.Content?.XamlRoot
             };
+
+            if (ResolveLogFolder() is { } logFolder)
+            {
+                dialog.SecondaryButtonText = Localizer.GetString("Database_FailureOpenLogs");
+
+                // Cancelled so the folder opens beside the dialog rather than instead of it -
+                // the message is what the user will be asked to quote.
+                dialog.SecondaryButtonClick += async (sender, args) =>
+                {
+                    args.Cancel = true;
+                    await FolderLauncher.OpenAsync(logFolder, Log);
+                };
+            }
 
             await dialog.ShowAsync();
         }

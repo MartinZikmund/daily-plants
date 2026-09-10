@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Completa frutos secos 100 veces</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants no ha podido abrir los datos</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>No se han podido cargar las entradas y es posible que los cambios no se guarden. Reinicia la aplicación y, si el problema continúa, el archivo de registro tiene los detalles: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>No se han podido cargar las entradas y es posible que los cambios no se guarden. Reinicia la aplicación y, si el problema continúa, los detalles están en el registro de la carpeta de datos de la aplicación.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Continuar de todos modos</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>No se ha podido guardar</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Ese cambio no se ha podido guardar y se ha deshecho. Inténtalo de nuevo.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Importar datos</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Las entradas de las fechas de este archivo reemplazarán a las ya guardadas. Si quieres una copia de seguridad, exporta primero los datos actuales. ¿Continuar?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Se han importado {0} entradas, {1} registros de peso y {2} logros.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>Se han omitido {0} filas porque la aplicación no ha podido leerlas.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Esto cambia tu historial</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Las rachas y los días perfectos se calculan según los elementos que sigues ahora, así que activar o desactivar elementos o listas también cambia los días que ya has registrado. Puedes cambiar estos ajustes cuando quieras: este aviso solo se muestra una vez.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

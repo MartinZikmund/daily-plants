@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Teljesítse a diófélék adagját 100-szor</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>A Daily Plants nem tudta megnyitni az adatokat</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>A bejegyzéseket nem sikerült betölteni, és a módosítások esetleg nem mentődnek. Indítsa újra az alkalmazást, és ha a hiba továbbra is fennáll, a részletek a naplófájlban vannak: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>A bejegyzéseket nem sikerült betölteni, és a módosítások esetleg nem mentődnek. Indítsa újra az alkalmazást, és ha a hiba továbbra is fennáll, a részletek az alkalmazás adatmappájában lévő naplóban vannak.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Folytatás mindenképp</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>A mentés nem sikerült</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Ezt a módosítást nem sikerült menteni, ezért vissza lett vonva. Próbálja meg újra.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Adatok importálása</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>A fájlban szereplő dátumok bejegyzései felülírják a már mentetteket. Ha biztonsági másolatot szeretne, előbb exportálja a jelenlegi adatokat. Folytatja?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>{0} bejegyzés, {1} súlyrekord és {2} teljesítmény importálva.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} sor ki lett hagyva, mert az alkalmazás nem tudta beolvasni őket.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Ez megváltoztatja az előzményeidet</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>A sorozatokat és a tökéletes napokat a most követett elemek alapján számoljuk, ezért az elemek vagy listák be- és kikapcsolása a már rögzített napokat is megváltoztatja. Ezeket a beállításokat bármikor módosíthatod – ez a figyelmeztetés csak egyszer jelenik meg.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

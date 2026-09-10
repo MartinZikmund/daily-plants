@@ -1,4 +1,4 @@
-using DailyPlants.Models;
+﻿using DailyPlants.Models;
 using DailyPlants.Services.Entities;
 using DailyPlants.Services.Settings;
 using SQLite;
@@ -10,8 +10,6 @@ namespace DailyPlants.Services;
 /// </summary>
 public class SqliteDataService : IDataService
 {
-    private const int CurrentSchemaVersion = 1;
-
     private readonly SQLiteAsyncConnection _connection;
     private readonly IAppPreferences _appPreferences;
     private bool _initialized;
@@ -384,8 +382,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
-        if (requiredServings.Count == 0) return 0;
+        var requirements = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
 
         // Load the full history: a windowed lookback cannot tell "no entry" from
         // "outside the window", which silently truncated streaks at the boundary.
@@ -402,7 +399,7 @@ public class SqliteDataService : IDataService
 
         while (true)
         {
-            if (IsDateComplete(entriesByDate.GetValueOrDefault(currentDate), requiredServings))
+            if (IsDateComplete(entriesByDate.GetValueOrDefault(currentDate), requirements))
             {
                 streak++;
                 currentDate = currentDate.AddDays(-1);
@@ -425,8 +422,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
-        if (requiredServings.Count == 0) return 0;
+        var requirements = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
 
         // Load ALL entries in a single query
         var allEntries = await _connection.QueryAsync<DailyEntryEntity>(
@@ -447,7 +443,7 @@ public class SqliteDataService : IDataService
 
         foreach (var date in dates)
         {
-            if (IsDateComplete(entriesByDate[date], requiredServings))
+            if (IsDateComplete(entriesByDate[date], requirements))
             {
                 if (previousDate.HasValue && date.DayNumber - previousDate.Value.DayNumber == 1)
                 {
@@ -488,9 +484,16 @@ public class SqliteDataService : IDataService
         }
     }
 
-    private static bool IsDateComplete(IReadOnlyList<DailyEntry>? entries, Dictionary<string, int> requiredServings)
+    /// <summary>
+    /// Judges a day against the requirements currently in force. Changing the checklists
+    /// therefore re-judges past days too; Settings warns about that the first time.
+    /// </summary>
+    private static bool IsDateComplete(
+        IReadOnlyList<DailyEntry>? entries,
+        Dictionary<string, int> requiredServings)
     {
         if (entries == null || entries.Count == 0) return false;
+        if (requiredServings.Count == 0) return false;
 
         foreach (var (itemId, required) in requiredServings)
         {
@@ -571,8 +574,7 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var requiredServings = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
-        if (requiredServings.Count == 0) return 0;
+        var requirements = ChecklistDefinitions.GetRequiredServingsMap(_appPreferences);
 
         // Load ALL entries in a single query
         var allEntries = await _connection.QueryAsync<DailyEntryEntity>(
@@ -586,9 +588,9 @@ public class SqliteDataService : IDataService
             .ToDictionary(g => g.Key, g => (IReadOnlyList<DailyEntry>)g.ToList());
 
         var perfectDays = 0;
-        foreach (var (_, entries) in entriesByDate)
+        foreach (var (date, entries) in entriesByDate)
         {
-            if (IsDateComplete(entries, requiredServings))
+            if (IsDateComplete(entries, requirements))
             {
                 perfectDays++;
             }

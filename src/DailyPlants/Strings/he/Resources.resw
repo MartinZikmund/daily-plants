@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>השלימו אגוזים 100 פעמים</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants לא הצליחה לפתוח את הנתונים</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>לא ניתן היה לטעון את הרשומות וייתכן ששינויים לא יישמרו. הפעילו מחדש את האפליקציה, ואם התקלה חוזרת, הפרטים נמצאים בקובץ היומן: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>לא ניתן היה לטעון את הרשומות וייתכן ששינויים לא יישמרו. הפעילו מחדש את האפליקציה, ואם התקלה חוזרת, הפרטים נמצאים ביומן שבתיקיית הנתונים של האפליקציה.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>להמשיך בכל זאת</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>השמירה נכשלה</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה לשמור את השינוי והוא בוטל. נסו שוב.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>ייבוא נתונים</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>רשומות לתאריכים שבקובץ הזה יחליפו את אלה שכבר נשמרו. אם רוצים גיבוי, ייצאו קודם את הנתונים הנוכחיים. להמשיך?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>יובאו {0} רשומות, {1} רישומי משקל ו-{2} הישגים.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} שורות דולגו מפני שהאפליקציה לא הצליחה לקרוא אותן.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>זה משנה את ההיסטוריה שלך</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>רצפים וימים מושלמים נמדדים לפי הפריטים שאתה עוקב אחריהם עכשיו, ולכן הפעלה או כיבוי של פריטים או רשימות משנה גם ימים שכבר נרשמו. אפשר לשנות את ההגדרות האלה בכל עת — ההודעה הזו מוצגת פעם אחת בלבד.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

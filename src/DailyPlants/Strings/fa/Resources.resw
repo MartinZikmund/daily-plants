@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>آجیل را ۱۰۰ بار تکمیل کنید</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants نتوانست داده‌ها را باز کند</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>ورودی‌ها بارگذاری نشدند و ممکن است تغییرات ذخیره نشوند. برنامه را دوباره اجرا کنید و اگر مشکل ادامه یافت، جزئیات در پرونده گزارش است: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>ورودی‌ها بارگذاری نشدند و ممکن است تغییرات ذخیره نشوند. برنامه را دوباره اجرا کنید و اگر مشکل ادامه یافت، جزئیات در گزارش موجود در پوشه داده‌های برنامه است.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>به هر حال ادامه دهید</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>ذخیره نشد</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>این تغییر ذخیره نشد و لغو شد. لطفاً دوباره تلاش کنید.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>درون‌ریزی داده‌ها</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>ورودی‌های مربوط به تاریخ‌های این پرونده جایگزین موارد ذخیره‌شده می‌شوند. اگر نسخه پشتیبان می‌خواهید، ابتدا داده‌های فعلی را برون‌ریزی کنید. ادامه می‌دهید؟</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>{0} ورودی، {1} رکورد وزن و {2} دستاورد درون‌ریزی شد.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} ردیف نادیده گرفته شد چون برنامه نتوانست آن‌ها را بخواند.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>این کار سابقهٔ شما را تغییر می‌دهد</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>زنجیره‌ها و روزهای کامل بر اساس مواردی که اکنون پیگیری می‌کنید سنجیده می‌شوند؛ بنابراین روشن یا خاموش کردن موارد یا فهرست‌ها روزهای ثبت‌شده را هم تغییر می‌دهد. هر وقت خواستید می‌توانید این تنظیمات را عوض کنید — این پیام فقط یک بار نشان داده می‌شود.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Виконати горіхи 100 разів</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants не вдалося відкрити дані</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Не вдалося завантажити записи, а зміни можуть не зберігатися. Перезапустіть застосунок, а якщо це повторюється, подробиці є у файлі журналу: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Не вдалося завантажити записи, а зміни можуть не зберігатися. Перезапустіть застосунок, а якщо це повторюється, подробиці є в журналі в теці даних застосунку.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Усе одно продовжити</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Не вдалося зберегти</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Цю зміну не вдалося зберегти, тому її скасовано. Спробуйте ще раз.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Імпорт даних</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Записи для дат із цього файлу замінять уже збережені. Якщо потрібна резервна копія, спершу експортуйте поточні дані. Продовжити?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Імпортовано записів: {0}, записів про вагу: {1}, досягнень: {2}.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>Пропущено рядків: {0} — застосунок не зміг їх прочитати.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Це змінить вашу історію</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Серії та ідеальні дні оцінюються за пунктами, які ви відстежуєте зараз, тож увімкнення або вимкнення пунктів чи списків змінить і вже записані дні. Ви можете змінювати ці налаштування будь-коли — це сповіщення показується лише один раз.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -14,6 +14,7 @@ public class AppPreferences : IAppPreferences
     private const string ThemePreferenceKey = "ThemePreference";
     private const string LanguageKey = "Language";
     private const string DisabledItemIdsKey = "DisabledItemIds";
+    private const string HasSeenChecklistImpactWarningKey = "HasSeenChecklistImpactWarning";
 
     private readonly IPreferences _preferences;
 
@@ -86,6 +87,12 @@ public class AppPreferences : IAppPreferences
     {
         get => _preferences.Get(DisabledItemIdsKey, string.Empty);
         set => _preferences.Set(DisabledItemIdsKey, value);
+    }
+
+    public bool HasSeenChecklistImpactWarning
+    {
+        get => _preferences.Get(HasSeenChecklistImpactWarningKey, false);
+        set => _preferences.Set(HasSeenChecklistImpactWarningKey, value);
     }
 
     public bool UnitsAreCanonical

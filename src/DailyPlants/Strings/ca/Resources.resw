@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Completa fruits secs 100 vegades</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants no ha pogut obrir les dades</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>No s'han pogut carregar les entrades i és possible que els canvis no es desin. Reinicieu l'aplicació i, si el problema continua, el fitxer de registre en té els detalls: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>No s'han pogut carregar les entrades i és possible que els canvis no es desin. Reinicieu l'aplicació i, si el problema continua, els detalls són al registre de la carpeta de dades de l'aplicació.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Continua igualment</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>No s'ha pogut desar</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Aquest canvi no s'ha pogut desar i s'ha desfet. Torneu-ho a provar.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Importa dades</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Les entrades de les dates d'aquest fitxer substituiran les que ja s'han desat. Si voleu una còpia de seguretat, exporteu primer les dades actuals. Voleu continuar?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>S'han importat {0} entrades, {1} registres de pes i {2} assoliments.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>S'han omès {0} files perquè l'aplicació no ha pogut llegir-les.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Això canvia el teu historial</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Les ratxes i els dies perfectes es calculen segons els elements que segueixes ara, així que activar o desactivar elements o llistes també canvia els dies que ja has registrat. Pots canviar aquests paràmetres quan vulguis: aquest avís només es mostra una vegada.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

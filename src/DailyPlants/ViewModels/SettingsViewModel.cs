@@ -1,3 +1,5 @@
+﻿using System.Globalization;
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -49,6 +51,13 @@ public partial class SettingsViewModel : ObservableObject
 
     public List<string> ThemeOptions { get; } = ["System", "Light", "Dark"];
     public List<string> LanguageOptions { get; private set; } = [];
+
+    /// <summary>
+    /// Raised the first time the user changes which items are tracked. Completion is judged
+    /// against the settings in force, so the change also re-judges days already logged - the
+    /// view says so once instead of letting the streak move without explanation.
+    /// </summary>
+    public event EventHandler? ChecklistImpactWarningRequested;
 
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
@@ -127,7 +136,8 @@ public partial class SettingsViewModel : ObservableObject
             }
             else
             {
-                var toggle = new ChecklistItemToggleViewModel(_appPreferences, item);
+                var toggle = new ChecklistItemToggleViewModel(
+                    _appPreferences, item, WarnAboutChecklistImpactOnce);
                 togglesByItemId[item.Id] = toggle;
                 collection.Add(toggle);
             }
@@ -137,11 +147,21 @@ public partial class SettingsViewModel : ObservableObject
     partial void OnDailyDozenEnabledChanged(bool value)
     {
         _appPreferences.DailyDozenEnabled = value;
+        WarnAboutChecklistImpactOnce();
     }
 
     partial void OnTwentyOneTweaksEnabledChanged(bool value)
     {
         _appPreferences.TwentyOneTweaksEnabled = value;
+        WarnAboutChecklistImpactOnce();
+    }
+
+    private void WarnAboutChecklistImpactOnce()
+    {
+        if (IsLoading || _appPreferences.HasSeenChecklistImpactWarning) return;
+
+        _appPreferences.HasSeenChecklistImpactWarning = true;
+        ChecklistImpactWarningRequested?.Invoke(this, EventArgs.Empty);
     }
 
     partial void OnWeightTrackingEnabledChanged(bool value)
@@ -359,11 +379,10 @@ public partial class SettingsViewModel : ObservableObject
     {
         var dialog = new ContentDialog
         {
-            Title = "Import data",
-            Content = "Entries for dates in this file will replace the ones already saved. "
-                + "Export your current data first if you want a backup. Continue?",
-            PrimaryButtonText = "Import",
-            CloseButtonText = "Cancel",
+            Title = Localizer.GetString("Settings_ImportConfirmTitle"),
+            Content = Localizer.GetString("Settings_ImportConfirmMessage"),
+            PrimaryButtonText = Localizer.GetString("Settings_Import"),
+            CloseButtonText = Localizer.GetString("Common_Cancel"),
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
@@ -373,22 +392,29 @@ public partial class SettingsViewModel : ObservableObject
 
     private static string DescribeImport(ImportResult result)
     {
-        var message = $"Imported {result.EntriesImported} entries, {result.WeightEntriesImported} weight records "
-            + $"and {result.AchievementsImported} achievements.";
+        var message = string.Format(
+            CultureInfo.CurrentCulture,
+            Localizer.GetString("Settings_ImportSummary"),
+            result.EntriesImported,
+            result.WeightEntriesImported,
+            result.AchievementsImported);
+
+        if (result.EntriesSkipped == 0) return message;
 
         // Never report a partial import as a clean one.
-        return result.EntriesSkipped > 0
-            ? message + $" {result.EntriesSkipped} rows were skipped because the app could not read them."
-            : message;
+        return message + " " + string.Format(
+            CultureInfo.CurrentCulture,
+            Localizer.GetString("Settings_ImportSkipped"),
+            result.EntriesSkipped);
     }
 
     private static async Task ShowErrorAsync(string message)
     {
         var dialog = new ContentDialog
         {
-            Title = "Error",
+            Title = Localizer.GetString("Common_Error"),
             Content = message,
-            CloseButtonText = "OK",
+            CloseButtonText = Localizer.GetString("Common_Ok"),
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
         await dialog.ShowAsync();
@@ -398,9 +424,9 @@ public partial class SettingsViewModel : ObservableObject
     {
         var dialog = new ContentDialog
         {
-            Title = "Success",
+            Title = Localizer.GetString("Common_Success"),
             Content = message,
-            CloseButtonText = "OK",
+            CloseButtonText = Localizer.GetString("Common_Ok"),
             XamlRoot = App.Current.MainWindow?.Content?.XamlRoot
         };
         await dialog.ShowAsync();
@@ -414,6 +440,7 @@ public partial class SettingsViewModel : ObservableObject
 public partial class ChecklistItemToggleViewModel : ObservableObject
 {
     private readonly IAppPreferences _appPreferences;
+    private readonly Action? _onUserToggled;
 
     public string ItemId { get; }
     public string ItemName { get; }
@@ -425,9 +452,13 @@ public partial class ChecklistItemToggleViewModel : ObservableObject
     /// <summary>Set while the constructor seeds the toggle, which is not the user toggling it.</summary>
     private bool _loading;
 
-    public ChecklistItemToggleViewModel(IAppPreferences appPreferences, ChecklistItem item)
+    public ChecklistItemToggleViewModel(
+        IAppPreferences appPreferences,
+        ChecklistItem item,
+        Action? onUserToggled = null)
     {
         _appPreferences = appPreferences;
+        _onUserToggled = onUserToggled;
         ItemId = item.Id;
         ItemName = item.Name;
         IconPath = item.IconPath;
@@ -442,5 +473,6 @@ public partial class ChecklistItemToggleViewModel : ObservableObject
         if (_loading) return;
 
         _appPreferences.SetItemDisabled(ItemId, !value);
+        _onUserToggled?.Invoke();
     }
 }

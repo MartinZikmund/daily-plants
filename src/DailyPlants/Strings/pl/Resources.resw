@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Ukończ orzechy 100 razy</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>Daily Plants nie mogła otworzyć danych</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Nie udało się wczytać wpisów, a zmiany mogą nie zostać zapisane. Uruchom aplikację ponownie, a jeśli problem będzie się powtarzał, szczegóły znajdziesz w pliku dziennika: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Nie udało się wczytać wpisów, a zmiany mogą nie zostać zapisane. Uruchom aplikację ponownie, a jeśli problem będzie się powtarzał, szczegóły znajdziesz w dzienniku w folderze danych aplikacji.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Kontynuuj mimo to</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Nie udało się zapisać</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Tej zmiany nie udało się zapisać i została cofnięta. Spróbuj ponownie.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Import danych</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Wpisy dla dat z tego pliku zastąpią te już zapisane. Jeśli chcesz mieć kopię zapasową, najpierw wyeksportuj bieżące dane. Kontynuować?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Zaimportowano: {0} wpisów, {1} pomiarów wagi i {2} osiągnięć.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>Pominięto {0} wierszy, ponieważ aplikacja nie mogła ich odczytać.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>To zmieni twoją historię</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>Serie i idealne dni są oceniane według elementów, które śledzisz teraz, więc włączenie lub wyłączenie elementów albo list zmieni także dni już zapisane. Możesz zmieniać te ustawienia, kiedy chcesz — to powiadomienie pojawi się tylko raz.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

@@ -1071,6 +1071,42 @@
   <data name="Achievement_Nuts100_Desc" xml:space="preserve">
     <value>Complete castanhas 100 vezes</value>
   </data>
+  <data name="Database_FailureTitle" xml:space="preserve">
+    <value>O Daily Plants não conseguiu abrir os dados</value>
+  </data>
+  <data name="Database_FailureMessage" xml:space="preserve">
+    <value>Não foi possível carregar os registros e as alterações podem não ser salvas. Reinicie o aplicativo e, se o problema continuar, o arquivo de log tem os detalhes: {0}</value>
+  </data>
+  <data name="Database_FailureMessageNoLog" xml:space="preserve">
+    <value>Não foi possível carregar os registros e as alterações podem não ser salvas. Reinicie o aplicativo e, se o problema continuar, os detalhes estão no log na pasta de dados do aplicativo.</value>
+  </data>
+  <data name="Database_FailureContinue" xml:space="preserve">
+    <value>Continuar mesmo assim</value>
+  </data>
+  <data name="Diary_SaveFailedTitle" xml:space="preserve">
+    <value>Não foi possível salvar</value>
+  </data>
+  <data name="Diary_SaveFailedMessage" xml:space="preserve">
+    <value>Não foi possível salvar essa alteração e ela foi desfeita. Tente novamente.</value>
+  </data>
+  <data name="Settings_ImportConfirmTitle" xml:space="preserve">
+    <value>Importar dados</value>
+  </data>
+  <data name="Settings_ImportConfirmMessage" xml:space="preserve">
+    <value>Os registros das datas neste arquivo substituirão os já salvos. Se quiser um backup, exporte os dados atuais primeiro. Continuar?</value>
+  </data>
+  <data name="Settings_ImportSummary" xml:space="preserve">
+    <value>Foram importados {0} registros, {1} registros de peso e {2} conquistas.</value>
+  </data>
+  <data name="Settings_ImportSkipped" xml:space="preserve">
+    <value>{0} linhas foram ignoradas porque o aplicativo não conseguiu lê-las.</value>
+  </data>
+  <data name="Settings_ChecklistImpactTitle" xml:space="preserve">
+    <value>Isso muda seu histórico</value>
+  </data>
+  <data name="Settings_ChecklistImpactMessage" xml:space="preserve">
+    <value>As sequências e os dias perfeitos são avaliados com base nos itens que você acompanha agora, então ativar ou desativar itens ou listas também muda os dias já registrados. Você pode alterar essas configurações quando quiser — este aviso aparece apenas uma vez.</value>
+  </data>
 
   <!-- Resources -->
   <data name="Nav_Resources" xml:space="preserve">

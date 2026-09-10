@@ -134,12 +134,11 @@ public class ExportService : IExportService
             var achievementsImported = 0;
             var entriesSkipped = 0;
 
-            // Settings go in first: writing an entry records the checklist requirements in
-            // force at that moment, once and for good, so restoring a backup under the
-            // importing device's settings would stamp every day in the file with the wrong
-            // bar and silently rewrite its streaks. Preferences are not part of the database
-            // transaction, so they are captured and put back by hand if the import fails.
-            // A file without settings leaves the current ones alone.
+            // Settings go in first: streaks and perfect days are judged against the settings
+            // in force, so the imported history has to be read under the settings it was
+            // recorded with rather than the importing device's. Preferences are not part of
+            // the database transaction, so they are captured and put back by hand if the
+            // import fails. A file without settings leaves the current ones alone.
             var settingsToRestore = importData.Settings is null ? null : CaptureSettings();
             var unitsWereCanonical = _appPreferences.UnitsAreCanonical;
 

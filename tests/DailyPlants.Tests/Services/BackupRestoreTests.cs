@@ -4,9 +4,9 @@ namespace DailyPlants.Tests.Services;
 
 /// <summary>
 /// Restoring a backup onto a second device has to reproduce what the first device
-/// showed. These run against the real <see cref="SqliteDataService"/> rather than a
-/// double, because what they are guarding is the per-date settings snapshot — and a
-/// snapshot is written once and never rewritten, so getting it wrong is permanent.
+/// showed. Completion is judged against the settings in force, so the file's settings
+/// have to land with its entries; these run against the real
+/// <see cref="SqliteDataService"/> rather than a double to prove the whole path does that.
 /// </summary>
 [TestClass]
 public class BackupRestoreTests
@@ -159,6 +159,7 @@ public class BackupRestoreTests
         public int ThemePreference { get; set; }
         public string DisabledItemIds { get; set; } = string.Empty;
         public bool UnitsAreCanonical { get; set; }
+        public bool HasSeenChecklistImpactWarning { get; set; }
 
         public string? Language
         {
