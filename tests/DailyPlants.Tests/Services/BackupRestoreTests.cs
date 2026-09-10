@@ -160,6 +160,7 @@ public class BackupRestoreTests
         public string DisabledItemIds { get; set; } = string.Empty;
         public bool UnitsAreCanonical { get; set; }
         public bool HasSeenChecklistImpactWarning { get; set; }
+        public string SeenTips { get; set; } = string.Empty;
 
         public string? Language
         {
