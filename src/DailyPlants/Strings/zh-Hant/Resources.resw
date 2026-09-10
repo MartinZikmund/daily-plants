@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>點按即可記錄一份</value>
+    <value>點按 + 記錄一份</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>每次點按一列就會增加一份。再次點按可繼續增加。</value>
+    <value>每次點按增加一份。點按該列可查看這項食物的詳細說明。</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>一目了然的一天</value>

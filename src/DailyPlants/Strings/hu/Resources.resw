@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Koppintson az adag rögzítéséhez</value>
+    <value>Koppintson a + gombra az adag rögzítéséhez</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Minden koppintás a soron hozzáad egy adagot. Koppintson újra a következőhöz.</value>
+    <value>Minden koppintás hozzáad egy adagot. Koppintson a sorra, ha többet szeretne olvasni róla.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>A napja egy pillantásra</value>

@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Tap to log a serving</value>
+    <value>Tap + to log a serving</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Every tap on a row adds one serving. Tap again for a second.</value>
+    <value>Each tap adds one serving. Tap the row itself to read about the item.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>Your day at a glance</value>

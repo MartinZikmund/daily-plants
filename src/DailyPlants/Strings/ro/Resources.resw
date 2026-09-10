@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>Atinge pentru a înregistra o porție</value>
+    <value>Atinge + pentru a înregistra o porție</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>Fiecare atingere pe un rând adaugă o porție. Atinge din nou pentru încă una.</value>
+    <value>Fiecare atingere adaugă o porție. Atinge rândul pentru a citi mai multe despre aliment.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>Ziua ta dintr-o privire</value>

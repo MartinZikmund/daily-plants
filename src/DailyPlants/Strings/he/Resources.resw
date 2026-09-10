@@ -1222,10 +1222,10 @@
   </data>
 
   <data name="Tip_LogServing_Title" xml:space="preserve">
-    <value>הקישו כדי לרשום מנה</value>
+    <value>הקישו על + כדי לרשום מנה</value>
   </data>
   <data name="Tip_LogServing_Subtitle" xml:space="preserve">
-    <value>כל הקשה על שורה מוסיפה מנה אחת. הקישו שוב כדי להוסיף עוד.</value>
+    <value>כל הקשה מוסיפה מנה אחת. הקישו על השורה כדי לקרוא עוד על הפריט.</value>
   </data>
   <data name="Tip_DayProgress_Title" xml:space="preserve">
     <value>היום שלכם במבט אחד</value>
