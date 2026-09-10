@@ -11,6 +11,9 @@ internal sealed class FailingDataService : IDataService
 
     public bool FailWrites { get; set; }
 
+    /// <summary>Fails the date-range queries, standing in for a read that hits a busy database.</summary>
+    public bool FailDateQueries { get; set; }
+
     /// <summary>Lets the first N writes through, then fails, for testing partial writes.</summary>
     public int? FailAfterWrites { get; set; }
 
@@ -77,7 +80,15 @@ internal sealed class FailingDataService : IDataService
 
     public Task<int> GetLongestStreakAsync() => _inner.GetLongestStreakAsync();
 
-    public Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync() => _inner.GetDatesWithEntriesAsync();
+    public Task<IReadOnlyList<DateOnly>> GetDatesWithEntriesAsync()
+    {
+        if (FailDateQueries)
+        {
+            throw new InvalidOperationException("database is locked");
+        }
+
+        return _inner.GetDatesWithEntriesAsync();
+    }
 
     public Task<IReadOnlyList<EarnedAchievement>> GetEarnedAchievementsAsync() => _inner.GetEarnedAchievementsAsync();
 
