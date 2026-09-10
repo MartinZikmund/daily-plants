@@ -199,6 +199,31 @@ public class DiaryTipTests
     }
 
     [TestMethod]
+    public async Task EvaluateTipsAsync_WithNoRowToPointAt_LeavesTheTourWaiting()
+    {
+        var vm = NewViewModel();
+
+        await vm.EvaluateTipsAsync(canPointAtARow: false);
+
+        vm.ActiveTip.Should().BeNull();
+        _tips.ShouldShow(TipId.DiaryLogServing).Should().BeTrue(
+            "a tip stranded in the middle of the screen teaches nothing, and burning it "
+            + "on a load with no rows would cost the user the lesson for good");
+    }
+
+    [TestMethod]
+    public async Task EvaluateTipsAsync_WithNoRowToPointAt_StillOpensTheSecondStep()
+    {
+        _tips.MarkSeen(TipId.DiaryLogServing);
+        var vm = NewViewModel();
+
+        await vm.EvaluateTipsAsync(canPointAtARow: false);
+
+        vm.ActiveTip.Should().Be(TipId.DiaryDayProgress,
+            "the tally is always on screen, so step two never depends on a realized row");
+    }
+
+    [TestMethod]
     public async Task EvaluateTipsAsync_WithNoTipService_DoesNothing()
     {
         var vm = new DiaryViewModel(_data, _prefs, achievementService: null, timeProvider: _clock);

@@ -1,8 +1,9 @@
-﻿using System.Globalization;
+using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.Services.Tips;
 
 namespace DailyPlants.ViewModels;
 
@@ -14,6 +15,7 @@ public partial class SettingsViewModel : ObservableObject
     private readonly IAppPreferences _appPreferences;
     private readonly IExportService _exportService;
     private readonly ILocalizationService _localizationService;
+    private readonly ITipService? _tipService;
     private string _initialLanguage = "";
     private bool _suppressPreferenceWrites;
 
@@ -62,12 +64,23 @@ public partial class SettingsViewModel : ObservableObject
     public string WeightUnit => UseMetricUnits ? "kg" : "lb";
     public string HeightUnit => UseMetricUnits ? "cm" : "in";
 
-    public SettingsViewModel(IAppPreferences appPreferences, IExportService exportService, ILocalizationService localizationService)
+    public SettingsViewModel(
+        IAppPreferences appPreferences,
+        IExportService exportService,
+        ILocalizationService localizationService,
+        ITipService? tipService = null)
     {
         _appPreferences = appPreferences;
         _exportService = exportService;
         _localizationService = localizationService;
+        _tipService = tipService;
     }
+
+    /// <summary>
+    /// Forgets every teaching tip, so the flow runs again on the next visit to the diary.
+    /// </summary>
+    [RelayCommand]
+    private void ShowTipsAgain() => _tipService?.Reset();
 
     public Task LoadSettingsAsync()
     {

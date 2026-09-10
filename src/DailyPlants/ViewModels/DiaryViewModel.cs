@@ -145,7 +145,11 @@ public partial class DiaryViewModel : ObservableObject
     /// contextual tip fires, so a user who quit part way through it is not handed two
     /// unrelated lessons at once.
     /// </summary>
-    public async Task EvaluateTipsAsync()
+    /// <param name="canPointAtARow">
+    /// Whether a checklist row is on screen for the first tour step to point at. The view
+    /// knows; the ViewModel cannot see the visual tree.
+    /// </param>
+    public async Task EvaluateTipsAsync(bool canPointAtARow = true)
     {
         if (_tipService is null || ActiveTip is not null)
         {
@@ -154,11 +158,20 @@ public partial class DiaryViewModel : ObservableObject
 
         foreach (var step in TipIdExtensions.TourSteps)
         {
-            if (_tipService.ShouldShow(step))
+            if (!_tipService.ShouldShow(step))
             {
-                ActiveTip = step;
+                continue;
+            }
+
+            // With nothing to anchor it to, the tip would strand itself mid-screen. Sitting
+            // this load out costs nothing; marking it seen would cost the lesson for good.
+            if (step == TipId.DiaryLogServing && !canPointAtARow)
+            {
                 return;
             }
+
+            ActiveTip = step;
+            return;
         }
 
         if (_tipService.ShouldShow(TipId.DiaryPastDays) && await HasADayWorthGoingBackForAsync())
