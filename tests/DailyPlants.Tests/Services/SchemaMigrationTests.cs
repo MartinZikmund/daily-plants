@@ -1,4 +1,4 @@
-using DailyPlants.Tests.TestDoubles;
+﻿using DailyPlants.Tests.TestDoubles;
 using SQLite;
 
 namespace DailyPlants.Tests.Services;
@@ -196,5 +196,51 @@ public class SchemaMigrationTests
         var entry = await new SqliteDataService(prefs, _dbPath).GetWeightEntryAsync(date);
         entry!.Weight.Should().BeApproximately(80, 0.05, "the migration is gated on user_version and must be idempotent");
         prefs.HeightCm.Should().BeApproximately(177.8, 0.05);
+    }
+
+    // ===== Crash safety =====
+
+    /// <summary>
+    /// Preferences that blow up part way through the v4 conversion, standing in for the
+    /// process being killed after the weight UPDATE but before the version bump.
+    /// </summary>
+    private sealed class ThrowingPreferences : IAppPreferences
+    {
+        public bool DailyDozenEnabled { get; set; } = true;
+        public bool TwentyOneTweaksEnabled { get; set; }
+        public bool WeightTrackingEnabled { get; set; } = true;
+        public bool UseMetricUnits { get; set; }
+        public double? GoalWeight { get; set; }
+        public int ThemePreference { get; set; }
+        public string? Language { get; set; }
+        public string DisabledItemIds { get; set; } = string.Empty;
+
+        public double? HeightCm
+        {
+            get => throw new InvalidOperationException("preference store went away mid-migration");
+            set => throw new InvalidOperationException("preference store went away mid-migration");
+        }
+    }
+
+    [TestMethod]
+    public async Task Initialize_WhenAMigrationFailsPartWayThrough_RollsBackBothTheWorkAndTheVersion()
+    {
+        var prefs = new FakeAppPreferences { UseMetricUnits = false, WeightTrackingEnabled = true };
+        var seed = new SqliteDataService(prefs, _dbPath);
+        await seed.InitializeAsync();
+        var date = new DateOnly(2026, 4, 1);
+        await seed.SaveWeightEntryAsync(new WeightEntry { Date = date, Weight = 176.4 });
+        await SetUserVersionAsync(2);
+
+        // v3 divides the weights, then reads HeightCm - which throws.
+        var failing = new SqliteDataService(new ThrowingPreferences(), _dbPath);
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(failing.InitializeAsync);
+
+        (await ReadUserVersionAsync(_dbPath)).Should().Be(2, "the failed migration must not claim to have run");
+        var entry = await new SqliteDataService(prefs, _dbPath).GetWeightEntryAsync(date);
+        entry!.Weight.Should().BeApproximately(
+            80,
+            0.05,
+            "the retry converts the untouched pounds exactly once, rather than halving an already-converted value");
     }
 }

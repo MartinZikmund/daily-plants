@@ -16,6 +16,17 @@ public class SqliteDataService : IDataService
     private readonly IAppPreferences _appPreferences;
     private bool _initialized;
 
+    /// <summary>
+    /// Held for the whole of <see cref="RunInTransactionAsync"/>. sqlite-net takes its
+    /// connection lock per statement, not per transaction, so without this a write from
+    /// elsewhere lands between the BEGIN and the COMMIT and is discarded by a rollback
+    /// that has nothing to do with it.
+    /// </summary>
+    private readonly SemaphoreSlim _writeGate = new(1, 1);
+
+    /// <summary>Set on the flow running the transaction body, whose writes belong inside it.</summary>
+    private readonly AsyncLocal<bool> _inTransaction = new();
+
     public SqliteDataService(IAppPreferences appPreferences)
         : this(appPreferences, GetDefaultDatabasePath())
     {
@@ -64,7 +75,7 @@ public class SqliteDataService : IDataService
         if (version < 1)
         {
             // v1: Initial schema - tables already created above via CreateTableAsync
-            await _connection.ExecuteAsync("PRAGMA user_version = 1");
+            await MigrateAsync(1, () => Task.CompletedTask);
         }
 
         if (version < 2)
@@ -72,7 +83,7 @@ public class SqliteDataService : IDataService
             // v2: Removed Anti-Aging Eight checklist and corrected 21 Tweaks items.
             // Orphaned DailyEntries for removed items (sun_protection, fat_free_dressings,
             // more_legumes, more_greens, more_berries) are intentionally preserved.
-            await _connection.ExecuteAsync("PRAGMA user_version = 2");
+            await MigrateAsync(2, () => Task.CompletedTask);
         }
 
         if (version < 3)
@@ -80,12 +91,48 @@ public class SqliteDataService : IDataService
             // v3: Weight is now stored in kilograms and height in centimetres regardless of
             // the unit the user types in. Earlier versions stored whatever was typed, so an
             // imperial user's existing rows are pounds and their HeightCm is really inches.
-            await ConvertImperialValuesToCanonicalUnitsAsync();
-            await _connection.ExecuteAsync("PRAGMA user_version = 3");
+            await MigrateAsync(3, ConvertImperialValuesToCanonicalUnitsAsync);
         }
 
         // Future migrations go here:
-        // if (version < 4) { /* migration to v4 */ await _connection.ExecuteAsync("PRAGMA user_version = 4"); }
+        // if (version < 4) { await MigrateAsync(4, MigrateToV4Async); }
+    }
+
+    /// <summary>
+    /// Applies one migration and its version bump as a single transaction. Run as separate
+    /// statements they are separate autocommits, leaving a window where the work is durable
+    /// but the version is not — and this runs during launch, before the window is shown,
+    /// which is exactly where the OS kills apps. The next launch would then apply the same
+    /// migration again: for v3 that divides every stored weight by 2.2 a second time.
+    /// </summary>
+    private async Task MigrateAsync(int version, Func<Task> migrate)
+    {
+        await _connection.ExecuteAsync("BEGIN TRANSACTION");
+        try
+        {
+            await migrate();
+
+            // user_version lives in the database header, so this bump rolls back with the rest.
+            await _connection.ExecuteAsync($"PRAGMA user_version = {version}");
+            await _connection.ExecuteAsync("COMMIT");
+        }
+        catch
+        {
+            // SQLite may already have rolled back on its own, in which case ROLLBACK throws
+            // "no transaction is active" - letting that escape would replace the migration
+            // failure the caller actually needs to see.
+            try
+            {
+                await _connection.ExecuteAsync("ROLLBACK");
+            }
+            catch
+            {
+                // Nothing useful to do with it, and the migration failure is the one worth
+                // seeing - a failed rollback would otherwise replace it on the way out.
+            }
+
+            throw;
+        }
     }
 
     private async Task ConvertImperialValuesToCanonicalUnitsAsync()
@@ -114,17 +161,53 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        await _connection.ExecuteAsync("BEGIN TRANSACTION");
+        await _writeGate.WaitAsync();
+        _inTransaction.Value = true;
         try
         {
-            await operation();
-            await _connection.ExecuteAsync("COMMIT");
+            await _connection.ExecuteAsync("BEGIN TRANSACTION");
+            try
+            {
+                await operation();
+                await _connection.ExecuteAsync("COMMIT");
+            }
+            catch
+            {
+                try
+                {
+                    await _connection.ExecuteAsync("ROLLBACK");
+                }
+                catch (SQLiteException)
+                {
+                    // SQLite may have already rolled back on its own (a full disk, for one).
+                    // Reporting that instead of the original failure only hides the cause.
+                }
+
+                throw;
+            }
         }
-        catch
+        finally
         {
-            await _connection.ExecuteAsync("ROLLBACK");
-            throw;
+            _inTransaction.Value = false;
+            _writeGate.Release();
         }
+    }
+
+    /// <summary>
+    /// Waits for any in-flight transaction to finish, so this write is not swept into it.
+    /// A write made by the transaction body itself belongs inside and passes straight through.
+    /// </summary>
+    private async Task<bool> EnterWriteAsync()
+    {
+        if (_inTransaction.Value) return false;
+
+        await _writeGate.WaitAsync();
+        return true;
+    }
+
+    private void ExitWrite(bool taken)
+    {
+        if (taken) _writeGate.Release();
     }
 
     // ===== Daily Entries =====
@@ -171,18 +254,34 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = IsoDate.ToStorage(entry.Date);
-        await _connection.ExecuteAsync(
-            "INSERT INTO DailyEntries (Date, ItemId, ServingsCompleted) VALUES (?, ?, ?) ON CONFLICT(Date, ItemId) DO UPDATE SET ServingsCompleted = ?",
-            dateStr, entry.ItemId, entry.ServingsCompleted, entry.ServingsCompleted);
+        var gated = await EnterWriteAsync();
+        try
+        {
+            var dateStr = IsoDate.ToStorage(entry.Date);
+            await _connection.ExecuteAsync(
+                "INSERT INTO DailyEntries (Date, ItemId, ServingsCompleted) VALUES (?, ?, ?) ON CONFLICT(Date, ItemId) DO UPDATE SET ServingsCompleted = ?",
+                dateStr, entry.ItemId, entry.ServingsCompleted, entry.ServingsCompleted);
+        }
+        finally
+        {
+            ExitWrite(gated);
+        }
     }
 
     public async Task DeleteEntriesForDateAsync(DateOnly date)
     {
         await EnsureInitializedAsync();
 
-        var dateStr = IsoDate.ToStorage(date);
-        await _connection.ExecuteAsync("DELETE FROM DailyEntries WHERE Date = ?", dateStr);
+        var gated = await EnterWriteAsync();
+        try
+        {
+            var dateStr = IsoDate.ToStorage(date);
+            await _connection.ExecuteAsync("DELETE FROM DailyEntries WHERE Date = ?", dateStr);
+        }
+        finally
+        {
+            ExitWrite(gated);
+        }
     }
 
     // ===== Weight Entries =====
@@ -228,18 +327,34 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        var dateStr = IsoDate.ToStorage(entry.Date);
-        await _connection.ExecuteAsync(
-            "INSERT INTO WeightEntries (Date, Weight, Notes) VALUES (?, ?, ?) ON CONFLICT(Date) DO UPDATE SET Weight = ?, Notes = ?",
-            dateStr, entry.Weight, entry.Notes, entry.Weight, entry.Notes);
+        var gated = await EnterWriteAsync();
+        try
+        {
+            var dateStr = IsoDate.ToStorage(entry.Date);
+            await _connection.ExecuteAsync(
+                "INSERT INTO WeightEntries (Date, Weight, Notes) VALUES (?, ?, ?) ON CONFLICT(Date) DO UPDATE SET Weight = ?, Notes = ?",
+                dateStr, entry.Weight, entry.Notes, entry.Weight, entry.Notes);
+        }
+        finally
+        {
+            ExitWrite(gated);
+        }
     }
 
     public async Task DeleteWeightEntryAsync(DateOnly date)
     {
         await EnsureInitializedAsync();
 
-        var dateStr = IsoDate.ToStorage(date);
-        await _connection.ExecuteAsync("DELETE FROM WeightEntries WHERE Date = ?", dateStr);
+        var gated = await EnterWriteAsync();
+        try
+        {
+            var dateStr = IsoDate.ToStorage(date);
+            await _connection.ExecuteAsync("DELETE FROM WeightEntries WHERE Date = ?", dateStr);
+        }
+        finally
+        {
+            ExitWrite(gated);
+        }
     }
 
     // ===== Statistics =====
@@ -385,9 +500,17 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        await _connection.ExecuteAsync(
-            "INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen) VALUES (?, ?, ?)",
-            achievement.AchievementId, IsoDate.TimestampToStorage(achievement.EarnedAt), achievement.HasBeenSeen ? 1 : 0);
+        var gated = await EnterWriteAsync();
+        try
+        {
+            await _connection.ExecuteAsync(
+                "INSERT OR IGNORE INTO EarnedAchievements (AchievementId, EarnedAt, HasBeenSeen) VALUES (?, ?, ?)",
+                achievement.AchievementId, IsoDate.TimestampToStorage(achievement.EarnedAt), achievement.HasBeenSeen ? 1 : 0);
+        }
+        finally
+        {
+            ExitWrite(gated);
+        }
     }
 
     public async Task<bool> IsAchievementEarnedAsync(string achievementId)
@@ -412,7 +535,15 @@ public class SqliteDataService : IDataService
     {
         await EnsureInitializedAsync();
 
-        await _connection.ExecuteAsync("UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0");
+        var gated = await EnterWriteAsync();
+        try
+        {
+            await _connection.ExecuteAsync("UPDATE EarnedAchievements SET HasBeenSeen = 1 WHERE HasBeenSeen = 0");
+        }
+        finally
+        {
+            ExitWrite(gated);
+        }
     }
 
     public async Task<int> GetPerfectDaysCountAsync()

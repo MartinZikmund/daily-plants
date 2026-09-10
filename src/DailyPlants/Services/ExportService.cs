@@ -76,18 +76,7 @@ public class ExportService : IExportService
         }
 
         // Export settings
-        exportData.Settings = new UserSettingsExport
-        {
-            DailyDozenEnabled = _appPreferences.DailyDozenEnabled,
-            TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled,
-            WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled,
-            UseMetricUnits = _appPreferences.UseMetricUnits,
-            HeightCm = _appPreferences.HeightCm,
-            GoalWeight = _appPreferences.GoalWeight,
-            ThemePreference = _appPreferences.ThemePreference,
-            Language = _appPreferences.Language,
-            DisabledItemIds = _appPreferences.DisabledItemIds
-        };
+        exportData.Settings = CaptureSettings();
 
         return JsonSerializer.Serialize(exportData, JsonOptions);
     }
@@ -138,77 +127,99 @@ public class ExportService : IExportService
             var achievementsImported = 0;
             var entriesSkipped = 0;
 
-            // One unit of work: a failure part way through must not leave the database
-            // half-overwritten, since import upserts straight over existing entries.
-            await _dataService.RunInTransactionAsync(async () =>
+            // Settings go in first: writing an entry records the checklist requirements in
+            // force at that moment, once and for good, so restoring a backup under the
+            // importing device's settings would stamp every day in the file with the wrong
+            // bar and silently rewrite its streaks. Preferences are not part of the database
+            // transaction, so they are captured and put back by hand if the import fails.
+            // A file without settings leaves the current ones alone.
+            var settingsToRestore = importData.Settings is null ? null : CaptureSettings();
+
+            try
             {
-                foreach (var entry in importData.DailyEntries)
+                // Inside the try: a setter that throws part way through leaves some of the
+                // incoming settings applied, and only the restore below puts them back.
+                if (importData.Settings is { } incomingSettings)
                 {
-                    if (!IsValidEntry(entry, out var date))
-                    {
-                        entriesSkipped++;
-                        continue;
-                    }
-
-                    await _dataService.SaveEntryAsync(new DailyEntry
-                    {
-                        Date = date,
-                        ItemId = entry.ItemId,
-                        ServingsCompleted = entry.ServingsCompleted
-                    });
-                    entriesImported++;
+                    ApplySettings(incomingSettings, storedInImperial);
                 }
 
-                foreach (var entry in importData.WeightEntries)
+                // One unit of work: a failure part way through must not leave the database
+                // half-overwritten, since import upserts straight over existing entries.
+                await _dataService.RunInTransactionAsync(async () =>
                 {
-                    if (!IsoDate.TryParse(entry.Date, out var weightDate) || entry.Weight <= 0)
+                    foreach (var entry in importData.DailyEntries)
                     {
-                        entriesSkipped++;
-                        continue;
+                        if (!IsValidEntry(entry, out var date))
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
+
+                        await _dataService.SaveEntryAsync(new DailyEntry
+                        {
+                            Date = date,
+                            ItemId = entry.ItemId,
+                            ServingsCompleted = entry.ServingsCompleted
+                        });
+                        entriesImported++;
                     }
 
-                    await _dataService.SaveWeightEntryAsync(new WeightEntry
+                    foreach (var entry in importData.WeightEntries)
                     {
-                        Date = weightDate,
-                        Weight = storedInImperial
-                            ? entry.Weight.DisplayToKilograms(useMetric: false)
-                            : entry.Weight,
-                        Notes = entry.Notes
-                    });
-                    weightEntriesImported++;
-                }
+                        if (!IsoDate.TryParse(entry.Date, out var weightDate) || entry.Weight <= 0)
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
 
-                foreach (var achievement in importData.Achievements)
-                {
-                    if (AchievementDefinitions.GetById(achievement.AchievementId) is null)
-                    {
-                        entriesSkipped++;
-                        continue;
+                        await _dataService.SaveWeightEntryAsync(new WeightEntry
+                        {
+                            Date = weightDate,
+                            Weight = storedInImperial
+                                ? entry.Weight.DisplayToKilograms(useMetric: false)
+                                : entry.Weight,
+                            Notes = entry.Notes
+                        });
+                        weightEntriesImported++;
                     }
 
-                    // Coercing an unreadable timestamp to "now" would silently rewrite the
-                    // badge's history, so the row is refused instead.
-                    if (!IsoDate.TryParseTimestamp(achievement.EarnedAt, out var earnedAt))
+                    foreach (var achievement in importData.Achievements)
                     {
-                        entriesSkipped++;
-                        continue;
+                        if (AchievementDefinitions.GetById(achievement.AchievementId) is null)
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
+
+                        // Coercing an unreadable timestamp to "now" would silently rewrite
+                        // the badge's history, so the row is refused instead.
+                        if (!IsoDate.TryParseTimestamp(achievement.EarnedAt, out var earnedAt))
+                        {
+                            entriesSkipped++;
+                            continue;
+                        }
+
+                        await _dataService.SaveEarnedAchievementAsync(new EarnedAchievement
+                        {
+                            AchievementId = achievement.AchievementId,
+                            EarnedAt = earnedAt,
+                            HasBeenSeen = achievement.HasBeenSeen
+                        });
+                        achievementsImported++;
                     }
-
-                    await _dataService.SaveEarnedAchievementAsync(new EarnedAchievement
-                    {
-                        AchievementId = achievement.AchievementId,
-                        EarnedAt = earnedAt,
-                        HasBeenSeen = achievement.HasBeenSeen
-                    });
-                    achievementsImported++;
-                }
-
-                // Settings are optional - a file without them leaves the current ones alone.
-                if (importData.Settings is { } settings)
+                });
+            }
+            catch
+            {
+                if (settingsToRestore is not null)
                 {
-                    ApplySettings(settings, storedInImperial);
+                    // Already canonical - these came out of the live preferences.
+                    ApplySettings(settingsToRestore, storedInImperial: false);
                 }
-            });
+
+                throw;
+            }
 
             return new ImportResult
             {
@@ -295,6 +306,20 @@ public class ExportService : IExportService
             return Failed($"CSV import failed: {ex.Message}");
         }
     }
+
+    /// <summary>Snapshots the live preferences, so a failed import can put them back.</summary>
+    private UserSettingsExport CaptureSettings() => new()
+    {
+        DailyDozenEnabled = _appPreferences.DailyDozenEnabled,
+        TwentyOneTweaksEnabled = _appPreferences.TwentyOneTweaksEnabled,
+        WeightTrackingEnabled = _appPreferences.WeightTrackingEnabled,
+        UseMetricUnits = _appPreferences.UseMetricUnits,
+        HeightCm = _appPreferences.HeightCm,
+        GoalWeight = _appPreferences.GoalWeight,
+        ThemePreference = _appPreferences.ThemePreference,
+        Language = _appPreferences.Language,
+        DisabledItemIds = _appPreferences.DisabledItemIds
+    };
 
     private void ApplySettings(UserSettingsExport settings, bool storedInImperial)
     {
