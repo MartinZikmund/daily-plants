@@ -59,6 +59,7 @@
             as the dots, and it costs no icon font on the non-Windows heads.
         -->
         <Button
+            x:Name="IncrementButton"
             AutomationProperties.AutomationId="ServingStepperIncrement"
             AutomationProperties.Name="{helpers:Localize Key=Diary_IncreaseServing}"
             BorderBrush="{ThemeResource DpGreenBrush}"

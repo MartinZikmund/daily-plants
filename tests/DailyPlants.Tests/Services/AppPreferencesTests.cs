@@ -19,6 +19,17 @@ public class AppPreferencesTests
         prefs.ThemePreference.Should().Be(0);
         prefs.Language.Should().BeNull();
         prefs.DisabledItemIds.Should().BeEmpty();
+        prefs.SeenTips.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void SeenTips_RoundTrips()
+    {
+        var prefs = new AppPreferences(new InMemoryPreferences());
+
+        prefs.SeenTips = "diary-log-serving,diary-day-progress";
+
+        prefs.SeenTips.Should().Be("diary-log-serving,diary-day-progress");
     }
 
     [TestMethod]

@@ -17,4 +17,5 @@ internal sealed class FakeAppPreferences : IAppPreferences
     public string DisabledItemIds { get; set; } = string.Empty;
     public bool UnitsAreCanonical { get; set; }
     public bool HasSeenChecklistImpactWarning { get; set; }
+    public string SeenTips { get; set; } = string.Empty;
 }

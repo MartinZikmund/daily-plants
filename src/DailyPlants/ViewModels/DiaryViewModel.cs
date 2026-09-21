@@ -1,8 +1,9 @@
-﻿using System.Globalization;
+using System.Globalization;
 using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
+using DailyPlants.Services.Tips;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace DailyPlants.ViewModels;
@@ -25,6 +26,7 @@ public partial class DiaryViewModel : ObservableObject
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
     private readonly IAchievementService? _achievementService;
+    private readonly ITipService? _tipService;
 
     private readonly ILogger _logger;
     private readonly TimeProvider _timeProvider;
@@ -103,6 +105,15 @@ public partial class DiaryViewModel : ObservableObject
     private bool _isDoneTodayExpanded = true;
 
     /// <summary>
+    /// The teaching tip currently on screen, or null when none is. Only ever one at a time.
+    /// </summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowLogServingTip))]
+    [NotifyPropertyChangedFor(nameof(ShowDayProgressTip))]
+    [NotifyPropertyChangedFor(nameof(ShowPastDaysTip))]
+    private TipId? _activeTip;
+
+    /// <summary>
     /// The full, ordered set of rows for the current day. Groups are derived from it.
     /// </summary>
     public ObservableCollection<ChecklistItemViewModel> Items { get; } = [];
@@ -122,6 +133,126 @@ public partial class DiaryViewModel : ObservableObject
     public bool ShowTally => !IsLoading && Items.Count > 0;
 
     public bool ShowDoneTodayRows => ShowDoneTodayGroup && IsDoneTodayExpanded;
+
+    public bool ShowLogServingTip => ActiveTip == TipId.DiaryLogServing;
+
+    public bool ShowDayProgressTip => ActiveTip == TipId.DiaryDayProgress;
+
+    public bool ShowPastDaysTip => ActiveTip == TipId.DiaryPastDays;
+
+    /// <summary>
+    /// Picks the tip to show for this page load, if any. The tour drains before any
+    /// contextual tip fires, so a user who quit part way through it is not handed two
+    /// unrelated lessons at once.
+    /// </summary>
+    /// <param name="canPointAtARow">
+    /// Whether a checklist row is on screen for the first tour step to point at. The view
+    /// knows; the ViewModel cannot see the visual tree.
+    /// </param>
+    public async Task EvaluateTipsAsync(bool canPointAtARow = true)
+    {
+        if (_tipService is null || ActiveTip is not null)
+        {
+            return;
+        }
+
+        foreach (var step in TipIdExtensions.TourSteps)
+        {
+            if (!_tipService.ShouldShow(step))
+            {
+                continue;
+            }
+
+            // With nothing to anchor it to, the tip would strand itself mid-screen. Sitting
+            // this load out costs nothing; marking it seen would cost the lesson for good.
+            if (step == TipId.DiaryLogServing && !canPointAtARow)
+            {
+                return;
+            }
+
+            ActiveTip = step;
+            return;
+        }
+
+        if (_tipService.ShouldShow(TipId.DiaryPastDays) && await HasADayWorthGoingBackForAsync())
+        {
+            ActiveTip = TipId.DiaryPastDays;
+        }
+    }
+
+    /// <summary>
+    /// True when the last thing logged is older than yesterday - the tip is only worth
+    /// showing to someone who actually has a day to go back and fill in.
+    /// </summary>
+    private async Task<bool> HasADayWorthGoingBackForAsync()
+    {
+        try
+        {
+            var dates = await _dataService.GetDatesWithEntriesAsync();
+            return dates.Count > 0 && dates.Max() < Today.AddDays(-1);
+        }
+        catch (Exception ex)
+        {
+            // A tip nobody saw stays unseen, and is retried on the next load.
+            _logger.LogWarning(ex, "Could not read entry dates while deciding on the past-days tip");
+            return false;
+        }
+    }
+
+    private static TipId? NextTourStep(TipId current)
+    {
+        var steps = TipIdExtensions.TourSteps;
+
+        for (var i = 0; i < steps.Count - 1; i++)
+        {
+            if (steps[i] == current)
+            {
+                return steps[i + 1];
+            }
+        }
+
+        return null;
+    }
+
+    [RelayCommand]
+    private void TipNext()
+    {
+        if (_tipService is null || ActiveTip is not { } tip)
+        {
+            return;
+        }
+
+        _tipService.MarkSeen(tip);
+        ActiveTip = NextTourStep(tip);
+    }
+
+    /// <summary>
+    /// Ends the tour without touching the contextual tips: Skip means "not now", not
+    /// "never tell me anything".
+    /// </summary>
+    [RelayCommand]
+    private void TipSkip()
+    {
+        if (_tipService is null)
+        {
+            return;
+        }
+
+        _tipService.MarkSeen([.. TipIdExtensions.TourSteps]);
+        ActiveTip = null;
+    }
+
+    [RelayCommand]
+    private void TipDismissed()
+    {
+        if (_tipService is null || ActiveTip is not { } tip)
+        {
+            return;
+        }
+
+        _tipService.MarkSeen(tip);
+        ActiveTip = null;
+    }
 
     public string StillToGoHeaderText => Localizer.GetString("Diary_StillToGo");
 
@@ -157,11 +288,13 @@ public partial class DiaryViewModel : ObservableObject
         IAppPreferences appPreferences,
         IAchievementService? achievementService = null,
         TimeProvider? timeProvider = null,
-        ILogger<DiaryViewModel>? logger = null)
+        ILogger<DiaryViewModel>? logger = null,
+        ITipService? tipService = null)
     {
         _dataService = dataService;
         _appPreferences = appPreferences;
         _achievementService = achievementService;
+        _tipService = tipService;
         _timeProvider = timeProvider ?? TimeProvider.System;
         _logger = logger ?? NullLogger<DiaryViewModel>.Instance;
         _currentDate = Today;

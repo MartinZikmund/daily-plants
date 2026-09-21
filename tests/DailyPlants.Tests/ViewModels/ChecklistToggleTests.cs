@@ -27,6 +27,7 @@ public class ChecklistToggleTests
         public string? Language { get; set; }
         public bool UnitsAreCanonical { get; set; }
         public bool HasSeenChecklistImpactWarning { get; set; }
+        public string SeenTips { get; set; } = string.Empty;
 
         public string DisabledItemIds
         {
