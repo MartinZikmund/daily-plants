@@ -40,6 +40,13 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(IsWinAppSdk)' == 'true'">
+        <!--
+          Uno.Sdk bundles the whole Windows App SDK (~60 MB) into MSIX packages. Depend on the framework
+          package instead, which the Store installs, like a plain WinUI app does.
+          https://github.com/unoplatform/uno/issues/24578
+        -->
+        <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+
         <!-- Full trimming breaks the Localize markup extension at startup; partial only trims the framework. -->
         <TrimMode>partial</TrimMode>
     </PropertyGroup>
