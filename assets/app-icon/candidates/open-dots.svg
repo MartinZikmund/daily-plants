@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8.7 8.1 239.9 239.9">
+  <defs>
+    <linearGradient id="dozen-leaf" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3A6244"/>
+      <stop offset="1" stop-color="#7DB26A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Daily Dozen in app order: beans, berries, other fruits, cruciferous, greens, other veg,
+       flax, nuts, herbs & spices, whole grains, beverages, exercise. Last three still to go. -->
+  <g transform="translate(128 128) scale(.95)">
+    <circle r="21" cx="0" cy="-104" fill="#A33D2E"/>
+    <circle r="21" cx="52" cy="-90.1" fill="#4A3F97"/>
+    <circle r="21" cx="90.1" cy="-52" fill="#EE8E36"/>
+    <circle r="21" cx="104" cy="0" fill="#3F7A4A"/>
+    <circle r="21" cx="90.1" cy="52" fill="#6FAE4F"/>
+    <circle r="21" cx="52" cy="90.1" fill="#D9533B"/>
+    <circle r="21" cx="0" cy="104" fill="#9C6A34"/>
+    <circle r="21" cx="-52" cy="90.1" fill="#D2A762"/>
+    <circle r="21" cx="-90.1" cy="52" fill="#94B84A"/>
+    <circle r="17" cx="-104" cy="0" fill="none" stroke="#9AA08F" stroke-width="5"/>
+    <circle r="17" cx="-90.1" cy="-52" fill="none" stroke="#9AA08F" stroke-width="5"/>
+    <circle r="17" cx="-52" cy="-90.1" fill="none" stroke="#9AA08F" stroke-width="5"/>
+
+    <g transform="rotate(-45) translate(-62 0)">
+      <path d="M0 0C26-42 98-46 124 0C98 46 26 42 0 0Z" fill="url(#dozen-leaf)"/>
+      <path d="M-10 0H108" stroke="#23271F" stroke-opacity=".4" stroke-width="5" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
