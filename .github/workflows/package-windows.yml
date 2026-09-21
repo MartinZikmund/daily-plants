@@ -87,6 +87,26 @@ jobs:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
 
+    # Nothing fails when trimming or a size workaround silently stops working; the package just grows again
+    - name: Check the package size workarounds
+      shell: pwsh
+      run: |
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $msix = Get-ChildItem "$env:PROJECT_PATH\Packages" -Recurse -Filter *.msix | Select-Object -First 1
+        $zip = [IO.Compression.ZipFile]::OpenRead($msix.FullName)
+        try {
+          $projection = $zip.GetEntry('Microsoft.Windows.SDK.NET.dll')
+          if ($projection.Length -gt 10MB) { throw "Microsoft.Windows.SDK.NET.dll is $([int]($projection.Length / 1MB)) MB: the package was not trimmed" }
+
+          $skia = @($zip.Entries | Where-Object Name -in 'libSkiaSharp.dll', 'libGLESv2.dll')
+          if ($skia) { throw "Unused Skia natives are back (unoplatform/uno#24576): $($skia.Name -join ', ')" }
+
+          $manifest = [IO.StreamReader]::new($zip.GetEntry('AppxManifest.xml').Open()).ReadToEnd()
+          if ($manifest -notmatch 'PackageDependency Name="Microsoft\.WindowsAppRuntime\.') { throw 'The Windows App SDK is bundled again (unoplatform/uno#24578)' }
+        }
+        finally { $zip.Dispose() }
+        '{0}: {1:N1} MB' -f $msix.Name, ($msix.Length / 1MB)
+
     # Remove the pfx
     - name: Remove the pfx
       run: Remove-Item -path GitHubActionsWorkflow.pfx
