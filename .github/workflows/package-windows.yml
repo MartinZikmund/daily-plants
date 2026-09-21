@@ -92,7 +92,7 @@ jobs:
       shell: pwsh
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        $msix = Get-ChildItem "$env:PROJECT_PATH\Packages" -Recurse -Filter *.msix | Select-Object -First 1
+        $msix = Get-ChildItem "$env:PROJECT_PATH\Packages" -Recurse -Filter "${env:APP_NAME}_*.msix" | Select-Object -First 1
         $zip = [IO.Compression.ZipFile]::OpenRead($msix.FullName)
         try {
           $projection = $zip.GetEntry('Microsoft.Windows.SDK.NET.dll')
