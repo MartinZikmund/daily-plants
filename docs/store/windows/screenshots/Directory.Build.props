@@ -1,0 +1,6 @@
+<Project>
+  <!--
+    Stops the repo-level props (central package versions, Nerdbank.GitVersioning) from applying to
+    seed-demo-data.cs, so it can pin its SQLite packages itself.
+  -->
+</Project>
