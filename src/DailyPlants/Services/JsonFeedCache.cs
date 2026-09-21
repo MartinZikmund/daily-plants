@@ -8,11 +8,11 @@ namespace DailyPlants.Services;
 /// </summary>
 public sealed class JsonFeedCache : IFeedCache
 {
-    private static readonly JsonSerializerOptions JsonOptions = new()
+    private static readonly DailyPlantsJsonContext Json = new(new JsonSerializerOptions
     {
         WriteIndented = false,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-    };
+    });
 
     private readonly string _cacheDirectory;
     private readonly ILogger<JsonFeedCache> _logger;
@@ -40,7 +40,7 @@ public sealed class JsonFeedCache : IFeedCache
         try
         {
             var json = await File.ReadAllTextAsync(path, cancellationToken);
-            return JsonSerializer.Deserialize<CachedFeed>(json, JsonOptions);
+            return JsonSerializer.Deserialize(json, Json.CachedFeed);
         }
         catch (OperationCanceledException)
         {
@@ -63,7 +63,7 @@ public sealed class JsonFeedCache : IFeedCache
             EnsureDirectory();
 
             // Write aside then move: a process killed mid-write must not leave a half-written cache.
-            var json = JsonSerializer.Serialize(feed, JsonOptions);
+            var json = JsonSerializer.Serialize(feed, Json.CachedFeed);
             await File.WriteAllTextAsync(temporaryPath, json, cancellationToken);
             File.Move(temporaryPath, path, overwrite: true);
         }

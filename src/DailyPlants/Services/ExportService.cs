@@ -19,11 +19,11 @@ public class ExportService : IExportService
 
     private readonly IDataService _dataService;
     private readonly IAppPreferences _appPreferences;
-    private static readonly JsonSerializerOptions JsonOptions = new()
+    private static readonly DailyPlantsJsonContext Json = new(new JsonSerializerOptions
     {
         WriteIndented = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-    };
+    });
 
     public ExportService(IDataService dataService, IAppPreferences appPreferences)
     {
@@ -78,7 +78,7 @@ public class ExportService : IExportService
         // Export settings
         exportData.Settings = CaptureSettings();
 
-        return JsonSerializer.Serialize(exportData, JsonOptions);
+        return JsonSerializer.Serialize(exportData, Json.ExportData);
     }
 
     public async Task<string> ExportToCsvAsync()
@@ -106,7 +106,7 @@ public class ExportService : IExportService
     {
         try
         {
-            var importData = JsonSerializer.Deserialize<ExportData>(json, JsonOptions);
+            var importData = JsonSerializer.Deserialize(json, Json.ExportData);
             if (importData == null)
             {
                 return Failed("Invalid JSON format");
