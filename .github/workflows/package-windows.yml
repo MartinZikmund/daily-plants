@@ -62,11 +62,13 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3.1
 
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    # Restore the application to populate the obj folder with RuntimeIdentifiers.
+    # The platform picks the publish profile; without it the trimmer is never restored and the build skips trimming.
     - name: Restore the application
-      run: msbuild $env:PROJECT_FILE /t:Restore /p:TargetFramework=$env:WINDOWS_TARGET_FRAMEWORK /p:Configuration=$env:Configuration /p:PublishReadyToRun=true
+      run: msbuild $env:PROJECT_FILE /t:Restore /p:TargetFramework=$env:WINDOWS_TARGET_FRAMEWORK /p:Configuration=$env:Configuration /p:Platform=$env:Platform /p:PublishReadyToRun=true
       env:
         Configuration: ${{ matrix.configuration }}
+        Platform: ${{ matrix.platform }}
 
     # Decode the base 64 encoded pfx and save the Signing_Certificate
     - name: Decode the pfx
