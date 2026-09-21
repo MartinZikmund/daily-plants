@@ -1172,6 +1172,9 @@
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Δες τα όλα</value>
   </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>Δες περισσότερα</value>
+  </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>Αναζήτηση στο NutritionFacts.org</value>
   </data>

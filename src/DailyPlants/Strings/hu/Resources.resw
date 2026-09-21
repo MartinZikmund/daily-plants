@@ -1167,10 +1167,13 @@
     <value>{0}. {1}, {2}</value>
   </data>
   <data name="Resources_TeaserHeader" xml:space="preserve">
-    <value>Újdonság a NutritionFacts.org-tól</value>
+    <value>A NutritionFacts.org legfrissebb tartalmai</value>
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Összes megtekintése</value>
+  </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>Továbbiak</value>
   </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>Keresés a NutritionFacts.org oldalon</value>

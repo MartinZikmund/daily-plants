@@ -1167,10 +1167,13 @@
     <value>{0}. {1}, {2}</value>
   </data>
   <data name="Resources_TeaserHeader" xml:space="preserve">
-    <value>Ново от NutritionFacts.org</value>
+    <value>Най-новото от NutritionFacts.org</value>
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Виж всички</value>
+  </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>Виж още</value>
   </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>Търсене в NutritionFacts.org</value>

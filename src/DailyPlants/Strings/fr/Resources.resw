@@ -1172,6 +1172,9 @@
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Tout voir</value>
   </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>Voir plus</value>
+  </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>Rechercher sur NutritionFacts.org</value>
   </data>

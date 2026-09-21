@@ -1167,10 +1167,13 @@
     <value>{0}. {1}, {2}</value>
   </data>
   <data name="Resources_TeaserHeader" xml:space="preserve">
-    <value>חדש מ-NutritionFacts.org</value>
+    <value>עדכונים אחרונים מ-NutritionFacts.org</value>
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>הצג הכול</value>
+  </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>הצג עוד</value>
   </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>חיפוש ב-NutritionFacts.org</value>
