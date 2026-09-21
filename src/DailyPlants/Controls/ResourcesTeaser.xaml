@@ -31,7 +31,7 @@
                 Grid.Column="2"
                 Padding="0"
                 VerticalAlignment="Center"
-                AutomationProperties.AutomationId="DiaryResourcesSeeAllButton"
+                AutomationProperties.AutomationId="DiaryResourcesSeeMoreButton"
                 Command="{x:Bind ViewModel.OpenResourcesCommand}"
                 Content="{helpers:Localize Key=Resources_SeeMore}" />
         </Grid>
