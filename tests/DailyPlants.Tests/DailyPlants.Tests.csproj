@@ -11,6 +11,9 @@
         <EnableMSTestRunner>true</EnableMSTestRunner>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
 
+        <!-- The trimmed Windows package runs without reflection-based JSON, so the tests do too. -->
+        <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+
         <UnoFeatures>
             Mvvm;
         </UnoFeatures>
