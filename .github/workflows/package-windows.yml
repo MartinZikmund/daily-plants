@@ -148,10 +148,12 @@ jobs:
           pattern: MSIX_Package_*
           path: ./msix
 
+      # Only the app's own packages: framework-dependent builds also drop the Windows App Runtime
+      # packages under Dependencies\, which the Store installs itself and makeappx refuses to bundle
       - name: Copy all .msix files to temporary location
         id: copymsix
         run: |
-          $msixFiles = Get-ChildItem -Path ./msix -Filter *.msix -Recurse
+          $msixFiles = Get-ChildItem -Path ./msix -Filter "${env:APP_NAME}_*.msix" -Recurse
           $tmp = Join-Path $env:RUNNER_TEMP ([IO.Path]::GetRandomFileName()); New-Item $tmp -ItemType Directory | Out-Null
           Copy-Item $msixFiles -Destination $tmp
           echo "msix_temp_dir=$tmp" >> $env:GITHUB_OUTPUT
