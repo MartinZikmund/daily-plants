@@ -31,52 +31,49 @@
                 Grid.Column="2"
                 Padding="0"
                 VerticalAlignment="Center"
-                AutomationProperties.AutomationId="DiaryResourcesSeeAllButton"
+                AutomationProperties.AutomationId="DiaryResourcesSeeMoreButton"
                 Command="{x:Bind ViewModel.OpenResourcesCommand}"
-                Content="{helpers:Localize Key=Resources_SeeAll}" />
+                Content="{helpers:Localize Key=Resources_SeeMore}" />
         </Grid>
 
-        <ScrollViewer
-            HorizontalScrollBarVisibility="Auto"
-            HorizontalScrollMode="Auto"
-            VerticalScrollBarVisibility="Disabled"
-            VerticalScrollMode="Disabled">
-            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
-                <ItemsRepeater.Layout>
-                    <StackLayout Orientation="Horizontal" Spacing="12" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="vm:FeedItemViewModel">
-                        <Button
-                            Width="200"
-                            AutomationProperties.AutomationId="{x:Bind AutomationId}"
-                            AutomationProperties.Name="{x:Bind AutomationName}"
-                            Command="{x:Bind OpenCommand}"
-                            Style="{StaticResource DpFeedCardButtonStyle}"
-                            ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
-                            <Grid>
+        <ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+            <ItemsRepeater.Layout>
+                <StackLayout Spacing="12" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                <!--  A copy of the Resources page's FeedCardTemplate: keep the two in step  -->
+                <DataTemplate x:DataType="vm:FeedItemViewModel">
+                    <Button
+                        MinHeight="84"
+                        AutomationProperties.AutomationId="{x:Bind AutomationId}"
+                        AutomationProperties.Name="{x:Bind AutomationName}"
+                        Command="{x:Bind OpenCommand}"
+                        Style="{StaticResource DpFeedCardButtonStyle}"
+                        ToolTipService.ToolTip="{helpers:Localize Key=Resources_OpenInBrowser}">
+                        <Grid Padding="12" ColumnSpacing="12">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
                             <!--  Placeholder behind the image: a remote thumbnail may be slow, missing or refused  -->
                             <Border
-                                Height="112"
+                                Width="112"
+                                Height="63"
+                                VerticalAlignment="Top"
                                 Background="{ThemeResource DpHairlineBrush}"
-                                CornerRadius="8,8,0,0">
+                                CornerRadius="8">
                                 <Image
                                     Source="{x:Bind ThumbnailUrl, Converter={StaticResource StringToImageSourceConverter}}"
                                     Stretch="UniformToFill"
                                     Visibility="{x:Bind HasThumbnail}" />
                             </Border>
 
-                            <!--  MinHeight keeps the three cards level when a title runs to one line instead of two  -->
                             <StackPanel
-                                Grid.Row="1"
-                                MinHeight="92"
-                                Padding="12"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
                                 Spacing="2">
                                 <TextBlock Style="{StaticResource DpOverlineTextBlockStyle}" Text="{x:Bind KindText}" />
                                 <TextBlock
@@ -87,15 +84,21 @@
                                     TextTrimming="CharacterEllipsis"
                                     TextWrapping="Wrap" />
                                 <TextBlock
+                                    MaxLines="2"
+                                    Style="{StaticResource DpCaptionTextBlockStyle}"
+                                    Text="{x:Bind Summary}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    Visibility="{x:Bind HasSummary}" />
+                                <TextBlock
                                     Foreground="{ThemeResource DpGreenInkBrush}"
                                     Style="{StaticResource DpCaptionTextBlockStyle}"
                                     Text="{x:Bind PublishedText}" />
                             </StackPanel>
-                            </Grid>
-                        </Button>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-        </ScrollViewer>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
     </StackPanel>
 </UserControl>

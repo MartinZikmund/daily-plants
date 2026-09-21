@@ -12,7 +12,8 @@
         <!--  Unselected tabs sit back on opacity rather than swapping weight; see ResourcesView.TabOpacity.  -->
         <local:TabOpacityConverter x:Key="TabOpacityConverter" />
 
-        <!--  Thumbnail | kicker over title, summary and date. The whole card is the tap target.  -->
+        <!--  Thumbnail | kicker over title, summary and date. The whole card is the tap target.
+            The Diary's ResourcesTeaser carries a copy: keep the two in step.  -->
         <DataTemplate x:Key="FeedCardTemplate" x:DataType="vm:FeedItemViewModel">
             <Button
                 MinHeight="84"

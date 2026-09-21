@@ -1167,10 +1167,13 @@
     <value>{0}. {1}، {2}</value>
   </data>
   <data name="Resources_TeaserHeader" xml:space="preserve">
-    <value>تازه از NutritionFacts.org</value>
+    <value>تازه‌ترین‌ها از NutritionFacts.org</value>
   </data>
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>مشاهده همه</value>
+  </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>مشاهده بیشتر</value>
   </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>جست‌وجو در NutritionFacts.org</value>

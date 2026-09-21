@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace DailyPlants.ViewModels;
 
 /// <summary>
-/// The "new from NutritionFacts.org" strip at the foot of the Diary page.
+/// The "latest from NutritionFacts.org" strip at the foot of the Diary page.
 /// </summary>
 public partial class ResourcesTeaserViewModel : ObservableObject
 {

@@ -1172,6 +1172,9 @@
   <data name="Resources_SeeAll" xml:space="preserve">
     <value>Zobrazit vše</value>
   </data>
+  <data name="Resources_SeeMore" xml:space="preserve">
+    <value>Zobrazit více</value>
+  </data>
   <data name="Resources_SearchPlaceholder" xml:space="preserve">
     <value>Hledat na NutritionFacts.org</value>
   </data>
