@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml.Input;
 namespace DailyPlants.Controls;
 
 /// <summary>
-/// The "new from NutritionFacts.org" strip on the Diary page. Self-contained: it resolves
+/// The "latest from NutritionFacts.org" strip on the Diary page. Self-contained: it resolves
 /// its own services so the Diary page needs one line of XAML and no ViewModel change.
 /// </summary>
 public sealed partial class ResourcesTeaser : UserControl
