@@ -196,11 +196,32 @@ earned appears as a toast beneath. Needs a settings toggle.
   Not yet subset: Fraunces is 384 KB and Karla 94 KB. That is a real cost on the
   WASM head and should be trimmed to Latin + the fractions used in serving sizes
   (½ ¼ ⅓) before release.
-- **App icon** — deferred until the in-app design is finished.
+- **App icon** — **Mixed berries**: a linen plate holding a leaf-shaped green
+  tick and a handful of berries (blueberry, raspberry, golden berry,
+  blackcurrant). It replaces the Icons8 sprout in a blue bowl, which read as a
+  houseplant being watered rather than a plant-based diet. Original artwork,
+  colour from the food only, same palette as the rest of Windowsill.
+
+  Four runners-up are kept in `assets/app-icon/candidates/` (a top-down Buddha
+  bowl, a strawberry variant of the plate, and two Daily Dozen dials).
+  `assets/app-icon/Set-AppIcon.ps1 -Name <candidate>` switches between them: it
+  copies the SVG to `icon_foreground.svg`, `splash_screen.svg` and `applogo.svg`,
+  writes the Android/iOS plate (`icon.svg`), and regenerates the 50 Windows
+  package PNGs with `export-windows-assets.cs`. That uses Svg.Skia, the same
+  renderer as the Uno SDK, at the Visual Studio asset generator's proportions.
+
+  Rules the candidates follow, learned the hard way:
+  - The art fills 99% of its `viewBox`. Circles read smaller than the square
+    icons beside them on the taskbar, so the usual padding makes them look lost.
+  - No outer drop shadow. With the art that close to the edge, the shadow gets
+    cut flat at the bottom, which shows on the 100px About page.
+  - No `<use>` elements, so WinUI's native `SvgImageSource` (title bar, About
+    page) renders them the same as Skia does.
 
 ### Licensing — unresolved
 
 `THIRD-PARTY-NOTICES.md` credits only Segoe Fluent Icons. The Icons8 artwork —
-39 items, 23 badges, and `Assets/Svg/applogo.svg` — is not credited anywhere.
+39 items and 23 badges — is not credited anywhere. (The app icon and
+`Assets/Svg/applogo.svg` are no longer Icons8; see above.)
 Icons8's free tier requires a visible attribution link. Settle before store
 submission.
