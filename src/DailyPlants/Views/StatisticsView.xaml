@@ -57,9 +57,9 @@
 
                         <ItemsRepeater ItemsSource="{x:Bind ViewModel.DailyCompletion, Mode=OneWay}">
                             <ItemsRepeater.Layout>
+                                <!--  MinItemHeight is an exact size, not a minimum, so the template's height is left to set it  -->
                                 <UniformGridLayout Orientation="Horizontal"
                                                     MinItemWidth="4"
-                                                    MinItemHeight="4"
                                                     MinColumnSpacing="4"
                                                     MaximumRowsOrColumns="30"
                                                     ItemsStretch="Fill" />

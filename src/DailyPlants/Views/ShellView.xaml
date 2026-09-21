@@ -137,20 +137,32 @@
                     ColumnSpacing="16"
                     Visibility="{x:Bind HasCustomTitleBar}">
 
-                    <Grid Margin="0,0,0,0" x:Name="DraggableTitleBar">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
-                            <Image Source="ms-appx:///Assets/Svg/applogo.svg" Width="16" />
-                            <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource DpCaptionTextBlockStyle}"
-                            Text="Daily Plants" />
-                        </StackPanel>
-                    </Grid>
+                    <Grid Margin="0,0,0,0" x:Name="DraggableTitleBar" Background="Transparent" />
                 </Grid>
             </Grid>
 
         </NavigationView>
+
+        <!--
+            The title spans the whole window so it centres on the window rather than on the
+            content column. It ignores input, so the drag region and the pane button beneath still work.
+        -->
+        <StackPanel
+            x:Name="WindowTitle"
+            Height="46"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            IsHitTestVisible="False"
+            Orientation="Horizontal"
+            Spacing="8"
+            Visibility="{x:Bind HasCustomTitleBar}">
+            <Image VerticalAlignment="Center" Source="ms-appx:///Assets/Svg/applogo.svg" Width="16" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource DpInkBrush}"
+                Style="{StaticResource DpCaptionTextBlockStyle}"
+                Text="Daily Plants" />
+        </StackPanel>
 
         <!-- Achievement Notification Popup -->
         <controls:AchievementNotification x:Name="AchievementNotification" />

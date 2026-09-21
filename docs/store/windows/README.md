@@ -5,16 +5,15 @@ The source for the Daily Plants listing in Partner Center (product `9NKK3K501RZG
 - `listing/<lang>.md` has the text for one listing language. Each `##` heading is a Partner Center field. `Features`, `SearchTerms` and `ScreenshotCaptions` are `- ` lists.
 - `images/<Field>.png` sets that image in every language, for example `images/StoreLogo300x300.png` or `images/DesktopScreenshot1.png`. Put a file in `images/<lang>/` to replace it for one language only.
 - `screenshots/` builds the `DesktopScreenshot` images, see below.
-- `Build-StoreListing.ps1` checks the text against the Store's limits and merges everything into a Partner Center export.
+- `Build-StoreListing.ps1` checks the text against the Store's limits and builds a folder for Partner Center's folder upload.
 
 ## Updating the listing
 
 1. Edit `listing/en.md`, then update the other languages to match.
-2. In Partner Center, open the app overview and select **Export listings**.
-3. Run `./Build-StoreListing.ps1 -ExportPath <exported csv>`. It writes `artifacts/store/windows/store-listing`.
-4. Select **Import listings > Import folder** and choose that folder.
+2. Run `./Build-StoreListing.ps1`. It writes `artifacts/store/windows/store-listing` with `listing.csv` and the images it references.
+3. In Partner Center, open the app overview, select **Import listings > Upload folder** and pick that `store-listing` folder.
 
-Anything these files don't cover, such as trailers or hardware requirements, keeps the value from the export. Screenshots after the last `images/DesktopScreenshot<N>.png` are removed. Run the script without `-ExportPath` to only check the text.
+The CSV only has rows for what these files cover, so anything else, such as trailers or hardware requirements, stays as it is in Partner Center. Text fields are replaced as a whole, so a feature or search term removed here is removed there too. Images only get added or replaced: an import can't remove one, so if you drop a screenshot, delete it in Partner Center as well. Run the script with `-CheckOnly` to only check the text.
 
 ## Screenshots
 

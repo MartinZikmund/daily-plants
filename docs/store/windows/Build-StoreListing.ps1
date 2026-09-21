@@ -1,50 +1,64 @@
 <#
 .SYNOPSIS
-Builds a Partner Center import folder for the Microsoft Store listing from the sources next to this script.
+Builds a folder for Partner Center's "Import listings > Upload folder" from the sources next to this script.
 
 .DESCRIPTION
 Text comes from listing/<lang>.md and images from images/ (images/<lang>/ overrides a file for one language).
-Every other value in the export, such as trailers and hardware requirements, is kept as exported.
-Run without -ExportPath to only validate the sources.
+The CSV only has rows for what these sources cover, and Partner Center leaves every row it doesn't get,
+such as trailers or hardware requirements, as it was.
 
 .EXAMPLE
-./Build-StoreListing.ps1 -ExportPath ~/Downloads/listingData-9NKK3K501RZG-1152921505701942828.csv
+./Build-StoreListing.ps1
+./Build-StoreListing.ps1 -CheckOnly
 #>
 [CmdletBinding()]
 param(
-    # The CSV from "Export listings" on the app overview page in Partner Center.
-    [string] $ExportPath,
+    [string] $OutputPath = (Join-Path $PSScriptRoot '../../../artifacts/store/windows'),
 
-    [string] $OutputPath = (Join-Path $PSScriptRoot '../../../artifacts/store/windows')
+    # Only check the sources against the Store's limits.
+    [switch] $CheckOnly
 )
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
-# The import folder's name is part of every image path in the CSV.
-$ImportFolderName = 'store-listing'
+# The folder you pick in Partner Center. Its name is part of every image path in the CSV.
+$UploadFolderName = 'store-listing'
 
-$TextLimits = [ordered]@{
-    Title                         = 256
-    ShortTitle                    = 50
-    SortTitle                     = 255
-    VoiceTitle                    = 255
-    ShortDescription              = 1000
-    Description                   = 10000
-    ReleaseNotes                  = 1500
-    DevStudio                     = 255
-    CopyrightTrademarkInformation = 200
-    AdditionalLicenseTerms        = 10000
+$TextType = 'Text'
+$ImageType = 'Relative path (or URL to file in Partner Center)'
+
+# Partner Center's field IDs and limits. The IDs come from its listing export and must match it exactly.
+$TextFields = [ordered]@{
+    Description                   = @{ Id = 2; Limit = 10000 }
+    ReleaseNotes                  = @{ Id = 3; Limit = 1500 }
+    Title                         = @{ Id = 4; Limit = 256 }
+    ShortTitle                    = @{ Id = 5; Limit = 50 }
+    SortTitle                     = @{ Id = 6; Limit = 255 }
+    VoiceTitle                    = @{ Id = 7; Limit = 255 }
+    ShortDescription              = @{ Id = 8; Limit = 1000 }
+    DevStudio                     = @{ Id = 9; Limit = 255 }
+    CopyrightTrademarkInformation = @{ Id = 12; Limit = 200 }
+    AdditionalLicenseTerms        = @{ Id = 13; Limit = 10000 }
 }
 $RequiredText = 'Title', 'Description'
 $ShortDescriptionVisible = 270
 
+# Numbered fields: <Row>1 has FirstId, and each next one counts up.
 $ListFields = @{
-    Features           = @{ Row = 'Feature'; Max = 20; Length = 200 }
-    SearchTerms        = @{ Row = 'SearchTerm'; Max = 7; Length = 30 }
-    ScreenshotCaptions = @{ Row = 'DesktopScreenshotCaption'; Max = 30; Length = 200 }
+    Features           = @{ Row = 'Feature'; FirstId = 700; Max = 20; Length = 200 }
+    SearchTerms        = @{ Row = 'SearchTerm'; FirstId = 900; Max = 7; Length = 30 }
+    ScreenshotCaptions = @{ Row = 'DesktopScreenshotCaption'; FirstId = 150; Max = 30; Length = 200 }
 }
 $MaxSearchTermWords = 21
+$ScreenshotFirstId = 100
+$ImageFields = @{
+    StoreLogo720x1080   = 600
+    StoreLogo1080x1080  = 601
+    StoreLogo300x300    = 602
+    PromoImage1920x1080 = 606
+    PromoImage2400x1200 = 607
+}
 
 function Read-Listing([string] $Path) {
     $sections = [ordered]@{}
@@ -82,16 +96,15 @@ function Get-ListItems([string] $Text) {
     return , @($items)
 }
 
-function Get-ScreenshotFiles([string] $Language) {
-    $files = @{}
+# Image files for one language by field name, with images/<lang>/ winning over images/.
+function Get-Images([string] $Language) {
+    $images = @{}
     foreach ($dir in (Join-Path $PSScriptRoot 'images'), (Join-Path $PSScriptRoot "images/$Language")) {
         if (Test-Path -LiteralPath $dir) {
-            Get-ChildItem -LiteralPath $dir -File -Filter 'DesktopScreenshot*.png' | ForEach-Object {
-                $files[[int]($_.BaseName -replace '\D', '')] = $_
-            }
+            Get-ChildItem -LiteralPath $dir -File -Filter '*.png' | ForEach-Object { $images[$_.BaseName] = $_ }
         }
     }
-    return $files
+    return $images
 }
 
 $listingDir = Join-Path $PSScriptRoot 'listing'
@@ -104,18 +117,19 @@ foreach ($file in Get-ChildItem -LiteralPath $listingDir -Filter '*.md' | Sort-O
     $values = [ordered]@{}
 
     foreach ($name in $source.Keys) {
-        if (-not $TextLimits.Contains($name) -and -not $ListFields.ContainsKey($name)) {
+        if (-not $TextFields.Contains($name) -and -not $ListFields.ContainsKey($name)) {
             $errors.Add("${language}: unknown section '## $name'.")
         }
     }
 
-    foreach ($name in $TextLimits.Keys) {
+    foreach ($name in $TextFields.Keys) {
         $text = if ($source.Contains($name)) { $source[$name] } else { '' }
+        $limit = $TextFields[$name].Limit
         if ($name -in $RequiredText -and $text -eq '') {
             $errors.Add("${language}: '## $name' is required.")
         }
-        if ($text.Length -gt $TextLimits[$name]) {
-            $errors.Add("${language}: $name is $($text.Length) characters, the limit is $($TextLimits[$name]).")
+        if ($text.Length -gt $limit) {
+            $errors.Add("${language}: $name is $($text.Length) characters, the limit is $limit.")
         }
         if ($name -eq 'ShortDescription' -and $text.Length -gt $ShortDescriptionVisible) {
             Write-Warning "${language}: ShortDescription is $($text.Length) characters; some Store views cut it at $ShortDescriptionVisible."
@@ -148,21 +162,22 @@ foreach ($file in Get-ChildItem -LiteralPath $listingDir -Filter '*.md' | Sort-O
         $errors.Add("${language}: SearchTerms use $($words.Count) different words, the limit is $MaxSearchTermWords.")
     }
 
-    $screenshots = Get-ScreenshotFiles $language
-    if ($screenshots.Count -gt 0) {
-        $numbers = @($screenshots.Keys | Sort-Object)
-        if ($numbers[-1] -ne $numbers.Count) {
-            $errors.Add("${language}: screenshots must be numbered 1 to $($numbers.Count) without gaps, found $($numbers -join ', ').")
-        }
-        if ($values.ScreenshotCaptions.Count -ne $screenshots.Count) {
-            $errors.Add("${language}: $($screenshots.Count) screenshots need $($screenshots.Count) ScreenshotCaptions, found $($values.ScreenshotCaptions.Count).")
-        }
+    $images = Get-Images $language
+    $screenshots = @($images.Keys | Where-Object { $_ -match '^DesktopScreenshot\d+$' } | ForEach-Object { [int]($_ -replace '\D', '') } | Sort-Object)
+    if ($screenshots.Count -eq 0) {
+        $errors.Add("${language}: the Store needs at least one screenshot, add images/DesktopScreenshot1.png.")
     }
-    elseif ($values.ScreenshotCaptions.Count -gt 0) {
-        $errors.Add("${language}: ScreenshotCaptions need screenshots in images/, otherwise they can't be matched to the ones in Partner Center.")
+    elseif ($screenshots[-1] -ne $screenshots.Count) {
+        $errors.Add("${language}: screenshots must be numbered 1 to $($screenshots.Count) without gaps, found $($screenshots -join ', ').")
+    }
+    if ($values.ScreenshotCaptions.Count -ne $screenshots.Count) {
+        $errors.Add("${language}: $($screenshots.Count) screenshots need $($screenshots.Count) ScreenshotCaptions, found $($values.ScreenshotCaptions.Count).")
+    }
+    foreach ($field in $images.Keys | Where-Object { $_ -notmatch '^DesktopScreenshot\d+$' -and -not $ImageFields.ContainsKey($_) }) {
+        $errors.Add("${language}: images/$field.png doesn't match a Partner Center image field.")
     }
 
-    $listings[$language] = @{ Values = $values; Screenshots = $screenshots }
+    $listings[$language] = @{ Values = $values; Images = $images; Screenshots = $screenshots.Count }
 }
 
 if ($errors.Count -gt 0) {
@@ -170,84 +185,83 @@ if ($errors.Count -gt 0) {
 }
 
 Write-Host "Validated $($listings.Count) listings: $($listings.Keys -join ', ')"
-if (-not $ExportPath) {
+if ($CheckOnly) {
     return
 }
 
-$rows = @(Import-Csv -LiteralPath $ExportPath -Encoding utf8)
-$rowByField = @{}
-foreach ($row in $rows | Where-Object Field) {
-    $rowByField[$row.Field] = $row
+$uploadDir = Join-Path $OutputPath $UploadFolderName
+if (Test-Path -LiteralPath $uploadDir) {
+    Remove-Item -LiteralPath $uploadDir -Recurse -Force
 }
+New-Item -ItemType Directory -Path $uploadDir | Out-Null
 
-$languageColumns = @($rows[0].PSObject.Properties.Name | Where-Object { $_ -notin 'Field', 'ID', 'Type (Type)', 'default' })
-foreach ($language in $listings.Keys | Where-Object { $_ -notin $languageColumns }) {
-    throw "The export has no '$language' listing. Add the language in Partner Center, export again, and rerun."
-}
-foreach ($language in $languageColumns | Where-Object { -not $listings.Contains($_) }) {
-    Write-Warning "There is no listing/$language.md, so the '$language' listing is left as exported."
-}
-
-$importDir = Join-Path $OutputPath $ImportFolderName
-if (Test-Path -LiteralPath $importDir) {
-    Remove-Item -LiteralPath $importDir -Recurse -Force
-}
-New-Item -ItemType Directory -Path $importDir | Out-Null
-
-function Get-ImportPath([System.IO.FileInfo] $File) {
+function Get-UploadPath([System.IO.FileInfo] $File) {
     $relative = [System.IO.Path]::GetRelativePath($PSScriptRoot, $File.FullName) -replace '\\', '/'
-    $target = Join-Path $importDir $relative
+    $target = Join-Path $uploadDir $relative
     if (-not (Test-Path -LiteralPath $target)) {
         New-Item -ItemType Directory -Path (Split-Path $target) -Force | Out-Null
         Copy-Item -LiteralPath $File.FullName -Destination $target
     }
-    return "$ImportFolderName/$relative"
+    return "$UploadFolderName/$relative"
 }
 
-function Get-ListRowCount([string] $Prefix) {
-    return @($rowByField.Keys | Where-Object { $_ -match "^$Prefix\d+$" }).Count
+$rows = [System.Collections.Generic.List[object]]::new()
+function Add-Row([string] $Field, [int] $Id, [string] $Type, [hashtable] $Values) {
+    $row = [ordered]@{ 'Field' = $Field; 'ID' = $Id; 'Type (Type)' = $Type; 'default' = '' }
+    foreach ($language in $listings.Keys) {
+        $row[$language] = if ($Values.ContainsKey($language)) { $Values[$language] } else { '' }
+    }
+    $rows.Add([pscustomobject]$row)
 }
 
-foreach ($language in $listings.Keys) {
-    $values = $listings[$language].Values
-
-    foreach ($name in $TextLimits.Keys) {
-        $rowByField[$name].$language = $values[$name]
+foreach ($name in $TextFields.Keys) {
+    $values = @{}
+    foreach ($language in $listings.Keys) {
+        $values[$language] = $listings[$language].Values[$name]
     }
+    Add-Row $name $TextFields[$name].Id $TextType $values
+}
 
-    foreach ($name in $ListFields.Keys) {
-        $prefix = $ListFields[$name].Row
-        if ($name -eq 'ScreenshotCaptions' -and $listings[$language].Screenshots.Count -eq 0) {
-            continue
-        }
-        $items = $values[$name]
-        for ($i = 1; $i -le (Get-ListRowCount $prefix); $i++) {
-            $rowByField["$prefix$i"].$language = if ($i -le $items.Count) { $items[$i - 1] } else { '' }
-        }
-    }
-
-    $screenshots = $listings[$language].Screenshots
-    if ($screenshots.Count -gt 0) {
-        for ($i = 1; $i -le (Get-ListRowCount 'DesktopScreenshot'); $i++) {
-            $rowByField["DesktopScreenshot$i"].$language = if ($screenshots.ContainsKey($i)) { Get-ImportPath $screenshots[$i] } else { '' }
-        }
-    }
-
-    foreach ($dir in (Join-Path $PSScriptRoot 'images'), (Join-Path $PSScriptRoot "images/$language")) {
-        if (-not (Test-Path -LiteralPath $dir)) {
-            continue
-        }
-        foreach ($image in Get-ChildItem -LiteralPath $dir -File | Where-Object BaseName -NotMatch '^DesktopScreenshot\d+$') {
-            if (-not $rowByField.ContainsKey($image.BaseName)) {
-                throw "images/$($image.Name) doesn't match a field in the export."
+$screenshotCount = ($listings.Values | ForEach-Object Screenshots | Measure-Object -Maximum).Maximum
+foreach ($name in $ListFields.Keys) {
+    $spec = $ListFields[$name]
+    # Every slot up to the maximum, so an item removed from a list is cleared rather than left behind.
+    $slots = if ($name -eq 'ScreenshotCaptions') { $screenshotCount } else { $spec.Max }
+    for ($i = 1; $i -le $slots; $i++) {
+        $values = @{}
+        foreach ($language in $listings.Keys) {
+            $items = $listings[$language].Values[$name]
+            if ($i -le $items.Count) {
+                $values[$language] = $items[$i - 1]
             }
-            $rowByField[$image.BaseName].$language = Get-ImportPath $image
         }
+        Add-Row "$($spec.Row)$i" ($spec.FirstId + $i - 1) $TextType $values
     }
 }
 
-$csvPath = Join-Path $importDir 'listing.csv'
-$rows | Export-Csv -LiteralPath $csvPath -NoTypeInformation -Encoding utf8BOM -UseQuotes AsNeeded
+# An empty image cell leaves Partner Center's image alone, so images are only ever added or replaced here.
+$imageRows = [ordered]@{}
+for ($i = 1; $i -le $screenshotCount; $i++) {
+    $imageRows["DesktopScreenshot$i"] = $ScreenshotFirstId + $i - 1
+}
+foreach ($field in $ImageFields.Keys) {
+    $imageRows[$field] = $ImageFields[$field]
+}
+foreach ($field in $imageRows.Keys) {
+    $values = @{}
+    foreach ($language in $listings.Keys) {
+        $image = $listings[$language].Images[$field]
+        if ($image) {
+            $values[$language] = Get-UploadPath $image
+        }
+    }
+    if ($values.Count -gt 0) {
+        Add-Row $field $imageRows[$field] $ImageType $values
+    }
+}
 
-Write-Host "Import folder: $(Resolve-Path -LiteralPath $importDir)"
-Write-Host "In Partner Center, open the app overview, select Import listings > Import folder, and choose that folder."
+$csvPath = Join-Path $uploadDir 'listing.csv'
+$rows | Sort-Object { [int]$_.ID } | Export-Csv -LiteralPath $csvPath -NoTypeInformation -Encoding utf8BOM -UseQuotes AsNeeded
+
+Write-Host "Upload folder: $(Resolve-Path -LiteralPath $uploadDir)"
+Write-Host "In Partner Center, open the app overview, select Import listings > Upload folder, and pick that folder."

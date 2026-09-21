@@ -30,7 +30,8 @@
         <Application Id="App"
           Executable="$targetnametoken$.exe"
           EntryPoint="$targetentrypoint$">
-            <uap:VisualElements  Square150x150Logo="Platforms\Windows\MediumTile.png" Square44x44Logo="Platforms\Windows\AppIcon.png" DisplayName="ms-resource:AppName" Description="ms-resource:AppName">
+            <!-- Set explicitly: when it's missing, Uno Resizetizer writes the transparent icon colour as opaque #000000 -->
+            <uap:VisualElements  Square150x150Logo="Platforms\Windows\MediumTile.png" Square44x44Logo="Platforms\Windows\AppIcon.png" DisplayName="ms-resource:AppName" Description="ms-resource:AppName" BackgroundColor="transparent">
                 <uap:DefaultTile Square71x71Logo="Platforms\Windows\SmallTile.png" Wide310x150Logo="Platforms\Windows\WideTile.png" Square310x310Logo="Platforms\Windows\LargeTile.png"/>
                 <uap:SplashScreen Image="Platforms\Windows\SplashScreen.png"/>
             </uap:VisualElements >
