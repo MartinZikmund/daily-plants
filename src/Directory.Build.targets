@@ -8,4 +8,44 @@
             <ApplicationDisplayVersion>$(BuildVersionSimple)</ApplicationDisplayVersion>
         </PropertyGroup>
     </Target>
+
+    <!--
+      Uno.Sdk always references Uno.WinUI.Graphics2DSK, which brings SkiaSharp's 11 MB native library.
+      Nothing draws with Skia on Windows, and trimming already removes the managed side.
+      https://github.com/unoplatform/uno/issues/24576
+    -->
+    <Target Name="DropUnusedSkiaNative"
+            Condition="'$(IsWinAppSdk)' == 'true'"
+            AfterTargets="ResolvePackageAssets">
+        <ItemGroup>
+            <NativeCopyLocalItems Remove="@(NativeCopyLocalItems)" Condition="'%(Filename)' == 'libSkiaSharp'" />
+        </ItemGroup>
+    </Target>
+
+    <!--
+      Uno.WinUI 6.x swaps its NuGet-resolved Windows assemblies for the net9 build under a path the
+      trimmer never sees. They then ship unlinked and reference System.Runtime facades the trimmer
+      already removed, and the app crashes at startup. Put NuGet's own items back.
+      https://github.com/unoplatform/uno/issues/24577
+    -->
+    <Target Name="SaveNuGetUnoWinUIReferences"
+            Condition="'$(IsWinAppSdk)' == 'true' and '$(PkgUno_WinUI)' != ''"
+            BeforeTargets="_UnoRemoveReferences">
+        <ItemGroup>
+            <_NuGetUnoWinUIReference Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)' == 'Uno.WinUI'" />
+            <_NuGetUnoWinUICopyLocal Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Uno.WinUI'" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="RestoreNuGetUnoWinUIReferences"
+            Condition="'$(IsWinAppSdk)' == 'true' and '$(PkgUno_WinUI)' != ''"
+            AfterTargets="_UnoRemoveReferences">
+        <ItemGroup>
+            <_UnoNet9Assembly Include="$(PkgUno_WinUI)/lib/net9.0-windows10.0.19041.0/*.dll" />
+            <ReferencePath Remove="@(_UnoNet9Assembly)" />
+            <ReferenceCopyLocalPaths Remove="@(_UnoNet9Assembly)" />
+            <ReferencePath Include="@(_NuGetUnoWinUIReference)" />
+            <ReferenceCopyLocalPaths Include="@(_NuGetUnoWinUICopyLocal)" />
+        </ItemGroup>
+    </Target>
 </Project>
