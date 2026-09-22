@@ -1,0 +1,43 @@
+# Taps are in points on an iPhone 17 Pro Max. Skia draws the app, so there is no accessibility tree to find elements in.
+appId: dev.mzikmund.dailyplants
+---
+- waitForAnimationToEnd
+- takeScreenshot: diary
+# Beans
+- tapOn:
+    point: "100,330"
+- waitForAnimationToEnd
+- takeScreenshot: details
+- tapOn:
+    point: "319,746"
+- waitForAnimationToEnd
+- tapOn:
+    point: "24,85"
+- tapOn:
+    point: "80,205"
+- waitForAnimationToEnd
+- takeScreenshot: statistics
+- swipe:
+    start: "220,800"
+    end: "220,150"
+- waitForAnimationToEnd
+- takeScreenshot: statistics-weight
+- tapOn:
+    point: "24,85"
+- tapOn:
+    point: "80,245"
+- waitForAnimationToEnd
+- takeScreenshot: achievements
+- tapOn:
+    point: "24,85"
+- tapOn:
+    point: "80,165"
+- waitForAnimationToEnd
+# The feed filter, then Recipes
+- tapOn:
+    point: "120,262"
+- waitForAnimationToEnd
+- tapOn:
+    point: "80,410"
+- waitForAnimationToEnd
+- takeScreenshot: resources
