@@ -218,6 +218,14 @@ earned appears as a toast beneath. Needs a settings toggle.
   - No `<use>` elements, so WinUI's native `SvgImageSource` (title bar, About
     page) renders them the same as Skia does.
 
+  Android and iOS draw the art on a solid Windowsill green (`#4C7A56`) plate,
+  `icon.svg`. iOS has to have one: the App Store rejects a transparent icon.
+  In 0.6.11 the art was drawn at full size on iOS, so the plate almost touched
+  the edges, and the green showed only as a thin rim and in the corners. It
+  looked like a mistake. The art is now scaled to 0.8 on iOS
+  (`UnoIconForegroundScale`), leaving a clear green margin. A linen plate was
+  tried as well, and green was kept.
+
 ### Licensing — unresolved
 
 `THIRD-PARTY-NOTICES.md` credits only Segoe Fluent Icons. The Icons8 artwork —
