@@ -95,7 +95,22 @@ public sealed partial class ShellView : Page
         titleBar.ButtonPressedBackgroundColor = Color.FromArgb(56, foreground.R, foreground.G, foreground.B);
     }
 
-    private void ShellView_ActualThemeChanged(FrameworkElement sender, object args) => UpdateTitleBarColors();
+    /// <summary>
+    /// The Android theme asks for dark status bar icons, which disappear against the dark theme.
+    /// </summary>
+    private void UpdateStatusBarForeground()
+    {
+#if __ANDROID__
+        Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor =
+            ActualTheme == ElementTheme.Dark ? Microsoft.UI.Colors.White : Microsoft.UI.Colors.Black;
+#endif
+    }
+
+    private void ShellView_ActualThemeChanged(FrameworkElement sender, object args)
+    {
+        UpdateTitleBarColors();
+        UpdateStatusBarForeground();
+    }
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
     {
@@ -106,6 +121,7 @@ public sealed partial class ShellView : Page
 
             this.ActualThemeChanged += ShellView_ActualThemeChanged;
             UpdateTitleBarColors();
+            UpdateStatusBarForeground();
 
             RemoveResourcesIfUnreachable();
 
