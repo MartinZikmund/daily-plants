@@ -1,0 +1,10 @@
+# Options for `fastlane deliver`, run from this folder after `dotnet run build-listing.cs`.
+# Pass the version with --app_version and the key with --api_key_path.
+app_identifier("dev.mzikmund.dailyplants")
+metadata_path("../../../artifacts/store/ios/metadata")
+screenshots_path("../../../artifacts/store/ios/screenshots")
+skip_binary_upload(true)
+overwrite_screenshots(true)
+submit_for_review(false)
+run_precheck_before_submit(false)
+force(true)

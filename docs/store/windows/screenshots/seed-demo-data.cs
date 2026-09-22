@@ -1,5 +1,5 @@
 #:package Microsoft.Data.Sqlite.Core@10.0.3
-#:package SQLitePCLRaw.bundle_winsqlite3@2.1.11
+#:package SQLitePCLRaw.bundle_e_sqlite3@2.1.11
 
 using Microsoft.Data.Sqlite;
 
@@ -65,9 +65,17 @@ void Execute(string sql, params (string Name, object? Value)[] parameters)
     command.ExecuteNonQuery();
 }
 
+// CustomItems and CustomItemEntries only exist in databases made by older versions.
 foreach (string table in new[] { "DailyEntries", "WeightEntries", "EarnedAchievements", "CustomItems", "CustomItemEntries" })
 {
-    Execute($"DELETE FROM {table}");
+    using SqliteCommand exists = connection.CreateCommand();
+    exists.Transaction = transaction;
+    exists.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = $name";
+    exists.Parameters.AddWithValue("$name", table);
+    if (Convert.ToInt32(exists.ExecuteScalar()) > 0)
+    {
+        Execute($"DELETE FROM {table}");
+    }
 }
 
 int entries = 0;

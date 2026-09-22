@@ -1,0 +1,35 @@
+# Taps are in points on an iPad Pro 13-inch in landscape. Skia draws the app, so there is no accessibility tree to find elements in.
+appId: dev.mzikmund.dailyplants
+---
+- setOrientation: LANDSCAPE_LEFT
+- waitForAnimationToEnd
+- takeScreenshot: diary
+# Beans
+- tapOn:
+    point: "460,290"
+- waitForAnimationToEnd
+- takeScreenshot: details
+- tapOn:
+    point: "813,775"
+- waitForAnimationToEnd
+- tapOn:
+    point: "80,175"
+- waitForAnimationToEnd
+- takeScreenshot: statistics
+- swipe:
+    start: "800,900"
+    end: "800,150"
+- waitForAnimationToEnd
+- takeScreenshot: statistics-weight
+- tapOn:
+    point: "80,215"
+- waitForAnimationToEnd
+- takeScreenshot: achievements
+- tapOn:
+    point: "80,135"
+- waitForAnimationToEnd
+# The Recipes tab
+- tapOn:
+    point: "790,223"
+- waitForAnimationToEnd
+- takeScreenshot: resources

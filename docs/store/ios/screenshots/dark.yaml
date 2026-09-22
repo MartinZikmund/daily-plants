@@ -1,0 +1,10 @@
+# capture-app.sh launches the app in the dark theme before this runs.
+appId: dev.mzikmund.dailyplants
+---
+- runFlow:
+    when:
+      true: ${ORIENTATION == 'LANDSCAPE_LEFT'}
+    commands:
+      - setOrientation: LANDSCAPE_LEFT
+- waitForAnimationToEnd
+- takeScreenshot: diary-dark
