@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<!-- Permissions -->
-	<!-- No special permissions required - all data stored locally -->
+	<!-- The diary stays on the device, the Resources page loads the NutritionFacts.org feeds -->
+	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
 		android:allowBackup="true"
