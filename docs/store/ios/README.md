@@ -6,24 +6,22 @@ The source for the Daily Plants listing in App Store Connect (bundle ID `dev.mzi
 - `images/iphone/` and `images/ipad/` hold the screenshots, in order. Every language shows the English ones.
 - `screenshots/` builds those images, see below.
 - `build-listing.cs` checks the text against the App Store's limits and writes the folders fastlane uploads. The URLs, copyright and categories are set in it too.
+- `Deliverfile` has the options for `fastlane deliver`.
 
 ## Updating the listing
 
 1. Edit `listing/en-US.md`, then update the other languages to match.
 2. Run `dotnet run build-listing.cs`. It writes `artifacts/store/ios/metadata` and `artifacts/store/ios/screenshots`. Add `-- --check-only` to only check the text.
-3. Upload with an App Store Connect API key that has the App Manager role:
+3. Upload from this folder with an App Store Connect API key that has the App Manager role:
 
    ```sh
-   fastlane deliver --api_key_path ~/.appstoreconnect/asc_key.json -a dev.mzikmund.dailyplants \
-     --app_version <version> --skip_binary_upload --overwrite_screenshots \
-     --metadata_path artifacts/store/ios/metadata --screenshots_path artifacts/store/ios/screenshots \
-     --submit_for_review false --run_precheck_before_submit false --force
+   fastlane deliver --api_key_path ~/.appstoreconnect/asc_key.json --app_version <version>
    ```
 
-   `--app_version` is the version you're about to submit. fastlane creates it in App Store Connect if it isn't there yet. The key file is the JSON fastlane expects (`key_id`, `issuer_id` and `key` with the `.p8` contents).
+   `--app_version` is the version you're about to submit. fastlane creates it in App Store Connect if it isn't there yet. The key file is the JSON fastlane expects (`key_id`, `issuer_id` and `key` with the `.p8` contents). The other options are in `Deliverfile`: no build, no submission, and the screenshots replace the ones in App Store Connect.
 4. In App Store Connect, pick the build and submit it for review.
 
-Text fields are replaced as a whole. `--overwrite_screenshots` deletes the screenshots already in App Store Connect before adding these. App Review contact details, the age rating and App Privacy aren't in these files, so they stay as they are in App Store Connect.
+Text fields are replaced as a whole, and the screenshots already in App Store Connect are deleted before these are added. App Review contact details, the age rating and App Privacy aren't in these files, so they stay as they are in App Store Connect.
 
 To see what App Store Connect has now, download it into a folder of the same shape:
 
