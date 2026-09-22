@@ -29,10 +29,13 @@
         <UnoFeatures Condition="'$(IsWinAppSdk)' != 'true'">$(UnoFeatures);Svg</UnoFeatures>
 
         <UnoIconBackgroundFile>Assets/Icons/icon_transparent.svg</UnoIconBackgroundFile>
+        <!-- The App Store rejects a transparent icon (ITMS-90717), so iOS needs the opaque plate -->
         <UnoIconBackgroundFile Condition="'$(IsIOS)' == 'true' or '$(IsAndroid)' == 'true'">Assets/Icons/icon.svg</UnoIconBackgroundFile>
 
         <UnoIconForegroundScale>1</UnoIconForegroundScale>
         <UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.6</UnoIconForegroundScale>
+        <!-- Leaves a clear green margin, so the backplate reads as intended rather than a thin rim -->
+        <UnoIconForegroundScale Condition="'$(IsIOS)' == 'true'">0.8</UnoIconForegroundScale>
 
         <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
 
