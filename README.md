@@ -1,180 +1,151 @@
-# Daily Plants
+<p align="center">
+  <img src="docs/store/windows/images/StoreLogo300x300.png" alt="Daily Plants app icon" width="112">
+</p>
 
-A cross-platform nutrition tracking app based on Dr. Michael Greger's evidence-based nutrition recommendations from his books *How Not to Die*, *How Not to Diet*, and *How Not to Age*.
+<h1 align="center">Daily Plants</h1>
 
-[![CI](https://github.com/MartinZikmund/daily-plants/actions/workflows/ci.yml/badge.svg)](https://github.com/MartinZikmund/daily-plants/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <strong>Eat more plants, every day.</strong><br>
+  A calm, private checklist for Dr. Greger's Daily Dozen and Twenty-One Tweaks.<br>
+  One tap per serving. No account, no ads, no tracking, no subscription.
+</p>
 
-<!--
-[![Google Play](https://img.shields.io/badge/Google_Play-Download-green?logo=google-play)](https://play.google.com/store/apps/details?id=dev.mzikmund.dailyplants)
-[![App Store](https://img.shields.io/badge/App_Store-Download-blue?logo=apple)](https://apps.apple.com/app/daily-plants)
-[![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Download-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/daily-plants)
--->
+<p align="center">
+  <a href="https://apps.microsoft.com/detail/9NKK3K501RZG"><img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" height="52"></a>
+</p>
 
-![Daily Plants app showing nutrition checklist tracking](assets/screenshot.jpg)
+<p align="center">
+  <a href="https://github.com/MartinZikmund/daily-plants/actions/workflows/ci.yml"><img src="https://github.com/MartinZikmund/daily-plants/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/MartinZikmund/daily-plants/releases/latest"><img src="https://img.shields.io/github/v/release/MartinZikmund/daily-plants" alt="Latest release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
-## About
+![Daily Plants on Windows: today's checklist with servings still to go and the latest from NutritionFacts.org](docs/store/windows/images/DesktopScreenshot1.png)
 
-Daily Plants helps you track your daily nutrition goals with three evidence-based checklists:
+## Why Daily Plants?
 
-- **Daily Dozen** - 12 food groups to include every day from *How Not to Die*
-- **Twenty-One Tweaks** - Weight-loss accelerators from *How Not to Diet*
-- **Anti-Aging Eight** - Longevity-focused nutrition from *How Not to Age*
+You've read *How Not to Die* or *How Not to Diet*, and you're sold on beans, berries and greens. The hard part is remembering, on a busy Tuesday, whether you've had your flaxseed. Daily Plants turns the books into a checklist you can tick off in a few seconds a day:
 
-All data is stored locally on your device. No account required, no tracking, no ads.
+- **Daily Dozen**: 12 food groups to eat every day, from *How Not to Die*.
+- **Twenty-One Tweaks**: 21 habits from *How Not to Diet*, like drinking water before meals, adding vinegar and getting enough sleep.
 
-## Features
+Use one or both. Where they overlap, one serving counts toward both, so nothing gets counted twice.
 
-- Track servings across three nutrition checklists
-- Smart merge of overlapping items across checklists
-- Date navigation to review and edit past entries
-- Statistics dashboard with streaks and trends
-- Optional weight tracking
-- Achievement system for motivation
-- Export/import data (JSON and CSV formats)
-- Light, dark, and system theme support
-- Multi-language support (English, Czech)
-- Works offline - all data stored locally
+## What's inside
 
-## Supported Platforms
+- **Your day at a glance.** Tap + for each serving. Dots fill in, finished items drop down to *Done today*, and what's left stays on top.
+- **Know what counts.** Tap any item for its serving size, which foods count and why it matters.
+- **Streaks and statistics.** Thirty days of progress, your current and longest streak, and what you miss most.
+- **31 achievements**, from your first perfect day to a streak that lasts a whole year.
+- **Optional weight tracking** with a goal and a trend chart, in metric or imperial units.
+- **Learn as you go.** The latest articles, videos, podcasts, recipes, Q&A and webinars from NutritionFacts.org, with search.
+- **Missed a day?** Go back and fill it in.
+- **Make it yours.** Turn off items you don't track, and pick a light or dark theme. High contrast works on Windows too.
+- **21 languages**, from Bulgarian to Traditional Chinese.
+- **Private by design.** Your diary stays on your device. The app only goes online to load the public NutritionFacts.org feeds. Export a full backup whenever you like and import it on another device.
 
-| Platform | Status |
-|----------|--------|
-| Windows | Supported |
-| Android | Supported |
-| iOS | Supported |
-| macOS | Supported |
-| Linux | Supported |
-| WebAssembly | Supported |
+## Take a look
 
-## Building from Source
+<table>
+  <tr>
+    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot2.png" alt="Item details with serving size, health benefits and related videos"></td>
+    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot3.png" alt="Statistics with daily completion, streaks and weight trend"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot4.png" alt="Achievements page with milestones, streaks and perfect days"></td>
+    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot5.png" alt="Resources page with recipes from NutritionFacts.org"></td>
+  </tr>
+</table>
+
+And in your pocket:
+
+<p align="center">
+  <img src="docs/store/ios/images/iphone/1.png" alt="Today's checklist on iPhone" width="24%">
+  <img src="docs/store/ios/images/iphone/3.png" alt="Statistics and weight trend on iPhone" width="24%">
+  <img src="docs/store/ios/images/iphone/5.png" alt="Resources on iPhone" width="24%">
+  <img src="docs/store/ios/images/iphone/6.png" alt="Light and dark themes on iPhone" width="24%">
+</p>
+
+## Get it
+
+| Platform | Where |
+|----------|-------|
+| Windows | [Microsoft Store](https://apps.microsoft.com/detail/9NKK3K501RZG) |
+| iPhone and iPad | Coming soon to the App Store |
+| Android | Coming soon to Google Play |
+| macOS, Linux and the web | [Build it yourself](#build-it-yourself) |
+
+## Build it yourself
+
+Daily Plants is a single [Uno Platform](https://platform.uno/) project, so one codebase runs everywhere.
 
 ### Prerequisites
 
-- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) (17.8+) with:
-  - .NET Multi-platform App UI development workload
-  - Or: [Uno Platform extension](https://marketplace.visualstudio.com/items?itemName=unoplatform.uno-platform-addin-2022)
-- For Android: Android SDK (API 24+)
-- For iOS/macOS: macOS with Xcode 15+
-- For WebAssembly: No additional requirements
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- Visual Studio 2026, JetBrains Rider or VS Code with the [Uno Platform extension](https://platform.uno/docs/articles/get-started.html)
+- [uno-check](https://platform.uno/docs/articles/external/uno.check/doc/using-uno-check.html) to install the workloads you need: `dotnet tool install -g uno.check`, then `uno-check`
+- Android: an Android SDK (API 24 or later)
+- iOS: a Mac with Xcode
 
-### Clone the Repository
+### Run it
+
+The quickest way to see it running is the Skia desktop head, which works on Windows, macOS and Linux:
 
 ```bash
 git clone https://github.com/MartinZikmund/daily-plants.git
-cd daily-plants
-```
-
-### Build and Run
-
-#### Windows
-
-```bash
-cd src/DailyPlants
-dotnet build -f net10.0-windows10.0.26100
-dotnet run -f net10.0-windows10.0.26100
-```
-
-#### Android
-
-```bash
-cd src/DailyPlants
-dotnet build -f net10.0-android
-# Deploy to connected device or emulator
-dotnet build -f net10.0-android -t:Install
-```
-
-#### iOS (macOS required)
-
-```bash
-cd src/DailyPlants
-dotnet build -f net10.0-ios
-```
-
-#### WebAssembly
-
-```bash
-cd src/DailyPlants
-dotnet build -f net10.0-browserwasm
-dotnet run -f net10.0-browserwasm
-```
-
-#### Desktop (Skia/GTK)
-
-```bash
-cd src/DailyPlants
-dotnet build -f net10.0-desktop
+cd daily-plants/src/DailyPlants
 dotnet run -f net10.0-desktop
 ```
 
-### Using Visual Studio
+Or open `DailyPlants.slnx`, pick a target framework and press F5:
 
-1. Open `DailyPlants.slnx`
-2. Select your target framework from the dropdown
-3. Press F5 to build and run
+| Target | Framework |
+|--------|-----------|
+| Windows (WinAppSDK) | `net10.0-windows10.0.26100` |
+| Desktop (Skia) | `net10.0-desktop` |
+| Android | `net10.0-android` |
+| iOS | `net10.0-ios` |
+| WebAssembly | `net10.0-browserwasm` |
 
-## Architecture
+### Run the tests
 
-The app is built with [Uno Platform](https://platform.uno/) using modern .NET patterns:
-
-```
-src/DailyPlants/
-├── Models/           # Data models (ChecklistItem, DailyEntry, etc.)
-├── ViewModels/       # MVVM ViewModels using CommunityToolkit.Mvvm
-├── Views/            # XAML pages and controls
-├── Services/         # Business logic and data access
-├── Controls/         # Reusable XAML controls
-├── Converters/       # XAML value converters
-├── Helpers/          # Utility classes
-├── Strings/          # Localization resources
-└── Platforms/        # Platform-specific code
+```bash
+dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj
 ```
 
-### Key Technologies
+## Under the hood
 
-- **Uno Platform** - Cross-platform UI framework
-- **WinUI/Fluent Design** - UI design system
-- **CommunityToolkit.Mvvm** - MVVM implementation
-- **Microsoft.Data.Sqlite** - Local database
-- **Microsoft.Extensions.Hosting** - Dependency injection
+- [Uno Platform](https://platform.uno/) with the Skia renderer, WinUI XAML and Fluent Design
+- [CommunityToolkit.Mvvm](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/) for view models, Uno.Extensions hosting for dependency injection
+- SQLite through [sqlite-net](https://github.com/praeclarum/sqlite-net), stored in the app's local data folder
+- MSTest, Moq and FluentAssertions for tests
+- [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) for versions
 
-## Data Storage
+```
+src/DailyPlants/     The app: Views, ViewModels, Models, Services, Controls, Styles, Strings
+tests/               Unit tests
+docs/store/          Store listings and the pipelines that render the screenshots above
+docs/design/         Design notes
+assets/app-icon/     App icon sources
+```
 
-All data is stored locally using SQLite:
-
-- **Windows**: `%LOCALAPPDATA%\DailyPlants\dailyplants.db`
-- **Android**: App's private storage
-- **iOS**: App's Documents directory
-- **macOS/Linux**: `~/.local/share/DailyPlants/dailyplants.db`
+The Store listings and every screenshot in this README are generated from the repo. See [docs/store/windows](docs/store/windows/README.md) and [docs/store/ios](docs/store/ios/README.md) if you want to rerun them.
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a history of notable changes to this project.
-
-## Security
-
-For security concerns, please see our [Security Policy](SECURITY.md).
+Bug reports, translations and pull requests are welcome. Read the [contributing guidelines](CONTRIBUTING.md) first, and see [CHANGELOG.md](CHANGELOG.md) for what changed in each release. For security concerns, see the [security policy](SECURITY.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. Third-party license notices are available in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+[MIT](LICENSE). Third-party notices are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-## Acknowledgments
+## Thanks
 
-- [Dr. Michael Greger](https://nutritionfacts.org/) for the Daily Dozen, Twenty-One Tweaks, and Anti-Aging Eight concepts
-- [NutritionFacts.org](https://nutritionfacts.org/) for evidence-based nutrition information
+- [Dr. Michael Greger](https://nutritionfacts.org/) for the Daily Dozen and the Twenty-One Tweaks
+- [NutritionFacts.org](https://nutritionfacts.org/) for keeping evidence-based nutrition free for everyone
 - [Uno Platform](https://platform.uno/) for the cross-platform framework
-- The open-source community for the amazing tools and libraries
+- Everyone behind the open-source libraries this app stands on
 
 ## Disclaimer
 
-This app is not affiliated with or endorsed by Dr. Michael Greger or NutritionFacts.org. The nutrition information is based on publicly available content from the referenced books and website. This app is not a substitute for professional medical advice.
-
----
-
-Made with Uno Platform
+Daily Plants is an independent app and is not affiliated with or endorsed by Dr. Michael Greger or NutritionFacts.org. It isn't medical advice, so talk to your doctor before making big changes to your diet.
