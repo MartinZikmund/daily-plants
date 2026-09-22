@@ -55,7 +55,7 @@ All data is stored locally on your device. No account required, no tracking, no 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) (17.8+) with:
   - .NET Multi-platform App UI development workload
   - Or: [Uno Platform extension](https://marketplace.visualstudio.com/items?itemName=unoplatform.uno-platform-addin-2022)
-- For Android: Android SDK (API 21+)
+- For Android: Android SDK (API 24+)
 - For iOS/macOS: macOS with Xcode 15+
 - For WebAssembly: No additional requirements
 
