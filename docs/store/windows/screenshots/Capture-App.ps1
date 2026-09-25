@@ -282,3 +282,11 @@ finally {
     }
     Write-Host "Restored your data. The backup stays in $backup until you delete it."
 }
+
+# The captures are committed, so keep them small. Lossless, so the slides don't change.
+if (Get-Command oxipng -ErrorAction SilentlyContinue) {
+    oxipng --quiet --opt 4 --strip safe (Get-ChildItem $OutDir -Filter '*.png').FullName
+}
+else {
+    Write-Warning 'Install oxipng (https://github.com/oxipng/oxipng) to shrink the captures before committing them.'
+}
