@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -110,6 +111,7 @@ public sealed partial class ShellView : Page
     {
         UpdateTitleBarColors();
         UpdateStatusBarForeground();
+        MacAppearance.Apply(ActualTheme);
     }
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
@@ -122,6 +124,7 @@ public sealed partial class ShellView : Page
             this.ActualThemeChanged += ShellView_ActualThemeChanged;
             UpdateTitleBarColors();
             UpdateStatusBarForeground();
+            MacAppearance.Apply(ActualTheme);
 
             RemoveResourcesIfUnreachable();
 
