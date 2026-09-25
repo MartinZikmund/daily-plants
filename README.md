@@ -20,7 +20,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
-![Daily Plants on Windows: today's checklist with servings still to go and the latest from NutritionFacts.org](docs/store/windows/images/DesktopScreenshot1.png)
+![Daily Plants on Windows: today's checklist with servings still to go and the latest from NutritionFacts.org](docs/images/windows-1.jpg)
 
 ## Why Daily Plants?
 
@@ -48,22 +48,22 @@ Use one or both. Where they overlap, one serving counts toward both, so nothing 
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot2.png" alt="Item details with serving size, health benefits and related videos"></td>
-    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot3.png" alt="Statistics with daily completion, streaks and weight trend"></td>
+    <td width="50%"><img src="docs/images/windows-2.jpg" alt="Item details with serving size, health benefits and related videos"></td>
+    <td width="50%"><img src="docs/images/windows-3.jpg" alt="Statistics with daily completion, streaks and weight trend"></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot4.png" alt="Achievements page with milestones, streaks and perfect days"></td>
-    <td width="50%"><img src="docs/store/windows/images/DesktopScreenshot5.png" alt="Resources page with recipes from NutritionFacts.org"></td>
+    <td width="50%"><img src="docs/images/windows-4.jpg" alt="Achievements page with milestones, streaks and perfect days"></td>
+    <td width="50%"><img src="docs/images/windows-5.jpg" alt="Resources page with recipes from NutritionFacts.org"></td>
   </tr>
 </table>
 
 And in your pocket:
 
 <p align="center">
-  <img src="docs/store/ios/images/iphone/1.png" alt="Today's checklist on iPhone" width="24%">
-  <img src="docs/store/ios/images/iphone/3.png" alt="Statistics and weight trend on iPhone" width="24%">
-  <img src="docs/store/ios/images/iphone/5.png" alt="Resources on iPhone" width="24%">
-  <img src="docs/store/ios/images/iphone/6.png" alt="Light and dark themes on iPhone" width="24%">
+  <img src="docs/images/iphone-1.jpg" alt="Today's checklist on iPhone" width="24%">
+  <img src="docs/images/iphone-3.jpg" alt="Statistics and weight trend on iPhone" width="24%">
+  <img src="docs/images/iphone-5.jpg" alt="Resources on iPhone" width="24%">
+  <img src="docs/images/iphone-6.jpg" alt="Light and dark themes on iPhone" width="24%">
 </p>
 
 ## Get it
@@ -125,6 +125,7 @@ dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj
 src/DailyPlants/     The app: Views, ViewModels, Models, Services, Controls, Styles, Strings
 tests/               Unit tests
 docs/store/          Store listings and the pipelines that render the screenshots above
+docs/images/         Small copies of the store screenshots for this README
 docs/design/         Design notes
 assets/app-icon/     App icon sources
 ```
