@@ -2,10 +2,12 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-// Builds the metadata and screenshots folders for `fastlane deliver --platform osx` from listing/<locale>.md and images/.
+// Builds the metadata and screenshots folders for `fastlane deliver --platform osx` from listing/<locale>.md and the
+// slides screenshots/render-slides.sh renders into artifacts/store/macos/images.
 // Usage: dotnet run build-listing.cs [-- --check-only] [-- --out <dir>]
 string root = Path.GetDirectoryName(ScriptPath())!;
 string outDir = Path.Combine(root, "../../../artifacts/store/macos");
+string imagesDir = Path.Combine(root, "../../../artifacts/store/macos/images");
 bool checkOnly = false;
 for (int i = 0; i < args.Length; i++)
 {
@@ -86,16 +88,21 @@ if (!listings.ContainsKey(PrimaryLocale))
     errors.Add($"listing/{PrimaryLocale}.md is missing.");
 }
 
-string[] images = Directory.Exists(Path.Combine(root, "images"))
-    ? Directory.GetFiles(Path.Combine(root, "images"), "*.png").Order().ToArray()
+string[] images = Directory.Exists(imagesDir)
+    ? Directory.GetFiles(imagesDir, "*.png").Order().ToArray()
     : [];
 foreach (string image in images)
 {
     (int width, int height) = PngSize(image);
     if (!macSizes.Contains((width, height)))
     {
-        errors.Add($"images/{Path.GetFileName(image)} is {width}x{height}, which isn't a Mac App Store screenshot size.");
+        errors.Add($"{Path.GetFileName(image)} is {width}x{height}, which isn't a Mac App Store screenshot size.");
     }
+}
+// A text-only check doesn't need the slides rendered.
+if (images.Length == 0 && !checkOnly)
+{
+    errors.Add($"No slides in {Path.GetFullPath(imagesDir)}. Run screenshots/render-slides.sh first.");
 }
 
 if (errors.Count > 0)

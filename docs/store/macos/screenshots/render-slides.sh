@@ -1,10 +1,11 @@
 #!/bin/zsh
-# Renders slides.html into images/<N>.png (2880x1800) with headless Edge or Chrome.
+# Renders slides.html into artifacts/store/macos/images/<N>.png (2880x1800) with headless Edge or Chrome.
+# The slides are build output, so they aren't committed; build-listing.cs picks them up from there.
 # Usage: ./render-slides.sh
 set -euo pipefail
 
 here=${0:A:h}
-images=${here:h}/images
+images=${here:h:h:h:h}/artifacts/store/macos/images
 browser=${BROWSER:-}
 for candidate in '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge' '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'; do
     [[ -z $browser && -x $candidate ]] && browser=$candidate

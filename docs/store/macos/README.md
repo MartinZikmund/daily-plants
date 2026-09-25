@@ -3,8 +3,7 @@
 Daily Plants is on the Mac App Store as the macOS platform of the same App Store Connect app as iOS (bundle ID `dev.mzikmund.dailyplants`, universal purchase). The Mac app is the Uno Platform desktop head, packaged as a sandboxed, universal (Apple silicon and Intel) app bundle.
 
 - `listing/<locale>.md` has the Mac text for one App Store language. It only has the fields each platform keeps its own copy of: `PromotionalText`, `Description` and `Keywords` (and `ReleaseNotes` from the second version on). The name, subtitle, privacy URL, categories, age rating and App Privacy belong to the whole app, so the iOS listing sets them. The text follows the iOS listing, with clicks instead of taps.
-- `images/` holds the screenshots, in order, at 2880x1800. Every language shows the English ones.
-- `screenshots/` builds those images, see below.
+- `screenshots/` builds the screenshots (2880x1800), see below. They're rendered into `artifacts/store/macos/images/` rather than committed, since they're build output and each re-render would add megabytes to the history. Every language shows the English ones.
 - `build-listing.cs` checks the text and the screenshot sizes against the Mac App Store's limits and writes the folders fastlane uploads.
 - `Deliverfile` has the options for `fastlane deliver`.
 - `package-app.sh` builds the signed installer package.
@@ -37,7 +36,7 @@ The app is sandboxed with network access for the NutritionFacts.org feeds and re
 ## Updating the listing
 
 1. Edit `listing/en-US.md`, then update the other languages to match.
-2. Run `dotnet run build-listing.cs`. It writes `artifacts/store/macos/metadata` and `artifacts/store/macos/screenshots`. Add `-- --check-only` to only check them.
+2. Render the slides with `screenshots/render-slides.sh` (see [Screenshots](#screenshots); the captures are committed, so this is all it takes), then run `dotnet run build-listing.cs`. It writes `artifacts/store/macos/metadata` and `artifacts/store/macos/screenshots`. Add `-- --check-only` to only check the text, which doesn't need the slides.
 3. Upload from this folder with an App Store Connect API key that has the App Manager role:
 
    ```sh
@@ -52,7 +51,7 @@ The app is sandboxed with network access for the NutritionFacts.org feeds and re
 Each screenshot is a slide: a real capture of the Mac app in its window, standing on the windowsill from the Windows and iOS slides, with the same headlines.
 
 1. **Publish** the app bundle: `dotnet publish src/DailyPlants/DailyPlants.csproj -c Release -f net10.0-desktop -r osx-arm64 -p:TargetFrameworks=net10.0-desktop -p:SelfContained=true -p:PackageFormat=app`.
-2. **Capture** the app with `screenshots/capture-app.sh`. The terminal needs the Accessibility and Screen Recording permissions. The script backs up your Daily Plants data, seeds demo data with `../windows/screenshots/seed-demo-data.cs`, writes the settings the captures need, drives the app with `mac.swift` and restores your data afterwards. For sharp 2x captures it switches the main display to a 3840x1080 HiDPI mode while it runs and back afterwards; on another display, change the mode in the script. Leave the mouse alone for the minute it runs. The captures land in `screenshots/captures/`.
-3. **Render** the slides with `screenshots/render-slides.sh`, which writes `images/1.png` to `6.png` with headless Edge or Chrome.
+2. **Capture** the app with `screenshots/capture-app.sh`. The terminal needs the Accessibility and Screen Recording permissions. The script backs up your Daily Plants data, seeds demo data with `../windows/screenshots/seed-demo-data.cs`, writes the settings the captures need, drives the app with `mac.swift` and restores your data afterwards. For sharp 2x captures it switches the main display to a 3840x1080 HiDPI mode while it runs and back afterwards; on another display, change the mode in the script. Leave the mouse alone for the minute it runs. The captures land in `screenshots/captures/`, and with [oxipng](https://github.com/oxipng/oxipng) installed (`brew install oxipng`) the script shrinks them losslessly before you commit them.
+3. **Render** the slides with `screenshots/render-slides.sh`, which writes `artifacts/store/macos/images/1.png` to `6.png` with headless Edge or Chrome.
 
 Skia draws the app, so macOS sees no accessibility tree and the script clicks by position, in points from the window's top-left corner. If a screen's layout changes, check the clicks in `capture-app.sh` and the crops in `screenshots/slides.html`, which are in capture pixels. Open `slides.html?slide=hero` (or `details`, `statistics`, `achievements`, `resources`, `dark`) in a browser to work on one.
