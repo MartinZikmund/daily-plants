@@ -65,10 +65,10 @@
         <UnoMacOSMinimumSystemVersion>12.0</UnoMacOSMinimumSystemVersion>
     </PropertyGroup>
 
-    <ItemGroup>
+    <PropertyGroup>
         <!-- Only the bundle's icon.icns needs these -->
-        <Content Remove="Platforms\Desktop\macOS\AppIcon\*.png" />
-    </ItemGroup>
+        <DefaultItemExcludes>$(DefaultItemExcludes);Platforms/Desktop/macOS/AppIcon/**</DefaultItemExcludes>
+    </PropertyGroup>
 
     <!-- Nerdbank.GitVersioning stamps the app version for iOS, Android and Windows, but not for the macOS bundle. -->
     <Target Name="SetMacOSBundleVersion"
