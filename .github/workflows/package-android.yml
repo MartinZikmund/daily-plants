@@ -83,6 +83,10 @@ jobs:
           path: |
             ${{ env.PROJECT_PATH }}/bin/Release/${{ env.ANDROID_TARGET_FRAMEWORK }}/publish/*.aab
 
+      # "What's new" for every language, from docs/store/android/listing
+      - name: Build the release notes
+        run: dotnet run docs/store/android/build-listing.cs
+
       - name: Upload to Google Play Console
         uses: r0adkll/upload-google-play@v1
         with:
@@ -91,6 +95,7 @@ jobs:
           releaseFiles: ${{ env.PROJECT_PATH }}/bin/Release/${{ env.ANDROID_TARGET_FRAMEWORK }}/publish/*-Signed.aab
           track: internal
           status: ${{ env.GOOGLE_PLAY_TRACK_STATUS }}
+          whatsNewDirectory: artifacts/store/android/whatsnew
 
       # Clean up keystore
       - name: Remove keystore
