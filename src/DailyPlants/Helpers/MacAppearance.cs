@@ -3,8 +3,9 @@ using System.Runtime.InteropServices;
 namespace DailyPlants.Helpers;
 
 /// <summary>
-/// On macOS the title bar and the Mica backdrop follow the system appearance, not the app's theme, so a dark app
-/// on a light Mac gets a light title bar and a grey wash behind the content. This hands the app's theme to AppKit.
+/// On macOS the title bar follows the system appearance, not the app's theme, so a dark app on a light Mac gets a
+/// light title bar (and a grey wash behind the content, if a backdrop is ever set again). This hands the app's theme
+/// to AppKit. https://github.com/unoplatform/uno/issues/24667
 /// </summary>
 public static class MacAppearance
 {

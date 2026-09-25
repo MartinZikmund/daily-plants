@@ -39,7 +39,9 @@ public sealed partial class ShellView : Page
             _associatedWindow.SetTitleBar(DraggableTitleBar);
             HasCustomTitleBar = true;
         }
-        if (MicaController.IsSupported())
+        // On macOS, Uno 6.7 leaves stale frames on screen while scrolling when a backdrop is set
+        // (https://github.com/unoplatform/uno/issues/24495), so the page keeps its own background there.
+        if (MicaController.IsSupported() && !OperatingSystem.IsMacOS())
         {
             _associatedWindow.SystemBackdrop = new MicaBackdrop();
             Background = null;
