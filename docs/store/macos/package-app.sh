@@ -43,6 +43,19 @@ dotnet msbuild "$PROJECT" -t:UnoMergeBundles $UNO_TARGET \
 mv "$MERGE/DailyPlants.app" "$APP"
 rm -rf "$MERGE"
 
+# The merge moves the assemblies into Resources/.arm64 and .x64 but leaves Assets and the other files in Resources,
+# and Uno resolves ms-appx:/// from the entry assembly's folder, so link them into both.
+RESOURCES="$APP/Contents/Resources"
+for arch in "$RESOURCES/.arm64" "$RESOURCES/.x64"; do
+  for entry in "$RESOURCES"/*; do
+    name=$(basename "$entry")
+    case "$name" in
+      *.dll|*.pdb) ;;
+      *) [ -e "$arch/$name" ] || ln -s "../$name" "$arch/$name" ;;
+    esac
+  done
+done
+
 cp "$PROFILE" "$APP/Contents/embedded.provisionprofile"
 
 # The app's entitlements plus the identifiers from the profile, which the App Store checks against it.
