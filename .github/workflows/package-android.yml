@@ -85,7 +85,7 @@ jobs:
 
       # "What's new" for every language, from docs/store/android/listing
       - name: Build the release notes
-        run: dotnet run docs/store/android/build-listing.cs
+        run: dotnet run docs/store/android/build-listing.cs -- --release-notes
 
       - name: Upload to Google Play Console
         uses: r0adkll/upload-google-play@v1

@@ -363,4 +363,14 @@ foreach ($name in $Device) {
     Set-DemoStatusBar $false
     Invoke-Adb emu kill | Out-Null
 }
+
+# The captures are committed, so keep them small. Lossless, so the slides don't change.
+if (-not $PrepareOnly) {
+    if (Get-Command oxipng -ErrorAction SilentlyContinue) {
+        oxipng --quiet --opt 4 --strip safe (Get-ChildItem (Join-Path $PSScriptRoot 'captures') -Recurse -Filter '*.png').FullName
+    }
+    else {
+        Write-Warning 'Install oxipng (https://github.com/oxipng/oxipng) to shrink the captures before committing them.'
+    }
+}
 Write-Host "Captures are in $(Join-Path $PSScriptRoot 'captures')"

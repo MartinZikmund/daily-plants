@@ -3,16 +3,25 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-// Builds the metadata folder for `fastlane supply` and the release notes for CI from listing/<locale>.md and images/.
-// Usage: dotnet run build-listing.cs [-- --check-only] [-- --out <dir>]
+// Builds the metadata folder for `fastlane supply` and the release notes for CI from listing/<locale>.md and the images
+// screenshots/Render-Slides.ps1 renders into artifacts/store/android/images.
+// Usage: dotnet run build-listing.cs [-- --check-only] [-- --release-notes] [-- --out <dir>]
+//   --check-only     only checks; the images too if they've been rendered
+//   --release-notes  only writes the release notes, which is all CI needs, so no images are needed
 string root = Path.GetDirectoryName(ScriptPath())!;
 string outDir = Path.Combine(root, "../../../artifacts/store/android");
+string imagesRoot = Path.Combine(root, "../../../artifacts/store/android/images");
 bool checkOnly = false;
+bool releaseNotesOnly = false;
 for (int i = 0; i < args.Length; i++)
 {
     if (args[i] == "--check-only")
     {
         checkOnly = true;
+    }
+    else if (args[i] == "--release-notes")
+    {
+        releaseNotesOnly = true;
     }
     else if (args[i] == "--out" && i + 1 < args.Length)
     {
@@ -78,10 +87,17 @@ if (!listings.ContainsKey(PrimaryLocale))
     errors.Add($"listing/{PrimaryLocale}.md is missing.");
 }
 
-Dictionary<string, string[]> screenshots = new();
-foreach ((string source, _, int ratioW, int ratioH, int minCount) in screenshotSets)
+bool checkImages = !releaseNotesOnly && (!checkOnly || Directory.Exists(imagesRoot));
+if (checkImages && !Directory.Exists(imagesRoot))
 {
-    string dir = Path.Combine(root, "images", source);
+    errors.Add($"No images in {Path.GetFullPath(imagesRoot)}. Run screenshots/Render-Slides.ps1 first.");
+    checkImages = false;
+}
+
+Dictionary<string, string[]> screenshots = new();
+foreach ((string source, _, int ratioW, int ratioH, int minCount) in checkImages ? screenshotSets : [])
+{
+    string dir = Path.Combine(imagesRoot, source);
     string[] images = Directory.Exists(dir) ? Directory.GetFiles(dir, "*.png").Order().ToArray() : [];
     screenshots[source] = images;
     if (images.Length < minCount || images.Length > 8)
@@ -107,9 +123,9 @@ foreach ((string source, _, int ratioW, int ratioH, int minCount) in screenshotS
     }
 }
 
-foreach ((string source, _, int width, int height, bool wantsAlpha, long maxBytes) in graphics)
+foreach ((string source, _, int width, int height, bool wantsAlpha, long maxBytes) in checkImages ? graphics : [])
 {
-    string path = Path.Combine(root, "images", source);
+    string path = Path.Combine(imagesRoot, source);
     if (!File.Exists(path))
     {
         errors.Add($"images/{source} is missing.");
@@ -127,7 +143,7 @@ if (errors.Count > 0)
     errors.ForEach(e => Console.Error.WriteLine(e));
     return 1;
 }
-Console.WriteLine($"{listings.Count} listings and the images are within Google Play's limits.");
+Console.WriteLine($"{listings.Count} listings{(checkImages ? " and the images" : "")} are within Google Play's limits.");
 if (checkOnly)
 {
     return 0;
@@ -135,7 +151,7 @@ if (checkOnly)
 
 string metadataDir = Path.Combine(outDir, "metadata");
 string whatsNewDir = Path.Combine(outDir, "whatsnew");
-foreach (string dir in new[] { metadataDir, whatsNewDir })
+foreach (string dir in releaseNotesOnly ? [whatsNewDir] : new[] { metadataDir, whatsNewDir })
 {
     if (Directory.Exists(dir))
     {
@@ -146,13 +162,22 @@ foreach (string dir in new[] { metadataDir, whatsNewDir })
 
 foreach ((string locale, Dictionary<string, string> listing) in listings)
 {
+    // The file names upload-google-play's whatsNewDirectory expects.
+    File.WriteAllText(Path.Combine(whatsNewDir, $"whatsnew-{locale}"), listing[ReleaseNotesField]);
+    if (releaseNotesOnly)
+    {
+        continue;
+    }
     string dir = Directory.CreateDirectory(Path.Combine(metadataDir, locale)).FullName;
     foreach ((string field, (string file, _)) in textFields)
     {
         File.WriteAllText(Path.Combine(dir, file), listing[field]);
     }
-    // The file names upload-google-play's whatsNewDirectory expects.
-    File.WriteAllText(Path.Combine(whatsNewDir, $"whatsnew-{locale}"), listing[ReleaseNotesField]);
+}
+if (releaseNotesOnly)
+{
+    Console.WriteLine($"Wrote the release notes to {Path.GetFullPath(whatsNewDir)}");
+    return 0;
 }
 
 // fastlane supply uploads the screenshots in file name order and replaces the ones in Play.
@@ -173,7 +198,7 @@ foreach ((string source, string[] targets, _, _, _) in screenshotSets)
 }
 foreach ((string source, string target, _, _, _, _) in graphics)
 {
-    File.Copy(Path.Combine(root, "images", source), Path.Combine(imagesDir, target));
+    File.Copy(Path.Combine(imagesRoot, source), Path.Combine(imagesDir, target));
     copied++;
 }
 

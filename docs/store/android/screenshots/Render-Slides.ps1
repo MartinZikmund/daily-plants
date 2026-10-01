@@ -1,7 +1,8 @@
 <#
 .SYNOPSIS
-Renders slides.html into the Google Play images with headless Edge: images/phone/<N>.png, images/tablet/<N>.png,
-images/feature-graphic.png and images/icon.png.
+Renders slides.html into the Google Play images with headless Edge: phone/<N>.png, tablet/<N>.png,
+feature-graphic.png and icon.png in artifacts/store/android/images.
+The images are build output, so they aren't committed; build-listing.cs picks them up from there.
 #>
 [CmdletBinding()]
 param(
@@ -13,7 +14,7 @@ $ErrorActionPreference = 'Stop'
 # The order they appear in Google Play.
 $Slides = 'hero', 'details', 'statistics', 'achievements', 'resources', 'dark'
 
-$imagesDir = Join-Path $PSScriptRoot '../images'
+$imagesDir = Join-Path $PSScriptRoot '../../../../artifacts/store/android/images'
 $page = ([System.Uri](Join-Path $PSScriptRoot 'slides.html')).AbsoluteUri
 $profileDir = Join-Path ([System.IO.Path]::GetTempPath()) 'dailyplants-play-slides-edge'
 
