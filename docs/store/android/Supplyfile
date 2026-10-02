@@ -1,0 +1,8 @@
+# Options for `fastlane supply`, run from this folder after `dotnet run build-listing.cs`.
+# Pass the service account key with --json_key.
+package_name("dev.mzikmund.dailyplants")
+metadata_path("../../../artifacts/store/android/metadata")
+skip_upload_apk(true)
+skip_upload_aab(true)
+# CI uploads the release notes with each build, see .github/workflows/package-android.yml.
+skip_upload_changelogs(true)
