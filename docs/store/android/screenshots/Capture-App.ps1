@@ -79,8 +79,9 @@ function New-Avd($Spec) {
         return
     }
     New-Item -ItemType Directory -Path $dir -Force | Out-Null
-    Set-Content -Path (Join-Path $avdHome "$($Spec.Avd).ini") -Value @('avd.ini.encoding=UTF-8', "path=$dir", 'target=android-37.0')
-    Set-Content -Path (Join-Path $dir 'config.ini') -Value @(
+    $utf8 = [System.Text.UTF8Encoding]::new($false)
+    [System.IO.File]::WriteAllLines((Join-Path $avdHome "$($Spec.Avd).ini"), @('avd.ini.encoding=UTF-8', "path=$dir", 'target=android-37.0'), $utf8)
+    [System.IO.File]::WriteAllLines((Join-Path $dir 'config.ini'), @(
         'avd.ini.encoding=UTF-8'
         "AvdId=$($Spec.Avd)"
         'PlayStore.enabled=no'
@@ -102,7 +103,7 @@ function New-Avd($Spec) {
         'tag.id=google_apis'
         'tag.display=Google APIs'
         'showDeviceFrame=yes'
-    )
+    ), $utf8)
     Write-Host "Created the $($Spec.Avd) emulator"
 }
 
