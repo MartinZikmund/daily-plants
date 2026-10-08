@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Google Play slides</title>
+<!--
+  One Google Play image per ?device=phone|tablet&slide=<name>, plus ?slide=feature (the 1024x500 feature graphic) and
+  ?slide=icon (the 512x512 icon). The phone canvas is 360x640 CSS pixels and the tablet one 1280x720, 9:16 and 16:9 as Play
+  wants. Render-Slides.ps1 renders them at 4x and 2x.
+-->
+<style>
+  @font-face { font-family: Fraunces; src: url("../../../../src/DailyPlants/Assets/Fonts/Fraunces.ttf"); font-weight: 100 900; }
+  @font-face { font-family: Karla; src: url("../../../../src/DailyPlants/Assets/Fonts/Karla.ttf"); font-weight: 200 800; }
+
+  :root {
+    --ink: #23271F;
+    --ink-muted: #5E6457;
+    --green-ink: #3A6244;
+    --bezel: #1F221D;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html, body { overflow: hidden; }
+
+  .canvas { position: relative; overflow: hidden; font-family: Karla, sans-serif; background: linear-gradient(#F4F0E3, #EAE4D2 80%); }
+
+  .copy { position: absolute; color: var(--ink); }
+  .copy h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-variation-settings: "opsz" 144, "SOFT" 40;
+    line-height: 1.02; letter-spacing: -0.015em; text-wrap: balance; }
+  .copy p { line-height: 1.4; color: var(--ink-muted); text-wrap: pretty; }
+  .copy.center { text-align: center; }
+  .copy.center p { margin-left: auto; margin-right: auto; }
+  .phone .copy h1 { font-size: 33px; }
+  .phone .copy p { font-size: 14.5px; margin-top: 10px; max-width: 300px; }
+  .tablet .copy h1 { font-size: 50px; }
+  .tablet .copy p { font-size: 18px; margin-top: 14px; max-width: 520px; }
+  .feature .copy h1 { font-size: 44px; }
+  .feature .copy p { font-size: 17px; margin-top: 12px; max-width: 360px; }
+
+  .brand { position: absolute; display: flex; align-items: center; color: var(--green-ink);
+    font-family: Fraunces, Georgia, serif; font-weight: 600; font-variation-settings: "opsz" 72; }
+  .phone .brand { gap: 8px; font-size: 18px; }
+  .phone .brand img { width: 30px; height: 30px; }
+  .tablet .brand { gap: 12px; font-size: 26px; }
+  .tablet .brand img { width: 42px; height: 42px; }
+  .feature .brand { gap: 12px; font-size: 26px; }
+  .feature .brand img { width: 44px; height: 44px; }
+
+  /* The windowsill: a ledge face, then the sill running to the bottom edge */
+  .sill { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(#3F6A4A, #2C4F35); }
+  .sill::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; background: linear-gradient(#5C8C66, #4C7A56);
+    box-shadow: 0 10px 22px rgba(20, 40, 25, .35); }
+  .tablet .sill::before, .feature .sill::before { top: -14px; height: 14px; }
+  .sill.split { background: linear-gradient(100deg, #3F6A4A 0 52%, #1F3526 52%); }
+  .sill.split::before { background: linear-gradient(100deg, #5C8C66 0 52%, #34543C 52%); }
+  .sill.night { background: #1F3526; }
+  .sill.night::before { background: #34543C; }
+
+  /* A device: a dark bezel around the capture, with the front camera */
+  .device { position: absolute; background: var(--bezel);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .12) inset, 0 30px 60px rgba(35, 39, 31, .28), 0 6px 16px rgba(35, 39, 31, .16); }
+  .device img { display: block; width: 100%; }
+  .device.dark { box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 40px 80px rgba(0, 0, 0, .5); }
+  .camera { position: absolute; background: #050605; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255, 255, 255, .06); }
+
+  .callout { position: absolute; background-repeat: no-repeat; background-color: #F7F6F0;
+    box-shadow: 0 0 0 1px rgba(35, 39, 31, .06), 0 28px 56px rgba(35, 39, 31, .26), 0 6px 16px rgba(35, 39, 31, .14); }
+
+  .food { position: absolute; filter: drop-shadow(0 12px 9px rgba(20, 40, 25, .28)); }
+  .glow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 214, 150, .22), transparent); }
+
+  .grain { position: absolute; inset: 0; pointer-events: none; opacity: .08; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* The Play icon: the launcher plate, full bleed, since Play rounds the corners itself */
+  .icon { background: #4C7A56; display: grid; place-items: center; }
+  .icon img { width: 80%; height: 80%; }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas"></div>
+<script>
+  const FOODS = '../../../../src/DailyPlants/Assets/Icons/Items/Fluent/';
+  const APP_ICON = '../../../../src/DailyPlants/Assets/Svg/applogo.svg';
+
+  // Same headlines as the Microsoft Store and App Store slides.
+  const TEXT = {
+    hero: { title: 'Eat more plants, every day', sub: 'A daily checklist for Dr. Greger’s Daily Dozen and Twenty-One Tweaks. One tap per serving.' },
+    details: { title: 'Know what counts', sub: 'Serving sizes, what each item includes and why it matters.' },
+    statistics: { title: 'Watch your streak grow', sub: 'Thirty days of progress, what you miss most and your weight trend.' },
+    achievements: { title: '31 achievements to earn', sub: 'From your first perfect day to a streak that lasts a whole year.' },
+    resources: { title: 'Learn as you go', sub: 'The latest articles, videos, podcasts and recipes from NutritionFacts.org.' },
+    dark: { title: 'Easy on the eyes at night', sub: 'Light and dark themes, in 21 languages.' },
+    feature: { title: 'Eat more plants, every day', sub: 'A calm, private checklist for Dr. Greger’s Daily Dozen and Twenty-One Tweaks.' },
+  };
+
+  const params = new URLSearchParams(location.search);
+  const slide = params.get('slide') || 'hero';
+  // The feature graphic and the icon are one size for every device.
+  const device = slide === 'feature' || slide === 'icon' ? slide : params.get('device') || 'phone';
+  const text = TEXT[slide];
+
+  // Canvas size in CSS pixels, and each capture's size in its own pixels. Crops below are in capture pixels.
+  const SPECS = {
+    phone: { w: 360, h: 640, capture: { device: 'phone', w: 1344, h: 2992 }, radius: 0.115, bezel: 0.03 },
+    tablet: { w: 1280, h: 720, capture: { device: 'tablet', w: 2560, h: 1600 }, radius: 0.03, bezel: 0.024 },
+    feature: { w: 1024, h: 500, capture: { device: 'phone', w: 1344, h: 2992 }, radius: 0.115, bezel: 0.03 },
+    icon: { w: 512, h: 512 },
+  };
+  const SPEC = SPECS[device];
+  const CAPTURE = SPEC.capture;
+
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const copy = (x, y, w, cls = '') =>
+    `<div class="copy ${cls}" style="left:${x}px;top:${y}px;width:${w}px"><h1>${esc(text.title)}</h1><p>${esc(text.sub)}</p></div>`;
+  const sill = (top, cls = '') => `<div class="sill ${cls}" style="top:${top}px"></div>`;
+  const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px"><img src="${APP_ICON}">Daily Plants</div>`;
+
+  // A capture in a device frame, w wide including the bezel. It stands on the sill unless a top is given.
+  const frame = (capture, x, w, { sillTop, top, cls = '', rotate = 0, spec = SPEC }) => {
+    const shot = spec.capture;
+    const bezel = Math.round(w * spec.bezel);
+    const inner = w - 2 * bezel;
+    const h = inner * shot.h / shot.w + 2 * bezel;
+    const y = top ?? sillTop - h;
+    const radius = w * spec.radius;
+    // The phone's punch-hole sits in the middle of the status bar, the tablet's camera in the top bezel.
+    const camera = shot.device === 'phone'
+      ? `<div class="camera" style="left:${w / 2 - inner * 0.017}px;top:${bezel + inner * 0.04}px;width:${inner * 0.034}px;height:${inner * 0.034}px"></div>`
+      : `<div class="camera" style="left:${w / 2 - bezel * 0.16}px;top:${bezel * 0.34}px;width:${bezel * 0.32}px;height:${bezel * 0.32}px"></div>`;
+    return `<div class="device ${cls}" style="left:${x}px;top:${y}px;width:${w}px;padding:${bezel}px;border-radius:${radius}px;transform:rotate(${rotate}deg)">`
+      + `<img src="captures/${shot.device}/${capture}.png" style="border-radius:${radius - bezel}px">${camera}</div>`;
+  };
+
+  // A crop of a capture, enlarged and lifted out of the frame. crop is in capture pixels.
+  const callout = (capture, crop, x, w, { sillTop, top, rotate = 0, radius = 12 }) => {
+    const scale = w / crop.w, h = crop.h * scale;
+    const y = top ?? sillTop - h;
+    return `<div class="callout" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:${radius}px;transform:rotate(${rotate}deg);`
+      + `background-image:url(captures/${CAPTURE.device}/${capture}.png);background-size:${CAPTURE.w * scale}px auto;background-position:-${crop.x * scale}px -${crop.y * scale}px"></div>`;
+  };
+
+  const food = (icon, x, w, sillTop, style = '') =>
+    `<img class="food" src="${FOODS}${icon}.svg" style="left:${x}px;top:${sillTop - w + 3}px;width:${w}px;${style}">`;
+
+  const night = (split, angle = 100) => `<div style="position:absolute;inset:0;background:linear-gradient(${angle}deg,transparent 0 ${split}%,#1D221B ${split}%)"></div>`;
+
+  // Every slide gets its own composition so the set doesn't read as one screenshot six times.
+  const layouts = {
+    // Portrait: copy on top, the phone standing on the sill, cropped by the bottom edge where it needs room.
+    phone: {
+      hero: () => {
+        const s = 600;
+        return sill(s) + brand(24, 36) + copy(24, 82, 312)
+          + food('berries', 8, 62, s) + food('greens', 296, 58, s)
+          + frame('diary', 66, 228, { top: 248 });
+      },
+      details: () => {
+        const s = 600;
+        return sill(s) + copy(24, 44, 312)
+          + frame('diary', -36, 210, { top: 206, rotate: -3 })
+          + callout('details', { x: 4, y: 694, w: 1336, h: 1764 }, 128, 216, { top: 256, rotate: 2, radius: 14 })
+          + food('other_fruits', 298, 54, s);
+      },
+      statistics: () => {
+        const s = 600;
+        return sill(s) + copy(24, 44, 312, 'center')
+          + frame('statistics', 66, 228, { top: 196 })
+          + callout('statistics-weight', { x: 40, y: 2010, w: 1264, h: 780 }, 16, 328, { top: 404, rotate: -1.5 });
+      },
+      achievements: () => {
+        const s = 612;
+        // The first three badges, square around the icon and its label.
+        const tiles = [0, 1, 2]
+          .map(i => callout('achievements', { x: 452, y: 850 + i * 476, w: 440, h: 404 }, 16 + i * 114, 100, { sillTop: s, rotate: [-4, 2, -1.5][i], radius: 10 }))
+          .join('');
+        return sill(s) + copy(24, 44, 312) + frame('achievements', 86, 228, { top: 196 }) + tiles;
+      },
+      resources: () => {
+        const s = 600;
+        return frame('resources', 66, 228, { top: 206 }) + sill(s) + copy(24, 44, 312)
+          + food('other_fruits', 10, 58, s) + food('berries', 298, 54, s);
+      },
+      dark: () => {
+        const s = 600;
+        // Night falls across the lower part, under the copy.
+        const glow = '<div class="glow" style="left:100px;top:220px;width:340px;height:460px"></div>';
+        return night(34, 160) + glow + sill(s, 'night') + copy(24, 44, 312)
+          + frame('diary', -8, 196, { top: 236 })
+          + frame('diary-dark', 148, 214, { top: 206, cls: 'dark' });
+      },
+    },
+    // Landscape, after the Microsoft Store and iPad slides.
+    tablet: {
+      hero: () => {
+        const s = 648;
+        return sill(s) + food('berries', 52, 104, s) + food('greens', 160, 92, s) + food('other_vegetables', 262, 88, s)
+          + brand(56, 60) + copy(56, 128, 360) + frame('diary', 432, 800, { sillTop: s });
+      },
+      details: () => {
+        const s = 648;
+        return sill(s) + frame('diary', -110, 780, { sillTop: s })
+          + callout('details', { x: 732, y: 237, w: 1096, h: 1171 }, 450, 380, { sillTop: s - 6 })
+          + copy(860, 96, 380) + food('other_fruits', 1010, 96, s) + food('greens', 1120, 86, s);
+      },
+      statistics: () => {
+        const s = 676;
+        return sill(s) + copy(140, 34, 1000, 'center')
+          + food('other_vegetables', 62, 100, s) + food('nuts', 166, 80, s)
+          + frame('statistics', 290, 700, { sillTop: s })
+          + callout('statistics-weight', { x: 780, y: 950, w: 1640, h: 520 }, 690, 560, { top: 440 });
+      },
+      achievements: () => {
+        const s = 656;
+        // First Step, Perfect Day and Week Warrior.
+        const tiles = [{ x: 795, y: 497 }, { x: 1340, y: 497 }, { x: 795, y: 1193 }]
+          .map((t, i) => callout('achievements', { x: t.x, y: t.y, w: 514, h: 283 }, 36 + i * 142, 150, { sillTop: s, rotate: [-4, 2, -1.5][i] }))
+          .join('');
+        return sill(s) + copy(56, 84, 420) + frame('achievements', 500, 740, { sillTop: s }) + tiles;
+      },
+      resources: () => {
+        const s = 612;
+        return frame('resources', 380, 820, { top: 120 }) + sill(s)
+          + copy(56, 84, 300)
+          + callout('resources', { x: 780, y: 385, w: 1300, h: 95 }, 600, 640, { top: 60, rotate: -1.5 })
+          + food('other_fruits', 56, 100, s) + food('berries', 166, 88, s);
+      },
+      dark: () => {
+        const s = 676;
+        const glow = '<div class="glow" style="left:700px;top:120px;width:600px;height:520px"></div>';
+        return night(52) + glow + sill(s, 'split') + copy(56, 72, 480)
+          + frame('diary', 36, 620, { sillTop: s })
+          + frame('diary-dark', 520, 700, { sillTop: s, cls: 'dark' })
+          + food('berries', 1170, 88, s, 'filter:drop-shadow(0 12px 9px rgba(0,0,0,.4)) brightness(.8)');
+      },
+    },
+    // The banner above the listing: the brand and tagline on the left, the phone and tablet on the sill.
+    feature: {
+      feature: () => {
+        const s = 452;
+        return sill(s) + brand(48, 60) + copy(48, 128, 400)
+          + frame('diary', 500, 470, { sillTop: s, spec: SPECS.tablet })
+          + frame('diary', 850, 150, { sillTop: s + 8 })
+          + food('greens', 376, 56, s) + food('berries', 432, 64, s);
+      },
+    },
+    icon: {
+      icon: () => `<img src="${APP_ICON}">`,
+    },
+  };
+
+  const canvas = document.getElementById('canvas');
+  canvas.className = `canvas ${device}`;
+  canvas.style.width = document.body.style.width = `${SPEC.w}px`;
+  canvas.style.height = document.body.style.height = `${SPEC.h}px`;
+  if (device === 'icon') {
+    canvas.className = 'canvas icon';
+    canvas.innerHTML = layouts.icon.icon();
+  } else {
+    canvas.innerHTML = layouts[device][slide]() + '<div class="grain"></div>';
+  }
+</script>
+</body>
+</html>
