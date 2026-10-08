@@ -59,6 +59,35 @@
         <TrimMode>partial</TrimMode>
     </PropertyGroup>
 
+    <!-- The macOS app bundle, see docs/store/macos -->
+    <PropertyGroup Condition="'$(IsDesktop)' == 'true'">
+        <UnoMacOSCustomInfoPlist>$(MSBuildThisFileDirectory)Platforms/Desktop/macOS/Info.plist</UnoMacOSCustomInfoPlist>
+        <UnoMacOSMinimumSystemVersion>12.0</UnoMacOSMinimumSystemVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Only the bundle's icon.icns needs these -->
+        <DefaultItemExcludes>$(DefaultItemExcludes);Platforms/Desktop/macOS/AppIcon/**</DefaultItemExcludes>
+    </PropertyGroup>
+
+    <!-- Nerdbank.GitVersioning stamps the app version for iOS, Android and Windows, but not for the macOS bundle. -->
+    <Target Name="SetMacOSBundleVersion"
+            Condition="'$(IsDesktop)' == 'true'"
+            BeforeTargets="_UnoPublishAppBundle"
+            DependsOnTargets="GetBuildVersion">
+        <PropertyGroup>
+            <ApplicationVersion>$(BuildVersionSimple)</ApplicationVersion>
+            <ApplicationDisplayVersion>$(BuildVersionSimple)</ApplicationDisplayVersion>
+        </PropertyGroup>
+        <!--
+          Uno builds icon.icns only from images named icon16x16@1x and so on, and the desktop icon is icon_transparent.
+          The Mac gets its own plated icon anyway, from assets/app-icon/export-macos-icon.cs.
+        -->
+        <ItemGroup>
+            <_UnoResizetizerCollectedImages Include="$(MSBuildThisFileDirectory)Platforms/Desktop/macOS/AppIcon/*.png" />
+        </ItemGroup>
+    </Target>
+
     <ItemGroup>
         <!-- The test project drives a few internal test seams (the search debounce, for one). -->
         <InternalsVisibleTo Include="DailyPlants.Tests" />

@@ -73,7 +73,8 @@ And in your pocket:
 | Windows | [Microsoft Store](https://apps.microsoft.com/detail/9NKK3K501RZG) |
 | iPhone and iPad | Coming soon to the App Store |
 | Android | Coming soon to Google Play |
-| macOS, Linux and the web | [Build it yourself](#build-it-yourself) |
+| Mac | Coming soon to the Mac App Store |
+| Linux and the web | [Build it yourself](#build-it-yourself) |
 
 ## Build it yourself
 
@@ -129,7 +130,7 @@ docs/design/         Design notes
 assets/app-icon/     App icon sources
 ```
 
-The Store listings and every screenshot in this README are generated from the repo. See [docs/store/windows](docs/store/windows/README.md) and [docs/store/ios](docs/store/ios/README.md) if you want to rerun them.
+The Store listings and every screenshot in this README are generated from the repo. See [docs/store/windows](docs/store/windows/README.md), [docs/store/ios](docs/store/ios/README.md) and [docs/store/macos](docs/store/macos/README.md) if you want to rerun them.
 
 ## Contributing
 

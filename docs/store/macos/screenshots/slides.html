@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mac App Store slides</title>
+<!--
+  One Mac App Store screenshot per ?slide=<name>, laid out at 1440x900 CSS pixels.
+  render-slides.sh renders them at 2x, 2880x1800. Open it in a browser with ?slide=hero to iterate.
+-->
+<style>
+  @font-face { font-family: Fraunces; src: url("../../../../src/DailyPlants/Assets/Fonts/Fraunces.ttf"); font-weight: 100 900; }
+  @font-face { font-family: Karla; src: url("../../../../src/DailyPlants/Assets/Fonts/Karla.ttf"); font-weight: 200 800; }
+
+  :root {
+    --ink: #23271F;
+    --ink-muted: #5E6457;
+    --green-ink: #3A6244;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; }
+
+  .canvas { position: relative; width: 1440px; height: 900px; overflow: hidden; font-family: Karla, -apple-system, sans-serif;
+    background: linear-gradient(#F4F0E3, #EAE4D2 80%); }
+
+  .copy { position: absolute; color: var(--ink); }
+  .copy h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-variation-settings: "opsz" 144, "SOFT" 40;
+    font-size: 68px; line-height: 1.02; letter-spacing: -0.015em; text-wrap: balance; }
+  .copy p { font-size: 23px; line-height: 1.4; margin-top: 20px; color: var(--ink-muted); text-wrap: pretty; }
+  .copy.center { text-align: center; }
+  .copy.center p { margin-left: auto; margin-right: auto; max-width: 720px; }
+
+  .brand { position: absolute; display: flex; align-items: center; gap: 14px; color: var(--green-ink);
+    font-family: Fraunces, Georgia, serif; font-weight: 600; font-variation-settings: "opsz" 72; font-size: 31px; }
+  .brand img { width: 50px; height: 50px; }
+
+  /* The windowsill: a ledge face, then the sill running to the bottom edge */
+  .sill { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(#3F6A4A, #2C4F35); }
+  .sill::before { content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 18px; background: linear-gradient(#5C8C66, #4C7A56);
+    box-shadow: 0 10px 24px rgba(20, 40, 25, .35); }
+  .sill.split { background: linear-gradient(100deg, #3F6A4A 0 52%, #1F3526 52%); }
+  .sill.split::before { background: linear-gradient(100deg, #5C8C66 0 52%, #34543C 52%); }
+
+  /* The captures are real macOS windows with rounded corners, so the shadow follows their outline. */
+  .window { position: absolute; filter: drop-shadow(0 22px 34px rgba(35, 39, 31, .24)) drop-shadow(0 4px 10px rgba(35, 39, 31, .16)); }
+  .window img { display: block; width: 100%; }
+  .window.dark { filter: drop-shadow(0 30px 44px rgba(0, 0, 0, .5)); }
+
+  .callout { position: absolute; border-radius: 11px; background-repeat: no-repeat; background-color: #F7F6F0;
+    box-shadow: 0 0 0 1px rgba(35, 39, 31, .06), 0 28px 54px rgba(35, 39, 31, .26), 0 6px 16px rgba(35, 39, 31, .14); }
+
+  .food { position: absolute; filter: drop-shadow(0 12px 9px rgba(20, 40, 25, .28)); }
+  .glow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 214, 150, .22), transparent); }
+
+  .grain { position: absolute; inset: 0; pointer-events: none; opacity: .08; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas"></div>
+<script>
+  const FOODS = '../../../../src/DailyPlants/Assets/Icons/Items/Fluent/';
+  const APP_ICON = '../../../../src/DailyPlants/Platforms/Desktop/macOS/AppIcon/icon128x128@2x.png';
+  // capture-app.sh writes every capture at this size (a 1600-point window at 2x, title bar included),
+  // and the crops below are in its pixels.
+  const CAPTURE = { w: 3200, h: 1898 };
+
+  // The headlines match the iOS and Microsoft Store slides, with clicks instead of taps.
+  const TEXT = {
+    hero: { title: 'Eat more plants, every day', sub: 'A daily checklist for Dr. Greger’s Daily Dozen and Twenty-One Tweaks. One click per serving.' },
+    details: { title: 'Know what counts', sub: 'Serving sizes, what each item includes and why it matters.' },
+    statistics: { title: 'Watch your streak grow', sub: 'Thirty days of progress, what you miss most and your weight trend.' },
+    achievements: { title: '31 achievements to earn', sub: 'From your first perfect day to a streak that lasts a whole year.' },
+    resources: { title: 'Learn as you go', sub: 'The latest articles, videos, podcasts and recipes from NutritionFacts.org.' },
+    dark: { title: 'Easy on the eyes at night', sub: 'Light and dark themes, in 21 languages.' },
+  };
+
+  const slide = new URLSearchParams(location.search).get('slide') || 'hero';
+  const text = TEXT[slide];
+
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const copy = (x, y, w, cls = '') =>
+    `<div class="copy ${cls}" style="left:${x}px;top:${y}px;width:${w}px"><h1>${esc(text.title)}</h1><p>${esc(text.sub)}</p></div>`;
+  const sill = (top, cls = '') => `<div class="sill ${cls}" style="top:${top}px"></div>`;
+
+  // A capture in its window frame. It stands on the sill unless a top is given.
+  const win = (capture, x, w, { sillTop, top, cls = '' }) => {
+    const h = w * CAPTURE.h / CAPTURE.w;
+    const y = top ?? sillTop - h;
+    return `<div class="window ${cls}" style="left:${x}px;top:${y}px;width:${w}px"><img src="captures/${capture}.png"></div>`;
+  };
+
+  // A crop of a capture, enlarged and lifted out of the window. crop is in capture pixels.
+  const callout = (capture, crop, x, w, { sillTop, top, rotate = 0 }) => {
+    const scale = w / crop.w, h = crop.h * scale;
+    const y = top ?? sillTop - h;
+    return `<div class="callout" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;transform:rotate(${rotate}deg);`
+      + `background-image:url(captures/${capture}.png);background-size:${CAPTURE.w * scale}px auto;background-position:-${crop.x * scale}px -${crop.y * scale}px"></div>`;
+  };
+
+  const food = (icon, x, w, sillTop, style = '') =>
+    `<img class="food" src="${FOODS}${icon}.svg" style="left:${x}px;top:${sillTop - w + 3}px;width:${w}px;${style}">`;
+
+  // Every slide gets its own composition so the set doesn't read as one screenshot six times.
+  const layouts = {
+    // The app's name and what it is, the diary standing on the sill beside a few foods.
+    hero: () => {
+      const s = 780;
+      return sill(s) + food('berries', 60, 124, s) + food('greens', 186, 110, s) + food('other_vegetables', 306, 102, s)
+        + `<div class="brand" style="left:76px;top:76px"><img src="${APP_ICON}">Daily Plants</div>`
+        + copy(76, 156, 370) + win('diary', 452, 944, { sillTop: s });
+    },
+    // The diary off the left edge, the item dialog standing in front of it, copy to the right.
+    details: () => {
+      const s = 780;
+      return sill(s) + win('diary', -120, 960, { sillTop: s })
+        + callout('details', { x: 1054, y: 393, w: 1092, h: 1175 }, 500, 420, { sillTop: s })
+        + copy(990, 110, 390) + food('other_fruits', 1150, 118, s) + food('greens', 1290, 100, s);
+    },
+    // Centred copy, the window centred on the sill, the weight chart lifted out over its corner.
+    statistics: () => {
+      const s = 806;
+      return sill(s) + copy(190, 46, 1060, 'center')
+        + food('other_vegetables', 80, 118, s) + food('nuts', 206, 94, s)
+        + win('statistics', 300, 840, { sillTop: s })
+        + callout('statistics-weight', { x: 740, y: 1215, w: 2310, h: 650 }, 800, 590, { top: 590 });
+    },
+    // A big window off the right edge, earned badges propped on the sill like picture frames.
+    achievements: () => {
+      const s = 800;
+      const tiles = [{ x: 795, y: 512 }, { x: 1250, y: 512 }, { x: 795, y: 891 }]
+        .map((t, i) => callout('achievements', { x: t.x, y: t.y, w: 421, h: 283 }, 60 + i * 156, 176, { sillTop: s, rotate: [-4, 2, -1.5][i] }))
+        .join('');
+      return sill(s) + copy(76, 96, 490) + win('achievements', 590, 1060, { sillTop: s }) + tiles;
+    },
+    // The window seen over the sill, its search and tab strip lifted out above it.
+    resources: () => {
+      const s = 740;
+      return win('resources', 410, 980, { top: 140 }) + sill(s)
+        + copy(76, 96, 320)
+        + callout('resources', { x: 780, y: 320, w: 1300, h: 180 }, 740, 620, { top: 74, rotate: -1.5 })
+        + food('other_fruits', 76, 118, s) + food('berries', 206, 100, s);
+    },
+    // Day and night side by side, the dark window in front.
+    dark: () => {
+      const s = 806;
+      const night = '<div style="position:absolute;inset:0;background:linear-gradient(100deg,transparent 0 52%,#1D221B 52%)"></div>';
+      const glow = '<div class="glow" style="left:810px;top:140px;width:680px;height:540px"></div>';
+      return night + glow + sill(s, 'split') + copy(76, 84, 560)
+        + win('diary', 60, 680, { sillTop: s })
+        + win('diary-dark', 575, 760, { sillTop: s, cls: 'dark' })
+        + food('berries', 1345, 84, s, 'filter:drop-shadow(0 12px 9px rgba(0,0,0,.4)) brightness(.8)');
+    },
+  };
+
+  document.getElementById('canvas').innerHTML = layouts[slide]() + '<div class="grain"></div>';
+</script>
+</body>
+</html>
