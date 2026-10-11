@@ -16,4 +16,24 @@
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="All" />
   </ItemGroup>
+  <!-- Uno 7.0 preview: pin the Uno ecosystem to the newest builds; Uno.Sdk.Private still pins Uno 6-era Toolkit/Themes/Extensions. -->
+  <PropertyGroup>
+    <UnoToolkitVersion>11.0.0-dev.140</UnoToolkitVersion>
+    <UnoThemesVersion>9.0.0-dev.41</UnoThemesVersion>
+    <UnoExtensionsVersion>8.0.0-dev.76</UnoExtensionsVersion>
+    <UnoResizetizerVersion>2.0.0-dev.36</UnoResizetizerVersion>
+    <UnoHotDesignVersion>2.0.0-dev.2</UnoHotDesignVersion>
+    <UnoAppMcpVersion>2.0.0-dev.7</UnoAppMcpVersion>
+    <UnoSettingsVersion>2.0.0-dev.23</UnoSettingsVersion>
+    <UnoSdkExtrasVersion>6.4.0-dev.15</UnoSdkExtrasVersion>
+    <UnoFontsVersion>2.10.0-dev.9</UnoFontsVersion>
+    <UnoLoggingVersion>1.9.0-dev.2</UnoLoggingVersion>
+    <UnoCoreLoggingSingletonVersion>5.0.0-dev.34</UnoCoreLoggingSingletonVersion>
+    <UnoWasmBootstrapVersion>10.1.0-dev.260</UnoWasmBootstrapVersion>
+    <SkiaSharpVersion>4.155.0-preview.2.26479.13</SkiaSharpVersion>
+    <HarfBuzzSharpVersion>14.4.0-preview.2.26479.13</HarfBuzzSharpVersion>
+    <SvgSkiaVersion>5.2.3</SvgSkiaVersion>
+    <!-- Uno.Extensions 8 needs Microsoft.Extensions.Logging >= 10.0.12; the SDK still pins 10.0.10 (NU1605). -->
+    <MicrosoftLoggingVersion>10.0.12</MicrosoftLoggingVersion>
+  </PropertyGroup>
 </Project>

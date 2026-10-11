@@ -37,4 +37,10 @@ internal sealed class InMemoryPreferences : IPreferences
     public bool TryGetComplex<T>(string key, out T value) => TryGet(key, out value);
 
     public void SetComplex<T>(string key, T? value) => Set(key, value);
+
+    public bool ContainsKey(string key) => _storage.ContainsKey(key);
+
+    public void Remove(string key) => _storage.Remove(key);
+
+    public void Clear() => _storage.Clear();
 }

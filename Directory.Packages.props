@@ -8,11 +8,30 @@
   <ItemGroup>
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
     <PackageVersion Include="sqlite-net-e" Version="1.11.0" />
-    <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
+    <!-- Uno 7.0: local build of MartinZikmund/mzikmund-toolkit#102 -->
+    <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="1.0.0-preview.4" />
     <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
-    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" Condition="$(TargetFramework.Contains('-windows'))" />
+    <!-- Uno 7.0: no published CommunityToolkit build targets it yet, so this is a local recompile -->
+    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219-uno7.4" Condition="!$(TargetFramework.Contains('-windows'))" />
     <!-- Ahead of the Uno SDK's implicit 8.4.0: [ObservableProperty] only generates for partial properties from 8.4.2. -->
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+  </ItemGroup>
+
+  <!--
+    Uno 7.0 preview: pin transitive graphics/font packages to one consistent latest set (the SDK's version
+    properties only reach direct references)).
+  -->
+  <PropertyGroup>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="SkiaSharp" Version="4.155.0-preview.2.26479.13" />
+    <PackageVersion Include="SkiaSharp.Skottie" Version="4.155.0-preview.2.26479.13" />
+    <PackageVersion Include="SkiaSharp.Resources" Version="4.155.0-preview.2.26479.13" />
+    <PackageVersion Include="SkiaSharp.SceneGraph" Version="4.155.0-preview.2.26479.13" />
+    <PackageVersion Include="HarfBuzzSharp" Version="14.4.0-preview.2.26479.13" />
+    <PackageVersion Include="Uno.Fonts.Fluent" Version="2.10.0-dev.9" />
   </ItemGroup>
 
   <!-- Test packages -->
