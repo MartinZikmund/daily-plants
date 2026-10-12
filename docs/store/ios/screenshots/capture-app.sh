@@ -87,4 +87,10 @@ print(devices[0]['udid'] if devices else '')" "$name")
     xcrun simctl terminate $udid $bundle
     xcrun simctl status_bar $udid clear
 done
+# The captures are committed, so keep them small. Lossless, so the slides don't change.
+if command -v oxipng >/dev/null; then
+    oxipng --quiet --opt 4 --strip safe $here/captures/**/*.png
+else
+    print -u2 "Install oxipng (brew install oxipng) to shrink the captures before committing them."
+fi
 print "Captures are in $here/captures"
