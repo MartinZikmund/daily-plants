@@ -6,6 +6,7 @@ namespace DailyPlants.Tests.Packaging;
 public class AppResourcesTests
 {
     private const string AppScheme = "ms-appx:///";
+    private const string ToolkitPackage = "CommunityToolkit.WinUI.Controls.SettingsControls";
 
     private static readonly XNamespace Presentation = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
     private static readonly XNamespace Xaml = "http://schemas.microsoft.com/winfx/2006/xaml";
@@ -57,7 +58,7 @@ public class AppResourcesTests
                     projectFiles.Add(file);
                     pending.Enqueue(file);
                 }
-                else if (!IsInReferencedAssembly(path))
+                else if (!IsShippedInPackage(path))
                 {
                     missing.Add(source);
                 }
@@ -67,8 +68,9 @@ public class AppResourcesTests
         return (projectFiles, missing);
     }
 
-    private static bool IsInReferencedAssembly(string path) =>
-        File.Exists(Path.Combine(AppContext.BaseDirectory, $"{path.Split('/')[0]}.dll"));
+    private static bool IsShippedInPackage(string path) =>
+        path == $"{ToolkitPackage}/Themes/Generic.xaml"
+        && File.Exists(Path.Combine(AppContext.BaseDirectory, $"{ToolkitPackage}.dll"));
 
     private static string RepoRoot()
     {
