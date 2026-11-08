@@ -70,6 +70,17 @@ Copyright (c) .NET Foundation and Contributors
 Licensed under the MIT License
 ```
 
+### Windows Community Toolkit
+
+- **Source copy**: `SettingsCard`, `SettingsExpander` and their state triggers, in `src/DailyPlants/ThirdParty/CommunityToolkit`
+- **License**: MIT License
+- **Project**: https://github.com/CommunityToolkit/Windows
+
+```
+Copyright (c) .NET Foundation and Contributors
+Licensed under the MIT License
+```
+
 ### Microsoft.Data.Sqlite
 
 - **Package**: Microsoft.Data.Sqlite

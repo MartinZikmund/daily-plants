@@ -11,9 +11,7 @@
     <!-- Uno 7.0: local build of MartinZikmund/mzikmund-toolkit#102 -->
     <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="1.0.0-preview.4" />
     <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
-    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" Condition="$(TargetFramework.Contains('-windows'))" />
-    <!-- Uno 7.0: no published CommunityToolkit build targets it yet, so this is a local recompile -->
-    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219-uno7.4" Condition="!$(TargetFramework.Contains('-windows'))" />
+    <!-- CommunityToolkit.WinUI.Controls.SettingsControls is a source copy until it targets Uno 7: src/DailyPlants/ThirdParty/CommunityToolkit/README.md -->
     <!-- Ahead of the Uno SDK's implicit 8.4.0: [ObservableProperty] only generates for partial properties from 8.4.2. -->
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
   </ItemGroup>
