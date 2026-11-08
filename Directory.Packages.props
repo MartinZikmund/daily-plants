@@ -8,9 +8,9 @@
   <ItemGroup>
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
     <PackageVersion Include="sqlite-net-e" Version="1.11.0" />
-    <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
+    <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="1.0.0-dev.71" />
     <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
-    <PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <!-- CommunityToolkit.WinUI.Controls.SettingsControls is a source copy until it targets Uno 7: src/DailyPlants/ThirdParty/CommunityToolkit/README.md -->
     <!-- Ahead of the Uno SDK's implicit 8.4.0: [ObservableProperty] only generates for partial properties from 8.4.2. -->
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
   </ItemGroup>
