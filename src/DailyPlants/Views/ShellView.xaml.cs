@@ -1,3 +1,4 @@
+using DailyPlants.Helpers;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -38,7 +39,9 @@ public sealed partial class ShellView : Page
             _associatedWindow.SetTitleBar(DraggableTitleBar);
             HasCustomTitleBar = true;
         }
-        if (MicaController.IsSupported())
+        // On macOS, Uno 6.7 leaves stale frames on screen while scrolling when a backdrop is set
+        // (https://github.com/unoplatform/uno/issues/24495), so the page keeps its own background there.
+        if (MicaController.IsSupported() && !OperatingSystem.IsMacOS())
         {
             _associatedWindow.SystemBackdrop = new MicaBackdrop();
             Background = null;
@@ -110,6 +113,7 @@ public sealed partial class ShellView : Page
     {
         UpdateTitleBarColors();
         UpdateStatusBarForeground();
+        MacAppearance.Apply(ActualTheme);
     }
 
     private async void ShellView_Loaded(object sender, RoutedEventArgs e)
@@ -122,6 +126,7 @@ public sealed partial class ShellView : Page
             this.ActualThemeChanged += ShellView_ActualThemeChanged;
             UpdateTitleBarColors();
             UpdateStatusBarForeground();
+            MacAppearance.Apply(ActualTheme);
 
             RemoveResourcesIfUnreachable();
 
