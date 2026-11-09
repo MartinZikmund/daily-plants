@@ -162,8 +162,30 @@ public class ChecklistDefinitionsTests
 
         var map = ChecklistDefinitions.GetRequiredServingsMap(prefs);
 
-        var enabledIds = ChecklistDefinitions.GetEnabledItems(prefs).Select(i => i.Id).ToHashSet();
-        map.Keys.Should().BeEquivalentTo(enabledIds);
+        var countedIds = ChecklistDefinitions.GetEnabledItems(prefs)
+            .Where(i => i.CountsTowardCompletion)
+            .Select(i => i.Id)
+            .ToHashSet();
+        map.Keys.Should().BeEquivalentTo(countedIds);
+    }
+
+    [TestMethod]
+    public void GetRequiredServingsMap_LeavesOutVitaminB12()
+    {
+        var prefs = new FakeAppPreferences { DailyDozenEnabled = true };
+
+        var map = ChecklistDefinitions.GetRequiredServingsMap(prefs);
+
+        map.Should().NotContainKey("vitamin_b12");
+        map.Values.Sum().Should().Be(24, "the official Android app's MAX_SERVINGS");
+    }
+
+    [TestMethod]
+    public void GetEnabledItems_StillListsVitaminB12()
+    {
+        var prefs = new FakeAppPreferences { DailyDozenEnabled = true };
+
+        ChecklistDefinitions.GetEnabledItems(prefs).Should().Contain(i => i.Id == "vitamin_b12");
     }
 
     [TestMethod]
@@ -173,7 +195,7 @@ public class ChecklistDefinitionsTests
 
         var map = ChecklistDefinitions.GetRequiredServingsMap(prefs);
 
-        foreach (var item in ChecklistDefinitions.GetEnabledItems(prefs))
+        foreach (var item in ChecklistDefinitions.GetEnabledItems(prefs).Where(i => i.CountsTowardCompletion))
         {
             map[item.Id].Should().Be(item.RecommendedServings);
         }
