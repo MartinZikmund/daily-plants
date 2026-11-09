@@ -25,10 +25,10 @@ Daily Plants je klidný a soukromý seznam pro stravu založenou na celých rost
 VÁŠ DEN NA PRVNÍ POHLED
 Klepněte na + pokaždé, když sníte porci luštěnin, bobulovin, listové zeleniny, celozrnných obilovin a dalších. Každá porce vyplní jednu tečku, počítadlo ukazuje, kde zrovna jste („14 z 21“), a splněné položky se přesunou dolů do části Dnes hotovo, takže nahoře zůstává jen to, co ještě zbývá. Když splníte všechno, aplikace to s vámi oslaví.
 
-DVA SEZNAMY, NIC SE NEPOČÍTÁ DVAKRÁT
-• Daily Dozen: 12 skupin potravin, které byste měli jíst každý den, z knihy „How Not to Die“.
+DVA SEZNAMY, VY SI VYBERETE
+• Daily Dozen: 12 denních cílů pro jídlo, pití a pohyb, z knihy „How Not to Die“.
 • Twenty-One Tweaks: 21 návyků z knihy „How Not to Diet“, třeba sklenice vody před jídlem, ocet k jídlu, jídlo bez rozptylování nebo dost spánku.
-Používejte jeden seznam, nebo oba. Kde se překrývají, jako Nápoje a Zůstat hydratovaný, se jedna porce započítá do obou. Položky, které sledovat nechcete, můžete vypnout.
+Používejte jeden seznam, nebo oba. Položky, které sledovat nechcete, můžete vypnout.
 
 ZJISTĚTE, CO SE POČÍTÁ
 Klepnutím na položku zobrazíte velikost porce, které potraviny se do ní počítají a proč je důležitá, spolu s odkazem na další informace na NutritionFacts.org. Zapomněli jste na nějaký den? Vraťte se a doplňte ho.
@@ -66,7 +66,7 @@ Verze 0.6: úplně nový vzhled.
 
 - Seznamy Daily Dozen a Twenty-One Tweaks z knih Dr. Gregera
 - Porci zapíšete jedním klepnutím a hned vidíte, co ještě zbývá
-- Jeden seznam, nebo oba, a překrývající se položky se počítají jen jednou
+- Jeden seznam, nebo oba
 - Vypněte položky, které sledovat nechcete
 - Velikosti porcí, příklady a přínosy pro zdraví u každé položky
 - Vraťte se k libovolnému dni a doplňte, na co jste zapomněli

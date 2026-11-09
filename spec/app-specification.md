@@ -21,6 +21,10 @@ All platforms will be supported from initial release using Uno Platform's Skia r
 
 ## Checklists
 
+The authoritative wording, serving sizes and counts are in the official Daily Dozen apps
+([iOS](https://github.com/nutritionfactsorg/daily-dozen-ios), [Android](https://github.com/nutritionfactsorg/daily-dozen-android))
+and on [NutritionFacts.org](https://nutritionfacts.org/daily-dozen/). `ChecklistContentTests` pins the counts and safety text.
+
 ### 1. Daily Dozen (How Not to Die)
 
 | Item | Daily Servings | Serving Size Example |
@@ -32,51 +36,46 @@ All platforms will be supported from initial release using Uno Platform's Skia r
 | Cruciferous Vegetables | 1 | ½ cup chopped or 1 tbsp horseradish |
 | Other Vegetables | 2 | ½ cup non-leafy vegetables |
 | Flaxseed | 1 | 1 tbsp ground |
-| Nuts and Seeds | 1 | ¼ cup nuts or 2 tbsp nut butter |
+| Nuts and Seeds | 1 | ¼ cup nuts or seeds, or 2 tbsp nut or seed butter |
 | Herbs and Spices | 1 | ¼ tsp turmeric |
-| Whole Grains | 3 | ½ cup hot cereal or 1 slice bread |
-| Beverages | 5 | 12 oz water, tea, or other |
+| Whole Grains | 3 | ½ cup hot cereal or 1 slice whole grain bread |
+| Beverages | 5 | 12 oz water, tea, or coffee |
 | Exercise | 1 | 90 min moderate or 40 min vigorous |
-| Vitamin B12 | 1 | 2000 mcg weekly or 50 mcg daily |
+
+Vitamin B12 (at least 2,000 mcg weekly or 50 mcg daily; at least 1,000 mcg daily over 65) is listed alongside
+these for convenience. As in the official apps, it does not count toward the daily total, perfect days or streaks.
 
 ### 2. Twenty-One Tweaks (How Not to Diet)
 
-Weight-loss accelerators - each is a single daily checkbox:
+| Tweak | Daily checks |
+|-------|--------------|
+| **At each meal** | |
+| Preload with water | 3 |
+| Preload with "negative calorie" foods | 3 |
+| Incorporate vinegar (2 tsp) | 3 |
+| Enjoy undistracted meals | 3 |
+| Follow the twenty-minute rule | 3 |
+| **Every day** | |
+| Black cumin (¼ tsp) | 1 |
+| Garlic powder (¼ tsp) | 1 |
+| Ground ginger (1 tsp) or cayenne (½ tsp) | 1 |
+| Nutritional yeast (2 tsp) | 1 |
+| Cumin (½ tsp with lunch and dinner) | 2 |
+| Green tea (3 cups) | 3 |
+| Stay hydrated | 1 |
+| Deflour your diet | 1 |
+| Front-load your calories | 1 |
+| Time-restrict your eating | 1 |
+| Optimize exercise timing | 1 |
+| Weigh yourself twice a day | 2 |
+| Complete your implementation intentions | 3 |
+| **Every night** | |
+| Fast after 7:00 PM | 1 |
+| Get sufficient sleep | 1 |
+| Experiment with mild Trendelenburg | 1 |
 
-1. Preload water (2 cups before each meal)
-2. Negative calorie preload (start with apple/salad/soup)
-3. Incorporate vinegar (2 tsp with meals)
-4. Enjoy undistracted meals
-5. Follow the 20-minute rule (slow eating)
-6. Flavor with fat-free dressings
-7. Front-load calories (bigger breakfast)
-8. Time-restricted eating
-9. Eat more legumes
-10. Eat more greens
-11. Eat more berries
-12. Deflour your diet (intact grains)
-13. Black cumin (¼ tsp daily)
-14. Garlic powder (¼ tsp daily)
-15. Ground ginger (1 tsp daily)
-16. Nutritional yeast (2 tsp daily)
-17. Cumin (½ tsp lunch + dinner)
-18. Green tea (3 cups daily)
-19. Stay hydrated
-20. Exercise timing (fasted or afternoon)
-21. Get enough sleep (7+ hours)
-
-### 3. Anti-Aging Eight (How Not to Age)
-
-| Item | Daily Servings | Notes |
-|------|----------------|-------|
-| Legumes | 3 | Beans, lentils, chickpeas |
-| Nuts | 1 | Preferably walnuts |
-| Dark Leafy Greens | 2 | Kale, spinach, etc. |
-| Cruciferous Vegetables | 1 | Broccoli, cauliflower |
-| Berries | 1 | Any berries |
-| Exercise | 1 | Boosts NAD+ levels |
-| Sun Protection | 1 | Daily sunscreen/protection |
-| Sleep | 1 | Quality sleep habits |
+The Anti-Aging Eight from *How Not to Age* is not a checklist in the app: most of it (caloric restriction,
+xenohormesis, NAD+ and so on) is a strategy rather than something to tick off each day.
 
 ---
 
@@ -88,23 +87,11 @@ Weight-loss accelerators - each is a single daily checkbox:
 - Default: Daily Dozen enabled
 - Settings page to manage active checklists
 
-### Smart Merge for Overlapping Items
+### Items in More Than One Checklist
 
-Some items appear in multiple checklists (e.g., Beans appears in Daily Dozen and Anti-Aging Eight). These are handled with **smart merge**:
-
-- Item is shown **once** in the combined view
-- Visual indicator shows which checklists the item satisfies (e.g., badges/icons)
-- Checking servings counts toward **all applicable checklists**
-- In tab/pivot view, item appears in each relevant tab but syncs automatically
-
-Example overlaps:
-| Item | Daily Dozen | 21 Tweaks | Anti-Aging 8 |
-|------|-------------|-----------|--------------|
-| Beans/Legumes | 3 servings | "Eat more legumes" | 3 servings |
-| Berries | 1 serving | "Eat more berries" | 1 serving |
-| Greens | 2 servings | "Eat more greens" | 2 servings |
-| Cruciferous | 1 serving | - | 1 serving |
-| Green Tea | (Beverages) | 3 cups | - |
+Nothing is merged. Beverages and Stay Hydrated look alike but measure different things: glasses drunk versus
+urine colour. Each checklist item has its own row and its own stored count. Rows written by versions that did
+merge them (a sixth glass stored as `stay_hydrated`) read correctly as they are, so no migration is involved.
 
 ### Main Tracking View
 
@@ -112,7 +99,7 @@ Example overlaps:
 ┌─────────────────────────────────────┐
 │  ←  January 11, 2026  (Today)   →   │
 ├─────────────────────────────────────┤
-│  [Daily Dozen]  [21 Tweaks]  [A8]   │  (tabs/pivot)
+│  [Daily Dozen]  [21 Tweaks]         │  (tabs/pivot)
 ├─────────────────────────────────────┤
 │                                     │
 │  Beans             ●●●○○○  3/3      │
@@ -326,9 +313,8 @@ DailyPlants/
 ## Data Sources
 
 - Daily Dozen: [NutritionFacts.org Daily Dozen](https://nutritionfacts.org/daily-dozen/)
-- 21 Tweaks: "How Not to Diet" book
-- Anti-Aging Eight: "How Not to Age" book
-- [Android app source](https://github.com/nutritionfactsorg/daily-dozen-android) for reference
+- 21 Tweaks: "How Not to Diet" book and the official apps
+- [iOS](https://github.com/nutritionfactsorg/daily-dozen-ios) and [Android](https://github.com/nutritionfactsorg/daily-dozen-android) app sources for reference
 
 ---
 

@@ -13,10 +13,10 @@ Daily Plants to spokojna, prywatna lista do odżywiania opartego na pełnowarto�
 TWÓJ DZIEŃ NA JEDEN RZUT OKA
 Kliknij +, gdy zjesz porcję fasoli, owoców jagodowych, zieleniny, produktów pełnoziarnistych i innych. Każda porcja wypełnia kropkę, licznik pokazuje, ile już masz ("14 z 21"), a ukończone pozycje przechodzą niżej, do Dzisiaj gotowe, więc to, co zostało, jest zawsze na górze. Ukończ wszystko, a aplikacja to z Tobą uczci.
 
-DWIE LISTY, NIC NIE LICZY SIĘ PODWÓJNIE
-• Codzienny Tuzin: 12 grup produktów do jedzenia każdego dnia, z książki „Jak nie umrzeć przedwcześnie".
+DWIE LISTY, TY WYBIERASZ
+• Codzienny Tuzin: 12 codziennych celów dotyczących jedzenia, picia i ruchu, z książki „Jak nie umrzeć przedwcześnie".
 • 21 Adaptacji: 21 nawyków z książki „How Not to Diet", jak picie wody przed posiłkiem, dodawanie octu, jedzenie bez rozpraszania uwagi czy odpowiednia ilość snu.
-Używaj jednej listy albo obu. Tam, gdzie się pokrywają, jak Napoje i Nawadnianie się, jedna porcja liczy się do obu. Możesz też wyłączyć dowolną pozycję, której nie chcesz śledzić.
+Używaj jednej listy albo obu. Możesz też wyłączyć dowolną pozycję, której nie chcesz śledzić.
 
 WIEDZ, CO SIĘ LICZY
 Kliknij pozycję, aby zobaczyć wielkość porcji, jakie produkty się liczą i dlaczego to ważne, z odnośnikiem do więcej informacji na NutritionFacts.org. Ominął Cię dzień? Wróć i uzupełnij go.
