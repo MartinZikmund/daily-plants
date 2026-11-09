@@ -17,25 +17,21 @@ public class ChecklistItemViewModelTests
     };
 
     [TestMethod]
-    public void TotalRecommendedServings_NoMergedChildren_EqualsBase()
+    public void ServingIndicators_HaveOneDotPerRecommendedServing()
     {
-        var vm = new ChecklistItemViewModel(NewItem(3), DateOnly.FromDateTime(DateTime.Today), 0, useMetricUnits: true);
+        var vm = new ChecklistItemViewModel(NewItem(3), DateOnly.FromDateTime(DateTime.Today), 1, useMetricUnits: true);
 
-        vm.TotalRecommendedServings.Should().Be(3);
-        vm.HasMergedChildren.Should().BeFalse();
+        vm.ServingIndicators.Should().HaveCount(3);
     }
 
     [TestMethod]
-    public void TotalRecommendedServings_WithMergedChildren_EqualsSum()
+    public void ExtraServingsDisplay_FollowsTheUnitSystem()
     {
-        var parent = NewItem(3, "beans");
-        var child = NewItem(1, "more_legumes");
-        var vm = new ChecklistItemViewModel(parent, DateOnly.FromDateTime(DateTime.Today), 0, useMetricUnits: true,
-            mergedChildren: new[] { child });
+        var item = NewItem() with { ExtraServingsMetric = "150 g", ExtraServingsImperial = "1 cup" };
+        var today = DateOnly.FromDateTime(DateTime.Today);
 
-        vm.TotalRecommendedServings.Should().Be(4);
-        vm.HasMergedChildren.Should().BeTrue();
-        vm.MergedChildren.Should().ContainSingle();
+        new ChecklistItemViewModel(item, today, 0, useMetricUnits: true).ExtraServingsDisplay.Should().Be("150 g");
+        new ChecklistItemViewModel(item, today, 0, useMetricUnits: false).ExtraServingsDisplay.Should().Be("1 cup");
     }
 
     [TestMethod]

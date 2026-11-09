@@ -177,7 +177,7 @@
     <value>每日12清单</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>源自《救命》——每天应摄取的12类食物，以获得最佳健康</value>
+    <value>源自《救命》——每天应完成的12个饮食、饮水和运动目标</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21妙方</value>
@@ -284,7 +284,7 @@
     <value>关于</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>根据迈克尔·格雷格医生在《救命》、《吃饱瘦身》和《逆龄》中的建议，追踪您的每日营养。</value>
+    <value>根据 Dr. Michael Greger 在《救命》和《吃饱瘦身》中的建议，追踪您的每日营养。</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>版本</value>
@@ -358,10 +358,10 @@
     <value>100克煮熟的豆子或70克鹰嘴豆泥</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>豆科植物，包括豆子、小扁豆、鹰嘴豆和鹰嘴豆泥</value>
+    <value>豆科植物，包括豆子、小扁豆、鹰嘴豆、豆腐、天贝和鹰嘴豆泥。花生算作坚果，四季豆和甜豆荚算作其他蔬菜。</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>优质蛋白质、膳食纤维和复合碳水化合物的来源。根据全球疾病负担研究，与最长的寿命增益相关。</value>
+    <value>蛋白质、膳食纤维和复合碳水化合物的绝佳来源。一项基于全球疾病负担数据的建模研究发现，在所有食物类别中，多吃豆类带来的寿命增益最大。</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>浆果类</value>
@@ -373,7 +373,7 @@
     <value>70克新鲜或冷冻浆果或40克浆果干</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>各种浆果</value>
+    <value>任何可食用的小型水果，包括樱桃、葡萄、葡萄干和金橘</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>在所有水果中抗氧化物含量最高。与延长寿命和改善认知功能相关。</value>
@@ -415,7 +415,7 @@
     <value>½杯切碎的蔬菜或1大匙辣根</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60克切碎的蔬菜或1大匙辣根</value>
+    <value>90克切碎的蔬菜或1大匙辣根</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>西蓝花、花椰菜、甘蓝、羽衣甘蓝等</value>
@@ -433,7 +433,7 @@
     <value>90克非绿叶蔬菜</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>非绿叶、非十字花科的蔬菜</value>
+    <value>任何其他蔬菜，包括番茄、蘑菇和四季豆</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>多样的营养素和膳食纤维。对均衡饮食不可或缺。</value>
@@ -454,16 +454,16 @@
     <value>坚果和种子</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>¼杯坚果或2大匙果仁酱</value>
+    <value>1/4杯坚果或种子，或2大匙坚果酱或种子酱</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30克坚果或2大匙果仁酱</value>
+    <value>30克坚果或种子，或2大匙坚果酱或种子酱</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>所有坚果和种子（优选核桃）</value>
+    <value>所有坚果和种子，包括花生。栗子和椰子不算。</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>在所有食物类别中与降低早逝风险的关联最大。核桃尤其有益。</value>
+    <value>全球疾病负担研究将坚果和种子摄入不足列为全球导致死亡和残疾的第三大饮食风险因素。</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>香草和香料</value>
@@ -472,7 +472,7 @@
     <value>¼茶匙姜黄</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>尤其是姜黄</value>
+    <value>尤其是姜黄，以及任何您喜欢的其他无盐香草和香料</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>强大的抗炎和抗氧化特性。</value>
@@ -481,13 +481,13 @@
     <value>全谷物</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>½杯热麦片或1片面包</value>
+    <value>1/2杯热麦片或1片全麦面包</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100克热麦片或1片面包</value>
+    <value>100克热麦片或1片全麦面包</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>优选完整全谷物</value>
+    <value>优选完整全谷物。面包和谷物应为100%全谷物。</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>高膳食纤维含量有助于肠道健康和血糖稳定。</value>
@@ -496,13 +496,13 @@
     <value>饮料</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12盎司水、茶或其他饮料</value>
+    <value>12盎司水、茶或咖啡</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350毫升水、茶或其他饮料</value>
+    <value>350毫升水、茶或咖啡</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>水、茶和其他健康饮品</value>
+    <value>水、绿茶、洛神花茶、咖啡和其他无糖饮品</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>充足的水分对所有身体机能都至关重要。</value>
@@ -514,19 +514,19 @@
     <value>90分钟中等强度或40分钟剧烈运动</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>每日体育锻炼</value>
+    <value>每日体育锻炼，可以分散在一天中完成</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>将NAD+水平提高127%。对长寿和整体健康至关重要。</value>
+    <value>对长寿和整体健康至关重要。研究表明，抗阻训练可使肌肉中的 NAD+ 水平提高多达127%。</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>维生素B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>每周2000微克或每天50微克</value>
+    <value>每周至少2000微克或每天50微克</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>B12补充剂</value>
+    <value>氰钴胺补充剂，最好是咀嚼片、舌下含片或液体，空腹服用。为方便您而记录；不计入每日总数或连续天数。</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>对神经功能和红细胞生成至关重要。植物性饮食必需补充。</value>
@@ -543,7 +543,7 @@
     <value>每餐前500毫升</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>每餐前喝2杯水</value>
+    <value>每餐前喝2杯（约500毫升）凉的或冷的无味水。</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>促进新陈代谢，增加饱腹感，减少热量摄入。</value>
@@ -555,7 +555,7 @@
     <value>以苹果、沙拉或汤开始</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>每餐以苹果、沙拉或汤开始</value>
+    <value>每餐以一个苹果，或每杯热量低于100卡路里（约240毫升）的全食物汤或沙拉开始。</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>在增加营养的同时减少总热量摄入。</value>
@@ -567,7 +567,7 @@
     <value>每餐2茶匙（每天3次）</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>在餐食中加入醋</value>
+    <value>用您喜欢的任何醋为餐食调味，或拌配菜沙拉。</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>可能有助于控制血糖和管理体重。</value>
@@ -612,10 +612,10 @@
     <value>限制进餐时间</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>限制进餐时间区间</value>
+    <value>少于12小时，在晚上7点前结束</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>限制进餐时间区间</value>
+    <value>在少于12小时的每日时间窗口内进食，并且一周每天都能坚持。该窗口应在晚上7点前结束。</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>可能改善代谢健康和体重管理。</value>
@@ -639,7 +639,7 @@
     <value>每天¼茶匙</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>又名黑种草</value>
+    <value>也称为 Nigella sativa。它不同于普通孜然，二者用量不同。</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>可能有助于减重和控制血糖。</value>
@@ -651,22 +651,22 @@
     <value>每天¼茶匙</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>每天补充大蒜</value>
+    <value>每天在食物中添加大蒜粉。</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>研究表明它可以减少体内脂肪。</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>生姜粉</value>
+    <value>生姜粉或辣椒粉</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>每天1茶匙</value>
+    <value>每天1茶匙生姜或1/2茶匙辣椒粉</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>每天食用生姜</value>
+    <value>将生姜粉搅入热水或印度奶茶；早晨可能比晚上效果更好。或者每天加入1/2茶匙红辣椒粉或1个生墨西哥辣椒。</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>可能促进新陈代谢并减少炎症。</value>
+    <value>在随机试验中，生姜粉显著降低了体重。红辣椒可能有助于激活燃烧热量的棕色脂肪。</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>营养酵母</value>
@@ -702,7 +702,7 @@
     <value>每天720毫升</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>每天饮用绿茶</value>
+    <value>在两餐之间饮用，饭后至少等一小时，以免影响铁的吸收。睡前6小时内避免摄入大量咖啡因。</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>含有儿茶素，可能促进新陈代谢。</value>
@@ -711,10 +711,10 @@
     <value>保持水分充足</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>饮用足够的水</value>
+    <value>尿液颜色不深于淡黄色</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>保持体内水分充足</value>
+    <value>如果您的尿液颜色从不深于淡黄色，请勾选。营养酵母等强化核黄素的食物会使尿液变色，所以如果您吃这类食物，请改为目标每天饮用9杯（约2升）无糖饮品（女性）或13杯（约3升）（男性）。</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>充足的水分有助于新陈代谢并减少饥饿感。</value>
@@ -723,10 +723,10 @@
     <value>把握运动良机</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>空腹或下午</value>
+    <value>空腹，通常在早餐前</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>运动的最佳时机</value>
+    <value>任何时间都可以，但空腹运动可能有优势，即在上一餐至少6小时之后。通常指早餐前。</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>可能增强脂肪燃烧和代谢益处。</value>
@@ -738,7 +738,7 @@
     <value>7小时以上</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>高质量睡眠有助于体重管理</value>
+    <value>在固定的就寝时间睡足至少7小时。</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>睡眠不足会扰乱饥饿激素和新陈代谢。</value>
@@ -747,37 +747,37 @@
     <value>每天量体重两次</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>早上和晚上</value>
+    <value>起床时和睡前</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>每天量体重两次以追踪趋势并保持自律。</value>
+    <value>每天称两次体重，起床时和临睡前各一次。</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>自我监测是最有效的体重管理策略之一。</value>
+    <value>定期自我称重被认为对长期控制体重至关重要。每天两次的建议基于一项研究。</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>实施意图</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>制定具体的如果-那么策略</value>
+    <value>三个如果-那么计划，每个每天完成</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>完成您的实施意图：为健康饮食和运动制定具体的如果-那么策略。</value>
+    <value>每两个月，针对特定情境下的特定行为制定三个新的“如果X，那么Y”计划。每天完成一个就勾选一个。</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>预先制定具体计划可以使执行的可能性翻倍。</value>
+    <value>具体的如果-那么计划有助于把意图变成习惯。在一项随机实验中，写下何时何地使用牙线，使人们使用牙线的频率翻了一倍多。</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>晚上7点后禁食</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>晚上7点后不进食</value>
+    <value>12小时以上，晚上7点前开始</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>晚上7点后停止进食，以符合您的昼夜节律。</value>
+    <value>每晚至少禁食12小时，在晚上7点前开始。日落后摄入的热量越少越好。</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>晚间禁食可改善代谢健康并有助于减重。</value>
+    <value>由于昼夜节律，夜间吃的食物比白天较早时吃的同样食物更容易使人发胖。</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>微微头低脚高睡姿</value>
@@ -786,10 +786,10 @@
     <value>头部向下倾斜6度入睡</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>尝试以微微头低脚高的特伦德伦伯卧位姿势入睡（头部向下倾斜6度）。重要提示：如果您有心脏、肺部、胃酸逆流、脑部或眼部问题，请勿尝试。请先咨询您的医生。起床时请缓慢起身以避免头晕。</value>
+    <value>尝试每晚至少4小时头部向下倾斜6度睡觉，方法是将床尾的床脚垫高约8英寸（20厘米）。</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>可能通过夜间重力效应帮助管理体重。请谨慎使用。</value>
+    <value>轻微的头低位倾斜可能促进脂肪燃烧，但证据尚属早期。请谨慎使用。</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>包含于</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>还包括</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>今天</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants 无法打开你的数据</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>无法加载条目，更改也可能不会保存。请重启应用；如果问题持续出现，日志文件中有详细信息：{0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>无法加载条目，更改也可能不会保存。请重启应用；如果问题持续出现，详细信息在应用数据文件夹的日志中。</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>重新显示</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants 是一款独立应用，与 Dr. Michael Greger 或 NutritionFacts.org 没有关联，也未获其认可。这些清单是理想化的参考指南，不是膳食计划或医疗建议，请根据自身需要调整。做出重大改变之前请咨询医生，尤其是孕期、哺乳期或患有疾病时。儿童请咨询医生或营养师。</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>重要</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>或1/3杯豆腐或天贝，或1杯新鲜豌豆或发芽小扁豆</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>或80克豆腐或天贝，或100克新鲜豌豆或发芽小扁豆</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>或1杯切块水果</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>或150克切块水果</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>或1杯生叶菜、1/2杯煮熟的叶菜，或1/4杯西蓝花芽</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>或60克生叶菜、90克煮熟的叶菜，或20克西蓝花芽</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>或1杯生叶菜、1/2杯蔬菜汁，或1/4杯干蘑菇</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>或60克生叶菜、120毫升蔬菜汁，或10克干蘑菇</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>或1/2杯煮熟的谷物、意大利面或玉米，1杯冷麦片，1张玉米饼，1/2个贝果或英式松饼，或3杯爆米花</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>或100克煮熟的谷物、意大利面或玉米，50克冷麦片，1张玉米饼，1/2个贝果或英式松饼，或30克爆米花</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>如果您超过65岁，请每天至少服用1000微克。您也可以不服用补充剂，改为每天三次食用强化B12的食物，每次至少含2微克。</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>切勿每小时饮用超过3杯（约700毫升）的液体。</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>切勿直接喝醋。如果想喝，请兑入一杯水中，喝完后用清水漱口，以保护牙釉质。</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>切勿每小时饮用超过3杯（约700毫升）的液体。</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>如果您有心脏或肾脏问题，请在多喝水之前咨询医生。</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>如果您有糖尿病或糖尿病前期，请改为在开始用餐30分钟后开始运动，最好持续至少一小时。</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>如果您有心脏或肺部问题、胃酸反流，或脑部或眼部问题，请勿尝试。即使只是有青光眼家族史也不行。请先咨询医生。大多数人事后起身太快会头晕或晕厥，并可能摔倒，所以请缓慢起身。起床前30分钟喝2杯（约500毫升）冷水可能有所帮助。</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>打开日志文件夹</value>
   </data>
 </root>

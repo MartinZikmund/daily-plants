@@ -332,18 +332,6 @@ public partial class DiaryViewModel : ObservableObject
             // Get all enabled checklist items (sorted by SortOrder)
             var enabledItems = ChecklistDefinitions.GetEnabledItems(_appPreferences);
 
-            // Compute active merges (only when both parent and child are enabled)
-            var enabledIds = enabledItems.Select(i => i.Id).ToHashSet();
-            var activeMerges = MergeRules.GetActiveMerges(enabledIds);
-            var childIds = activeMerges.Select(m => m.ChildId).ToHashSet();
-            var parentToChildren = activeMerges
-                .GroupBy(m => m.ParentId)
-                .ToDictionary(
-                    g => g.Key,
-                    g => (IReadOnlyList<ChecklistItem>)g
-                        .Select(m => enabledItems.First(i => i.Id == m.ChildId))
-                        .ToList());
-
             _lastSavedServings.Clear();
 
             // Unsubscribe handlers from old items before clearing to prevent memory leaks
@@ -353,25 +341,13 @@ public partial class DiaryViewModel : ObservableObject
                 old.ItemDetailRequested -= OnItemDetailRequested;
             }
 
-            // Create view models, skipping child items (they're absorbed into their parent)
             Items.Clear();
             foreach (var item in enabledItems)
             {
-                if (childIds.Contains(item.Id))
-                    continue;
+                var servings = entries.FirstOrDefault(e => e.ItemId == item.Id)?.ServingsCompleted ?? 0;
 
-                var parentServings = entries.FirstOrDefault(e => e.ItemId == item.Id)?.ServingsCompleted ?? 0;
-                List<ChecklistItem>? children = null;
-
-                if (parentToChildren.TryGetValue(item.Id, out var mergedChildren))
-                {
-                    children = [.. mergedChildren];
-                    parentServings += mergedChildren.Sum(c =>
-                        entries.FirstOrDefault(e => e.ItemId == c.Id)?.ServingsCompleted ?? 0);
-                }
-
-                var itemVm = new ChecklistItemViewModel(item, _currentDate, parentServings, _appPreferences.UseMetricUnits, children);
-                _lastSavedServings[item.Id] = parentServings;
+                var itemVm = new ChecklistItemViewModel(item, _currentDate, servings, _appPreferences.UseMetricUnits);
+                _lastSavedServings[item.Id] = servings;
                 itemVm.ServingsChanged += OnItemServingsChanged;
                 itemVm.ItemDetailRequested += OnItemDetailRequested;
                 Items.Add(itemVm);
@@ -544,53 +520,13 @@ public partial class DiaryViewModel : ObservableObject
         }
     }
 
-    private async Task SaveServingsAsync(ChecklistItemViewModel itemVm, int newServings)
-    {
-        if (!itemVm.HasMergedChildren)
+    private Task SaveServingsAsync(ChecklistItemViewModel itemVm, int newServings) =>
+        _dataService.SaveEntryAsync(new DailyEntry
         {
-            // Simple case: no merge, save directly
-            await _dataService.SaveEntryAsync(new DailyEntry
-            {
-                Date = _currentDate,
-                ItemId = itemVm.Item.Id,
-                ServingsCompleted = newServings
-            });
-        }
-        else
-        {
-            // One count is spread over several rows, so a failure between them would leave a
-            // total on disk that nobody typed - and the rollback below only puts the display
-            // back, not the rows.
-            await _dataService.RunInTransactionAsync(async () =>
-            {
-                // Distribute across parent and children: parent fills first
-                var remaining = newServings;
-
-                var parentServings = Math.Min(remaining, itemVm.Item.RecommendedServings);
-                remaining -= parentServings;
-
-                await _dataService.SaveEntryAsync(new DailyEntry
-                {
-                    Date = _currentDate,
-                    ItemId = itemVm.Item.Id,
-                    ServingsCompleted = parentServings
-                });
-
-                foreach (var child in itemVm.MergedChildren)
-                {
-                    var childServings = Math.Min(remaining, child.RecommendedServings);
-                    remaining -= childServings;
-
-                    await _dataService.SaveEntryAsync(new DailyEntry
-                    {
-                        Date = _currentDate,
-                        ItemId = child.Id,
-                        ServingsCompleted = childServings
-                    });
-                }
-            });
-        }
-    }
+            Date = _currentDate,
+            ItemId = itemVm.Item.Id,
+            ServingsCompleted = newServings
+        });
 
     private void OnItemDetailRequested(object? sender, ChecklistItem item)
     {
@@ -637,8 +573,9 @@ public partial class DiaryViewModel : ObservableObject
             return;
         }
 
-        var totalServings = Items.Sum(i => i.TotalRecommendedServings);
-        var completedServings = Items.Sum(i => Math.Min(i.ServingsCompleted, i.TotalRecommendedServings));
+        var counted = Items.Where(i => i.Item.CountsTowardCompletion).ToList();
+        var totalServings = counted.Sum(i => i.Item.RecommendedServings);
+        var completedServings = counted.Sum(i => Math.Min(i.ServingsCompleted, i.Item.RecommendedServings));
 
         OverallProgress = totalServings > 0 ? (double)completedServings / totalServings : 0;
         ServingsTallyText = FormatTally(completedServings, totalServings);
@@ -766,8 +703,6 @@ public partial class ServingIndicator : ObservableObject
 
 /// <summary>
 /// ViewModel for a single checklist item.
-/// Supports merging child items (e.g., "More Legumes" into "Beans") when
-/// both parent and child checklists are enabled.
 /// </summary>
 public partial class ChecklistItemViewModel : ObservableObject
 {
@@ -777,21 +712,9 @@ public partial class ChecklistItemViewModel : ObservableObject
     public DateOnly Date { get; }
 
     /// <summary>
-    /// Child items merged into this parent item (empty if no merge is active).
-    /// </summary>
-    public IReadOnlyList<ChecklistItem> MergedChildren { get; }
-
-    /// <summary>
-    /// The effective recommended servings (base + merged children).
-    /// </summary>
-    public int TotalRecommendedServings { get; }
-
-    /// <summary>
     /// One dot per recommended serving, in order.
     /// </summary>
     public ObservableCollection<ServingIndicator> ServingIndicators { get; } = [];
-
-    public bool HasMergedChildren => MergedChildren.Count > 0;
 
     [ObservableProperty]
     private int _servingsCompleted;
@@ -799,16 +722,14 @@ public partial class ChecklistItemViewModel : ObservableObject
     public event EventHandler<int>? ServingsChanged;
     public event EventHandler<ChecklistItem>? ItemDetailRequested;
 
-    public ChecklistItemViewModel(ChecklistItem item, DateOnly date, int servingsCompleted, bool useMetricUnits, IReadOnlyList<ChecklistItem>? mergedChildren = null)
+    public ChecklistItemViewModel(ChecklistItem item, DateOnly date, int servingsCompleted, bool useMetricUnits)
     {
         _useMetricUnits = useMetricUnits;
         Item = item;
         Date = date;
-        MergedChildren = mergedChildren ?? [];
-        TotalRecommendedServings = item.RecommendedServings + MergedChildren.Sum(c => c.RecommendedServings);
         _servingsCompleted = servingsCompleted;
 
-        for (var i = 0; i < TotalRecommendedServings; i++)
+        for (var i = 0; i < item.RecommendedServings; i++)
         {
             ServingIndicators.Add(new ServingIndicator(i < servingsCompleted));
         }
@@ -822,19 +743,18 @@ public partial class ChecklistItemViewModel : ObservableObject
         : Item.ServingSizeImperial;
 
     /// <summary>
-    /// Gets the serving size display text for a given item using the current unit system.
-    /// Used for merged children display.
+    /// More options for one serving, in the current unit system.
     /// </summary>
-    public string GetServingSizeDisplay(ChecklistItem item) => _useMetricUnits
-        ? item.ServingSizeMetric
-        : item.ServingSizeImperial;
+    public string? ExtraServingsDisplay => _useMetricUnits
+        ? Item.ExtraServingsMetric
+        : Item.ExtraServingsImperial;
 
-    public bool IsComplete => ServingsCompleted >= TotalRecommendedServings;
+    public bool IsComplete => ServingsCompleted >= Item.RecommendedServings;
 
-    public string ServingsDisplayText => $"{ServingsCompleted}/{TotalRecommendedServings}";
+    public string ServingsDisplayText => $"{ServingsCompleted}/{Item.RecommendedServings}";
 
-    public double Progress => TotalRecommendedServings > 0
-        ? Math.Min(1.0, (double)ServingsCompleted / TotalRecommendedServings)
+    public double Progress => Item.RecommendedServings > 0
+        ? Math.Min(1.0, (double)ServingsCompleted / Item.RecommendedServings)
         : 0;
 
     /// <summary>
@@ -864,7 +784,7 @@ public partial class ChecklistItemViewModel : ObservableObject
     [RelayCommand]
     private void IncrementServing()
     {
-        if (ServingsCompleted < TotalRecommendedServings)
+        if (ServingsCompleted < Item.RecommendedServings)
         {
             ServingsCompleted++;
         }
@@ -884,7 +804,7 @@ public partial class ChecklistItemViewModel : ObservableObject
     {
         // Increment up to max value only (no wrapping)
         // To decrease, user must use the minus button
-        if (ServingsCompleted < TotalRecommendedServings)
+        if (ServingsCompleted < Item.RecommendedServings)
         {
             ServingsCompleted++;
         }

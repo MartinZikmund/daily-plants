@@ -177,7 +177,7 @@
     <value>התריסר היומי</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>מתוך "איך לא למות" - 12 קבוצות מזון לאכילה יומית לבריאות מיטבית</value>
+    <value>מתוך "איך לא למות" - 12 יעדים יומיים למזון, שתייה ופעילות גופנית</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 כוונונים</value>
@@ -284,7 +284,7 @@
     <value>לגבי</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>עקבו אחר התזונה היומית שלכם בהתבסס על ההמלצות של ד"ר מייקל גרגר מספריו "איך לא למות", "איך לא לעשות דיאטה" ו-"איך לא להזדקן".</value>
+    <value>עקבו אחר התזונה היומית שלכם בהתבסס על ההמלצות של Dr. Michael Greger מספריו "איך לא למות" ו"איך לא לעשות דיאטה".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>גרסה</value>
@@ -358,10 +358,10 @@
     <value>100 גרם מבושלת או 70 גרם חומוס</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>קטניות כולל שעועית, עדשים, גרגרי חומוס וחומוס</value>
+    <value>קטניות, כולל שעועית, עדשים, גרגרי חומוס, טופו, טמפה וחומוס. בוטנים נחשבים לאגוזים, ושעועית ירוקה ואפונת סוכר נחשבות לירקות אחרים.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>מקור מצוין לחלבון, סיבים תזונתיים ופחמימות מורכבות. קשורות לתוחלת החיים הגבוהה ביותר לפי מחקר נטל המחלות העולמי.</value>
+    <value>מקור מצוין לחלבון, סיבים תזונתיים ופחמימות מורכבות. מחקר מידול המבוסס על נתוני Global Burden of Disease מצא שאכילת יותר קטניות הניבה את הרווח הגדול ביותר בתוחלת החיים מבין כל קבוצות המזון.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>פירות יער</value>
@@ -373,7 +373,7 @@
     <value>70 גרם טרי/קפוא או 40 גרם יבש</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>כל סוגי פירות היער</value>
+    <value>כל פרי קטן אכיל, כולל דובדבנים, ענבים, צימוקים וקומקוואט</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>תכולת נוגדי החמצון הגבוהה ביותר מבין כל הפירות. קשורים לתוחלת חיים ארוכה יותר ויתרונות קוגניטיביים.</value>
@@ -415,7 +415,7 @@
     <value>1/2 כוס קצוץ או 1 כף חזרת</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 גרם קצוץ או 1 כף חזרת</value>
+    <value>90 גרם קצוץ או 1 כף חזרת</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>ברוקולי, כרובית, כרוב, קייל וכו'</value>
@@ -433,7 +433,7 @@
     <value>90 גרם ירקות לא עליים</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>ירקות שאינם עליים ואינם מצליבים</value>
+    <value>כל ירק אחר, כולל עגבניות, פטריות ושעועית ירוקה</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>חומרים מזינים מגוונים וסיבים תזונתיים. חיוניים לתזונה מאוזנת.</value>
@@ -454,16 +454,16 @@
     <value>אגוזים וזרעים</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 כוס אגוזים או 2 כפות חמאת אגוזים</value>
+    <value>1/4 כוס אגוזים או זרעים, או 2 כפות חמאת אגוזים או זרעים</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 גרם אגוזים או 2 כפות חמאת אגוזים</value>
+    <value>30 גרם אגוזים או זרעים, או 2 כפות חמאת אגוזים או זרעים</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>כל האגוזים והזרעים (עדיפות לאגוזי מלך)</value>
+    <value>כל האגוזים והזרעים, כולל בוטנים. ערמונים וקוקוס לא נחשבים.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>קשורים לסיכון הנמוך ביותר למוות מוקדם מבין כל קבוצות המזון. אגוזי מלך מועילים במיוחד.</value>
+    <value>מחקר Global Burden of Disease דירג אכילה מועטה מדי של אגוזים וזרעים כגורם הסיכון התזונתי השלישי בגודלו למוות ולנכות ברחבי העולם.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>צמחי מרפא ותבלינים</value>
@@ -472,7 +472,7 @@
     <value>1/4 כפית כורכום</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>במיוחד כורכום</value>
+    <value>במיוחד כורכום, וכן כל עשבי תיבול ותבלינים נטולי מלח שאתם אוהבים</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>תכונות חזקות נוגדות דלקת ונוגדות חמצון.</value>
@@ -481,13 +481,13 @@
     <value>דגנים מלאים</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 כוס דגני בוקר חמים או 1 פרוסת לחם</value>
+    <value>1/2 כוס דגני בוקר חמים או 1 פרוסת לחם מחיטה מלאה</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 גרם דגני בוקר חמים או 1 פרוסת לחם</value>
+    <value>100 גרם דגני בוקר חמים או 1 פרוסת לחם מחיטה מלאה</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>דגנים מלאים שלמים עדיפים</value>
+    <value>עדיפות לדגנים מלאים שלמים. לחמים ודגני בוקר צריכים להיות 100% דגנים מלאים.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>תכולת סיבים גבוהה התומכת בבריאות המעיים וברמות סוכר יציבות בדם.</value>
@@ -496,13 +496,13 @@
     <value>משקאות</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 אונ' מים, תה או אחר</value>
+    <value>12 אונ' מים, תה או קפה</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 מ"ל מים, תה או אחר</value>
+    <value>350 מ"ל מים, תה או קפה</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>מים, תה ומשקאות בריאים אחרים</value>
+    <value>מים, תה ירוק, תה היביסקוס, קפה ומשקאות אחרים ללא סוכר</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>שתייה מספקת חיונית לכל תפקודי הגוף.</value>
@@ -514,19 +514,19 @@
     <value>90 דקות בינוני או 40 דקות אינטנסיבי</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>פעילות גופנית יומית</value>
+    <value>פעילות גופנית יומית, שאפשר לחלק לאורך היום</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>מעלה את רמות ה-NAD+ ב-127%. חיוני לאריכות ימים ולבריאות כללית.</value>
+    <value>חיונית לאריכות ימים ולבריאות הכללית. הוכח שאימון התנגדות מעלה את רמות NAD+ בשרירים בעד 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>ויטמין B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 מק"ג שבועי או 50 מק"ג יומי</value>
+    <value>לפחות 2000 מק"ג שבועי או 50 מק"ג יומי</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>תוסף B12</value>
+    <value>תוסף ציאנוקובלמין, רצוי לעיסה, תת-לשוני או נוזלי, הנלקח על קיבה ריקה. המעקב כאן לנוחותכם; הוא אינו נספר בסך היומי או ברצף.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>חיוני לתפקוד העצבים וליצירת כדוריות דם אדומות. נדרש בתזונה צמחונית.</value>
@@ -543,7 +543,7 @@
     <value>500 מ"ל לפני כל ארוחה</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>שתו 2 כוסות מים לפני כל ארוחה</value>
+    <value>שתו 2 כוסות (כ-500 מ"ל) מים קרירים או קרים ללא טעם לפני כל ארוחה.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>מזרז חילוף חומרים ועוזר להרגיש שובע, ומפחית צריכת קלוריות.</value>
@@ -555,7 +555,7 @@
     <value>התחילו עם תפוח, סלט או מרק</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>התחילו כל ארוחה בתפוח, סלט או מרק</value>
+    <value>התחילו כל ארוחה בתפוח, או במרק או סלט ממזון מלא עם פחות מ-100 קלוריות לכוס (כ-240 מ"ל).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>מפחית את צריכת הקלוריות הכוללת תוך הוספת ערך תזונתי.</value>
@@ -567,7 +567,7 @@
     <value>2 כפיות בכל ארוחה (3 פעמים ביום)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>הוסיפו חומץ לארוחות</value>
+    <value>תבלו את הארוחות או תיבלו סלט צד בכל חומץ שאתם אוהבים.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>עשוי לסייע בבקרת סוכר בדם ובניהול משקל.</value>
@@ -612,10 +612,10 @@
     <value>הגבלת זמן אכילה</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>הגבילו את חלון האכילה</value>
+    <value>פחות מ-12 שעות, מסתיים לפני 19:00</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>הגבילו את חלון האכילה</value>
+    <value>אכלו בחלון יומי של פחות מ-12 שעות שאפשר לשמור עליו בכל יום בשבוע. הוא צריך להסתיים לפני 19:00.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>עשוי לשפר בריאות מטבולית וניהול משקל.</value>
@@ -639,7 +639,7 @@
     <value>1/4 כפית ביום</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>ידוע גם כ-Nigella sativa</value>
+    <value>ידוע גם בשם Nigella sativa. שונה מכמון רגיל, שמינונו שונה.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>עשוי לסייע בירידה במשקל ובבקרת סוכר בדם.</value>
@@ -651,22 +651,22 @@
     <value>1/4 כפית ביום</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>תוסף שום יומי</value>
+    <value>הוסיפו אבקת שום למזון שלכם בכל יום.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>מחקרים מראים שהוא יכול להפחית שומן גוף.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>ג'ינג'ר טחון</value>
+    <value>ג'ינג'ר טחון או קאיין</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 כפית ביום</value>
+    <value>1 כפית ג'ינג'ר או 1/2 כפית קאיין ביום</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>ג'ינג'ר יומי</value>
+    <value>ערבבו ג'ינג'ר טחון במים חמים או בצ'אי; ייתכן שהוא עובד טוב יותר בבוקר מאשר בערב. או הוסיפו ליום שלכם 1/2 כפית אבקת פלפל אדום או 1 חלפיניו נא.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>עשוי לזרז חילוף חומרים ולהפחית דלקת.</value>
+    <value>במחקרים אקראיים, ג'ינג'ר טחון הפחית משמעותית את משקל הגוף. פלפל אדום עשוי לסייע בהפעלת שומן חום ששורף קלוריות.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>שמרי בירה</value>
@@ -702,7 +702,7 @@
     <value>720 מ"ל ביום</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>צריכת תה ירוק יומית</value>
+    <value>שתו בין הארוחות, וחכו לפחות שעה אחרי האוכל כדי שלא יפריע לספיגת ברזל. הימנעו מכמויות גדולות של קפאין במשך 6 שעות לפני השינה.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>מכיל קטכינים שעשויים לזרז חילוף חומרים.</value>
@@ -711,10 +711,10 @@
     <value>שתו מספיק</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>שתו מספיק מים</value>
+    <value>שתן לא כהה יותר מצהוב בהיר</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>שמרו על שתייה מספקת</value>
+    <value>סמנו אם השתן שלכם אף פעם לא נראה כהה יותר מצהוב בהיר. מזונות מועשרים בריבופלבין כמו שמרי בירה תזונתיים יכולים לצבוע את השתן, ולכן אם אתם אוכלים אותם, כוונו במקום זאת ל-9 כוסות (כ-2 ליטר) משקאות ללא סוכר ביום לנשים או 13 כוסות (כ-3 ליטר) לגברים.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>שתייה מספקת תומכת בחילוף חומרים ומפחיתה רעב.</value>
@@ -723,10 +723,10 @@
     <value>תזמון תרגול גופני</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>בצום או אחר הצהריים</value>
+    <value>בצום, בדרך כלל לפני ארוחת הבוקר</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>תזמון אופטימלי לתרגול גופני</value>
+    <value>כל שעה טובה, אבל ייתכן שיש יתרון לפעילות גופנית בצום, לפחות 6 שעות אחרי הארוחה האחרונה. בדרך כלל זה אומר לפני ארוחת הבוקר.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>עשוי לשפר שריפת שומן ויתרונות מטבוליים.</value>
@@ -738,7 +738,7 @@
     <value>7+ שעות</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>שינה איכותית לניהול משקל</value>
+    <value>ישנו לפחות 7 שעות בשעת השינה הקבועה שלכם.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>שינה לקויה משבשת הורמוני רעב וחילוף חומרים.</value>
@@ -747,37 +747,37 @@
     <value>שיקלו את עצמכם פעמיים</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>בוקר וערב</value>
+    <value>בהתעוררות ולפני השינה</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>שיקלו את עצמכם פעמיים ביום כדי לעקוב אחר מגמות ולשמור על אחריותיות.</value>
+    <value>הישקלו פעמיים ביום, כשאתם מתעוררים וממש לפני השינה.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>ניטור עצמי הוא אחת האסטרטגיות היעילות ביותר לניהול משקל.</value>
+    <value>שקילה עצמית סדירה נחשבת חיונית לשליטה ארוכת טווח במשקל. ההמלצה לפעמיים ביום מבוססת על מחקר אחד.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>יישום כוונות</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>תכננו אסטרטגיות "אם-אז" ספציפיות</value>
+    <value>שלוש תוכניות אם-אז, כל אחת מבוצעת מדי יום</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>סיימו יישום כוונותיכם: תכננו אסטרטגיות "אם-אז" ספציפיות לאכילה בריאה ולתרגול גופני.</value>
+    <value>כל חודשיים, צרו שלוש תוכניות חדשות מסוג "אם X, אז Y" להתנהגות מסוימת במצב מסוים. סמנו כל אחת כשאתם משלימים אותה מדי יום.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>התחייבות מראש לתוכניות ספציפיות מכפילה את הסיכוי לביצוע.</value>
+    <value>תוכניות אם-אז ספציפיות עוזרות להפוך כוונות להרגלים. בניסוי אקראי אחד, כתיבה של מתי ואיפה להשתמש בחוט דנטלי יותר מהכפילה את תדירות השימוש בו.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>צומו לאחר 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>ללא אוכל אחרי 19:00</value>
+    <value>12+ שעות, מתחיל לפני 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>הפסיקו לאכול אחרי 19:00 כדי להתאים לקצב הביולוגי שלכם.</value>
+    <value>צומו בכל לילה לפחות 12 שעות, החל לפני 19:00. ככל שפחות קלוריות אחרי השקיעה, כך טוב יותר.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>צום ערב משפר בריאות מטבולית ותומך בירידה במשקל.</value>
+    <value>בגלל קצבי השעון הביולוגי שלנו, אוכל שנאכל בלילה משמין יותר מאותו אוכל שנאכל מוקדם יותר ביום.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Trendelenburg מתון</value>
@@ -786,10 +786,10 @@
     <value>שינה עם הראש למטה ב-6 מעלות</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>התנסו בשינה בתנוחת Trendelenburg מתונה (ראש למטה ב-6 מעלות). חשוב: אל תנסו אם יש לכם בעיות לב, ריאה, ריפלוקס חומצי, מוח או עיניים. התייעצו עם הרופא שלכם קודם. קומו לאט כדי למנוע סחרחורת.</value>
+    <value>נסו לבלות לפחות 4 שעות בלילה בהטיית ראש כלפי מטה של 6 מעלות, על ידי הגבהת רגלי המיטה בצד הרגליים בכ-8 אינץ' (20 ס"מ).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>עשוי לסייע בניהול משקל באמצעות השפעות כוח המשיכה במהלך הלילה. יש להשתמש בזהירות.</value>
+    <value>הטיית ראש קלה כלפי מטה עשויה להגביר שריפת שומן, אבל הראיות ראשוניות. השתמשו בזהירות.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>נמצא ב</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>כולל גם</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>היום</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants לא הצליחה לפתוח את הנתונים</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>לא ניתן היה לטעון את הרשומות וייתכן ששינויים לא יישמרו. הפעילו מחדש את האפליקציה, ואם התקלה חוזרת, הפרטים נמצאים בקובץ היומן: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>לא ניתן היה לטעון את הרשומות וייתכן ששינויים לא יישמרו. הפעילו מחדש את האפליקציה, ואם התקלה חוזרת, הפרטים נמצאים ביומן שבתיקיית הנתונים של האפליקציה.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>הצג שוב</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants היא אפליקציה עצמאית, שאינה קשורה ל-Dr. Michael Greger או ל-NutritionFacts.org ואינה מאושרת על ידם. הרשימות הן מדריך שאפשר לשאוף אליו, לא תפריט ולא ייעוץ רפואי, ולכן התאימו אותן לצרכים שלכם. התייעצו עם הרופא לפני שינויים גדולים, במיוחד אם אתם בהריון, מניקים או סובלים ממצב רפואי. לילדים, שאלו רופא או דיאטן.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>חשוב</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>או 1/3 כוס טופו או טמפה, או 1 כוס אפונה טרייה או עדשים מונבטות</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>או 80 גרם טופו או טמפה, או 100 גרם אפונה טרייה או עדשים מונבטות</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>או 1 כוס פירות חתוכים</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>או 150 גרם פירות חתוכים</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>או 1 כוס עלים נאים, 1/2 כוס עלים מבושלים, או 1/4 כוס נבטי ברוקולי</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>או 60 גרם עלים נאים, 90 גרם עלים מבושלים, או 20 גרם נבטי ברוקולי</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>או 1 כוס ירקות עליים נאים, 1/2 כוס מיץ ירקות, או 1/4 כוס פטריות מיובשות</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>או 60 גרם ירקות עליים נאים, 120 מ"ל מיץ ירקות, או 10 גרם פטריות מיובשות</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>או 1/2 כוס דגנים מבושלים, פסטה או תירס, 1 כוס דגני בוקר קרים, 1 טורטייה, 1/2 בייגל או אינגליש מאפין, או 3 כוסות פופקורן</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>או 100 גרם דגנים מבושלים, פסטה או תירס, 50 גרם דגני בוקר קרים, 1 טורטייה, 1/2 בייגל או אינגליש מאפין, או 30 גרם פופקורן</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>אם אתם מעל גיל 65, קחו לפחות 1000 מק"ג מדי יום. במקום תוסף, אפשר לאכול מזון מועשר ב-B12 שלוש פעמים ביום, כל אחד עם לפחות 2 מק"ג.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>לעולם אל תשתו יותר מ-3 כוסות (כ-700 מ"ל) נוזלים בשעה.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>לעולם אל תשתו חומץ כמו שהוא. אם אתם רוצים לשתות אותו, ערבבו אותו בכוס מים ושטפו את הפה במים אחר כך כדי להגן על האמייל של השיניים.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>לעולם אל תשתו יותר מ-3 כוסות (כ-700 מ"ל) נוזלים בשעה.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>אם יש לכם בעיות לב או כליות, התייעצו עם הרופא לפני ששותים יותר.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>אם יש לכם סוכרת או טרום סוכרת, התחילו לעשות פעילות גופנית 30 דקות אחרי תחילת ארוחה, ורצוי להמשיך לפחות שעה.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>אל תנסו זאת אם יש לכם בעיות לב או ריאות, ריפלוקס חומצי, או בעיות מוח או עיניים. אפילו היסטוריה משפחתית של גלאוקומה שוללת זאת. שאלו את הרופא קודם. רוב האנשים מרגישים סחרחורת או עלולים להתעלף אם הם קמים מהר מדי אחר כך ולהיפול, לכן קומו לאט. שתיית 2 כוסות (כ-500 מ"ל) מים קרים 30 דקות לפני הקימה עשויה לעזור.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>פתיחת תיקיית היומנים</value>
   </data>
 </root>

@@ -25,10 +25,10 @@ Daily Plants est une checklist calme et privée pour une alimentation végétale
 VOTRE JOURNÉE EN UN COUP D'ŒIL
 Touchez + à chaque portion de légumineuses, baies, légumes verts, céréales complètes et le reste. Chaque portion remplit un point, le compteur indique où vous en êtes (« 14 sur 21 »), et les éléments terminés descendent dans Fait aujourd'hui, pour que ce qu'il reste à faire reste en haut. Terminez-les tous et l'application le fête avec vous.
 
-DEUX LISTES, RIEN COMPTÉ DEUX FOIS
-• Daily Dozen : 12 groupes d'aliments à manger chaque jour, tiré de « Comment ne pas mourir ».
+DEUX LISTES, À VOUS DE CHOISIR
+• Daily Dozen : 12 objectifs quotidiens pour l'alimentation, les boissons et l'exercice, tirés de « Comment ne pas mourir ».
 • 21 Astuces : 21 habitudes tirées de « Comment ne pas faire de régime », comme boire de l'eau avant les repas, ajouter du vinaigre, manger sans distraction et bien dormir.
-Utilisez l'une ou l'autre, ou les deux. Là où elles se recoupent, comme Boissons et Restez hydraté, une portion compte pour les deux. Vous pouvez aussi désactiver tout élément que vous ne souhaitez pas suivre.
+Utilisez l'une ou l'autre, ou les deux. Vous pouvez aussi désactiver tout élément que vous ne souhaitez pas suivre.
 
 CE QUI COMPTE, EXPLIQUÉ
 Touchez un élément pour voir sa taille de portion, les aliments concernés et pourquoi il compte, avec un lien pour en savoir plus sur NutritionFacts.org. Un jour manqué ? Revenez en arrière et complétez-le.
@@ -66,7 +66,7 @@ Version 0.6 : une toute nouvelle apparence.
 
 - Checklists Daily Dozen et 21 Astuces tirées des livres du Dr Greger
 - Enregistrez une portion d'une touche et voyez en un coup d'œil ce qu'il reste à faire
-- Utilisez une liste ou les deux, les éléments communs ne comptent qu'une fois
+- Utilisez une liste ou les deux
 - Désactivez tout élément que vous ne souhaitez pas suivre
 - Taille de la portion, exemples et bienfaits pour la santé de chaque élément
 - Revenez à n'importe quel jour pour compléter ce que vous avez manqué

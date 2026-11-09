@@ -177,7 +177,7 @@
     <value>Daily Dozen</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>From "How Not to Die" - 12 food groups to eat every day for optimal health</value>
+    <value>From "How Not to Die" - 12 daily goals for food, drink and exercise</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>Twenty-One Tweaks</value>
@@ -284,7 +284,7 @@
     <value>About</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Track your daily nutrition based on Dr. Michael Greger's recommendations from his books "How Not to Die", "How Not to Diet", and "How Not to Age".</value>
+    <value>Track your daily nutrition based on Dr. Michael Greger's recommendations from his books "How Not to Die" and "How Not to Diet".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Version</value>
@@ -358,10 +358,10 @@
     <value>100 g cooked or 70 g hummus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Legumes including beans, lentils, chickpeas, and hummus</value>
+    <value>Legumes including beans, lentils, chickpeas, tofu, tempeh and hummus. Peanuts count as nuts, and green beans and snap peas as other vegetables.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Excellent source of protein, fiber, and complex carbohydrates. Associated with longest lifespan gains according to Global Burden of Disease Study.</value>
+    <value>Excellent source of protein, fiber, and complex carbohydrates. A modeling study based on Global Burden of Disease data found that eating more legumes offered the largest lifespan gains of any food group.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Berries</value>
@@ -373,7 +373,7 @@
     <value>70 g fresh/frozen or 40 g dried</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>All types of berries</value>
+    <value>Any small edible fruit, including cherries, grapes, raisins and kumquats</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Highest antioxidant content of all fruits. Associated with longer lifespan and cognitive benefits.</value>
@@ -415,7 +415,7 @@
     <value>1/2 cup chopped or 1 tbsp horseradish</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g chopped or 1 tbsp horseradish</value>
+    <value>90 g chopped or 1 tbsp horseradish</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Broccoli, cauliflower, cabbage, kale, etc.</value>
@@ -433,7 +433,7 @@
     <value>90 g non-leafy vegetables</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Non-leafy, non-cruciferous vegetables</value>
+    <value>Any other vegetables, including tomatoes, mushrooms and green beans</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Diverse nutrients and fiber. Essential for a balanced diet.</value>
@@ -454,16 +454,16 @@
     <value>Nuts and Seeds</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 cup nuts or 2 tbsp nut butter</value>
+    <value>1/4 cup nuts or seeds, or 2 tbsp nut or seed butter</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g nuts or 2 tbsp nut butter</value>
+    <value>30 g nuts or seeds, or 2 tbsp nut or seed butter</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>All nuts and seeds (preferably walnuts)</value>
+    <value>All nuts and seeds, including peanuts. Chestnuts and coconuts don't count.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Associated with lowest risk of premature death of any food group. Walnuts are especially beneficial.</value>
+    <value>The Global Burden of Disease Study ranked eating too few nuts and seeds as the third-leading dietary risk for death and disability worldwide.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Herbs and Spices</value>
@@ -472,7 +472,7 @@
     <value>1/4 tsp turmeric</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Especially turmeric</value>
+    <value>Especially turmeric, plus any other salt-free herbs and spices you enjoy</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Powerful anti-inflammatory and antioxidant properties.</value>
@@ -481,13 +481,13 @@
     <value>Whole Grains</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 cup hot cereal or 1 slice bread</value>
+    <value>1/2 cup hot cereal or 1 slice whole grain bread</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g hot cereal or 1 slice bread</value>
+    <value>100 g hot cereal or 1 slice whole grain bread</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Intact whole grains preferred</value>
+    <value>Intact whole grains preferred. Breads and cereals should be 100% whole grain.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>High fiber content supports gut health and stable blood sugar.</value>
@@ -496,13 +496,13 @@
     <value>Beverages</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz water, tea, or other</value>
+    <value>12 oz water, tea, or coffee</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml water, tea, or other</value>
+    <value>350 ml water, tea, or coffee</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Water, tea, and other healthy drinks</value>
+    <value>Water, green tea, hibiscus tea, coffee and other unsweetened drinks</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Proper hydration is essential for all body functions.</value>
@@ -514,19 +514,19 @@
     <value>90 min moderate or 40 min vigorous</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Daily physical activity</value>
+    <value>Daily physical activity, which you can split up over the day</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Boosts NAD+ levels by 127%. Essential for longevity and overall health.</value>
+    <value>Essential for longevity and overall health. Resistance training has been shown to raise muscle NAD+ levels by as much as 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamin B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg weekly or 50 mcg daily</value>
+    <value>At least 2000 mcg weekly or 50 mcg daily</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>B12 supplementation</value>
+    <value>A cyanocobalamin supplement, ideally chewable, sublingual or liquid and taken on an empty stomach. Tracked for your convenience; it doesn't count toward your daily total or streak.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Essential for nerve function and red blood cell formation. Required on plant-based diet.</value>
@@ -543,7 +543,7 @@
     <value>500 ml before each meal</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Drink 2 cups of water before each meal</value>
+    <value>Drink 2 cups (about 500 ml) of cool or cold unflavored water before each meal.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Boosts metabolism and helps feel full, reducing calorie intake.</value>
@@ -555,7 +555,7 @@
     <value>Start with apple, salad, or soup</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Start each meal with apple, salad, or soup</value>
+    <value>Start each meal with an apple, or a whole-food soup or salad with fewer than 100 calories per cup (about 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Reduces overall calorie consumption while adding nutrition.</value>
@@ -567,7 +567,7 @@
     <value>2 tsp with each meal (3 times daily)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Add vinegar to meals</value>
+    <value>Flavor your meals or dress a side salad with any vinegar you enjoy.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>May help with blood sugar control and weight management.</value>
@@ -612,10 +612,10 @@
     <value>Time-Restricted Eating</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Limit eating window</value>
+    <value>Under 12 hours, ending before 7 PM</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Limit eating window</value>
+    <value>Eat within a daily window of under 12 hours that you can keep up every day of the week. It should end before 7:00 PM.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>May improve metabolic health and weight management.</value>
@@ -639,7 +639,7 @@
     <value>1/4 tsp daily</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Also known as Nigella sativa</value>
+    <value>Also known as Nigella sativa. It is different from regular cumin, which has a different dose.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>May help with weight loss and blood sugar control.</value>
@@ -651,22 +651,22 @@
     <value>1/4 tsp daily</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Daily garlic supplementation</value>
+    <value>Add garlic powder to your food every day.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Studies show it can reduce body fat.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Ground Ginger</value>
+    <value>Ground Ginger or Cayenne</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 tsp daily</value>
+    <value>1 tsp ginger or 1/2 tsp cayenne daily</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Daily ginger</value>
+    <value>Stir ground ginger into hot water or chai; it may work better in the morning than in the evening. Or add 1/2 tsp of red pepper powder or 1 raw jalapeno to your day.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>May boost metabolism and reduce inflammation.</value>
+    <value>In randomized trials, ground ginger significantly decreased body weight. Red pepper may help activate calorie-burning brown fat.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Nutritional Yeast</value>
@@ -702,7 +702,7 @@
     <value>720 ml daily</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Daily green tea consumption</value>
+    <value>Drink it between meals, waiting at least an hour after eating so it doesn't interfere with iron absorption. Avoid large amounts of caffeine within 6 hours of bedtime.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Contains catechins that may boost metabolism.</value>
@@ -711,10 +711,10 @@
     <value>Stay Hydrated</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Drink enough water</value>
+    <value>Urine no darker than pale yellow</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Maintain proper hydration</value>
+    <value>Check this off if your urine never looks darker than pale yellow. Riboflavin-fortified foods like nutritional yeast can color your urine, so if you eat them, aim instead for 9 cups (about 2 liters) of unsweetened drinks a day for women or 13 cups (about 3 liters) for men.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Proper hydration supports metabolism and reduces hunger.</value>
@@ -723,10 +723,10 @@
     <value>Exercise Timing</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Fasted or afternoon</value>
+    <value>Fasted, usually before breakfast</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimal timing for exercise</value>
+    <value>Any time is good, but there may be an advantage to exercising in a fasted state, at least 6 hours after your last meal. Typically that means before breakfast.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>May enhance fat burning and metabolic benefits.</value>
@@ -738,7 +738,7 @@
     <value>7+ hours</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Quality sleep for weight management</value>
+    <value>Get at least 7 hours of sleep at your regular bedtime.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Poor sleep disrupts hunger hormones and metabolism.</value>
@@ -747,37 +747,37 @@
     <value>Weigh Yourself Twice</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Morning and evening</value>
+    <value>On waking and before bed</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Weigh yourself twice a day to track trends and stay accountable.</value>
+    <value>Weigh yourself twice a day, when you wake up and right before bed.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Self-monitoring is one of the most effective weight management strategies.</value>
+    <value>Regular self-weighing is considered crucial for long-term weight control. The twice-a-day advice is based on one study.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Implementation Intentions</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Plan specific if-then strategies</value>
+    <value>Three if-then plans, each done daily</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Complete your implementation intentions: plan specific if-then strategies for healthy eating and exercise.</value>
+    <value>Every two months, create three new "if X, then Y" plans for a specific behavior in a specific situation. Check off each one as you complete it every day.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Pre-committing to specific plans doubles the likelihood of following through.</value>
+    <value>Specific if-then plans help turn intentions into habits. In one randomized experiment, writing down when and where to floss more than doubled how often people did it.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Fast After 7:00 PM</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>No food after 7 PM</value>
+    <value>12+ hours, starting before 7 PM</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Stop eating after 7:00 PM to align with your circadian rhythm.</value>
+    <value>Fast every night for at least 12 hours, starting before 7:00 PM. The fewer calories after sundown, the better.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Evening fasting improves metabolic health and supports weight loss.</value>
+    <value>Because of our circadian rhythms, food eaten at night is more fattening than the same food eaten earlier in the day.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Mild Trendelenburg</value>
@@ -786,10 +786,10 @@
     <value>Sleep head-down 6 degrees</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experiment with sleeping in mild Trendelenburg position (head-down 6 degrees). IMPORTANT: Do not try if you have heart, lung, acid reflux, brain, or eye issues. Consult your physician first. Get up slowly to avoid dizziness.</value>
+    <value>Try spending at least 4 hours a night tilted head-down by 6 degrees, by raising the posts at the foot of your bed about 8 inches (20 cm).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>May help with weight management through overnight gravitational effects. Use with caution.</value>
+    <value>A slight head-down tilt may boost fat burning, but the evidence is early. Use with caution.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Found In</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Also Includes</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Today</value>
@@ -1259,5 +1256,62 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Show again</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants is an independent app, not affiliated with or endorsed by Dr. Michael Greger or NutritionFacts.org. The checklists are an aspirational guide, not a meal plan or medical advice, so adapt them to your needs. Talk to your doctor before making big changes, especially if you are pregnant, breastfeeding or have a medical condition. For children, ask a doctor or dietitian.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Or 1/3 cup tofu or tempeh, or 1 cup fresh peas or sprouted lentils</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Or 80 g tofu or tempeh, or 100 g fresh peas or sprouted lentils</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Or 1 cup cut-up fruit</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Or 150 g cut-up fruit</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Or 1 cup raw leafy, 1/2 cup cooked leafy, or 1/4 cup broccoli sprouts</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Or 60 g raw leafy, 90 g cooked leafy, or 20 g broccoli sprouts</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Or 1 cup raw leafy vegetables, 1/2 cup vegetable juice, or 1/4 cup dried mushrooms</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Or 60 g raw leafy vegetables, 120 ml vegetable juice, or 10 g dried mushrooms</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Or 1/2 cup cooked grains, pasta or corn, 1 cup cold cereal, 1 tortilla, 1/2 bagel or English muffin, or 3 cups popped popcorn</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Or 100 g cooked grains, pasta or corn, 50 g cold cereal, 1 tortilla, 1/2 bagel or English muffin, or 30 g popped popcorn</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>If you are over 65, take at least 1000 mcg every day. Instead of a supplement, you can eat B12-fortified foods three times a day, each with at least 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Never drink more than 3 cups (about 700 ml) of fluid an hour.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Never drink vinegar straight. If you want to drink it, mix it into a glass of water and rinse your mouth with water afterward to protect your tooth enamel.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Never drink more than 3 cups (about 700 ml) of fluid an hour.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>If you have heart or kidney issues, talk to your doctor before drinking more.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>If you have diabetes or prediabetes, start exercising 30 minutes after a meal begins instead, and ideally keep going for at least an hour.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Do not try this if you have heart or lung issues, acid reflux, or brain or eye problems. Even a family history of glaucoma rules it out. Ask your doctor first. Most people feel dizzy or faint if they stand up too fast afterward and could fall, so get up slowly. Drinking 2 cups (about 500 ml) of cold water 30 minutes before rising may help.</value>
   </data>
 </root>

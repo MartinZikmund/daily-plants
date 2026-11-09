@@ -21,10 +21,10 @@ Daily Plants je pokojný, súkromný zoznam pre celostravovú rastlinnú výživ
 VÁŠ DEŇ NA JEDEN POHĽAD
 Ťuknite na + zakaždým, keď zjete porciu strukovín, bobúľ, zeleniny, celozrnných obilnín a ďalších. Každá porcia vyplní bodku, súčet ukazuje, ako ďaleko ste ("14 z 21"), a splnené položky sa presunú dole do Dnes hotovo, takže hore zostáva to, čo vám ešte zostáva. Splňte ich všetky a aplikácia to s vami oslávi.
 
-DVA ZOZNAMY, NIČ SA NEPOČÍTA DVAKRÁT
-• Daily Dozen: 12 skupín potravín na každodenné jedenie, z knihy "How Not to Die".
+DVA ZOZNAMY, VY SI VYBERIETE
+• Daily Dozen: 12 denných cieľov pre jedlo, nápoje a pohyb, z knihy "How Not to Die".
 • Twenty-One Tweaks: 21 návykov z knihy "How Not to Diet", ako pitie vody pred jedlom, pridávanie octu, jedenie bez vyrušovania alebo dostatok spánku.
-Používajte jeden alebo oba zoznamy. Tam, kde sa prekrývajú, ako Nápoje a Zostaňte hydratovaní, sa jedna porcia počíta do oboch. Ktorúkoľvek položku, ktorú nechcete sledovať, môžete tiež vypnúť.
+Používajte jeden alebo oba zoznamy. Ktorúkoľvek položku, ktorú nechcete sledovať, môžete tiež vypnúť.
 
 VEDZTE, ČO SA POČÍTA
 Ťuknutím na položku zistíte veľkosť porcie, aké potraviny sa počítajú a prečo na tom záleží, s odkazom na viac informácií na NutritionFacts.org. Zmeškali ste deň? Vráťte sa a doplňte ho.

@@ -177,7 +177,7 @@
     <value>Codzienny Tuzin</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Z książki „Jak nie umrzeć przedwcześnie" - 12 grup pokarmów do codziennego spożywania dla optymalnego zdrowia</value>
+    <value>Z książki „Jak nie umrzeć przedwcześnie" - 12 codziennych celów dotyczących jedzenia, picia i ruchu</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 Adaptacji</value>
@@ -284,7 +284,7 @@
     <value>O aplikacji</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Śledź swoje codzienne odżywianie na podstawie zaleceń dr. Michaela Gregera z jego książek „Jak nie umrzeć przedwcześnie", „How Not to Diet" i „How Not to Age".</value>
+    <value>Śledź swoje codzienne odżywianie na podstawie zaleceń dr. Michaela Gregera z jego książek „Jak nie umrzeć przedwcześnie" i „How Not to Diet".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Wersja</value>
@@ -358,10 +358,10 @@
     <value>100 g ugotowanej lub 70 g hummusu</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Rośliny strączkowe, w tym fasola, soczewica, ciecierzyca i hummus</value>
+    <value>Rośliny strączkowe, w tym fasola, soczewica, ciecierzyca, tofu, tempeh i hummus. Orzeszki ziemne liczą się jako orzechy, a fasolka szparagowa i groszek cukrowy jako inne warzywa.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Doskonałe źródło białka, błonnika i złożonych węglowodanów. Powiązane z największym wydłużeniem życia według Global Burden of Disease Study.</value>
+    <value>Doskonałe źródło białka, błonnika i węglowodanów złożonych. Badanie modelowe oparte na danych Global Burden of Disease wykazało, że jedzenie większej ilości roślin strączkowych daje największy wzrost długości życia spośród wszystkich grup produktów.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Owoce jagodowe</value>
@@ -373,7 +373,7 @@
     <value>70 g świeżych/mrożonych lub 40 g suszonych</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Wszystkie rodzaje owoców jagodowych</value>
+    <value>Każdy mały jadalny owoc, w tym wiśnie, winogrona, rodzynki i kumkwaty</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Najwyższa zawartość przeciwutleniaczy spośród wszystkich owoców. Powiązane z dłuższym życiem i korzyściami poznawczymi.</value>
@@ -415,7 +415,7 @@
     <value>½ szklanki posiekanych lub 1 łyżka chrzanu</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g posiekanych lub 1 łyżka chrzanu</value>
+    <value>90 g posiekanych lub 1 łyżka chrzanu</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Brokuły, kalafior, kapusta, jarmuż itp.</value>
@@ -433,7 +433,7 @@
     <value>90 g warzyw nieliściastych</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Warzywa nieliściaste i niekapustne</value>
+    <value>Wszystkie inne warzywa, w tym pomidory, grzyby i fasolka szparagowa</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Różnorodne składniki odżywcze i błonnik. Niezbędne dla zrównoważonej diety.</value>
@@ -454,16 +454,16 @@
     <value>Orzechy i nasiona</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>¼ szklanki orzechów lub 2 łyżki masła orzechowego</value>
+    <value>1/4 szklanki orzechów lub nasion albo 2 łyżki masła orzechowego lub z nasion</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g orzechów lub 2 łyżki masła orzechowego</value>
+    <value>30 g orzechów lub nasion albo 2 łyżki masła orzechowego lub z nasion</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Wszystkie orzechy i nasiona (najlepiej orzechy włoskie)</value>
+    <value>Wszystkie orzechy i nasiona, także orzeszki ziemne. Kasztany i kokosy się nie liczą.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Powiązane z najniższym ryzykiem przedwczesnej śmierci spośród wszystkich grup pokarmowych. Orzechy włoskie są szczególnie korzystne.</value>
+    <value>Badanie Global Burden of Disease uznało zbyt małe spożycie orzechów i nasion za trzeci najważniejszy czynnik ryzyka żywieniowego zgonu i niepełnosprawności na świecie.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Zioła i przyprawy</value>
@@ -472,7 +472,7 @@
     <value>¼ łyżeczki kurkumy</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Zwłaszcza kurkuma</value>
+    <value>Zwłaszcza kurkuma, a do tego wszelkie inne zioła i przyprawy bez soli, które lubisz</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Silne właściwości przeciwzapalne i przeciwutleniające.</value>
@@ -481,13 +481,13 @@
     <value>Pełnoziarniste zboża</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>½ szklanki gorącej kaszy lub 1 kromka chleba</value>
+    <value>1/2 szklanki gorącej kaszy lub 1 kromka pełnoziarnistego chleba</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g gorącej kaszy lub 1 kromka chleba</value>
+    <value>100 g gorącej kaszy lub 1 kromka pełnoziarnistego chleba</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Najlepiej nieprzetworzone pełne ziarna</value>
+    <value>Najlepiej nieprzetworzone pełne ziarna. Pieczywo i płatki powinny być w 100% pełnoziarniste.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Wysoka zawartość błonnika wspiera zdrowie jelit i stabilny poziom cukru we krwi.</value>
@@ -496,13 +496,13 @@
     <value>Napoje</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>340 ml wody, herbaty lub innych</value>
+    <value>12 oz wody, herbaty lub kawy</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml wody, herbaty lub innych</value>
+    <value>350 ml wody, herbaty lub kawy</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Woda, herbata i inne zdrowe napoje</value>
+    <value>Woda, zielona herbata, herbata z hibiskusa, kawa i inne napoje bez cukru</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Odpowiednie nawodnienie jest niezbędne dla wszystkich funkcji organizmu.</value>
@@ -514,19 +514,19 @@
     <value>90 min umiarkowane lub 40 min intensywne</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Codzienna aktywność fizyczna</value>
+    <value>Codzienna aktywność fizyczna, którą możesz rozłożyć na cały dzień</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Zwiększa poziom NAD+ o 127%. Niezbędne dla długowieczności i ogólnego zdrowia.</value>
+    <value>Niezbędne dla długowieczności i ogólnego zdrowia. Wykazano, że trening oporowy podnosi poziom NAD+ w mięśniach nawet o 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Witamina B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg tygodniowo lub 50 mcg dziennie</value>
+    <value>Co najmniej 2000 mcg tygodniowo lub 50 mcg dziennie</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Suplementacja B12</value>
+    <value>Suplement z cyjanokobalaminą, najlepiej do żucia, podjęzykowy lub w płynie, przyjmowany na pusty żołądek. Śledzony dla wygody; nie wlicza się do dziennego wyniku ani serii.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Niezbędna dla funkcjonowania nerwów i tworzenia czerwonych krwinek. Wymagana na diecie roślinnej.</value>
@@ -543,7 +543,7 @@
     <value>500 ml przed każdym posiłkiem</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Wypij 2 szklanki wody przed każdym posiłkiem</value>
+    <value>Wypij 2 szklanki (około 500 ml) chłodnej lub zimnej wody bez dodatków przed każdym posiłkiem.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Pobudza metabolizm i pomaga poczuć sytość, zmniejszając spożycie kalorii.</value>
@@ -555,7 +555,7 @@
     <value>Zacznij od jabłka, sałatki lub zupy</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Każdy posiłek zaczynaj od jabłka, sałatki lub zupy</value>
+    <value>Zacznij każdy posiłek od jabłka albo zupy lub sałatki z pełnowartościowych produktów, mających mniej niż 100 kalorii na szklankę (około 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Zmniejsza ogólne spożycie kalorii, jednocześnie dostarczając składników odżywczych.</value>
@@ -567,7 +567,7 @@
     <value>2 łyżeczki do każdego posiłku (3 razy dziennie)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Dodawaj ocet do posiłków</value>
+    <value>Dodawaj do posiłków dowolny lubiany ocet albo polewaj nim małą sałatkę.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Może pomóc w kontroli poziomu cukru we krwi i zarządzaniu wagą.</value>
@@ -612,10 +612,10 @@
     <value>Ogranicz jedzenie czasowo</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Ogranicz okno jedzenia</value>
+    <value>Poniżej 12 godzin, kończąc przed 19:00</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Ogranicz okno jedzenia</value>
+    <value>Jedz w ciągu dnia w oknie krótszym niż 12 godzin, które utrzymasz przez każdy dzień tygodnia. Powinno kończyć się przed 19:00.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Może poprawić zdrowie metaboliczne i zarządzanie wagą.</value>
@@ -639,7 +639,7 @@
     <value>¼ łyżeczki dziennie</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Znana również jako Nigella sativa</value>
+    <value>Znany też jako Nigella sativa. To coś innego niż zwykły kmin rzymski, który ma inną dawkę.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Może pomóc w utracie wagi i kontroli poziomu cukru we krwi.</value>
@@ -651,22 +651,22 @@
     <value>¼ łyżeczki dziennie</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Codzienna suplementacja czosnkiem</value>
+    <value>Dodawaj czosnek w proszku do jedzenia codziennie.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Badania pokazują, że może zmniejszyć tkankę tłuszczową.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Mielony imbir</value>
+    <value>Imbir lub cayenne</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 łyżeczka dziennie</value>
+    <value>1 łyżeczka imbiru lub 1/2 łyżeczki cayenne dziennie</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Codzienny imbir</value>
+    <value>Wmieszaj mielony imbir do gorącej wody lub chai; rano może działać lepiej niż wieczorem. Albo dodaj do dnia 1/2 łyżeczki czerwonego pieprzu w proszku lub 1 surową papryczkę jalapeño.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Może pobudzić metabolizm i zmniejszyć stan zapalny.</value>
+    <value>W badaniach z randomizacją mielony imbir znacząco zmniejszał masę ciała. Czerwony pieprz może pomagać w aktywacji spalającej kalorie brunatnej tkanki tłuszczowej.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Drożdże odżywcze</value>
@@ -702,7 +702,7 @@
     <value>720 ml dziennie</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Codzienna konsumpcja zielonej herbaty</value>
+    <value>Pij ją między posiłkami, odczekując co najmniej godzinę po jedzeniu, aby nie utrudniała wchłaniania żelaza. Unikaj dużych ilości kofeiny w ciągu 6 godzin przed snem.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Zawiera katechiny, które mogą pobudzić metabolizm.</value>
@@ -711,10 +711,10 @@
     <value>Nawadniaj się</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Pij wystarczająco dużo wody</value>
+    <value>Mocz nie ciemniejszy niż jasnożółty</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Utrzymuj odpowiednie nawodnienie</value>
+    <value>Zaznacz, jeśli Twój mocz nigdy nie wygląda na ciemniejszy niż jasnożółty. Produkty wzbogacane ryboflawiną, jak drożdże odżywcze, mogą barwić mocz, więc jeśli je jesz, staraj się zamiast tego pić 9 szklanek (około 2 litrów) napojów bez cukru dziennie, jeśli jesteś kobietą, albo 13 szklanek (około 3 litrów), jeśli jesteś mężczyzną.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Odpowiednie nawodnienie wspiera metabolizm i zmniejsza głód.</value>
@@ -723,10 +723,10 @@
     <value>Zoptymalizuj czas ćwiczeń</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Na czczo lub po południu</value>
+    <value>Na czczo, zwykle przed śniadaniem</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optymalny czas na ćwiczenia</value>
+    <value>Każda pora jest dobra, ale ćwiczenie na czczo, co najmniej 6 godzin po ostatnim posiłku, może mieć przewagę. Zwykle oznacza to przed śniadaniem.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Może zwiększyć spalanie tłuszczu i korzyści metaboliczne.</value>
@@ -738,7 +738,7 @@
     <value>7+ godzin</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Jakościowy sen dla zarządzania wagą</value>
+    <value>Śpij co najmniej 7 godzin o stałej porze snu.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Niedobór snu zaburza hormony głodu i metabolizm.</value>
@@ -747,37 +747,37 @@
     <value>Waż się dwa razy dziennie</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Rano i wieczorem</value>
+    <value>Po przebudzeniu i przed snem</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Waż się dwa razy dziennie, aby śledzić trendy i utrzymywać odpowiedzialność.</value>
+    <value>Waż się dwa razy dziennie: po przebudzeniu i tuż przed snem.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Samokontrola jest jedną z najskuteczniejszych strategii zarządzania wagą.</value>
+    <value>Regularne ważenie się uważa się za kluczowe dla długoterminowej kontroli wagi. Zalecenie ważenia dwa razy dziennie opiera się na jednym badaniu.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Wypełnij swoje intencje</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Zaplanuj konkretne strategie „jeśli-to"</value>
+    <value>Trzy plany „jeśli-to", każdy realizowany codziennie</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Wypełnij swoje intencje: zaplanuj konkretne strategie „jeśli-to" dla zdrowego odżywiania i ćwiczeń.</value>
+    <value>Co dwa miesiące stwórz trzy nowe plany „jeśli X, to Y" dla konkretnego zachowania w konkretnej sytuacji. Odhaczaj każdy z nich, gdy wykonasz go danego dnia.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Wcześniejsze zobowiązanie się do konkretnych planów podwaja prawdopodobieństwo ich realizacji.</value>
+    <value>Konkretne plany „jeśli-to" pomagają zamieniać intencje w nawyki. W jednym eksperymencie z randomizacją zapisanie, kiedy i gdzie używać nici dentystycznej, ponad dwukrotnie zwiększyło częstotliwość jej używania.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Nie jedz po 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Nie jedz po 19:00</value>
+    <value>12+ godzin, zaczynając przed 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Przestań jeść po 19:00, aby zsynchronizować się z rytmem dobowym.</value>
+    <value>Pość co noc przez co najmniej 12 godzin, zaczynając przed 19:00. Im mniej kalorii po zachodzie słońca, tym lepiej.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Wieczorny post poprawia zdrowie metaboliczne i wspiera utratę wagi.</value>
+    <value>Z powodu rytmów dobowych jedzenie spożywane w nocy bardziej tuczy niż to samo jedzenie zjedzone wcześniej w ciągu dnia.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Łagodna pozycja Trendelenburga</value>
@@ -786,10 +786,10 @@
     <value>Sen z głową w dół pod kątem 6 stopni</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Eksperymentuj ze spaniem w łagodnej pozycji Trendelenburga (głową w dół pod kątem 6 stopni). WAŻNE: Nie próbuj, jeśli masz problemy z sercem, płucami, refluksem, mózgiem lub oczami. Skonsultuj się z lekarzem. Wstawaj powoli, aby uniknąć zawrotów głowy.</value>
+    <value>Spróbuj spędzać co najmniej 4 godziny w nocy z głową pochyloną w dół o 6 stopni, podnosząc nóżki w nogach łóżka o około 8 cali (20 cm).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Może pomóc w zarządzaniu wagą dzięki nocnemu działaniu grawitacji. Stosuj ostrożnie.</value>
+    <value>Lekkie pochylenie głową w dół może zwiększać spalanie tłuszczu, ale dowody są wstępne. Stosuj z ostrożnością.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Występuje w</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Zawiera również</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Dzisiaj</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants nie mogła otworzyć danych</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Nie udało się wczytać wpisów, a zmiany mogą nie zostać zapisane. Uruchom aplikację ponownie, a jeśli problem będzie się powtarzał, szczegóły znajdziesz w pliku dziennika: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Nie udało się wczytać wpisów, a zmiany mogą nie zostać zapisane. Uruchom aplikację ponownie, a jeśli problem będzie się powtarzał, szczegóły znajdziesz w dzienniku w folderze danych aplikacji.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Pokaż ponownie</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants to niezależna aplikacja, niepowiązana z dr. Michaelem Gregerem ani NutritionFacts.org i przez nich niepopierana. Listy kontrolne to wskazówki do dążenia, a nie plan żywieniowy ani porada medyczna, więc dostosuj je do swoich potrzeb. Przed większymi zmianami porozmawiaj z lekarzem, zwłaszcza jeśli jesteś w ciąży, karmisz piersią lub masz schorzenie. W przypadku dzieci zapytaj lekarza lub dietetyka.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Ważne</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Lub 1/3 szklanki tofu albo tempehu, lub 1 szklanka świeżego groszku albo kiełkowanej soczewicy</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Lub 80 g tofu albo tempehu, lub 100 g świeżego groszku albo kiełkowanej soczewicy</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Lub 1 szklanka pokrojonych owoców</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Lub 150 g pokrojonych owoców</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Lub 1 szklanka surowych liściastych, 1/2 szklanki ugotowanych liściastych albo 1/4 szklanki kiełków brokułów</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Lub 60 g surowych liściastych, 90 g ugotowanych liściastych albo 20 g kiełków brokułów</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Lub 1 szklanka surowych warzyw liściastych, 1/2 szklanki soku warzywnego albo 1/4 szklanki suszonych grzybów</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Lub 60 g surowych warzyw liściastych, 120 ml soku warzywnego albo 10 g suszonych grzybów</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Lub 1/2 szklanki ugotowanych zbóż, makaronu lub kukurydzy, 1 szklanka płatków na zimno, 1 tortilla, 1/2 bajgla lub angielskiej bułki albo 3 szklanki prażonego popcornu</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Lub 100 g ugotowanych zbóż, makaronu lub kukurydzy, 50 g płatków na zimno, 1 tortilla, 1/2 bajgla lub angielskiej bułki albo 30 g prażonego popcornu</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Jeśli masz ponad 65 lat, przyjmuj co najmniej 1000 mcg każdego dnia. Zamiast suplementu możesz jeść produkty wzbogacane witaminą B12 trzy razy dziennie, każdy z co najmniej 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Nigdy nie pij więcej niż 3 szklanki (około 700 ml) płynów na godzinę.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Nigdy nie pij octu w czystej postaci. Jeśli chcesz go pić, wymieszaj go ze szklanką wody, a potem przepłucz usta wodą, aby chronić szkliwo zębów.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Nigdy nie pij więcej niż 3 szklanki (około 700 ml) płynów na godzinę.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Jeśli masz problemy z sercem lub nerkami, porozmawiaj z lekarzem, zanim zaczniesz pić więcej.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Jeśli masz cukrzycę lub stan przedcukrzycowy, zacznij ćwiczyć 30 minut po rozpoczęciu posiłku, a najlepiej kontynuuj przez co najmniej godzinę.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Nie próbuj tego, jeśli masz problemy z sercem lub płucami, refluks kwasowy albo problemy z mózgiem lub oczami. Nawet występowanie jaskry w rodzinie to wyklucza. Najpierw zapytaj lekarza. Większość osób odczuwa zawroty głowy lub słabnie, gdy zbyt szybko wstanie, i może upaść, więc wstawaj powoli. Wypicie 2 szklanek (około 500 ml) zimnej wody 30 minut przed wstaniem może pomóc.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Otwórz folder dzienników</value>
   </data>
 </root>

@@ -440,6 +440,24 @@ public sealed partial class DiaryView : Page
             TextWrapping = TextWrapping.Wrap
         });
 
+        // Safety guidance goes before anything the reader could act on.
+        if (!string.IsNullOrEmpty(item.Caution))
+        {
+            var cautionSection = new StackPanel { Spacing = 4 };
+            cautionSection.Children.Add(new TextBlock
+            {
+                Text = Localizer.GetString("Diary_Caution"),
+                Style = (Style)Application.Current.Resources["DpBodyStrongTextBlockStyle"]
+            });
+            cautionSection.Children.Add(new TextBlock
+            {
+                Text = item.Caution,
+                Style = (Style)Application.Current.Resources["DpBodyTextBlockStyle"],
+                TextWrapping = TextWrapping.Wrap
+            });
+            content.Children.Add(cautionSection);
+        }
+
         // Serving size section
         var servingSection = new StackPanel { Spacing = 4 };
         servingSection.Children.Add(new TextBlock
@@ -449,9 +467,9 @@ public sealed partial class DiaryView : Page
         });
         servingSection.Children.Add(new TextBlock
         {
-            Text = itemVm.TotalRecommendedServings == 1
+            Text = item.RecommendedServings == 1
                 ? Localizer.GetString("Diary_ServingPerDay")
-                : string.Format(Localizer.GetString("Diary_ServingsPerDay"), itemVm.TotalRecommendedServings),
+                : string.Format(Localizer.GetString("Diary_ServingsPerDay"), item.RecommendedServings),
             Style = (Style)Application.Current.Resources["DpCaptionTextBlockStyle"]
         });
         servingSection.Children.Add(new TextBlock
@@ -460,30 +478,17 @@ public sealed partial class DiaryView : Page
             Style = (Style)Application.Current.Resources["DpBodyTextBlockStyle"],
             TextWrapping = TextWrapping.Wrap
         });
-        content.Children.Add(servingSection);
-
-        // Merged children info (when items from multiple checklists are combined)
-        if (itemVm.HasMergedChildren)
+        if (!string.IsNullOrEmpty(itemVm.ExtraServingsDisplay))
         {
-            var mergeSection = new StackPanel { Spacing = 4 };
-            mergeSection.Children.Add(new TextBlock
+            servingSection.Children.Add(new TextBlock
             {
-                Text = Localizer.GetString("Diary_AlsoIncludes"),
-                Style = (Style)Application.Current.Resources["DpBodyStrongTextBlockStyle"]
+                Text = itemVm.ExtraServingsDisplay,
+                Style = (Style)Application.Current.Resources["DpBodyTextBlockStyle"],
+                TextWrapping = TextWrapping.Wrap
             });
-
-            foreach (var child in itemVm.MergedChildren)
-            {
-                mergeSection.Children.Add(new TextBlock
-                {
-                    Text = $"+{child.RecommendedServings} {child.Name} ({itemVm.GetServingSizeDisplay(child)})",
-                    Style = (Style)Application.Current.Resources["DpCaptionTextBlockStyle"],
-                    TextWrapping = TextWrapping.Wrap
-                });
-            }
-
-            content.Children.Add(mergeSection);
         }
+
+        content.Children.Add(servingSection);
 
         // The same stepper the Diary row uses, so the two cannot drift apart.
         content.Children.Add(new Controls.ServingStepper

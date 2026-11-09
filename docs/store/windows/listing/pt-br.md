@@ -25,10 +25,10 @@ O Daily Plants é uma lista de verificação calma e privada para uma alimentaç
 SEU DIA EM UM RELANCE
 Toque em + a cada porção de leguminosas, frutas silvestres, verduras, grãos integrais e outros grupos. Cada porção preenche um ponto, o total mostra o quanto falta ("14 de 21"), e os itens concluídos descem para Concluído Hoje, para que o que falta permaneça no topo. Complete tudo e o app comemora com você.
 
-DUAS LISTAS, NADA CONTADO EM DOBRO
-• Dúzia Diária: 12 grupos alimentares para comer todos os dias, do livro "Comer Para Não Morrer".
+DUAS LISTAS, A ESCOLHA É SUA
+• Dúzia Diária: 12 metas diárias de comida, bebida e exercício, do livro "Comer Para Não Morrer".
 • 21 Ajustes: 21 hábitos do livro "Como Não Fazer Dieta", como beber água antes das refeições, adicionar vinagre, comer sem distrações e dormir o suficiente.
-Use uma ou as duas. Onde elas se sobrepõem, como Bebidas e Mantenha-se Hidratado, uma porção conta para ambas. Você também pode desativar qualquer item que não queira acompanhar.
+Use uma ou as duas. Você também pode desativar qualquer item que não queira acompanhar.
 
 SAIBA O QUE CONTA
 Toque em um item para ver o tamanho da porção, quais alimentos contam e por que ele importa, com um link para saber mais no NutritionFacts.org. Perdeu um dia? Volte e preencha.
@@ -66,7 +66,7 @@ Versão 0.6: um visual totalmente novo.
 
 - Listas da Dúzia Diária e dos 21 Ajustes dos livros do Dr. Greger
 - Registre uma porção com um toque e veja o que falta rapidamente
-- Use uma lista ou as duas, e itens sobrepostos contam só uma vez
+- Use uma lista ou as duas
 - Desative qualquer item que não queira acompanhar
 - Tamanhos de porção, exemplos e benefícios para a saúde de cada item
 - Volte a qualquer dia para preencher o que faltou

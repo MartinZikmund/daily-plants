@@ -25,10 +25,10 @@ Daily Plants es una checklist tranquila y privada para una alimentación vegetal
 TU DÍA DE UN VISTAZO
 Toca + cada vez que tomes una porción de legumbres, frutos rojos, verduras de hoja verde, cereales integrales y el resto. Cada porción rellena un punto, el contador muestra cuánto llevas ("14 de 21"), y los elementos completados bajan a Hecho hoy, así que lo que falta queda arriba. Complétalos todos y la app lo celebra contigo.
 
-DOS LISTAS, NADA CUENTA DOS VECES
-• Docena Diaria: 12 grupos de alimentos para comer cada día, de "Comer para no morir".
+DOS LISTAS, TÚ ELIGES
+• Docena Diaria: 12 objetivos diarios de comida, bebida y ejercicio, de "Comer para no morir".
 • 21 Potenciadores: 21 hábitos de "Comer para no engordar", como beber agua antes de las comidas, añadir vinagre, comer sin distracciones y dormir lo suficiente.
-Usa una lista o las dos. Donde se solapan, como Bebidas e Hidratación, una porción cuenta para ambas. También puedes desactivar cualquier elemento que no quieras seguir.
+Usa una lista o las dos. También puedes desactivar cualquier elemento que no quieras seguir.
 
 DESCUBRE QUÉ CUENTA
 Toca un elemento para ver su tamaño de porción, qué alimentos cuentan y por qué importa, con un enlace para saber más en NutritionFacts.org. ¿Se te pasó un día? Vuelve atrás y complétalo.
@@ -66,7 +66,7 @@ Versión 0.6: un aspecto totalmente nuevo.
 
 - Checklists Docena Diaria y 21 Potenciadores de los libros del Dr. Greger
 - Registra una porción con un toque y ve de un vistazo lo que falta
-- Usa una checklist o las dos, los elementos que se solapan cuentan una sola vez
+- Usa una checklist o las dos
 - Desactiva cualquier elemento que no quieras seguir
 - Tamaño de porción, ejemplos y beneficios para la salud de cada elemento
 - Vuelve a cualquier día para completar lo que se te pasó

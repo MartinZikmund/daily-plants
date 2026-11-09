@@ -21,10 +21,10 @@ Daily Plants is a calm, private checklist for whole-food, plant-based eating. It
 YOUR DAY AT A GLANCE
 Tap + each time you have a serving of beans, berries, greens, whole grains and the rest. Each serving fills in a dot, the tally shows how far you've got ("14 of 21"), and finished items move down to Done today, so what's left stays at the top. Complete them all and the app celebrates with you.
 
-TWO CHECKLISTS, NOTHING COUNTED TWICE
-• Daily Dozen: 12 food groups to eat every day, from "How Not to Die".
+TWO CHECKLISTS, YOUR CHOICE
+• Daily Dozen: 12 daily goals for food, drink and exercise, from "How Not to Die".
 • Twenty-One Tweaks: 21 habits from "How Not to Diet", like drinking water before meals, adding vinegar, eating without distractions and getting enough sleep.
-Use one or both. Where they overlap, like Beverages and Stay Hydrated, one serving counts toward both. You can also turn off any item you don't want to track.
+Use one or both. You can also turn off any item you don't want to track.
 
 KNOW WHAT COUNTS
 Tap an item to see its serving size, which foods count, and why it matters, with a link to learn more on NutritionFacts.org. Missed a day? Go back and fill it in.

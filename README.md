@@ -26,10 +26,10 @@
 
 You've read *How Not to Die* or *How Not to Diet*, and you're sold on beans, berries and greens. The hard part is remembering, on a busy Tuesday, whether you've had your flaxseed. Daily Plants turns the books into a checklist you can tick off in a few seconds a day:
 
-- **Daily Dozen**: 12 food groups to eat every day, from *How Not to Die*.
+- **Daily Dozen**: 12 daily goals for food, drink and exercise, from *How Not to Die*.
 - **Twenty-One Tweaks**: 21 habits from *How Not to Diet*, like drinking water before meals, adding vinegar and getting enough sleep.
 
-Use one or both. Where they overlap, one serving counts toward both, so nothing gets counted twice.
+Use one or both. The checklists are an aspirational guide rather than a meal plan or medical advice, so adapt them to your needs and talk to your doctor before making big changes.
 
 ## What's inside
 

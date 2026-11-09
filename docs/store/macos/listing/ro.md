@@ -13,10 +13,10 @@ Daily Plants este o listă de verificare calmă și privată pentru o alimentaț
 ZIUA TA, DINTR-O PRIVIRE
 Fă clic pe + de fiecare dată când consumi o porție de leguminoase, fructe de pădure, verdețuri, cereale integrale și celelalte. Fiecare porție completează un punct, contorul arată cât ai parcurs („14 din 21"), iar elementele terminate coboară la Completate azi, astfel încât ce a mai rămas să stea sus. Completează-le pe toate și aplicația sărbătorește împreună cu tine.
 
-DOUĂ LISTE, NIMIC NUMĂRAT DE DOUĂ ORI
-• Duzina Zilnică: 12 grupe alimentare de mâncat în fiecare zi, din „Cum să nu mori".
+DOUĂ LISTE, ALEGEREA ESTE A TA
+• Duzina Zilnică: 12 obiective zilnice pentru mâncare, băutură și mișcare, din „Cum să nu mori".
 • 21 de Trucuri: 21 de obiceiuri din „Cum să nu ții o dietă", precum să bei apă înainte de mese, să adaugi oțet, să mănânci fără distrageri și să dormi suficient.
-Folosește o listă sau ambele. Acolo unde se suprapun, precum Băuturi și Rămâi hidratat, o porție contează pentru amândouă. Poți dezactiva și orice element pe care nu vrei să-l urmărești.
+Folosește o listă sau ambele. Poți dezactiva și orice element pe care nu vrei să-l urmărești.
 
 AFLĂ CE CONTEAZĂ
 Fă clic pe un element pentru a vedea dimensiunea porției, ce alimente contează și de ce este important, cu un link pentru a afla mai multe pe NutritionFacts.org. Ai ratat o zi? Întoarce-te și completeaz-o.

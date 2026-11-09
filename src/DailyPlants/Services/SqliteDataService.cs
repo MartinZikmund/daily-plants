@@ -92,6 +92,9 @@ public class SqliteDataService : IDataService
             await MigrateAsync(3, ConvertStoredWeightsToKilogramsAsync);
         }
 
+        // No migration for B12 leaving the daily target or Stay Hydrated leaving Beverages: both
+        // are decided when reading, and the rows they wrote still mean the same thing.
+
         // Future migrations go here:
         // if (version < 4) { await MigrateAsync(4, MigrateToV4Async); }
 

@@ -21,10 +21,10 @@ Daily Plants è una checklist tranquilla e privata per un'alimentazione vegetale
 LA TUA GIORNATA A COLPO D'OCCHIO
 Tocca + ogni volta che mangi una porzione di legumi, frutti di bosco, verdure verdi, cereali integrali e il resto. Ogni porzione riempie un pallino, il conteggio mostra a che punto sei ("14 su 21"), e gli elementi completati scendono in Fatto oggi, così quello che manca resta in alto. Completali tutti e l'app festeggia con te.
 
-DUE CHECKLIST, NULLA CONTATO DUE VOLTE
-• Daily Dozen: 12 gruppi alimentari da mangiare ogni giorno, da "Sei quel che mangi".
+DUE CHECKLIST, A TE LA SCELTA
+• Daily Dozen: 12 obiettivi quotidiani per cibo, bevande ed esercizio, da "Sei quel che mangi".
 • Ventuno mosse: 21 abitudini da "Contro le diete", come bere acqua prima dei pasti, aggiungere l'aceto, mangiare senza distrazioni e dormire a sufficienza.
-Usa una checklist o entrambe. Dove si sovrappongono, come Bevande e Ricordati di bere, una porzione conta per entrambe. Puoi anche disattivare qualsiasi elemento che non vuoi monitorare.
+Usa una checklist o entrambe. Puoi anche disattivare qualsiasi elemento che non vuoi monitorare.
 
 SCOPRI COSA CONTA
 Tocca un elemento per vedere la porzione, quali alimenti contano e perché è importante, con un link per saperne di più su NutritionFacts.org. Hai saltato un giorno? Torna indietro e completalo.

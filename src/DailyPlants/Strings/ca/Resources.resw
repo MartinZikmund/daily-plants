@@ -177,7 +177,7 @@
     <value>Dotzena Diària</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>De "How Not to Die" - 12 grups d'aliments per menjar cada dia per una salut òptima</value>
+    <value>De "How Not to Die" - 12 objectius diaris de menjar, beure i exercici</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 Potenciadors</value>
@@ -284,7 +284,7 @@
     <value>Informació</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Fes un seguiment de la teva nutrició diària basant-te en les recomanacions del Dr. Michael Greger dels seus llibres "How Not to Die", "How Not to Diet" i "How Not to Age".</value>
+    <value>Fes un seguiment de la teva nutrició diària basant-te en les recomanacions del Dr. Michael Greger dels seus llibres "How Not to Die" i "How Not to Diet".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Versió</value>
@@ -358,10 +358,10 @@
     <value>100 g cuits o 70 g d'hummus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Llegums incloent-hi mongetes, llenties, cigrons i hummus</value>
+    <value>Llegums incloent-hi mongetes, llenties, cigrons, tofu, tempeh i hummus. Els cacauets compten com a fruits secs, i les mongetes tendres i els pèsols mangetout com a altres verdures.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Excel·lent font de proteïna, fibra i carbohidrats complexos. Associats amb els majors guanys de longevitat segons l'Estudi de Càrrega Global de Malaltia.</value>
+    <value>Excel·lent font de proteïna, fibra i hidrats de carboni complexos. Un estudi de modelització basat en dades de Global Burden of Disease va trobar que menjar més llegums oferia el major guany d'esperança de vida de tots els grups d'aliments.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Fruits del bosc</value>
@@ -373,7 +373,7 @@
     <value>70 g frescos/congelats o 40 g dessecats</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Tots els tipus de fruits del bosc</value>
+    <value>Qualsevol fruita petita comestible, incloent-hi cireres, raïms, panses i kumquats</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>El contingut d'antioxidants més alt de totes les fruites. Associats amb una vida més llarga i beneficis cognitius.</value>
@@ -415,7 +415,7 @@
     <value>½ tassa tallades o 1 cullerada de rave picant</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g tallades o 1 cullerada de rave picant</value>
+    <value>90 g tallades o 1 cullerada de rave picant</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Bròcoli, coliflor, col, kale, etc.</value>
@@ -433,7 +433,7 @@
     <value>90 g de verdures sense fulla</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Verdures que no siguin de fulla ni crucíferes</value>
+    <value>Qualsevol altra verdura, incloent-hi tomàquets, bolets i mongetes tendres</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Nutrients diversos i fibra. Essencials per a una dieta equilibrada.</value>
@@ -454,16 +454,16 @@
     <value>Fruits secs i llavors</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>¼ tassa de fruits secs o 2 cullerades de crema de fruits secs</value>
+    <value>1/4 de tassa de fruits secs o llavors, o 2 cullerades de crema de fruits secs o llavors</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g de fruits secs o 2 cullerades de crema de fruits secs</value>
+    <value>30 g de fruits secs o llavors, o 2 cullerades de crema de fruits secs o llavors</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Tots els fruits secs i llavors (preferiblement nous)</value>
+    <value>Tots els fruits secs i llavors, inclosos els cacauets. Les castanyes i els cocos no compten.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Associats amb el risc més baix de mort prematura de qualsevol grup d'aliments. Les nous són especialment beneficioses.</value>
+    <value>El Global Burden of Disease Study va classificar el consum insuficient de fruits secs i llavors com el tercer principal risc dietètic de mort i discapacitat al món.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Espècies</value>
@@ -472,7 +472,7 @@
     <value>¼ culleradeta de cúrcuma</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Especialment cúrcuma</value>
+    <value>Especialment cúrcuma, i qualsevol altra herba i espècia sense sal que t'agradi</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Potents propietats antiinflamatòries i antioxidants.</value>
@@ -481,13 +481,13 @@
     <value>Cereals integrals</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>½ tassa de cereals calents o 1 llesca de pa</value>
+    <value>1/2 tassa de cereals calents o 1 llesca de pa integral</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g de cereals calents o 1 llesca de pa</value>
+    <value>100 g de cereals calents o 1 llesca de pa integral</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Es prefereixen els cereals integrals intactes</value>
+    <value>Es prefereixen els cereals integrals intactes. Els pans i cereals han de ser 100% integrals.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>L'alt contingut de fibra afavoreix la salut intestinal i l'estabilitat del sucre a la sang.</value>
@@ -496,13 +496,13 @@
     <value>Begudes</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz d'aigua, te o altra beguda</value>
+    <value>12 oz d'aigua, te o cafè</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml d'aigua, te o altra beguda</value>
+    <value>350 ml d'aigua, te o cafè</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Aigua, te i altres begudes saludables</value>
+    <value>Aigua, te verd, te d'hibisc, cafè i altres begudes sense sucre</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Una hidratació adequada és essencial per a totes les funcions corporals.</value>
@@ -514,19 +514,19 @@
     <value>90 min moderat o 40 min intens</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Activitat física diària</value>
+    <value>Activitat física diària, que pots repartir al llarg del dia</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Augmenta els nivells de NAD+ un 127%. Essencial per a la longevitat i la salut general.</value>
+    <value>Essencial per a la longevitat i la salut en general. S'ha demostrat que l'entrenament de força eleva els nivells de NAD+ al múscul fins a un 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamina B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg setmanals o 50 mcg diaris</value>
+    <value>Almenys 2000 mcg setmanals o 50 mcg diaris</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Suplements de B12</value>
+    <value>Un suplement de cianocobalamina, idealment mastegable, sublingual o líquid, pres amb l'estómac buit. Es registra per a la teva comoditat; no compta per al total diari ni per a la ratxa.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Essencial per a la funció nerviosa i la formació de glòbuls vermells. Necessària en una dieta basada en plantes.</value>
@@ -543,7 +543,7 @@
     <value>500 ml abans de cada àpat</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Beu 2 gots d'aigua abans de cada àpat</value>
+    <value>Beu 2 tasses (uns 500 ml) d'aigua fresca o freda sense gust abans de cada àpat.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Accelera el metabolisme i ajuda a sentir-se saciat, reduint la ingesta calòrica.</value>
@@ -555,7 +555,7 @@
     <value>Comença amb poma, amanida o sopa</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Comença cada àpat amb poma, amanida o sopa</value>
+    <value>Comença cada àpat amb una poma, o amb una sopa o amanida d'aliments integrals amb menys de 100 calories per tassa (uns 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Redueix el consum total de calories mentre afegeix nutrició.</value>
@@ -567,7 +567,7 @@
     <value>2 culleradetes a cada àpat (3 vegades al dia)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Afegeix vinagre als àpats</value>
+    <value>Amaneix els teus àpats o una amanida d'acompanyament amb el vinagre que més t'agradi.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Pot ajudar amb el control del sucre a la sang i la gestió del pes.</value>
@@ -612,10 +612,10 @@
     <value>Alimentació amb Temps Restringit</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Limita la finestra de menjar</value>
+    <value>Menys de 12 hores, acabant abans de les 7 PM</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Limita la finestra de menjar</value>
+    <value>Menja dins d'una finestra diària de menys de 12 hores que puguis mantenir tots els dies de la setmana. Hauria d'acabar abans de les 7:00 PM.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Pot millorar la salut metabòlica i la gestió del pes.</value>
@@ -639,7 +639,7 @@
     <value>¼ culleradeta al dia</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>També conegut com Nigella sativa</value>
+    <value>També conegut com a Nigella sativa. És diferent del comí normal, que té una dosi diferent.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Pot ajudar amb la pèrdua de pes i el control del sucre a la sang.</value>
@@ -651,22 +651,22 @@
     <value>¼ culleradeta al dia</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Suplement diari d'all</value>
+    <value>Afegeix all en pols al teu menjar cada dia.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Estudis demostren que pot reduir el greix corporal.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Gingebre mòlt</value>
+    <value>Gingebre mòlt o cayena</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 culleradeta al dia</value>
+    <value>1 culleradeta de gingebre o 1/2 culleradeta de cayena al dia</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Gingebre diari</value>
+    <value>Remena gingebre mòlt en aigua calenta o chai; pot funcionar millor al matí que al vespre. O afegeix al teu dia 1/2 culleradeta de pebre vermell en pols o 1 jalapeny cru.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Pot accelerar el metabolisme i reduir la inflamació.</value>
+    <value>En assaigs aleatoritzats, el gingebre mòlt va reduir de manera significativa el pes corporal. El pebre vermell pot ajudar a activar el greix marró, que crema calories.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Llevat de Cervesa Nutricional</value>
@@ -702,7 +702,7 @@
     <value>720 ml al dia</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Consum diari de te verd</value>
+    <value>Beu-lo entre àpats, esperant almenys una hora després de menjar perquè no interfereixi amb l'absorció del ferro. Evita grans quantitats de cafeïna en les 6 hores abans d'anar a dormir.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Conté catequines que poden accelerar el metabolisme.</value>
@@ -711,10 +711,10 @@
     <value>Mantén-te Hidratat</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Beu prou aigua</value>
+    <value>Orina mai més fosca que groc pàl·lid</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Mantén una hidratació adequada</value>
+    <value>Marca-ho si la teva orina mai no és més fosca que groc pàl·lid. Els aliments enriquits amb riboflavina, com el llevat nutricional, poden acolorir l'orina; si en menges, apunta en el seu lloc a 9 tasses (uns 2 litres) de begudes sense sucre al dia per a les dones o 13 tasses (uns 3 litres) per als homes.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Una hidratació adequada afavoreix el metabolisme i redueix la gana.</value>
@@ -723,10 +723,10 @@
     <value>Optimitzar el Temps d'Exercici</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>En dejú o a la tarda</value>
+    <value>En dejú, normalment abans d'esmorzar</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Temps òptim per a l'exercici</value>
+    <value>Qualsevol moment és bo, però pot haver-hi un avantatge a fer exercici en dejú, almenys 6 hores després de l'últim àpat. Normalment això vol dir abans d'esmorzar.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Pot millorar la crema de greix i els beneficis metabòlics.</value>
@@ -738,7 +738,7 @@
     <value>7+ hores</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Son de qualitat per a la gestió del pes</value>
+    <value>Dorm almenys 7 hores a l'hora habitual d'anar a dormir.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Dormir poc altera les hormones de la gana i el metabolisme.</value>
@@ -747,37 +747,37 @@
     <value>Pesar-se Dues Vegades</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Matí i vespre</value>
+    <value>En despertar-te i abans d'anar a dormir</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Pesa't dues vegades al dia per seguir les tendències i mantenir la responsabilitat.</value>
+    <value>Pesa't dues vegades al dia, en despertar-te i just abans d'anar a dormir.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>L'autocontrol és una de les estratègies de gestió del pes més efectives.</value>
+    <value>Pesar-se regularment es considera crucial per al control del pes a llarg termini. El consell de pesar-se dues vegades al dia es basa en un sol estudi.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Completa els Teus Objectius</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Planifica estratègies si-llavors concretes</value>
+    <value>Tres plans si-llavors, cadascun fet cada dia</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Completa els teus objectius d'implementació: planifica estratègies si-llavors concretes per a una alimentació sana i exercici.</value>
+    <value>Cada dos mesos, crea tres plans nous "si X, llavors Y" per a una conducta concreta en una situació concreta. Marca cadascun quan el completis cada dia.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Comprometre's amb plans concrets duplica la probabilitat de complir-los.</value>
+    <value>Els plans concrets si-llavors ajuden a convertir les intencions en hàbits. En un experiment aleatoritzat, anotar quan i on fer servir el fil dental va més que duplicar la freqüència amb què la gent el feia servir.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Dejú Després de les 7:00 PM</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Res de menjar després de les 7 PM</value>
+    <value>12+ hores, començant abans de les 7 PM</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Deixa de menjar després de les 7:00 PM per alinear-te amb el teu ritme circadià.</value>
+    <value>Dejuna cada nit durant almenys 12 hores, començant abans de les 7:00 PM. Com menys calories després de la posta de sol, millor.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>El dejú al vespre millora la salut metabòlica i afavoreix la pèrdua de pes.</value>
+    <value>Pels nostres ritmes circadians, el menjar ingerit a la nit engreixa més que el mateix menjar ingerit abans durant el dia.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Trendelenburg</value>
@@ -786,10 +786,10 @@
     <value>Dormir amb el cap 6 graus avall</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experimenta dormint en posició de Trendelenburg lleu (cap avall 6 graus). IMPORTANT: No ho provis si tens problemes cardíacs, pulmonars, reflux àcid, problemes cerebrals o oculars. Consulta primer el teu metge. Aixeca't a poc a poc per evitar marejos.</value>
+    <value>Prova de passar almenys 4 hores per nit amb el cap inclinat cap avall 6 graus, elevant els suports dels peus del llit uns 20 cm (8 polzades).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Pot ajudar amb la gestió del pes mitjançant efectes gravitacionals nocturns. Utilitza amb precaució.</value>
+    <value>Una lleugera inclinació amb el cap cap avall pot augmentar la crema de greix, però l'evidència és preliminar. Fes-ho servir amb precaució.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Es troba en</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>També inclou</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Avui</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants no ha pogut obrir les dades</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>No s'han pogut carregar les entrades i és possible que els canvis no es desin. Reinicieu l'aplicació i, si el problema continua, el fitxer de registre en té els detalls: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>No s'han pogut carregar les entrades i és possible que els canvis no es desin. Reinicieu l'aplicació i, si el problema continua, els detalls són al registre de la carpeta de dades de l'aplicació.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Mostra de nou</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants és una aplicació independent, sense afiliació ni aval del Dr. Michael Greger ni de NutritionFacts.org. Les llistes són una guia a la qual aspirar, no un pla de menjars ni un consell mèdic, així que adapta-les a les teves necessitats. Parla amb el teu metge abans de fer grans canvis, sobretot si estàs embarassada, alletes o tens algun problema de salut. Per als nens, consulta un metge o un dietista.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>O 1/3 de tassa de tofu o tempeh, o 1 tassa de pèsols frescos o llenties germinades</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>O 80 g de tofu o tempeh, o 100 g de pèsols frescos o llenties germinades</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>O 1 tassa de fruita tallada</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>O 150 g de fruita tallada</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>O 1 tassa de fulles crues, 1/2 tassa de fulles cuites, o 1/4 de tassa de brots de bròcoli</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>O 60 g de fulles crues, 90 g de fulles cuites, o 20 g de brots de bròcoli</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>O 1 tassa de verdures de fulla crues, 1/2 tassa de suc de verdures, o 1/4 de tassa de bolets secs</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>O 60 g de verdures de fulla crues, 120 ml de suc de verdures, o 10 g de bolets secs</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>O 1/2 tassa de cereals, pasta o blat de moro cuits, 1 tassa de cereals freds, 1 tortilla, 1/2 bagel o English muffin, o 3 tasses de crispetes</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>O 100 g de cereals, pasta o blat de moro cuits, 50 g de cereals freds, 1 tortilla, 1/2 bagel o English muffin, o 30 g de crispetes</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Si tens més de 65 anys, pren almenys 1000 mcg cada dia. En lloc d'un suplement, pots menjar aliments enriquits amb B12 tres vegades al dia, cadascun amb almenys 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Mai no beguis més de 3 tasses (uns 700 ml) de líquid per hora.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Mai no beguis vinagre sol. Si el vols beure, barreja'l en un got d'aigua i esbandeix-te la boca amb aigua després per protegir l'esmalt de les dents.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Mai no beguis més de 3 tasses (uns 700 ml) de líquid per hora.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Si tens problemes de cor o de ronyó, parla amb el teu metge abans de beure més.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Si tens diabetis o prediabetis, comença a fer exercici 30 minuts després que comenci un àpat i, idealment, continua almenys una hora.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>No ho provis si tens problemes de cor o de pulmó, reflux àcid, o problemes cerebrals o oculars. Fins i tot un antecedent familiar de glaucoma ho descarta. Pregunta primer al teu metge. A la majoria de persones els ve un mareig o un desmai si s'aixequen massa de pressa després i podrien caure, així que aixeca't a poc a poc. Beure 2 tasses (uns 500 ml) d'aigua freda 30 minuts abans d'aixecar-te pot ajudar.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Obre la carpeta de registres</value>
   </data>
 </root>

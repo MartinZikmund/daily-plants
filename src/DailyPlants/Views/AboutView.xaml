@@ -49,6 +49,12 @@
                            Style="{StaticResource DpCaptionTextBlockStyle}"
                            HorizontalAlignment="Center" />
 
+                <TextBlock Text="{helpers:Localize Key=About_Disclaimer}"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center" />
+
                 <!--
                     Not localized: Strings/*.resw belong to another agent's scope.
                     Free-tier Icons8 requires a visible attribution link (see

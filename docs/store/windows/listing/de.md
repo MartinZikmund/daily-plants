@@ -25,10 +25,10 @@ Daily Plants ist eine ruhige, private Checkliste für eine pflanzliche Vollwert-
 IHR TAG AUF EINEN BLICK
 Tippen Sie bei jeder Portion Bohnen, Beeren, Blattgemüse, Vollkorn und den anderen Gruppen auf +. Jede Portion füllt einen Punkt, der Zähler zeigt Ihren Stand („14 von 21"), und erledigte Einträge wandern nach unten zu Heute erledigt, sodass oben bleibt, was noch fehlt. Schaffen Sie alles, feiert die App mit Ihnen.
 
-ZWEI CHECKLISTEN, NICHTS ZÄHLT DOPPELT
-• Tägliches Dutzend: 12 Lebensmittelgruppen für jeden Tag, aus „How Not to Die".
+ZWEI CHECKLISTEN, IHRE WAHL
+• Tägliches Dutzend: 12 tägliche Ziele für Essen, Trinken und Bewegung, aus „How Not to Die".
 • 21 Optimierungen: 21 Gewohnheiten aus „How Not to Diet", etwa Wasser vor dem Essen trinken, Essig hinzufügen, ohne Ablenkung essen und genug schlafen.
-Nutzen Sie eine der beiden Listen oder beide. Wo sie sich überschneiden, etwa bei Getränke und Genug trinken, zählt eine Portion für beide. Sie können auch jeden Eintrag, den Sie nicht verfolgen möchten, ausschalten.
+Nutzen Sie eine der beiden Listen oder beide. Sie können auch jeden Eintrag, den Sie nicht verfolgen möchten, ausschalten.
 
 WAS ZÄHLT
 Tippen Sie auf einen Eintrag, um Portionsgröße, passende Lebensmittel und den Grund dafür zu sehen, mit einem Link zu mehr Informationen auf NutritionFacts.org. Einen Tag verpasst? Gehen Sie zurück und tragen Sie ihn nach.
@@ -66,7 +66,7 @@ Version 0.6: ein komplett neuer Look.
 
 - Checklisten Tägliches Dutzend und 21 Optimierungen aus Dr. Gregers Büchern
 - Eine Portion mit einem Tipp erfassen und auf einen Blick sehen, was noch offen ist
-- Eine Checkliste oder beide nutzen – überschneidende Einträge zählen nur einmal
+- Eine Checkliste oder beide nutzen
 - Jeden Eintrag, den Sie nicht verfolgen möchten, ausschalten
 - Portionsgröße, Beispiele und Gesundheitsvorteile für jeden Eintrag
 - Zu jedem Tag zurückgehen, um Verpasstes nachzutragen

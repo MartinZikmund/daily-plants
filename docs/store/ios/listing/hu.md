@@ -21,10 +21,10 @@ A Daily Plants egy nyugodt, privát ellenőrzőlista a teljes értékű, növén
 A NAPOD EGY PILLANTÁSRA
 Koppints a + gombra minden alkalommal, amikor eszel egy adag babot, bogyós gyümölcsöt, zöldet, teljes kiőrlésű gabonát vagy mást. Minden adag kitölt egy pontot, az összesítő megmutatja, hol tartasz („14/21"), a kész elemek pedig lekerülnek a Ma kész közé, így ami hátravan, az marad felül. Teljesítsd mindet, és az alkalmazás veled együtt ünnepel.
 
-KÉT LISTA, SEMMI SEM SZÁMÍT KÉTSZER
-• Napi Tucat: 12 élelmiszer-csoport, amelyet minden nap érdemes fogyasztani, a „Hogy ne halj meg" című könyvből.
+KÉT LISTA, TE DÖNTESZ
+• Napi Tucat: 12 napi cél étel, ital és testmozgás terén, a „Hogy ne halj meg" című könyvből.
 • 21 Trükk: 21 szokás a „Hogyan ne diétázz" című könyvből, például víz ivása étkezés előtt, ecet hozzáadása, zavartalan étkezés és elegendő alvás.
-Használd az egyiket vagy mindkettőt. Ahol átfedés van, mint az Italok és a Hidratáljon esetében, egy adag mindkettőbe beleszámít. Bármelyik elemet kikapcsolhatod, amit nem szeretnél nyomon követni.
+Használd az egyiket vagy mindkettőt. Bármelyik elemet kikapcsolhatod, amit nem szeretnél nyomon követni.
 
 TUDD, MI SZÁMÍT
 Koppints egy elemre, hogy lásd az adag méretét, mely ételek számítanak bele, és miért fontos, egy hivatkozással, ahol többet olvashatsz a NutritionFacts.org oldalon. Kimaradt egy nap? Lépj vissza, és pótold.

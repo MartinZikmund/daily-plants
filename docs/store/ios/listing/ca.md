@@ -21,10 +21,10 @@ Daily Plants és una llista de verificació tranquil·la i privada per a una ali
 EL TEU DIA D'UN COP D'ULL
 Toca + cada vegada que prenguis una ració de llegums, fruits del bosc, verdures de fulla verda, cereals integrals i la resta. Cada ració omple un punt, el comptador mostra fins on has arribat ("14 de 21"), i els elements completats baixen a Fet avui, de manera que el que queda pendent es manté a dalt. Completa'ls tots i l'app ho celebra amb tu.
 
-DUES LLISTES, RES NO ES COMPTA DUES VEGADES
-• Dotzena Diària: 12 grups d'aliments per menjar cada dia, de "How Not to Die".
+DUES LLISTES, TRIA TU
+• Dotzena Diària: 12 objectius diaris de menjar, beure i exercici, de "How Not to Die".
 • 21 Potenciadors: 21 hàbits de "How Not to Diet", com beure aigua abans dels àpats, afegir vinagre, menjar sense distraccions i dormir prou hores.
-Fes servir una llista o totes dues. On coincideixen, com Begudes i Mantén-te hidratat, una ració compta per a totes dues. També pots desactivar qualsevol element que no vulguis seguir.
+Fes servir una llista o totes dues. També pots desactivar qualsevol element que no vulguis seguir.
 
 DESCOBREIX QUÈ COMPTA
 Toca un element per veure la seva mida de ració, quins aliments hi compten i per què és important, amb un enllaç per saber-ne més a NutritionFacts.org. T'has saltat un dia? Torna enrere i completa'l.
