@@ -62,10 +62,12 @@ public static class ChecklistDefinitions
         GetEnabledItems(preferences).Select(i => i.Id).ToList();
 
     /// <summary>
-    /// Gets a map of enabled item IDs to their required servings.
+    /// Gets a map of the enabled item IDs a complete day requires to their servings.
     /// </summary>
     public static Dictionary<string, int> GetRequiredServingsMap(IAppPreferences preferences) =>
-        GetEnabledItems(preferences).ToDictionary(i => i.Id, i => i.RecommendedServings);
+        GetEnabledItems(preferences)
+            .Where(i => i.CountsTowardCompletion)
+            .ToDictionary(i => i.Id, i => i.RecommendedServings);
 
     private static List<ChecklistItem> CreateAllItems() =>
     [
@@ -82,6 +84,8 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Beans_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/beans/",
             TopicSlug = "beans",
+            ExtraServingsMetric = Localizer.GetString("DD_Beans_ExtraServings_Metric"),
+            ExtraServingsImperial = Localizer.GetString("DD_Beans_ExtraServings_Imperial"),
             IconPath = "ms-appx:///Assets/Icons/Items/beans.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -116,6 +120,8 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_OtherFruits_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/fruit/",
             TopicSlug = "fruit",
+            ExtraServingsMetric = Localizer.GetString("DD_OtherFruits_ExtraServings_Metric"),
+            ExtraServingsImperial = Localizer.GetString("DD_OtherFruits_ExtraServings_Imperial"),
             IconPath = "ms-appx:///Assets/Icons/Items/other_fruits.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -150,6 +156,8 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_Cruciferous_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/cruciferous-vegetables/",
             TopicSlug = "cruciferous-vegetables",
+            ExtraServingsMetric = Localizer.GetString("DD_Cruciferous_ExtraServings_Metric"),
+            ExtraServingsImperial = Localizer.GetString("DD_Cruciferous_ExtraServings_Imperial"),
             IconPath = "ms-appx:///Assets/Icons/Items/cruciferous.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -167,6 +175,8 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_OtherVegetables_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vegetables/",
             TopicSlug = "vegetables",
+            ExtraServingsMetric = Localizer.GetString("DD_OtherVegetables_ExtraServings_Metric"),
+            ExtraServingsImperial = Localizer.GetString("DD_OtherVegetables_ExtraServings_Imperial"),
             IconPath = "ms-appx:///Assets/Icons/Items/other_vegetables.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -235,6 +245,8 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_WholeGrains_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/grains/",
             TopicSlug = "grains",
+            ExtraServingsMetric = Localizer.GetString("DD_WholeGrains_ExtraServings_Metric"),
+            ExtraServingsImperial = Localizer.GetString("DD_WholeGrains_ExtraServings_Imperial"),
             IconPath = "ms-appx:///Assets/Icons/Items/whole_grains.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -286,6 +298,8 @@ public static class ChecklistDefinitions
             HealthBenefits = Localizer.GetString("DD_VitaminB12_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vitamin-b12/",
             TopicSlug = "vitamin-b12",
+            Caution = Localizer.GetString("DD_VitaminB12_Caution"),
+            CountsTowardCompletion = false,
             IconPath = "ms-appx:///Assets/Icons/Items/vitamin_b12.png",
             Checklists = [ChecklistType.DailyDozen]
         },
@@ -303,6 +317,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("TT_PreloadWater_Desc_Imperial"),
             HealthBenefits = Localizer.GetString("TT_PreloadWater_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/water/",
+            Caution = Localizer.GetString("TT_PreloadWater_Caution"),
             IconPath = "ms-appx:///Assets/Icons/Items/preload_water.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -317,7 +332,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_NegativeCalorie_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_NegativeCalorie_Desc"),
             HealthBenefits = Localizer.GetString("TT_NegativeCalorie_Benefits"),
-            MoreInfoUrl = "https://nutritionfacts.org/topics/appetite/",
+            MoreInfoUrl = "https://nutritionfacts.org/topics/weight-loss/",
             IconPath = "ms-appx:///Assets/Icons/Items/negative_calorie_preload.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -333,6 +348,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("TT_Vinegar_Desc"),
             HealthBenefits = Localizer.GetString("TT_Vinegar_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/vinegar/",
+            Caution = Localizer.GetString("TT_Vinegar_Caution"),
             IconPath = "ms-appx:///Assets/Icons/Items/vinegar.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -347,7 +363,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_Undistracted_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_Undistracted_Desc"),
             HealthBenefits = Localizer.GetString("TT_Undistracted_Benefits"),
-            MoreInfoUrl = "https://nutritionfacts.org/topics/mindful-eating/",
+            MoreInfoUrl = "https://nutritionfacts.org/topics/mindfulness/",
             IconPath = "ms-appx:///Assets/Icons/Items/undistracted_meals.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -362,7 +378,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_TwentyMinute_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_TwentyMinute_Desc"),
             HealthBenefits = Localizer.GetString("TT_TwentyMinute_Benefits"),
-            MoreInfoUrl = "https://nutritionfacts.org/topics/eating-rate/",
+            MoreInfoUrl = "https://nutritionfacts.org/topics/weight-loss/",
             IconPath = "ms-appx:///Assets/Icons/Items/twenty_minute_rule.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -377,6 +393,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_FrontLoad_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_FrontLoad_Desc"),
             HealthBenefits = Localizer.GetString("TT_FrontLoad_Benefits"),
+            MoreInfoUrl = "https://nutritionfacts.org/topics/breakfast/",
             IconPath = "ms-appx:///Assets/Icons/Items/front_load_calories.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -391,7 +408,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_TimeRestricted_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_TimeRestricted_Desc"),
             HealthBenefits = Localizer.GetString("TT_TimeRestricted_Benefits"),
-            MoreInfoUrl = "https://nutritionfacts.org/topics/intermittent-fasting/",
+            MoreInfoUrl = "https://nutritionfacts.org/topics/fasting/",
             IconPath = "ms-appx:///Assets/Icons/Items/time_restricted_eating.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -406,6 +423,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_Deflour_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_Deflour_Desc"),
             HealthBenefits = Localizer.GetString("TT_Deflour_Benefits"),
+            MoreInfoUrl = "https://nutritionfacts.org/topics/flour/",
             IconPath = "ms-appx:///Assets/Icons/Items/deflour_diet.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -496,6 +514,7 @@ public static class ChecklistDefinitions
             ServingSizeImperial = Localizer.GetString("TT_GreenTea_Desc_Imperial"),
             HealthBenefits = Localizer.GetString("TT_GreenTea_Benefits"),
             MoreInfoUrl = "https://nutritionfacts.org/topics/green-tea/",
+            Caution = Localizer.GetString("TT_GreenTea_Caution"),
             IconPath = "ms-appx:///Assets/Icons/Items/green_tea.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -510,6 +529,8 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_Hydrated_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_Hydrated_Desc"),
             HealthBenefits = Localizer.GetString("TT_Hydrated_Benefits"),
+            Caution = Localizer.GetString("TT_Hydrated_Caution"),
+            MoreInfoUrl = "https://nutritionfacts.org/topics/water/",
             IconPath = "ms-appx:///Assets/Icons/Items/stay_hydrated.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -524,6 +545,8 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_ExerciseTiming_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_ExerciseTiming_Desc"),
             HealthBenefits = Localizer.GetString("TT_ExerciseTiming_Benefits"),
+            Caution = Localizer.GetString("TT_ExerciseTiming_Caution"),
+            MoreInfoUrl = "https://nutritionfacts.org/topics/exercise/",
             IconPath = "ms-appx:///Assets/Icons/Items/exercise_timing.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -553,6 +576,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_WeighTwice_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_WeighTwice_Desc"),
             HealthBenefits = Localizer.GetString("TT_WeighTwice_Benefits"),
+            MoreInfoUrl = "https://nutritionfacts.org/topics/weight-loss/",
             IconPath = "ms-appx:///Assets/Icons/Items/weigh_twice.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -567,6 +591,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_Intentions_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_Intentions_Desc"),
             HealthBenefits = Localizer.GetString("TT_Intentions_Benefits"),
+            MoreInfoUrl = "https://nutritionfacts.org/video/how-to-form-good-habits/",
             IconPath = "ms-appx:///Assets/Icons/Items/complete_intentions.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -581,6 +606,7 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_NightlyFast_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_NightlyFast_Desc"),
             HealthBenefits = Localizer.GetString("TT_NightlyFast_Benefits"),
+            MoreInfoUrl = "https://nutritionfacts.org/topics/chronobiology/",
             IconPath = "ms-appx:///Assets/Icons/Items/nightly_fast.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         },
@@ -595,6 +621,8 @@ public static class ChecklistDefinitions
             ServingSizeMetric = Localizer.GetString("TT_Trendelenburg_Desc"),
             ServingSizeImperial = Localizer.GetString("TT_Trendelenburg_Desc"),
             HealthBenefits = Localizer.GetString("TT_Trendelenburg_Benefits"),
+            Caution = Localizer.GetString("TT_Trendelenburg_Caution"),
+            MoreInfoUrl = "https://nutritionfacts.org/video/the-risks-and-benefits-of-mild-trendelenburg-position-to-reduce-body-fat/",
             IconPath = "ms-appx:///Assets/Icons/Items/nightly_trendelenburg.png",
             Checklists = [ChecklistType.TwentyOneTweaks]
         }

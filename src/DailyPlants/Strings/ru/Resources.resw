@@ -177,7 +177,7 @@
     <value>Ежедневная дюжина</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Из книги "Не сдохни!" - 12 групп продуктов для ежедневного употребления для оптимального здоровья</value>
+    <value>Из книги "Не сдохни!" - 12 ежедневных целей по еде, напиткам и физической активности</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 Уловка</value>
@@ -284,7 +284,7 @@
     <value>О приложении</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Отслеживайте ежедневное питание на основе рекомендаций доктора Майкла Грегера из его книг "Не сдохни!", "Не сдохни на диете" и "Не старей".</value>
+    <value>Отслеживайте ежедневное питание на основе рекомендаций доктора Майкла Грегера из его книг "Не сдохни!" и "Не сдохни на диете".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Версия</value>
@@ -358,10 +358,10 @@
     <value>100 г варёных или 70 г хумуса</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Бобовые, включая фасоль, чечевицу, нут и хумус</value>
+    <value>Бобовые, включая фасоль, чечевицу, нут, тофу, темпе и хумус. Арахис считается орехами, а стручковая фасоль и сахарный горошек - другими овощами.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Отличный источник белка, клетчатки и сложных углеводов. Связаны с наибольшим увеличением продолжительности жизни согласно исследованию глобального бремени болезней.</value>
+    <value>Отличный источник белка, клетчатки и сложных углеводов. Модельное исследование на основе данных Global Burden of Disease показало, что употребление бобовых даёт самый большой прирост продолжительности жизни среди всех групп продуктов.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Ягоды</value>
@@ -373,7 +373,7 @@
     <value>70 г свежих/замороженных или 40 г сушёных</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Все виды ягод</value>
+    <value>Любые мелкие съедобные плоды, включая вишню, виноград, изюм и кумкват</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Самое высокое содержание антиоксидантов среди всех фруктов. Связаны с увеличением продолжительности жизни и улучшением когнитивных функций.</value>
@@ -415,7 +415,7 @@
     <value>½ стакана нарезанных или 1 ст.л. хрена</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 г нарезанных или 1 ст.л. хрена</value>
+    <value>90 г нарезанных или 1 ст.л. хрена</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Брокколи, цветная капуста, белокочанная капуста, кейл и др.</value>
@@ -433,7 +433,7 @@
     <value>90 г нелистовых овощей</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Нелистовые, некрестоцветные овощи</value>
+    <value>Любые другие овощи, включая помидоры, грибы и стручковую фасоль</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Разнообразные питательные вещества и клетчатка. Необходимы для сбалансированного питания.</value>
@@ -454,16 +454,16 @@
     <value>Орехи и Семена</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>¼ чашки орехов или 2 ст.л. ореховой пасты</value>
+    <value>1/4 чашки орехов или семян, или 2 ст.л. ореховой или семечковой пасты</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 г орехов или 2 ст.л. ореховой пасты</value>
+    <value>30 г орехов или семян, или 2 ст.л. ореховой или семечковой пасты</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Все орехи и семена (предпочтительно грецкие)</value>
+    <value>Все орехи и семена, включая арахис. Каштаны и кокосы не считаются.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Связаны с наименьшим риском преждевременной смерти среди всех групп продуктов. Грецкие орехи особенно полезны.</value>
+    <value>Исследование Global Burden of Disease поставило недостаточное употребление орехов и семян на третье место среди пищевых факторов риска смерти и инвалидности в мире.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Травы и Специи</value>
@@ -472,7 +472,7 @@
     <value>¼ ч.л. куркумы</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Особенно куркума</value>
+    <value>Особенно куркума, а также любые другие травы и специи без соли, которые вам нравятся</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Мощные противовоспалительные и антиоксидантные свойства.</value>
@@ -481,13 +481,13 @@
     <value>Цельнозерновые Продукты</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>½ стакана каши или 1 ломтик хлеба</value>
+    <value>1/2 стакана каши или 1 ломтик цельнозернового хлеба</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 г каши или 1 ломтик хлеба</value>
+    <value>100 г каши или 1 ломтик цельнозернового хлеба</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Предпочтительно цельные зёрна</value>
+    <value>Лучше цельные зёрна. Хлеб и хлопья должны быть 100% цельнозерновыми.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Высокое содержание клетчатки поддерживает здоровье кишечника и стабильный уровень сахара в крови.</value>
@@ -496,13 +496,13 @@
     <value>Напитки</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 унций воды, чая или другого напитка</value>
+    <value>12 унций воды, чая или кофе</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 мл воды, чая или другого напитка</value>
+    <value>350 мл воды, чая или кофе</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Вода, чай и другие полезные напитки</value>
+    <value>Вода, зелёный чай, чай из гибискуса, кофе и другие напитки без сахара</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Правильное увлажнение необходимо для всех функций организма.</value>
@@ -514,19 +514,19 @@
     <value>90 мин умеренных или 40 мин интенсивных</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Ежедневная физическая активность</value>
+    <value>Ежедневная физическая активность, которую можно разбить на части в течение дня</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Повышает уровень NAD+ на 127%. Необходимы для долголетия и общего здоровья.</value>
+    <value>Необходима для долголетия и общего здоровья. Показано, что силовые тренировки повышают уровень NAD+ в мышцах на целых 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Витамин B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 мкг еженедельно или 50 мкг ежедневно</value>
+    <value>Не менее 2000 мкг в неделю или 50 мкг в день</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Добавка B12</value>
+    <value>Добавка цианокобаламина, лучше жевательная, подъязычная или жидкая, принимаемая натощак. Отслеживается для вашего удобства; не входит в дневной итог и не учитывается в серии.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Необходим для работы нервной системы и образования эритроцитов. Обязателен при растительном питании.</value>
@@ -543,7 +543,7 @@
     <value>500 мл перед каждым приёмом пищи</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Выпивайте 2 стакана воды перед каждым приёмом пищи</value>
+    <value>Выпивайте 2 стакана (около 500 мл) прохладной или холодной воды без добавок перед каждым приёмом пищи.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Ускоряет обмен веществ и помогает чувствовать сытость, снижая потребление калорий.</value>
@@ -555,7 +555,7 @@
     <value>Начните с яблока, салата или супа</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Начинайте каждый приём пищи с яблока, салата или супа</value>
+    <value>Начинайте каждый приём пищи с яблока либо с супа или салата из цельных продуктов, в которых менее 100 калорий на стакан (около 240 мл).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Снижает общее потребление калорий, добавляя при этом питательных веществ.</value>
@@ -567,7 +567,7 @@
     <value>2 ч.л. с каждым приёмом пищи (3 раза в день)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Добавляйте уксус к приёмам пищи</value>
+    <value>Приправляйте блюда или заправляйте гарнирный салат любым уксусом, который вам нравится.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Может помочь контролировать уровень сахара в крови и управлять весом.</value>
@@ -612,10 +612,10 @@
     <value>Ограничение времени приёма пищи</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Ограничьте окно приёма пищи</value>
+    <value>Менее 12 часов, заканчивая до 19:00</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Ограничьте окно приёма пищи</value>
+    <value>Ешьте в течение дневного окна менее 12 часов, которое вы сможете соблюдать каждый день недели. Оно должно заканчиваться до 19:00.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Может улучшить метаболическое здоровье и управление весом.</value>
@@ -639,7 +639,7 @@
     <value>¼ ч.л. ежедневно</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Также известен как Нигелла (Nigella sativa)</value>
+    <value>Также известен как Nigella sativa. Отличается от обычного кумина (зиры), у которого другая доза.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Может помочь с потерей веса и контролем уровня сахара в крови.</value>
@@ -651,22 +651,22 @@
     <value>¼ ч.л. ежедневно</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Ежедневная добавка чеснока</value>
+    <value>Добавляйте чесночный порошок в еду каждый день.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Исследования показывают, что он может снижать содержание жира в организме.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Молотый имбирь</value>
+    <value>Молотый имбирь или кайенский перец</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 ч.л. ежедневно</value>
+    <value>1 ч.л. имбиря или 1/2 ч.л. кайенского перца в день</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Ежедневный имбирь</value>
+    <value>Добавляйте молотый имбирь в горячую воду или чай масала; утром он может действовать лучше, чем вечером. Или добавляйте в свой день 1/2 ч.л. красного перца в порошке или 1 сырой халапеньо.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Может ускорить обмен веществ и уменьшить воспаление.</value>
+    <value>В рандомизированных исследованиях молотый имбирь значительно снижал массу тела. Красный перец может помогать активировать бурый жир, сжигающий калории.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Пищевые дрожжи</value>
@@ -702,7 +702,7 @@
     <value>720 мл ежедневно</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Ежедневное употребление зелёного чая</value>
+    <value>Пейте его между приёмами пищи, подождав не менее часа после еды, чтобы он не мешал усвоению железа. Избегайте больших доз кофеина в течение 6 часов до сна.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Содержит катехины, которые могут ускорить обмен веществ.</value>
@@ -711,10 +711,10 @@
     <value>Избегайте обезвоживания</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Пейте достаточно воды</value>
+    <value>Моча не темнее бледно-жёлтой</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Поддерживайте правильный уровень увлажнения</value>
+    <value>Отметьте это, если ваша моча никогда не бывает темнее бледно-жёлтой. Продукты, обогащённые рибофлавином, например пищевые дрожжи, могут окрашивать мочу, поэтому если вы их едите, стремитесь вместо этого к 9 стаканам (около 2 литров) напитков без сахара в день для женщин или 13 стаканам (около 3 литров) для мужчин.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Правильное увлажнение поддерживает обмен веществ и снижает чувство голода.</value>
@@ -723,10 +723,10 @@
     <value>Время для упражнений</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Натощак или днём</value>
+    <value>Натощак, обычно до завтрака</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Оптимальное время для физических упражнений</value>
+    <value>Подойдёт любое время, но заниматься натощак, не менее чем через 6 часов после последнего приёма пищи, может быть выгоднее. Обычно это означает до завтрака.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Может усилить сжигание жира и метаболические преимущества.</value>
@@ -738,7 +738,7 @@
     <value>7+ часов</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Качественный сон для управления весом</value>
+    <value>Спите не менее 7 часов, ложась в обычное время.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Плохой сон нарушает гормоны голода и обмен веществ.</value>
@@ -747,37 +747,37 @@
     <value>Взвешивайтесь дважды</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Утром и вечером</value>
+    <value>После пробуждения и перед сном</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Взвешивайтесь дважды в день для отслеживания динамики и поддержания ответственности.</value>
+    <value>Взвешивайтесь дважды в день: после пробуждения и непосредственно перед сном.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Самоконтроль — одна из самых эффективных стратегий управления весом.</value>
+    <value>Регулярное взвешивание считается решающим для долгосрочного контроля веса. Совет взвешиваться дважды в день основан на одном исследовании.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Воплощение намерений</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Планируйте конкретные стратегии «если-то»</value>
+    <value>Три плана «если-то», каждый выполняется ежедневно</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Воплощайте свои намерения: планируйте конкретные стратегии «если-то» для здорового питания и упражнений.</value>
+    <value>Каждые два месяца создавайте три новых плана «если X, то Y» для конкретного поведения в конкретной ситуации. Отмечайте каждый из них, когда выполняете его, каждый день.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Предварительное планирование конкретных действий удваивает вероятность их выполнения.</value>
+    <value>Конкретные планы «если-то» помогают превращать намерения в привычки. В одном рандомизированном эксперименте запись того, когда и где пользоваться зубной нитью, более чем вдвое увеличила частоту её использования.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Не ешьте после 7:00 вечера</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Никакой еды после 19:00</value>
+    <value>12+ часов, начиная до 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Прекратите есть после 19:00, чтобы соответствовать вашему циркадному ритму.</value>
+    <value>Голодайте каждую ночь не менее 12 часов, начиная до 19:00. Чем меньше калорий после захода солнца, тем лучше.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Вечернее голодание улучшает метаболическое здоровье и способствует потере веса.</value>
+    <value>Из-за циркадных ритмов еда, съеденная вечером, откладывается в жир сильнее, чем та же еда, съеденная раньше в течение дня.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Мягкий Тренделенбург</value>
@@ -786,10 +786,10 @@
     <value>Сон с наклоном 6 градусов</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Поэкспериментируйте со сном в положении мягкого Тренделенбурга (наклон головой вниз на 6 градусов). ВАЖНО: Не пробуйте при проблемах с сердцем, лёгкими, кислотном рефлюксе, проблемах с мозгом или глазами. Проконсультируйтесь с врачом. Вставайте медленно, чтобы избежать головокружения.</value>
+    <value>Попробуйте проводить не менее 4 часов за ночь с наклоном головой вниз на 6 градусов, приподняв ножки в изножье кровати примерно на 8 дюймов (20 см).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Может помочь в управлении весом за счёт ночного гравитационного воздействия. Используйте с осторожностью.</value>
+    <value>Небольшой наклон головой вниз может усиливать сжигание жира, но данные пока предварительные. Используйте с осторожностью.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Содержится в</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Также включает</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Сегодня</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants не удалось открыть данные</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Не удалось загрузить записи, а изменения могут не сохраняться. Перезапустите приложение, а если это повторяется, подробности есть в файле журнала: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Не удалось загрузить записи, а изменения могут не сохраняться. Перезапустите приложение, а если это повторяется, подробности есть в журнале в папке данных приложения.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Показать снова</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants - независимое приложение, не связанное с доктором Майклом Грегером или NutritionFacts.org и не одобренное ими. Чек-листы - это ориентир, к которому стоит стремиться, а не план питания и не медицинская рекомендация, поэтому адаптируйте их под себя. Прежде чем что-то сильно менять, поговорите с врачом, особенно если вы беременны, кормите грудью или у вас есть заболевание. Для детей спросите врача или диетолога.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Важно</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1/3 чашки тофу или темпе, или 1 чашка свежего горошка или проросшей чечевицы</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 80 г тофу или темпе, или 100 г свежего горошка или проросшей чечевицы</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1 чашка нарезанных фруктов</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 150 г нарезанных фруктов</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1 чашка сырых листовых, 1/2 чашки приготовленных листовых или 1/4 чашки ростков брокколи</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 60 г сырых листовых, 90 г приготовленных листовых или 20 г ростков брокколи</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1 чашка сырых листовых овощей, 1/2 чашки овощного сока или 1/4 чашки сушёных грибов</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 60 г сырых листовых овощей, 120 мл овощного сока или 10 г сушёных грибов</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1/2 стакана варёных злаков, пасты или кукурузы, 1 стакан холодных хлопьев, 1 тортилья, 1/2 бейгла или английской булочки, или 3 стакана попкорна</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 100 г варёных злаков, пасты или кукурузы, 50 г холодных хлопьев, 1 тортилья, 1/2 бейгла или английской булочки, или 30 г попкорна</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Если вам больше 65 лет, принимайте не менее 1000 мкг каждый день. Вместо добавки можно есть продукты, обогащённые B12, три раза в день, не менее 2 мкг в каждом приёме.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Никогда не пейте больше 3 стаканов (около 700 мл) жидкости в час.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Никогда не пейте уксус в чистом виде. Если хотите его пить, разведите его в стакане воды и после этого прополощите рот водой, чтобы защитить зубную эмаль.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Никогда не пейте больше 3 стаканов (около 700 мл) жидкости в час.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Если у вас проблемы с сердцем или почками, поговорите с врачом, прежде чем пить больше.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Если у вас диабет или предиабет, начинайте заниматься вместо этого через 30 минут после начала еды и, в идеале, продолжайте не менее часа.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Не пробуйте это, если у вас проблемы с сердцем или лёгкими, кислотный рефлюкс или проблемы с мозгом или глазами. Даже семейная история глаукомы исключает это. Сначала спросите врача. Большинство людей чувствуют головокружение или слабость, если после этого встают слишком быстро, и могут упасть, поэтому вставайте медленно. Помочь может 2 стакана (около 500 мл) холодной воды за 30 минут до подъёма.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Открыть папку журналов</value>
   </data>
 </root>

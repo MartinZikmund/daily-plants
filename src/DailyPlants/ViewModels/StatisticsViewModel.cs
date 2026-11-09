@@ -260,7 +260,7 @@ public partial class StatisticsViewModel : ObservableObject
         var entries = await _dataService.GetEntriesInRangeAsync(startDate, today);
 
         var rates = new List<(ChecklistItem Item, double Rate)>();
-        foreach (var item in enabledItems)
+        foreach (var item in enabledItems.Where(i => i.CountsTowardCompletion))
         {
             var itemEntries = entries.Where(e => e.ItemId == item.Id).ToList();
             var daysCompleted = 0;
@@ -392,10 +392,11 @@ public partial class StatisticsViewModel : ObservableObject
 
     private static (int completed, int total) CalculateProgress(IEnumerable<DailyEntry> entries, List<ChecklistItem> enabledItems)
     {
-        var totalServings = enabledItems.Sum(i => i.RecommendedServings);
+        var counted = enabledItems.Where(i => i.CountsTowardCompletion).ToList();
+        var totalServings = counted.Sum(i => i.RecommendedServings);
         var completedServings = 0;
 
-        foreach (var item in enabledItems)
+        foreach (var item in counted)
         {
             var entry = entries.FirstOrDefault(e => e.ItemId == item.Id);
             if (entry != null)

@@ -177,7 +177,7 @@
     <value>Duzina Zilnică</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Din „Cum să nu mori" - 12 grupe alimentare de consumat zilnic pentru o sănătate optimă</value>
+    <value>Din „Cum să nu mori" - 12 obiective zilnice pentru mâncare, băutură și mișcare</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 de Trucuri</value>
@@ -284,7 +284,7 @@
     <value>Despre</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Urmăriți-vă nutriția zilnică pe baza recomandărilor dr. Michael Greger din cărțile sale „Cum să nu mori", „Cum să nu ții o dietă" și „Cum să nu îmbătrânești".</value>
+    <value>Urmăriți-vă nutriția zilnică pe baza recomandărilor dr. Michael Greger din cărțile sale „Cum să nu mori" și „Cum să nu ții o dietă".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Versiune</value>
@@ -358,10 +358,10 @@
     <value>100 g gătite sau 70 g humus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Leguminoase, inclusiv fasole, linte, năut și humus</value>
+    <value>Leguminoase, inclusiv fasole, linte, năut, tofu, tempeh și humus. Arahidele se numără la nuci, iar fasolea verde și mazărea păstăi la alte legume.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Sursă excelentă de proteine, fibre și carbohidrați complecși. Asociate cu cele mai mari câștiguri de speranță de viață conform Studiului Global al Poverii Bolilor.</value>
+    <value>Sursă excelentă de proteine, fibre și carbohidrați complecși. Un studiu de modelare bazat pe datele Global Burden of Disease a constatat că un consum mai mare de leguminoase a oferit cele mai mari câștiguri de longevitate dintre toate grupele de alimente.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Fructe de pădure</value>
@@ -373,7 +373,7 @@
     <value>70 g proaspete/congelate sau 40 g uscate</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Toate tipurile de fructe de pădure</value>
+    <value>Orice fruct mic comestibil, inclusiv cireșe, struguri, stafide și kumquat</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Cel mai mare conținut de antioxidanți dintre toate fructele. Asociate cu o viață mai lungă și beneficii cognitive.</value>
@@ -415,7 +415,7 @@
     <value>½ cană tocate sau 1 lingură hrean</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g tocate sau 1 lingură hrean</value>
+    <value>90 g tocate sau 1 lingură hrean</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Broccoli, conopidă, varză, kale etc.</value>
@@ -433,7 +433,7 @@
     <value>90 g legume fără frunze</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Legume fără frunze, non-crucifere</value>
+    <value>Orice alte legume, inclusiv roșii, ciuperci și fasole verde</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Nutrienți diverși și fibre. Esențiale pentru o dietă echilibrată.</value>
@@ -454,16 +454,16 @@
     <value>Nuci și semințe</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>¼ cană nuci sau 2 linguri unt de nuci</value>
+    <value>1/4 cană nuci sau semințe, sau 2 linguri unt de nuci sau de semințe</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g nuci sau 2 linguri unt de nuci</value>
+    <value>30 g nuci sau semințe, sau 2 linguri unt de nuci sau de semințe</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Toate nucile și semințele (de preferință nucile)</value>
+    <value>Toate nucile și semințele, inclusiv arahidele. Castanele și nucile de cocos nu se numără.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Asociate cu cel mai scăzut risc de deces prematur dintre toate grupele alimentare. Nucile sunt deosebit de benefice.</value>
+    <value>Studiul Global Burden of Disease a clasat consumul prea mic de nuci și semințe drept al treilea factor de risc alimentar pentru deces și invaliditate la nivel mondial.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Plante aromatice și condimente</value>
@@ -472,7 +472,7 @@
     <value>¼ linguriță turmeric</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>În special turmeric</value>
+    <value>În special turmeric, plus orice alte plante aromatice și condimente fără sare care vă plac</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Proprietăți puternice antiinflamatorii și antioxidante.</value>
@@ -481,13 +481,13 @@
     <value>Cereale integrale</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>½ cană cereale calde sau 1 felie de pâine</value>
+    <value>1/2 cană cereale calde sau 1 felie de pâine integrală</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g cereale calde sau 1 felie de pâine</value>
+    <value>100 g cereale calde sau 1 felie de pâine integrală</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>De preferat cereale integrale în formă intactă</value>
+    <value>De preferat cereale integrale în formă intactă. Pâinea și cerealele ar trebui să fie 100% integrale.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Conținut ridicat de fibre care susțin sănătatea intestinală și glicemia stabilă.</value>
@@ -496,13 +496,13 @@
     <value>Băuturi</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz apă, ceai sau altele</value>
+    <value>12 oz apă, ceai sau cafea</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml apă, ceai sau altele</value>
+    <value>350 ml apă, ceai sau cafea</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Apă, ceai și alte băuturi sănătoase</value>
+    <value>Apă, ceai verde, ceai de hibiscus, cafea și alte băuturi neîndulcite</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Hidratarea corespunzătoare este esențială pentru toate funcțiile organismului.</value>
@@ -514,19 +514,19 @@
     <value>90 min moderate sau 40 min intense</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Activitate fizică zilnică</value>
+    <value>Activitate fizică zilnică, pe care o puteți împărți pe parcursul zilei</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Crește nivelurile de NAD+ cu 127%. Esențial pentru longevitate și sănătatea generală.</value>
+    <value>Esențială pentru longevitate și sănătatea generală. S-a demonstrat că antrenamentul de rezistență poate crește nivelul de NAD+ din mușchi cu până la 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamina B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg săptămânal sau 50 mcg zilnic</value>
+    <value>Cel puțin 2000 mcg săptămânal sau 50 mcg zilnic</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Suplimentare cu B12</value>
+    <value>Un supliment de cianocobalamină, de preferat masticabil, sublingual sau lichid, luat pe stomacul gol. Urmărit pentru comoditate; nu se numără în totalul zilnic sau în serie.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Esențială pentru funcția nervoasă și formarea globulelor roșii. Necesară în dieta pe bază de plante.</value>
@@ -543,7 +543,7 @@
     <value>500 ml înainte de fiecare masă</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Beți 2 căni de apă înainte de fiecare masă</value>
+    <value>Beți 2 căni (aproximativ 500 ml) de apă răcoroasă sau rece, fără aromă, înainte de fiecare masă.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Stimulează metabolismul și ajută la senzația de sațietate, reducând aportul caloric.</value>
@@ -555,7 +555,7 @@
     <value>Începeți cu un măr, salată sau supă</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Începeți fiecare masă cu un măr, salată sau supă</value>
+    <value>Începeți fiecare masă cu un măr sau cu o supă ori o salată din alimente integrale, cu mai puțin de 100 de calorii pe cană (aproximativ 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Reduce consumul total de calorii adăugând în același timp nutrienți.</value>
@@ -567,7 +567,7 @@
     <value>2 lingurițe cu fiecare masă (de 3 ori pe zi)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Adăugați oțet la mese</value>
+    <value>Aromatizați mesele sau asezonați o salată de însoțire cu orice oțet vă place.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Poate ajuta la controlul glicemiei și la gestionarea greutății.</value>
@@ -612,10 +612,10 @@
     <value>Restricționați mesele în intervale de timp</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Limitați fereastra de alimentație</value>
+    <value>Sub 12 ore, încheiate înainte de ora 19:00</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Limitați fereastra de alimentație</value>
+    <value>Mâncați într-un interval zilnic de sub 12 ore, pe care îl puteți menține în fiecare zi a săptămânii. Ar trebui să se încheie înainte de ora 19:00.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Poate îmbunătăți sănătatea metabolică și gestionarea greutății.</value>
@@ -639,7 +639,7 @@
     <value>¼ linguriță zilnic</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Cunoscut și sub numele de Nigella sativa</value>
+    <value>Cunoscut și ca Nigella sativa. Este diferit de chimenul obișnuit, care are o doză diferită.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Poate ajuta la pierderea în greutate și controlul glicemiei.</value>
@@ -651,22 +651,22 @@
     <value>¼ linguriță zilnic</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Suplimentare zilnică cu usturoi</value>
+    <value>Adăugați zilnic usturoi pudră în mâncare.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Studiile arată că poate reduce grăsimea corporală.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Ghimbir măcinat</value>
+    <value>Ghimbir sau cayenne</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 linguriță zilnic</value>
+    <value>1 linguriță ghimbir sau 1/2 linguriță cayenne zilnic</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Ghimbir zilnic</value>
+    <value>Amestecați ghimbir măcinat în apă fierbinte sau chai; poate funcționa mai bine dimineața decât seara. Sau adăugați în ziua dumneavoastră 1/2 linguriță de ardei roșu pudră sau 1 jalapeño crud.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Poate stimula metabolismul și reduce inflamația.</value>
+    <value>În studii randomizate, ghimbirul măcinat a scăzut semnificativ greutatea corporală. Ardeiul roșu poate ajuta la activarea grăsimii brune, care arde calorii.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Drojdie inactivă</value>
@@ -702,7 +702,7 @@
     <value>720 ml zilnic</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Consum zilnic de ceai verde</value>
+    <value>Beți-l între mese, așteptând cel puțin o oră după ce ați mâncat, ca să nu împiedice absorbția fierului. Evitați cantitățile mari de cofeină în ultimele 6 ore dinaintea culcării.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Conține catechine care pot stimula metabolismul.</value>
@@ -711,10 +711,10 @@
     <value>Rămâi hidratat</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Beți suficientă apă</value>
+    <value>Urina nu mai închisă decât galben pal</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Mențineți o hidratare corespunzătoare</value>
+    <value>Bifați dacă urina dumneavoastră nu pare niciodată mai închisă decât galben pal. Alimentele fortificate cu riboflavină, precum drojdia nutrițională, pot colora urina, așa că dacă le consumați, încercați în schimb 9 căni (aproximativ 2 litri) de băuturi neîndulcite pe zi pentru femei sau 13 căni (aproximativ 3 litri) pentru bărbați.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Hidratarea corespunzătoare susține metabolismul și reduce foamea.</value>
@@ -723,10 +723,10 @@
     <value>Optimizați cronometrarea exercițiilor</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Pe nemâncate sau după-amiaza</value>
+    <value>Pe stomacul gol, de obicei înainte de micul dejun</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Momentul optim pentru exerciții fizice</value>
+    <value>Orice moment este bun, dar exercițiile pe stomacul gol, la cel puțin 6 ore după ultima masă, pot avea un avantaj. De obicei, asta înseamnă înainte de micul dejun.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Poate îmbunătăți arderea grăsimilor și beneficiile metabolice.</value>
@@ -738,7 +738,7 @@
     <value>7+ ore</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Somn de calitate pentru gestionarea greutății</value>
+    <value>Dormiți cel puțin 7 ore la ora obișnuită de culcare.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Somnul insuficient perturbă hormonii foamei și metabolismul.</value>
@@ -747,37 +747,37 @@
     <value>Cântăriți-vă de două ori</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Dimineața și seara</value>
+    <value>La trezire și înainte de culcare</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Cântăriți-vă de două ori pe zi pentru a urmări tendințele și a rămâne responsabil.</value>
+    <value>Cântăriți-vă de două ori pe zi, când vă treziți și chiar înainte de culcare.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Auto-monitorizarea este una dintre cele mai eficiente strategii de gestionare a greutății.</value>
+    <value>Cântărirea regulată este considerată esențială pentru controlul greutății pe termen lung. Sfatul de a vă cântări de două ori pe zi se bazează pe un singur studiu.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Intenții de implementare</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Planificați strategii specifice „dacă-atunci"</value>
+    <value>Trei planuri „dacă-atunci", fiecare îndeplinit zilnic</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Completați-vă intențiile de implementare: planificați strategii specifice „dacă-atunci" pentru alimentație sănătoasă și exerciții fizice.</value>
+    <value>La fiecare două luni, creați trei planuri noi de tipul „dacă X, atunci Y" pentru un comportament anume într-o situație anume. Bifați-le pe fiecare când îl îndepliniți, în fiecare zi.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Angajarea prealabilă față de planuri specifice dublează probabilitatea de a le îndeplini.</value>
+    <value>Planurile specifice „dacă-atunci" ajută la transformarea intențiilor în obiceiuri. Într-un experiment randomizat, notarea momentului și a locului în care se folosește ața dentară a mai mult decât dublat frecvența cu care oamenii o foloseau.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Postiți după ora 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Fără mâncare după ora 19:00</value>
+    <value>12+ ore, începând înainte de ora 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Nu mai mâncați după ora 19:00 pentru a vă alinia ritmului circadian.</value>
+    <value>Postiți în fiecare noapte cel puțin 12 ore, începând înainte de ora 19:00. Cu cât mai puține calorii după apusul soarelui, cu atât mai bine.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Postul de seară îmbunătățește sănătatea metabolică și susține pierderea în greutate.</value>
+    <value>Din cauza ritmurilor noastre circadiene, mâncarea consumată noaptea îngrașă mai mult decât aceeași mâncare consumată mai devreme în cursul zilei.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Trendelenburg ușor</value>
@@ -786,10 +786,10 @@
     <value>Dormiți cu capul în jos la 6 grade</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experimentați cu poziția Trendelenburg ușoară (capul în jos la 6 grade). IMPORTANT: Nu încercați dacă aveți probleme cu inima, plămânii, reflux acid, probleme cerebrale sau oculare. Consultați medicul mai întâi. Ridicați-vă încet pentru a evita amețeala.</value>
+    <value>Încercați să petreceți cel puțin 4 ore pe noapte cu capul înclinat în jos cu 6 grade, ridicând picioarele de la capătul patului cu aproximativ 8 inci (20 cm).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Poate ajuta la gestionarea greutății prin efectele gravitaționale pe parcursul nopții. Folosiți cu precauție.</value>
+    <value>O ușoară înclinare cu capul în jos poate stimula arderea grăsimilor, dar dovezile sunt timpurii. Folosiți cu prudență.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Se găsește în</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Include și</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Azi</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants nu a putut deschide datele</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Intrările nu au putut fi încărcate, iar modificările s-ar putea să nu fie salvate. Reporniți aplicația, iar dacă problema persistă, detaliile se află în fișierul jurnal: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Intrările nu au putut fi încărcate, iar modificările s-ar putea să nu fie salvate. Reporniți aplicația, iar dacă problema persistă, detaliile se află în jurnalul din folderul de date al aplicației.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Afișează din nou</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants este o aplicație independentă, fără legătură cu dr. Michael Greger sau NutritionFacts.org și neaprobată de aceștia. Listele sunt un ghid orientativ, nu un plan alimentar sau un sfat medical, așa că adaptați-le nevoilor dumneavoastră. Discutați cu medicul înainte de schimbări mari, mai ales dacă sunteți gravidă, alăptați sau aveți o afecțiune medicală. Pentru copii, cereți sfatul unui medic sau dietetician.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Sau 1/3 cană tofu sau tempeh, sau 1 cană mazăre proaspătă sau linte germinată</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Sau 80 g tofu sau tempeh, sau 100 g mazăre proaspătă sau linte germinată</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Sau 1 cană fructe tăiate</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Sau 150 g fructe tăiate</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Sau 1 cană frunze crude, 1/2 cană frunze gătite sau 1/4 cană germeni de broccoli</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Sau 60 g frunze crude, 90 g frunze gătite sau 20 g germeni de broccoli</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Sau 1 cană legume cu frunze crude, 1/2 cană suc de legume sau 1/4 cană ciuperci uscate</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Sau 60 g legume cu frunze crude, 120 ml suc de legume sau 10 g ciuperci uscate</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Sau 1/2 cană cereale, paste sau porumb gătite, 1 cană cereale reci, 1 tortilla, 1/2 bagel sau brioșă englezească, sau 3 căni de floricele de porumb</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Sau 100 g cereale, paste sau porumb gătite, 50 g cereale reci, 1 tortilla, 1/2 bagel sau brioșă englezească, sau 30 g floricele de porumb</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Dacă aveți peste 65 de ani, luați cel puțin 1000 mcg în fiecare zi. În locul unui supliment, puteți mânca alimente fortificate cu B12 de trei ori pe zi, fiecare cu cel puțin 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Nu beți niciodată mai mult de 3 căni (aproximativ 700 ml) de lichide pe oră.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Nu beți niciodată oțetul simplu. Dacă vreți să îl beți, amestecați-l într-un pahar cu apă și clătiți-vă gura cu apă după aceea pentru a vă proteja smalțul dinților.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Nu beți niciodată mai mult de 3 căni (aproximativ 700 ml) de lichide pe oră.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Dacă aveți probleme cu inima sau rinichii, discutați cu medicul înainte de a bea mai mult.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Dacă aveți diabet sau prediabet, începeți în schimb exercițiile la 30 de minute după începutul unei mese și, în mod ideal, continuați cel puțin o oră.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Nu încercați acest lucru dacă aveți probleme cu inima sau plămânii, reflux acid ori probleme cu creierul sau ochii. Chiar și un istoric familial de glaucom îl exclude. Întrebați mai întâi medicul. Majoritatea oamenilor se simt amețiți sau leșină dacă se ridică prea repede după aceea și pot cădea, așa că ridicați-vă încet. Băutul a 2 căni (aproximativ 500 ml) de apă rece cu 30 de minute înainte de trezire poate ajuta.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Deschide folderul de jurnale</value>
   </data>
 </root>

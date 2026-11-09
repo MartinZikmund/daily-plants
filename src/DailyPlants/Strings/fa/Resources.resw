@@ -177,7 +177,7 @@
     <value>دوازده‌تای روزانه</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>از کتاب «چگونه نمیریم» - ۱۲ گروه غذایی برای مصرف روزانه جهت سلامت مطلوب</value>
+    <value>از کتاب «چگونه نمیریم» - ۱۲ هدف روزانه برای غذا، نوشیدنی و ورزش</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>۲۱ ترفند</value>
@@ -284,7 +284,7 @@
     <value>درباره</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>ردیابی تغذیه روزانه بر اساس توصیه‌های دکتر مایکل گرگر از کتاب‌های «چگونه نمیریم»، «چگونه رژیم نگیریم» و «چگونه پیر نشویم».</value>
+    <value>ردیابی تغذیه روزانه بر اساس توصیه‌های Dr. Michael Greger از کتاب‌های «چگونه نمیریم» و «چگونه رژیم نگیریم».</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>نسخه</value>
@@ -358,10 +358,10 @@
     <value>۱۰۰ گرم پخته‌شده یا ۷۰ گرم حمص</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>حبوبات شامل لوبیا، عدس، نخود و حمص</value>
+    <value>حبوبات شامل لوبیا، عدس، نخود، توفو، تمپه و حمص. بادام‌زمینی جزو آجیل‌ها و لوبیا سبز و نخودفرنگی شیرین جزو سایر سبزیجات حساب می‌شود.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>منبع عالی پروتئین، فیبر و کربوهیدرات‌های پیچیده. طبق مطالعه بار جهانی بیماری، بیشترین ارتباط را با افزایش طول عمر دارد.</value>
+    <value>منبع عالی پروتئین، فیبر و کربوهیدرات‌های پیچیده. یک مطالعه مدل‌سازی بر پایه داده‌های Global Burden of Disease نشان داد مصرف بیشتر حبوبات در میان همه گروه‌های غذایی بیشترین افزایش طول عمر را به همراه داشت.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>توت‌ها</value>
@@ -373,7 +373,7 @@
     <value>۷۰ گرم تازه/منجمد یا ۴۰ گرم خشک‌شده</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>انواع توت‌ها</value>
+    <value>هر میوه کوچک خوراکی، از جمله گیلاس، انگور، کشمش و کامکوات</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>بالاترین میزان آنتی‌اکسیدان را در بین تمام میوه‌ها دارند. با افزایش طول عمر و بهبود عملکرد شناختی مرتبط هستند.</value>
@@ -415,7 +415,7 @@
     <value>نصف پیمانه خردشده یا ۱ قاشق غذاخوری ترب کوهی</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>۶۰ گرم خردشده یا ۱ قاشق غذاخوری ترب کوهی</value>
+    <value>۹۰ گرم خردشده یا ۱ قاشق غذاخوری ترب کوهی</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>کلم‌بروکلی، گل‌کلم، کلم، کلم‌کیل و غیره</value>
@@ -433,7 +433,7 @@
     <value>۹۰ گرم سبزیجات غیربرگی</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>سبزیجات غیربرگی و غیرچلیپایی</value>
+    <value>هر سبزی دیگر، از جمله گوجه‌فرنگی، قارچ و لوبیا سبز</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>مواد مغذی و فیبر متنوع. ضروری برای رژیم غذایی متعادل.</value>
@@ -454,16 +454,16 @@
     <value>آجیل‌ها و دانه‌ها</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>یک‌چهارم پیمانه آجیل یا ۲ قاشق غذاخوری کره آجیل</value>
+    <value>۱/۴ پیمانه آجیل یا دانه، یا ۲ قاشق غذاخوری کره آجیل یا دانه</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>۳۰ گرم آجیل یا ۲ قاشق غذاخوری کره آجیل</value>
+    <value>۳۰ گرم آجیل یا دانه، یا ۲ قاشق غذاخوری کره آجیل یا دانه</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>انواع آجیل‌ها و دانه‌ها (ترجیحاً گردو)</value>
+    <value>همه آجیل‌ها و دانه‌ها، از جمله بادام‌زمینی. شاه‌بلوط و نارگیل حساب نمی‌شوند.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>کمترین خطر مرگ زودرس را در بین تمام گروه‌های غذایی دارند. گردو به‌ویژه مفید است.</value>
+    <value>مطالعه Global Burden of Disease مصرف کم آجیل و دانه را سومین عامل خطر تغذیه‌ای برای مرگ و ناتوانی در سراسر جهان معرفی کرد.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>ادویه‌ها و سبزیجات معطر</value>
@@ -472,7 +472,7 @@
     <value>یک‌چهارم قاشق چای‌خوری زردچوبه</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>به‌ویژه زردچوبه</value>
+    <value>به‌ویژه زردچوبه، به‌علاوه هر ادویه و سبزی معطر بدون نمک دیگری که دوست دارید</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>خواص قوی ضدالتهابی و آنتی‌اکسیدانی.</value>
@@ -481,13 +481,13 @@
     <value>غلات کامل</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>نصف پیمانه فرنی گرم یا ۱ برش نان</value>
+    <value>۱/۲ پیمانه فرنی گرم یا ۱ برش نان غلات کامل</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>۱۰۰ گرم فرنی گرم یا ۱ برش نان</value>
+    <value>۱۰۰ گرم فرنی گرم یا ۱ برش نان غلات کامل</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>ترجیحاً غلات کامل دست‌نخورده</value>
+    <value>غلات کامل دست‌نخورده ترجیح داده می‌شود. نان‌ها و غلات صبحانه باید ۱۰۰٪ غلات کامل باشند.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>فیبر بالا از سلامت روده و ثبات قند خون حمایت می‌کند.</value>
@@ -496,13 +496,13 @@
     <value>نوشیدنی‌ها</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>۱۲ اونس آب، چای یا سایر نوشیدنی‌ها</value>
+    <value>۱۲ اونس آب، چای یا قهوه</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>۳۵۰ میلی‌لیتر آب، چای یا سایر نوشیدنی‌ها</value>
+    <value>۳۵۰ میلی‌لیتر آب، چای یا قهوه</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>آب، چای و سایر نوشیدنی‌های سالم</value>
+    <value>آب، چای سبز، چای ختمی، قهوه و سایر نوشیدنی‌های بدون شکر</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>آبرسانی مناسب برای تمام عملکردهای بدن ضروری است.</value>
@@ -514,19 +514,19 @@
     <value>۹۰ دقیقه متوسط یا ۴۰ دقیقه شدید</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>فعالیت بدنی روزانه</value>
+    <value>فعالیت بدنی روزانه که می‌توانید آن را در طول روز تقسیم کنید</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>سطح NAD+ را ۱۲۷٪ افزایش می‌دهد. ضروری برای طول عمر و سلامت عمومی.</value>
+    <value>برای طول عمر و سلامت کلی ضروری است. نشان داده شده است که تمرین مقاومتی سطح NAD+ عضلات را تا ۱۲۷٪ افزایش می‌دهد.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>ویتامین ب۱۲</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>۲۰۰۰ میکروگرم هفتگی یا ۵۰ میکروگرم روزانه</value>
+    <value>دست‌کم ۲۰۰۰ میکروگرم هفتگی یا ۵۰ میکروگرم روزانه</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>مکمل ب۱۲</value>
+    <value>مکمل سیانوکوبالامین، ترجیحاً جویدنی، زیرزبانی یا مایع و مصرف‌شده با معده خالی. برای راحتی شما ثبت می‌شود؛ جزو مجموع روزانه یا رشته روزهای متوالی حساب نمی‌شود.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>ضروری برای عملکرد اعصاب و تشکیل گلبول‌های قرمز خون. در رژیم غذایی گیاهی لازم است.</value>
@@ -543,7 +543,7 @@
     <value>۵۰۰ میلی‌لیتر قبل از هر وعده غذایی</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>قبل از هر وعده غذایی ۲ فنجان آب بنوشید</value>
+    <value>۲ پیمانه (حدود ۵۰۰ میلی‌لیتر) آب خنک یا سرد بدون طعم پیش از هر وعده غذایی بنوشید.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>سوخت‌و‌ساز را تقویت می‌کند و به احساس سیری کمک می‌کند و دریافت کالری را کاهش می‌دهد.</value>
@@ -555,7 +555,7 @@
     <value>با سیب، سالاد یا سوپ شروع کنید</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>هر وعده غذایی را با سیب، سالاد یا سوپ شروع کنید</value>
+    <value>هر وعده را با یک سیب یا سوپ یا سالاد از غذاهای کامل با کمتر از ۱۰۰ کالری در هر پیمانه (حدود ۲۴۰ میلی‌لیتر) شروع کنید.</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>مصرف کلی کالری را کاهش می‌دهد و در عین حال ارزش تغذیه‌ای را افزایش می‌دهد.</value>
@@ -567,7 +567,7 @@
     <value>۲ قاشق چای‌خوری با هر وعده غذایی (۳ بار در روز)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>سرکه را به وعده‌های غذایی اضافه کنید</value>
+    <value>غذاهایتان را با هر سرکه‌ای که دوست دارید طعم‌دار کنید یا سالاد کناری را با آن بپاشید.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>ممکن است به کنترل قند خون و مدیریت وزن کمک کند.</value>
@@ -612,10 +612,10 @@
     <value>محدودسازی زمان غذا خوردن</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>محدود کردن بازه زمانی غذا خوردن</value>
+    <value>کمتر از ۱۲ ساعت، پایان پیش از ساعت ۷ شب</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>محدود کردن بازه زمانی غذا خوردن</value>
+    <value>در بازه روزانه‌ای کمتر از ۱۲ ساعت غذا بخورید که بتوانید هر روز هفته آن را رعایت کنید. این بازه باید پیش از ساعت ۷:۰۰ شب تمام شود.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>ممکن است سلامت متابولیک و مدیریت وزن را بهبود بخشد.</value>
@@ -639,7 +639,7 @@
     <value>یک‌چهارم قاشق چای‌خوری روزانه</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>همچنین به‌عنوان Nigella sativa شناخته می‌شود</value>
+    <value>با نام Nigella sativa هم شناخته می‌شود. با زیره سبز معمولی که مقدار مصرف متفاوتی دارد فرق دارد.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>ممکن است به کاهش وزن و کنترل قند خون کمک کند.</value>
@@ -651,22 +651,22 @@
     <value>یک‌چهارم قاشق چای‌خوری روزانه</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>مصرف روزانه مکمل سیر</value>
+    <value>هر روز پودر سیر به غذایتان اضافه کنید.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>مطالعات نشان می‌دهد که می‌تواند چربی بدن را کاهش دهد.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>زنجبیل آسیاب‌شده</value>
+    <value>زنجبیل آسیاب‌شده یا فلفل کایین</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>۱ قاشق چای‌خوری روزانه</value>
+    <value>۱ قاشق چای‌خوری زنجبیل یا ۱/۲ قاشق چای‌خوری کایین روزانه</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>زنجبیل روزانه</value>
+    <value>زنجبیل آسیاب‌شده را در آب داغ یا چای ماسالا هم بزنید؛ شاید صبح بهتر از شب اثر کند. یا ۱/۲ قاشق چای‌خوری پودر فلفل قرمز یا ۱ فلفل هالوپینو خام به روزتان اضافه کنید.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>ممکن است سوخت‌و‌ساز را تقویت و التهاب را کاهش دهد.</value>
+    <value>در کارآزمایی‌های تصادفی، زنجبیل آسیاب‌شده وزن بدن را به‌طور چشمگیری کاهش داد. فلفل قرمز ممکن است به فعال‌شدن چربی قهوه‌ای کالری‌سوز کمک کند.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>مخمر مغذی</value>
@@ -702,7 +702,7 @@
     <value>۷۲۰ میلی‌لیتر روزانه</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>مصرف روزانه چای سبز</value>
+    <value>آن را بین وعده‌ها بنوشید و دست‌کم یک ساعت پس از غذا صبر کنید تا در جذب آهن اختلال ایجاد نکند. از مصرف مقادیر زیاد کافئین در ۶ ساعت پیش از خواب خودداری کنید.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>حاوی کاتچین‌هایی است که ممکن است سوخت‌و‌ساز را تقویت کنند.</value>
@@ -711,10 +711,10 @@
     <value>آبرسانی کافی</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>به اندازه کافی آب بنوشید</value>
+    <value>ادرار تیره‌تر از زرد کمرنگ نباشد</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>بدن را به‌درستی هیدراته نگه دارید</value>
+    <value>اگر ادرارتان هرگز تیره‌تر از زرد کمرنگ نیست، این مورد را تیک بزنید. غذاهای غنی‌شده با ریبوفلاوین مانند مخمر مغذی می‌توانند ادرار را رنگی کنند، پس اگر آن‌ها را می‌خورید، به‌جایش برای زنان ۹ پیمانه (حدود ۲ لیتر) و برای مردان ۱۳ پیمانه (حدود ۳ لیتر) نوشیدنی بدون شکر در روز هدف بگیرید.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>آبرسانی مناسب از سوخت‌و‌ساز حمایت می‌کند و گرسنگی را کاهش می‌دهد.</value>
@@ -723,10 +723,10 @@
     <value>زمان‌بندی ورزش</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>ناشتا یا بعدازظهر</value>
+    <value>ناشتا، معمولاً پیش از صبحانه</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>زمان‌بندی بهینه برای ورزش</value>
+    <value>هر زمانی خوب است، اما ورزش در حالت ناشتا، دست‌کم ۶ ساعت پس از آخرین وعده غذایی، ممکن است مزیتی داشته باشد. معمولاً یعنی پیش از صبحانه.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>ممکن است چربی‌سوزی و مزایای متابولیک را افزایش دهد.</value>
@@ -738,7 +738,7 @@
     <value>۷ ساعت یا بیشتر</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>خواب باکیفیت برای مدیریت وزن</value>
+    <value>دست‌کم ۷ ساعت در زمان خواب منظم خود بخوابید.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>کمبود خواب هورمون‌های گرسنگی و سوخت‌و‌ساز را مختل می‌کند.</value>
@@ -747,37 +747,37 @@
     <value>دوبار وزن‌کشی</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>صبح و شب</value>
+    <value>هنگام بیدارشدن و پیش از خواب</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>خودتان را دوبار در روز وزن کنید تا روندها را پیگیری و مسئولیت‌پذیر بمانید.</value>
+    <value>روزی دو بار وزن کنید، هنگام بیدارشدن و درست پیش از خواب.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>خودپایشی یکی از مؤثرترین راهبردهای مدیریت وزن است.</value>
+    <value>وزن‌کردن منظم خود برای کنترل وزن در بلندمدت حیاتی شمرده می‌شود. توصیه روزی دو بار بر پایه یک مطالعه است.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>اهداف اجرایی</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>برنامه‌ریزی راهبردهای «اگر-آنگاه»</value>
+    <value>سه برنامه «اگر-آنگاه»، هرکدام روزانه انجام شود</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>اهداف اجرایی خود را تکمیل کنید: راهبردهای «اگر-آنگاه» مشخصی برای تغذیه سالم و ورزش برنامه‌ریزی کنید.</value>
+    <value>هر دو ماه، سه برنامه جدید «اگر X، آنگاه Y» برای یک رفتار مشخص در یک موقعیت مشخص بسازید. هر روز هرکدام را که انجام دادید تیک بزنید.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>تعهد قبلی به برنامه‌های مشخص، احتمال پیگیری را دوبرابر می‌کند.</value>
+    <value>برنامه‌های مشخص «اگر-آنگاه» به تبدیل نیت‌ها به عادت کمک می‌کنند. در یک آزمایش تصادفی، نوشتن زمان و مکان نخ‌دندان‌کشیدن باعث شد افراد بیش از دو برابر بیشتر این کار را انجام دهند.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>ناشتا بعد از ساعت ۷:۰۰ شب</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>بدون غذا بعد از ساعت ۷ شب</value>
+    <value>۱۲+ ساعت، شروع پیش از ساعت ۷ شب</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>بعد از ساعت ۷:۰۰ شب از خوردن غذا خودداری کنید تا با ریتم شبانه‌روزی بدنتان هماهنگ باشید.</value>
+    <value>هر شب دست‌کم ۱۲ ساعت ناشتا باشید و از پیش از ساعت ۷:۰۰ شب شروع کنید. هرچه کالری کمتری پس از غروب آفتاب بخورید بهتر است.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>ناشتا ماندن شبانه سلامت متابولیک را بهبود می‌بخشد و از کاهش وزن حمایت می‌کند.</value>
+    <value>به‌دلیل ریتم‌های شبانه‌روزی بدن، غذایی که شب خورده می‌شود چاق‌کننده‌تر از همان غذا در ساعات اولیه روز است.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>حالت ترندلنبرگ با شیب کم</value>
@@ -786,10 +786,10 @@
     <value>خواب با سر پایین ۶ درجه</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>حالت ترندلنبرگ با شیب کم (سر پایین ۶ درجه) را هنگام خواب امتحان کنید. مهم: اگر مشکلات قلبی، ریوی، رفلاکس اسید، مغزی یا چشمی دارید، این کار را انجام ندهید. ابتدا با پزشک خود مشورت کنید. به‌آرامی از خواب بلند شوید تا از سرگیجه جلوگیری شود.</value>
+    <value>سعی کنید شبی دست‌کم ۴ ساعت با سر ۶ درجه پایین‌تر بخوابید؛ برای این کار پایه‌های سمت پای تخت را حدود ۸ اینچ (۲۰ سانتی‌متر) بالا ببرید.</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>ممکن است از طریق اثرات گرانشی شبانه به مدیریت وزن کمک کند. با احتیاط استفاده کنید.</value>
+    <value>شیب ملایم سر به پایین ممکن است چربی‌سوزی را افزایش دهد، اما شواهد هنوز در مراحل اولیه است. با احتیاط استفاده کنید.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>یافت‌شده در</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>همچنین شامل</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>امروز</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants نتوانست داده‌ها را باز کند</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>ورودی‌ها بارگذاری نشدند و ممکن است تغییرات ذخیره نشوند. برنامه را دوباره اجرا کنید و اگر مشکل ادامه یافت، جزئیات در پرونده گزارش است: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>ورودی‌ها بارگذاری نشدند و ممکن است تغییرات ذخیره نشوند. برنامه را دوباره اجرا کنید و اگر مشکل ادامه یافت، جزئیات در گزارش موجود در پوشه داده‌های برنامه است.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>نمایش دوباره</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants یک برنامه مستقل است و هیچ ارتباط یا تأییدی از سوی Dr. Michael Greger یا NutritionFacts.org ندارد. چک‌لیست‌ها یک راهنمای آرمانی هستند، نه برنامه غذایی یا توصیه پزشکی، پس آن‌ها را با نیازهای خود وفق دهید. پیش از ایجاد تغییرات بزرگ با پزشک خود صحبت کنید، به‌ویژه اگر باردار هستید، شیر می‌دهید یا بیماری خاصی دارید. برای کودکان از پزشک یا متخصص تغذیه بپرسید.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>مهم</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>یا ۱/۳ پیمانه توفو یا تمپه، یا ۱ پیمانه نخودفرنگی تازه یا عدس جوانه‌زده</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>یا ۸۰ گرم توفو یا تمپه، یا ۱۰۰ گرم نخودفرنگی تازه یا عدس جوانه‌زده</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>یا ۱ پیمانه میوه خردشده</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>یا ۱۵۰ گرم میوه خردشده</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>یا ۱ پیمانه سبزی برگی خام، ۱/۲ پیمانه سبزی برگی پخته یا ۱/۴ پیمانه جوانه بروکلی</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>یا ۶۰ گرم سبزی برگی خام، ۹۰ گرم سبزی برگی پخته یا ۲۰ گرم جوانه بروکلی</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>یا ۱ پیمانه سبزیجات برگی خام، ۱/۲ پیمانه آب سبزیجات یا ۱/۴ پیمانه قارچ خشک</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>یا ۶۰ گرم سبزیجات برگی خام، ۱۲۰ میلی‌لیتر آب سبزیجات یا ۱۰ گرم قارچ خشک</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>یا ۱/۲ پیمانه غلات پخته، پاستا یا ذرت، ۱ پیمانه غلات صبحانه سرد، ۱ تورتیلا، ۱/۲ بیگل یا مافین انگلیسی، یا ۳ پیمانه ذرت بوداده</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>یا ۱۰۰ گرم غلات پخته، پاستا یا ذرت، ۵۰ گرم غلات صبحانه سرد، ۱ تورتیلا، ۱/۲ بیگل یا مافین انگلیسی، یا ۳۰ گرم ذرت بوداده</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>اگر بالای ۶۵ سال دارید، هر روز دست‌کم ۱۰۰۰ میکروگرم مصرف کنید. به‌جای مکمل می‌توانید سه بار در روز غذاهای غنی‌شده با B12 بخورید، هر بار دست‌کم با ۲ میکروگرم.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>هرگز بیش از ۳ پیمانه (حدود ۷۰۰ میلی‌لیتر) مایعات در یک ساعت ننوشید.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>هرگز سرکه را خالص ننوشید. اگر می‌خواهید آن را بنوشید، در یک لیوان آب مخلوط کنید و پس از آن دهانتان را با آب بشویید تا از مینای دندان محافظت شود.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>هرگز بیش از ۳ پیمانه (حدود ۷۰۰ میلی‌لیتر) مایعات در یک ساعت ننوشید.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>اگر مشکل قلبی یا کلیوی دارید، پیش از نوشیدن بیشتر با پزشک خود صحبت کنید.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>اگر دیابت یا پیش‌دیابت دارید، به‌جای آن ورزش را ۳۰ دقیقه پس از شروع وعده غذایی آغاز کنید و ترجیحاً دست‌کم یک ساعت ادامه دهید.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>اگر مشکل قلبی یا ریوی، ریفلاکس اسید، یا مشکل مغزی یا چشمی دارید، این کار را امتحان نکنید. حتی سابقه خانوادگی گلوکوم هم آن را منتفی می‌کند. ابتدا از پزشک خود بپرسید. بیشتر افراد اگر پس از آن خیلی سریع بلند شوند سرگیجه می‌گیرند یا غش می‌کنند و ممکن است بیفتند، پس آهسته بلند شوید. نوشیدن ۲ پیمانه (حدود ۵۰۰ میلی‌لیتر) آب سرد ۳۰ دقیقه پیش از بلندشدن ممکن است کمک کند.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>باز کردن پوشه گزارش‌ها</value>
   </data>
 </root>

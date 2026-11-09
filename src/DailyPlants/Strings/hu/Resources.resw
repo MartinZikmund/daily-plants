@@ -177,7 +177,7 @@
     <value>Napi Tucat</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>A „Hogy ne halj meg" című könyvből – 12 élelmiszer-csoport, amelyet nap mint nap fogyasszunk az optimális egészség érdekében</value>
+    <value>A „Hogy ne halj meg" című könyvből – 12 napi cél étel, ital és testmozgás terén</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 Trükk</value>
@@ -284,7 +284,7 @@
     <value>Az alkalmazásról</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Kövesse napi tápanyagbevitelét Dr. Michael Greger ajánlásai alapján a „Hogy ne halj meg", „Hogyan ne diétázz" és „Hogyan ne öregedj" című könyvekből.</value>
+    <value>Kövesse napi tápanyagbevitelét Dr. Michael Greger ajánlásai alapján a „Hogy ne halj meg" és a „Hogyan ne diétázz" című könyveiből.</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Verzió</value>
@@ -358,10 +358,10 @@
     <value>100 g főtt vagy 70 g humusz</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Hüvelyesek, beleértve a babot, lencsét, csicseriborsót és a humuszt</value>
+    <value>Hüvelyesek, beleértve a babot, lencsét, csicseriborsót, tofut, tempehet és humuszt. A földimogyoró a diófélék közé számít, a zöldbab és a cukorborsó pedig az egyéb zöldségek közé.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Kiválóan gazdag fehérje-, rost- és összetett szénhidrát-forrás. A Global Burden of Disease tanulmány szerint a leghosszabb élettartam-növeléssel áll kapcsolatban.</value>
+    <value>Kiváló fehérje-, rost- és összetett szénhidrátforrás. A Global Burden of Disease adatain alapuló modellezési tanulmány szerint a több hüvelyes fogyasztása hozta a legnagyobb élettartam-növekedést az összes élelmiszercsoport közül.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Bogyós gyümölcsök</value>
@@ -373,7 +373,7 @@
     <value>70 g friss/fagyasztott vagy 40 g szárított</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Minden fajta bogyós gyümölcs</value>
+    <value>Bármilyen apró ehető gyümölcs, beleértve a cseresznyét, a szőlőt, a mazsolát és a kumkvatot</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>A legmagasabb antioxidáns tartalommal rendelkeznek az összes gyümölcs közül. Hosszabb élettartammal és kognitív előnyökkel állnak kapcsolatban.</value>
@@ -415,7 +415,7 @@
     <value>1/2 csésze vágott vagy 1 evőkanál torma</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g vágott vagy 1 evőkanál torma</value>
+    <value>90 g vágott vagy 1 evőkanál torma</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Brokkoli, karfiol, káposzta, kel stb.</value>
@@ -433,7 +433,7 @@
     <value>90 g nem leveles zöldség</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Nem leveles, nem keresztes virágú zöldségek</value>
+    <value>Bármilyen más zöldség, beleértve a paradicsomot, a gombát és a zöldbabot</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Változatos tápanyagok és rostok. Az egyensúlyi étrend szempontjából nélkülözhetetlenek.</value>
@@ -454,16 +454,16 @@
     <value>Diófélék és magvak</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 csésze diófélék vagy 2 evőkanál dióvaj</value>
+    <value>1/4 csésze diófélék vagy magvak, vagy 2 evőkanál dió- vagy magvaj</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g diófélék vagy 2 evőkanál dióvaj</value>
+    <value>30 g diófélék vagy magvak, vagy 2 evőkanál dió- vagy magvaj</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Minden diófélék és magvak (lehetőleg dió)</value>
+    <value>Minden diófélék és magvak, a földimogyoróval együtt. A gesztenye és a kókuszdió nem számít.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Az összes élelmiszer-csoport közül a legalacsonyabb korai halálozási kockázattal áll kapcsolatban. A dió különösen hasznosnak számít.</value>
+    <value>A Global Burden of Disease tanulmány a túl kevés dióféle és mag fogyasztását a harmadik vezető étrendi halálozási és rokkantsági kockázati tényezőnek minősítette világszerte.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Gyógynövények és fűszerek</value>
@@ -472,7 +472,7 @@
     <value>1/4 teáskanál kurkuma</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Különösen kurkuma</value>
+    <value>Különösen a kurkuma, valamint minden más, sómentes gyógynövény és fűszer, amit szeret</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Erős gyulladásgátló és antioxidáns hatással bír.</value>
@@ -481,13 +481,13 @@
     <value>Teljes kiőrlésű gabonák</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 csésze meleg gabonapehely vagy 1 szelet kenyér</value>
+    <value>1/2 csésze meleg gabonapehely vagy 1 szelet teljes kiőrlésű kenyér</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g meleg gabonapehely vagy 1 szelet kenyér</value>
+    <value>100 g meleg gabonapehely vagy 1 szelet teljes kiőrlésű kenyér</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Lehetőleg épen maradt teljes kiőrlésű gabonák</value>
+    <value>Lehetőleg épen maradt teljes kiőrlésű gabonák. A kenyerek és gabonapelyhek 100%-ban teljes kiőrlésűek legyenek.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Magas rosttartalma támogatja a bélégészség és a stabil vércukorszint fenntartását.</value>
@@ -496,13 +496,13 @@
     <value>Italok</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz víz, tea vagy egyéb</value>
+    <value>12 oz víz, tea vagy kávé</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml víz, tea vagy egyéb</value>
+    <value>350 ml víz, tea vagy kávé</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Víz, tea és egyéb egészséges italok</value>
+    <value>Víz, zöld tea, hibiszkusztea, kávé és más cukrozatlan italok</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>A megfelelő hidratálás az összes testfunkció számára elengedhetetlen.</value>
@@ -514,19 +514,19 @@
     <value>90 perc közepes vagy 40 perc intenzív</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Napi fizikai aktivitás</value>
+    <value>Napi fizikai aktivitás, amelyet feloszthat a nap folyamán</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>127%-kal növeli a NAD+ szintet. Az élethossz és az általános egészség szempontjából elengedhetetlen.</value>
+    <value>Elengedhetetlen a hosszú élethez és az általános egészséghez. Kimutatták, hogy az ellenállásos edzés akár 127%-kal is megemelheti az izmok NAD+ szintjét.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>B12 vitamin</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg hetente vagy 50 mcg naponta</value>
+    <value>Legalább 2000 mcg hetente vagy 50 mcg naponta</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>B12-vitamin kiegészítés</value>
+    <value>Cianokobalamin-kiegészítő, lehetőleg rágótabletta, nyelv alatti vagy folyékony formában, éhgyomorra bevéve. A kényelme érdekében követhető; nem számít bele a napi összegbe vagy a sorozatba.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Elengedhetetlen az idegrendszer működéséhez és a vörösvértestek képződéséhez. Növényi alapú étrend esetén kötelező.</value>
@@ -543,7 +543,7 @@
     <value>500 ml minden étkezés előtt</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Igyon 2 csésze vizet minden étkezés előtt</value>
+    <value>Igyon 2 csésze (körülbelül 500 ml) hűvös vagy hideg, ízesítetlen vizet minden étkezés előtt.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Serkenti az anyagcserét és segít a jóllakottság érzetéhez, csökkentve a kalóriabevitelt.</value>
@@ -555,7 +555,7 @@
     <value>Kezdje almával, salátával vagy levessel</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Kezdje minden étkezését almával, salátával vagy levessel</value>
+    <value>Minden étkezést kezdjen egy almával, vagy egy teljes értékű alapanyagokból készült levessel vagy salátával, amely csészénként (körülbelül 240 ml) kevesebb mint 100 kalóriát tartalmaz.</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Csökkenti az össz-kalóriabevitelt, miközben tápanyagokkal egészíti ki az étkezést.</value>
@@ -567,7 +567,7 @@
     <value>2 tk minden étkezéshez (napi 3-szor)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Adjunk hozzá ecetet az étkezésekhez</value>
+    <value>Ízesítse étkezéseit vagy öntse meg a köretsalátát bármilyen kedvelt ecettel.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Segíthet a vércukorszint szabályozásában és a testsúly kezelésében.</value>
@@ -612,10 +612,10 @@
     <value>Időablakos étkezés</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Étkezési időablak korlátozása</value>
+    <value>12 óránál rövidebb, 19:00 előtt befejezve</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Étkezési időablak korlátozása</value>
+    <value>Egyen egy napi 12 óránál rövidebb időablakon belül, amelyet a hét minden napján tartani tud. 19:00 előtt kell véget érnie.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Javíthatja az anyagcsere-egészséget és a testsúly kezelését.</value>
@@ -639,7 +639,7 @@
     <value>1/4 teáskanál naponta</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Más néven Nigella sativa</value>
+    <value>Más néven Nigella sativa. Különbözik a hagyományos köménytől, amelynek az adagolása is más.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Segíthet a fogyásban és a vércukorszint szabályozásában.</value>
@@ -651,22 +651,22 @@
     <value>1/4 teáskanál naponta</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Napi fokhagyma-kiegészítés</value>
+    <value>Minden nap adjon az ételeihez fokhagymaport.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Tanulmányok igazolják, hogy csökkenti a testzsírt.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Őrölt gyömbér</value>
+    <value>Gyömbér vagy cayenne</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 teáskanál naponta</value>
+    <value>Naponta 1 teáskanál gyömbér vagy 1/2 teáskanál cayenne</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Napi gyömbér</value>
+    <value>Keverjen őrölt gyömbért forró vízbe vagy chaiba; reggel jobban hathat, mint este. Vagy adjon a napjához 1/2 teáskanál pirospaprika-port vagy 1 nyers jalapeñót.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Serkenti az anyagcserét és csökkenti a gyulladást.</value>
+    <value>Randomizált vizsgálatokban az őrölt gyömbér jelentősen csökkentette a testsúlyt. A pirospaprika segíthet aktiválni a kalóriaégető barna zsírszövetet.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Étkezési sörélesztő</value>
@@ -702,7 +702,7 @@
     <value>720 ml naponta</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Napi zöld tea fogyasztás</value>
+    <value>Étkezések között igya, evés után legalább egy órát várva, hogy ne zavarja a vas felszívódását. Kerülje a nagy mennyiségű koffeint lefekvés előtti 6 órában.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Katechineket tartalmaz, amelyek serkenthetik az anyagcserét.</value>
@@ -711,10 +711,10 @@
     <value>Hidratáljon</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Igyon elég vizet</value>
+    <value>A vizelet nem sötétebb a halványsárgánál</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Tartsa fenn a megfelelő hidratáltságot</value>
+    <value>Jelölje be, ha a vizelete soha nem tűnik halványsárgánál sötétebbnek. A riboflavinnal dúsított ételek, például a tápélesztő megfesthetik a vizeletet, ezért ha ilyet fogyaszt, inkább napi 9 csésze (körülbelül 2 liter) cukrozatlan italt igyon nőként, vagy 13 csészét (körülbelül 3 litert) férfiként.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>A megfelelő hidratálás támogatja az anyagcserét és csökkenti az éhségérzetet.</value>
@@ -723,10 +723,10 @@
     <value>Edzés időzítése</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Éhgyomorra vagy délután</value>
+    <value>Éhgyomorra, általában reggeli előtt</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimális edzés-időzítés</value>
+    <value>Bármikor jó, de az éhgyomri edzésnek előnye lehet, legalább 6 órával az utolsó étkezés után. Ez jellemzően a reggeli előtti időt jelenti.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Fokozhatja a zsírégetést és az anyagcsere előnyeit.</value>
@@ -738,7 +738,7 @@
     <value>7+ óra</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Minőségi alvás a testsúlykezeléshez</value>
+    <value>Aludjon legalább 7 órát a szokásos lefekvési idejében.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>A rossz alvás megzavarja az éhséghormonokat és az anyagcserét.</value>
@@ -747,37 +747,37 @@
     <value>Mérje meg súlyát naponta kétszer</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Reggel és este</value>
+    <value>Ébredéskor és lefekvés előtt</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Mérje meg súlyát naponta kétszer a trendek követése és az önkontroll érdekében.</value>
+    <value>Mérje meg magát naponta kétszer, ébredéskor és közvetlenül lefekvés előtt.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Az önmegfigyelés az egyik leghatékonyabb testsúlykezelés-stratégia.</value>
+    <value>A rendszeres önmérést kulcsfontosságúnak tartják a hosszú távú testsúlykontrollhoz. A naponta kétszeri mérés tanácsa egyetlen tanulmányon alapul.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Megvalósítási tervek</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Tervezzen konkrét ha-akkor stratégiákat</value>
+    <value>Három ha-akkor terv, mindegyik naponta teljesítve</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Hajtsa végre megvalósítási terveit: tervezzen konkrét ha-akkor stratégiákat az egészséges étkezéshez és a testmozgáshoz.</value>
+    <value>Kéthavonta készítsen három új „ha X, akkor Y" tervet egy adott viselkedésre egy adott helyzetben. Minden nap jelölje be mindegyiket, amint teljesítette.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>A konkrét tervekhez való elkötelezés megduplázza a következetesség esélyét.</value>
+    <value>A konkrét ha-akkor tervek segítenek a szándékokat szokásokká alakítani. Egy randomizált kísérletben az, hogy az emberek leírták, mikor és hol használnak fogselymet, több mint megkétszerezte a használat gyakoriságát.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Böjtöljön 19:00 után</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Nem eszik 19 óra után</value>
+    <value>12+ óra, 19:00 előtt kezdve</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Hagyja abba az evést 19:00 után, hogy igazodjon a cirkadián ritmusához.</value>
+    <value>Böjtöljön minden éjjel legalább 12 órán át, 19:00 előtt kezdve. Minél kevesebb kalória napnyugta után, annál jobb.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Az esti böjt javítja az anyagcsere-egészséget és támogatja a fogyást.</value>
+    <value>A cirkadián ritmusunk miatt az éjjel elfogyasztott étel jobban hizlal, mint ugyanaz az étel a nap korábbi szakaszában.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Enyhe Trendelenburg</value>
@@ -786,10 +786,10 @@
     <value>Alvás fejjel lefelé 6 fokban</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Kísérletezzen enyhe Trendelenburg-pozícióban való alvással (fejjel lefelé 6 fokban). FONTOS: Ne próbálja ki, ha szív-, tüdő-, savas reflux-, agy- vagy szemproblémái vannak. Előszőr konzultáljon orvosával. Lassan keljen fel a szédülés elkerülése érdekében.</value>
+    <value>Próbáljon éjszakánként legalább 4 órát 6 fokos fejjel lefelé dőlésben tölteni, az ágy lábánál lévő lábakat körülbelül 8 hüvelykkel (20 cm) megemelve.</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Segíthet a testsúlykezelésben az éjszakai gravitációs hatások révén. Óvatossággal használja.</value>
+    <value>Az enyhe fejjel lefelé dőlés fokozhatja a zsírégetést, de a bizonyítékok még korai szakaszban vannak. Óvatosan alkalmazza.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Megtalálható</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Szintén tartalmazza</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Ma</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>A Daily Plants nem tudta megnyitni az adatokat</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>A bejegyzéseket nem sikerült betölteni, és a módosítások esetleg nem mentődnek. Indítsa újra az alkalmazást, és ha a hiba továbbra is fennáll, a részletek a naplófájlban vannak: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>A bejegyzéseket nem sikerült betölteni, és a módosítások esetleg nem mentődnek. Indítsa újra az alkalmazást, és ha a hiba továbbra is fennáll, a részletek az alkalmazás adatmappájában lévő naplóban vannak.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Megjelenítés újra</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>A Daily Plants független alkalmazás, amely nem áll kapcsolatban Dr. Michael Gregerrel vagy a NutritionFacts.org-gal, és tőlük nem kapott jóváhagyást. A listák törekvést segítő útmutatók, nem étrend és nem orvosi tanács, ezért igazítsa őket saját igényeihez. Nagyobb változtatások előtt beszéljen orvosával, különösen ha terhes, szoptat vagy valamilyen egészségügyi problémája van. Gyermekek esetén kérdezzen orvost vagy dietetikust.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Fontos</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Vagy 1/3 csésze tofu vagy tempeh, vagy 1 csésze friss borsó vagy csíráztatott lencse</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Vagy 80 g tofu vagy tempeh, vagy 100 g friss borsó vagy csíráztatott lencse</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Vagy 1 csésze felvágott gyümölcs</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Vagy 150 g felvágott gyümölcs</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Vagy 1 csésze nyers leveles, 1/2 csésze főtt leveles vagy 1/4 csésze brokkolicsíra</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Vagy 60 g nyers leveles, 90 g főtt leveles vagy 20 g brokkolicsíra</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Vagy 1 csésze nyers leveles zöldség, 1/2 csésze zöldséglé vagy 1/4 csésze szárított gomba</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Vagy 60 g nyers leveles zöldség, 120 ml zöldséglé vagy 10 g szárított gomba</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Vagy 1/2 csésze főtt gabona, tészta vagy kukorica, 1 csésze hideg gabonapehely, 1 tortilla, 1/2 bagel vagy angol muffin, vagy 3 csésze pattogatott kukorica</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Vagy 100 g főtt gabona, tészta vagy kukorica, 50 g hideg gabonapehely, 1 tortilla, 1/2 bagel vagy angol muffin, vagy 30 g pattogatott kukorica</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Ha 65 évnél idősebb, naponta vegyen be legalább 1000 mcg-ot. Kiegészítő helyett napi háromszor fogyaszthat B12-vel dúsított élelmiszereket, mindegyikben legalább 2 mcg-mal.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Soha ne igyon óránként 3 csészénél (körülbelül 700 ml) több folyadékot.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Soha ne igya az ecetet töményen. Ha inni szeretné, keverje egy pohár vízbe, utána pedig öblítse ki a száját vízzel, hogy megvédje a fogzománcát.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Soha ne igyon óránként 3 csészénél (körülbelül 700 ml) több folyadékot.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Ha szív- vagy vesebetegsége van, a több ivás előtt beszéljen orvosával.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Ha cukorbetegsége vagy prediabétesze van, inkább az étkezés megkezdése után 30 perccel kezdjen edzeni, és lehetőleg folytassa legalább egy órán át.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Ne próbálja ki, ha szív- vagy tüdőproblémái, savas refluxa, illetve agyi vagy szemproblémái vannak. Még a családban előforduló zöldhályog is kizárja. Előbb kérdezze meg orvosát. A legtöbb ember megszédül vagy elájul, ha utána túl gyorsan feláll, és eleshet, ezért lassan keljen fel. Segíthet, ha felkelés előtt 30 perccel megiszik 2 csésze (körülbelül 500 ml) hideg vizet.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Naplómappa megnyitása</value>
   </data>
 </root>

@@ -177,7 +177,7 @@
     <value>Tägliches Dutzend</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Aus "How Not to Die" - 12 Lebensmittelgruppen, die Sie täglich für optimale Gesundheit essen sollten</value>
+    <value>Aus "How Not to Die" - 12 Tagesziele für Essen, Trinken und Bewegung</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 Optimierungen</value>
@@ -284,7 +284,7 @@
     <value>Info</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Verfolgen Sie Ihre tägliche Ernährung basierend auf den Empfehlungen von Dr. Michael Greger aus seinen Büchern "How Not to Die", "How Not to Diet" und "How Not to Age".</value>
+    <value>Verfolgen Sie Ihre tägliche Ernährung basierend auf den Empfehlungen von Dr. Michael Greger aus seinen Büchern "How Not to Die" und "How Not to Diet".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Version</value>
@@ -358,10 +358,10 @@
     <value>100 g gekocht oder 70 g Hummus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Hülsenfrüchte einschließlich Bohnen, Linsen, Kichererbsen und Hummus</value>
+    <value>Hülsenfrüchte einschließlich Bohnen, Linsen, Kichererbsen, Tofu, Tempeh und Hummus. Erdnüsse zählen als Nüsse, grüne Bohnen und Zuckerschoten als anderes Gemüse.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Ausgezeichnete Quelle für Eiweiß, Ballaststoffe und komplexe Kohlenhydrate. Laut der Global Burden of Disease Studie mit der höchsten Lebensverlängerung assoziiert.</value>
+    <value>Hervorragende Quelle für Eiweiß, Ballaststoffe und komplexe Kohlenhydrate. Eine Modellstudie auf Basis der Daten der Global Burden of Disease ergab, dass mehr Hülsenfrüchte den größten Zugewinn an Lebenszeit aller Lebensmittelgruppen brachten.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Beeren</value>
@@ -373,7 +373,7 @@
     <value>70 g frisch/gefroren oder 40 g getrocknet</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Alle Arten von Beeren</value>
+    <value>Alle kleinen essbaren Früchte, darunter Kirschen, Trauben, Rosinen und Kumquats</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Höchster Antioxidantiengehalt aller Früchte. Assoziiert mit längerer Lebensdauer und kognitiven Vorteilen.</value>
@@ -415,7 +415,7 @@
     <value>½ Tasse gehackt oder 1 EL Meerrettich</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g gehackt oder 1 EL Meerrettich</value>
+    <value>90 g gehackt oder 1 EL Meerrettich</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Brokkoli, Blumenkohl, Kohl, Grünkohl usw.</value>
@@ -433,7 +433,7 @@
     <value>90 g nicht-blättriges Gemüse</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Nicht-blättriges, nicht-Kreuzblütler-Gemüse</value>
+    <value>Jedes andere Gemüse, darunter Tomaten, Pilze und grüne Bohnen</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Vielfältige Nährstoffe und Ballaststoffe. Wichtig für eine ausgewogene Ernährung.</value>
@@ -454,16 +454,16 @@
     <value>Nüsse und Saaten</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>¼ Tasse Nüsse oder 2 EL Nussmus</value>
+    <value>1/4 Tasse Nüsse oder Saaten oder 2 EL Nuss- oder Saatenmus</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g Nüsse oder 2 EL Nussmus</value>
+    <value>30 g Nüsse oder Saaten oder 2 EL Nuss- oder Saatenmus</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Alle Nüsse und Saaten (vorzugsweise Walnüsse)</value>
+    <value>Alle Nüsse und Saaten, auch Erdnüsse. Kastanien und Kokosnüsse zählen nicht.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Assoziiert mit dem niedrigsten Risiko für vorzeitigen Tod aller Lebensmittelgruppen. Walnüsse sind besonders vorteilhaft.</value>
+    <value>Die Global Burden of Disease Study stufte zu wenig Nüsse und Saaten als dritthäufigstes Ernährungsrisiko für Tod und Behinderung weltweit ein.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Gewürze</value>
@@ -472,7 +472,7 @@
     <value>¼ TL Kurkuma</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Besonders Kurkuma</value>
+    <value>Vor allem Kurkuma, dazu alle anderen salzfreien Kräuter und Gewürze, die Sie mögen</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Starke entzündungshemmende und antioxidative Eigenschaften.</value>
@@ -481,13 +481,13 @@
     <value>Vollkorn</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>½ Tasse warmes Getreide oder 1 Scheibe Brot</value>
+    <value>1/2 Tasse warmes Getreide oder 1 Scheibe Vollkornbrot</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g warmes Getreide oder 1 Scheibe Brot</value>
+    <value>100 g warmes Getreide oder 1 Scheibe Vollkornbrot</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Unversehrtes Vollkorn bevorzugt</value>
+    <value>Unversehrtes Vollkorn bevorzugt. Brot und Getreideflocken sollten zu 100% aus Vollkorn bestehen.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Hoher Ballaststoffgehalt unterstützt die Darmgesundheit und einen stabilen Blutzucker.</value>
@@ -496,13 +496,13 @@
     <value>Getränke</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz Wasser, Tee oder Sonstiges</value>
+    <value>12 oz Wasser, Tee oder Kaffee</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml Wasser, Tee oder Sonstiges</value>
+    <value>350 ml Wasser, Tee oder Kaffee</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Wasser, Tee und andere gesunde Getränke</value>
+    <value>Wasser, grüner Tee, Hibiskustee, Kaffee und andere ungesüßte Getränke</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Ausreichende Flüssigkeitszufuhr ist für alle Körperfunktionen wichtig.</value>
@@ -514,19 +514,19 @@
     <value>90 Min. mäßig oder 40 Min. intensiv</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Tägliche körperliche Aktivität</value>
+    <value>Tägliche körperliche Aktivität, die Sie über den Tag verteilen können</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Steigert den NAD+-Spiegel um 127 %. Unverzichtbar für Langlebigkeit und allgemeine Gesundheit.</value>
+    <value>Wichtig für ein langes Leben und die allgemeine Gesundheit. Krafttraining erhöht nachweislich den NAD+-Spiegel im Muskel um bis zu 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamin B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg wöchentlich oder 50 mcg täglich</value>
+    <value>Mindestens 2000 mcg wöchentlich oder 50 mcg täglich</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>B12-Nahrungsergänzung</value>
+    <value>Ein Cyanocobalamin-Präparat, am besten als Kautablette, Sublingualtablette oder Flüssigkeit und auf nüchternen Magen eingenommen. Zu Ihrer Bequemlichkeit erfasst; es zählt nicht für Ihre Tagessumme oder Serie.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Wichtig für die Nervenfunktion und die Bildung roter Blutkörperchen. Bei pflanzlicher Ernährung erforderlich.</value>
@@ -543,7 +543,7 @@
     <value>500 ml vor jeder Mahlzeit</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Trinken Sie 2 Tassen Wasser vor jeder Mahlzeit</value>
+    <value>Trinken Sie vor jeder Mahlzeit 2 Tassen (etwa 500 ml) kühles oder kaltes Wasser ohne Geschmack.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Fördert den Stoffwechsel und hilft beim Sättigungsgefühl, reduziert die Kalorienaufnahme.</value>
@@ -555,7 +555,7 @@
     <value>Mit Apfel, Salat oder Suppe beginnen</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Beginnen Sie jede Mahlzeit mit Apfel, Salat oder Suppe</value>
+    <value>Beginnen Sie jede Mahlzeit mit einem Apfel oder einer Vollwert-Suppe oder einem Salat mit weniger als 100 Kalorien pro Tasse (etwa 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Reduziert die Gesamtkalorienaufnahme und liefert gleichzeitig Nährstoffe.</value>
@@ -567,7 +567,7 @@
     <value>2 TL zu jeder Mahlzeit (3-mal täglich)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Essig zu den Mahlzeiten hinzufügen</value>
+    <value>Würzen Sie Ihre Mahlzeiten oder einen Beilagensalat mit einem Essig Ihrer Wahl.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Kann bei der Blutzuckerkontrolle und dem Gewichtsmanagement helfen.</value>
@@ -612,10 +612,10 @@
     <value>Essen zeitlich beschränken</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Essensfenster begrenzen</value>
+    <value>Unter 12 Stunden, endet vor 19 Uhr</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Essensfenster begrenzen</value>
+    <value>Essen Sie innerhalb eines täglichen Zeitfensters von unter 12 Stunden, das Sie an jedem Tag der Woche durchhalten können. Es sollte vor 19:00 Uhr enden.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Kann die Stoffwechselgesundheit und das Gewichtsmanagement verbessern.</value>
@@ -639,7 +639,7 @@
     <value>¼ TL täglich</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Auch bekannt als Nigella sativa</value>
+    <value>Auch bekannt als Nigella sativa. Er unterscheidet sich vom normalen Kreuzkümmel, für den eine andere Dosis gilt.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Kann bei der Gewichtsabnahme und Blutzuckerkontrolle helfen.</value>
@@ -651,22 +651,22 @@
     <value>¼ TL täglich</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Tägliche Knoblauch-Ergänzung</value>
+    <value>Geben Sie jeden Tag Knoblauchpulver an Ihr Essen.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Studien zeigen, dass es Körperfett reduzieren kann.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Gemahlener Ingwer</value>
+    <value>Gemahlener Ingwer oder Cayenne</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 TL täglich</value>
+    <value>1 TL Ingwer oder 1/2 TL Cayenne täglich</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Täglicher Ingwer</value>
+    <value>Rühren Sie gemahlenen Ingwer in heißes Wasser oder Chai; morgens wirkt er möglicherweise besser als abends. Oder nehmen Sie 1/2 TL rotes Paprika- oder Chilipulver oder 1 rohe Jalapeño in Ihren Tag auf.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Kann den Stoffwechsel ankurbeln und Entzündungen reduzieren.</value>
+    <value>In randomisierten Studien verringerte gemahlener Ingwer das Körpergewicht deutlich. Roter Pfeffer kann helfen, kalorienverbrennendes braunes Fett zu aktivieren.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Hefeflocken</value>
@@ -702,7 +702,7 @@
     <value>720 ml täglich</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Täglicher Konsum von grünem Tee</value>
+    <value>Trinken Sie ihn zwischen den Mahlzeiten und warten Sie nach dem Essen mindestens eine Stunde, damit er die Eisenaufnahme nicht stört. Vermeiden Sie große Mengen Koffein in den 6 Stunden vor dem Schlafengehen.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Enthält Catechine, die den Stoffwechsel ankurbeln können.</value>
@@ -711,10 +711,10 @@
     <value>Genug trinken</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Ausreichend Wasser trinken</value>
+    <value>Urin nie dunkler als hellgelb</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Ausreichend Flüssigkeit zu sich nehmen</value>
+    <value>Haken Sie dies ab, wenn Ihr Urin nie dunkler als hellgelb aussieht. Mit Riboflavin angereicherte Lebensmittel wie Hefeflocken können den Urin färben. Wenn Sie sie essen, streben Sie stattdessen 9 Tassen (etwa 2 Liter) ungesüßte Getränke pro Tag für Frauen oder 13 Tassen (etwa 3 Liter) für Männer an.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Ausreichende Flüssigkeitszufuhr unterstützt den Stoffwechsel und reduziert Hunger.</value>
@@ -723,10 +723,10 @@
     <value>Bewegung zeitlich abstimmen</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Nüchtern oder nachmittags</value>
+    <value>Nüchtern, meist vor dem Frühstück</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimale Zeit für Bewegung</value>
+    <value>Jede Tageszeit ist gut, aber Sport im nüchternen Zustand, mindestens 6 Stunden nach der letzten Mahlzeit, hat möglicherweise Vorteile. Das bedeutet in der Regel vor dem Frühstück.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Kann die Fettverbrennung und die metabolischen Vorteile verbessern.</value>
@@ -738,7 +738,7 @@
     <value>7+ Stunden</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Ausreichend Schlaf für das Gewichtsmanagement</value>
+    <value>Schlafen Sie mindestens 7 Stunden zu Ihrer gewohnten Schlafenszeit.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Schlechter Schlaf stört die Hungerhormone und den Stoffwechsel.</value>
@@ -747,37 +747,37 @@
     <value>Zweimal täglich wiegen</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Morgens und abends</value>
+    <value>Beim Aufwachen und vor dem Schlafengehen</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Wiegen Sie sich zweimal täglich, um Trends zu verfolgen und sich selbst zu kontrollieren.</value>
+    <value>Wiegen Sie sich zweimal täglich, beim Aufwachen und direkt vor dem Schlafengehen.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Selbstkontrolle ist eine der wirksamsten Strategien beim Gewichtsmanagement.</value>
+    <value>Regelmäßiges Wiegen gilt als entscheidend für die langfristige Gewichtskontrolle. Der Rat, sich zweimal täglich zu wiegen, beruht auf einer Studie.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Umsetzungsabsichten</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Konkrete Wenn-dann-Strategien planen</value>
+    <value>Drei Wenn-dann-Pläne, täglich umgesetzt</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Vervollständigen Sie Ihre Umsetzungsabsichten: Planen Sie konkrete Wenn-dann-Strategien für gesundes Essen und Bewegung.</value>
+    <value>Erstellen Sie alle zwei Monate drei neue "Wenn X, dann Y"-Pläne für ein bestimmtes Verhalten in einer bestimmten Situation. Haken Sie jeden davon ab, sobald Sie ihn täglich umgesetzt haben.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Sich vorab auf konkrete Pläne festzulegen verdoppelt die Wahrscheinlichkeit, diese auch umzusetzen.</value>
+    <value>Konkrete Wenn-dann-Pläne helfen, Vorsätze zu Gewohnheiten zu machen. In einem randomisierten Experiment wurde Zahnseide mehr als doppelt so oft benutzt, wenn die Teilnehmer aufschrieben, wann und wo sie sie nutzen.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Fasten nach 19 Uhr</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Kein Essen nach 19 Uhr</value>
+    <value>12+ Stunden, Beginn vor 19 Uhr</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Hören Sie nach 19 Uhr mit dem Essen auf, um sich an Ihren Biorhythmus anzupassen.</value>
+    <value>Fasten Sie jede Nacht mindestens 12 Stunden lang, beginnend vor 19:00 Uhr. Je weniger Kalorien nach Sonnenuntergang, desto besser.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Abendliches Fasten verbessert die Stoffwechselgesundheit und unterstützt die Gewichtsabnahme.</value>
+    <value>Wegen unseres zirkadianen Rhythmus macht Essen am Abend stärker dick als dasselbe Essen früher am Tag.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Leichte Trendelenburg-Lage</value>
@@ -786,10 +786,10 @@
     <value>Schlafen mit 6 Grad Kopftieflage</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experimentieren Sie mit dem Schlafen in leichter Trendelenburg-Lage (6 Grad Kopftieflage). WICHTIG: Versuchen Sie dies nicht bei Herz-, Lungen-, Reflux-, Gehirn- oder Augenproblemen. Fragen Sie zuerst Ihren Arzt. Stehen Sie langsam auf, um Schwindel zu vermeiden.</value>
+    <value>Verbringen Sie versuchsweise mindestens 4 Stunden pro Nacht mit 6 Grad Kopftieflage, indem Sie die Pfosten am Fußende Ihres Bettes um etwa 20 cm (8 Zoll) erhöhen.</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Kann durch nächtliche Gravitationseffekte beim Gewichtsmanagement helfen. Mit Vorsicht anwenden.</value>
+    <value>Eine leichte Kopftieflage kann die Fettverbrennung ankurbeln, aber die Belege sind noch dünn. Mit Vorsicht anwenden.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Enthalten in</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Umfasst auch</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Heute</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants konnte die Daten nicht öffnen</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Die Einträge konnten nicht geladen werden und Änderungen werden möglicherweise nicht gespeichert. Ein Neustart der App kann helfen; bleibt das Problem bestehen, enthält die Protokolldatei die Details: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Die Einträge konnten nicht geladen werden und Änderungen werden möglicherweise nicht gespeichert. Ein Neustart der App kann helfen; bleibt das Problem bestehen, stehen die Details im Protokoll im App-Datenordner.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Erneut anzeigen</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants ist eine unabhängige App und steht in keiner Verbindung zu Dr. Michael Greger oder NutritionFacts.org und wird von ihnen nicht unterstützt. Die Checklisten sind ein Leitfaden zum Anstreben, kein Ernährungsplan und keine medizinische Beratung. Passen Sie sie daher an Ihre Bedürfnisse an. Sprechen Sie mit Ihrer Ärztin oder Ihrem Arzt, bevor Sie größere Änderungen vornehmen, besonders wenn Sie schwanger sind, stillen oder eine Erkrankung haben. Bei Kindern fragen Sie eine Ärztin, einen Arzt oder eine Ernährungsberatung.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Wichtig</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oder 1/3 Tasse Tofu oder Tempeh oder 1 Tasse frische Erbsen oder gekeimte Linsen</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Oder 80 g Tofu oder Tempeh oder 100 g frische Erbsen oder gekeimte Linsen</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oder 1 Tasse geschnittenes Obst</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Oder 150 g geschnittenes Obst</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oder 1 Tasse rohes Blattgemüse, 1/2 Tasse gekochtes Blattgemüse oder 1/4 Tasse Brokkolisprossen</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Oder 60 g rohes Blattgemüse, 90 g gekochtes Blattgemüse oder 20 g Brokkolisprossen</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oder 1 Tasse rohes Blattgemüse, 1/2 Tasse Gemüsesaft oder 1/4 Tasse getrocknete Pilze</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Oder 60 g rohes Blattgemüse, 120 ml Gemüsesaft oder 10 g getrocknete Pilze</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oder 1/2 Tasse gekochtes Getreide, Nudeln oder Mais, 1 Tasse kalte Getreideflocken, 1 Tortilla, 1/2 Bagel oder English Muffin oder 3 Tassen Popcorn</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Oder 100 g gekochtes Getreide, Nudeln oder Mais, 50 g kalte Getreideflocken, 1 Tortilla, 1/2 Bagel oder English Muffin oder 30 g Popcorn</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Wenn Sie über 65 sind, nehmen Sie jeden Tag mindestens 1000 mcg. Statt eines Präparats können Sie dreimal täglich B12-angereicherte Lebensmittel mit jeweils mindestens 2 mcg essen.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Trinken Sie niemals mehr als 3 Tassen (etwa 700 ml) Flüssigkeit pro Stunde.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Trinken Sie Essig niemals pur. Wenn Sie ihn trinken möchten, mischen Sie ihn in ein Glas Wasser und spülen Sie danach den Mund mit Wasser, um den Zahnschmelz zu schützen.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Trinken Sie niemals mehr als 3 Tassen (etwa 700 ml) Flüssigkeit pro Stunde.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Wenn Sie Herz- oder Nierenprobleme haben, sprechen Sie mit Ihrer Ärztin oder Ihrem Arzt, bevor Sie mehr trinken.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Wenn Sie Diabetes oder Prädiabetes haben, beginnen Sie stattdessen 30 Minuten nach Beginn einer Mahlzeit mit dem Sport und machen Sie idealerweise mindestens eine Stunde weiter.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Versuchen Sie das nicht, wenn Sie Herz- oder Lungenprobleme, Sodbrennen bzw. Reflux oder Gehirn- oder Augenprobleme haben. Selbst eine familiäre Vorbelastung mit Glaukom schließt es aus. Fragen Sie zuerst Ihre Ärztin oder Ihren Arzt. Den meisten Menschen wird schwindelig oder sie werden ohnmächtig, wenn sie danach zu schnell aufstehen, und sie könnten stürzen. Stehen Sie also langsam auf. Es kann helfen, 30 Minuten vor dem Aufstehen 2 Tassen (etwa 500 ml) kaltes Wasser zu trinken.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Protokollordner öffnen</value>
   </data>
 </root>

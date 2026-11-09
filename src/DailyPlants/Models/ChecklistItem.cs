@@ -37,6 +37,28 @@ public partial record ChecklistItem
     public required string ServingSizeImperial { get; init; }
 
     /// <summary>
+    /// More options for one serving, shown in the item details (metric units).
+    /// </summary>
+    public string? ExtraServingsMetric { get; init; }
+
+    /// <summary>
+    /// More options for one serving, shown in the item details (imperial units).
+    /// </summary>
+    public string? ExtraServingsImperial { get; init; }
+
+    /// <summary>
+    /// Safety guidance shown prominently in the item details.
+    /// </summary>
+    public string? Caution { get; init; }
+
+    /// <summary>
+    /// Whether this item counts toward the daily tally, perfect days and streaks.
+    /// Vitamin B12 does not: both official Daily Dozen apps track it separately, and a
+    /// weekly dose could never fill a daily target.
+    /// </summary>
+    public bool CountsTowardCompletion { get; init; } = true;
+
+    /// <summary>
     /// Detailed health benefits information.
     /// </summary>
     public string? HealthBenefits { get; init; }

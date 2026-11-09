@@ -177,7 +177,7 @@
     <value>Daily Dozen</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Z knihy "How Not to Die" - 12 skupín potravín pre optimálne zdravie</value>
+    <value>Z knihy "How Not to Die" - 12 denných cieľov pre jedlo, nápoje a pohyb</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>Twenty-One Tweaks</value>
@@ -284,7 +284,7 @@
     <value>O aplikácii</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Sledujte svoju dennú výživu podľa odporúčaní Dr. Michaela Gregera z jeho kníh "How Not to Die", "How Not to Diet" a "How Not to Age".</value>
+    <value>Sledujte svoju dennú výživu podľa odporúčaní Dr. Michaela Gregera z jeho kníh "How Not to Die" a "How Not to Diet".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Verzia</value>
@@ -358,10 +358,10 @@
     <value>100 g varených alebo 70 g hummusu</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Strukoviny vrátane fazule, šošovice, cíceru a hummusu</value>
+    <value>Strukoviny vrátane fazule, šošovice, cíceru, tofu, tempehu a hummusu. Arašidy sa počítajú medzi orechy a zelená fazuľka a cukrový hrášok medzi ostatnú zeleninu.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Vynikajúci zdroj bielkovín, vlákniny a komplexných sacharidov. Spojené s najvyšším predĺžením dĺžky života podľa štúdie Global Burden of Disease.</value>
+    <value>Výborný zdroj bielkovín, vlákniny a zložitých sacharidov. Modelová štúdia založená na údajoch Global Burden of Disease zistila, že konzumácia väčšieho množstva strukovín priniesla najväčší prínos pre dĺžku života zo všetkých skupín potravín.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Bobuľoviny</value>
@@ -373,7 +373,7 @@
     <value>70 g čerstvého/mrazeného alebo 40 g sušeného</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Všetky druhy bobuľového ovocia</value>
+    <value>Akékoľvek malé jedlé plody vrátane čerešní, hrozna, hrozienok a kumkvatov</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Najvyšší obsah antioxidantov zo všetkých druhov ovocia. Spojené s dlhším životom a kognitívnymi prínosmi.</value>
@@ -415,7 +415,7 @@
     <value>1/2 šálky nakrájanej alebo 1 lyžica chrenu</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g nakrájanej alebo 1 lyžica chrenu</value>
+    <value>90 g nakrájanej alebo 1 lyžica chrenu</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Brokolica, karfiol, kapusta, kel atď.</value>
@@ -433,7 +433,7 @@
     <value>90 g nelistovej zeleniny</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Nelistová, nekrížová zelenina</value>
+    <value>Akákoľvek iná zelenina vrátane paradajok, húb a zelenej fazuľky</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Rozmanité živiny a vláknina. Nevyhnutné pre vyváženú stravu.</value>
@@ -454,16 +454,16 @@
     <value>Orechy a semená</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 šálky orechov alebo 2 lyžice orechového masla</value>
+    <value>1/4 šálky orechov alebo semienok, alebo 2 lyžice orechového alebo semienkového masla</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g orechov alebo 2 lyžice orechového masla</value>
+    <value>30 g orechov alebo semienok, alebo 2 lyžice orechového alebo semienkového masla</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Všetky orechy a semienka (najlepšie vlašské orechy)</value>
+    <value>Všetky orechy a semienka vrátane arašidov. Gaštany a kokosy sa nepočítajú.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Spojené s najnižším rizikom predčasného úmrtia zo všetkých skupín potravín. Vlašské orechy sú obzvlášť prínosné.</value>
+    <value>Štúdia Global Burden of Disease zaradila príliš nízku konzumáciu orechov a semienok na tretie miesto medzi stravovacími rizikami úmrtia a invalidity na svete.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Bylinky a korenie</value>
@@ -472,7 +472,7 @@
     <value>1/4 lyžičky kurkumy</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Najmä kurkuma</value>
+    <value>Najmä kurkuma a ďalšie bylinky a korenie bez soli, ktoré máte radi</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Silné protizápalové a antioxidačné vlastnosti.</value>
@@ -481,13 +481,13 @@
     <value>Celozrnné obilniny</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 šálky horúcej kaše alebo 1 plátok chleba</value>
+    <value>1/2 šálky horúcej kaše alebo 1 plátok celozrnného chleba</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g horúcej kaše alebo 1 plátok chleba</value>
+    <value>100 g horúcej kaše alebo 1 plátok celozrnného chleba</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Preferované celé neporušené zrná</value>
+    <value>Uprednostňujte celé neporušené zrná. Chlieb a obilniny by mali byť 100% celozrnné.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Vysoký obsah vlákniny podporuje zdravie čriev a stabilnú hladinu cukru v krvi.</value>
@@ -496,13 +496,13 @@
     <value>Nápoje</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz vody, čaju alebo iného</value>
+    <value>12 oz vody, čaju alebo kávy</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml vody, čaju alebo iného</value>
+    <value>350 ml vody, čaju alebo kávy</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Voda, čaj a ďalšie zdravé nápoje</value>
+    <value>Voda, zelený čaj, ibištekový čaj, káva a ďalšie nesladené nápoje</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Správna hydratácia je nevyhnutná pre všetky telesné funkcie.</value>
@@ -514,19 +514,19 @@
     <value>90 min stredného alebo 40 min intenzívneho</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Denná fyzická aktivita</value>
+    <value>Denná fyzická aktivita, ktorú môžete rozložiť počas dňa</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Zvyšuje hladiny NAD+ o 127 %. Nevyhnutné pre dlhovekosť a celkové zdravie.</value>
+    <value>Nevyhnutná pre dlhovekosť a celkové zdravie. Preukázalo sa, že odporový tréning zvyšuje hladiny NAD+ vo svaloch až o 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamín B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg týždenne alebo 50 mcg denne</value>
+    <value>Aspoň 2000 mcg týždenne alebo 50 mcg denne</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Suplementácia B12</value>
+    <value>Doplnok kyanokobalamínu, ideálne žuvací, sublingválny alebo tekutý, užívaný nalačno. Sleduje sa pre vaše pohodlie; nezapočítava sa do denného súčtu ani série.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Nevyhnutný pre nervové funkcie a tvorbu červených krviniek. Nutný pri rastlinnej strave.</value>
@@ -543,7 +543,7 @@
     <value>500 ml pred každým jedlom</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Vypiť 2 šálky vody pred každým jedlom</value>
+    <value>Vypite 2 šálky (asi 500 ml) studenej alebo chladnej vody bez príchute pred každým jedlom.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Urýchľuje metabolizmus a pomáha cítiť sa sýty, znižuje príjem kalórií.</value>
@@ -555,7 +555,7 @@
     <value>Začať s jablkom, šalátom alebo polievkou</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Začať každé jedlo jablkom, šalátom alebo polievkou</value>
+    <value>Začnite každé jedlo jablkom alebo polievkou či šalátom z celých potravín s menej ako 100 kalóriami na šálku (asi 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Znižuje celkový príjem kalórií a pridáva výživu.</value>
@@ -567,7 +567,7 @@
     <value>2 lyžičky ku každému jedlu (3x denne)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Pridať ocot k jedlám</value>
+    <value>Ochuťte jedlo alebo dochuťte prílohový šalát akýmkoľvek octom, ktorý máte radi.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Môže pomôcť s kontrolou hladiny cukru v krvi a riadením hmotnosti.</value>
@@ -612,10 +612,10 @@
     <value>Časovo obmedzené jedenie</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Obmedziť časové okno pre jedlo</value>
+    <value>Menej ako 12 hodín, končiac pred 19:00</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Obmedziť časové okno pre jedlo</value>
+    <value>Jedzte v dennom okne kratšom ako 12 hodín, ktoré dokážete dodržiavať každý deň v týždni. Malo by končiť pred 19:00.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Môže zlepšiť metabolické zdravie a riadenie hmotnosti.</value>
@@ -639,7 +639,7 @@
     <value>1/4 lyžičky denne</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Tiež známa ako Nigella sativa</value>
+    <value>Známa aj ako Nigella sativa. Líši sa od bežného rímskeho kmínu, ktorý má inú dávku.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Môže pomôcť s chudnutím a kontrolou hladiny cukru v krvi.</value>
@@ -651,22 +651,22 @@
     <value>1/4 lyžičky denne</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Denná suplementácia cesnakom</value>
+    <value>Pridávajte cesnakový prášok do jedla každý deň.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Štúdie ukazujú, že môže znížiť telesný tuk.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Mletý zázvor</value>
+    <value>Mletý zázvor alebo kajenské korenie</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 lyžička denne</value>
+    <value>1 lyžička zázvoru alebo 1/2 lyžičky kajenského korenia denne</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Denný zázvor</value>
+    <value>Vmiešajte mletý zázvor do horúcej vody alebo čaju chai; ráno môže fungovať lepšie ako večer. Alebo si počas dňa pridajte 1/2 lyžičky mletého červeného korenia alebo 1 surovú jalapeňu.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Môže urýchliť metabolizmus a znížiť zápal.</value>
+    <value>V randomizovaných štúdiách mletý zázvor výrazne znížil telesnú hmotnosť. Červené korenie môže pomôcť aktivovať hnedý tuk, ktorý spaľuje kalórie.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Lahôdkové droždie</value>
@@ -702,7 +702,7 @@
     <value>720 ml denne</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Denná konzumácia zeleného čaju</value>
+    <value>Pite ho medzi jedlami a po jedle počkajte aspoň hodinu, aby neprekážal vstrebávaniu železa. Vyhnite sa veľkému množstvu kofeínu do 6 hodín pred spaním.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Obsahuje katechíny, ktoré môžu urýchliť metabolizmus.</value>
@@ -711,10 +711,10 @@
     <value>Zostaňte hydratovaní</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Piť dostatok vody</value>
+    <value>Moč nie tmavší ako bledožltý</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Udržiavať správnu hydratáciu</value>
+    <value>Odškrtnite si to, ak moč nikdy nevyzerá tmavšie ako bledožltý. Potraviny obohatené o riboflavín, ako lahôdkové droždie, môžu moč sfarbiť, takže ak ich jete, zamerajte sa namiesto toho na 9 šálok (asi 2 litre) nesladených nápojov denne pre ženy alebo 13 šálok (asi 3 litre) pre mužov.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Správna hydratácia podporuje metabolizmus a znižuje hlad.</value>
@@ -723,10 +723,10 @@
     <value>Načasovanie pohybu</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Nalačno alebo poobede</value>
+    <value>Nalačno, zvyčajne pred raňajkami</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Optimálne načasovanie pohybu</value>
+    <value>Vhodný je ktorýkoľvek čas, ale cvičenie nalačno, najmenej 6 hodín po poslednom jedle, môže mať výhodu. Zvyčajne to znamená pred raňajkami.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Môže zvýšiť spaľovanie tukov a metabolické prínosy.</value>
@@ -738,7 +738,7 @@
     <value>7+ hodín</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Kvalitný spánok pre riadenie hmotnosti</value>
+    <value>Spite aspoň 7 hodín a choďte spať v pravidelnom čase.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Zlý spánok narúša hormóny hladu a metabolizmus.</value>
@@ -747,37 +747,37 @@
     <value>Vážiť sa dvakrát</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Ráno a večer</value>
+    <value>Po prebudení a pred spaním</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Vážiť sa dvakrát denne pre sledovanie trendov a udržanie zodpovednosti.</value>
+    <value>Vážte sa dvakrát denne, keď sa zobudíte a tesne pred spaním.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Vlastné sledovanie je jednou z najúčinnejších stratégií riadenia hmotnosti.</value>
+    <value>Pravidelné vážanie sa považuje za kľúčové pre dlhodobú kontrolu hmotnosti. Odporúčanie vážiť sa dvakrát denne vychádza z jednej štúdie.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Implementačné zámery</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Naplánovať konkrétne ak-potom stratégie</value>
+    <value>Tri plány ak-potom, každý splnený denne</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Splniť implementačné zámery: naplánovať konkrétne ak-potom stratégie pre zdravé stravovanie a pohyb.</value>
+    <value>Každé dva mesiace vytvorte tri nové plány "ak X, potom Y" pre konkrétne správanie v konkrétnej situácii. Každý z nich odškrtnite, keď ho každý deň splníte.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Vopred sa zaviazať ku konkrétnym plánom zdvojnásobuje pravdepodobnosť ich dodržania.</value>
+    <value>Konkrétne plány ak-potom pomáhajú meniť zámery na návyky. V jednom randomizovanom experimente zapísanie, kedy a kde používať zubnú niť, viac ako zdvojnásobilo, ako často ju ľudia používali.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Pôst po 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Žiadne jedlo po 19:00</value>
+    <value>12+ hodín, začínajúc pred 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Prestať jesť po 19:00 pre zladenie s cirkadiánnym rytmom.</value>
+    <value>Postite sa každú noc aspoň 12 hodín, začnite pred 19:00. Čím menej kalórií po západe slnka, tým lepšie.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Večerný pôst zlepšuje metabolické zdravie a podporuje chudnutie.</value>
+    <value>Kvôli cirkadiánnym rytmom jedlo zjedené v noci viac tuční ako rovnaké jedlo zjedené skôr počas dňa.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Mierna Trendelenburgova poloha</value>
@@ -786,10 +786,10 @@
     <value>Spánok hlavou dole o 6 stupňov</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Experimentovať so spánkom v miernej Trendelenburgovej polohe (hlavou dole o 6 stupňov). DÔLEŽITÉ: Neskúšajte, ak máte problémy so srdcom, pľúcami, refluxom, mozgom alebo očami. Najprv konzultujte s lekárom. Vstávajte pomaly, aby ste sa vyhli závratom.</value>
+    <value>Skúste tráviť aspoň 4 hodiny za noc s hlavou naklonenou nadol o 6 stupňov, a to zdvihnutím podpier na nožnom konci postele asi o 8 palcov (20 cm).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Môže pomôcť s riadením hmotnosti vďaka nočným gravitačným účinkom. Používajte s opatrnosťou.</value>
+    <value>Mierny sklon hlavou nadol môže zvýšiť spaľovanie tukov, ale dôkazy sú zatiaľ predbežné. Používajte opatrne.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Súčasť</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Zahŕňa tiež</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Dnes</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants nedokázala otvoriť vaše údaje</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Záznamy sa nepodarilo načítať a zmeny sa nemusia ukladať. Reštartujte aplikáciu, a ak to bude pokračovať, podrobnosti nájdete v súbore denníka: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Záznamy sa nepodarilo načítať a zmeny sa nemusia ukladať. Reštartujte aplikáciu, a ak to bude pokračovať, podrobnosti nájdete v denníku v priečinku údajov aplikácie.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Zobraziť znova</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants je nezávislá aplikácia, ktorá nie je prepojená s Dr. Michaelom Gregerom ani NutritionFacts.org a nie je nimi schválená. Zoznamy sú orientačným vzorom, nie jedálnym plánom ani lekárskou radou, preto ich prispôsobte svojim potrebám. Pred veľkými zmenami sa poraďte s lekárom, najmä ak ste tehotná, dojčíte alebo máte zdravotný problém. Pri deťoch sa opýtajte lekára alebo dietológa.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Dôležité</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Alebo 1/3 šálky tofu alebo tempehu, alebo 1 šálka čerstvého hrášku alebo naklíčenej šošovice</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Alebo 80 g tofu alebo tempehu, alebo 100 g čerstvého hrášku alebo naklíčenej šošovice</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Alebo 1 šálka nakrájaného ovocia</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Alebo 150 g nakrájaného ovocia</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Alebo 1 šálka surovej listovej, 1/2 šálky varenej listovej alebo 1/4 šálky klíčkov brokolice</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Alebo 60 g surovej listovej, 90 g varenej listovej alebo 20 g klíčkov brokolice</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Alebo 1 šálka surovej listovej zeleniny, 1/2 šálky zeleninovej šťavy alebo 1/4 šálky sušených húb</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Alebo 60 g surovej listovej zeleniny, 120 ml zeleninovej šťavy alebo 10 g sušených húb</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Alebo 1/2 šálky varených obilnín, cestovín alebo kukurice, 1 šálka studených cereálií, 1 tortilla, 1/2 bagelu alebo anglického muffinu, alebo 3 šálky popcornu</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Alebo 100 g varených obilnín, cestovín alebo kukurice, 50 g studených cereálií, 1 tortilla, 1/2 bagelu alebo anglického muffinu, alebo 30 g popcornu</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Ak máte viac ako 65 rokov, užívajte aspoň 1000 mcg každý deň. Namiesto doplnku môžete jesť potraviny obohatené o B12 trikrát denne, každú s aspoň 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Nikdy nepite viac ako 3 šálky (asi 700 ml) tekutín za hodinu.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Nikdy nepite ocot neriedený. Ak ho chcete piť, rozmiešajte ho v pohári vody a potom si vypláchnite ústa vodou, aby ste ochránili zubnú sklovinu.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Nikdy nepite viac ako 3 šálky (asi 700 ml) tekutín za hodinu.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Ak máte problémy so srdcom alebo obličkami, poraďte sa s lekárom skôr, ako začnete piť viac.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Ak máte cukrovku alebo prediabetes, začnite cvičiť namiesto toho 30 minút po začiatku jedla a ideálne pokračujte aspoň hodinu.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Nepokúšajte sa o to, ak máte problémy so srdcom alebo pľúcami, kyslý reflux alebo problémy s mozgom či očami. Aj rodinný výskyt glaukómu to vylučuje. Najprv sa poraďte s lekárom. Väčšina ľudí pociťuje závrat alebo mdloby, ak potom vstanú príliš rýchlo, a môžu spadnúť, preto vstávajte pomaly. Pomôcť môže vypiť 2 šálky (asi 500 ml) studenej vody 30 minút pred vstávaním.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Otvoriť priečinok s protokolmi</value>
   </data>
 </root>

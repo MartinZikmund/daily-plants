@@ -177,7 +177,7 @@
     <value>Daily Dozen</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Da "Sei quel che mangi" - 12 gruppi alimentari da mangiare ogni giorno per una salute ottimale</value>
+    <value>Da "Sei quel che mangi" - 12 obiettivi quotidiani per cibo, bevande ed esercizio</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>Ventuno mosse</value>
@@ -284,7 +284,7 @@
     <value>Informazioni</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Monitora la tua alimentazione quotidiana basandoti sulle raccomandazioni del Dott. Michael Greger tratte dai suoi libri "Sei quel che mangi", "Contro le diete" e "How Not to Age".</value>
+    <value>Monitora la tua alimentazione quotidiana basandoti sulle raccomandazioni del Dott. Michael Greger tratte dai suoi libri "Sei quel che mangi" e "Contro le diete".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Versione</value>
@@ -352,28 +352,28 @@
     <value>Legumi</value>
   </data>
   <data name="DD_Beans_Serving_Imperial" xml:space="preserve">
-    <value>90 g cotti o 60 g di hummus</value>
+    <value>1/2 tazza cotti o 1/4 di tazza di hummus</value>
   </data>
   <data name="DD_Beans_Serving_Metric" xml:space="preserve">
     <value>100 g cotti o 70 g di hummus</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Legumi inclusi fagioli, lenticchie, ceci e hummus</value>
+    <value>Legumi inclusi fagioli, lenticchie, ceci, tofu, tempeh e hummus. Le arachidi contano come frutta a guscio, i fagiolini e i piselli mangiatutto come altre verdure.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Ottima fonte di proteine, fibre e carboidrati complessi. Associati ai maggiori guadagni di longevit&#224; secondo lo studio Global Burden of Disease.</value>
+    <value>Ottima fonte di proteine, fibre e carboidrati complessi. Uno studio di modellizzazione basato sui dati del Global Burden of Disease ha rilevato che mangiare più legumi offriva il maggiore guadagno di aspettativa di vita tra tutti i gruppi alimentari.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Frutti di bosco</value>
   </data>
   <data name="DD_Berries_Serving_Imperial" xml:space="preserve">
-    <value>60 g freschi/congelati o 40 g disidratati</value>
+    <value>1/2 tazza freschi/surgelati o 1/4 di tazza secchi</value>
   </data>
   <data name="DD_Berries_Serving_Metric" xml:space="preserve">
     <value>70 g freschi/congelati o 40 g disidratati</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Tutti i tipi di frutti di bosco</value>
+    <value>Qualsiasi piccolo frutto commestibile, inclusi ciliegie, uva, uvetta e kumquat</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Il pi&#249; alto contenuto di antiossidanti tra tutta la frutta. Associati a una vita pi&#249; lunga e a benefici cognitivi.</value>
@@ -382,7 +382,7 @@
     <value>Altri frutti</value>
   </data>
   <data name="DD_OtherFruits_Serving_Imperial" xml:space="preserve">
-    <value>1 frutto medio o 40 g di frutta secca</value>
+    <value>1 frutto medio o 1/4 di tazza di frutta secca</value>
   </data>
   <data name="DD_OtherFruits_Serving_Metric" xml:space="preserve">
     <value>1 frutto medio o 40 g di frutta secca</value>
@@ -397,7 +397,7 @@
     <value>Verdure verdi</value>
   </data>
   <data name="DD_Greens_Serving_Imperial" xml:space="preserve">
-    <value>60 g da crude o 90 g da cotte</value>
+    <value>1 tazza da crude o 1/2 tazza da cotte</value>
   </data>
   <data name="DD_Greens_Serving_Metric" xml:space="preserve">
     <value>60 g da crude o 90 g da cotte</value>
@@ -412,10 +412,10 @@
     <value>Verdure crucifere</value>
   </data>
   <data name="DD_Cruciferous_Serving_Imperial" xml:space="preserve">
-    <value>60 g tritate o 1 cucchiaio di rafano</value>
+    <value>1/2 tazza tritate o 1 cucchiaio di rafano</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g tritate o 1 cucchiaio di rafano</value>
+    <value>90 g tritate o 1 cucchiaio di rafano</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Broccoli, cavolfiore, cavolo, cavolo riccio, ecc.</value>
@@ -427,13 +427,13 @@
     <value>Altre verdure</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Imperial" xml:space="preserve">
-    <value>50 g di verdure non a foglia</value>
+    <value>1/2 tazza di verdure non a foglia</value>
   </data>
   <data name="DD_OtherVegetables_Serving_Metric" xml:space="preserve">
     <value>90 g di verdure non a foglia</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Verdure non a foglia e non crucifere</value>
+    <value>Qualsiasi altra verdura, inclusi pomodori, funghi e fagiolini</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Nutrienti diversificati e fibre. Essenziali per una dieta equilibrata.</value>
@@ -454,16 +454,16 @@
     <value>Frutta a guscio e semi</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>30 g di noci o 2 cucchiai di burro di noci</value>
+    <value>1/4 di tazza di frutta a guscio o semi, o 2 cucchiai di burro di frutta a guscio o semi</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g di noci o 2 cucchiai di burro di noci</value>
+    <value>30 g di frutta a guscio o semi, o 2 cucchiai di burro di frutta a guscio o semi</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Tutta la frutta a guscio e i semi (preferibilmente noci)</value>
+    <value>Tutta la frutta a guscio e i semi, comprese le arachidi. Castagne e noci di cocco non contano.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Associati al minor rischio di morte prematura tra tutti i gruppi alimentari. Le noci sono particolarmente benefiche.</value>
+    <value>Il Global Burden of Disease Study ha classificato lo scarso consumo di frutta a guscio e semi come il terzo principale rischio alimentare di morte e disabilità nel mondo.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Erbe e spezie</value>
@@ -472,7 +472,7 @@
     <value>&#188; di cucchiaino di curcuma</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Soprattutto curcuma</value>
+    <value>Soprattutto curcuma, più qualsiasi altra erba e spezia senza sale che ti piace</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Potenti propriet&#224; antinfiammatorie e antiossidanti.</value>
@@ -481,13 +481,13 @@
     <value>Cereali integrali</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>100 g di cereali integrali cotti o 1 fetta di pane</value>
+    <value>1/2 tazza di cereali caldi o 1 fetta di pane integrale</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g di cereali integrali cotti o 1 fetta di pane</value>
+    <value>100 g di cereali caldi o 1 fetta di pane integrale</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Preferibilmente cereali integrali in chicco</value>
+    <value>Preferibilmente cereali integrali in chicco. Pane e cereali devono essere integrali al 100%.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>L'alto contenuto di fibre favorisce la salute intestinale e la stabilit&#224; della glicemia.</value>
@@ -496,13 +496,13 @@
     <value>Bevande</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>Un bicchiere (350 ml) di acqua, t&#232; o altro</value>
+    <value>12 oz di acqua, tè o caffè</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml di acqua, t&#232; o altro</value>
+    <value>350 ml di acqua, tè o caffè</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Acqua, t&#232; e altre bevande salutari</value>
+    <value>Acqua, tè verde, tè di ibisco, caffè e altre bevande non zuccherate</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Una corretta idratazione &#232; essenziale per tutte le funzioni corporee.</value>
@@ -514,19 +514,19 @@
     <value>90 min moderata o 40 min intensa</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Attivit&#224; fisica quotidiana</value>
+    <value>Attività fisica quotidiana, che puoi suddividere nell'arco della giornata</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Aumenta i livelli di NAD+ del 127%. Essenziale per la longevit&#224; e la salute generale.</value>
+    <value>Essenziale per la longevità e la salute in generale. È stato dimostrato che l'allenamento di forza aumenta i livelli di NAD+ nei muscoli fino al 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Vitamina B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg settimanali o 50 mcg giornalieri</value>
+    <value>Almeno 2000 mcg settimanali o 50 mcg giornalieri</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Integrazione di B12</value>
+    <value>Un integratore di cianocobalamina, idealmente masticabile, sublinguale o liquido, assunto a stomaco vuoto. Monitorato per tua comodità; non conta nel totale giornaliero né nella serie.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Essenziale per la funzione nervosa e la formazione dei globuli rossi. Necessaria nella dieta a base vegetale.</value>
@@ -543,7 +543,7 @@
     <value>500 ml prima di ogni pasto</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Bevi 2 tazze d'acqua prima di ogni pasto</value>
+    <value>Bevi 2 tazze (circa 500 ml) di acqua fresca o fredda, naturale e senza aromi, prima di ogni pasto.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Accelera il metabolismo e aiuta a sentirsi sazi, riducendo l'apporto calorico.</value>
@@ -555,7 +555,7 @@
     <value>Inizia con mela, insalata o zuppa</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Inizia ogni pasto con mela, insalata o zuppa</value>
+    <value>Inizia ogni pasto con una mela, o con una zuppa o un'insalata di alimenti integrali con meno di 100 calorie per tazza (circa 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Riduce il consumo calorico complessivo aggiungendo nutrimento.</value>
@@ -567,7 +567,7 @@
     <value>2 cucchiaini per ogni pasto (3 volte al giorno)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Aggiungi aceto ai pasti</value>
+    <value>Condisci i tuoi pasti o un'insalata di contorno con l'aceto che preferisci.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Pu&#242; aiutare a controllare la glicemia e a gestire il peso.</value>
@@ -612,10 +612,10 @@
     <value>Limita il tempo per mangiare</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Limita la finestra alimentare</value>
+    <value>Meno di 12 ore, che finiscono prima delle 19:00</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Limita la finestra alimentare</value>
+    <value>Mangia entro una finestra giornaliera di meno di 12 ore che puoi mantenere ogni giorno della settimana. Dovrebbe finire prima delle 19:00.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Pu&#242; migliorare la salute metabolica e la gestione del peso.</value>
@@ -639,7 +639,7 @@
     <value>&#188; di cucchiaino al giorno</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Noto anche come Nigella sativa</value>
+    <value>Noto anche come Nigella sativa. È diverso dal cumino comune, che ha una dose diversa.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Pu&#242; aiutare nella perdita di peso e nel controllo della glicemia.</value>
@@ -651,22 +651,22 @@
     <value>&#188; di cucchiaino al giorno</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Integrazione giornaliera di aglio</value>
+    <value>Aggiungi aglio in polvere ai tuoi cibi ogni giorno.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Gli studi dimostrano che pu&#242; ridurre il grasso corporeo.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Zenzero macinato</value>
+    <value>Zenzero macinato o peperoncino</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 cucchiaino al giorno</value>
+    <value>1 cucchiaino di zenzero o 1/2 cucchiaino di peperoncino al giorno</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Zenzero giornaliero</value>
+    <value>Mescola lo zenzero macinato nell'acqua calda o nel chai; potrebbe funzionare meglio al mattino che alla sera. Oppure aggiungi alla tua giornata 1/2 cucchiaino di peperoncino rosso in polvere o 1 jalapeño crudo.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Pu&#242; accelerare il metabolismo e ridurre l'infiammazione.</value>
+    <value>In studi randomizzati, lo zenzero macinato ha ridotto in modo significativo il peso corporeo. Il peperoncino rosso può aiutare ad attivare il grasso bruno che brucia calorie.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Lievito alimentare</value>
@@ -702,7 +702,7 @@
     <value>720 ml al giorno</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Consumo giornaliero di t&#232; verde</value>
+    <value>Bevilo tra i pasti, aspettando almeno un'ora dopo aver mangiato per non interferire con l'assorbimento del ferro. Evita grandi quantità di caffeina nelle 6 ore prima di andare a dormire.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Contiene catechine che possono accelerare il metabolismo.</value>
@@ -711,10 +711,10 @@
     <value>Ricordati di bere</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Bevi abbastanza acqua</value>
+    <value>Urina mai più scura del giallo pallido</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Mantieni una corretta idratazione</value>
+    <value>Spunta se la tua urina non appare mai più scura del giallo pallido. Gli alimenti arricchiti con riboflavina, come il lievito alimentare, possono colorare l'urina: se li mangi, punta invece a 9 tazze (circa 2 litri) di bevande non zuccherate al giorno per le donne o 13 tazze (circa 3 litri) per gli uomini.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Una corretta idratazione supporta il metabolismo e riduce la fame.</value>
@@ -723,10 +723,10 @@
     <value>Ottimizza i tempi di allenamento</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>A digiuno o nel pomeriggio</value>
+    <value>A digiuno, di solito prima di colazione</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Tempistica ottimale per l'esercizio</value>
+    <value>Qualsiasi momento va bene, ma allenarsi a digiuno, ad almeno 6 ore dall'ultimo pasto, può dare un vantaggio. Di solito significa prima di colazione.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Pu&#242; migliorare la combustione dei grassi e i benefici metabolici.</value>
@@ -738,7 +738,7 @@
     <value>7+ ore</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Sonno di qualit&#224; per la gestione del peso</value>
+    <value>Dormi almeno 7 ore all'ora in cui vai a letto di solito.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Un sonno insufficiente altera gli ormoni della fame e il metabolismo.</value>
@@ -747,37 +747,37 @@
     <value>Pesati due volte</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Mattina e sera</value>
+    <value>Al risveglio e prima di dormire</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Pesati due volte al giorno per monitorare l'andamento e mantenerti responsabile.</value>
+    <value>Pesati due volte al giorno, al risveglio e subito prima di andare a letto.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>L'automonitoraggio &#232; una delle strategie pi&#249; efficaci per la gestione del peso.</value>
+    <value>Pesarsi regolarmente è considerato fondamentale per il controllo del peso a lungo termine. Il consiglio di pesarsi due volte al giorno si basa su un solo studio.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Ambizioni di miglioramento</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Pianifica strategie "se X, allora Y"</value>
+    <value>Tre piani "se X, allora Y", ciascuno svolto ogni giorno</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Completa le tue ambizioni di miglioramento: pianifica strategie specifiche "se X, allora Y" per un'alimentazione sana e l'esercizio fisico.</value>
+    <value>Ogni due mesi, crea tre nuovi piani "se X, allora Y" per un comportamento specifico in una situazione specifica. Spunta ognuno quando lo completi ogni giorno.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Impegnarsi in anticipo con piani specifici raddoppia la probabilit&#224; di portarli a termine.</value>
+    <value>I piani "se X, allora Y" specifici aiutano a trasformare le intenzioni in abitudini. In un esperimento randomizzato, scrivere quando e dove usare il filo interdentale ha più che raddoppiato la frequenza con cui le persone lo usavano.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Digiuna dopo le 19:00</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Niente cibo dopo le 19</value>
+    <value>12+ ore, a partire da prima delle 19:00</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Smetti di mangiare dopo le 19:00 per allinearti al tuo ritmo circadiano.</value>
+    <value>Digiuna ogni notte per almeno 12 ore, a partire da prima delle 19:00. Meno calorie dopo il tramonto, meglio è.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Il digiuno serale migliora la salute metabolica e favorisce la perdita di peso.</value>
+    <value>A causa dei nostri ritmi circadiani, il cibo mangiato di notte fa ingrassare di più dello stesso cibo mangiato prima nel corso della giornata.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Trendelenburg leggera</value>
@@ -786,10 +786,10 @@
     <value>Dormi inclinato a testa in gi&#249; di 6 gradi</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Prova a dormire nella posizione di Trendelenburg leggera (inclinato a testa in gi&#249; di 6 gradi). IMPORTANTE: non provare se hai problemi cardiaci, polmonari, reflusso acido, problemi cerebrali o agli occhi. Consulta prima il tuo medico. Alzati lentamente per evitare capogiri.</value>
+    <value>Prova a passare almeno 4 ore a notte inclinato a testa in giù di 6 gradi, sollevando i piedi del letto di circa 20 cm (8 pollici).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Pu&#242; aiutare nella gestione del peso attraverso effetti gravitazionali notturni. Usa con cautela.</value>
+    <value>Una leggera inclinazione a testa in giù può favorire la combustione dei grassi, ma le prove sono ancora preliminari. Usare con cautela.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Presente in</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Include anche</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Oggi</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants non è riuscita ad aprire i dati</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Non è stato possibile caricare le registrazioni e le modifiche potrebbero non essere salvate. Riavviare l'app e, se il problema persiste, il file di log ne contiene i dettagli: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Non è stato possibile caricare le registrazioni e le modifiche potrebbero non essere salvate. Riavviare l'app e, se il problema persiste, i dettagli si trovano nel log nella cartella dati dell'app.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Mostra di nuovo</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants è un'app indipendente, non affiliata né approvata dal Dott. Michael Greger o da NutritionFacts.org. Le checklist sono una guida a cui aspirare, non un piano alimentare né un parere medico: adattale alle tue esigenze. Parla con il tuo medico prima di fare grandi cambiamenti, soprattutto se sei incinta, allatti o hai un problema di salute. Per i bambini, chiedi a un medico o a un dietista.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oppure 1/3 di tazza di tofu o tempeh, o 1 tazza di piselli freschi o lenticchie germogliate</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Oppure 80 g di tofu o tempeh, o 100 g di piselli freschi o lenticchie germogliate</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oppure 1 tazza di frutta tagliata</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Oppure 150 g di frutta tagliata</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oppure 1 tazza di verdure a foglia crude, 1/2 tazza di verdure a foglia cotte, o 1/4 di tazza di germogli di broccoli</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Oppure 60 g di verdure a foglia crude, 90 g di verdure a foglia cotte, o 20 g di germogli di broccoli</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oppure 1 tazza di verdure a foglia crude, 1/2 tazza di succo di verdura, o 1/4 di tazza di funghi secchi</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Oppure 60 g di verdure a foglia crude, 120 ml di succo di verdura, o 10 g di funghi secchi</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Oppure 1/2 tazza di cereali, pasta o mais cotti, 1 tazza di cereali freddi, 1 tortilla, 1/2 bagel o English muffin, o 3 tazze di popcorn</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Oppure 100 g di cereali, pasta o mais cotti, 50 g di cereali freddi, 1 tortilla, 1/2 bagel o English muffin, o 30 g di popcorn</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Se hai più di 65 anni, assumi almeno 1000 mcg ogni giorno. Al posto di un integratore, puoi mangiare alimenti arricchiti con B12 tre volte al giorno, ciascuno con almeno 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Non bere mai più di 3 tazze (circa 700 ml) di liquidi all'ora.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Non bere mai l'aceto puro. Se vuoi berlo, mescolalo in un bicchiere d'acqua e sciacqua la bocca con acqua dopo, per proteggere lo smalto dei denti.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Non bere mai più di 3 tazze (circa 700 ml) di liquidi all'ora.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Se hai problemi di cuore o ai reni, parla con il tuo medico prima di bere di più.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Se hai il diabete o il prediabete, inizia invece ad allenarti 30 minuti dopo l'inizio di un pasto e, idealmente, continua per almeno un'ora.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Non provarlo se hai problemi di cuore o di polmoni, reflusso acido, o problemi al cervello o agli occhi. Anche una storia familiare di glaucoma lo esclude. Chiedi prima al tuo medico. La maggior parte delle persone ha capogiri o svenimenti se si alza troppo in fretta dopo e potrebbe cadere: alzati quindi lentamente. Bere 2 tazze (circa 500 ml) di acqua fredda 30 minuti prima di alzarti può aiutare.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Apri la cartella dei log</value>
   </data>
 </root>

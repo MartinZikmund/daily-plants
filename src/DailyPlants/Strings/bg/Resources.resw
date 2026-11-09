@@ -177,7 +177,7 @@
     <value>Ежедневна дузина</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>От "Можем без лекарства" - 12 хранителни групи за ежедневна консумация за оптимално здраве</value>
+    <value>От "Можем без лекарства" - 12 ежедневни цели за храна, напитки и упражнения</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>Двадесет и една фини настройки</value>
@@ -284,7 +284,7 @@
     <value>Относно</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Проследявайте ежедневното си хранене, базирано на препоръките на д-р Майкъл Грегър от книгите му "Можем без лекарства", "Можем без диети" и "Можем без стареене".</value>
+    <value>Проследявайте ежедневното си хранене въз основа на препоръките на д-р Майкъл Грегър от книгите му "Можем без лекарства" и "Можем без диети".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Версия</value>
@@ -358,10 +358,10 @@
     <value>100 г сварени или 70 г хумус</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Бобови, включително боб, леща, нахут и хумус</value>
+    <value>Бобови, включително боб, леща, нахут, тофу, темпе и хумус. Фъстъците се броят към ядките, а зеленият боб и граховите шушулки към другите зеленчуци.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Отличен източник на протеин, фибри и сложни въглехидрати. Свързани с най-голямо увеличение на продължителността на живота според Глобалното проучване за тежестта на заболяванията.</value>
+    <value>Отличен източник на протеини, фибри и сложни въглехидрати. Моделно проучване, основано на данни от Global Burden of Disease, установи, че яденето на повече бобови дава най-големите ползи за продължителността на живота от всички хранителни групи.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Горски плодове</value>
@@ -373,7 +373,7 @@
     <value>70 г пресни/замразени или 40 г сушени</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Всички видове горски плодове</value>
+    <value>Всеки малък ядлив плод, включително череши, грозде, стафиди и кумкуат</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Най-високо съдържание на антиоксиданти сред всички плодове. Свързани с по-дълъг живот и когнитивни ползи.</value>
@@ -415,7 +415,7 @@
     <value>1/2 чаша нарязани или 1 с.л. хрян</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 г нарязани или 1 с.л. хрян</value>
+    <value>90 г нарязани или 1 с.л. хрян</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Броколи, карфиол, зеле, кейл и др.</value>
@@ -433,7 +433,7 @@
     <value>90 г нелистни зеленчуци</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Нелистни, некръстоцветни зеленчуци</value>
+    <value>Всички други зеленчуци, включително домати, гъби и зелен боб</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Разнообразни хранителни вещества и фибри. Необходими за балансирано хранене.</value>
@@ -454,16 +454,16 @@
     <value>Ядки и семена</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 чаша ядки или 2 с.л. масло от ядки</value>
+    <value>1/4 чаша ядки или семена, или 2 с.л. масло от ядки или семена</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 г ядки или 2 с.л. масло от ядки</value>
+    <value>30 г ядки или семена, или 2 с.л. масло от ядки или семена</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Всички ядки и семена (за предпочитане орехи)</value>
+    <value>Всички ядки и семена, включително фъстъците. Кестените и кокосите не се броят.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Свързани с най-нисък риск от преждевременна смърт сред всички хранителни групи. Орехите са особено полезни.</value>
+    <value>Проучването Global Burden of Disease постави яденето на твърде малко ядки и семена на трето място сред хранителните рискове за смърт и инвалидност в света.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Подправки</value>
@@ -472,7 +472,7 @@
     <value>1/4 ч.л. куркума</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Особено куркума</value>
+    <value>Особено куркума, плюс всякакви други билки и подправки без сол, които обичате</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Мощни противовъзпалителни и антиоксидантни свойства.</value>
@@ -481,13 +481,13 @@
     <value>Пълнозърнести</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 чаша топла каша или 1 филия хляб</value>
+    <value>1/2 чаша топла каша или 1 филия пълнозърнест хляб</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 г топла каша или 1 филия хляб</value>
+    <value>100 г топла каша или 1 филия пълнозърнест хляб</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>За предпочитане цели зърна</value>
+    <value>За предпочитане са цели пълнозърнести храни. Хлябът и зърнените закуски трябва да са 100% пълнозърнести.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Високото съдържание на фибри подпомага здравето на червата и стабилната кръвна захар.</value>
@@ -496,13 +496,13 @@
     <value>Напитки</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz вода, чай или друго</value>
+    <value>12 oz вода, чай или кафе</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 мл вода, чай или друго</value>
+    <value>350 мл вода, чай или кафе</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Вода, чай и други здравословни напитки</value>
+    <value>Вода, зелен чай, чай от хибискус, кафе и други неподсладени напитки</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Правилната хидратация е от съществено значение за всички функции на тялото.</value>
@@ -514,19 +514,19 @@
     <value>90 мин умерени или 40 мин интензивни</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Ежедневна физическа активност</value>
+    <value>Ежедневна физическа активност, която можете да разделите през деня</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Повишава нивата на NAD+ със 127%. Необходимо за дълголетие и цялостно здраве.</value>
+    <value>Съществена за дълголетието и цялостното здраве. Доказано е, че силовите тренировки повишават нивата на NAD+ в мускулите с цели 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Витамин B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 мкг седмично или 50 мкг дневно</value>
+    <value>Поне 2000 мкг седмично или 50 мкг дневно</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Добавка с B12</value>
+    <value>Добавка с цианокобаламин, за предпочитане дъвчаща, сублингвална или течна, приемана на празен стомах. Проследява се за ваше удобство; не се брои към дневния ви общ резултат или серия.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Необходим за нервната функция и образуването на червени кръвни клетки. Задължителен при растително хранене.</value>
@@ -543,7 +543,7 @@
     <value>500 мл преди всяко хранене</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Пийте 2 чаши вода преди всяко хранене</value>
+    <value>Пийте 2 чаши (около 500 мл) хладка или студена вода без вкус преди всяко хранене.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Стимулира метаболизма и помага за чувство на ситост, намалявайки приема на калории.</value>
@@ -555,7 +555,7 @@
     <value>Започнете с ябълка, салата или супа</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Започнете всяко хранене с ябълка, салата или супа</value>
+    <value>Започвайте всяко хранене с ябълка или със супа или салата от цели храни с по-малко от 100 калории на чаша (около 240 мл).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Намалява общия прием на калории, като същевременно добавя хранителни вещества.</value>
@@ -567,7 +567,7 @@
     <value>2 ч.л. с всяко хранене (3 пъти дневно)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Добавяйте оцет към храненията</value>
+    <value>Овкусявайте храната си или подправяйте страничната салата с какъвто оцет харесвате.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Може да помогне за контрола на кръвната захар и управлението на теглото.</value>
@@ -612,10 +612,10 @@
     <value>Ограничете времето за хранене</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Ограничете прозореца за хранене</value>
+    <value>Под 12 часа, завършващи преди 19:00 ч.</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Ограничете прозореца за хранене</value>
+    <value>Яжте в рамките на дневен прозорец под 12 часа, който можете да спазвате всеки ден от седмицата. Той трябва да завършва преди 19:00 ч.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Може да подобри метаболитното здраве и управлението на теглото.</value>
@@ -639,7 +639,7 @@
     <value>1/4 ч.л. дневно</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Известен също като Nigella sativa</value>
+    <value>Известен също като Nigella sativa. Различава се от обикновения кимион, който има различна доза.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Може да помогне за отслабване и контрол на кръвната захар.</value>
@@ -651,22 +651,22 @@
     <value>1/4 ч.л. дневно</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Ежедневна добавка на чесън</value>
+    <value>Добавяйте чесън на прах към храната си всеки ден.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Проучвания показват, че може да намали телесните мазнини.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Млян джинджифил</value>
+    <value>Млян джинджифил или кайенски пипер</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 ч.л. дневно</value>
+    <value>1 ч.л. джинджифил или 1/2 ч.л. кайен дневно</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Ежедневен джинджифил</value>
+    <value>Разбърквайте млян джинджифил в топла вода или чай масала; може да действа по-добре сутрин, отколкото вечер. Или добавете към деня си 1/2 ч.л. червен пипер на прах или 1 суров халапеньо.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Може да стимулира метаболизма и да намали възпалението.</value>
+    <value>В рандомизирани проучвания млян джинджифил значително намали телесното тегло. Червеният пипер може да помогне за активирането на кафявата мазнина, която изгаря калории.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Хранителна мая</value>
@@ -702,7 +702,7 @@
     <value>720 мл дневно</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Ежедневна консумация на зелен чай</value>
+    <value>Пийте го между храненията, като изчаквате поне час след хранене, за да не пречи на усвояването на желязото. Избягвайте големи количества кофеин в рамките на 6 часа преди лягане.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Съдържа катехини, които могат да стимулират метаболизма.</value>
@@ -711,10 +711,10 @@
     <value>Останете хидратирани</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Пийте достатъчно вода</value>
+    <value>Урина не по-тъмна от бледожълта</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Поддържайте правилна хидратация</value>
+    <value>Отметнете това, ако урината ви никога не изглежда по-тъмна от бледожълта. Храни, обогатени с рибофлавин, като хранителната мая, могат да оцветят урината ви, затова ако ги ядете, се стремете вместо това към 9 чаши (около 2 литра) неподсладени напитки на ден за жените или 13 чаши (около 3 литра) за мъжете.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Правилната хидратация подпомага метаболизма и намалява глада.</value>
@@ -723,10 +723,10 @@
     <value>Оптимизирайте времето за упражнения</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>На гладно или следобед</value>
+    <value>На гладно, обикновено преди закуска</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Оптимално време за упражнения</value>
+    <value>Всяко време е добро, но упражненията на гладно, поне 6 часа след последното хранене, може да имат предимство. Обикновено това означава преди закуска.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Може да подобри изгарянето на мазнини и метаболитните ползи.</value>
@@ -738,7 +738,7 @@
     <value>7+ часа</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Качествен сън за управление на теглото</value>
+    <value>Спете поне 7 часа в обичайния си час за лягане.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Лошият сън нарушава хормоните на глада и метаболизма.</value>
@@ -747,37 +747,37 @@
     <value>Претегляйте се два пъти</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Сутрин и вечер</value>
+    <value>При ставане и преди лягане</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Претегляйте се два пъти на ден, за да проследявате тенденциите и да поддържате отговорност.</value>
+    <value>Теглете се два пъти на ден, когато се събудите и точно преди лягане.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Самонаблюдението е една от най-ефективните стратегии за управление на теглото.</value>
+    <value>Редовното самотегление се смята за решаващо за дългосрочния контрол на теглото. Съветът за два пъти на ден се основава на едно проучване.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Намерения за прилагане</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Планирайте конкретни ако-тогава стратегии</value>
+    <value>Три плана ако-тогава, всеки изпълняван ежедневно</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Изпълнете намеренията си за прилагане: планирайте конкретни ако-тогава стратегии за здравословно хранене и упражнения.</value>
+    <value>На всеки два месеца създавайте три нови плана "ако X, тогава Y" за конкретно поведение в конкретна ситуация. Отбелязвайте всеки от тях всеки ден, когато го изпълните.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Предварителното ангажиране с конкретни планове удвоява вероятността за тяхното изпълнение.</value>
+    <value>Конкретните планове ако-тогава помагат намеренията да се превърнат в навици. В един рандомизиран експеримент записването кога и къде да се използва конец за зъби повече от удвои честотата, с която хората го правят.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Гладуване след 19:00 ч.</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Без храна след 19:00 ч.</value>
+    <value>12+ часа, започващи преди 19:00 ч.</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Спрете да ядете след 19:00 ч., за да се съгласувате с циркадния си ритъм.</value>
+    <value>Гладувайте всяка нощ поне 12 часа, започвайки преди 19:00 ч. Колкото по-малко калории след залез слънце, толкова по-добре.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Вечерното гладуване подобрява метаболитното здраве и подпомага отслабването.</value>
+    <value>Поради циркадните ни ритми храната, изядена вечер, угоява повече от същата храна, изядена по-рано през деня.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Лек Трендленбург</value>
@@ -786,10 +786,10 @@
     <value>Спете с наклон от 6 градуса надолу</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Експериментирайте със сън в лека позиция на Трендленбург (наклон на главата надолу 6 градуса). ВАЖНО: Не опитвайте, ако имате проблеми със сърцето, белите дробове, рефлукс, мозъка или очите. Консултирайте се с лекар. Ставайте бавно, за да избегнете замаяност.</value>
+    <value>Опитайте да прекарвате поне 4 часа на нощ с наклон с главата надолу от 6 градуса, като повдигнете краката в долния край на леглото с около 8 инча (20 см).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Може да помогне за управлението на теглото чрез гравитационни ефекти през нощта. Използвайте с повишено внимание.</value>
+    <value>Лекият наклон с главата надолу може да подпомогне изгарянето на мазнини, но доказателствата са все още ранни. Използвайте с повишено внимание.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Среща се в</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Също включва</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Днес</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Daily Plants не можа да отвори данните</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Записите не можаха да бъдат заредени и промените може да не се запазват. Рестартирайте приложението, а ако това продължи, подробностите са във файла с журнала: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Записите не можаха да бъдат заредени и промените може да не се запазват. Рестартирайте приложението, а ако това продължи, подробностите са в журнала в папката с данни на приложението.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Покажи отново</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Daily Plants е независимо приложение, което не е свързано с д-р Майкъл Грегър или NutritionFacts.org и не е одобрено от тях. Списъците са ориентир, към който да се стремите, а не хранителен режим или медицински съвет, затова ги съобразете със своите нужди. Говорете с лекаря си, преди да правите големи промени, особено ако сте бременна, кърмите или имате медицинско състояние. За деца попитайте лекар или диетолог.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Важно</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1/3 чаша тофу или темпе, или 1 чаша пресен грах или покълнала леща</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 80 г тофу или темпе, или 100 г пресен грах или покълнала леща</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1 чаша нарязани плодове</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 150 г нарязани плодове</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1 чаша сурови листни, 1/2 чаша сварени листни или 1/4 чаша кълнове от броколи</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 60 г сурови листни, 90 г сварени листни или 20 г кълнове от броколи</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1 чаша сурови листни зеленчуци, 1/2 чаша зеленчуков сок или 1/4 чаша сушени гъби</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 60 г сурови листни зеленчуци, 120 мл зеленчуков сок или 10 г сушени гъби</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Или 1/2 чаша сварени зърнени храни, паста или царевица, 1 чаша студена зърнена закуска, 1 тортила, 1/2 геврек или английска кифла, или 3 чаши пуканки</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Или 100 г сварени зърнени храни, паста или царевица, 50 г студена зърнена закуска, 1 тортила, 1/2 геврек или английска кифла, или 30 г пуканки</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Ако сте над 65 години, приемайте поне 1000 мкг всеки ден. Вместо добавка можете да ядете храни, обогатени с B12, три пъти на ден, всяка с поне 2 мкг.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Никога не пийте повече от 3 чаши (около 700 мл) течности на час.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Никога не пийте оцет неразреден. Ако искате да го пиете, го смесете в чаша вода и изплакнете устата си с вода след това, за да защитите зъбния емайл.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Никога не пийте повече от 3 чаши (около 700 мл) течности на час.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Ако имате проблеми със сърцето или бъбреците, говорете с лекаря си, преди да пиете повече.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Ако имате диабет или предиабет, започвайте да се упражнявате вместо това 30 минути след началото на хранене и в идеалния случай продължавайте поне един час.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Не опитвайте това, ако имате проблеми със сърцето или белите дробове, киселинен рефлукс или проблеми с мозъка или очите. Дори семейна анамнеза за глаукома го изключва. Първо попитайте лекаря си. Повечето хора усещат замайване или прилошаване, ако станат твърде бързо след това, и могат да паднат, затова ставайте бавно. Пиенето на 2 чаши (около 500 мл) студена вода 30 минути преди ставане може да помогне.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Отваряне на папката с журнали</value>
   </data>
 </root>

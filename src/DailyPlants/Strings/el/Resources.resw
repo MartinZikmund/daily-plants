@@ -177,7 +177,7 @@
     <value>Daily Dozen</value>
   </data>
   <data name="Settings_DailyDozenDesc" xml:space="preserve">
-    <value>Από το "How Not to Die" - 12 ομάδες τροφίμων για κατανάλωση κάθε μέρα για βέλτιστη υγεία</value>
+    <value>Από το "How Not to Die" - 12 καθημερινοί στόχοι για φαγητό, ποτό και άσκηση</value>
   </data>
   <data name="Settings_TwentyOneTweaks" xml:space="preserve">
     <value>21 Βελτιώσεις</value>
@@ -284,7 +284,7 @@
     <value>Σχετικά</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>Παρακολουθήστε την καθημερινή σας διατροφή βάσει των συστάσεων του Δρ. Michael Greger από τα βιβλία του "How Not to Die", "How Not to Diet" και "How Not to Age".</value>
+    <value>Παρακολουθήστε την καθημερινή σας διατροφή βάσει των συστάσεων του Dr. Michael Greger από τα βιβλία του "How Not to Die" και "How Not to Diet".</value>
   </data>
   <data name="About_Version" xml:space="preserve">
     <value>Έκδοση</value>
@@ -358,10 +358,10 @@
     <value>100 g μαγειρεμένα ή 70 g χούμους</value>
   </data>
   <data name="DD_Beans_Desc" xml:space="preserve">
-    <value>Όσπρια, συμπεριλαμβανομένων φασολιών, φακών, ρεβιθιών και χούμους</value>
+    <value>Όσπρια, συμπεριλαμβανομένων φασολιών, φακών, ρεβιθιών, τόφου, tempeh και χούμους. Τα φιστίκια μετράνε ως ξηροί καρποί και τα πράσινα φασόλια και τα μπιζέλια σνακ ως άλλα λαχανικά.</value>
   </data>
   <data name="DD_Beans_Benefits" xml:space="preserve">
-    <value>Εξαιρετική πηγή πρωτεΐνης, φυτικών ινών και σύνθετων υδατανθράκων. Συσχετίζονται με τη μεγαλύτερη αύξηση του προσδόκιμου ζωής σύμφωνα με τη Μελέτη Παγκόσμιου Φορτίου Νόσου.</value>
+    <value>Εξαιρετική πηγή πρωτεΐνης, φυτικών ινών και σύνθετων υδατανθράκων. Μια μελέτη μοντελοποίησης βασισμένη σε δεδομένα του Global Burden of Disease διαπίστωσε ότι η κατανάλωση περισσότερων οσπρίων προσέφερε το μεγαλύτερο όφελος στη διάρκεια ζωής από οποιαδήποτε ομάδα τροφίμων.</value>
   </data>
   <data name="DD_Berries" xml:space="preserve">
     <value>Μούρα</value>
@@ -373,7 +373,7 @@
     <value>70 g φρέσκα/κατεψυγμένα ή 40 g αποξηραμένα</value>
   </data>
   <data name="DD_Berries_Desc" xml:space="preserve">
-    <value>Όλα τα είδη μούρων</value>
+    <value>Κάθε μικρός βρώσιμος καρπός, συμπεριλαμβανομένων κερασιών, σταφυλιών, σταφίδων και kumquat</value>
   </data>
   <data name="DD_Berries_Benefits" xml:space="preserve">
     <value>Η υψηλότερη περιεκτικότητα σε αντιοξειδωτικά από όλα τα φρούτα. Συσχετίζονται με μεγαλύτερο προσδόκιμο ζωής και γνωστικά οφέλη.</value>
@@ -415,7 +415,7 @@
     <value>1/2 φλιτζάνι ψιλοκομμένα ή 1 κ.σ. χρένο</value>
   </data>
   <data name="DD_Cruciferous_Serving_Metric" xml:space="preserve">
-    <value>60 g ψιλοκομμένα ή 1 κ.σ. χρένο</value>
+    <value>90 g ψιλοκομμένα ή 1 κ.σ. χρένο</value>
   </data>
   <data name="DD_Cruciferous_Desc" xml:space="preserve">
     <value>Μπρόκολο, κουνουπίδι, λάχανο, κέιλ, κ.λπ.</value>
@@ -433,7 +433,7 @@
     <value>90 g μη φυλλώδη λαχανικά</value>
   </data>
   <data name="DD_OtherVegetables_Desc" xml:space="preserve">
-    <value>Μη φυλλώδη, μη σταυρανθή λαχανικά</value>
+    <value>Όποια άλλα λαχανικά, συμπεριλαμβανομένων ντομάτας, μανιταριών και πράσινων φασολιών</value>
   </data>
   <data name="DD_OtherVegetables_Benefits" xml:space="preserve">
     <value>Ποικίλα θρεπτικά συστατικά και φυτικές ίνες. Απαραίτητα για μια ισορροπημένη διατροφή.</value>
@@ -454,16 +454,16 @@
     <value>Ξηροί Καρποί</value>
   </data>
   <data name="DD_Nuts_Serving_Imperial" xml:space="preserve">
-    <value>1/4 φλιτζάνι ξηροί καρποί ή 2 κ.σ. βούτυρο ξηρών καρπών</value>
+    <value>1/4 φλιτζάνι ξηροί καρποί ή σπόροι, ή 2 κ.σ. βούτυρο ξηρών καρπών ή σπόρων</value>
   </data>
   <data name="DD_Nuts_Serving_Metric" xml:space="preserve">
-    <value>30 g ξηροί καρποί ή 2 κ.σ. βούτυρο ξηρών καρπών</value>
+    <value>30 g ξηροί καρποί ή σπόροι, ή 2 κ.σ. βούτυρο ξηρών καρπών ή σπόρων</value>
   </data>
   <data name="DD_Nuts_Desc" xml:space="preserve">
-    <value>Όλοι οι ξηροί καρποί και σπόροι (κατά προτίμηση καρύδια)</value>
+    <value>Όλοι οι ξηροί καρποί και σπόροι, συμπεριλαμβανομένων των φιστικιών. Τα κάστανα και οι καρύδες δεν μετράνε.</value>
   </data>
   <data name="DD_Nuts_Benefits" xml:space="preserve">
-    <value>Συσχετίζονται με τον χαμηλότερο κίνδυνο πρόωρου θανάτου από οποιαδήποτε ομάδα τροφίμων. Τα καρύδια είναι ιδιαίτερα ωφέλιμα.</value>
+    <value>Η μελέτη Global Burden of Disease κατέταξε την ανεπαρκή κατανάλωση ξηρών καρπών και σπόρων ως τον τρίτο κορυφαίο διατροφικό παράγοντα κινδύνου για θάνατο και αναπηρία παγκοσμίως.</value>
   </data>
   <data name="DD_Herbs" xml:space="preserve">
     <value>Μπαχαρικά</value>
@@ -472,7 +472,7 @@
     <value>1/4 κ.γ. κουρκουμάς</value>
   </data>
   <data name="DD_Herbs_Desc" xml:space="preserve">
-    <value>Ειδικά κουρκουμάς</value>
+    <value>Ειδικά κουρκουμάς, καθώς και οποιαδήποτε άλλα μπαχαρικά και βότανα χωρίς αλάτι που σας αρέσουν</value>
   </data>
   <data name="DD_Herbs_Benefits" xml:space="preserve">
     <value>Ισχυρές αντιφλεγμονώδεις και αντιοξειδωτικές ιδιότητες.</value>
@@ -481,13 +481,13 @@
     <value>Ολικής Αλέσεως</value>
   </data>
   <data name="DD_WholeGrains_Serving_Imperial" xml:space="preserve">
-    <value>1/2 φλιτζάνι ζεστά δημητριακά ή 1 φέτα ψωμί</value>
+    <value>1/2 φλιτζάνι ζεστά δημητριακά ή 1 φέτα ψωμί ολικής αλέσεως</value>
   </data>
   <data name="DD_WholeGrains_Serving_Metric" xml:space="preserve">
-    <value>100 g ζεστά δημητριακά ή 1 φέτα ψωμί</value>
+    <value>100 g ζεστά δημητριακά ή 1 φέτα ψωμί ολικής αλέσεως</value>
   </data>
   <data name="DD_WholeGrains_Desc" xml:space="preserve">
-    <value>Κατά προτίμηση ακέραιοι κόκκοι</value>
+    <value>Προτιμήστε ακέραιους κόκκους ολικής αλέσεως. Τα ψωμιά και τα δημητριακά πρέπει να είναι 100% ολικής αλέσεως.</value>
   </data>
   <data name="DD_WholeGrains_Benefits" xml:space="preserve">
     <value>Υψηλή περιεκτικότητα σε φυτικές ίνες που υποστηρίζει την υγεία του εντέρου και τη σταθερότητα του σακχάρου στο αίμα.</value>
@@ -496,13 +496,13 @@
     <value>Ροφήματα</value>
   </data>
   <data name="DD_Beverages_Serving_Imperial" xml:space="preserve">
-    <value>12 oz νερό, τσάι ή άλλο</value>
+    <value>12 oz νερό, τσάι ή καφέ</value>
   </data>
   <data name="DD_Beverages_Serving_Metric" xml:space="preserve">
-    <value>350 ml νερό, τσάι ή άλλο</value>
+    <value>350 ml νερό, τσάι ή καφέ</value>
   </data>
   <data name="DD_Beverages_Desc" xml:space="preserve">
-    <value>Νερό, τσάι και άλλα υγιεινά ροφήματα</value>
+    <value>Νερό, πράσινο τσάι, τσάι ιβίσκου, καφές και άλλα ροφήματα χωρίς ζάχαρη</value>
   </data>
   <data name="DD_Beverages_Benefits" xml:space="preserve">
     <value>Η σωστή ενυδάτωση είναι απαραίτητη για όλες τις λειτουργίες του σώματος.</value>
@@ -514,19 +514,19 @@
     <value>90 λεπτά μέτρια ή 40 λεπτά έντονη</value>
   </data>
   <data name="DD_Exercise_Desc" xml:space="preserve">
-    <value>Καθημερινή σωματική δραστηριότητα</value>
+    <value>Καθημερινή σωματική δραστηριότητα, που μπορείτε να μοιράσετε μέσα στη μέρα</value>
   </data>
   <data name="DD_Exercise_Benefits" xml:space="preserve">
-    <value>Αυξάνει τα επίπεδα NAD+ κατά 127%. Απαραίτητη για τη μακροζωία και τη γενική υγεία.</value>
+    <value>Απαραίτητη για τη μακροζωία και τη συνολική υγεία. Έχει αποδειχθεί ότι η προπόνηση με αντιστάσεις αυξάνει τα επίπεδα NAD+ στους μύες έως και 127%.</value>
   </data>
   <data name="DD_VitaminB12" xml:space="preserve">
     <value>Βιταμίνη B12</value>
   </data>
   <data name="DD_VitaminB12_Serving" xml:space="preserve">
-    <value>2000 mcg εβδομαδιαίως ή 50 mcg ημερησίως</value>
+    <value>Τουλάχιστον 2000 mcg εβδομαδιαίως ή 50 mcg ημερησίως</value>
   </data>
   <data name="DD_VitaminB12_Desc" xml:space="preserve">
-    <value>Συμπλήρωμα B12</value>
+    <value>Συμπλήρωμα κυανοκοβαλαμίνης, κατά προτίμηση μασώμενο, υπογλώσσιο ή υγρό, που λαμβάνεται με άδειο στομάχι. Καταγράφεται για ευκολία σας· δεν προσμετράται στο ημερήσιο σύνολο ή στη σειρά σας.</value>
   </data>
   <data name="DD_VitaminB12_Benefits" xml:space="preserve">
     <value>Απαραίτητη για τη νευρική λειτουργία και τον σχηματισμό ερυθρών αιμοσφαιρίων. Απαιτείται σε φυτική διατροφή.</value>
@@ -543,7 +543,7 @@
     <value>500 ml πριν από κάθε γεύμα</value>
   </data>
   <data name="TT_PreloadWater_LongDesc" xml:space="preserve">
-    <value>Πιείτε 2 φλιτζάνια νερό πριν από κάθε γεύμα</value>
+    <value>Πίνετε 2 φλιτζάνια (περίπου 500 ml) δροσερό ή κρύο νερό χωρίς γεύση πριν από κάθε γεύμα.</value>
   </data>
   <data name="TT_PreloadWater_Benefits" xml:space="preserve">
     <value>Ενισχύει τον μεταβολισμό και βοηθά στο αίσθημα κορεσμού, μειώνοντας την πρόσληψη θερμίδων.</value>
@@ -555,7 +555,7 @@
     <value>Ξεκινήστε με μήλο, σαλάτα ή σούπα</value>
   </data>
   <data name="TT_NegativeCalorie_LongDesc" xml:space="preserve">
-    <value>Ξεκινήστε κάθε γεύμα με μήλο, σαλάτα ή σούπα</value>
+    <value>Ξεκινήστε κάθε γεύμα με ένα μήλο ή μια σούπα ή σαλάτα από ολόκληρα τρόφιμα με λιγότερες από 100 θερμίδες ανά φλιτζάνι (περίπου 240 ml).</value>
   </data>
   <data name="TT_NegativeCalorie_Benefits" xml:space="preserve">
     <value>Μειώνει τη συνολική κατανάλωση θερμίδων ενώ προσθέτει θρεπτικά συστατικά.</value>
@@ -567,7 +567,7 @@
     <value>2 κ.γ. με κάθε γεύμα (3 φορές ημερησίως)</value>
   </data>
   <data name="TT_Vinegar_LongDesc" xml:space="preserve">
-    <value>Προσθέστε ξίδι στα γεύματα</value>
+    <value>Νοστιμίστε τα γεύματά σας ή ντύστε μια σαλάτα με όποιο ξίδι σας αρέσει.</value>
   </data>
   <data name="TT_Vinegar_Benefits" xml:space="preserve">
     <value>Μπορεί να βοηθήσει στον έλεγχο του σακχάρου στο αίμα και τη διαχείριση βάρους.</value>
@@ -612,10 +612,10 @@
     <value>Χρονικά Περιορισμένη Κατανάλωση</value>
   </data>
   <data name="TT_TimeRestricted_Desc" xml:space="preserve">
-    <value>Περιορίστε το παράθυρο κατανάλωσης</value>
+    <value>Λιγότερες από 12 ώρες, με λήξη πριν τις 7 μ.μ.</value>
   </data>
   <data name="TT_TimeRestricted_LongDesc" xml:space="preserve">
-    <value>Περιορίστε το παράθυρο κατανάλωσης</value>
+    <value>Τρώτε μέσα σε ημερήσιο παράθυρο μικρότερο από 12 ώρες, που μπορείτε να τηρείτε κάθε μέρα της εβδομάδας. Πρέπει να τελειώνει πριν τις 7:00 μ.μ.</value>
   </data>
   <data name="TT_TimeRestricted_Benefits" xml:space="preserve">
     <value>Μπορεί να βελτιώσει τη μεταβολική υγεία και τη διαχείριση βάρους.</value>
@@ -639,7 +639,7 @@
     <value>1/4 κ.γ. ημερησίως</value>
   </data>
   <data name="TT_BlackCumin_LongDesc" xml:space="preserve">
-    <value>Επίσης γνωστό ως Nigella sativa</value>
+    <value>Γνωστό και ως Nigella sativa. Διαφέρει από το κανονικό κύμινο, το οποίο έχει διαφορετική δόση.</value>
   </data>
   <data name="TT_BlackCumin_Benefits" xml:space="preserve">
     <value>Μπορεί να βοηθήσει στην απώλεια βάρους και τον έλεγχο του σακχάρου στο αίμα.</value>
@@ -651,22 +651,22 @@
     <value>1/4 κ.γ. ημερησίως</value>
   </data>
   <data name="TT_Garlic_LongDesc" xml:space="preserve">
-    <value>Καθημερινή συμπλήρωση σκόρδου</value>
+    <value>Προσθέτετε σκόνη σκόρδου στο φαγητό σας κάθε μέρα.</value>
   </data>
   <data name="TT_Garlic_Benefits" xml:space="preserve">
     <value>Μελέτες δείχνουν ότι μπορεί να μειώσει το σωματικό λίπος.</value>
   </data>
   <data name="TT_Ginger" xml:space="preserve">
-    <value>Αλεσμένο Τζίντζερ</value>
+    <value>Αλεσμένο Τζίντζερ ή Καγιέν</value>
   </data>
   <data name="TT_Ginger_Desc" xml:space="preserve">
-    <value>1 κ.γ. ημερησίως</value>
+    <value>1 κ.γ. τζίντζερ ή 1/2 κ.γ. καγιέν ημερησίως</value>
   </data>
   <data name="TT_Ginger_LongDesc" xml:space="preserve">
-    <value>Καθημερινό τζίντζερ</value>
+    <value>Ανακατέψτε αλεσμένο τζίντζερ σε ζεστό νερό ή chai· μπορεί να δουλεύει καλύτερα το πρωί παρά το βράδυ. Ή προσθέστε 1/2 κ.γ. κόκκινη πιπεριά σε σκόνη ή 1 ωμό χαλαπένιο στην ημέρα σας.</value>
   </data>
   <data name="TT_Ginger_Benefits" xml:space="preserve">
-    <value>Μπορεί να ενισχύσει τον μεταβολισμό και να μειώσει τη φλεγμονή.</value>
+    <value>Σε τυχαιοποιημένες μελέτες, το αλεσμένο τζίντζερ μείωσε σημαντικά το σωματικό βάρος. Η κόκκινη πιπεριά μπορεί να βοηθά στην ενεργοποίηση του καστανού λίπους που καίει θερμίδες.</value>
   </data>
   <data name="TT_NutritionalYeast" xml:space="preserve">
     <value>Διατροφική Ζύμη</value>
@@ -702,7 +702,7 @@
     <value>720 ml ημερησίως</value>
   </data>
   <data name="TT_GreenTea_LongDesc" xml:space="preserve">
-    <value>Καθημερινή κατανάλωση πράσινου τσαγιού</value>
+    <value>Πίνετέ το ανάμεσα στα γεύματα, περιμένοντας τουλάχιστον μία ώρα μετά το φαγητό ώστε να μην εμποδίζει την απορρόφηση του σιδήρου. Αποφύγετε μεγάλες ποσότητες καφεΐνης μέσα σε 6 ώρες πριν τον ύπνο.</value>
   </data>
   <data name="TT_GreenTea_Benefits" xml:space="preserve">
     <value>Περιέχει κατεχίνες που μπορούν να ενισχύσουν τον μεταβολισμό.</value>
@@ -711,10 +711,10 @@
     <value>Μείνετε Ενυδατωμένοι</value>
   </data>
   <data name="TT_Hydrated_Desc" xml:space="preserve">
-    <value>Πίνετε αρκετό νερό</value>
+    <value>Ούρα όχι πιο σκούρα από ανοιχτό κίτρινο</value>
   </data>
   <data name="TT_Hydrated_LongDesc" xml:space="preserve">
-    <value>Διατηρήστε σωστή ενυδάτωση</value>
+    <value>Τσεκάρετέ το αν τα ούρα σας δεν φαίνονται ποτέ πιο σκούρα από ανοιχτό κίτρινο. Τρόφιμα εμπλουτισμένα με ριβοφλαβίνη, όπως η διατροφική ζύμη, μπορούν να χρωματίσουν τα ούρα σας· αν τα τρώτε, στοχεύστε αντί γι' αυτό σε 9 φλιτζάνια (περίπου 2 λίτρα) ροφημάτων χωρίς ζάχαρη την ημέρα για τις γυναίκες ή 13 φλιτζάνια (περίπου 3 λίτρα) για τους άνδρες.</value>
   </data>
   <data name="TT_Hydrated_Benefits" xml:space="preserve">
     <value>Η σωστή ενυδάτωση υποστηρίζει τον μεταβολισμό και μειώνει την πείνα.</value>
@@ -723,10 +723,10 @@
     <value>Χρονισμός Άσκησης</value>
   </data>
   <data name="TT_ExerciseTiming_Desc" xml:space="preserve">
-    <value>Νηστικοί ή απόγευμα</value>
+    <value>Νηστικοί, συνήθως πριν το πρωινό</value>
   </data>
   <data name="TT_ExerciseTiming_LongDesc" xml:space="preserve">
-    <value>Βέλτιστος χρονισμός για άσκηση</value>
+    <value>Οποιαδήποτε ώρα είναι καλή, αλλά μπορεί να υπάρχει πλεονέκτημα στην άσκηση με άδειο στομάχι, τουλάχιστον 6 ώρες μετά το τελευταίο γεύμα. Συνήθως αυτό σημαίνει πριν το πρωινό.</value>
   </data>
   <data name="TT_ExerciseTiming_Benefits" xml:space="preserve">
     <value>Μπορεί να ενισχύσει την καύση λίπους και τα μεταβολικά οφέλη.</value>
@@ -738,7 +738,7 @@
     <value>7+ ώρες</value>
   </data>
   <data name="TT_Sleep_LongDesc" xml:space="preserve">
-    <value>Ποιοτικός ύπνος για διαχείριση βάρους</value>
+    <value>Κοιμηθείτε τουλάχιστον 7 ώρες στην κανονική σας ώρα ύπνου.</value>
   </data>
   <data name="TT_Sleep_Benefits" xml:space="preserve">
     <value>Ο κακός ύπνος διαταράσσει τις ορμόνες πείνας και τον μεταβολισμό.</value>
@@ -747,37 +747,37 @@
     <value>Ζυγιστείτε Δύο Φορές</value>
   </data>
   <data name="TT_WeighTwice_Desc" xml:space="preserve">
-    <value>Πρωί και βράδυ</value>
+    <value>Με το ξύπνημα και πριν τον ύπνο</value>
   </data>
   <data name="TT_WeighTwice_LongDesc" xml:space="preserve">
-    <value>Ζυγιστείτε δύο φορές την ημέρα για να παρακολουθείτε τις τάσεις και να παραμένετε υπεύθυνοι.</value>
+    <value>Ζυγιστείτε δύο φορές την ημέρα, όταν ξυπνάτε και λίγο πριν κοιμηθείτε.</value>
   </data>
   <data name="TT_WeighTwice_Benefits" xml:space="preserve">
-    <value>Η αυτοπαρακολούθηση είναι μία από τις πιο αποτελεσματικές στρατηγικές διαχείρισης βάρους.</value>
+    <value>Η τακτική ζύγιση θεωρείται κρίσιμη για τον μακροπρόθεσμο έλεγχο του βάρους. Η συμβουλή για δύο φορές την ημέρα βασίζεται σε μία μελέτη.</value>
   </data>
   <data name="TT_Intentions" xml:space="preserve">
     <value>Προθέσεις Υλοποίησης</value>
   </data>
   <data name="TT_Intentions_Desc" xml:space="preserve">
-    <value>Σχεδιάστε συγκεκριμένες στρατηγικές εάν-τότε</value>
+    <value>Τρία σχέδια εάν-τότε, καθένα καθημερινά</value>
   </data>
   <data name="TT_Intentions_LongDesc" xml:space="preserve">
-    <value>Συμπληρώστε τις προθέσεις υλοποίησής σας: σχεδιάστε συγκεκριμένες στρατηγικές εάν-τότε για υγιεινή διατροφή και άσκηση.</value>
+    <value>Κάθε δύο μήνες, δημιουργήστε τρία νέα σχέδια «εάν Χ, τότε Υ» για μια συγκεκριμένη συμπεριφορά σε μια συγκεκριμένη κατάσταση. Τσεκάρετε το καθένα όταν το ολοκληρώνετε κάθε μέρα.</value>
   </data>
   <data name="TT_Intentions_Benefits" xml:space="preserve">
-    <value>Η προδέσμευση σε συγκεκριμένα σχέδια διπλασιάζει την πιθανότητα εκτέλεσης.</value>
+    <value>Τα συγκεκριμένα σχέδια εάν-τότε βοηθούν στη μετατροπή των προθέσεων σε συνήθειες. Σε ένα τυχαιοποιημένο πείραμα, το να γράψουν πότε και πού θα χρησιμοποιήσουν οδοντικό νήμα έκανε τους ανθρώπους να το κάνουν περισσότερο από διπλάσιες φορές.</value>
   </data>
   <data name="TT_NightlyFast" xml:space="preserve">
     <value>Νηστεία Μετά τις 7:00 μ.μ.</value>
   </data>
   <data name="TT_NightlyFast_Desc" xml:space="preserve">
-    <value>Χωρίς φαγητό μετά τις 7 μ.μ.</value>
+    <value>12+ ώρες, ξεκινώντας πριν τις 7 μ.μ.</value>
   </data>
   <data name="TT_NightlyFast_LongDesc" xml:space="preserve">
-    <value>Σταματήστε να τρώτε μετά τις 7:00 μ.μ. για να ευθυγραμμιστείτε με τον κιρκαδικό σας ρυθμό.</value>
+    <value>Νηστέψτε κάθε βράδυ για τουλάχιστον 12 ώρες, ξεκινώντας πριν τις 7:00 μ.μ. Όσο λιγότερες θερμίδες μετά τη δύση του ηλίου, τόσο το καλύτερο.</value>
   </data>
   <data name="TT_NightlyFast_Benefits" xml:space="preserve">
-    <value>Η βραδινή νηστεία βελτιώνει τη μεταβολική υγεία και υποστηρίζει την απώλεια βάρους.</value>
+    <value>Λόγω των κιρκάδιων ρυθμών μας, το φαγητό που τρώγεται το βράδυ παχαίνει περισσότερο από το ίδιο φαγητό που τρώγεται νωρίτερα μέσα στη μέρα.</value>
   </data>
   <data name="TT_Trendelenburg" xml:space="preserve">
     <value>Ήπιο Trendelenburg</value>
@@ -786,10 +786,10 @@
     <value>Ύπνος με κλίση κεφαλής 6 μοίρες</value>
   </data>
   <data name="TT_Trendelenburg_LongDesc" xml:space="preserve">
-    <value>Πειραματιστείτε με ύπνο σε ήπια θέση Trendelenburg (κεφάλι-κάτω 6 μοίρες). ΣΗΜΑΝΤΙΚΟ: Μην το δοκιμάσετε αν έχετε προβλήματα με καρδιά, πνεύμονες, παλινδρόμηση οξέος, εγκέφαλο ή μάτια. Συμβουλευτείτε πρώτα τον γιατρό σας. Σηκωθείτε αργά για να αποφύγετε ζαλάδα.</value>
+    <value>Δοκιμάστε να περνάτε τουλάχιστον 4 ώρες τη νύχτα με το κεφάλι χαμηλότερα κατά 6 μοίρες, ανυψώνοντας τα πόδια του κρεβατιού σας κατά περίπου 8 ίντσες (20 cm).</value>
   </data>
   <data name="TT_Trendelenburg_Benefits" xml:space="preserve">
-    <value>Μπορεί να βοηθήσει στη διαχείριση βάρους μέσω νυχτερινών βαρυτικών επιδράσεων. Χρήση με προσοχή.</value>
+    <value>Μια ελαφριά κλίση με το κεφάλι χαμηλά μπορεί να ενισχύσει την καύση λίπους, αλλά τα στοιχεία είναι αρχικά. Χρησιμοποιήστε με προσοχή.</value>
   </data>
 
   <!-- Diary Detail Dialog -->
@@ -813,9 +813,6 @@
   </data>
   <data name="Diary_FoundIn" xml:space="preserve">
     <value>Βρίσκεται Σε</value>
-  </data>
-  <data name="Diary_AlsoIncludes" xml:space="preserve">
-    <value>Περιλαμβάνει Επίσης</value>
   </data>
   <data name="Diary_Today" xml:space="preserve">
     <value>Σήμερα</value>
@@ -1074,9 +1071,6 @@
   <data name="Database_FailureTitle" xml:space="preserve">
     <value>Το Daily Plants δεν μπόρεσε να ανοίξει τα δεδομένα</value>
   </data>
-  <data name="Database_FailureMessage" xml:space="preserve">
-    <value>Οι καταχωρίσεις δεν φορτώθηκαν και οι αλλαγές ενδέχεται να μην αποθηκευτούν. Κάντε επανεκκίνηση της εφαρμογής και, αν το πρόβλημα επιμένει, οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής: {0}</value>
-  </data>
   <data name="Database_FailureMessageNoLog" xml:space="preserve">
     <value>Οι καταχωρίσεις δεν φορτώθηκαν και οι αλλαγές ενδέχεται να μην αποθηκευτούν. Κάντε επανεκκίνηση της εφαρμογής και, αν το πρόβλημα επιμένει, οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής στον φάκελο δεδομένων της εφαρμογής.</value>
   </data>
@@ -1259,5 +1253,65 @@
   </data>
   <data name="Settings_ShowTipsAgainAction" xml:space="preserve">
     <value>Εμφάνιση ξανά</value>
+  </data>
+  <data name="About_Disclaimer" xml:space="preserve">
+    <value>Το Daily Plants είναι μια ανεξάρτητη εφαρμογή, χωρίς σχέση ή έγκριση από τον Dr. Michael Greger ή το NutritionFacts.org. Οι λίστες είναι ένας φιλόδοξος οδηγός, όχι πρόγραμμα γευμάτων ή ιατρική συμβουλή, γι' αυτό προσαρμόστε τις στις ανάγκες σας. Μιλήστε με τον γιατρό σας πριν κάνετε μεγάλες αλλαγές, ειδικά αν είστε έγκυος, θηλάζετε ή έχετε κάποιο ιατρικό πρόβλημα. Για παιδιά, ρωτήστε γιατρό ή διατροφολόγο.</value>
+  </data>
+  <data name="Diary_Caution" xml:space="preserve">
+    <value>Σημαντικό</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Imperial" xml:space="preserve">
+    <value>Ή 1/3 φλιτζάνι τόφου ή tempeh, ή 1 φλιτζάνι φρέσκο αρακά ή φακές σε βλάστηση</value>
+  </data>
+  <data name="DD_Beans_ExtraServings_Metric" xml:space="preserve">
+    <value>Ή 80 g τόφου ή tempeh, ή 100 g φρέσκο αρακά ή φακές σε βλάστηση</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Imperial" xml:space="preserve">
+    <value>Ή 1 φλιτζάνι κομμένα φρούτα</value>
+  </data>
+  <data name="DD_OtherFruits_ExtraServings_Metric" xml:space="preserve">
+    <value>Ή 150 g κομμένα φρούτα</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Imperial" xml:space="preserve">
+    <value>Ή 1 φλιτζάνι ωμά φυλλώδη, 1/2 φλιτζάνι μαγειρεμένα φυλλώδη ή 1/4 φλιτζάνι βλαστάρια μπρόκολου</value>
+  </data>
+  <data name="DD_Cruciferous_ExtraServings_Metric" xml:space="preserve">
+    <value>Ή 60 g ωμά φυλλώδη, 90 g μαγειρεμένα φυλλώδη ή 20 g βλαστάρια μπρόκολου</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Imperial" xml:space="preserve">
+    <value>Ή 1 φλιτζάνι ωμά φυλλώδη λαχανικά, 1/2 φλιτζάνι χυμό λαχανικών ή 1/4 φλιτζάνι αποξηραμένα μανιτάρια</value>
+  </data>
+  <data name="DD_OtherVegetables_ExtraServings_Metric" xml:space="preserve">
+    <value>Ή 60 g ωμά φυλλώδη λαχανικά, 120 ml χυμό λαχανικών ή 10 g αποξηραμένα μανιτάρια</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Imperial" xml:space="preserve">
+    <value>Ή 1/2 φλιτζάνι μαγειρεμένα δημητριακά, ζυμαρικά ή καλαμπόκι, 1 φλιτζάνι κρύα δημητριακά, 1 τορτίγια, 1/2 μπέιγκελ ή English muffin, ή 3 φλιτζάνια ποπ κορν</value>
+  </data>
+  <data name="DD_WholeGrains_ExtraServings_Metric" xml:space="preserve">
+    <value>Ή 100 g μαγειρεμένα δημητριακά, ζυμαρικά ή καλαμπόκι, 50 g κρύα δημητριακά, 1 τορτίγια, 1/2 μπέιγκελ ή English muffin, ή 30 g ποπ κορν</value>
+  </data>
+  <data name="DD_VitaminB12_Caution" xml:space="preserve">
+    <value>Αν είστε άνω των 65, λαμβάνετε τουλάχιστον 1000 mcg κάθε μέρα. Αντί για συμπλήρωμα, μπορείτε να τρώτε τρόφιμα εμπλουτισμένα με B12 τρεις φορές την ημέρα, το καθένα με τουλάχιστον 2 mcg.</value>
+  </data>
+  <data name="TT_PreloadWater_Caution" xml:space="preserve">
+    <value>Ποτέ μην πίνετε περισσότερα από 3 φλιτζάνια (περίπου 700 ml) υγρών την ώρα.</value>
+  </data>
+  <data name="TT_Vinegar_Caution" xml:space="preserve">
+    <value>Ποτέ μην πίνετε ξίδι σκέτο. Αν θέλετε να το πιείτε, ανακατέψτε το σε ένα ποτήρι νερό και ξεπλύνετε το στόμα σας με νερό μετά, για να προστατεύσετε το σμάλτο των δοντιών σας.</value>
+  </data>
+  <data name="TT_GreenTea_Caution" xml:space="preserve">
+    <value>Ποτέ μην πίνετε περισσότερα από 3 φλιτζάνια (περίπου 700 ml) υγρών την ώρα.</value>
+  </data>
+  <data name="TT_Hydrated_Caution" xml:space="preserve">
+    <value>Αν έχετε προβλήματα με την καρδιά ή τα νεφρά, μιλήστε με τον γιατρό σας πριν πίνετε περισσότερο.</value>
+  </data>
+  <data name="TT_ExerciseTiming_Caution" xml:space="preserve">
+    <value>Αν έχετε διαβήτη ή προδιαβήτη, ξεκινήστε την άσκηση 30 λεπτά μετά την έναρξη ενός γεύματος, και ιδανικά συνεχίστε για τουλάχιστον μία ώρα.</value>
+  </data>
+  <data name="TT_Trendelenburg_Caution" xml:space="preserve">
+    <value>Μη δοκιμάσετε αυτό αν έχετε προβλήματα με την καρδιά ή τους πνεύμονες, γαστροοισοφαγική παλινδρόμηση, ή προβλήματα στον εγκέφαλο ή στα μάτια. Ακόμα και το οικογενειακό ιστορικό γλαυκώματος το αποκλείει. Ρωτήστε πρώτα τον γιατρό σας. Οι περισσότεροι άνθρωποι ζαλίζονται ή λιποθυμούν αν σηκωθούν πολύ γρήγορα μετά και μπορεί να πέσουν, γι' αυτό σηκωθείτε αργά. Το να πιείτε 2 φλιτζάνια (περίπου 500 ml) κρύο νερό 30 λεπτά πριν σηκωθείτε μπορεί να βοηθήσει.</value>
+  </data>
+  <data name="Database_FailureOpenLogs" xml:space="preserve">
+    <value>Άνοιγμα φακέλου αρχείων καταγραφής</value>
   </data>
 </root>
