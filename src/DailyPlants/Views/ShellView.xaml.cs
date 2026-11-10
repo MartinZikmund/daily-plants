@@ -17,6 +17,9 @@ public sealed partial class ShellView : Page
     private IAchievementService? _achievementService;
     private IAppNavigator? _appNavigator;
     private object? _pendingNavigationParameter;
+
+    private const string ProgressTabTag = "Progress";
+    private string _lastProgressSection = "Statistics";
     private readonly Window _associatedWindow;
 
     public ShellView(Window associatedWindow)
@@ -219,7 +222,23 @@ public sealed partial class ShellView : Page
 
     private void Tab_Checked(object sender, RoutedEventArgs e)
     {
-        if (sender is FrameworkElement { Tag: string tag } && FindNavItem(tag) is { } item && !ReferenceEquals(NavView.SelectedItem, item))
+        if (sender is FrameworkElement { Tag: string tag })
+        {
+            SelectSection(tag == ProgressTabTag ? _lastProgressSection : tag);
+        }
+    }
+
+    private void ProgressSelector_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
+    {
+        if (sender.SelectedItem is { Tag: string tag })
+        {
+            SelectSection(tag);
+        }
+    }
+
+    private void SelectSection(string tag)
+    {
+        if (FindNavItem(tag) is { } item && !ReferenceEquals(NavView.SelectedItem, item))
         {
             NavView.SelectedItem = item;
         }
@@ -227,10 +246,28 @@ public sealed partial class ShellView : Page
 
     private void CheckTab(string? tag)
     {
-        if (TabBar.Children.OfType<RadioButton>().FirstOrDefault(tab => (string?)tab.Tag == tag) is { } tab)
+        var isProgress = tag is "Statistics" or "Achievements";
+        if (isProgress)
+        {
+            _lastProgressSection = tag!;
+            ProgressSelector.SelectedItem = tag == "Statistics" ? StatisticsSelectorItem : AchievementsSelectorItem;
+        }
+
+        var tabTag = isProgress ? ProgressTabTag : tag;
+        if (TabBar.Children.OfType<RadioButton>().FirstOrDefault(tab => (string?)tab.Tag == tabTag) is { } tab)
         {
             tab.IsChecked = true;
         }
+
+        UpdateProgressSelector();
+    }
+
+    private void LayoutStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e) => UpdateProgressSelector();
+
+    private void UpdateProgressSelector()
+    {
+        var isNarrow = LayoutStates.CurrentState?.Name == "NarrowState";
+        ProgressSelector.Visibility = isNarrow && ProgressTab.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private NavigationViewItem? FindNavItem(string tag) =>

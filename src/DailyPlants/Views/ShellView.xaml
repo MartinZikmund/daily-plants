@@ -131,9 +131,37 @@
             </NavigationView.FooterMenuItems>
 
             <Grid Background="Transparent">
-                <Frame x:Name="ContentFrame" MaxWidth="1400" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--
+                    Phones only, under the Progress tab. Its items carry the same tags as the
+                    pane items, which stay the source of truth.
+                -->
+                <SelectorBar
+                    x:Name="ProgressSelector"
+                    Margin="12,4,12,0"
+                    AutomationProperties.AutomationId="ProgressSelector"
+                    SelectionChanged="ProgressSelector_SelectionChanged"
+                    Visibility="Collapsed">
+                    <SelectorBarItem
+                        x:Name="StatisticsSelectorItem"
+                        AutomationProperties.AutomationId="ProgressStatistics"
+                        Tag="Statistics"
+                        Text="{helpers:Localize Key=Nav_Statistics}" />
+                    <SelectorBarItem
+                        x:Name="AchievementsSelectorItem"
+                        AutomationProperties.AutomationId="ProgressAchievements"
+                        Tag="Achievements"
+                        Text="{helpers:Localize Key=Nav_Achievements}" />
+                </SelectorBar>
+
+                <Frame x:Name="ContentFrame" Grid.Row="1" MaxWidth="1400" />
 
                 <Grid
+                    Grid.RowSpan="2"
                     Height="46"
                     x:Name="TitleBarOuter"
                     Padding="0,0"
@@ -190,7 +218,6 @@
                     <ColumnDefinition x:Name="ResourcesTabColumn" />
                     <ColumnDefinition />
                     <ColumnDefinition />
-                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <RadioButton
@@ -235,43 +262,24 @@
                     </StackPanel>
                 </RadioButton>
 
+                <!--  Statistics and Achievements share one tab; ProgressSelector switches between them  -->
                 <RadioButton
+                    x:Name="ProgressTab"
                     Grid.Column="2"
-                    AutomationProperties.AutomationId="TabStatistics"
-                    AutomationProperties.Name="{helpers:Localize Key=Nav_Statistics}"
+                    AutomationProperties.AutomationId="TabProgress"
+                    AutomationProperties.Name="{helpers:Localize Key=Nav_Progress}"
                     Checked="Tab_Checked"
                     GroupName="ShellTabs"
                     Style="{StaticResource DpTabBarItemStyle}"
-                    Tag="Statistics">
+                    Tag="Progress">
                     <StackPanel Spacing="4">
-                        <Viewbox
-                            Width="20"
-                            Height="20"
-                            Margin="0,6">
-                            <IconSourceElement IconSource="{StaticResource StatisticsIconSource}" />
-                        </Viewbox>
-                        <Viewbox StretchDirection="DownOnly">
-                            <TextBlock Style="{StaticResource DpTabLabelTextBlockStyle}" Text="{helpers:Localize Key=Nav_Statistics}" />
-                        </Viewbox>
-                    </StackPanel>
-                </RadioButton>
-
-                <RadioButton
-                    Grid.Column="3"
-                    AutomationProperties.AutomationId="TabAchievements"
-                    AutomationProperties.Name="{helpers:Localize Key=Nav_Achievements}"
-                    Checked="Tab_Checked"
-                    GroupName="ShellTabs"
-                    Style="{StaticResource DpTabBarItemStyle}"
-                    Tag="Achievements">
-                    <StackPanel Spacing="4">
-                        <!--  Wider than the icon so the badge can sit on its corner  -->
+                        <!--  Wider than the icon so the achievements badge can sit on its corner  -->
                         <Grid Width="40" HorizontalAlignment="Center">
                             <Viewbox
                                 Width="20"
                                 Height="20"
                                 Margin="0,6">
-                                <IconSourceElement IconSource="{StaticResource AchievementsIconSource}" />
+                                <IconSourceElement IconSource="{StaticResource StatisticsIconSource}" />
                             </Viewbox>
                             <InfoBadge
                                 x:Name="AchievementsTabBadge"
@@ -281,13 +289,13 @@
                                 Visibility="Collapsed" />
                         </Grid>
                         <Viewbox StretchDirection="DownOnly">
-                            <TextBlock Style="{StaticResource DpTabLabelTextBlockStyle}" Text="{helpers:Localize Key=Nav_Achievements}" />
+                            <TextBlock Style="{StaticResource DpTabLabelTextBlockStyle}" Text="{helpers:Localize Key=Nav_Progress}" />
                         </Viewbox>
                     </StackPanel>
                 </RadioButton>
 
                 <RadioButton
-                    Grid.Column="4"
+                    Grid.Column="3"
                     AutomationProperties.AutomationId="TabSettings"
                     AutomationProperties.Name="{helpers:Localize Key=Nav_Settings}"
                     Checked="Tab_Checked"
@@ -313,8 +321,8 @@
         <controls:AchievementNotification x:Name="AchievementNotification" Grid.RowSpan="2" />
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <!--  Phones: every section is a tab, so the pane and its hamburger go entirely  -->
+            <VisualStateGroup x:Name="LayoutStates" CurrentStateChanged="LayoutStates_CurrentStateChanged">
+                <!--  Phones: every section is reachable from the tabs, so the pane and its hamburger go entirely  -->
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
