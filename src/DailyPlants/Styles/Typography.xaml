@@ -55,6 +55,13 @@
         <Setter Property="Foreground" Value="{ThemeResource DpInkMutedBrush}" />
     </Style>
 
+    <!--  Phone tab bar labels. No Foreground, so the tab's selected colour flows through  -->
+    <Style x:Key="DpTabLabelTextBlockStyle"
+           BasedOn="{StaticResource CaptionTextBlockStyle}"
+           TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource DpBodyFont}" />
+    </Style>
+
     <!--  Group headers: "Still to go", "Done today"  -->
     <Style x:Key="DpOverlineTextBlockStyle"
            BasedOn="{StaticResource CaptionTextBlockStyle}"
