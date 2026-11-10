@@ -4,7 +4,6 @@ Thank you for your interest in contributing to Daily Plants! This document provi
 
 ## Table of Contents
 
-- [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
 - [How to Contribute](#how-to-contribute)
 - [Development Setup](#development-setup)
@@ -12,21 +11,17 @@ Thank you for your interest in contributing to Daily Plants! This document provi
 - [Pull Request Process](#pull-request-process)
 - [Reporting Issues](#reporting-issues)
 
-## Code of Conduct
-
-This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainers.
-
 ## Getting Started
 
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/your-username/daily-dozen.git
-   cd daily-dozen
+   git clone https://github.com/your-username/daily-plants.git
+   cd daily-plants
    ```
 3. **Add the upstream remote**:
    ```bash
-   git remote add upstream https://github.com/user/daily-dozen.git
+   git remote add upstream https://github.com/MartinZikmund/daily-plants.git
    ```
 4. **Create a branch** for your changes:
    ```bash
@@ -57,9 +52,10 @@ We welcome the following types of contributions:
 
 ### Prerequisites
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) (17.8+) with Uno Platform extension
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) with Uno Platform extension
 - Git
+- `uno-check` for verifying the Uno Platform development environment
 
 ### Building the Project
 
@@ -72,18 +68,25 @@ dotnet build
 ### Running Tests
 
 ```bash
-cd src/DailyPlants.Tests
-dotnet test
+dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj
 ```
 
 ### Running the App
 
 ```bash
 # Windows
-dotnet run -f net9.0-windows10.0.26100
+dotnet run -f net10.0-windows10.0.26100
 
 # WebAssembly (for quick testing)
-dotnet run -f net9.0-browserwasm
+dotnet run -f net10.0-browserwasm
+```
+
+### Checking the Development Environment
+
+Run `uno-check` to verify that your development environment has the required Uno Platform dependencies:
+
+```bash
+uno-check
 ```
 
 ## Coding Guidelines
@@ -95,11 +98,17 @@ dotnet run -f net9.0-browserwasm
 - **Document why, not what** - Comments should explain reasoning, not obvious actions
 - **Test your changes** - Ensure existing tests pass and add new tests for new code
 
+For formatting, use:
+
+```bash
+dotnet format whitespace
+```
+
 ### C# Style
 
 - Use C# 12 features where appropriate
 - Follow [.NET naming conventions](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
-- Use `var` when the type is obvious from the right side
+- Prefer explicit types with target-typed `new()` where appropriate
 - Prefer expression-bodied members for simple properties and methods
 - Use nullable reference types (`#nullable enable`)
 
@@ -215,7 +224,7 @@ We welcome translations! To add a new language:
 
 If you have questions about contributing, feel free to:
 
-- Open a [Discussion](https://github.com/user/daily-dozen/discussions) on GitHub
+- Open a [Discussion](https://github.com/MartinZikmund/daily-plants/discussions) on GitHub
 - Ask in an existing issue if related
 - Reach out to the maintainers
 
