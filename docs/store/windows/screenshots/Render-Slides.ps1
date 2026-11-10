@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-Renders the store slides from slides.html into images/DesktopScreenshot<N>.png with headless Edge.
+Renders the store slides from slides.html into artifacts/store/windows/images/DesktopScreenshot<N>.png with headless Edge.
+The slides are build output, so they aren't committed; Build-StoreListing.ps1 picks them up from there.
 #>
 [CmdletBinding()]
 param(
@@ -12,7 +13,7 @@ $ErrorActionPreference = 'Stop'
 # The order they appear in the Store. Keep ScreenshotCaptions in listing/*.md in the same order.
 $Slides = 'hero', 'details', 'statistics', 'achievements', 'resources', 'dark'
 
-$imagesDir = Resolve-Path (Join-Path $PSScriptRoot '../images')
+$imagesDir = New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot '../../../../artifacts/store/windows/images')
 $page = ([System.Uri](Join-Path $PSScriptRoot 'slides.html')).AbsoluteUri
 $profileDir = Join-Path ([System.IO.Path]::GetTempPath()) 'dailyplants-slides-edge'
 

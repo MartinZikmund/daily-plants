@@ -3,7 +3,8 @@
 Builds a folder for Partner Center's "Import listings > Upload folder" from the sources next to this script.
 
 .DESCRIPTION
-Text comes from listing/<lang>.md and images from images/ (images/<lang>/ overrides a file for one language).
+Text comes from listing/<lang>.md. The DesktopScreenshot slides come from artifacts/store/windows/images, where
+screenshots/Render-Slides.ps1 renders them, and other images from images/ (images/<lang>/ overrides a file for one language).
 The CSV only has rows for what these sources cover, and Partner Center leaves every row it doesn't get,
 such as trailers or hardware requirements, as it was.
 
@@ -96,10 +97,13 @@ function Get-ListItems([string] $Text) {
     return , @($items)
 }
 
-# Image files for one language by field name, with images/<lang>/ winning over images/.
+# Where screenshots/Render-Slides.ps1 puts the DesktopScreenshot slides. They're build output, so they aren't committed.
+$RenderedImagesPath = Join-Path $PSScriptRoot '../../../artifacts/store/windows/images'
+
+# Image files for one language by field name: the rendered slides, then images/, then images/<lang>/, each winning over the last.
 function Get-Images([string] $Language) {
     $images = @{}
-    foreach ($dir in (Join-Path $PSScriptRoot 'images'), (Join-Path $PSScriptRoot "images/$Language")) {
+    foreach ($dir in $RenderedImagesPath, (Join-Path $PSScriptRoot 'images'), (Join-Path $PSScriptRoot "images/$Language")) {
         if (Test-Path -LiteralPath $dir) {
             Get-ChildItem -LiteralPath $dir -File -Filter '*.png' | ForEach-Object { $images[$_.BaseName] = $_ }
         }
@@ -164,13 +168,15 @@ foreach ($file in Get-ChildItem -LiteralPath $listingDir -Filter '*.md' | Sort-O
 
     $images = Get-Images $language
     $screenshots = @($images.Keys | Where-Object { $_ -match '^DesktopScreenshot\d+$' } | ForEach-Object { [int]($_ -replace '\D', '') } | Sort-Object)
-    if ($screenshots.Count -eq 0) {
-        $errors.Add("${language}: the Store needs at least one screenshot, add images/DesktopScreenshot1.png.")
+    # A text-only check doesn't need the slides rendered.
+    $checkScreenshots = -not ($CheckOnly -and $screenshots.Count -eq 0)
+    if ($checkScreenshots -and $screenshots.Count -eq 0) {
+        $errors.Add("${language}: the Store needs at least one screenshot. Run screenshots/Render-Slides.ps1 first.")
     }
-    elseif ($screenshots[-1] -ne $screenshots.Count) {
+    elseif ($checkScreenshots -and $screenshots[-1] -ne $screenshots.Count) {
         $errors.Add("${language}: screenshots must be numbered 1 to $($screenshots.Count) without gaps, found $($screenshots -join ', ').")
     }
-    if ($values.ScreenshotCaptions.Count -ne $screenshots.Count) {
+    if ($checkScreenshots -and $values.ScreenshotCaptions.Count -ne $screenshots.Count) {
         $errors.Add("${language}: $($screenshots.Count) screenshots need $($screenshots.Count) ScreenshotCaptions, found $($values.ScreenshotCaptions.Count).")
     }
     foreach ($field in $images.Keys | Where-Object { $_ -notmatch '^DesktopScreenshot\d+$' -and -not $ImageFields.ContainsKey($_) }) {
@@ -197,6 +203,10 @@ New-Item -ItemType Directory -Path $uploadDir | Out-Null
 
 function Get-UploadPath([System.IO.FileInfo] $File) {
     $relative = [System.IO.Path]::GetRelativePath($PSScriptRoot, $File.FullName) -replace '\\', '/'
+    # The rendered slides live outside this folder, and go into the upload folder's images/ like the committed ones.
+    if ($relative.StartsWith('../')) {
+        $relative = "images/$($File.Name)"
+    }
     $target = Join-Path $uploadDir $relative
     if (-not (Test-Path -LiteralPath $target)) {
         New-Item -ItemType Directory -Path (Split-Path $target) -Force | Out-Null
