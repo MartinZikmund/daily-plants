@@ -52,7 +52,7 @@ We welcome the following types of contributions:
 
 ### Prerequisites
 
-- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download/dotnet/11.0) (pinned in `global.json`; the app still targets .NET 10)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) with Uno Platform extension
 - Git
 - `uno-check` for verifying the Uno Platform development environment

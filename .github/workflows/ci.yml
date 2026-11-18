@@ -12,7 +12,6 @@ on:
 env:
   # App Configuration
   APP_NAME: DailyPlants
-  DOTNET_VERSION: 10.0.x
   SOLUTION_FILE: DailyPlants.slnx
   PROJECT_PATH: src/DailyPlants
   PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
@@ -44,13 +43,12 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
 
       - name: Install .NET workloads
         run: |
           dotnet workload restore "$env:SOLUTION_FILE"
-          dotnet workload install wasm-tools
+          dotnet workload install wasm-tools-net10
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild

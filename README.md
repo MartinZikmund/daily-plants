@@ -82,7 +82,7 @@ Daily Plants is a single [Uno Platform](https://platform.uno/) project, so one c
 
 ### Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download/dotnet/11.0)
 - Visual Studio 2026, JetBrains Rider or VS Code with the [Uno Platform extension](https://platform.uno/docs/articles/get-started.html)
 - [uno-check](https://platform.uno/docs/articles/external/uno.check/doc/using-uno-check.html) to install the workloads you need: `dotnet tool install -g uno.check`, then `uno-check`
 - Android: an Android SDK (API 24 or later)
