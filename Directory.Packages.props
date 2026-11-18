@@ -7,6 +7,7 @@
   -->
   <ItemGroup>
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="0.8.0" />
     <PackageVersion Include="sqlite-net-e" Version="1.11.0" />
     <PackageVersion Include="MZikmund.Toolkit.WinUI" Version="1.0.0-dev.71" />
     <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
