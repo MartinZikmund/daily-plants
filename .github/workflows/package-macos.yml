@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Cache NuGet
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.sln*', '**/*.csproj', '**/Directory.Packages.props', '**/global.json') }}
