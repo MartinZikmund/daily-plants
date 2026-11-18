@@ -59,6 +59,14 @@
         <TrimMode>partial</TrimMode>
     </PropertyGroup>
 
+    <!--
+      Without these roots the trimmed package crashes at launch (0xc000027b, "Markup extension could not provide value").
+      The CommunityToolkit packages kept them alive before the source copy; drop with it.
+    -->
+    <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
+        <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+    </ItemGroup>
+
     <!-- The macOS app bundle, see docs/store/macos -->
     <PropertyGroup Condition="'$(IsDesktop)' == 'true'">
         <UnoMacOSCustomInfoPlist>$(MSBuildThisFileDirectory)Platforms/Desktop/macOS/Info.plist</UnoMacOSCustomInfoPlist>
