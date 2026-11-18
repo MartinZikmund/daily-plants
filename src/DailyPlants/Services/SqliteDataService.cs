@@ -1,4 +1,5 @@
-﻿using DailyPlants.Models;
+﻿using DailyPlants.Infrastructure;
+using DailyPlants.Models;
 using DailyPlants.Services.Entities;
 using DailyPlants.Services.Settings;
 using SQLite;
@@ -43,11 +44,7 @@ public class SqliteDataService : IDataService
         _connection = new SQLiteAsyncConnection(databasePath);
     }
 
-    private static string GetDefaultDatabasePath()
-    {
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        return Path.Combine(appDataPath, "DailyPlants", "dailyplants.db");
-    }
+    private static string GetDefaultDatabasePath() => Path.Combine(AppEnvironment.DataDirectory, "dailyplants.db");
 
     public async Task InitializeAsync()
     {

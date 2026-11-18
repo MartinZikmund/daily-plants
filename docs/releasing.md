@@ -55,10 +55,11 @@ branches keeps the identity, and `git worktree move` changes it.
 - `-p:EnableWorktreeIdentity=false` builds the plain Dev identity from a worktree, `-p:AppWorktreeName=x` picks the name.
 - The WebAssembly head has no install identity. Its build prints a port to serve it on, so worktrees don't share an
   origin.
-- **On Windows and desktop, the data is shared.** The database and feed cache live in `%LOCALAPPDATA%\DailyPlants`,
-  outside the package, so every identity on the machine, the store app included, reads and writes the same
-  `dailyplants.db`. The template keeps data in `ApplicationData.Current.LocalFolder`, which is per identity; Daily Plants
-  doesn't. Android and iOS keep it in the app's own sandbox, so it's per identity there.
+- **Each channel and worktree has its own data.** The database and feed cache live under `%LOCALAPPDATA%`: `DailyPlants`
+  for Prod, `DailyPlants.Dev` for Dev, `DailyPlants.Dev.<worktree>` for a worktree. A Dev or worktree build starts with an
+  empty diary, and never touches the store app's. The suffix matters because the desktop head isn't packaged, and MSIX
+  only gives a packaged app its own copy of an AppData folder that didn't exist before it first wrote there. Android
+  and iOS sandbox each identity anyway.
 - Clean up stray Windows registrations with `Get-AppxPackage dev.mzikmund.dailyplants.dev.wt*`.
 
 `scripts/verify-worktree-identity.ps1` checks the rules on the real project. The tests cover them on a scratch one.

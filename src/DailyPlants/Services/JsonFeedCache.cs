@@ -1,10 +1,11 @@
 using System.Text.Json;
+using DailyPlants.Infrastructure;
 using DailyPlants.Models;
 
 namespace DailyPlants.Services;
 
 /// <summary>
-/// <see cref="IFeedCache"/> over %LocalAppData%/DailyPlants/FeedCache, one JSON document per feed.
+/// <see cref="IFeedCache"/> over the FeedCache folder in <see cref="AppEnvironment.DataDirectory"/>, one JSON document per feed.
 /// </summary>
 public sealed class JsonFeedCache : IFeedCache
 {
@@ -95,10 +96,5 @@ public sealed class JsonFeedCache : IFeedCache
         }
     }
 
-    /// <summary>%LocalAppData%/DailyPlants/FeedCache - same root the SQLite database uses.</summary>
-    private static string GetDefaultCacheDirectory()
-    {
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        return Path.Combine(appDataPath, "DailyPlants", "FeedCache");
-    }
+    private static string GetDefaultCacheDirectory() => Path.Combine(AppEnvironment.DataDirectory, "FeedCache");
 }

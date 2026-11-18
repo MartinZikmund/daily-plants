@@ -1,7 +1,7 @@
 namespace DailyPlants.Models;
 
 /// <summary>
-/// The JSON document written to %LocalAppData%/DailyPlants/FeedCache/{kind}.json.
+/// The JSON document written to FeedCache/{kind}.json in <see cref="Infrastructure.AppEnvironment.DataDirectory"/>.
 /// </summary>
 public sealed record CachedFeed
 {
