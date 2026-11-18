@@ -1,6 +1,6 @@
 # Windows (WinAppSDK) head
 
-On `net10.0-windows10.0.26100` the app is a plain WinUI / Windows App SDK app (no Uno at
+On `net11.0-windows10.0.26100` the app is a plain WinUI / Windows App SDK app (no Uno at
 runtime). See [How Uno Platform Works](https://platform.uno/docs/articles/how-uno-works.html#windows-using-winappsdk).
 
 ## Running from the command line
@@ -13,7 +13,7 @@ package, registers it with Windows and launches it.
 
 ```powershell
 # From src/DailyPlants
-dotnet run -f net10.0-windows10.0.26100
+dotnet run -f net11.0-windows10.0.26100
 ```
 
 Needs Developer Mode (or an elevated terminal) to register the package.
@@ -31,7 +31,7 @@ Handy MSBuild properties (`-p:Name=Value`):
 ### Unpackaged
 
 ```powershell
-dotnet run -f net10.0-windows10.0.26100 -p:WindowsPackageType=None --launch-profile "DailyPlants (WinAppSDK Unpackaged)"
+dotnet run -f net11.0-windows10.0.26100 -p:WindowsPackageType=None --launch-profile "DailyPlants (WinAppSDK Unpackaged)"
 ```
 
 ## IDE
