@@ -2,10 +2,12 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-// Builds the metadata and screenshots folders for `fastlane deliver` from listing/<locale>.md and images/.
+// Builds the metadata and screenshots folders for `fastlane deliver` from listing/<locale>.md and the slides
+// screenshots/render-slides.sh renders into artifacts/store/ios/images.
 // Usage: dotnet run build-listing.cs [-- --check-only] [-- --out <dir>]
 string root = Path.GetDirectoryName(ScriptPath())!;
 string outDir = Path.Combine(root, "../../../artifacts/store/ios");
+string imagesDir = Path.Combine(root, "../../../artifacts/store/ios/images");
 bool checkOnly = false;
 for (int i = 0; i < args.Length; i++)
 {
@@ -101,6 +103,18 @@ if (checkOnly)
     return 0;
 }
 
+Dictionary<string, string[]> images = devices.ToDictionary(
+    device => device,
+    device => Directory.Exists(Path.Combine(imagesDir, device))
+        ? Directory.GetFiles(Path.Combine(imagesDir, device), "*.png").Order().ToArray()
+        : []);
+string[] missing = devices.Where(device => images[device].Length == 0).ToArray();
+if (missing.Length > 0)
+{
+    Console.Error.WriteLine($"No {string.Join(" or ", missing)} slides in {Path.GetFullPath(imagesDir)}. Run screenshots/render-slides.sh first.");
+    return 1;
+}
+
 string metadataDir = Path.Combine(outDir, "metadata");
 string screenshotsDir = Path.Combine(outDir, "screenshots");
 foreach (string dir in new[] { metadataDir, screenshotsDir })
@@ -136,12 +150,9 @@ string localeScreenshots = Directory.CreateDirectory(Path.Combine(screenshotsDir
 int screenshots = 0;
 foreach (string device in devices)
 {
-    string[] images = Directory.Exists(Path.Combine(root, "images", device))
-        ? Directory.GetFiles(Path.Combine(root, "images", device), "*.png").Order().ToArray()
-        : [];
-    for (int i = 0; i < images.Length; i++)
+    for (int i = 0; i < images[device].Length; i++)
     {
-        File.Copy(images[i], Path.Combine(localeScreenshots, $"{i + 1}_{device}.png"));
+        File.Copy(images[device][i], Path.Combine(localeScreenshots, $"{i + 1}_{device}.png"));
         screenshots++;
     }
 }
