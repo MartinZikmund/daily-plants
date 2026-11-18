@@ -52,6 +52,18 @@
         <SupportedOSPlatformVersion Condition="'$(IsAndroid)' == 'true'">24.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
+    <!--
+      Nothing uses Windows ML (~40 MB of natives); adopting it means removing the first two.
+      Nothing draws with Skia on Windows, but MZikmund.Toolkit.WinUI pulls in SkiaSharp.Views.WinUI. Prune only its
+      natives, trimming removes the managed side. Drop those two once the toolkit stops depending on it.
+    -->
+    <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
+        <PrunePackageReference Include="Microsoft.WindowsAppSDK.ML" Version="99.0.0" />
+        <PrunePackageReference Include="Microsoft.Windows.AI.MachineLearning" Version="99.0.0" />
+        <PrunePackageReference Include="SkiaSharp.NativeAssets.Win32" Version="99.0.0" />
+        <PrunePackageReference Include="SkiaSharp.NativeAssets.WinUI" Version="99.0.0" />
+    </ItemGroup>
+
     <PropertyGroup Condition="'$(IsWinAppSdk)' == 'true'">
         <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
 
