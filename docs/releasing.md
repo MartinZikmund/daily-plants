@@ -32,6 +32,55 @@ Different IDs mean a Dev build installs next to the store app instead of over it
 
 The store screenshot steps in `docs/store/` build Prod.
 
+### Worktree builds
+
+A Dev build from a linked git worktree gets its own identity on top of the Dev one, so two worktrees install and run
+side by side. Nothing to switch on: `src/WorktreeIdentity.props` spots the worktree from the `.git` file, and
+`src/WorktreeIdentity.targets` applies it. It's off in the main checkout, in CI (`CI` or `ContinuousIntegrationBuild`)
+and on Prod.
+
+| | Main checkout | Worktree `feature-x` |
+|---|---|---|
+| ID, Windows package name | `dev.mzikmund.dailyplants.dev` | `dev.mzikmund.dailyplants.dev.wtfeaturex<hash>` |
+| Name (Windows, desktop) | Daily Plants Dev | Daily Plants Dev (feature-x) |
+| Android label, iOS name | Daily Plants Dev | Daily Plants Dev [FX] |
+| Title-bar badge | DEV | DEV · feature-x |
+| Window title | unchanged | Daily Plants — feature-x |
+| About page | version | version, then "Worktree: feature-x" |
+
+The ID segment is `wt`, 8 letters of the name and a 6-digit hash, so it stays at 50 characters or fewer. The title tag
+is cut so the Windows tile name stays at 40 or fewer. The name is git's admin folder for the worktree, so switching
+branches keeps the identity, and `git worktree move` changes it.
+
+- `-p:EnableWorktreeIdentity=false` builds the plain Dev identity from a worktree, `-p:AppWorktreeName=x` picks the name.
+- The WebAssembly head has no install identity. Its build prints a port to serve it on, so worktrees don't share an
+  origin.
+- **On Windows and desktop, the data is shared.** The database and feed cache live in `%LOCALAPPDATA%\DailyPlants`,
+  outside the package, so every identity on the machine, the store app included, reads and writes the same
+  `dailyplants.db`. The template keeps data in `ApplicationData.Current.LocalFolder`, which is per identity; Daily Plants
+  doesn't. Android and iOS keep it in the app's own sandbox, so it's per identity there.
+- Clean up stray Windows registrations with `Get-AppxPackage dev.mzikmund.dailyplants.dev.wt*`.
+
+`scripts/verify-worktree-identity.ps1` checks the rules on the real project. The tests cover them on a scratch one.
+
+### Dev artwork
+
+Dev builds stamp a gold **DEV** badge (blue **CI** on CI builds) onto the bottom centre of the app icon and splash at
+build time, so there's no Dev artwork to draw. `src/DevAssets.targets` runs `ComposeDevAsset`
+(`src/DevAssets.Task.cs`) on the `UnoIcon` foreground and `UnoSplashScreen` SVGs just before Uno.Resizetizer, and
+lifts the badge inside the Android and iOS masks. The iOS background plate is left alone, so the icon stays opaque.
+Prod builds use the artwork untouched. `-p:GenerateDevAssets=false` turns it off.
+
+It doesn't reach everything:
+
+- **Windows tiles, taskbar and splash.** `Package.appxmanifest` points at the pre-rendered PNGs in
+  `Platforms/Windows/` (from `assets/app-icon/export-windows-assets.cs`), not at Resizetizer's output, so they stay
+  plain. The title-bar badge and the tile name still say Dev.
+- **The macOS bundle icon** comes from the plated PNGs in `Platforms/Desktop/macOS/AppIcon/`, so it stays plain too.
+  The Mac app only ships Prod.
+
+`scripts/verify-dev-assets.ps1 -IncludeAndroid` builds Dev, Prod and opt-out and compares the rendered PNGs.
+
 ## Versions
 
 `version.json` on `main` is the next minor with a `-dev` tag, for example `0.8-dev`. The patch number is the git

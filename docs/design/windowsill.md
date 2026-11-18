@@ -48,6 +48,8 @@ Rules:
   Never `x:Key="Default"`.
 - The `HighContrast` dictionary redirects to system colour brushes only. No
   hardcoded colours, no accents, no opacity.
+- One exception, never shipped: Dev builds show `Controls/DevChannelBadge` in the title bar, in the gold (or CI blue)
+  of the Dev app-icon badge so the two read as one. Prod collapses it.
 
 ### Bugs this replaces
 
