@@ -43,7 +43,7 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v4.2.0
+        uses: actions/setup-dotnet@v6
         with:
           global-json-file: global.json
       - run: |
