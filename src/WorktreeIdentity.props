@@ -1,0 +1,87 @@
+<Project>
+
+    <!--
+        Worktree-scoped app identity — DETECTION and DERIVATION.
+
+        Gives a build made from a linked git worktree its own package identity, so two worktrees
+        can be installed and run side by side. A no-op in the main checkout and in CI.
+
+        This file only derives values. WorktreeIdentity.targets applies them, because the suffix
+        has to be layered on top of the ApplicationId the project itself sets.
+
+        See "Worktree builds" in docs/releasing.md.
+    -->
+
+    <!-- Detection. Deliberately filesystem-only: ApplicationId is chosen during EVALUATION, where
+         Exec cannot run, and a git subprocess would cost ~78 ms on every project instance. -->
+    <PropertyGroup>
+        <_RepoRoot>$([MSBuild]::GetDirectoryNameOfFileAbove('$(MSBuildThisFileDirectory)', 'version.json'))</_RepoRoot>
+        <_DotGitPath Condition="'$(_RepoRoot)' != ''">$([System.IO.Path]::Combine('$(_RepoRoot)', '.git'))</_DotGitPath>
+        <_DotGitText Condition="'$(_DotGitPath)' != '' and $([System.IO.File]::Exists('$(_DotGitPath)'))">$([System.IO.File]::ReadAllText('$(_DotGitPath)').Trim())</_DotGitText>
+        <_GitDirRaw Condition="'$(_DotGitText)' != '' and $(_DotGitText.StartsWith('gitdir:'))">$(_DotGitText.Substring(7).Trim())</_GitDirRaw>
+        <!-- GetFullPath handles both absolute gitdirs and the relative ones git 2.48+ can write. -->
+        <_GitDirAbs Condition="'$(_GitDirRaw)' != ''">$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(_RepoRoot)', '$(_GitDirRaw)'))))</_GitDirAbs>
+        <_GitDirParent Condition="'$(_GitDirAbs)' != ''">$([System.IO.Path]::GetFileName($([System.IO.Path]::GetDirectoryName('$(_GitDirAbs)'))))</_GitDirParent>
+
+        <!-- Only a linked worktree has .git as a FILE whose gitdir sits under <common>/.git/worktrees/.
+             A submodule's .git is also a file, but points under .../modules/ — excluded here.
+             The git ADMIN directory name is used, not the folder basename and not the branch:
+             git guarantees it is unique, it survives a detached HEAD, and it does not churn on branch
+             switches (which would orphan the installed app and its data mid-session). -->
+        <_WorktreeNameDetected Condition="'$(_GitDirParent)' == 'worktrees'">$([System.IO.Path]::GetFileName('$(_GitDirAbs)'))</_WorktreeNameDetected>
+        <AppWorktreeName Condition="'$(AppWorktreeName)' == ''">$(_WorktreeNameDetected)</AppWorktreeName>
+
+        <!-- THE gate. Every consumer checks this and nothing else, so a caller-supplied
+             AppWorktreeName cannot bypass the channel or CI guards. -->
+        <_WorktreeIdentityAllowed Condition="'$(AppWorktreeName)' != ''
+                                         and '$(AppChannel)' == 'Dev'
+                                         and '$(CI)' != 'true'
+                                         and '$(ContinuousIntegrationBuild)' != 'true'
+                                         and '$(EnableWorktreeIdentity)' != 'false'">true</_WorktreeIdentityAllowed>
+    </PropertyGroup>
+
+    <!-- Derivation. One raw name in, four values out. -->
+    <PropertyGroup Condition="'$(_WorktreeIdentityAllowed)' == 'true'">
+        <!-- Whitelist sanitise. Closes MSBuild item-list (;), C# string literal (" \) and XML
+             attribute (&amp; &lt; &gt;) escaping in a single pass. -->
+        <_WtSan>$([System.Text.RegularExpressions.Regex]::Replace($(AppWorktreeName), '[^A-Za-z0-9 ._-]', ''))</_WtSan>
+
+        <!-- Display drops a leading worktree-/wt- prefix so "worktree-identity" reads as "identity".
+             The ID below keeps the FULL name, so two worktrees differing only by that prefix still
+             get distinct identities. -->
+        <_WtDisp>$([System.Text.RegularExpressions.Regex]::Replace($(_WtSan), '^(worktree|wt)[-_. ]+', ''))</_WtDisp>
+        <_WtDisp Condition="'$(_WtDisp)' == ''">$(_WtSan)</_WtDisp>
+
+        <!-- Long tag, capped at 20 so it stays readable. WorktreeIdentity.targets trims it further
+             when the title would otherwise push MSIX uap:DefaultTile/@ShortName past 40 chars. -->
+        <_WtLongTag Condition="$(_WtDisp.Length) &gt; 20">$(_WtDisp.Substring(0, 20))</_WtLongTag>
+        <_WtLongTag Condition="'$(_WtLongTag)' == ''">$(_WtDisp)</_WtLongTag>
+
+        <!-- Id segment: wt + 8 padded alnum + 6 hex = always exactly 16 chars.
+             The pad/substring MUST stay a separate property from the Replace: inlining
+             .PadRight(8,'0') into the function call appends it as LITERAL TEXT, which injects a
+             '.' — an MSIX/Android label separator — and silently yields a wrong id. -->
+        <_WtAlnum>$([System.Text.RegularExpressions.Regex]::Replace($(_WtSan.ToLowerInvariant()), '[^a-z0-9]', ''))</_WtAlnum>
+        <_WtAlnumPad>$(_WtAlnum.PadRight(8, '0'))</_WtAlnumPad>
+        <_WtAlnum8>$(_WtAlnumPad.Substring(0, 8))</_WtAlnum8>
+        <!-- The 'Sha256' overload is REQUIRED. The 1-arg form's algorithm changes across MSBuild
+             change waves, which would mint a new package identity on an SDK upgrade and orphan the
+             installed app's data. -->
+        <_WtHashSha>$([MSBuild]::StableStringHash($(_WtSan), 'Sha256'))</_WtHashSha>
+        <_WtIdSegment>wt$(_WtAlnum8)$(_WtHashSha.Substring(0, 6))</_WtIdSegment>
+
+        <!-- Short tag for length-limited platforms (iOS CFBundleName must stay under 16 chars).
+             Initials when the name has 2+ segments, otherwise the first 4 characters. -->
+        <_WtInit>$([System.Text.RegularExpressions.Regex]::Replace($(_WtDisp), '([A-Za-z0-9])[A-Za-z0-9]*[^A-Za-z0-9]*', '$1'))</_WtInit>
+        <_WtShortSrc Condition="$(_WtInit.Length) &gt;= 2">$(_WtInit.ToUpperInvariant())</_WtShortSrc>
+        <_WtShortSrc Condition="'$(_WtShortSrc)' == ''">$(_WtDisp)</_WtShortSrc>
+        <_WtShortCut Condition="$(_WtShortSrc.Length) &gt; 4">$(_WtShortSrc.Substring(0, 4))</_WtShortCut>
+        <_WtShortCut Condition="'$(_WtShortCut)' == ''">$(_WtShortSrc)</_WtShortCut>
+        <_WtShortTag>$(_WtShortCut.Substring(0, 1).ToUpperInvariant())$(_WtShortCut.Substring(1))</_WtShortTag>
+
+        <!-- WebAssembly has no install identity — isolation is the browser ORIGIN, so the dev
+             server needs its own port. 5001-5999; 5000 stays reserved for the main checkout. -->
+        <_WtDevPort>$([MSBuild]::Add(5001, $([MSBuild]::Modulo($([System.Convert]::ToInt32($(_WtHashSha.Substring(0, 4)), 16)), 999))))</_WtDevPort>
+    </PropertyGroup>
+
+</Project>

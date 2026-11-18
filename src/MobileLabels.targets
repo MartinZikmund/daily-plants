@@ -9,11 +9,15 @@
         from the tracked source, and Prod builds rewrite it too, so a Prod build after a Dev one in the same obj/
         does not keep the suffix.
 
-        iOS needs nothing here: Info.plist leaves CFBundleDisplayName out, so the SDK fills it from ApplicationTitle.
+        A linked git worktree adds its short tag (src/WorktreeIdentity.props): "Daily Plants Dev [Tag]".
+
+        iOS needs nothing here: Info.plist leaves CFBundleDisplayName out, so the SDK fills it from ApplicationTitle,
+        which src/WorktreeIdentity.targets tags the same way.
     -->
     <PropertyGroup>
         <_MobileLabelReplacement>$1$2$3</_MobileLabelReplacement>
         <_MobileLabelReplacement Condition="'$(AppChannel)' == 'Dev'">$1$2 Dev$3</_MobileLabelReplacement>
+        <_MobileLabelReplacement Condition="'$(AppChannel)' == 'Dev' and '$(_WorktreeIdentityAllowed)' == 'true'">$1$2 Dev [$(_WtShortTag)]$3</_MobileLabelReplacement>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(MSBuildProjectName)' == 'DailyPlants' and '$(TargetPlatformIdentifier)' == 'android'">

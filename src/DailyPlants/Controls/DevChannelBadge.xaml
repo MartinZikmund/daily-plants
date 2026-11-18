@@ -1,0 +1,60 @@
+﻿<UserControl
+    x:Class="DailyPlants.Controls.DevChannelBadge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    AutomationProperties.AutomationId="DevChannelBadge"
+    IsHitTestVisible="False">
+
+    <!--
+        Dev builds only; Prod collapses it. The gold and blue match the badge on the Dev app icon
+        (src/DevAssets.targets), and sit outside the Windowsill palette on purpose: they never ship.
+    -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="DevBadgeBackgroundBrush" Color="#FFB900" />
+                    <SolidColorBrush x:Key="DevBadgeForegroundBrush" Color="#141414" />
+                    <SolidColorBrush x:Key="CiBadgeBackgroundBrush" Color="#0078D4" />
+                    <SolidColorBrush x:Key="CiBadgeForegroundBrush" Color="#FFFFFF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="DevBadgeBackgroundBrush" Color="#FFB900" />
+                    <SolidColorBrush x:Key="DevBadgeForegroundBrush" Color="#141414" />
+                    <SolidColorBrush x:Key="CiBadgeBackgroundBrush" Color="#0078D4" />
+                    <SolidColorBrush x:Key="CiBadgeForegroundBrush" Color="#FFFFFF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="DevBadgeBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+                    <SolidColorBrush x:Key="DevBadgeForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                    <SolidColorBrush x:Key="CiBadgeBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+                    <SolidColorBrush x:Key="CiBadgeForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border
+        x:Name="BadgeBorder"
+        Padding="8,2"
+        VerticalAlignment="Center"
+        Background="{ThemeResource DevBadgeBackgroundBrush}"
+        CornerRadius="{StaticResource ControlCornerRadius}">
+        <TextBlock
+            x:Name="BadgeText"
+            Foreground="{ThemeResource DevBadgeForegroundBrush}"
+            Style="{StaticResource DpOverlineTextBlockStyle}" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="BuildStates">
+                <VisualState x:Name="Local" />
+                <VisualState x:Name="Ci">
+                    <VisualState.Setters>
+                        <Setter Target="BadgeBorder.Background" Value="{ThemeResource CiBadgeBackgroundBrush}" />
+                        <Setter Target="BadgeText.Foreground" Value="{ThemeResource CiBadgeForegroundBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Border>
+</UserControl>

@@ -23,6 +23,9 @@
     <DefineConstants Condition="'$(AppChannel)' == 'Dev'">$(DefineConstants);APP_CHANNEL_DEV</DefineConstants>
   </PropertyGroup>
 
+  <!-- A Dev build from a linked git worktree gets its own identity, so worktrees install side by side. -->
+  <Import Project="$(MSBuildThisFileDirectory)src/WorktreeIdentity.props" />
+
   <!-- Captured before any SDK default applies, so only the command line can fill these. Read by AssertStoreVersionStamped. -->
   <PropertyGroup>
     <_InjectedApplicationVersion>$(ApplicationVersion)</_InjectedApplicationVersion>

@@ -1,0 +1,61 @@
+<Project>
+
+    <!--
+        Worktree-scoped app identity: applies what WorktreeIdentity.props derived. It is a .targets file because
+        the suffix goes on top of the ApplicationId and ApplicationTitle DailyPlants.csproj sets per channel.
+
+        See "Worktree builds" in docs/releasing.md.
+    -->
+
+    <!--
+        ApplicationPublisher stays as is: it has to match the signing certificate. The icons stay too, the Dev badge
+        is the same in every worktree (src/DevAssets.targets).
+    -->
+    <PropertyGroup Condition="'$(_WorktreeIdentityAllowed)' == 'true'">
+        <ApplicationId>$(ApplicationId).$(_WtIdSegment)</ApplicationId>
+        <!-- MSIX caps uap:DefaultTile/@ShortName at 40 characters. The tag gets what the title and " ()" leave. -->
+        <_WtTitleRoom>$([MSBuild]::Subtract(37, $(ApplicationTitle.Length)))</_WtTitleRoom>
+        <_WtTitleTag Condition="$(_WtTitleRoom) &gt;= $(_WtLongTag.Length)">$(_WtLongTag)</_WtTitleTag>
+        <_WtTitleTag Condition="'$(_WtTitleTag)' == '' and $(_WtTitleRoom) &gt; 0">$(_WtLongTag.Substring(0, $(_WtTitleRoom)))</_WtTitleTag>
+        <ApplicationTitle Condition="'$(_WtTitleTag)' != '' and '$(TargetPlatformIdentifier)' != 'ios'">$(ApplicationTitle) ($(_WtTitleTag))</ApplicationTitle>
+        <!-- The iOS home screen shows ApplicationTitle (CFBundleDisplayName) and truncates a long one, so it gets the short tag, like Android. -->
+        <ApplicationTitle Condition="'$(TargetPlatformIdentifier)' == 'ios'">$(ApplicationTitle) [$(_WtShortTag)]</ApplicationTitle>
+    </PropertyGroup>
+
+    <!--
+        Generates AppEnvironment.WorktreeName, so the running app can show which worktree it came from.
+
+        The worktree stamp is in the file name because the name can change without touching a project file
+        (git worktree move, -p:AppWorktreeName=), and a skipped target would leave the old constant in obj/.
+        XamlPreCompile matters: the WinAppSDK head compiles C# under it before CoreCompile, and fails with CS0117 without the file.
+    -->
+    <Target Name="GenerateWorktreeInfo"
+            Condition="'$(MSBuildProjectName)' == 'DailyPlants'"
+            BeforeTargets="BeforeCompile;CoreCompile;XamlPreCompile">
+        <PropertyGroup>
+            <_WtStamp Condition="'$(_WorktreeIdentityAllowed)' == 'true'">$(_WtIdSegment)</_WtStamp>
+            <_WtStamp Condition="'$(_WtStamp)' == ''">none</_WtStamp>
+            <_WorktreeInfoFile>$(IntermediateOutputPath)AppEnvironment.Worktree.$(_WtStamp).g.cs</_WorktreeInfoFile>
+            <_WtNameForCode Condition="'$(_WorktreeIdentityAllowed)' == 'true'">$(_WtDisp)</_WtNameForCode>
+        </PropertyGroup>
+
+        <WriteLinesToFile File="$(_WorktreeInfoFile)"
+                          Overwrite="true"
+                          WriteOnlyWhenDifferent="true"
+                          Lines="// &lt;auto-generated /&gt;;namespace DailyPlants.Infrastructure%3B;;public static partial class AppEnvironment;{;    /// &lt;summary&gt;Git worktree this build came from, or empty for the main checkout.&lt;/summary&gt;;    public const string WorktreeName = &quot;$(_WtNameForCode)&quot;%3B;}" />
+
+        <ItemGroup>
+            <Compile Include="$(_WorktreeInfoFile)" />
+            <FileWrites Include="$(_WorktreeInfoFile)" />
+        </ItemGroup>
+    </Target>
+
+    <!-- WebAssembly has no install identity, its isolation is the browser origin. The launch profiles are tracked, so they stay as they are. -->
+    <Target Name="ReportWorktreeDevPort"
+            Condition="'$(_WorktreeIdentityAllowed)' == 'true' and '$(TargetPlatformIdentifier)' == 'browserwasm'"
+            AfterTargets="Build">
+        <Message Importance="High"
+                 Text="Worktree '$(AppWorktreeName)': serve this head on its own origin with --urls http://localhost:$(_WtDevPort) (port 5000 is the main checkout's)." />
+    </Target>
+
+</Project>

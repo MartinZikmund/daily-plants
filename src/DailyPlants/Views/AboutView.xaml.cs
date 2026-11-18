@@ -1,4 +1,7 @@
+using System.Globalization;
 using System.Reflection;
+using DailyPlants.Helpers;
+using DailyPlants.Infrastructure;
 
 namespace DailyPlants.Views;
 
@@ -9,6 +12,12 @@ public sealed partial class AboutView : Page
         this.InitializeComponent();
 
         VersionText.Text = GetInformationalVersion();
+
+        if (AppEnvironment.WorktreeName is { Length: > 0 } worktree)
+        {
+            WorktreeText.Text = string.Format(CultureInfo.CurrentCulture, Localizer.GetString("About_Worktree"), worktree);
+            WorktreeText.Visibility = Visibility.Visible;
+        }
     }
 
     // NerdBank.GitVersioning stamps AssemblyInformationalVersionAttribute at build time

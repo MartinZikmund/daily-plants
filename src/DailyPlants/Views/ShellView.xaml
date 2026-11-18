@@ -162,7 +162,16 @@
                 Foreground="{ThemeResource DpInkBrush}"
                 Style="{StaticResource DpCaptionTextBlockStyle}"
                 Text="Daily Plants" />
+            <controls:DevChannelBadge />
         </StackPanel>
+
+        <!-- Heads without a custom title bar show the Dev badge in the top-right corner instead -->
+        <controls:DevChannelBadge
+            x:Name="CornerDevBadge"
+            Margin="0,12,12,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Visibility="Collapsed" />
 
         <!-- Achievement Notification Popup -->
         <controls:AchievementNotification x:Name="AchievementNotification" />

@@ -289,6 +289,9 @@
   <data name="About_Version" xml:space="preserve">
     <value>גרסה</value>
   </data>
+  <data name="About_Worktree" xml:space="preserve">
+    <value>עץ עבודה: {0}</value>
+  </data>
   <data name="About_LearnMore" xml:space="preserve">
     <value>למידע נוסף</value>
   </data>

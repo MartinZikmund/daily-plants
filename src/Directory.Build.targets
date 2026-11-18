@@ -54,6 +54,12 @@
                Text="ApplicationVersion was not passed on the command line (it resolved to '$(ApplicationVersion)') - CI did not inject a real version." />
     </Target>
 
+    <!-- Suffixes the Dev ApplicationId and ApplicationTitle in a linked git worktree. Before MobileLabels, which reads its tag. -->
+    <Import Project="$(MSBuildThisFileDirectory)WorktreeIdentity.targets" />
+
     <!-- The Android launcher label comes from string resources, which ApplicationTitle never reaches. -->
     <Import Project="$(MSBuildThisFileDirectory)MobileLabels.targets" />
+
+    <!-- Dev builds stamp a badge onto the app icon and splash. -->
+    <Import Project="$(MSBuildThisFileDirectory)DevAssets.targets" />
 </Project>

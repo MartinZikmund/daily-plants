@@ -26,6 +26,12 @@
         <PackageReference Include="Moq" />
         <PackageReference Include="AwesomeAssertions" />
         <PackageReference Include="coverlet.collector" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" />
+    </ItemGroup>
+
+    <!-- The Dev badge composer is an MSBuild inline task (src/DevAssets.targets); compile the same source to test it. -->
+    <ItemGroup>
+        <Compile Include="..\..\src\DevAssets.Task.cs" Link="DevAssets\DevAssets.Task.cs" />
     </ItemGroup>
 
     <ItemGroup>

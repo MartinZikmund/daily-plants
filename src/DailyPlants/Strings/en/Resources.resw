@@ -289,6 +289,10 @@
   <data name="About_Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="About_Worktree" xml:space="preserve">
+    <value>Worktree: {0}</value>
+    <comment>{0} is the git worktree name. Only Dev builds from a git worktree show it.</comment>
+  </data>
   <data name="About_LearnMore" xml:space="preserve">
     <value>Learn More</value>
   </data>
