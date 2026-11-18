@@ -6,20 +6,22 @@
         The label is a string resource (Platforms/Android/Resources/values*/Strings.xml), not ApplicationTitle.
         The rewritten file goes over the copy the SDK has already staged into obj/: swapping @(AndroidResource)
         items does not work, the SDK fixes its resource list before this file is imported. It is always derived
-        from the tracked source, so incremental builds stay idempotent.
+        from the tracked source, and Prod builds rewrite it too, so a Prod build after a Dev one in the same obj/
+        does not keep the suffix.
 
         iOS needs nothing here: Info.plist leaves CFBundleDisplayName out, so the SDK fills it from ApplicationTitle.
     -->
     <PropertyGroup>
-        <_MobileLabelSuffix Condition="'$(AppChannel)' == 'Dev'">Dev</_MobileLabelSuffix>
+        <_MobileLabelReplacement>$1$2$3</_MobileLabelReplacement>
+        <_MobileLabelReplacement Condition="'$(AppChannel)' == 'Dev'">$1$2 Dev$3</_MobileLabelReplacement>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(MSBuildProjectName)' == 'DailyPlants' and '$(_MobileLabelSuffix)' != '' and '$(TargetPlatformIdentifier)' == 'android'">
+    <ItemGroup Condition="'$(MSBuildProjectName)' == 'DailyPlants' and '$(TargetPlatformIdentifier)' == 'android'">
         <_MobileLabelAndroidSrc Include="$(MSBuildProjectDirectory)/Platforms/Android/Resources/**/Strings.xml" />
     </ItemGroup>
 
     <Target Name="ApplyMobileLabelAndroid"
-            Condition="'$(MSBuildProjectName)' == 'DailyPlants' and '$(_MobileLabelSuffix)' != '' and '$(TargetPlatformIdentifier)' == 'android'"
+            Condition="'$(MSBuildProjectName)' == 'DailyPlants' and '$(TargetPlatformIdentifier)' == 'android'"
             Outputs="%(_MobileLabelAndroidSrc.RecursiveDir)"
             BeforeTargets="_CompileResources">
         <PropertyGroup>
@@ -29,7 +31,7 @@
 
         <!-- Both names: the manifest uses app_name, the [Application] attribute ApplicationName, and the attribute wins. -->
         <WriteLinesToFile File="$(_MobileLabelResDest)"
-                          Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(_MobileLabelAndroidSrc.FullPath)')), '(&lt;string name=&quot;(?:app_name|ApplicationName)&quot;&gt;)([^&lt;]*)(&lt;/string&gt;)', '$1$2 $(_MobileLabelSuffix)$3'))"
+                          Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(_MobileLabelAndroidSrc.FullPath)')), '(&lt;string name=&quot;(?:app_name|ApplicationName)&quot;&gt;)([^&lt;]*)(&lt;/string&gt;)', '$(_MobileLabelReplacement)'))"
                           Overwrite="true"
                           WriteOnlyWhenDifferent="true" />
     </Target>
