@@ -8,11 +8,10 @@ on:
 env:
   # App Configuration
   APP_NAME: DailyPlants
-  DOTNET_VERSION: 10.0.x
   SOLUTION_FILE: DailyPlants.slnx
   PROJECT_PATH: src/DailyPlants
   PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
-  ANDROID_TARGET_FRAMEWORK: net10.0-android
+  ANDROID_TARGET_FRAMEWORK: net11.0-android
   GOOGLE_PLAY_TRACK_STATUS: draft  # Options: completed, draft, halted, inProgress
 
 concurrency:
@@ -49,8 +48,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
 
       - name: Install .NET workloads
         run:

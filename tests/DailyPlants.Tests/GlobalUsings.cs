@@ -1,4 +1,4 @@
-global using FluentAssertions;
+global using AwesomeAssertions;
 global using DailyPlants.Models;
 global using DailyPlants.Services;
 global using DailyPlants.Services.Settings;

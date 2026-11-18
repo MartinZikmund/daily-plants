@@ -1,0 +1,6 @@
+<linker>
+  <assembly fullname="Microsoft.WinUI">
+    <namespace fullname="Microsoft.UI.Xaml.Markup" />
+    <namespace fullname="ABI.Microsoft.UI.Xaml.Markup" />
+  </assembly>
+</linker>

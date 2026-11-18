@@ -2,8 +2,8 @@
 # Captures the app screens the Mac App Store slides are built from.
 #
 # Publish the app bundle first:
-#   dotnet publish src/DailyPlants/DailyPlants.csproj -c Release -f net10.0-desktop -r osx-arm64 \
-#     -p:TargetFrameworks=net10.0-desktop -p:SelfContained=true -p:PackageFormat=app
+#   dotnet publish src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-desktop -r osx-arm64 \
+#     -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app
 # The terminal needs the Accessibility and Screen Recording permissions (System Settings > Privacy & Security).
 # The script switches the main display to a HiDPI mode for sharp 2x captures and switches it back at the end.
 # It backs up your Daily Plants data, seeds demo data and restores your data afterwards.
@@ -14,7 +14,7 @@ set -euo pipefail
 
 here=${0:A:h}
 repo=${here:h:h:h:h}
-app=${APP_PATH:-"$repo/src/DailyPlants/bin/Release/net10.0-desktop/osx-arm64/publish/Daily Plants.app"}
+app=${APP_PATH:-"$repo/src/DailyPlants/bin/Release/net11.0-desktop/osx-arm64/publish/Daily Plants.app"}
 captures=$here/captures
 data="$HOME/Library/Application Support/DailyPlants"
 work=$(mktemp -d)

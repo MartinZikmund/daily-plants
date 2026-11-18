@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  DOTNET_VERSION: 10.0.x
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -38,8 +37,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
 
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1

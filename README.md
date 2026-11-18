@@ -82,7 +82,7 @@ Daily Plants is a single [Uno Platform](https://platform.uno/) project, so one c
 
 ### Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download/dotnet/11.0)
 - Visual Studio 2026, JetBrains Rider or VS Code with the [Uno Platform extension](https://platform.uno/docs/articles/get-started.html)
 - [uno-check](https://platform.uno/docs/articles/external/uno.check/doc/using-uno-check.html) to install the workloads you need: `dotnet tool install -g uno.check`, then `uno-check`
 - Android: an Android SDK (API 24 or later)
@@ -95,18 +95,18 @@ The quickest way to see it running is the Skia desktop head, which works on Wind
 ```bash
 git clone https://github.com/MartinZikmund/daily-plants.git
 cd daily-plants/src/DailyPlants
-dotnet run -f net10.0-desktop
+dotnet run -f net11.0-desktop
 ```
 
 Or open `DailyPlants.slnx`, pick a target framework and press F5:
 
 | Target | Framework |
 |--------|-----------|
-| Windows (WinAppSDK) | `net10.0-windows10.0.26100` |
-| Desktop (Skia) | `net10.0-desktop` |
-| Android | `net10.0-android` |
-| iOS | `net10.0-ios` |
-| WebAssembly | `net10.0-browserwasm` |
+| Windows (WinAppSDK) | `net11.0-windows10.0.26100` |
+| Desktop (Skia) | `net11.0-desktop` |
+| Android | `net11.0-android` |
+| iOS | `net11.0-ios` |
+| WebAssembly | `net11.0-browserwasm` |
 
 ### Run the tests
 
@@ -119,7 +119,7 @@ dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj
 - [Uno Platform](https://platform.uno/) with the Skia renderer, WinUI XAML and Fluent Design
 - [CommunityToolkit.Mvvm](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/) for view models, Uno.Extensions hosting for dependency injection
 - SQLite through [sqlite-net](https://github.com/praeclarum/sqlite-net), stored in the app's local data folder
-- MSTest, Moq and FluentAssertions for tests
+- MSTest, Moq and AwesomeAssertions for tests
 - [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) for versions
 
 ```
