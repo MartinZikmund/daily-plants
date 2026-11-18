@@ -11,10 +11,14 @@
         BorderBrush, so the add button highlights green and the remove button neutral,
         from one style. Disabled dims the whole thing, which the default visual cannot do
         here because the brushes are set explicitly rather than inherited.
+
+        The button is 44px square but draws only the 24px circle in its centre: the
+        transparent margin around it is tap target, so a fingertip that lands just off
+        the circle still counts instead of falling through to the row behind.
     -->
     <Style x:Key="DpStepperButtonStyle" TargetType="Button">
-        <Setter Property="Width" Value="24" />
-        <Setter Property="Height" Value="24" />
+        <Setter Property="Width" Value="44" />
+        <Setter Property="Height" Value="44" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -22,31 +26,39 @@
         <Setter Property="BorderThickness" Value="1.4" />
         <Setter Property="CornerRadius" Value="12" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <!--  Hugs the circle rather than the invisible 44px square  -->
+        <Setter Property="FocusVisualMargin" Value="7" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid x:Name="Root" Background="Transparent">
-
-                        <!--  Tinted with the button's own outline colour  -->
-                        <Border
-                            x:Name="Wash"
-                            Background="{TemplateBinding BorderBrush}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            Opacity="0">
-                            <Border.OpacityTransition>
-                                <ScalarTransition Duration="0:0:0.09" />
-                            </Border.OpacityTransition>
-                        </Border>
-
-                        <Border
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}" />
-
-                        <ContentPresenter
+                        <Grid
+                            Width="24"
+                            Height="24"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Content="{TemplateBinding Content}" />
+                            VerticalAlignment="Center">
+
+                            <!--  Tinted with the button's own outline colour  -->
+                            <Border
+                                x:Name="Wash"
+                                Background="{TemplateBinding BorderBrush}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Opacity="0">
+                                <Border.OpacityTransition>
+                                    <ScalarTransition Duration="0:0:0.09" />
+                                </Border.OpacityTransition>
+                            </Border>
+
+                            <Border
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}" />
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}" />
+                        </Grid>
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">

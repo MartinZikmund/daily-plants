@@ -66,9 +66,10 @@
                     </Border.OpacityTransition>
                 </Border>
 
+                <!--  Padding leaves room for the stepper's 44px tap targets inside the 56px row  -->
                 <Grid
                     MinHeight="56"
-                    Padding="2,12"
+                    Padding="2,6,0,6"
                     ColumnSpacing="12">
 
                     <Grid.ColumnDefinitions>

@@ -9,11 +9,16 @@
     <!--
         The serving control, shared by the Diary row and the item detail dialog so the
         two cannot drift apart. Remove stays hidden until there is something to remove.
+
+        Transparent so a tap on the gaps around the dots stays with the stepper rather than
+        opening the row's details. The buttons carry 10px of invisible target on each side,
+        so a Spacing of 2 still leaves 12px between what is drawn.
     -->
     <StackPanel
         VerticalAlignment="Center"
+        Background="Transparent"
         Orientation="Horizontal"
-        Spacing="12">
+        Spacing="2">
 
         <Button
             AutomationProperties.AutomationId="ServingStepperDecrement"
