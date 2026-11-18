@@ -31,8 +31,26 @@ public class MobileLabelsTests
             .And.Contain("""<string name="ApplicationName">DailyPlants</string>""");
     }
 
+    [TestMethod]
+    public void ApplyMobileLabelAndroid_Worktree_AppendsTheShortTag()
+    {
+        var staged = RunLabels(["-p:_WorktreeIdentityAllowed=true", "-p:_WtShortTag=FX"], "Dev");
+
+        staged.Should().Contain("""<string name="app_name">Daily Plants Dev [FX]</string>""");
+    }
+
+    [TestMethod]
+    public void ApplyMobileLabelAndroid_ProdAfterWorktree_RestoresTheStoreLabels()
+    {
+        var staged = RunLabels(["-p:_WorktreeIdentityAllowed=true", "-p:_WtShortTag=FX"], "Dev", "Prod");
+
+        staged.Should().Contain("""<string name="app_name">Daily Plants</string>""");
+    }
+
+    private static string RunLabels(params string[] channels) => RunLabels([], channels);
+
     // Builds the channels in order in one obj/ folder, like switching channels locally, and returns the staged resource.
-    private static string RunLabels(params string[] channels)
+    private static string RunLabels(string[] properties, params string[] channels)
     {
         var directory = Directory.CreateTempSubdirectory("mobile-labels-");
         try
@@ -55,7 +73,7 @@ public class MobileLabelsTests
 
             foreach (var channel in channels)
             {
-                var (exitCode, output) = BuildFiles.RunMSBuild(project, "_CompileResources", [$"-p:AppChannel={channel}"]);
+                var (exitCode, output) = BuildFiles.RunMSBuild(project, "_CompileResources", [$"-p:AppChannel={channel}", .. properties]);
                 exitCode.Should().Be(0, output);
             }
 
