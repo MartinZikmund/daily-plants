@@ -5,6 +5,7 @@
 # Environment:
 #   CODESIGN_KEY  the "Apple Distribution" identity (name or SHA-1), default "Apple Distribution"
 #   INSTALLER_KEY the "3rd Party Mac Developer Installer" identity, default "3rd Party Mac Developer Installer"
+#   APP_VERSION   X.Y.Z to stamp, as CI does; unset lets Nerdbank.GitVersioning pick it
 # Writes artifacts/store/macos/DailyPlants.pkg.
 set -euo pipefail
 
@@ -19,10 +20,15 @@ OUT="$ROOT/artifacts/store/macos"
 APP_NAME="Daily Plants.app"
 mkdir -p "$OUT"
 
+VERSION_ARGS=()
+if [ -n "${APP_VERSION:-}" ]; then
+  VERSION_ARGS=(-p:CiVersionInjected=true "-p:ApplicationDisplayVersion=$APP_VERSION" -p:ApplicationVersion=0)
+fi
+
 # Only the desktop target, and self-contained at restore too, or restore misses the runtime packs.
 for rid in osx-arm64 osx-x64; do
   dotnet publish "$PROJECT" -c Release -f net11.0-desktop -r "$rid" \
-    -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app -p:AppChannel=Prod
+    -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app -p:AppChannel=Prod ${VERSION_ARGS[@]+"${VERSION_ARGS[@]}"}
 done
 
 # Uno only imports its merge, sign and package targets while publishing.

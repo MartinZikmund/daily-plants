@@ -87,12 +87,19 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);Platforms/Desktop/macOS/AppIcon/**</DefaultItemExcludes>
     </PropertyGroup>
 
-    <!-- Nerdbank.GitVersioning stamps the app version for iOS, Android and Windows, but not for the macOS bundle. -->
+    <!--
+      Nerdbank.GitVersioning stamps the app version for iOS, Android and Windows, but not for the macOS bundle.
+      CI injects ApplicationVersion=0 because Uno.Resizetizer's desktop manifest only takes an integer, and the bundle
+      runs after that, so it gets the injected X.Y.Z here.
+    -->
     <Target Name="SetMacOSBundleVersion"
             Condition="'$(IsDesktop)' == 'true'"
             BeforeTargets="_UnoPublishAppBundle"
             DependsOnTargets="GetBuildVersion">
-        <PropertyGroup>
+        <PropertyGroup Condition="'$(CiVersionInjected)' == 'true'">
+            <ApplicationVersion>$(ApplicationDisplayVersion)</ApplicationVersion>
+        </PropertyGroup>
+        <PropertyGroup Condition="'$(CiVersionInjected)' != 'true'">
             <ApplicationVersion>$(BuildVersionSimple)</ApplicationVersion>
             <ApplicationDisplayVersion>$(BuildVersionSimple)</ApplicationDisplayVersion>
         </PropertyGroup>
