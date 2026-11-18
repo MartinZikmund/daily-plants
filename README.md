@@ -95,18 +95,18 @@ The quickest way to see it running is the Skia desktop head, which works on Wind
 ```bash
 git clone https://github.com/MartinZikmund/daily-plants.git
 cd daily-plants/src/DailyPlants
-dotnet run -f net10.0-desktop
+dotnet run -f net11.0-desktop
 ```
 
 Or open `DailyPlants.slnx`, pick a target framework and press F5:
 
 | Target | Framework |
 |--------|-----------|
-| Windows (WinAppSDK) | `net10.0-windows10.0.26100` |
-| Desktop (Skia) | `net10.0-desktop` |
-| Android | `net10.0-android` |
-| iOS | `net10.0-ios` |
-| WebAssembly | `net10.0-browserwasm` |
+| Windows (WinAppSDK) | `net11.0-windows10.0.26100` |
+| Desktop (Skia) | `net11.0-desktop` |
+| Android | `net11.0-android` |
+| iOS | `net11.0-ios` |
+| WebAssembly | `net11.0-browserwasm` |
 
 ### Run the tests
 

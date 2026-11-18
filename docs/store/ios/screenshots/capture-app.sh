@@ -2,7 +2,7 @@
 # Captures the app screens the App Store slides are built from, on the iPhone and iPad simulators.
 #
 # Build the simulator app first:
-#   dotnet build src/DailyPlants/DailyPlants.csproj -c Release -f net10.0-ios -r iossimulator-arm64
+#   dotnet build src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-ios -r iossimulator-arm64
 # Needs Xcode and Maestro (brew install mobile-dev-inc/tap/maestro openjdk@17).
 # It replaces the app's data in the simulators with demo data, so don't use them for anything you want to keep.
 #
@@ -11,7 +11,7 @@ set -euo pipefail
 
 here=${0:A:h}
 repo=${here:h:h:h:h}
-app=${APP_PATH:-$repo/src/DailyPlants/bin/Release/net10.0-ios/iossimulator-arm64/DailyPlants.app}
+app=${APP_PATH:-$repo/src/DailyPlants/bin/Release/net11.0-ios/iossimulator-arm64/DailyPlants.app}
 bundle=dev.mzikmund.dailyplants
 export JAVA_HOME=${JAVA_HOME:-/opt/homebrew/opt/openjdk@17}
 export MAESTRO_CLI_NO_ANALYTICS=1

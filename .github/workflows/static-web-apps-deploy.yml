@@ -13,7 +13,7 @@ env:
   # App Configuration
   APP_NAME: DailyPlants
   PROJECT_PATH: src/DailyPlants
-  WASM_TARGET_FRAMEWORK: net10.0-browserwasm
+  WASM_TARGET_FRAMEWORK: net11.0-browserwasm
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -49,7 +49,7 @@ jobs:
       - run: |
           cd ${{ env.PROJECT_PATH }}
           dotnet workload restore
-          dotnet workload install wasm-tools-net10
+          dotnet workload install wasm-tools
           dotnet publish -c Release -f ${{ env.WASM_TARGET_FRAMEWORK }}
       - name: Deploy
         id: builddeploy

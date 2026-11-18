@@ -52,7 +52,7 @@ We welcome the following types of contributions:
 
 ### Prerequisites
 
-- [.NET 11 SDK](https://dotnet.microsoft.com/download/dotnet/11.0) (pinned in `global.json`; the app still targets .NET 10)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download/dotnet/11.0) (pinned in `global.json`)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) with Uno Platform extension
 - Git
 - `uno-check` for verifying the Uno Platform development environment
@@ -75,10 +75,10 @@ dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj
 
 ```bash
 # Windows
-dotnet run -f net10.0-windows10.0.26100
+dotnet run -f net11.0-windows10.0.26100
 
 # WebAssembly (for quick testing)
-dotnet run -f net10.0-browserwasm
+dotnet run -f net11.0-browserwasm
 ```
 
 ### Checking the Development Environment

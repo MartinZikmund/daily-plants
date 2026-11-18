@@ -14,19 +14,19 @@ INSTALLER_KEY=${INSTALLER_KEY:-3rd Party Mac Developer Installer}
 
 ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
 PROJECT="$ROOT/src/DailyPlants/DailyPlants.csproj"
-BIN="$ROOT/src/DailyPlants/bin/Release/net10.0-desktop"
+BIN="$ROOT/src/DailyPlants/bin/Release/net11.0-desktop"
 OUT="$ROOT/artifacts/store/macos"
 APP_NAME="Daily Plants.app"
 mkdir -p "$OUT"
 
 # Only the desktop target, and self-contained at restore too, or restore misses the runtime packs.
 for rid in osx-arm64 osx-x64; do
-  dotnet publish "$PROJECT" -c Release -f net10.0-desktop -r "$rid" \
-    -p:TargetFrameworks=net10.0-desktop -p:SelfContained=true -p:PackageFormat=app
+  dotnet publish "$PROJECT" -c Release -f net11.0-desktop -r "$rid" \
+    -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app
 done
 
 # Uno only imports its merge, sign and package targets while publishing.
-UNO_TARGET="-p:TargetFramework=net10.0-desktop -p:TargetFrameworks=net10.0-desktop -p:_IsPublishing=true"
+UNO_TARGET="-p:TargetFramework=net11.0-desktop -p:TargetFrameworks=net11.0-desktop -p:_IsPublishing=true"
 
 APP="$OUT/$APP_NAME"
 MERGE="$OUT/merge"

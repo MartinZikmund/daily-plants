@@ -11,7 +11,7 @@ env:
   SOLUTION_FILE: DailyPlants.slnx
   PROJECT_PATH: src/DailyPlants
   PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
-  IOS_TARGET_FRAMEWORK: net10.0-ios
+  IOS_TARGET_FRAMEWORK: net11.0-ios
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build_ios:
-    runs-on: macos-26
+    runs-on: xcode-27
 
     env:
       STEP_TIMEOUT_MINUTES: 60
@@ -51,19 +51,18 @@ jobs:
         run:
           dotnet workload restore "${{ env.SOLUTION_FILE }}"
 
-      # The iOS SDK pack hard-requires one Xcode version. global.json pins SDK 11, whose workload
-      # set ships only the 26.0 pack for net10.0-ios, so this must match it. Revisit when the app
-      # moves to net11.0 or the image drops Xcode 26.0.
+      # The iOS SDK pack hard-requires one Xcode version: SDK 11's net11.0 pack (27.2) wants Xcode 27.2,
+      # which the xcode-27 image has but not as its default. Bump both together.
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '26.0'
+          xcode-version: '27.2'
 
       - name: Show toolchain versions
         run: |
           xcodebuild -version
           echo "Installed iOS SDK packs:"
-          ls -d ~/.dotnet/packs/Microsoft.iOS.Sdk.net10.0_*/ 2>/dev/null || echo "  none found"
+          ls -d ~/.dotnet/packs/Microsoft.iOS.Sdk.net11.0_*/ 2>/dev/null || echo "  none found"
 
       # --- Code signing: import Apple Distribution cert into a temp keychain ---
       - name: Import signing certificate
