@@ -69,6 +69,100 @@
     </Target>
 
     <!--
+        Windows tiles, taskbar icons and splash, for apps whose Package.appxmanifest points at a hand-made PNG set
+        instead of Resizetizer's. Set DevWindowsAssetsExporter to the script that renders that set from one SVG
+        (run with dotnet run, given the SVG and an output folder) and DevWindowsAssetsArt to that SVG. Dev builds run
+        it on a badged copy of the art and swap the PNG Content items under DevWindowsAssetsFolder for its output,
+        keeping their package paths. Prod ships the checked-in PNGs.
+    -->
+    <PropertyGroup>
+        <DevWindowsAssetsFolder Condition="'$(DevWindowsAssetsFolder)' == ''">Platforms\Windows\</DevWindowsAssetsFolder>
+    </PropertyGroup>
+
+    <!--
+        The badged copies are newer than the checked-in PNGs, so PreserveNewest would keep them in the output of a Prod
+        build that follows a Dev one. Runs on every channel for that reason.
+    -->
+    <Target Name="CopyWindowsPackageImagesIfDifferent"
+            BeforeTargets="AssignTargetPaths"
+            Condition="'$(TargetPlatformIdentifier)' == 'windows' and '$(DevWindowsAssetsExporter)' != ''">
+        <ItemGroup>
+            <Content Condition="'%(Extension)' == '.png' and $([System.String]::Copy('%(Identity)').Replace('/', '\').StartsWith('$(DevWindowsAssetsFolder)', System.StringComparison.OrdinalIgnoreCase))">
+                <CopyToOutputDirectory>IfDifferent</CopyToOutputDirectory>
+            </Content>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="GenerateDevWindowsAssets"
+            BeforeTargets="AssignTargetPaths"
+            DependsOnTargets="CopyWindowsPackageImagesIfDifferent;_ComposeDevWindowsArt;_ExportDevWindowsAssets"
+            Condition="'$(AppChannel)' == 'Dev' and '$(GenerateDevAssets)' != 'false' and '$(TargetPlatformIdentifier)' == 'windows' and '$(DevWindowsAssetsExporter)' != ''">
+
+        <ItemGroup Condition="'$(_DevWindowsAssetsDir)' != ''">
+            <_DevWindowsAsset Include="@(Content)"
+                              Condition="'%(Extension)' == '.png' and $([System.String]::Copy('%(Identity)').Replace('/', '\').StartsWith('$(DevWindowsAssetsFolder)', System.StringComparison.OrdinalIgnoreCase))" />
+            <_DevWindowsAsset>
+                <Link>%(Identity)</Link>
+            </_DevWindowsAsset>
+            <_DevWindowsAssetBadged Include="@(_DevWindowsAsset->'$(_DevWindowsAssetsDir)%(Filename)%(Extension)')" />
+            <_DevWindowsAssetMissing Include="@(_DevWindowsAssetBadged)" Condition="!Exists('%(FullPath)')" />
+            <_DevWindowsAssetBadged Remove="@(_DevWindowsAssetMissing)" />
+        </ItemGroup>
+
+        <Warning Condition="'@(_DevWindowsAssetMissing)' != ''"
+                 Code="DEVASSETS004"
+                 Text="$(DevWindowsAssetsExporter) didn't render @(_DevWindowsAssetMissing->'%(Filename)%(Extension)', ', '), so Dev ships those unbadged." />
+
+        <ItemGroup Condition="'@(_DevWindowsAssetBadged)' != ''">
+            <Content Remove="@(_DevWindowsAssetBadged->'%(Link)')" />
+            <Content Include="@(_DevWindowsAssetBadged)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="_ComposeDevWindowsArt">
+        <ItemGroup>
+            <_DevWindowsArt Include="$(DevWindowsAssetsArt)" />
+        </ItemGroup>
+
+        <Error Condition="'@(_DevWindowsArt)' == '' or !Exists('$(DevWindowsAssetsArt)')"
+               Text="DevWindowsAssetsExporter is set, but DevWindowsAssetsArt ('$(DevWindowsAssetsArt)') isn't an existing SVG." />
+
+        <!-- Kind=Splash only means "replace the item spec"; on Windows the badge sits flush bottom-centre, unmasked. -->
+        <ComposeDevAsset Assets="@(_DevWindowsArt)"
+                         Kind="Splash"
+                         Label="$(DevBadgeLabel)"
+                         TargetPlatform="$(TargetPlatformIdentifier)"
+                         ProjectDirectory="$(MSBuildProjectDirectory)"
+                         OutputRoot="$(IntermediateOutputPath)devassets">
+            <Output TaskParameter="Result" ItemName="_DevWindowsBadgedArt" />
+        </ComposeDevAsset>
+
+        <!-- A copy under its own hash folder; anything else means the badge was skipped (DEVASSETS001). -->
+        <PropertyGroup Condition="'@(_DevWindowsBadgedArt->'%(FullPath)')' != '@(_DevWindowsArt->'%(FullPath)')'">
+            <_DevWindowsBadgedArtFile>@(_DevWindowsBadgedArt->'%(FullPath)')</_DevWindowsBadgedArtFile>
+            <_DevWindowsAssetsOut>@(_DevWindowsBadgedArt->'%(RootDir)%(Directory)')windows</_DevWindowsAssetsOut>
+            <_DevWindowsAssetsDir>$(_DevWindowsAssetsOut)\</_DevWindowsAssetsDir>
+        </PropertyGroup>
+    </Target>
+
+    <Target Name="_ExportDevWindowsAssets"
+            DependsOnTargets="_ComposeDevWindowsArt"
+            Condition="'$(_DevWindowsAssetsDir)' != ''"
+            Inputs="$(_DevWindowsBadgedArtFile);$(DevWindowsAssetsExporter)"
+            Outputs="$(_DevWindowsAssetsDir)export.stamp">
+        <PropertyGroup>
+            <_DevWindowsDotnet>$(DOTNET_HOST_PATH)</_DevWindowsDotnet>
+            <_DevWindowsDotnet Condition="'$(_DevWindowsDotnet)' == ''">dotnet</_DevWindowsDotnet>
+        </PropertyGroup>
+
+        <RemoveDir Directories="$(_DevWindowsAssetsDir)" />
+        <Exec Command="&quot;$(_DevWindowsDotnet)&quot; run &quot;$(DevWindowsAssetsExporter)&quot; -- &quot;$(_DevWindowsBadgedArtFile)&quot; &quot;$(_DevWindowsAssetsOut)&quot;"
+              WorkingDirectory="$([System.IO.Path]::GetDirectoryName($(DevWindowsAssetsExporter)))"
+              StandardOutputImportance="low" />
+        <Touch Files="$(_DevWindowsAssetsDir)export.stamp" AlwaysCreate="true" />
+    </Target>
+
+    <!--
         Resizetizer's Android adaptive-icon generator treats its output as up to date whenever it is newer than the
         foreground FILE, so switching to an older foreground (Dev -> Prod, or back to a reused badged copy) keeps the
         previous icon. When the foreground or its scale changes, clear that output and the stamp that would skip it.

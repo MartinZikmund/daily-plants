@@ -145,4 +145,10 @@
       </Content>
     </ItemGroup>
 
+    <!-- Dev builds re-render that set from the badged art (DevAssets.targets) -->
+    <PropertyGroup Condition="'$(IsWinAppSdk)' == 'true'">
+      <DevWindowsAssetsArt>Assets\Icons\icon_foreground.svg</DevWindowsAssetsArt>
+      <DevWindowsAssetsExporter>$([MSBuild]::NormalizePath($(MSBuildThisFileDirectory)..\..\assets\app-icon\export-windows-assets.cs))</DevWindowsAssetsExporter>
+    </PropertyGroup>
+
 </Project>
