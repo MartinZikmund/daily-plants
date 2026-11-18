@@ -119,7 +119,7 @@ dotnet test tests/DailyPlants.Tests/DailyPlants.Tests.csproj
 - [Uno Platform](https://platform.uno/) with the Skia renderer, WinUI XAML and Fluent Design
 - [CommunityToolkit.Mvvm](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/) for view models, Uno.Extensions hosting for dependency injection
 - SQLite through [sqlite-net](https://github.com/praeclarum/sqlite-net), stored in the app's local data folder
-- MSTest, Moq and FluentAssertions for tests
+- MSTest, Moq and AwesomeAssertions for tests
 - [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) for versions
 
 ```
