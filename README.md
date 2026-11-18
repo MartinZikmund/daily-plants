@@ -108,6 +108,8 @@ Or open `DailyPlants.slnx`, pick a target framework and press F5:
 | iOS | `net11.0-ios` |
 | WebAssembly | `net11.0-browserwasm` |
 
+Local builds are the **Dev** channel: "Daily Plants Dev", with its own app ID, so it installs next to the store app. Pass `-p:AppChannel=Prod` to build exactly what the stores get. How versions and releases work is in [docs/releasing.md](docs/releasing.md).
+
 ### Run the tests
 
 ```bash
