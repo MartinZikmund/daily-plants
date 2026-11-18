@@ -59,4 +59,7 @@
 
     <!-- The Android launcher label comes from string resources, which ApplicationTitle never reaches. -->
     <Import Project="$(MSBuildThisFileDirectory)MobileLabels.targets" />
+
+    <!-- Dev builds stamp a badge onto the app icon and splash. -->
+    <Import Project="$(MSBuildThisFileDirectory)DevAssets.targets" />
 </Project>

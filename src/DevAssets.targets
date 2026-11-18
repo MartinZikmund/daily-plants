@@ -1,0 +1,102 @@
+<Project>
+
+    <!--
+        Dev-channel icon and splash: the prod artwork with a DEV badge stamped on at build time, so an app only ever
+        supplies prod artwork. Opt out with -p:GenerateDevAssets=false.
+
+        See "Dev artwork" in docs/releasing.md.
+    -->
+
+    <!-- CI builds (a staging deployment, say) read "CI" in blue instead of "DEV" in gold, so they're never mistaken for a
+         local build. Preview either locally with -p:DevBadgeLabel=CI or DEV. -->
+    <PropertyGroup>
+        <DevBadgeLabel Condition="'$(DevBadgeLabel)' == '' and ('$(CI)' == 'true' or '$(ContinuousIntegrationBuild)' == 'true')">CI</DevBadgeLabel>
+        <DevBadgeLabel Condition="'$(DevBadgeLabel)' == ''">DEV</DevBadgeLabel>
+
+        <!-- The in-app title-bar badge follows the same label (AppEnvironment.IsCiBuild). -->
+        <DefineConstants Condition="'$(AppChannel)' == 'Dev' and '$(DevBadgeLabel)' == 'CI'">$(DefineConstants);APP_CI_BUILD</DefineConstants>
+    </PropertyGroup>
+
+    <UsingTask TaskName="ComposeDevAsset"
+               TaskFactory="RoslynCodeTaskFactory"
+               AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+        <Task>
+            <Code Type="Class" Language="cs" Source="$(MSBuildThisFileDirectory)DevAssets.Task.cs" />
+        </Task>
+    </UsingTask>
+
+    <!--
+        Evaluation is left alone: Uno.Sdk only creates UnoIcon / UnoSplashScreen when their files exist at evaluation
+        time, which a build-generated file never does. The items are re-pointed here instead, just before Resizetizer
+        collects them.
+
+        Copies land in devassets/<content hash>/<original file name>. The hash because Resizetizer doesn't notice a
+        changed file at an unchanged path; the original name because Resizetizer derives resource names from it.
+    -->
+    <Target Name="GenerateDevAssets"
+            BeforeTargets="UnoResizetizeCollectItems"
+            Condition="'$(AppChannel)' == 'Dev' and '$(GenerateDevAssets)' != 'false'">
+
+        <ComposeDevAsset Condition="'@(UnoIcon)' != ''"
+                         Assets="@(UnoIcon)"
+                         Kind="Icon"
+                         Label="$(DevBadgeLabel)"
+                         TargetPlatform="$(TargetPlatformIdentifier)"
+                         ProjectDirectory="$(MSBuildProjectDirectory)"
+                         OutputRoot="$(IntermediateOutputPath)devassets">
+            <Output TaskParameter="Result" ItemName="_DevAssetIcon" />
+        </ComposeDevAsset>
+
+        <ComposeDevAsset Condition="'@(UnoSplashScreen)' != ''"
+                         Assets="@(UnoSplashScreen)"
+                         Kind="Splash"
+                         Label="$(DevBadgeLabel)"
+                         TargetPlatform="$(TargetPlatformIdentifier)"
+                         ProjectDirectory="$(MSBuildProjectDirectory)"
+                         OutputRoot="$(IntermediateOutputPath)devassets">
+            <Output TaskParameter="Result" ItemName="_DevAssetSplash" />
+        </ComposeDevAsset>
+
+        <ItemGroup Condition="'@(_DevAssetIcon)' != ''">
+            <UnoIcon Remove="@(UnoIcon)" />
+            <UnoIcon Include="@(_DevAssetIcon)" />
+        </ItemGroup>
+
+        <ItemGroup Condition="'@(_DevAssetSplash)' != ''">
+            <UnoSplashScreen Remove="@(UnoSplashScreen)" />
+            <UnoSplashScreen Include="@(_DevAssetSplash)" />
+        </ItemGroup>
+    </Target>
+
+    <!--
+        Resizetizer's Android adaptive-icon generator treats its output as up to date whenever it is newer than the
+        foreground FILE, so switching to an older foreground (Dev -> Prod, or back to a reused badged copy) keeps the
+        previous icon. When the foreground or its scale changes, clear that output and the stamp that would skip it.
+        Runs on every channel: the Prod build after a Dev build is exactly the case that needs it.
+    -->
+    <Target Name="InvalidateStaleAndroidAppIcons"
+            BeforeTargets="UnoResizetizeImages"
+            Condition="'$(TargetPlatformIdentifier)' == 'android'">
+        <PropertyGroup>
+            <_AppIconStateFile>$(IntermediateOutputPath)devassets.appicon.state</_AppIconStateFile>
+            <_AppIconState>@(UnoIcon->'%(ForegroundFile)|%(ForegroundScale)|%(AndroidForegroundScale)')</_AppIconState>
+            <_PreviousAppIconState />
+        </PropertyGroup>
+
+        <ReadLinesFromFile File="$(_AppIconStateFile)" Condition="Exists('$(_AppIconStateFile)')">
+            <Output TaskParameter="Lines" PropertyName="_PreviousAppIconState" />
+        </ReadLinesFromFile>
+
+        <RemoveDir Directories="$(_UnoIntermediateAppIcon)"
+                   Condition="'$(_PreviousAppIconState)' != '$(_AppIconState)' and '$(_UnoIntermediateAppIcon)' != ''" />
+        <Delete Files="$(_UnoResizetizerStampFile)"
+                Condition="'$(_PreviousAppIconState)' != '$(_AppIconState)' and '$(_UnoResizetizerStampFile)' != ''" />
+
+        <WriteLinesToFile File="$(_AppIconStateFile)" Lines="$(_AppIconState)" Overwrite="true" WriteOnlyWhenDifferent="true" />
+
+        <ItemGroup>
+            <FileWrites Include="$(_AppIconStateFile)" />
+        </ItemGroup>
+    </Target>
+
+</Project>
