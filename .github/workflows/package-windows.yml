@@ -91,7 +91,7 @@ jobs:
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload MSIX package
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: MSIX_Package_${{ matrix.platform }}
         path: ${{ env.PROJECT_PATH }}\\Packages
@@ -159,7 +159,7 @@ jobs:
           Compress-Archive -Path (Join-Path $tmp '*') -DestinationPath ${{ env.APP_NAME }}_${{ steps.manifest.outputs.version }}.msixupload -Force
 
       - name: Upload .msixupload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.APP_NAME }}_${{ steps.manifest.outputs.version }}.msixupload
           path: ${{ env.APP_NAME }}_${{ steps.manifest.outputs.version }}.msixupload
