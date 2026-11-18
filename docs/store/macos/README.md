@@ -10,7 +10,7 @@ Daily Plants is on the Mac App Store as the macOS platform of the same App Store
 
 ## Packaging
 
-`.github/workflows/package-macos.yml` runs `package-app.sh` on every push to `main` and uploads the package to App Store Connect, like the iOS workflow does with TestFlight. The script:
+`.github/workflows/_build-macos.yml` runs `package-app.sh` for every release (a push to `release/v*`, see [docs/releasing.md](../../releasing.md)), and `release.yml` uploads the package to App Store Connect next to the iOS TestFlight build. Builds on `main` are the Dev channel, which the Mac App Store profile doesn't cover, so they produce an unsigned app instead. The script always builds the Prod channel and:
 
 1. publishes the desktop head for `osx-arm64` and `osx-x64` as app bundles,
 2. merges them into one universal bundle,

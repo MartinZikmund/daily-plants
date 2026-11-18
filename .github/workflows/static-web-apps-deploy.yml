@@ -1,9 +1,8 @@
-name: Azure Static Web Apps CI/CD
+name: Azure Static Web Apps PR preview
+
+# PR previews only. Production deploys from release/v* in release.yml.
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -24,7 +23,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:

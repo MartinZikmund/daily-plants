@@ -1,0 +1,198 @@
+name: Store health
+
+# A publish job exits 0 when a store ACCEPTS the upload, not when the app is live -
+# Microsoft Store certification and App Store review run for hours to days. This weekly
+# check is what turns a late, asynchronous rejection into something you find out about.
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"        # Mondays 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  # Public store ids, overridable with repo variables of the same name.
+  ANDROID_PACKAGE_NAME: ${{ vars.ANDROID_PACKAGE_NAME || 'dev.mzikmund.dailyplants' }}
+  MS_STORE_PRODUCT_ID: ${{ vars.MS_STORE_PRODUCT_ID || '9NKK3K501RZG' }}
+
+jobs:
+  check:
+    if: github.event.repository.private == false || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: store-ops
+    steps:
+      - uses: actions/checkout@v7
+
+      # The release App is this pipeline's single hard dependency. If its key rotates or
+      # expires, nothing looks broken until nobody has cut a release for two months.
+      - name: Release App token still mints
+        id: token
+        continue-on-error: true
+        if: vars.RELEASE_APP_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      - run: pip install --quiet google-auth pyjwt cryptography requests
+
+      # No continue-on-error: a probe that fails IS the finding. Each probe writes its own
+      # section and returns 0, so one broken store cannot hide another's result.
+      - name: App Store version states
+        id: apple
+        env:
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_API_PRIVATE_KEY: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+          APPSTORE_APP_ID: ${{ vars.APPSTORE_APP_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${APPSTORE_API_PRIVATE_KEY:-}" ]; then
+            echo "::notice::No App Store Connect key configured - skipping."
+            exit 0
+          fi
+          if ! python .github/scripts/asc_op.py status > "$RUNNER_TEMP/apple.txt" 2>&1; then
+            {
+              echo "### App Store"
+              echo ""
+              echo "- [ ] **The App Store Connect probe failed.** The key may have been revoked,"
+              echo "      or the app id / platform may be wrong. Releases will not submit."
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/apple.txt"
+              echo '```'
+              echo ""
+            } >> "$RUNNER_TEMP/report.md"
+            exit 0
+          fi
+          cat "$RUNNER_TEMP/apple.txt"
+          if grep -qE 'REJECTED|DEVELOPER_REJECTED|METADATA_REJECTED|INVALID_BINARY' "$RUNNER_TEMP/apple.txt"; then
+            {
+              echo "### App Store"
+              echo ""
+              echo "A version is in a rejected state:"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/apple.txt"
+              echo '```'
+              echo ""
+            } >> "$RUNNER_TEMP/report.md"
+          fi
+
+      - name: Mac App Store version states
+        id: mac
+        env:
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_API_PRIVATE_KEY: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+          APPSTORE_APP_ID: ${{ vars.APPSTORE_APP_ID }}
+          APPSTORE_PLATFORM: MAC_OS
+        run: |
+          set -euo pipefail
+          if [ -z "${APPSTORE_API_PRIVATE_KEY:-}" ]; then
+            echo "::notice::No App Store Connect key configured - skipping."
+            exit 0
+          fi
+          if ! python .github/scripts/asc_op.py status > "$RUNNER_TEMP/mac.txt" 2>&1; then
+            {
+              echo "### Mac App Store"
+              echo ""
+              echo "- [ ] **The App Store Connect probe failed.** The key may have been revoked,"
+              echo "      or the app id / platform may be wrong. Releases will not submit."
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/mac.txt"
+              echo '```'
+              echo ""
+            } >> "$RUNNER_TEMP/report.md"
+            exit 0
+          fi
+          cat "$RUNNER_TEMP/mac.txt"
+          if grep -qE 'REJECTED|DEVELOPER_REJECTED|METADATA_REJECTED|INVALID_BINARY' "$RUNNER_TEMP/mac.txt"; then
+            {
+              echo "### Mac App Store"
+              echo ""
+              echo "A version is in a rejected state:"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/mac.txt"
+              echo '```'
+              echo ""
+            } >> "$RUNNER_TEMP/report.md"
+          fi
+
+      - name: Play production rollout state
+        id: play
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:-}" ]; then
+            echo "::notice::No Play service account configured - skipping."
+            exit 0
+          fi
+          if ! python .github/scripts/play_track_op.py status \
+                 --package "${{ env.ANDROID_PACKAGE_NAME }}" --track production \
+                 > "$RUNNER_TEMP/play.json" 2>&1; then
+            {
+              echo "### Google Play"
+              echo ""
+              echo "- [ ] **The Play probe failed.** The service account may have been revoked"
+              echo "      or lost its permissions. Releases will not publish."
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/play.json"
+              echo '```'
+              echo ""
+            } >> "$RUNNER_TEMP/report.md"
+            exit 0
+          fi
+          cat "$RUNNER_TEMP/play.json"
+          # An un-finalized rollout is the top cause of the NEXT release being blocked.
+          if grep -q '"inProgress"' "$RUNNER_TEMP/play.json"; then
+            {
+              echo "### Google Play"
+              echo ""
+              echo "The production track still has an **in-progress** staged rollout. Finalize it"
+              echo "(\`store-ops.yml\` -> \`play-finalize\`) or the next release cannot go out."
+              echo ""
+              echo '```json'
+              cat "$RUNNER_TEMP/play.json"
+              echo '```'
+              echo ""
+            } >> "$RUNNER_TEMP/report.md"
+          fi
+
+      - name: Open or update the health issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          body="$RUNNER_TEMP/report.md"
+          touch "$body"
+
+          if [ "${{ steps.token.outcome }}" = "failure" ]; then
+            {
+              echo "### Release GitHub App"
+              echo ""
+              echo "- [ ] **The release App token could not be minted.** Releases cannot be cut until this is fixed."
+              echo ""
+            } >> "$body"
+          fi
+
+          if [ ! -s "$body" ]; then
+            echo "::notice::Store health is clean."
+            exit 0
+          fi
+
+          existing="$(gh issue list --label store-health --state open --limit 1 --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file "$body"
+          else
+            gh issue create --title "Store health: action needed" --label store-health --body-file "$body" \
+              || gh issue create --title "Store health: action needed" --body-file "$body"
+          fi
