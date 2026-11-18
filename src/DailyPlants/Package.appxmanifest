@@ -6,6 +6,7 @@
   IgnorableNamespaces="uap rescap">
 
     <!-- Version is intentionally 0.0.0.0; it is overridden at build time by Nerdbank.GitVersioning (NBGV). -->
+    <!-- Name and Publisher are the Partner Center product identity. Dev builds swap the Name for their own (src/Directory.Build.targets). -->
     <Identity
       Name="5143MartinZikmund.DailyPlants"
       Publisher="CN=5EDFBB6C-AD5D-4B76-B479-1C5F44017714"

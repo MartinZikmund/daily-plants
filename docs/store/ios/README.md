@@ -34,7 +34,7 @@ fastlane deliver download_screenshots --api_key_path ~/.appstoreconnect/asc_key.
 
 Each screenshot is a slide: a real capture of the app in a device frame from the Windowsill design, with a headline. There's an iPhone set (6.9", 1320x2868) and an iPad set (13", landscape, 2752x2064), and every language uses the English ones.
 
-1. **Build** the simulator app: `dotnet build src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-ios -r iossimulator-arm64`.
+1. **Build** the simulator app: `dotnet build src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-ios -r iossimulator-arm64 -p:AppChannel=Prod`. Prod, so the app has its store bundle ID and name.
 2. **Capture** the app with `screenshots/capture-app.sh` (or `capture-app.sh iphone` for one device). It needs Xcode's iPhone 17 Pro Max and iPad Pro 13-inch (M5) simulators and [Maestro](https://maestro.dev) with Java 17 (`brew install mobile-dev-inc/tap/maestro openjdk@17`). The script installs the app, seeds demo data with `../windows/screenshots/seed-demo-data.cs`, sets the settings the captures need, cleans up the status bar and drives the app with `iphone.yaml`, `ipad.yaml` and `dark.yaml`. The captures land in `screenshots/captures/`. It replaces the app's data in those simulators.
 3. **Render** the slides with `screenshots/render-slides.sh`, which writes `images/iphone/1.png` to `6.png` and the same for `images/ipad/` with headless Edge or Chrome.
 

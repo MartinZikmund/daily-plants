@@ -8,4 +8,29 @@
             <ApplicationDisplayVersion>$(BuildVersionSimple)</ApplicationDisplayVersion>
         </PropertyGroup>
     </Target>
+
+    <!--
+      Package.appxmanifest carries the Microsoft Store identity, which Prod ships as is. Uno keeps an explicit
+      Identity/@Name instead of using the ApplicationId, so a Dev build renames the generated manifest itself,
+      to install next to the Store app. Uno's display names and the ms-resource tile name get the Dev title too.
+    -->
+    <Target Name="StampWindowsDevIdentity"
+            Condition="'$(TargetPlatformIdentifier)' == 'windows' and '$(AppChannel)' == 'Dev'"
+            AfterTargets="UnoGeneratePackageAppxManifest">
+        <PropertyGroup>
+            <_DevManifest>@(AppxManifest)</_DevManifest>
+            <_AppxNs>&lt;Namespace Prefix='d' Uri='http://schemas.microsoft.com/appx/manifest/foundation/windows10' /&gt;&lt;Namespace Prefix='uap' Uri='http://schemas.microsoft.com/appx/manifest/uap/windows10' /&gt;</_AppxNs>
+        </PropertyGroup>
+
+        <Error Condition="'$(_DevManifest)' == '' or !Exists('$(_DevManifest)')"
+               Text="StampWindowsDevIdentity: could not find the generated AppxManifest (@(AppxManifest)). The Dev build would overwrite the Store install." />
+
+        <XmlPoke XmlInputPath="$(_DevManifest)" Query="/d:Package/d:Identity/@Name" Value="$(ApplicationId)" Namespaces="$(_AppxNs)" />
+        <XmlPoke XmlInputPath="$(_DevManifest)" Query="/d:Package/d:Properties/d:DisplayName" Value="$(ApplicationTitle)" Namespaces="$(_AppxNs)" />
+        <XmlPoke XmlInputPath="$(_DevManifest)" Query="//uap:VisualElements/@DisplayName" Value="$(ApplicationTitle)" Namespaces="$(_AppxNs)" />
+        <XmlPoke XmlInputPath="$(_DevManifest)" Query="//uap:DefaultTile/@ShortName" Value="$(ApplicationTitle)" Namespaces="$(_AppxNs)" />
+    </Target>
+
+    <!-- The Android launcher label comes from string resources, which ApplicationTitle never reaches. -->
+    <Import Project="$(MSBuildThisFileDirectory)MobileLabels.targets" />
 </Project>

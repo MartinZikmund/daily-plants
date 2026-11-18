@@ -2,7 +2,7 @@
 # Captures the app screens the App Store slides are built from, on the iPhone and iPad simulators.
 #
 # Build the simulator app first:
-#   dotnet build src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-ios -r iossimulator-arm64
+#   dotnet build src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-ios -r iossimulator-arm64 -p:AppChannel=Prod
 # Needs Xcode and Maestro (brew install mobile-dev-inc/tap/maestro openjdk@17).
 # It replaces the app's data in the simulators with demo data, so don't use them for anything you want to keep.
 #
