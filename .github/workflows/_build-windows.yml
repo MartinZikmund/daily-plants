@@ -1,0 +1,300 @@
+name: Build Windows
+
+# Reusable: publishes the WinAppSDK head for each architecture, then packages them into a
+# single multi-architecture .msixbundle with the winapp CLI.
+#
+# WHY winapp: it turns the per-architecture publish layouts straight into one multi-architecture
+# .msixbundle. WinAppSDK 2.x ships no bundling targets itself; the ones Uno.Sdk 7 imports
+# (`_CreateBundle`, `_CreateAppStoreContainerForUAP`) come from the transitively restored
+# Microsoft.Windows.SDK.BuildTools.MSIX and are not used here.
+#
+# Prod bundles are left UNSIGNED on purpose - the Microsoft Store re-signs every package and
+# replaces any existing signature. Dev bundles are signed with a certificate generated in the
+# job, so a fork gets a sideloadable package with zero secrets.
+#
+# Bundling from the publish layouts also means the framework-dependent build's Windows App Runtime
+# packages never end up in the bundle; the Store installs the runtime itself.
+#
+# See docs/releasing.md.
+
+on:
+  workflow_call:
+    inputs:
+      channel:        { type: string, required: true }   # Dev | Prod
+      version_simple: { type: string, required: true }   # X.Y.Z
+      version_store4: { type: string, required: true }   # X.Y.Z.0
+      artifact_name:  { type: string, required: true }
+      smoke_launch:   { type: boolean, required: false, default: false }
+      architectures:
+        # Daily Plants has shipped x86 packages to the Store, and dropping it would strand those users.
+        type: string
+        required: false
+        default: "x86,x64,arm64"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2025
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+    env:
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      ContinuousIntegrationBuild: true
+      APP_NAME: DailyPlants
+      PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
+      TFM: net11.0-windows10.0.26100
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-dotnet-build
+        with:
+          workloads: DailyPlants.slnx
+
+      - uses: microsoft/setup-WinAppCli@v0.2
+        with:
+          # PIN, never `latest`: winapp is a 0.x preview, and bundling only appeared in
+          # 0.3.2 - an older resolve silently takes a single input folder and cannot bundle.
+          version: 'v0.8.0'
+
+      - name: Show winapp version
+        run: winapp --version
+
+      - name: Publish each architecture
+        run: |
+          set -euo pipefail
+          IFS=, read -ra ARCHES <<< "${{ inputs.architectures }}"
+          for arch in "${ARCHES[@]}"; do
+            case "$arch" in
+              x64)   platform=x64 ;;
+              arm64) platform=ARM64 ;;
+              x86)   platform=x86 ;;
+              *) echo "::error::unsupported architecture '$arch'"; exit 1 ;;
+            esac
+            echo "::group::publish win-$arch"
+            # -p:Platform is REQUIRED alongside -r, or the build fails with NETSDK1032
+            # ("RuntimeIdentifier platform and PlatformTarget must be compatible").
+            # -p:TargetFrameworks is required alongside -r on a multi-targeted Uno project.
+            # ApplicationVersion=0 is load-bearing: the Store rejects any package whose
+            # version has a non-zero revision component.
+            dotnet publish "$PROJECT_FILE" -c Release -f "$TFM" \
+              -r "win-$arch" -p:Platform="$platform" \
+              -p:TargetFrameworks="$TFM" \
+              -p:GenerateAppxPackageOnBuild=false \
+              -p:AppChannel=${{ inputs.channel }} \
+              -p:CiVersionInjected=true \
+              -p:ApplicationDisplayVersion=${{ inputs.version_simple }} \
+              -p:ApplicationVersion=0
+            echo "::endgroup::"
+          done
+
+      - name: Locate the package manifest
+        id: manifest
+        run: |
+          set -euo pipefail
+          IFS=, read -ra ARCHES <<< "${{ inputs.architectures }}"
+          first="${ARCHES[0]}"
+          # MSBuild's final AppxManifest.xml, not Uno's generated Package.appxmanifest: only the
+          # final one declares the Microsoft.WindowsAppRuntime framework dependency, and winapp
+          # does not add it. winapp still sets each package's architecture from its executable.
+          # The <Platform> segment appears in bin/ for some architectures and not others,
+          # so find it rather than assuming the path.
+          man="$(find src/DailyPlants/bin -path "*Release/$TFM/win-$first/AppxManifest.xml" 2>/dev/null | head -1 || true)"
+          [ -n "$man" ] || { echo "::error::could not find the AppxManifest.xml for win-$first"; exit 1; }
+          echo "manifest=$man" >> "$GITHUB_OUTPUT"
+          echo "Using $man"
+
+      # Parsed as XML, not with grep+sed: a Store publisher is a distinguished name full of '=' and ','.
+      # Prod must carry the Partner Center identity from the checked-in Package.appxmanifest exactly,
+      # or the Store rejects it with "not one of your reserved app names". Dev must carry its own name,
+      # or it would overwrite the Store install.
+      - name: Verify the manifest version and identity
+        env:
+          MANIFEST: ${{ steps.manifest.outputs.manifest }}
+          WANT_VERSION: ${{ inputs.version_store4 }}
+          CHANNEL: ${{ inputs.channel }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os, sys, xml.etree.ElementTree as ET
+          ns = {"d": "http://schemas.microsoft.com/appx/manifest/foundation/windows10"}
+
+          def identity(path):
+              root = ET.parse(path).getroot()
+              ident = root.find("d:Identity", ns)
+              disp = root.find("d:Properties/d:PublisherDisplayName", ns)
+              return ident, {
+                  "Identity/@Name": ident.get("Name"),
+                  "Identity/@Publisher": ident.get("Publisher"),
+                  "PublisherDisplayName": (disp.text or "") if disp is not None else None,
+              }
+
+          ident, got = identity(os.environ["MANIFEST"])
+          _, store = identity("src/DailyPlants/Package.appxmanifest")
+          bad = False
+
+          if ident.get("Version") != os.environ["WANT_VERSION"]:
+              print(f"::error::Identity/@Version is '{ident.get('Version')}', expected '{os.environ['WANT_VERSION']}'")
+              bad = True
+
+          want = dict(store)
+          if os.environ["CHANNEL"] != "Prod":
+              want = {"Identity/@Name": "dev.mzikmund.dailyplants.dev"}
+          for label, value in want.items():
+              if got[label] != value:
+                  print(f"::error::manifest {label} is '{got[label]}', expected '{value}'")
+                  bad = True
+              else:
+                  print(f"  {label} = {value}")
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Package (multi-architecture .msixbundle)
+        id: pack
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/stage"
+          IFS=, read -ra ARCHES <<< "${{ inputs.architectures }}"
+
+          layouts=()
+          for arch in "${ARCHES[@]}"; do
+            d="src/DailyPlants/bin/Release/$TFM/win-$arch/publish"
+            [ -f "$d/$APP_NAME.exe" ] || { echo "::error::missing $d/$APP_NAME.exe"; exit 1; }
+            layouts+=("$d")
+          done
+
+          out="$RUNNER_TEMP/stage/${APP_NAME}_${{ inputs.version_simple }}.msixbundle"
+          # winapp detects each folder's architecture from its executable's PE header and
+          # emits one multi-arch bundle, deriving the bundle version from the manifest
+          # Identity. (makeappx without an explicit /bv stamps the CURRENT DATE-TIME, which
+          # yields a non-zero revision and is rejected by the Store - that trap is why the
+          # third-party bundler action is gone.)
+          winapp package "${layouts[@]}" \
+            --manifest "${{ steps.manifest.outputs.manifest }}" \
+            --exe "$APP_NAME.exe" \
+            --output "$out"
+          echo "bundle=$out" >> "$GITHUB_OUTPUT"
+          ls -la "$RUNNER_TEMP/stage"
+
+      # ---- Dev: sign so the bundle can actually be sideloaded, with no secrets at all ----
+      - name: Sign the Dev bundle with a generated certificate
+        if: inputs.channel == 'Dev'
+        shell: pwsh
+        # A password prompt has no one to answer it; fail fast instead of hanging the job.
+        timeout-minutes: 10
+        run: |
+          $ErrorActionPreference = 'Stop'
+          # Without this a failing native command is ignored and the script carries on.
+          $PSNativeCommandUseErrorActionPreference = $true
+          $pfx = Join-Path $env:RUNNER_TEMP 'devcert.pfx'
+          $cer = Join-Path $env:RUNNER_TEMP "stage/$env:APP_NAME-Dev.cer"
+          # winapp's default PFX password: public, dev-only, not a secret.
+          $password = 'password'
+
+          # `cert generate` infers the subject from the manifest, so it always matches
+          # Identity/@Publisher - the mismatch that otherwise fails signing with 0x8007000B.
+          winapp cert generate --manifest "${{ steps.manifest.outputs.manifest }}" --output $pfx --password $password
+          winapp sign "${{ steps.pack.outputs.bundle }}" $pfx --password $password
+
+          # Ship the public cert so a tester can trust it once and install the bundle.
+          $c = Get-PfxCertificate -FilePath $pfx -Password (ConvertTo-SecureString $password -AsPlainText -Force)
+          Export-Certificate -Cert $c -FilePath $cer | Out-Null
+          Get-ChildItem (Join-Path $env:RUNNER_TEMP 'stage')
+
+      - name: Verify the version inside the produced bundle
+        run: |
+          set -euo pipefail
+          python - "${{ steps.pack.outputs.bundle }}" "${{ inputs.version_store4 }}" <<'PY'
+          import sys, zipfile, re
+          bundle, want = sys.argv[1], sys.argv[2]
+          with zipfile.ZipFile(bundle) as z:
+              names = z.namelist()
+              m = z.read("AppxMetadata/AppxBundleManifest.xml").decode("utf-8", "replace")
+          got = re.search(r'<Identity[^>]*\bVersion="([^"]+)"', m).group(1)
+          print(f"bundle Identity/@Version = {got}")
+          if got != want:
+              sys.exit(f"::error::bundle version {got} != expected {want}")
+          # The Store rejects any package whose revision component is not 0.
+          if not re.fullmatch(r"\d+\.\d+\.\d+\.0", got):
+              sys.exit(f"::error::bundle version {got} must be X.Y.Z.0 (revision must be 0)")
+          payloads = [n for n in names if n.endswith(".msix")]
+          print("architectures in bundle:", payloads)
+          if not payloads:
+              sys.exit("::error::bundle contains no .msix payloads")
+          PY
+
+      # Proves the package registers and survives startup - the failure a build alone cannot
+      # catch (a trimmed package once crashed on launch while every step stayed green). Only the
+      # screenshot is best-effort.
+      - name: Smoke launch the packaged app
+        if: inputs.smoke_launch && inputs.channel == 'Dev'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $layout = "src/DailyPlants/bin/Release/$env:TFM/win-x64/publish"
+          $manifest = (Get-ChildItem src/DailyPlants/bin -Recurse -Filter AppxManifest.xml |
+            Where-Object FullName -match "Release[\\/]$env:TFM[\\/]win-x64[\\/]AppxManifest\.xml$" |
+            Select-Object -First 1).FullName
+          if (-not $manifest) { throw 'no AppxManifest.xml for win-x64' }
+
+          # The package is framework-dependent and the runner has no Windows App Runtime: install the
+          # one this build restored, the way the Store would.
+          $ns = @{ d = 'http://schemas.microsoft.com/appx/manifest/foundation/windows10' }
+          $runtime = (Select-Xml -Path $manifest -Namespace $ns -XPath '//d:PackageDependency').Node |
+            Where-Object Name -like 'Microsoft.WindowsAppRuntime.*'
+          # A same-named runtime older than the manifest's MinVersion would not satisfy the dependency.
+          $hasRuntime = $runtime -and (Get-AppxPackage -Name $runtime.Name |
+            Where-Object { $_.Architecture -eq 'X64' -and [version]$_.Version -ge [version]$runtime.MinVersion })
+          if ($runtime -and -not $hasRuntime) {
+            $packages = (dotnet nuget locals global-packages --list) -replace '^global-packages:\s*', ''
+            # WinAppSDK 2.x ships the runtime in its own package. Pick the newest one that satisfies MinVersion.
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
+            $msix = Get-ChildItem (Join-Path $packages 'microsoft.windowsappsdk.runtime') -Recurse -Filter "$($runtime.Name).msix" |
+              Where-Object FullName -like '*win10-x64*' |
+              ForEach-Object {
+                $zip = [IO.Compression.ZipFile]::OpenRead($_.FullName)
+                try {
+                  $reader = [IO.StreamReader]::new($zip.GetEntry('AppxManifest.xml').Open())
+                  [pscustomobject]@{ Path = $_.FullName; Version = [version]([xml]$reader.ReadToEnd()).Package.Identity.Version }
+                }
+                finally { $zip.Dispose() }
+              } |
+              Where-Object Version -ge ([version]$runtime.MinVersion) | Sort-Object Version | Select-Object -Last 1
+            if (-not $msix) { throw "no $($runtime.Name).msix >= $($runtime.MinVersion) in $packages" }
+            Add-AppxPackage -Path $msix.Path
+          }
+
+          $app = winapp run $layout --manifest $manifest --exe "$env:APP_NAME.exe" --detach --json | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0 -or -not $app.ProcessId) { throw "winapp run failed ($LASTEXITCODE)" }
+          try {
+            $started = Get-Date
+            Start-Sleep -Seconds 15
+            if (-not (Get-Process -Id $app.ProcessId -ErrorAction SilentlyContinue)) {
+              Get-WinEvent -FilterHashtable @{ LogName = 'Application'; StartTime = $started.AddSeconds(-5) } -ErrorAction SilentlyContinue |
+                Where-Object ProviderName -in 'Application Error', '.NET Runtime' | Select-Object -First 2 |
+                ForEach-Object { Write-Host $_.Message }
+              Write-Host "::error::the packaged app exited within 15 s of launch"
+              exit 1
+            }
+            winapp ui screenshot -a $app.ProcessId --output (Join-Path $env:RUNNER_TEMP 'stage/smoke.png')
+            if ($LASTEXITCODE -ne 0) { Write-Host "::warning::smoke screenshot failed" }
+          }
+          finally {
+            Stop-Process -Id $app.ProcessId -ErrorAction SilentlyContinue
+            # --force: winapp run registers a staged copy of the layout, not the manifest's own folder
+            winapp unregister --manifest $manifest --force
+          }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: ${{ runner.temp }}/stage
+          retention-days: ${{ inputs.channel == 'Prod' && 90 || 14 }}
+          if-no-files-found: error
