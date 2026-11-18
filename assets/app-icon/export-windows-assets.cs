@@ -5,6 +5,7 @@ using Svg.Skia;
 
 // Renders the Windows package images (tiles, app icons, splash, store logo) from one square SVG,
 // using the same art-to-canvas ratios as the Visual Studio asset generator.
+// Dev builds also run it on the badged art (src/DevAssets.targets) and swap its output in by file name.
 if (args.Length != 2)
 {
     Console.Error.WriteLine("Usage: dotnet run export-windows-assets.cs -- <art.svg> <output folder>");

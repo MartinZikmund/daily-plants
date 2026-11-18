@@ -72,11 +72,13 @@ build time, so there's no Dev artwork to draw. `src/DevAssets.targets` runs `Com
 lifts the badge inside the Android and iOS masks. The iOS background plate is left alone, so the icon stays opaque.
 Prod builds use the artwork untouched. `-p:GenerateDevAssets=false` turns it off.
 
+**Windows tiles, taskbar, Alt-Tab and splash.** `Package.appxmanifest` points at the hand-made PNGs in
+`Platforms/Windows/`, not at Resizetizer's output, because Resizetizer draws every tile with one foreground scale and have their own padding per image. So Dev builds re-render that set: `GenerateDevWindowsAssets` badges
+`Assets/Icons/icon_foreground.svg`, runs `assets/app-icon/export-windows-assets.cs` on it into
+`obj/.../devassets/<hash>/windows/` and swaps those PNGs in under the same package paths. The badge sits at the centre of the logo, which is the image's edge on the unplated taskbar icons. The export runs once per badged, a few seconds. Prod ships the checked-in PNGs, and they copy when different rather than when newer, so a Prod after a Dev one doesn't keep the badged copies.
+
 It doesn't reach everything:
 
-- **Windows tiles, taskbar and splash.** `Package.appxmanifest` points at the pre-rendered PNGs in
-  `Platforms/Windows/` (from `assets/app-icon/export-windows-assets.cs`), not at Resizetizer's output, so they stay
-  plain. The title-bar badge and the tile name still say Dev.
 - **The macOS bundle icon** comes from the plated PNGs in `Platforms/Desktop/macOS/AppIcon/`, so it stays plain too.
   The Mac app only ships Prod.
 
