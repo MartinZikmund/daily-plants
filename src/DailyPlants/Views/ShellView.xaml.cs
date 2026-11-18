@@ -1,4 +1,5 @@
 using DailyPlants.Helpers;
+using DailyPlants.Infrastructure;
 using DailyPlants.Models;
 using DailyPlants.Services;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -39,6 +40,17 @@ public sealed partial class ShellView : Page
             _associatedWindow.SetTitleBar(DraggableTitleBar);
             HasCustomTitleBar = true;
         }
+        else if (AppEnvironment.IsDevChannel)
+        {
+            CornerDevBadge.Visibility = Visibility.Visible;
+        }
+
+        // Tells side-by-side worktree builds apart in the taskbar and Alt-Tab
+        if (AppEnvironment.WorktreeName is { Length: > 0 } worktree)
+        {
+            _associatedWindow.Title = $"{Localizer.GetString("AppName")} — {worktree}";
+        }
+
         // On macOS, Uno 6.7 leaves stale frames on screen while scrolling when a backdrop is set
         // (https://github.com/unoplatform/uno/issues/24495), so the page keeps its own background there.
         if (MicaController.IsSupported() && !OperatingSystem.IsMacOS())

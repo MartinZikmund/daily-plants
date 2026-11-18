@@ -21,6 +21,11 @@
                     <TextBlock x:Name="VersionText"
                                Style="{StaticResource DpCaptionTextBlockStyle}" />
                 </StackPanel>
+                <!-- Dev builds from a git worktree only -->
+                <TextBlock x:Name="WorktreeText"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
+                           HorizontalAlignment="Center"
+                           Visibility="Collapsed" />
             </StackPanel>
 
             <!-- Description -->
