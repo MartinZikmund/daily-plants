@@ -80,7 +80,7 @@ jobs:
           path: artifacts/store/macos/DailyPlants.pkg
 
       - name: Upload to App Store Connect
-        uses: apple-actions/upload-testflight-build@v3
+        uses: apple-actions/upload-testflight-build@v5
         with:
           app-path: artifacts/store/macos/DailyPlants.pkg
           app-type: osx

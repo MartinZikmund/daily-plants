@@ -100,7 +100,7 @@ jobs:
             ${{ env.PROJECT_PATH }}/bin/Release/${{ env.IOS_TARGET_FRAMEWORK }}/ios-arm64/publish/*.ipa
       
       - name: Upload to TestFlight
-        uses: apple-actions/upload-testflight-build@v3
+        uses: apple-actions/upload-testflight-build@v5
         with:
           app-path: "${{ env.PROJECT_PATH }}/bin/Release/${{ env.IOS_TARGET_FRAMEWORK }}/ios-arm64/publish/${{ env.APP_NAME }}.ipa"
           issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
