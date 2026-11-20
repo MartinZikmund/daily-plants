@@ -79,6 +79,21 @@ jobs:
           echo "${{ secrets.APPLE_PROVISIONING_PROFILE_BASE64 }}" | base64 --decode > "$HOME/Library/MobileDevice/Provisioning Profiles/AppStore.mobileprovision"
           ls -l "$HOME/Library/MobileDevice/Provisioning Profiles"
 
+      # Expired or untrusted certs otherwise only surface as "signing key not found in keychain"
+      - name: Check signing identity and profile
+        shell: bash
+        run: |
+          security find-identity -p codesigning signing_temp.keychain
+          security find-certificate -a -p signing_temp.keychain | openssl x509 -noout -subject -enddate
+          profile="$HOME/Library/MobileDevice/Provisioning Profiles/AppStore.mobileprovision"
+          security cms -D -i "$profile" > profile.plist
+          echo "Profile expires: $(plutil -extract ExpirationDate raw profile.plist)"
+          rm profile.plist
+          if ! security find-identity -v -p codesigning signing_temp.keychain | grep -q '^ *1)'; then
+            echo "::error::No valid code signing identity. Check the certificate's expiry above and the Apple WWDR intermediate."
+            exit 1
+          fi
+
       - name: Restore solution
         run: dotnet restore "${{ env.SOLUTION_FILE }}"
 
