@@ -44,7 +44,7 @@ jobs:
 
     # Cache NuGet to speed up restores
     - name: NuGet cache
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.sln*', '**/*.csproj', '**/Directory.Packages.props', '**/global.json') }}
