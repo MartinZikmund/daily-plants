@@ -74,7 +74,7 @@ jobs:
         run: docs/store/macos/package-app.sh "$RUNNER_TEMP/AppStore.provisionprofile"
 
       - name: Upload .pkg
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: macOS_PKG
           path: artifacts/store/macos/DailyPlants.pkg
