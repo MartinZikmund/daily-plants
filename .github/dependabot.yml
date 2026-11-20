@@ -17,7 +17,12 @@ updates:
   open-pull-requests-limit: 10
   target-branch: main
 - package-ecosystem: github-actions
-  directory: "/"
+  # Composite actions are not scanned from "/", so each needs its own entry.
+  directories:
+  - "/"
+  - "/.github/actions/setup-dotnet-build"
+  - "/.github/actions/app-version"
+  - "/.github/actions/publish-once"
   schedule:
     interval: weekly
     time: "04:00"

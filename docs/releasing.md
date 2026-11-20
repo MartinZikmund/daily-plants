@@ -1,0 +1,115 @@
+# Versions, channels and releases
+
+`main` is where the next version is brewing. `release/vX.Y` branches are where versions ship. Nothing on `main` ever
+reaches a store.
+
+The model comes from [uno-app-template](https://github.com/MartinZikmund/uno-app-template) (its `docs/versioning.md`,
+`docs/release-pipeline.md` and `docs/release-runbook.md` go deeper). This page covers what Daily Plants does and where
+it differs.
+
+## Channels
+
+Every build has an `AppChannel`, set in `Directory.Build.props`:
+
+| | Dev | Prod |
+|---|---|---|
+| Built by | local builds, `main`, PRs | `release/v*` in CI, or `-p:AppChannel=Prod` |
+| Name | Daily Plants Dev | Daily Plants |
+| Android, iOS, macOS ID | `dev.mzikmund.dailyplants.dev` | `dev.mzikmund.dailyplants` |
+| Windows package name | `dev.mzikmund.dailyplants.dev` | `5143MartinZikmund.DailyPlants` |
+| Compile constant | `APP_CHANNEL_DEV` | none |
+
+Different IDs mean a Dev build installs next to the store app instead of over it.
+
+- **Windows.** `Package.appxmanifest` holds the Partner Center identity, and Prod ships it untouched.
+  `StampWindowsDevIdentity` in `src/Directory.Build.targets` renames the generated manifest for Dev and puts the Dev
+  title on the tile. The template stamps the Store identity from repo variables instead; here it's checked into the
+  manifest, so there are no `WINDOWS_STORE_*` variables to set.
+- **Android.** The launcher label is a string resource, so `src/MobileLabels.targets` appends " Dev" to it.
+- **iOS.** `Info.plist` leaves `CFBundleDisplayName` out, so the SDK takes it from `ApplicationTitle`.
+- **macOS.** The Mac App Store profile only covers the Prod ID, so `docs/store/macos/package-app.sh` always builds Prod
+  and Dev builds of the Mac app are unsigned.
+
+The store screenshot steps in `docs/store/` build Prod.
+
+## Versions
+
+`version.json` on `main` is the next minor with a `-dev` tag, for example `0.8-dev`. The patch number is the git
+height, so every commit is a new version and nothing is edited by hand.
+
+| Store | Gets | Example for `0.8.42` |
+|---|---|---|
+| Microsoft Store | `X.Y.Z.0` | `0.8.42.0` |
+| Google Play `versionCode` | `X * 10,000,000 + Y * 100,000 + Z` | `800042` |
+| App Store, Mac App Store | `X.Y.Z` | `0.8.42` |
+
+CI computes these once (`.github/actions/app-version`) and passes them on the command line with
+`-p:CiVersionInjected=true`. A Prod CI build without them fails (`AssertStoreVersionStamped`), and each build workflow
+reads the version back out of the package. Local builds let Nerdbank.GitVersioning pick the version.
+
+### Why main is 0.8-dev and not 0.7-dev
+
+The old pipeline pushed `0.7.x` builds from `main` to Play internal, TestFlight and the Microsoft Store, with Android
+codes from NBGV's own formula, `minor << 16 + height` (`0.7.10` was `458762`). Starting at `0.8` keeps every number
+above those: Android `800000+`, Apple `0.8.Z` > `0.7.10`, Windows `0.8.Z.0` > `0.7.10.0`, whatever the git height.
+`VERSION_CODE_OFFSET` isn't needed.
+
+## Workflows
+
+| Workflow | When | What |
+|---|---|---|
+| `ci.yml` | PRs, `main` | version sanity, unit tests, Release builds of desktop, WebAssembly, Android and Windows |
+| `build-main.yml` | push to `main` | packages Android, iOS, Windows and WebAssembly as Dev; macOS too if `ENABLE_MACOS_ON_MAIN` is `true`. Publishes nothing |
+| `release.yml` | push to `release/v*` | packages everything as Prod and publishes (below) |
+| `prepare-release.yml` | manual | cuts `release/vX.Y` from `main` and moves `main` to the next minor |
+| `forward-merge.yml` | push to `release/v*` | keeps one open `release/vX.Y -> main` PR |
+| `store-ops.yml` | manual | halt or walk a rollout, cancel a review, republish an old run |
+| `store-health.yml` | weekly | opens an issue when a store is stuck or a credential stopped working |
+| `static-web-apps-deploy.yml` | PRs | WebAssembly preview sites |
+| `_build-*.yml` | called | one per head; the only place a head is packaged |
+
+`release.yml` does these on its own: Play **internal**, TestFlight (iOS), App Store Connect (macOS), a Microsoft
+Store **draft** (uploaded, certification not started), the Azure Static Web Apps production site, the `vX.Y.Z` tag and
+a draft GitHub Release with the `.msixbundle`.
+
+These wait for an approval in the run's *Review deployments*:
+
+- `play-production`: Play production at 10 %
+- `appstore-production`: App Store and Mac App Store review submissions
+- `ms-store-production`: commits the Microsoft Store submission at 10 %
+
+A missing secret skips its store with a warning instead of failing. Set `ENABLE_ANDROID`, `ENABLE_IOS`,
+`ENABLE_WINDOWS`, `ENABLE_MACOS` or `ENABLE_WASM` to `false` to skip a head.
+
+## Cut a release
+
+1. Make sure CI on `main` is green.
+2. **Actions > Cut release branch > Run workflow**, with `dry_run` ticked the first time.
+3. Run it for real. It creates `release/v0.8`, moves `main` to `0.9-dev` and starts `release.yml`.
+4. Try the build from Play internal and TestFlight, then approve the gated jobs.
+5. Publish the draft GitHub Release.
+
+## Ship a patch
+
+A patch is a commit on `release/vX.Y`: fix it on `main` and cherry-pick, or open a PR against the release branch. The
+push runs `release.yml` again with a higher patch number. Then merge the forward-merge PR, keeping `main`'s
+`version.json` in the conflict.
+
+If a bad build is already rolling out, halt it first:
+
+```bash
+gh workflow run store-ops.yml -f action=play-halt
+gh workflow run store-ops.yml -f action=appstore-pause
+gh workflow run store-ops.yml -f action=msstore-rollout-halt
+```
+
+Halting stops new installs, it doesn't roll anyone back. The fix has to be a higher version.
+
+## Gotchas
+
+- **Never edit an API-created submission in Partner Center.** The API can't commit it again afterwards.
+- **Finalize staged rollouts** (`play-finalize`, `msstore-rollout-finalize`), or the next release is blocked.
+- **The App Store allows one version in review per platform.** The submit job refuses instead of cancelling one.
+- **The App Store version must exist** in App Store Connect, with the build attached, before `appstore-production` can
+  submit it. The script submits a version, it doesn't create one.
+- **Web production only moves on releases now.** `main` no longer deploys the site.

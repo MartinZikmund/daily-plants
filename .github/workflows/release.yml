@@ -1,0 +1,754 @@
+name: Release
+
+# A push to release/v** builds every head in the Prod channel and publishes it.
+#
+# Automatic (no approval): Play *internal*, TestFlight for iOS and macOS, a Microsoft Store
+#   *draft* submission (uploaded but certification NOT started), the Azure Static Web Apps
+#   production deploy, the git tag and a draft GitHub Release.
+# Gated (required reviewer): Play production rollout, App Store and Mac App Store
+#   "submit for review", Microsoft Store commit. The rule is: gate on "a member of the
+#   public sees this", not on "a store received a file".
+#
+# See docs/releasing.md.
+
+on:
+  push:
+    branches: [ "release/v**" ]
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Comma-separated heads to build (blank = all enabled)"
+        required: false
+        default: ""
+
+concurrency:
+  # Scoped per COMMIT, not per branch. A run sits in `waiting` for as long as its approval
+  # gates are un-actioned - hours or days - and GitHub keeps only ONE pending run per group,
+  # so a branch-scoped group would let a third push silently cancel the second. Every commit
+  # is a distinct version anyway, so per-commit runs are independent by construction.
+  group: release-${{ github.ref }}-${{ github.sha }}
+  # NEVER cancel a release. Cancelling mid-upload burns a versionCode / CFBundleVersion
+  # and can leave a half-created App Store Connect version.
+  cancel-in-progress: false
+
+# Workflow-level permissions are the CEILING for every reusable workflow this file calls.
+# A called workflow requesting more is rejected at graph resolution.
+permissions:
+  contents: write
+  deployments: write
+  statuses: write
+  actions: read
+  pull-requests: write
+
+env:
+  # Public store ids, overridable with repo variables of the same name.
+  ANDROID_PACKAGE_NAME: ${{ vars.ANDROID_PACKAGE_NAME || 'dev.mzikmund.dailyplants' }}
+  MS_STORE_PRODUCT_ID: ${{ vars.MS_STORE_PRODUCT_ID || '9NKK3K501RZG' }}
+
+jobs:
+  version:
+    if: github.event.repository.private == false || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      simple:  ${{ steps.v.outputs.simple }}
+      store4:  ${{ steps.v.outputs.store4 }}
+      code:    ${{ steps.v.outputs.code }}
+      channel: ${{ steps.v.outputs.channel }}
+      only:    ${{ inputs.only }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-dotnet-build
+      - id: v
+        uses: ./.github/actions/app-version
+        with:
+          version-code-offset: ${{ vars.VERSION_CODE_OFFSET }}
+      - name: Assert this is a Prod build
+        run: |
+          [ "${{ steps.v.outputs.channel }}" = "Prod" ] || {
+            echo "::error::Release runs must resolve to the Prod channel. Ref is $GITHUB_REF."
+            exit 1
+          }
+
+  # ---------------------------------------------------------------- build
+
+  build-android:
+    needs: version
+    if: vars.ENABLE_ANDROID != 'false' && (needs.version.outputs.only == '' || contains(needs.version.outputs.only, 'android'))
+    uses: ./.github/workflows/_build-android.yml
+    with:
+      channel:        Prod
+      version_simple: ${{ needs.version.outputs.simple }}
+      version_code:   ${{ needs.version.outputs.code }}
+      artifact_name:  release-android
+    secrets:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEY_ALIAS:       ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD:    ${{ secrets.ANDROID_KEY_PASSWORD }}
+      ANDROID_STORE_PASSWORD:  ${{ secrets.ANDROID_STORE_PASSWORD }}
+
+  build-ios:
+    needs: version
+    if: vars.ENABLE_IOS != 'false' && (needs.version.outputs.only == '' || contains(needs.version.outputs.only, 'ios'))
+    uses: ./.github/workflows/_build-ios.yml
+    with:
+      channel:        Prod
+      version_simple: ${{ needs.version.outputs.simple }}
+      artifact_name:  release-ios
+    secrets:
+      APPLE_DISTRIBUTION_P12_BASE64:     ${{ secrets.APPLE_DISTRIBUTION_P12_BASE64 }}
+      APPLE_P12_PASSWORD:                ${{ secrets.APPLE_P12_PASSWORD }}
+      APPLE_PROVISIONING_PROFILE_BASE64: ${{ secrets.APPLE_PROVISIONING_PROFILE_BASE64 }}
+      # The profile name survives regeneration; the UUID secret is what the old package-ios.yml used.
+      APPLE_PROVISIONING_PROFILE_ID:     ${{ vars.APPLE_PROVISIONING_PROFILE_NAME || secrets.APPLE_PROVISIONING_PROFILE_UUID }}
+      APPLE_CODESIGN_KEY:                ${{ secrets.APPLE_CODESIGN_KEY }}
+      APPLE_TEAM_ID:                     ${{ secrets.APPLE_TEAM_ID }}
+      KEYCHAIN_PASSWORD:                 ${{ secrets.KEYCHAIN_PASSWORD }}
+
+  build-macos:
+    needs: version
+    if: vars.ENABLE_MACOS != 'false' && (needs.version.outputs.only == '' || contains(needs.version.outputs.only, 'macos'))
+    uses: ./.github/workflows/_build-macos.yml
+    with:
+      channel:        Prod
+      version_simple: ${{ needs.version.outputs.simple }}
+      artifact_name:  release-macos
+    secrets:
+      MACOS_DISTRIBUTION_P12_BASE64:     ${{ secrets.MACOS_DISTRIBUTION_P12_BASE64 }}
+      MACOS_INSTALLER_P12_BASE64:        ${{ secrets.MACOS_INSTALLER_P12_BASE64 }}
+      MACOS_P12_PASSWORD:                ${{ secrets.MACOS_P12_PASSWORD }}
+      MACOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.MACOS_PROVISIONING_PROFILE_BASE64 }}
+
+  build-windows:
+    needs: version
+    if: vars.ENABLE_WINDOWS != 'false' && (needs.version.outputs.only == '' || contains(needs.version.outputs.only, 'windows'))
+    uses: ./.github/workflows/_build-windows.yml
+    with:
+      channel:        Prod
+      version_simple: ${{ needs.version.outputs.simple }}
+      version_store4: ${{ needs.version.outputs.store4 }}
+      artifact_name:  release-windows
+      smoke_launch:   false
+
+  build-wasm:
+    needs: version
+    if: vars.ENABLE_WASM != 'false' && (needs.version.outputs.only == '' || contains(needs.version.outputs.only, 'wasm'))
+    uses: ./.github/workflows/_build-wasm.yml
+    with:
+      channel:        Prod
+      version_simple: ${{ needs.version.outputs.simple }}
+      artifact_name:  release-wasm
+
+  # ------------------------------------------------- publish (automatic)
+  # Each publish job needs ONLY the build job whose artifact it consumes, so a red
+  # desktop leg can never block Play, and a Play failure can never block TestFlight.
+
+  publish-play-internal:
+    needs: [version, build-android]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: play-internal
+    outputs:
+      # True once this commit reached the store, in this attempt or an earlier one. The gated
+      # job keys off this, not off this job's result: it also succeeds when it skipped.
+      published: ${{ steps.once.outputs.skip == 'true' || steps.upload.outcome == 'success' }}
+    env:
+      HAS_PLAY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON != '' }}
+      # The same four the Android build requires before it signs anything.
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && secrets.ANDROID_KEY_ALIAS != '' && secrets.ANDROID_KEY_PASSWORD != '' && secrets.ANDROID_STORE_PASSWORD != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: play-internal
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - Play credentials incomplete
+        if: env.HAS_PLAY != 'true' || env.HAS_KEYSTORE != 'true'
+        run: echo "::warning::Skipping the Play internal upload - it needs GOOGLE_PLAY_SERVICE_ACCOUNT_JSON and all four ANDROID_* signing secrets. The AAB artifact is unaffected."
+
+      - uses: actions/download-artifact@v8
+        if: steps.once.outputs.skip != 'true' && env.HAS_PLAY == 'true' && env.HAS_KEYSTORE == 'true'
+        with:
+          name: release-android
+          path: pkg
+
+      - name: Upload to Play (internal)
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_PLAY == 'true' && env.HAS_KEYSTORE == 'true'
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: ${{ env.ANDROID_PACKAGE_NAME }}
+          releaseFiles: pkg/*-Signed.aab
+          # `track:` is DEPRECATED in this action - use `tracks:`.
+          tracks: internal
+          # `completed` on INTERNAL is correct and safe: internal testing has no staged
+          # rollout and no review queue.
+          status: completed
+          releaseName: ${{ needs.version.outputs.simple }}
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: play-internal
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-testflight:
+    needs: [version, build-ios]
+    runs-on: ubuntu-24.04          # the appstore-api backend needs no macOS minutes
+    timeout-minutes: 90
+    environment: testflight
+    outputs:
+      # True once this commit reached the store, in this attempt or an earlier one. The gated
+      # job keys off this, not off this job's result: it also succeeds when it skipped.
+      published: ${{ steps.once.outputs.skip == 'true' || steps.upload.outcome == 'success' }}
+    env:
+      HAS_ASC: ${{ secrets.APPSTORE_ISSUER_ID != '' && secrets.APPSTORE_API_KEY_ID != '' && secrets.APPSTORE_API_PRIVATE_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: testflight
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - App Store Connect credentials incomplete
+        if: env.HAS_ASC != 'true'
+        run: echo "::warning::Skipping the TestFlight upload - it needs APPSTORE_ISSUER_ID, APPSTORE_API_KEY_ID and APPSTORE_API_PRIVATE_KEY. The .ipa artifact is unaffected."
+
+      - uses: actions/download-artifact@v8
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        with:
+          name: release-ios
+          path: pkg
+
+      - name: Locate the .ipa
+        id: ipa
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: |
+          set -euo pipefail
+          f="$(ls -1 pkg/*.ipa 2>/dev/null | head -1 || true)"
+          if [ -z "$f" ]; then
+            echo "::warning::No .ipa in the build artifact (the iOS build ran without signing material). Skipping TestFlight."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            echo "path=$f"    >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload to TestFlight
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true' && steps.ipa.outputs.found == 'true'
+        uses: Apple-Actions/upload-testflight-build@v5
+        with:
+          app-path: ${{ steps.ipa.outputs.path }}
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+          app-type: ios
+          backend: appstore-api
+          # Without this every build stalls forever at "Waiting for Export Compliance".
+          uses-non-exempt-encryption: 'false'
+          wait-for-processing: 'true'
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: testflight
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-msstore-draft:
+    needs: [version, build-windows]
+    runs-on: windows-2025
+    timeout-minutes: 30
+    environment: ms-store-draft
+    outputs:
+      # True once this commit reached the store, in this attempt or an earlier one. The gated
+      # job keys off this, not off this job's result: it also succeeds when it skipped.
+      published: ${{ steps.once.outputs.skip == 'true' || steps.upload.outcome == 'success' }}
+    env:
+      HAS_MSSTORE: ${{ secrets.MS_STORE_TENANT_ID != '' && secrets.MS_STORE_SELLER_ID != '' && secrets.MS_STORE_CLIENT_ID != '' && secrets.MS_STORE_CLIENT_SECRET != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: ms-store-draft
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - Partner Center credentials incomplete
+        if: env.HAS_MSSTORE != 'true'
+        shell: bash
+        run: echo "::warning::Skipping the Microsoft Store draft - it needs all four MS_STORE_* secrets. The .msixbundle artifact is still available for manual Partner Center upload."
+
+      - uses: actions/download-artifact@v8
+        if: steps.once.outputs.skip != 'true' && env.HAS_MSSTORE == 'true'
+        with:
+          name: release-windows
+          path: pkg
+
+      - uses: microsoft/microsoft-store-apppublisher@v1.4
+        if: steps.once.outputs.skip != 'true' && env.HAS_MSSTORE == 'true'
+
+      - name: Stage a draft submission
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_MSSTORE == 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          # $ErrorActionPreference ignores a native exit code; this makes msstore failures throw.
+          $PSNativeCommandUseErrorActionPreference = $true
+          # `reconfigure` persists credentials to a config file on THIS runner, so it must
+          # run in the same job as the call that uses them.
+          msstore reconfigure `
+            --tenantId "${{ secrets.MS_STORE_TENANT_ID }}" `
+            --sellerId "${{ secrets.MS_STORE_SELLER_ID }}" `
+            --clientId "${{ secrets.MS_STORE_CLIENT_ID }}" `
+            --clientSecret "${{ secrets.MS_STORE_CLIENT_SECRET }}"
+
+          $st = (msstore submission status ${{ env.MS_STORE_PRODUCT_ID }} 2>&1 | Out-String)
+          Write-Host $st
+          if ($st -match 'Certification|Publishing|PendingPublication|PreProcessing|CommitStarted') {
+            throw "A submission is already in flight for this product. Use store-ops.yml (action: msstore-delete-draft) or resolve it in Partner Center, then re-run this job."
+          }
+
+          $pkg = Get-ChildItem pkg -Filter *.msixbundle -Recurse | Select-Object -First 1
+          if (-not $pkg) { throw "No .msixbundle in the build artifact." }
+          # --noCommit uploads WITHOUT starting certification. This is the Microsoft Store
+          # equivalent of Play's internal track: a broken package is caught in minutes,
+          # and `commit-msstore` (gated) is what actually starts certification.
+          #
+          # -id is MANDATORY for a bundle: msstore's auto-discovery unzips the input looking
+          # for AppxManifest.xml at the top level, and a bundle has AppxMetadata/
+          # AppxBundleManifest.xml instead - without -id it returns null and exits -1.
+          # --uploadTimeout is MANDATORY too: the CLI defaults it to 0, which cancels the
+          # blob upload immediately.
+          msstore publish $pkg.FullName -id ${{ env.MS_STORE_PRODUCT_ID }} --noCommit --uploadTimeout 900
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: ms-store-draft
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-testflight-macos:
+    needs: [version, build-macos]
+    runs-on: macos-26              # altool, which uploads a macOS .pkg, only runs on macOS
+    timeout-minutes: 90
+    environment: testflight
+    outputs:
+      published: ${{ steps.once.outputs.skip == 'true' || steps.upload.outcome == 'success' }}
+    env:
+      HAS_ASC: ${{ secrets.APPSTORE_ISSUER_ID != '' && secrets.APPSTORE_API_KEY_ID != '' && secrets.APPSTORE_API_PRIVATE_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: testflight-macos
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - App Store Connect credentials incomplete
+        if: env.HAS_ASC != 'true'
+        run: echo "::warning::Skipping the Mac App Store upload - it needs APPSTORE_ISSUER_ID, APPSTORE_API_KEY_ID and APPSTORE_API_PRIVATE_KEY. The macOS artifact is unaffected."
+
+      - uses: actions/download-artifact@v8
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        with:
+          name: release-macos
+          path: pkg
+
+      - name: Locate the .pkg
+        id: pkg
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: |
+          set -euo pipefail
+          if [ -f pkg/DailyPlants.pkg ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::No .pkg in the build artifact (the macOS build ran without signing material). Skipping the upload."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload to App Store Connect (macOS)
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true' && steps.pkg.outputs.found == 'true'
+        uses: Apple-Actions/upload-testflight-build@v5
+        with:
+          app-path: pkg/DailyPlants.pkg
+          app-type: osx
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: testflight-macos
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-web:
+    needs: [version, build-wasm]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: web-production
+    env:
+      HAS_SWA: ${{ secrets.AZURESTATICWEBAPPSDEPLOYMENTTOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: web-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - Azure Static Web Apps token missing
+        if: env.HAS_SWA != 'true'
+        run: echo "::warning::Skipping the web deploy - it needs AZURESTATICWEBAPPSDEPLOYMENTTOKEN."
+
+      - uses: actions/download-artifact@v8
+        if: steps.once.outputs.skip != 'true' && env.HAS_SWA == 'true'
+        with:
+          name: release-wasm
+          path: wwwroot
+
+      # production_branch is this release branch, so the push lands on production rather than a
+      # branch-named staging environment.
+      - name: Deploy to Azure Static Web Apps (production)
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_SWA == 'true'
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURESTATICWEBAPPSDEPLOYMENTTOKEN }}
+          action: upload
+          skip_app_build: true
+          skip_api_build: true
+          app_location: wwwroot
+          production_branch: ${{ github.ref_name }}
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: web-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # ------------------------------------------------------------ tag + release page
+  # `tag` needs every build and every automatic publish, because a failed build only makes
+  # its publish `skipped`. `skipped` itself is fine: that is a head switched off, and a
+  # publish with no secrets configured still reports `success`. The gated jobs stay out:
+  # declining a Store approval must not withhold the tag for a release that shipped
+  # everywhere else. An `only` dispatch is an iteration run, not a release, so it never tags.
+
+  tag:
+    needs:
+      - version
+      - build-android
+      - publish-play-internal
+      - build-ios
+      - publish-testflight
+      - build-macos
+      - publish-testflight-macos
+      - build-windows
+      - publish-msstore-draft
+      - build-wasm
+      - publish-web
+    if: >-
+      !cancelled() && needs.version.result == 'success' && needs.version.outputs.only == ''
+      && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Mint a GitHub App token (optional)
+        id: app-token
+        if: vars.RELEASE_APP_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
+
+      - uses: ./.github/actions/setup-dotnet-build
+
+      - name: Tag (idempotent)
+        run: |
+          set -euo pipefail
+          t="v${{ needs.version.outputs.simple }}"
+          if git rev-parse -q --verify "refs/tags/$t" >/dev/null; then
+            echo "::notice::$t already exists - nothing to do."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          dotnet nbgv tag
+          git push origin "$t"
+
+  publish-github-release:
+    needs:
+      - version
+      - tag
+      - build-windows
+    if: ${{ !cancelled() && needs.tag.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: release-windows
+          path: assets
+
+      - name: Create or update the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          t="v${{ needs.version.outputs.simple }}"
+          gh release view "$t" >/dev/null 2>&1 || \
+            gh release create "$t" --title "$t" --notes "Automated release from \`${GITHUB_REF_NAME}\`." --draft
+          shopt -s nullglob
+          files=(assets/*.msixbundle)
+          if [ ${#files[@]} -gt 0 ]; then
+            gh release upload "$t" "${files[@]}" --clobber
+          fi
+          echo "::notice::GitHub Release $t is a DRAFT - review and publish it."
+
+  # ------------------------------------------------------- publish (gated)
+  # Rule: gate on "a member of the public sees this", not on "a store received a file".
+
+  promote-play-production:
+    needs: [version, build-android, publish-play-internal]
+    if: needs.publish-play-internal.outputs.published == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: play-production      # REQUIRED REVIEWER + branch policy release/v*
+    env:
+      HAS_PLAY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: play-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - Play credentials incomplete
+        if: env.HAS_PLAY != 'true'
+        run: echo "::warning::Skipping the production promotion - it needs GOOGLE_PLAY_SERVICE_ACCOUNT_JSON."
+
+      - name: Install Play API client
+        if: steps.once.outputs.skip != 'true' && env.HAS_PLAY == 'true'
+        run: pip install --quiet google-auth requests
+
+      # NOT r0adkll/upload-google-play: that action always re-uploads the bundle, and Play
+      # rejects an already-consumed versionCode with HTTP 400. This promotes the existing
+      # versionCode between tracks without touching the binary.
+      - name: Promote to production at 10%
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_PLAY == 'true'
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python .github/scripts/play_track_op.py promote \
+            --package "${{ env.ANDROID_PACKAGE_NAME }}" \
+            --version-code "${{ needs.version.outputs.code }}" \
+            --release-name "${{ needs.version.outputs.simple }}" \
+            --track production \
+            --user-fraction 0.10
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: play-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  submit-appstore:
+    needs: [version, publish-testflight]
+    if: needs.publish-testflight.outputs.published == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: appstore-production  # REQUIRED REVIEWER
+    env:
+      HAS_ASC: ${{ secrets.APPSTORE_ISSUER_ID != '' && secrets.APPSTORE_API_KEY_ID != '' && secrets.APPSTORE_API_PRIVATE_KEY != '' && vars.APPSTORE_APP_ID != '' }}
+      APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+      APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+      APPSTORE_API_PRIVATE_KEY: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+      APPSTORE_APP_ID: ${{ vars.APPSTORE_APP_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: appstore-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - App Store Connect credentials incomplete
+        if: env.HAS_ASC != 'true'
+        run: echo "::warning::Skipping the App Store submission - it needs APPSTORE_ISSUER_ID, APPSTORE_API_KEY_ID, APPSTORE_API_PRIVATE_KEY and vars.APPSTORE_APP_ID."
+
+      - name: Install App Store Connect client
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: pip install --quiet pyjwt cryptography requests
+
+      # Apple permits exactly ONE version in Waiting for Review / In Review / Pending
+      # Developer Release. Cancelling developer-rejects the submission and sends you to
+      # the BACK of the review queue, so this refuses loudly rather than auto-cancelling.
+      - name: Refuse if a review submission is already in flight
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: python .github/scripts/asc_op.py guard
+
+      - name: Submit for review
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: python .github/scripts/asc_op.py submit --version "${{ needs.version.outputs.simple }}"
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: appstore-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  submit-mac-appstore:
+    needs: [version, publish-testflight-macos]
+    if: needs.publish-testflight-macos.outputs.published == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: appstore-production  # REQUIRED REVIEWER
+    env:
+      HAS_ASC: ${{ secrets.APPSTORE_ISSUER_ID != '' && secrets.APPSTORE_API_KEY_ID != '' && secrets.APPSTORE_API_PRIVATE_KEY != '' && vars.APPSTORE_APP_ID != '' }}
+      APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+      APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+      APPSTORE_API_PRIVATE_KEY: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+      APPSTORE_APP_ID: ${{ vars.APPSTORE_APP_ID }}
+      APPSTORE_PLATFORM: MAC_OS
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: appstore-production-macos
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - App Store Connect credentials incomplete
+        if: env.HAS_ASC != 'true'
+        run: echo "::warning::Skipping the Mac App Store submission - it needs APPSTORE_ISSUER_ID, APPSTORE_API_KEY_ID, APPSTORE_API_PRIVATE_KEY and vars.APPSTORE_APP_ID."
+
+      - name: Install App Store Connect client
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: pip install --quiet pyjwt cryptography requests
+
+      # Apple permits exactly ONE version in Waiting for Review / In Review / Pending
+      # Developer Release. Cancelling developer-rejects the submission and sends you to
+      # the BACK of the review queue, so this refuses loudly rather than auto-cancelling.
+      - name: Refuse if a review submission is already in flight
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: python .github/scripts/asc_op.py guard
+
+      - name: Submit for review
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_ASC == 'true'
+        run: python .github/scripts/asc_op.py submit --version "${{ needs.version.outputs.simple }}"
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: appstore-production-macos
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  commit-msstore:
+    needs: [version, publish-msstore-draft]
+    if: needs.publish-msstore-draft.outputs.published == 'true'
+    runs-on: windows-2025
+    timeout-minutes: 30
+    environment: ms-store-production  # REQUIRED REVIEWER
+    env:
+      HAS_MSSTORE: ${{ secrets.MS_STORE_TENANT_ID != '' && secrets.MS_STORE_SELLER_ID != '' && secrets.MS_STORE_CLIENT_ID != '' && secrets.MS_STORE_CLIENT_SECRET != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: once
+        uses: ./.github/actions/publish-once
+        with:
+          environment: ms-store-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Skip - Partner Center credentials incomplete
+        if: env.HAS_MSSTORE != 'true'
+        shell: bash
+        run: echo "::warning::Skipping the Microsoft Store commit - it needs all four MS_STORE_* secrets."
+      - uses: microsoft/microsoft-store-apppublisher@v1.4
+        if: steps.once.outputs.skip != 'true' && env.HAS_MSSTORE == 'true'
+      - name: Commit the submission at 10% rollout
+        id: upload
+        if: steps.once.outputs.skip != 'true' && env.HAS_MSSTORE == 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          # Without this a failed `update` would still be followed by `publish`, skipping the 10% rollout.
+          $PSNativeCommandUseErrorActionPreference = $true
+          msstore reconfigure `
+            --tenantId "${{ secrets.MS_STORE_TENANT_ID }}" `
+            --sellerId "${{ secrets.MS_STORE_SELLER_ID }}" `
+            --clientId "${{ secrets.MS_STORE_CLIENT_ID }}" `
+            --clientSecret "${{ secrets.MS_STORE_CLIENT_SECRET }}"
+
+          $s = msstore submission get ${{ env.MS_STORE_PRODUCT_ID }} | ConvertFrom-Json
+          $s.PackageDeliveryOptions.PackageRollout.IsPackageRollout = $true
+          $s.PackageDeliveryOptions.PackageRollout.PackageRolloutPercentage = 10
+          # -Depth 100 is MANDATORY. PowerShell's default depth of 2 silently truncates
+          # the submission JSON and corrupts the submission.
+          msstore submission update ${{ env.MS_STORE_PRODUCT_ID }} ($s | ConvertTo-Json -Depth 100 -Compress)
+          msstore submission publish ${{ env.MS_STORE_PRODUCT_ID }}
+          # Deliberately NO `msstore submission poll` - certification runs for hours to
+          # days and a hosted job caps at 6. store-health.yml watches instead.
+
+      - name: Record the publish
+        if: steps.upload.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: ms-store-production
+          sha: ${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -3,7 +3,7 @@
 Captures the app screens the store slides are built from, using the packaged WinAppSDK build and demo data.
 
 .DESCRIPTION
-Build and deploy the Windows head first (F5 once is enough), keep the app language on English, and close the app.
+Build and deploy the Prod channel of the Windows head first (dotnet run -f net11.0-windows10.0.26100 -p:AppChannel=Prod from src/DailyPlants), keep the app language on English, and close the app.
 The script backs up your database and the app's settings, seeds demo data, drives the app through UI Automation,
 writes the captures to captures/ and puts your data back, even if something fails on the way.
 It clicks one diary row with the mouse, so leave the mouse alone for the minute it runs.

@@ -1,0 +1,62 @@
+name: Build WebAssembly
+
+# Reusable: publishes the WebAssembly head and uploads its wwwroot. The production deploy to Azure
+# Static Web Apps lives in release.yml; PR previews have their own workflow.
+
+on:
+  workflow_call:
+    inputs:
+      channel:        { type: string, required: true }
+      version_simple: { type: string, required: true }
+      artifact_name:  { type: string, required: true }
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      ContinuousIntegrationBuild: true
+      PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
+      TFM: net11.0-browserwasm
+      WWWROOT: src/DailyPlants/bin/Release/net11.0-browserwasm/publish/wwwroot
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-dotnet-build
+        with:
+          workloads: DailyPlants.slnx
+
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
+
+      - name: Publish
+        run: |
+          dotnet publish "$PROJECT_FILE" -c Release -f "$TFM" \
+            -p:AppChannel=${{ inputs.channel }} \
+            -p:CiVersionInjected=true \
+            -p:Version=${{ inputs.version_simple }} \
+            -p:ApplicationDisplayVersion=${{ inputs.version_simple }} \
+            -p:ApplicationVersion=0
+
+      # The web has no store version, so this is how a deployed site is traced back to a commit.
+      - name: Stamp the site with its version
+        run: |
+          set -euo pipefail
+          test -d "$WWWROOT" || { echo "::error::wwwroot not found at $WWWROOT"; exit 1; }
+          printf '{"version":"%s","channel":"%s","sha":"%s"}\n' \
+            "${{ inputs.version_simple }}" "${{ inputs.channel }}" "$GITHUB_SHA" > "$WWWROOT/build-info.json"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: ${{ env.WWWROOT }}
+          retention-days: ${{ inputs.channel == 'Prod' && 90 || 14 }}
+          if-no-files-found: error

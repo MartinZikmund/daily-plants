@@ -5,10 +5,6 @@
         <OutputType>Exe</OutputType>
         <UnoSingleProject>true</UnoSingleProject>
 
-        <!-- Display name -->
-        <ApplicationTitle>Daily Plants</ApplicationTitle>
-        <!-- App Identifier -->
-        <ApplicationId>dev.mzikmund.dailyplants</ApplicationId>
         <!-- Package Publisher -->
         <ApplicationPublisher>Martin Zikmund</ApplicationPublisher>
         <!-- Package Description -->
@@ -37,6 +33,20 @@
         <UnoIconForegroundScale Condition="'$(IsIOS)' == 'true'">0.8</UnoIconForegroundScale>
 
         <UnoSplashScreenScale>0.85</UnoSplashScreenScale>
+    </PropertyGroup>
+
+    <!--
+      The Prod values are the store identities: Play, App Store and Mac App Store use the ApplicationId.
+      The Windows Store identity lives in Package.appxmanifest, and Dev builds rename it (src/Directory.Build.targets).
+    -->
+    <PropertyGroup Condition="'$(AppChannel)' == 'Prod'">
+        <ApplicationTitle>Daily Plants</ApplicationTitle>
+        <ApplicationId>dev.mzikmund.dailyplants</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(AppChannel)' == 'Dev'">
+        <ApplicationTitle>Daily Plants Dev</ApplicationTitle>
+        <ApplicationId>dev.mzikmund.dailyplants.dev</ApplicationId>
     </PropertyGroup>
 
     <!--
@@ -77,12 +87,19 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);Platforms/Desktop/macOS/AppIcon/**</DefaultItemExcludes>
     </PropertyGroup>
 
-    <!-- Nerdbank.GitVersioning stamps the app version for iOS, Android and Windows, but not for the macOS bundle. -->
+    <!--
+      Nerdbank.GitVersioning stamps the app version for iOS, Android and Windows, but not for the macOS bundle.
+      CI injects ApplicationVersion=0 because Uno.Resizetizer's desktop manifest only takes an integer, and the bundle
+      runs after that, so it gets the injected X.Y.Z here.
+    -->
     <Target Name="SetMacOSBundleVersion"
             Condition="'$(IsDesktop)' == 'true'"
             BeforeTargets="_UnoPublishAppBundle"
             DependsOnTargets="GetBuildVersion">
-        <PropertyGroup>
+        <PropertyGroup Condition="'$(CiVersionInjected)' == 'true'">
+            <ApplicationVersion>$(ApplicationDisplayVersion)</ApplicationVersion>
+        </PropertyGroup>
+        <PropertyGroup Condition="'$(CiVersionInjected)' != 'true'">
             <ApplicationVersion>$(BuildVersionSimple)</ApplicationVersion>
             <ApplicationDisplayVersion>$(BuildVersionSimple)</ApplicationDisplayVersion>
         </PropertyGroup>

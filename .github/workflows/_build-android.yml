@@ -1,0 +1,125 @@
+name: Build Android
+
+# Reusable: builds (and, when a keystore is configured, signs) one Android App Bundle.
+# Publishing lives in release.yml - this workflow never talks to a store.
+
+on:
+  workflow_call:
+    inputs:
+      channel:        { type: string, required: true }   # Dev | Prod
+      version_simple: { type: string, required: true }   # X.Y.Z
+      version_code:   { type: string, required: true }   # monotonic integer
+      artifact_name:  { type: string, required: true }
+    secrets:
+      ANDROID_KEYSTORE_BASE64: { required: false }
+      ANDROID_KEY_ALIAS:       { required: false }
+      ANDROID_KEY_PASSWORD:    { required: false }
+      ANDROID_STORE_PASSWORD:  { required: false }
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      ContinuousIntegrationBuild: true
+      PROJECT_FILE: src/DailyPlants/DailyPlants.csproj
+      TFM: net11.0-android
+      OUT: src/DailyPlants/bin/Release/net11.0-android/publish
+      # `secrets` is legal in job-level `env` and illegal in every `if:`, so this is how to branch on them.
+      # All four or it counts as not configured: signing with the blob alone would only fail later.
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && secrets.ANDROID_KEY_ALIAS != '' && secrets.ANDROID_KEY_PASSWORD != '' && secrets.ANDROID_STORE_PASSWORD != '' }}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-dotnet-build
+        with:
+          workloads: DailyPlants.slnx
+
+      - name: Decode upload keystore
+        if: env.HAS_KEYSTORE == 'true'
+        run: |
+          set -euo pipefail
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/upload.keystore"
+          test -s "$RUNNER_TEMP/upload.keystore"
+
+      - name: Publish AAB (signed)
+        if: env.HAS_KEYSTORE == 'true'
+        run: |
+          dotnet publish "$PROJECT_FILE" -c Release -f "$TFM" \
+            -p:AppChannel=${{ inputs.channel }} \
+            -p:CiVersionInjected=true \
+            -p:ApplicationDisplayVersion=${{ inputs.version_simple }} \
+            -p:ApplicationVersion=${{ inputs.version_code }} \
+            -p:AndroidPackageFormat=aab \
+            -p:AndroidKeyStore=true \
+            -p:AndroidSigningKeyStore="$RUNNER_TEMP/upload.keystore" \
+            -p:AndroidSigningKeyAlias='${{ secrets.ANDROID_KEY_ALIAS }}' \
+            -p:AndroidSigningKeyPass='${{ secrets.ANDROID_KEY_PASSWORD }}' \
+            -p:AndroidSigningStorePass='${{ secrets.ANDROID_STORE_PASSWORD }}'
+
+      - name: Publish AAB (unsigned - signing not fully configured)
+        if: env.HAS_KEYSTORE != 'true'
+        run: |
+          echo "::notice::The four ANDROID_* signing secrets are not all set - building an UNSIGNED AAB. The Play publish jobs will skip."
+          dotnet publish "$PROJECT_FILE" -c Release -f "$TFM" \
+            -p:AppChannel=${{ inputs.channel }} \
+            -p:CiVersionInjected=true \
+            -p:ApplicationDisplayVersion=${{ inputs.version_simple }} \
+            -p:ApplicationVersion=${{ inputs.version_code }} \
+            -p:AndroidPackageFormat=aab
+
+      - name: Remove the keystore
+        if: always()
+        run: rm -f "$RUNNER_TEMP/upload.keystore"
+
+      - name: Verify the version and identity landed in the manifest
+        run: |
+          set -euo pipefail
+          # The .NET Android SDK writes a plain-text intermediate manifest before aapt runs.
+          man="$(find "src/DailyPlants/obj/Release/$TFM" -name AndroidManifest.xml -path '*android/manifest*' 2>/dev/null | head -1 || true)"
+          [ -n "$man" ] || { echo "::error::Could not find the generated AndroidManifest.xml under obj/."; exit 1; }
+          # `|| true`: under pipefail a non-matching grep would abort before the comparison below explains why.
+          code="$(grep -o 'android:versionCode="[0-9]*"' "$man" | head -1 | grep -o '[0-9]*' || true)"
+          name="$(grep -o 'android:versionName="[^"]*"' "$man" | head -1 | sed 's/.*="//;s/"//' || true)"
+          pkg="$(grep -o ' package="[^"]*"' "$man" | head -1 | sed 's/.*="//;s/"//' || true)"
+          echo "manifest: package=$pkg versionCode=$code versionName=$name"
+          [ "$code" = "${{ inputs.version_code }}" ] || { echo "::error::versionCode is $code, expected ${{ inputs.version_code }}"; exit 1; }
+          [ "$name" = "${{ inputs.version_simple }}" ] || { echo "::error::versionName is $name, expected ${{ inputs.version_simple }}"; exit 1; }
+          if [ "${{ inputs.channel }}" = "Prod" ]; then want=dev.mzikmund.dailyplants; else want=dev.mzikmund.dailyplants.dev; fi
+          [ "$pkg" = "$want" ] || { echo "::error::package is $pkg, expected $want"; exit 1; }
+
+      - name: Assert exactly one signed AAB
+        if: env.HAS_KEYSTORE == 'true'
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          signed=("$OUT"/*-Signed.aab)
+          [ "${#signed[@]}" -eq 1 ] || { echo "::error::expected exactly 1 *-Signed.aab in $OUT, found ${#signed[@]}"; exit 1; }
+
+      - name: Stage artifact
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/stage"
+          # publish/ holds the unsigned AAB too; ship exactly one.
+          if [ "$HAS_KEYSTORE" = "true" ]; then
+            cp "$OUT"/*-Signed.aab "$RUNNER_TEMP/stage/"
+          else
+            cp "$OUT"/*.aab "$RUNNER_TEMP/stage/"
+          fi
+          map="$(find "src/DailyPlants/obj/Release/$TFM" -name mapping.txt | head -1 || true)"
+          if [ -n "$map" ]; then cp "$map" "$RUNNER_TEMP/stage/"; else echo "::notice::no R8 mapping.txt produced"; fi
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: ${{ runner.temp }}/stage
+          retention-days: ${{ inputs.channel == 'Prod' && 90 || 14 }}
+          if-no-files-found: error

@@ -3,7 +3,7 @@
 #
 # Publish the app bundle first:
 #   dotnet publish src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-desktop -r osx-arm64 \
-#     -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app
+#     -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app -p:AppChannel=Prod
 # The terminal needs the Accessibility and Screen Recording permissions (System Settings > Privacy & Security).
 # The script switches the main display to a HiDPI mode for sharp 2x captures and switches it back at the end.
 # It backs up your Daily Plants data, seeds demo data and restores your data afterwards.

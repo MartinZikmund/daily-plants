@@ -16,4 +16,21 @@
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="All" />
   </ItemGroup>
+
+  <!-- Dev (local builds and main) or Prod (release/v* in CI). Dev installs next to the store app. See docs/releasing.md. -->
+  <PropertyGroup>
+    <AppChannel Condition="'$(AppChannel)' == ''">Dev</AppChannel>
+    <DefineConstants Condition="'$(AppChannel)' == 'Dev'">$(DefineConstants);APP_CHANNEL_DEV</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Captured before any SDK default applies, so only the command line can fill these. Read by AssertStoreVersionStamped. -->
+  <PropertyGroup>
+    <_InjectedApplicationVersion>$(ApplicationVersion)</_InjectedApplicationVersion>
+    <_InjectedApplicationDisplayVersion>$(ApplicationDisplayVersion)</_InjectedApplicationDisplayVersion>
+  </PropertyGroup>
+
+  <!-- NBGV's NBGV_SetVersionForMauiAndroid/iOS targets overwrite the version mid-build, even over -p: values. CI's must win. -->
+  <PropertyGroup Condition="'$(CiVersionInjected)' == 'true'">
+    <NBGV_SetMauiVersionProperties>false</NBGV_SetMauiVersionProperties>
+  </PropertyGroup>
 </Project>

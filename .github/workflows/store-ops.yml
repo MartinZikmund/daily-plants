@@ -1,0 +1,306 @@
+name: Store operations
+
+# Break-glass levers for a release that is already out: halt or walk a staged rollout,
+# pause a phased release, unblock a stuck submission, or re-push an older run's exact
+# bits without rebuilding.
+#
+# WHY A SEPARATE `store-ops` ENVIRONMENT: `gh workflow run` dispatches on the DEFAULT
+# branch, and the release environments carry a `release/v*` branch policy plus required
+# reviewers. Binding these jobs to `play-production` would make every emergency halt
+# either refused ("Branch main is not allowed to deploy to ...") or stuck waiting for an
+# approval click - dead exactly in the 2 a.m. scenario they exist for. `store-ops` is
+# therefore reviewer-free and branch-unrestricted, and holds its OWN copies of the
+# credentials (environment secrets do not inherit from the repo or from siblings).
+# Halting is safe and reversible; the genuinely destructive actions guard themselves.
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Operation"
+        type: choice
+        required: true
+        options:
+          - play-status
+          - play-bump
+          - play-halt
+          - play-finalize
+          - appstore-status
+          - appstore-pause
+          - appstore-resume
+          - appstore-cancel-review
+          - macappstore-status
+          - macappstore-cancel-review
+          - msstore-status
+          - msstore-rollout-update
+          - msstore-rollout-halt
+          - msstore-rollout-finalize
+          - msstore-delete-draft
+          - republish
+      value:
+        description: "Percent as a fraction (e.g. 0.25) for a bump, or the run id for republish"
+        required: false
+        default: ""
+      republish_targets:
+        description: "republish only: comma-separated store targets. See docs/releasing.md"
+        required: false
+        default: ""
+      force:
+        description: "republish only: re-push a target this commit already reached"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+  deployments: write
+  statuses: write
+
+env:
+  # Public store ids, overridable with repo variables of the same name.
+  ANDROID_PACKAGE_NAME: ${{ vars.ANDROID_PACKAGE_NAME || 'dev.mzikmund.dailyplants' }}
+  MS_STORE_PRODUCT_ID: ${{ vars.MS_STORE_PRODUCT_ID || '9NKK3K501RZG' }}
+
+jobs:
+  play:
+    if: startsWith(inputs.action, 'play-')
+    runs-on: ubuntu-24.04
+    environment: store-ops
+    steps:
+      - uses: actions/checkout@v7
+      - run: pip install --quiet google-auth requests
+      - name: Run the Play track operation
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          # Read through the environment, never interpolated into the script body: these are
+          # free-text workflow_dispatch inputs, and ${{ }} substitution happens BEFORE the
+          # shell parses the line.
+          ACTION: ${{ inputs.action }}
+          VALUE: ${{ inputs.value }}
+          PACKAGE_NAME: ${{ env.ANDROID_PACKAGE_NAME }}
+        run: |
+          set -euo pipefail
+          # NOTE: halt does NOT roll anyone back. Users who already received the build keep
+          # it until a HIGHER version reaches them. Halting only stops the bleed.
+          case "$ACTION" in
+            play-status)   op=status ;;
+            play-halt)     op=halt ;;
+            play-finalize) op=finalize ;;
+            play-bump)
+              op=rollout
+              case "$VALUE" in
+                0.[0-9]|0.[0-9][0-9]|1|1.0) ;;
+                *) echo "::error::play-bump needs 'value' as a fraction between 0 and 1, e.g. 0.25"; exit 1 ;;
+              esac
+              ;;
+            *) echo "::error::unsupported play action"; exit 1 ;;
+          esac
+          args=(--package "$PACKAGE_NAME" --track production)
+          if [ "$op" = "rollout" ]; then args+=(--user-fraction "$VALUE"); fi
+          python .github/scripts/play_track_op.py "$op" "${args[@]}"
+
+  appstore:
+    if: startsWith(inputs.action, 'appstore-') || startsWith(inputs.action, 'macappstore-')
+    runs-on: ubuntu-24.04
+    environment: store-ops
+    env:
+      APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+      APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+      APPSTORE_API_PRIVATE_KEY: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+      APPSTORE_APP_ID: ${{ vars.APPSTORE_APP_ID }}
+      # The Mac App Store is the MAC_OS platform of the same App Store Connect app.
+      APPSTORE_PLATFORM: ${{ startsWith(inputs.action, 'macappstore-') && 'MAC_OS' || 'IOS' }}
+    steps:
+      - uses: actions/checkout@v7
+      - run: pip install --quiet pyjwt cryptography requests
+      - name: Run the App Store operation
+        env:
+          ACTION: ${{ inputs.action }}
+        run: |
+          set -euo pipefail
+          # WARNING: appstore-cancel-review DEVELOPER-REJECTS the submission and sends you
+          # to the BACK of the review queue. Never automatic, always a deliberate choice.
+          case "$ACTION" in
+            appstore-status)        op=status ;;
+            appstore-pause)         op=phased-pause ;;
+            appstore-resume)        op=phased-resume ;;
+            appstore-cancel-review) op=cancel-review ;;
+            macappstore-status)        op=status ;;
+            macappstore-cancel-review) op=cancel-review ;;
+            *) echo "::error::unsupported appstore action"; exit 1 ;;
+          esac
+          python .github/scripts/asc_op.py "$op"
+
+  msstore:
+    if: startsWith(inputs.action, 'msstore-')
+    runs-on: windows-2025
+    environment: store-ops
+    steps:
+      - uses: microsoft/microsoft-store-apppublisher@v1.4
+      - name: Run the Microsoft Store operation
+        shell: pwsh
+        env:
+          ACTION: ${{ inputs.action }}
+          VALUE: ${{ inputs.value }}
+          PRODUCT_ID: ${{ env.MS_STORE_PRODUCT_ID }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          msstore reconfigure `
+            --tenantId "${{ secrets.MS_STORE_TENANT_ID }}" `
+            --sellerId "${{ secrets.MS_STORE_SELLER_ID }}" `
+            --clientId "${{ secrets.MS_STORE_CLIENT_ID }}" `
+            --clientSecret "${{ secrets.MS_STORE_CLIENT_SECRET }}"
+          # From the environment, not interpolated into this script's source.
+          $id = $env:PRODUCT_ID
+          switch ($env:ACTION) {
+            'msstore-status'           { msstore submission status $id }
+            'msstore-rollout-update'   {
+              if ($env:VALUE -notmatch '^(100|[1-9]?[0-9])$') {
+                throw "msstore-rollout-update needs 'value' as a whole percentage 0-100."
+              }
+              msstore submission rollout update $id ([int]$env:VALUE)
+            }
+            'msstore-rollout-halt'     { msstore submission rollout halt    $id }
+            'msstore-rollout-finalize' { msstore submission rollout finalize $id }
+            'msstore-delete-draft'     {
+              $st = (msstore submission status $id 2>&1 | Out-String)
+              Write-Host $st
+              if ($st -match 'Certification|Publishing|PendingPublication') {
+                throw "The submission is past draft state - refusing to delete."
+              }
+              msstore submission delete $id --no-confirm
+            }
+            default { throw "unsupported msstore action" }
+          }
+
+  republish:
+    if: inputs.action == 'republish'
+    runs-on: ubuntu-24.04
+    environment: store-ops
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate inputs and find the source commit
+        id: source
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ inputs.value }}
+          TARGETS: ${{ inputs.republish_targets }}
+        run: |
+          set -euo pipefail
+          case "$RUN_ID" in
+            ''|*[!0-9]*) echo "::error::republish needs the source run id in 'value' (digits only)."; exit 1 ;;
+          esac
+          [ -n "$TARGETS" ] || { echo "::error::republish needs 'republish_targets'. See docs/releasing.md."; exit 1; }
+          sha="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq .head_sha)"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+      # This workflow has no reviewers, so overwriting what a store already has takes an explicit
+      # force=true. Checked before anything moves, so a mistaken dispatch changes nothing.
+      - id: once-play
+        if: contains(inputs.republish_targets, 'play')
+        uses: ./.github/actions/publish-once
+        with:
+          environment: play-internal
+          sha: ${{ steps.source.outputs.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          force: ${{ inputs.force }}
+
+      - id: once-web
+        if: contains(inputs.republish_targets, 'web')
+        uses: ./.github/actions/publish-once
+        with:
+          environment: web-production
+          sha: ${{ steps.source.outputs.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          force: ${{ inputs.force }}
+
+      - name: Refuse to re-push without force
+        if: steps.once-play.outputs.skip == 'true' || steps.once-web.outputs.skip == 'true'
+        run: |
+          echo "::error::A requested target already has this commit (see the notices above). Pass force=true to re-push it."
+          exit 1
+
+      # Each artifact goes to its OWN directory. A single `pattern: release-*` with
+      # merge-multiple would put the AAB and the .msixbundle in the same
+      # folder as the site - and the web deploy would then publish all of them to the live
+      # site root.
+      # Release artifacts are retained 90 days precisely so this lever stays usable after
+      # GitHub's 30-day "re-run failed jobs" window closes.
+      - uses: actions/download-artifact@v8
+        if: contains(inputs.republish_targets, 'play')
+        with:
+          run-id: ${{ inputs.value }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: release-android
+          path: pkg-android
+
+      - uses: actions/download-artifact@v8
+        if: contains(inputs.republish_targets, 'web')
+        with:
+          run-id: ${{ inputs.value }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: release-wasm
+          path: wwwroot
+
+      - uses: actions/download-artifact@v8
+        if: contains(inputs.republish_targets, 'msstore')
+        with:
+          run-id: ${{ inputs.value }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: release-windows
+          path: pkg-windows
+
+      - name: Show what was recovered
+        run: find pkg-android pkg-windows wwwroot -type f 2>/dev/null | head -50 || true
+
+      - name: Re-upload to Play (internal)
+        id: upload-play
+        if: contains(inputs.republish_targets, 'play')
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: ${{ env.ANDROID_PACKAGE_NAME }}
+          releaseFiles: pkg-android/*-Signed.aab
+          tracks: internal
+          status: completed
+
+      - name: Record the Play upload
+        if: steps.upload-play.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: play-internal
+          sha: ${{ steps.source.outputs.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Re-deploy the web build
+        id: upload-web
+        if: contains(inputs.republish_targets, 'web')
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURESTATICWEBAPPSDEPLOYMENTTOKEN }}
+          action: upload
+          skip_app_build: true
+          skip_api_build: true
+          app_location: wwwroot
+          # Dispatched on main, which counts as production for this one deploy.
+          production_branch: ${{ github.ref_name }}
+
+      - name: Record the web deploy
+        if: steps.upload-web.outcome == 'success'
+        uses: ./.github/actions/publish-once
+        with:
+          mode: record
+          environment: web-production
+          sha: ${{ steps.source.outputs.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Note the Microsoft Store path
+        if: contains(inputs.republish_targets, 'msstore')
+        env:
+          RUN_ID: ${{ inputs.value }}
+        run: |
+          echo "::notice::The .msixbundle from run $RUN_ID is in this job's 'pkg-windows' directory."
+          echo "::notice::Microsoft Store re-submission runs on Windows - re-run the release run's publish-msstore-draft job, or upload pkg-windows/*.msixbundle manually in Partner Center."

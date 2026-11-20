@@ -10,7 +10,7 @@ Daily Plants is on the Mac App Store as the macOS platform of the same App Store
 
 ## Packaging
 
-`.github/workflows/package-macos.yml` runs `package-app.sh` on every push to `main` and uploads the package to App Store Connect, like the iOS workflow does with TestFlight. The script:
+`.github/workflows/_build-macos.yml` runs `package-app.sh` for every release (a push to `release/v*`, see [docs/releasing.md](../../releasing.md)), and `release.yml` uploads the package to App Store Connect next to the iOS TestFlight build. Builds on `main` are the Dev channel, which the Mac App Store profile doesn't cover, so they produce an unsigned app instead. The script always builds the Prod channel and:
 
 1. publishes the desktop head for `osx-arm64` and `osx-x64` as app bundles,
 2. merges them into one universal bundle,
@@ -50,7 +50,7 @@ The app is sandboxed with network access for the NutritionFacts.org feeds and re
 
 Each screenshot is a slide: a real capture of the Mac app in its window, standing on the windowsill from the Windows and iOS slides, with the same headlines.
 
-1. **Publish** the app bundle: `dotnet publish src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-desktop -r osx-arm64 -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app`.
+1. **Publish** the app bundle: `dotnet publish src/DailyPlants/DailyPlants.csproj -c Release -f net11.0-desktop -r osx-arm64 -p:TargetFrameworks=net11.0-desktop -p:SelfContained=true -p:PackageFormat=app -p:AppChannel=Prod`.
 2. **Capture** the app with `screenshots/capture-app.sh`. The terminal needs the Accessibility and Screen Recording permissions. The script backs up your Daily Plants data, seeds demo data with `../windows/screenshots/seed-demo-data.cs`, writes the settings the captures need, drives the app with `mac.swift` and restores your data afterwards. For sharp 2x captures it switches the main display to a 3840x1080 HiDPI mode while it runs and back afterwards; on another display, change the mode in the script. Leave the mouse alone for the minute it runs. The captures land in `screenshots/captures/`, and with [oxipng](https://github.com/oxipng/oxipng) installed (`brew install oxipng`) the script shrinks them losslessly before you commit them.
 3. **Render** the slides with `screenshots/render-slides.sh`, which writes `artifacts/store/macos/images/1.png` to `6.png` with headless Edge or Chrome.
 
