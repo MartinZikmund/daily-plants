@@ -72,7 +72,7 @@
       profiled hot paths stay precompiled, the rest is JIT-ed.
     -->
     <PropertyGroup Condition="'$(IsAndroid)' == 'true'">
-        <PublishReadyToRunCrossgen2ExtraArgs>--partial</PublishReadyToRunCrossgen2ExtraArgs>
+        <PublishReadyToRunCrossgen2ExtraArgs>$(PublishReadyToRunCrossgen2ExtraArgs);--partial</PublishReadyToRunCrossgen2ExtraArgs>
     </PropertyGroup>
 
     <!-- The macOS app bundle, see docs/store/macos -->
