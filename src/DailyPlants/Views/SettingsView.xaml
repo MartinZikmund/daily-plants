@@ -320,6 +320,69 @@
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
 
+                <!-- About Section (was its own page; folded in so phones need one tab fewer) -->
+                <TextBlock Text="{helpers:Localize Key=Nav_About}"
+                           Style="{StaticResource DpOverlineTextBlockStyle}"
+                           Margin="0,32,0,8" />
+
+                <controls:SettingsCard AutomationProperties.AutomationId="AboutAppCard">
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE946;" FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+                    </controls:SettingsCard.HeaderIcon>
+                    <controls:SettingsCard.Header>
+                        <TextBlock Text="{helpers:Localize Key=AppName}" />
+                    </controls:SettingsCard.Header>
+                    <controls:SettingsCard.Description>
+                        <TextBlock Text="{helpers:Localize Key=About_Description}" TextWrapping="Wrap" />
+                    </controls:SettingsCard.Description>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="{helpers:Localize Key=About_Version}"
+                                   Style="{StaticResource DpCaptionTextBlockStyle}" />
+                        <TextBlock x:Name="VersionText"
+                                   AutomationProperties.AutomationId="AboutVersionText"
+                                   Style="{StaticResource DpCaptionTextBlockStyle}" />
+                    </StackPanel>
+                </controls:SettingsCard>
+
+                <controls:SettingsCard>
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8F1;" FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+                    </controls:SettingsCard.HeaderIcon>
+                    <controls:SettingsCard.Header>
+                        <TextBlock Text="{helpers:Localize Key=About_CreditsDesc}" TextWrapping="Wrap" />
+                    </controls:SettingsCard.Header>
+                    <controls:SettingsCard.Description>
+                        <TextBlock Text="{helpers:Localize Key=About_NutritionFactsDesc}" TextWrapping="Wrap" />
+                    </controls:SettingsCard.Description>
+                    <HyperlinkButton Content="{helpers:Localize Key=About_NutritionFacts}"
+                                     NavigateUri="https://nutritionfacts.org"
+                                     AutomationProperties.AutomationId="NutritionFactsLink" />
+                </controls:SettingsCard>
+
+                <!--
+                    Not localized: Strings/*.resw belong to another agent's scope.
+                    Free-tier Icons8 requires a visible attribution link (see
+                    docs/design/windowsill.md, "Licensing — unresolved").
+                -->
+                <controls:SettingsCard>
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE790;" FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+                    </controls:SettingsCard.HeaderIcon>
+                    <controls:SettingsCard.Header>
+                        <TextBlock Text="Item and achievement icons by Icons8" TextWrapping="Wrap" />
+                    </controls:SettingsCard.Header>
+                    <HyperlinkButton Content="Visit Icons8.com"
+                                     NavigateUri="https://icons8.com"
+                                     AutomationProperties.AutomationId="Icons8Link" />
+                </controls:SettingsCard>
+
+                <TextBlock Text="{helpers:Localize Key=About_BuiltWith}"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
+                           Margin="0,8,0,0" />
+                <TextBlock Text="{helpers:Localize Key=About_Disclaimer}"
+                           Style="{StaticResource DpCaptionTextBlockStyle}"
+                           TextWrapping="Wrap" />
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

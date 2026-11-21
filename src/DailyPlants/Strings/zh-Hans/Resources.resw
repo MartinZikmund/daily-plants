@@ -849,6 +849,9 @@
   <data name="Nav_Achievements" xml:space="preserve">
     <value>成就</value>
   </data>
+  <data name="Nav_Progress" xml:space="preserve">
+    <value>进度</value>
+  </data>
 
   <!-- Achievements - Page -->
   <data name="Achievements_Title" xml:space="preserve">

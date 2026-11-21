@@ -17,6 +17,9 @@ public sealed partial class ShellView : Page
     private IAchievementService? _achievementService;
     private IAppNavigator? _appNavigator;
     private object? _pendingNavigationParameter;
+
+    private const string ProgressTabTag = "Progress";
+    private string _lastProgressSection = "Statistics";
     private readonly Window _associatedWindow;
 
     public ShellView(Window associatedWindow)
@@ -162,6 +165,8 @@ public sealed partial class ShellView : Page
         if (App.Current.Services?.GetService<IFeedService>() is { SupportsLiveFetch: false })
         {
             NavView.MenuItems.Remove(ResourcesNavItem);
+            ResourcesTab.Visibility = Visibility.Collapsed;
+            ResourcesTabColumn.Width = new GridLength(0);
         }
     }
 
@@ -186,18 +191,16 @@ public sealed partial class ShellView : Page
 
         var unseenCount = await _achievementService.GetUnseenCountAsync();
 
-        DispatcherQueue.TryEnqueue(() =>
+        DispatcherQueue.TryEnqueue(() => ShowAchievementBadges(unseenCount));
+    }
+
+    private void ShowAchievementBadges(int unseenCount)
+    {
+        foreach (var badge in new[] { AchievementsBadge, AchievementsTabBadge })
         {
-            if (unseenCount > 0)
-            {
-                AchievementsBadge.Value = unseenCount;
-                AchievementsBadge.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AchievementsBadge.Visibility = Visibility.Collapsed;
-            }
-        });
+            badge.Value = unseenCount;
+            badge.Visibility = unseenCount > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -208,22 +211,75 @@ public sealed partial class ShellView : Page
             var parameter = _pendingNavigationParameter;
             _pendingNavigationParameter = null;
             NavigateToPage(tag, parameter);
+            CheckTab(tag);
 
-            // Clear badge when navigating to achievements
             if (tag == "Achievements")
             {
-                AchievementsBadge.Visibility = Visibility.Collapsed;
+                ShowAchievementBadges(0);
             }
         }
     }
+
+    private void Tab_Checked(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement { Tag: string tag })
+        {
+            SelectSection(tag == ProgressTabTag ? _lastProgressSection : tag);
+        }
+    }
+
+    private void ProgressSelector_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
+    {
+        if (sender.SelectedItem is { Tag: string tag })
+        {
+            SelectSection(tag);
+        }
+    }
+
+    private void SelectSection(string tag)
+    {
+        if (FindNavItem(tag) is { } item && !ReferenceEquals(NavView.SelectedItem, item))
+        {
+            NavView.SelectedItem = item;
+        }
+    }
+
+    private void CheckTab(string? tag)
+    {
+        var isProgress = tag is "Statistics" or "Achievements";
+        if (isProgress)
+        {
+            _lastProgressSection = tag!;
+            ProgressSelector.SelectedItem = tag == "Statistics" ? StatisticsSelectorItem : AchievementsSelectorItem;
+        }
+
+        var tabTag = isProgress ? ProgressTabTag : tag;
+        if (TabBar.Children.OfType<RadioButton>().FirstOrDefault(tab => (string?)tab.Tag == tabTag) is { } tab)
+        {
+            tab.IsChecked = true;
+        }
+
+        UpdateProgressSelector();
+    }
+
+    private void LayoutStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e) => UpdateProgressSelector();
+
+    private void UpdateProgressSelector()
+    {
+        var isNarrow = LayoutStates.CurrentState?.Name == "NarrowState";
+        ProgressSelector.Visibility = isNarrow && ProgressTab.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private NavigationViewItem? FindNavItem(string tag) =>
+        NavView.MenuItems.Concat(NavView.FooterMenuItems)
+            .OfType<NavigationViewItem>()
+            .FirstOrDefault(i => (string?)i.Tag == tag);
 
     private void OnNavigationRequested(object? sender, AppNavigationRequest request)
     {
         DispatcherQueue.TryEnqueue(() =>
         {
-            var item = NavView.MenuItems.Concat(NavView.FooterMenuItems)
-                .OfType<NavigationViewItem>()
-                .FirstOrDefault(i => (string?)i.Tag == request.PageTag);
+            var item = FindNavItem(request.PageTag);
             if (item is null)
             {
                 return;
@@ -250,7 +306,6 @@ public sealed partial class ShellView : Page
             "Statistics" => typeof(StatisticsView),
             "Achievements" => typeof(AchievementsView),
             "Settings" => typeof(SettingsView),
-            "About" => typeof(AboutView),
             _ => null
         };
 

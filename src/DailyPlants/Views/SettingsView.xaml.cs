@@ -1,3 +1,4 @@
+using System.Reflection;
 using DailyPlants.Helpers;
 using DailyPlants.Services;
 using DailyPlants.Services.Settings;
@@ -26,6 +27,7 @@ public sealed partial class SettingsView : Page
 
         this.InitializeComponent();
         this.DataContext = ViewModel;
+        VersionText.Text = GetInformationalVersion();
         this.Loaded += SettingsView_Loaded;
         ViewModel.ChecklistImpactWarningRequested += ViewModel_ChecklistImpactWarningRequested;
     }
@@ -40,6 +42,23 @@ public sealed partial class SettingsView : Page
         {
             _logger.LogError(ex, "Loading settings failed");
         }
+    }
+
+    // NerdBank.GitVersioning stamps AssemblyInformationalVersionAttribute at build time
+    // (e.g. "1.2.3+abcdef0"); trim the commit suffix for display.
+    private static string GetInformationalVersion()
+    {
+        var informationalVersion = Assembly.GetExecutingAssembly()
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion;
+
+        if (string.IsNullOrEmpty(informationalVersion))
+        {
+            return "Unknown";
+        }
+
+        var plusIndex = informationalVersion.IndexOf('+');
+        return plusIndex >= 0 ? informationalVersion[..plusIndex] : informationalVersion;
     }
 
     private async void ViewModel_ChecklistImpactWarningRequested(object? sender, EventArgs e)
