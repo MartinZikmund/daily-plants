@@ -105,8 +105,7 @@ jobs:
             -p:BuildIpa=true \
             -p:CodesignKey="${{ secrets.APPLE_CODESIGN_KEY }}" \
             -p:CodesignTeamId="${{ secrets.APPLE_TEAM_ID }}" \
-            -p:CodesignProvision="${{ secrets.APPLE_PROVISIONING_PROFILE_UUID }}" \
-            -p:ApplicationDisplayVersion=0.7.900 -p:ApplicationVersion=0.7.900
+            -p:CodesignProvision="${{ secrets.APPLE_PROVISIONING_PROFILE_UUID }}"
 
       - name: Upload .ipa
         uses: actions/upload-artifact@v4
