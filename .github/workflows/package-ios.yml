@@ -106,7 +106,6 @@ jobs:
             -p:CodesignKey="${{ secrets.APPLE_CODESIGN_KEY }}" \
             -p:CodesignTeamId="${{ secrets.APPLE_TEAM_ID }}" \
             -p:CodesignProvision="${{ secrets.APPLE_PROVISIONING_PROFILE_UUID }}" \
-            -p:PublishAot=true -p:TrimmerSingleWarn=false \
             -p:ApplicationDisplayVersion=0.7.900 -p:ApplicationVersion=0.7.900
 
       - name: Upload .ipa

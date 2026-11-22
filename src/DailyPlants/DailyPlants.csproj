@@ -75,6 +75,12 @@
         <PublishReadyToRunCrossgen2ExtraArgs>$(PublishReadyToRunCrossgen2ExtraArgs);--partial</PublishReadyToRunCrossgen2ExtraArgs>
     </PropertyGroup>
 
+    <!-- Experiment: NativeAOT instead of composite ReadyToRun on iOS -->
+    <PropertyGroup Condition="'$(IsIOS)' == 'true'">
+        <PublishAot>true</PublishAot>
+        <TrimmerSingleWarn>false</TrimmerSingleWarn>
+    </PropertyGroup>
+
     <!-- The macOS app bundle, see docs/store/macos -->
     <PropertyGroup Condition="'$(IsDesktop)' == 'true'">
         <UnoMacOSCustomInfoPlist>$(MSBuildThisFileDirectory)Platforms/Desktop/macOS/Info.plist</UnoMacOSCustomInfoPlist>
